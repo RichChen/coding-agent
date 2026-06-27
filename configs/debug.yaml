@@ -1,0 +1,57 @@
+# Debug config — for local troubleshooting only, NOT for eval comparisons.
+# Enables lifecycle EventBus and read_events tool for inspecting agent internals.
+llm:
+  base_url: "${LLM_BASE_URL:https://api.deepseek.com/v1}"
+  api_key: "${LLM_API_KEY}"
+  model: "${LLM_MODEL:deepseek-v4-pro}"
+  temperature: 0.0
+  max_tokens: 4096
+
+runtime:
+  max_steps: 15
+  step_timeout_seconds: 60
+  total_timeout_seconds: 300
+  system_prompt_path: prompts/system_default.md
+  context:
+    micro_compact: false
+    keep_recent_tool_results: 3
+
+retry:
+  max_retries: 1
+  backoff_base_seconds: 1.0
+  backoff_factor: 2.0
+  retry_on:
+    - timeout
+
+policy:
+  sandbox:
+    deny_absolute_paths: true
+    deny_parent_traversal: true
+    workspace_root: null
+
+  command:
+    allow_all: true
+    allowed_prefixes: []
+    blocked_patterns:
+      - "rm -rf /"
+      - "sudo "
+      - "> /dev/sda"
+
+  file_size_limit_bytes: 1048576
+  tool_output_max_chars: 50000
+  read_file_max_lines: null
+
+tools:
+  enabled:
+    - read_file
+    - write_file
+    - list_dir
+    - run_command
+    - search_replace
+    - read_events   # only in debug config
+
+tracing:
+  format: jsonl
+  output_dir: traces
+  lifecycle_events: true
+  llm_stream_events: true

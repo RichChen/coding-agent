@@ -1,0 +1,304 @@
+{
+  "name": "swebench_lite_tasks",
+  "description": "Validated SWE-bench Lite subset for local harness eval",
+  "version": "0.2.0",
+  "source_dataset": "princeton-nlp/SWE-bench_Lite",
+  "tasks": [
+    {
+      "id": "swebench_sympy__sympy-24909",
+      "description": "[SWE-bench Lite sympy__sympy-24909] Bug with milli prefix What happened: ``` In [1]: from sympy.physics.units import milli, W In [2]: milli*W == 1 Out[2]: True In [3]: W*milli Out[3]: watt*Prefix(milli, m, -3, 10) ``` What I expected to happen: milli*W should evaluate to milli watts / mW `milli*W` or more generally `milli` times some unit evaluates to the number 1. I have tried this with Watts and Volts, I'm not sure what other cases this happens. I'm using sympy version 1.11.1-1 on Arch Linux with Python 3.10.9. If you cannot reproduce I would be happy to be of any assitance. Do not use .oracle files and do not modify tests.",
+      "fixture_dir": "tests/fixtures/repos/swebench_sympy__sympy-24909",
+      "expected": {
+        "type": "multi_assert",
+        "assertions": [
+          {
+            "type": "command_success",
+            "command": "set PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 && python -m pytest -q sympy/physics/units/tests/test_prefixes.py -k test_prefix_operations",
+            "timeout": 300
+          },
+          {
+            "type": "command_success",
+            "command": "set PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 && python -m pytest -q sympy/physics/units/tests/test_prefixes.py -k \"test_prefix_unit or test_bases\"",
+            "timeout": 300
+          }
+        ]
+      },
+      "difficulty": "hard",
+      "tags": [
+        "swebench",
+        "sympy",
+        "external-benchmark",
+        "hard"
+      ],
+      "protected_paths": [
+        "sympy/physics/units/tests/test_prefixes.py"
+      ]
+    },
+    {
+      "id": "swebench_pallets__flask-4992",
+      "description": "[SWE-bench Lite pallets__flask-4992] Add a file mode parameter to flask.Config.from_file() Python 3.11 introduced native TOML support with the `tomllib` package. This could work nicely with the `flask.Config.from_file()` method as an easy way to load TOML config files: ```python app.config.from_file(\"config.toml\", tomllib.load) ``` However, `tomllib.load()` takes an object readable in binary mode, while `flask.Config.from_file()` opens a file in text mode, resulting in this error: ``` TypeError: File must be opened in binary mode, e.g. use `open('foo.toml', 'rb')` ``` We can get around this with a more verbose expression, like loading from a file opened with the built-in `open()` function and passing the `dict` to `app.Config.from_mapping()`: ```python # We have to repeat the path joining that from_file() does with open(os.path.join(app.config.root_path, \"config.toml\"), \"rb\") as file: app.config.from_mapping(tomllib.load(file)) ``` But adding a file mode parameter to `flask.Config.from_file()` would enable the use of a simpler expression. E.g.: ```python app.config.from_file(\"config.toml\", tomllib.load, mode=\"b\") ``` Do not use .oracle files and do not modify tests.",
+      "fixture_dir": "tests/fixtures/repos/swebench_pallets__flask-4992",
+      "expected": {
+        "type": "multi_assert",
+        "assertions": [
+          {
+            "type": "command_success",
+            "command": "set PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 && python -m pytest -q tests/test_config.py::test_config_from_file_toml",
+            "timeout": 300
+          },
+          {
+            "type": "command_success",
+            "command": "set PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 && python -m pytest -q tests/test_config.py::test_config_from_pyfile tests/test_config.py::test_config_from_object tests/test_config.py::test_config_from_file_json tests/test_config.py::test_from_prefixed_env tests/test_config.py::test_from_prefixed_env_custom_prefix tests/test_config.py::test_from_prefixed_env_nested tests/test_config.py::test_config_from_mapping tests/test_config.py::test_config_from_class tests/test_config.py::test_config_from_envvar tests/test_config.py::test_config_from_envvar_missing",
+            "timeout": 300
+          }
+        ]
+      },
+      "difficulty": "hard",
+      "tags": [
+        "swebench",
+        "flask",
+        "external-benchmark",
+        "hard"
+      ],
+      "protected_paths": [
+        "tests/test_config.py"
+      ]
+    },
+    {
+      "id": "swebench_sympy__sympy-24213",
+      "description": "[SWE-bench Lite sympy__sympy-24213] collect_factor_and_dimension does not detect equivalent dimensions in addition Code to reproduce: ```python from sympy.physics import units from sympy.physics.units.systems.si import SI v1 = units.Quantity('v1') SI.set_quantity_dimension(v1, units.velocity) SI.set_quantity_scale_factor(v1, 2 * units.meter / units.second) a1 = units.Quantity('a1') SI.set_quantity_dimension(a1, units.acceleration) SI.set_quantity_scale_factor(a1, -9.8 * units.meter / units.second**2) t1 = units.Quantity('t1') SI.set_quantity_dimension(t1, units.time) SI.set_quantity_scale_factor(t1, 5 * units.second) expr1 = a1*t1 + v1 SI._collect_factor_and_dimension(expr1) ``` Results in: ``` Traceback (most recent call last): File \"<stdin>\", line 1, in <module> File \"C:\\Python\\Python310\\lib\\site-packages\\sympy\\physics\\units\\unitsystem.py\", line 179, in _collect_factor_and_dimension raise ValueError( ValueError: Dimension of \"v1\" is Dimension(velocity), but it should be Dimension(acceleration*time) ``` Do not use .oracle files and do not modify tests.",
+      "fixture_dir": "tests/fixtures/repos/swebench_sympy__sympy-24213",
+      "expected": {
+        "type": "multi_assert",
+        "assertions": [
+          {
+            "type": "command_success",
+            "command": "set PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 && python -m pytest -q sympy/physics/units/tests/test_quantities.py -k test_issue_24211",
+            "timeout": 300
+          },
+          {
+            "type": "command_success",
+            "command": "set PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 && python -m pytest -q sympy/physics/units/tests/test_quantities.py -k \"test_str_repr or test_eq or test_convert_to or test_Quantity_definition or test_abbrev or test_print or test_Quantity_eq or test_add_sub or test_quantity_abs or test_check_unit_consistency\"",
+            "timeout": 300
+          }
+        ]
+      },
+      "difficulty": "hard",
+      "tags": [
+        "swebench",
+        "sympy",
+        "external-benchmark",
+        "hard"
+      ],
+      "protected_paths": [
+        "sympy/physics/units/tests/test_quantities.py"
+      ]
+    },
+    {
+      "id": "swebench_sympy__sympy-24152",
+      "description": "[SWE-bench Lite sympy__sympy-24152] Bug in expand of TensorProduct + Workaround + Fix ### Error description The expansion of a TensorProduct object stops incomplete if summands in the tensor product factors have (scalar) factors, e.g. ``` from sympy import * from sympy.physics.quantum import * U = Operator('U') V = Operator('V') P = TensorProduct(2*U - V, U + V) print(P) # (2*U - V)x(U + V) print(P.expand(tensorproduct=True)) #result: 2*Ux(U + V) - Vx(U + V) #expansion has missed 2nd tensor factor and is incomplete ``` This is clearly not the expected behaviour. It also effects other functions that rely on .expand(tensorproduct=True), as e.g. qapply() . ### Work around Repeat .expand(tensorproduct=True) as may times as there are tensor factors, resp. until the expanded term does no longer change. This is however only reasonable in interactive session and not in algorithms. Do not use .oracle files and do not modify tests.",
+      "fixture_dir": "tests/fixtures/repos/swebench_sympy__sympy-24152",
+      "expected": {
+        "type": "multi_assert",
+        "assertions": [
+          {
+            "type": "command_success",
+            "command": "set PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 && python -m pytest -q sympy/physics/quantum/tests/test_tensorproduct.py -k test_tensor_product_expand",
+            "timeout": 300
+          },
+          {
+            "type": "command_success",
+            "command": "set PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 && python -m pytest -q sympy/physics/quantum/tests/test_tensorproduct.py -k \"test_sparse_matrices or test_tensor_product_dagger or test_tensor_product_abstract or test_tensor_product_commutator or test_tensor_product_simp or test_issue_5923\"",
+            "timeout": 300
+          }
+        ]
+      },
+      "difficulty": "hard",
+      "tags": [
+        "swebench",
+        "sympy",
+        "external-benchmark",
+        "hard"
+      ],
+      "protected_paths": [
+        "sympy/physics/quantum/tests/test_tensorproduct.py"
+      ]
+    },
+    {
+      "id": "swebench_sympy__sympy-24102",
+      "description": "[SWE-bench Lite sympy__sympy-24102] Cannot parse Greek characters (and possibly others) in parse_mathematica The old Mathematica parser `mathematica` in the package `sympy.parsing.mathematica` was able to parse e.g. Greek characters. Hence the following example works fine: ``` from sympy.parsing.mathematica import mathematica mathematica('λ') Out[]: λ ``` As of SymPy v. 1.11, the `mathematica` function is deprecated, and is replaced by `parse_mathematica`. This function, however, seems unable to handle the simple example above: ``` from sympy.parsing.mathematica import parse_mathematica parse_mathematica('λ') Traceback (most recent call last): ... File \"<string>\", line unknown SyntaxError: unable to create a single AST for the expression ``` This appears to be due to a bug in `parse_mathematica`, which is why I have opened this issue. Thanks in advance! Cannot parse Greek characters (and possibly others) in parse_mathematica The old Mathematica parser `mathematica` in the package `sympy.parsing.mathematica` was able to parse e.g. Greek characters. Hence the following example works fine: ``` from sympy.parsing.mathematica import mathematica mathematica('λ') Out[]: λ ``` As of SymPy v. 1.11, the `mathematica` function is deprecated, and is replaced by `parse_mathematica`. This function, however, seems unable to handle the simple example above: ``` from sympy.parsing.mathematica import parse_mathematica parse_mathematica('λ') Traceback (most recent call last): ... File \"<string>\", line unknown SyntaxError: unable to create a single AST for the expression ``` This appears to be due to a bug in `parse_mathematica`, which is why I have opened this issue. Thanks in advance! Do not use .oracle files and do not modify tests.",
+      "fixture_dir": "tests/fixtures/repos/swebench_sympy__sympy-24102",
+      "expected": {
+        "type": "multi_assert",
+        "assertions": [
+          {
+            "type": "command_success",
+            "command": "set PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 && python -m pytest -q sympy/parsing/tests/test_mathematica.py sympy/testing/quality_unicode.py -k \"test_mathematica or test_parser_mathematica_tokenizer\"",
+            "timeout": 300
+          }
+        ]
+      },
+      "difficulty": "hard",
+      "tags": [
+        "swebench",
+        "sympy",
+        "external-benchmark",
+        "hard"
+      ],
+      "protected_paths": [
+        "sympy/parsing/tests/test_mathematica.py",
+        "sympy/testing/quality_unicode.py"
+      ]
+    },
+    {
+      "id": "swebench_sympy__sympy-24066",
+      "description": "[SWE-bench Lite sympy__sympy-24066] SI._collect_factor_and_dimension() cannot properly detect that exponent is dimensionless How to reproduce: ```python from sympy import exp from sympy.physics import units from sympy.physics.units.systems.si import SI expr = units.second / (units.ohm * units.farad) dim = SI._collect_factor_and_dimension(expr)[1] assert SI.get_dimension_system().is_dimensionless(dim) buggy_expr = 100 + exp(expr) SI._collect_factor_and_dimension(buggy_expr) # results in ValueError: Dimension of \"exp(second/(farad*ohm))\" is Dimension(time/(capacitance*impedance)), but it should be Dimension(1) ``` Do not use .oracle files and do not modify tests.",
+      "fixture_dir": "tests/fixtures/repos/swebench_sympy__sympy-24066",
+      "expected": {
+        "type": "multi_assert",
+        "assertions": [
+          {
+            "type": "command_success",
+            "command": "set PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 && python -m pytest -q sympy/physics/units/tests/test_quantities.py -k test_issue_24062",
+            "timeout": 300
+          },
+          {
+            "type": "command_success",
+            "command": "set PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 && python -m pytest -q sympy/physics/units/tests/test_quantities.py -k \"test_str_repr or test_eq or test_convert_to or test_Quantity_definition or test_abbrev or test_print or test_Quantity_eq or test_add_sub or test_quantity_abs or test_check_unit_consistency\"",
+            "timeout": 300
+          }
+        ]
+      },
+      "difficulty": "hard",
+      "tags": [
+        "swebench",
+        "sympy",
+        "external-benchmark",
+        "hard"
+      ],
+      "protected_paths": [
+        "sympy/physics/units/tests/test_quantities.py"
+      ]
+    },
+    {
+      "id": "swebench_sympy__sympy-23262",
+      "description": "[SWE-bench Lite sympy__sympy-23262] Python code printer not respecting tuple with one element Hi, Thanks for the recent updates in SymPy! I'm trying to update my code to use SymPy 1.10 but ran into an issue with the Python code printer. MWE: ```python import inspect from sympy import lambdify inspect.getsource(lambdify([], tuple([1]))) ``` SymPy 1.9 and under outputs: ``` 'def _lambdifygenerated():\\n return (1,)\\n' ``` But SymPy 1.10 gives ``` 'def _lambdifygenerated():\\n return (1)\\n' ``` Note the missing comma after `1` that causes an integer to be returned instead of a tuple. For tuples with two or more elements, the generated code is correct: ```python inspect.getsource(lambdify([], tuple([1, 2]))) ``` In SymPy 1.10 and under, outputs: ``` 'def _lambdifygenerated():\\n return (1, 2)\\n' ``` This result is expected. Not sure if this is a regression. As this breaks my program which assumes the return type to always be a tuple, could you suggest a workaround from the code generation side? Thank you. Do not use .oracle files and do not modify tests.",
+      "fixture_dir": "tests/fixtures/repos/swebench_sympy__sympy-23262",
+      "expected": {
+        "type": "multi_assert",
+        "assertions": [
+          {
+            "type": "command_success",
+            "command": "set PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 && python -m pytest -q sympy/utilities/tests/test_lambdify.py -k test_issue_14941",
+            "timeout": 300
+          },
+          {
+            "type": "command_success",
+            "command": "set PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 && python -m pytest -q sympy/utilities/tests/test_lambdify.py -k \"test_no_args or test_single_arg or test_list_args or test_nested_args or test_str_args or test_own_namespace_1 or test_own_namespace_2 or test_own_module or test_bad_args or test_atoms\"",
+            "timeout": 300
+          }
+        ]
+      },
+      "difficulty": "hard",
+      "tags": [
+        "swebench",
+        "sympy",
+        "external-benchmark",
+        "hard"
+      ],
+      "protected_paths": [
+        "sympy/utilities/tests/test_lambdify.py"
+      ]
+    },
+    {
+      "id": "swebench_sympy__sympy-23191",
+      "description": "[SWE-bench Lite sympy__sympy-23191] display bug while using pretty_print with sympy.vector object in the terminal The following code jumbles some of the outputs in the terminal, essentially by inserting the unit vector in the middle - ```python from sympy import * from sympy.vector import CoordSys3D, Del init_printing() delop = Del() CC_ = CoordSys3D(\"C\") x, y, z = CC_.x, CC_.y, CC_.z xhat, yhat, zhat = CC_.i, CC_.j, CC_.k t = symbols(\"t\") ten = symbols(\"10\", positive=True) eps, mu = 4*pi*ten**(-11), ten**(-5) Bx = 2 * ten**(-4) * cos(ten**5 * t) * sin(ten**(-3) * y) vecB = Bx * xhat vecE = (1/eps) * Integral(delop.cross(vecB/mu).doit(), t) pprint(vecB) print() pprint(vecE) print() pprint(vecE.doit()) ``` Output: ```python ⎛ ⎛y_C⎞ ⎛ 5 ⎞⎞ ⎜2⋅sin⎜───⎟ i_C⋅cos⎝10 ⋅t⎠⎟ ⎜ ⎜ 3⎟ ⎟ ⎜ ⎝10 ⎠ ⎟ ⎜─────────────────────⎟ ⎜ 4 ⎟ ⎝ 10 ⎠ ⎛ ⌠ ⎞ ⎜ ⎮ ⎛y_C⎞ ⎛ 5 ⎞ ⎟ k_C ⎜ ⎮ -2⋅cos⎜───⎟⋅cos⎝10 ⋅t⎠ ⎟ ⎜ ⎮ ⎜ 3⎟ ⎟ ⎜ 11 ⎮ ⎝10 ⎠ ⎟ ⎜10 ⋅⎮ ─────────────────────── dt⎟ ⎜ ⎮ 2 ⎟ ⎜ ⎮ 10 ⎟ ⎜ ⌡ ⎟ ⎜─────────────────────────────────⎟ ⎝ 4⋅π ⎠ ⎛ 4 ⎛ 5 ⎞ ⎛y_C⎞ ⎞ ⎜-10 ⋅sin⎝10 ⋅t⎠⋅cos⎜───⎟ k_C ⎟ ⎜ ⎜ 3⎟ ⎟ ⎜ ⎝10 ⎠ ⎟ ⎜─────────────────────────⎟ ⎝ 2⋅π ⎠ ``` Do not use .oracle files and do not modify tests.",
+      "fixture_dir": "tests/fixtures/repos/swebench_sympy__sympy-23191",
+      "expected": {
+        "type": "multi_assert",
+        "assertions": [
+          {
+            "type": "command_success",
+            "command": "set PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 && python -m pytest -q sympy/vector/tests/test_printing.py -k test_issue_23058",
+            "timeout": 300
+          },
+          {
+            "type": "command_success",
+            "command": "set PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 && python -m pytest -q sympy/vector/tests/test_printing.py -k \"test_str_printing or test_pretty_print_unicode_v or test_latex_printing\"",
+            "timeout": 300
+          }
+        ]
+      },
+      "difficulty": "hard",
+      "tags": [
+        "swebench",
+        "sympy",
+        "external-benchmark",
+        "hard"
+      ],
+      "protected_paths": [
+        "sympy/vector/tests/test_printing.py"
+      ]
+    },
+    {
+      "id": "swebench_sympy__sympy-23117",
+      "description": "[SWE-bench Lite sympy__sympy-23117] sympy.Array([]) fails, while sympy.Matrix([]) works SymPy 1.4 does not allow to construct empty Array (see code below). Is this the intended behavior? ``` >>> import sympy KeyboardInterrupt >>> import sympy >>> from sympy import Array >>> sympy.__version__ '1.4' >>> a = Array([]) Traceback (most recent call last): File \"<stdin>\", line 1, in <module> File \"/Users/hcui7/miniconda3/envs/a/lib/python3.7/site-packages/sympy/tensor/array/dense_ndim_array.py\", line 130, in __new__ return cls._new(iterable, shape, **kwargs) File \"/Users/hcui7/miniconda3/envs/a/lib/python3.7/site-packages/sympy/tensor/array/dense_ndim_array.py\", line 136, in _new shape, flat_list = cls._handle_ndarray_creation_inputs(iterable, shape, **kwargs) File \"/Users/hcui7/miniconda3/envs/a/lib/python3.7/site-packages/sympy/tensor/array/ndim_array.py\", line 142, in _handle_ndarray_creation_inputs iterable, shape = cls._scan_iterable_shape(iterable) File \"/Users/hcui7/miniconda3/envs/a/lib/python3.7/site-packages/sympy/tensor/array/ndim_array.py\", line 127, in _scan_iterable_shape return f(iterable) File \"/Users/hcui7/miniconda3/envs/a/lib/python3.7/site-packages/sympy/tensor/array/ndim_array.py\", line 120, in f elems, shapes = zip(*[f(i) for i in pointer]) ValueError: not enough values to unpack (expected 2, got 0) ``` @czgdp1807 Do not use .oracle files and do not modify tests.",
+      "fixture_dir": "tests/fixtures/repos/swebench_sympy__sympy-23117",
+      "expected": {
+        "type": "multi_assert",
+        "assertions": [
+          {
+            "type": "command_success",
+            "command": "set PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 && python -m pytest -q sympy/tensor/array/tests/test_ndim_array.py -k test_issue_17851",
+            "timeout": 300
+          },
+          {
+            "type": "command_success",
+            "command": "set PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 && python -m pytest -q sympy/tensor/array/tests/test_ndim_array.py -k \"test_array_negative_indices or test_issue_18361 or test_issue_20222\"",
+            "timeout": 300
+          }
+        ]
+      },
+      "difficulty": "hard",
+      "tags": [
+        "swebench",
+        "sympy",
+        "external-benchmark",
+        "hard"
+      ],
+      "protected_paths": [
+        "sympy/tensor/array/tests/test_ndim_array.py"
+      ]
+    },
+    {
+      "id": "swebench_psf__requests-3362",
+      "description": "[SWE-bench Lite psf__requests-3362] Uncertain about content/text vs iter_content(decode_unicode=True/False) When requesting an application/json document, I'm seeing `next(r.iter_content(16*1024, decode_unicode=True))` returning bytes, whereas `r.text` returns unicode. My understanding was that both should return a unicode object. In essence, I thought \"iter_content\" was equivalent to \"iter_text\" when decode_unicode was True. Have I misunderstood something? I can provide an example if needed. For reference, I'm using python 3.5.1 and requests 2.10.0. Thanks! Do not use .oracle files and do not modify tests.",
+      "fixture_dir": "tests/fixtures/repos/swebench_psf__requests-3362",
+      "expected": {
+        "type": "multi_assert",
+        "assertions": [
+          {
+            "type": "command_success",
+            "command": "set PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 && %SWEBENCH_REQUESTS_PY% -m pytest -q tests/test_requests.py::TestRequests::test_response_decode_unicode",
+            "timeout": 300
+          },
+          {
+            "type": "command_success",
+            "command": "set PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 && %SWEBENCH_REQUESTS_PY% -m pytest -q tests/test_requests.py::TestRequests::test_entry_points \"tests/test_requests.py::TestRequests::test_invalid_url[MissingSchema-hiwpefhipowhefopw]\" \"tests/test_requests.py::TestRequests::test_invalid_url[InvalidSchema-localhost:3128]\" \"tests/test_requests.py::TestRequests::test_invalid_url[InvalidSchema-localhost.localdomain:3128/]\" \"tests/test_requests.py::TestRequests::test_invalid_url[InvalidSchema-10.122.1.1:3128/]\" \"tests/test_requests.py::TestRequests::test_invalid_url[InvalidURL-http://]\" tests/test_requests.py::TestRequests::test_basic_building tests/test_requests.py::TestRequests::test_path_is_not_double_encoded \"tests/test_requests.py::TestRequests::test_params_are_added_before_fragment[http://example.com/path#fragment-http://example.com/path?a=b#fragment]\" \"tests/test_requests.py::TestRequests::test_params_are_added_before_fragment[http://example.com/path?key=value#fragment-http://example.com/path?key=value&a=b#fragment]\"",
+            "timeout": 300
+          }
+        ]
+      },
+      "difficulty": "hard",
+      "tags": [
+        "swebench",
+        "requests",
+        "external-benchmark",
+        "hard"
+      ],
+      "protected_paths": [
+        "tests/test_requests.py"
+      ]
+    }
+  ]
+}

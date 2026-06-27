@@ -1,0 +1,235 @@
+{
+  "name": "repo_tasks",
+  "description": "Representative repo-level coding tasks for the Coding Harness agent",
+  "version": "0.1.0",
+  "tasks": [
+    {
+      "id": "easy_math_bug",
+      "description": "Fix the calculator implementation so all tests pass. Do not change the tests.",
+      "fixture_dir": "tests/fixtures/repos/easy_math_bug",
+      "expected": {
+        "type": "multi_assert",
+        "assertions": [
+          {"type": "command_success", "command": "python -m pytest -q", "timeout": 30},
+          {"type": "file_contains", "path": "calculator.py", "keywords": ["return a + b"]}
+        ]
+      },
+      "difficulty": "easy",
+      "tags": ["repo", "bug-fix", "python", "pytest"]
+    },
+    {
+      "id": "easy_config_json",
+      "description": "Fix settings.json so debug is false and port is a JSON number, while preserving the service name.",
+      "fixture_dir": "tests/fixtures/repos/easy_config_json",
+      "expected": {
+        "type": "multi_assert",
+        "assertions": [
+          {"type": "command_success", "command": "python check_settings.py", "keywords": ["settings ok"], "timeout": 30},
+          {"type": "file_not_contains", "path": "settings.json", "keywords": ["\"8080\"", "\"debug\": true"]}
+        ]
+      },
+      "difficulty": "easy",
+      "tags": ["repo", "config", "json"]
+    },
+    {
+      "id": "easy_remove_debug",
+      "description": "Remove the debug print from app.py while keeping greet(name) returning the same greeting.",
+      "fixture_dir": "tests/fixtures/repos/easy_remove_debug",
+      "expected": {
+        "type": "multi_assert",
+        "assertions": [
+          {"type": "file_contains", "path": "app.py", "keywords": ["def greet", "return f\"Hello, {name}\""]},
+          {"type": "file_not_contains", "path": "app.py", "keywords": ["debug line", "print("]},
+          {"type": "command_success", "command": "python -c \"from app import greet; assert greet('Ada') == 'Hello, Ada'\""}
+        ]
+      },
+      "difficulty": "easy",
+      "tags": ["repo", "cleanup", "python"]
+    },
+    {
+      "id": "medium_rename_symbol",
+      "description": "The app imports format_user, but the helper defines a different function name. Fix the code so the tests pass, preserving the rendered output.",
+      "fixture_dir": "tests/fixtures/repos/medium_rename_symbol",
+      "expected": {
+        "type": "multi_assert",
+        "assertions": [
+          {"type": "command_success", "command": "python -m pytest -q", "timeout": 30},
+          {"type": "file_contains", "path": "helpers.py", "keywords": ["def format_user", "User:"]}
+        ]
+      },
+      "difficulty": "medium",
+      "tags": ["repo", "cross-file", "rename", "pytest"]
+    },
+    {
+      "id": "medium_validation_bug",
+      "description": "Improve is_valid_email so the existing tests pass. A valid email must include '@' and a dot in the domain part.",
+      "fixture_dir": "tests/fixtures/repos/medium_validation_bug",
+      "expected": {
+        "type": "multi_assert",
+        "assertions": [
+          {"type": "command_success", "command": "python -m pytest -q", "timeout": 30},
+          {"type": "file_contains", "path": "validator.py", "keywords": ["@", "."]}
+        ]
+      },
+      "difficulty": "medium",
+      "tags": ["repo", "validation", "bug-fix", "pytest"]
+    },
+    {
+      "id": "medium_todo_feature",
+      "description": "Complete the todo helpers so add_item stores a done flag defaulting to False and completed_items returns the text of completed items.",
+      "fixture_dir": "tests/fixtures/repos/medium_todo_feature",
+      "expected": {
+        "type": "multi_assert",
+        "assertions": [
+          {"type": "command_success", "command": "python -m pytest -q", "timeout": 30},
+          {"type": "file_contains", "path": "todo.py", "keywords": ["done", "completed_items"]}
+        ]
+      },
+      "difficulty": "medium",
+      "tags": ["repo", "feature", "python", "pytest"]
+    },
+    {
+      "id": "medium_subagent_cross_file",
+      "description": "Use subagent_task first to inspect the cross-file failure in parser.py and service.py. The bug is in parser.py: fix parser.py (not service.py) so the dict key is 'email' instead of 'mail', and describe('Ada|ada@example.com') returns 'Ada <ada@example.com>'. Do not change the tests.",
+      "fixture_dir": "tests/fixtures/repos/medium_subagent_cross_file",
+      "expected": {
+        "type": "multi_assert",
+        "assertions": [
+          {"type": "command_success", "command": "python -m pytest -q", "timeout": 30},
+          {"type": "file_contains", "path": "parser.py", "keywords": ["email"]},
+          {"type": "file_not_contains", "path": "parser.py", "keywords": ["\"mail\""]}
+        ]
+      },
+      "difficulty": "medium",
+      "tags": ["repo", "cross-file", "subagent", "pytest"]
+    },
+    {
+      "id": "hard_cross_file_api",
+      "description": "Fix the API behavior across api.py and storage.py. Existing users should display as 'Name (role)', and missing users should return 'Unknown user'.",
+      "fixture_dir": "tests/fixtures/repos/hard_cross_file_api",
+      "expected": {
+        "type": "multi_assert",
+        "assertions": [
+          {"type": "command_success", "command": "python -m pytest -q", "timeout": 30},
+          {"type": "file_contains", "path": "api.py", "keywords": ["Unknown user", "role"]}
+        ]
+      },
+      "difficulty": "hard",
+      "tags": ["repo", "cross-file", "api", "pytest"]
+    },
+    {
+      "id": "hard_report_transform",
+      "description": "Update report.py so running it reads input.csv and writes summary.md with a score table and grades. Scores >= 90 are A, otherwise B.",
+      "fixture_dir": "tests/fixtures/repos/hard_report_transform",
+      "expected": {
+        "type": "multi_assert",
+        "assertions": [
+          {"type": "command_success", "command": "python report.py", "timeout": 30},
+          {"type": "command_success", "command": "python check_report.py", "keywords": ["report ok"], "timeout": 30},
+          {"type": "file_contains", "path": "summary.md", "keywords": ["# Score Summary", "| Name | Score | Grade |"]}
+        ]
+      },
+      "difficulty": "hard",
+      "tags": ["repo", "transform", "csv", "markdown"]
+    },
+    {
+      "id": "easy_read_answer",
+      "description": "Read facts.txt and answer in your final response: what is the capital of the example country?",
+      "fixture_dir": "tests/fixtures/repos/easy_read_answer",
+      "expected": {
+        "type": "keywords_in_answer",
+        "keywords": ["Exampleville"]
+      },
+      "difficulty": "easy",
+      "tags": ["repo", "read-only", "qa"]
+    },
+    {
+      "id": "medium_subagent_locate",
+      "description": "Use subagent_task first to locate which file defines compute_total, then fix app.py so build_report([1,2,3]) returns 'total=6'. Do not change the tests.",
+      "fixture_dir": "tests/fixtures/repos/medium_subagent_locate",
+      "expected": {
+        "type": "multi_assert",
+        "assertions": [
+          {"type": "command_success", "command": "python -m pytest -q", "timeout": 30},
+          {"type": "file_contains", "path": "app.py", "keywords": ["from totals import compute_total"]}
+        ]
+      },
+      "difficulty": "medium",
+      "tags": ["repo", "subagent", "locate", "pytest"]
+    },
+    {
+      "id": "medium_multi_file_sync",
+      "description": "Keep VERSION consistent across app.py and settings.py so the existing tests pass.",
+      "fixture_dir": "tests/fixtures/repos/medium_multi_file_sync",
+      "expected": {
+        "type": "multi_assert",
+        "assertions": [
+          {"type": "command_success", "command": "python -m pytest -q", "timeout": 30},
+          {"type": "file_contains", "path": "app.py", "keywords": ["VERSION = \"1.0\""]},
+          {"type": "file_contains", "path": "settings.py", "keywords": ["VERSION = \"1.0\""]}
+        ]
+      },
+      "difficulty": "medium",
+      "tags": ["repo", "multi-file", "sync", "pytest"]
+    },
+    {
+      "id": "hard_long_context_chain",
+      "description": "Read chain_readme.txt and every file under parts/ plus aggregator.py before fixing the bug. The test expects total() to return 10. Do not change tests.",
+      "fixture_dir": "tests/fixtures/repos/hard_multi_read_chain",
+      "expected": {
+        "type": "multi_assert",
+        "assertions": [
+          {"type": "command_success", "command": "python -m pytest -q", "timeout": 30},
+          {"type": "python_defines", "path": "aggregator.py", "names": ["total"]},
+          {"type": "file_contains", "path": "aggregator.py", "keywords": ["GAMMA"]}
+        ]
+      },
+      "difficulty": "hard",
+      "tags": ["repo", "long-context", "multi-file", "pytest"]
+    },
+    {
+      "id": "hard_multi_step_locate",
+      "description": "Start from error.log, locate the failing module, fix the pricing bug so checkout({'qty': 2, 'rate': 5}) returns 10, then verify with pytest. Do not change tests.",
+      "fixture_dir": "tests/fixtures/repos/hard_multi_step_locate",
+      "expected": {
+        "type": "multi_assert",
+        "assertions": [
+          {"type": "command_success", "command": "python -m pytest -q", "timeout": 30},
+          {"type": "file_contains", "path": "pricing.py", "keywords": ["rate"]},
+          {"type": "python_ast_valid", "path": "pricing.py"}
+        ]
+      },
+      "difficulty": "hard",
+      "tags": ["repo", "multi-step", "locate", "pytest"]
+    },
+    {
+      "id": "hard_regression_fix",
+      "description": "Fix billing.discount so large orders get a 5% discount (100 -> 95) without breaking invoice.py or any existing tests.",
+      "fixture_dir": "tests/fixtures/repos/hard_regression_fix",
+      "expected": {
+        "type": "multi_assert",
+        "assertions": [
+          {"type": "command_success", "command": "python -m pytest -q", "timeout": 30},
+          {"type": "file_contains", "path": "billing.py", "keywords": ["0.95"]}
+        ]
+      },
+      "difficulty": "hard",
+      "tags": ["repo", "regression", "multi-file", "pytest"]
+    },
+    {
+      "id": "hard_refactor_keep_green",
+      "description": "Refactor display.py to reuse helpers.format_name instead of duplicating string concatenation. All existing tests must stay green.",
+      "fixture_dir": "tests/fixtures/repos/hard_refactor_keep_green",
+      "expected": {
+        "type": "multi_assert",
+        "assertions": [
+          {"type": "command_success", "command": "python -m pytest -q", "timeout": 30},
+          {"type": "file_contains", "path": "display.py", "keywords": ["format_name"]},
+          {"type": "python_defines", "path": "helpers.py", "names": ["format_name"]}
+        ]
+      },
+      "difficulty": "hard",
+      "tags": ["repo", "refactor", "regression", "pytest"]
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+# Readonly Agent-as-Tool config: enables a one-level child agent for analysis.
+llm:
+  base_url: "${LLM_BASE_URL:https://api.deepseek.com/v1}"
+  api_key: "${LLM_API_KEY}"
+  model: "${LLM_MODEL:deepseek-v4-pro}"
+  temperature: 0.0
+  max_tokens: 4096
+
+runtime:
+  max_steps: 20
+  step_timeout_seconds: 60
+  total_timeout_seconds: 300
+  system_prompt_path: prompts/system_default.md
+  subagents:
+    enabled: true
+    max_depth: 1
+    readonly: true
+    max_steps: 3
+  context:
+    micro_compact: false
+    keep_recent_tool_results: 3
+
+retry:
+  max_retries: 1
+  backoff_base_seconds: 2.0
+  backoff_factor: 2.0
+  retry_on:
+    - timeout
+
+policy:
+  sandbox:
+    deny_absolute_paths: true
+    deny_parent_traversal: true
+    workspace_root: null
+
+  command:
+    allow_all: false
+    allowed_prefixes:
+      - "ls"
+      - "cat"
+      - "grep"
+      - "find"
+      - "wc"
+      - "echo"
+      - "head"
+      - "tail"
+      - "sort"
+      - "uniq"
+      - "python"
+      - "python3"
+      - "pip"
+      - "git"
+      - "diff"
+      - "patch"
+      - "mkdir"
+      - "touch"
+      - "cp"
+      - "mv"
+    blocked_patterns:
+      - "rm -rf /"
+      - "sudo "
+      - "> /dev/sda"
+      - "chmod 777"
+      - "curl "
+      - "wget "
+
+  file_size_limit_bytes: 524288
+  tool_output_max_chars: 50000
+  read_file_max_lines: 500
+
+tools:
+  enabled:
+    - read_file
+    - write_file
+    - list_dir
+    - run_command
+    - search_replace
+    - subagent_task
+
+tracing:
+  format: jsonl
+  output_dir: traces
+  lifecycle_events: true
