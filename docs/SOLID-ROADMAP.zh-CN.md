@@ -8,7 +8,7 @@
 > - A 批次（已完成）：`docs/SOLID-A-BATCH-EXECUTION.zh-CN.md` → 收尾 `docs/changes/SOLID-A-BATCH-CLOSEOUT.zh-CN.md`（112 passed）。
 > - B 批次（已完成 2026-06-25）：`docs/SOLID-B-BATCH-EXECUTION.zh-CN.md` → 收尾 `docs/changes/SOLID-B-BATCH-CLOSEOUT.zh-CN.md`（131 passed）。
 > - C 批次（已完成 2026-06-25）：`docs/SOLID-C-BATCH-EXECUTION.zh-CN.md` → 收尾 `docs/changes/SOLID-C-BATCH-CLOSEOUT.zh-CN.md`（139 passed）。
-> - D-1（已完成 + 打磨 + 返工 + 污染方法论 + Scaffold 2026-06-26）：… → `docs/changes/SOLID-D1-SCAFFOLD-CLOSEOUT.zh-CN.md` · `reports/report_20260626T194843.md`（baseline 20% vs plan_act 27%，无显著）
+> - D-2（已完成 2026-06-27）：`docs/SOLID-D2-REMAINING-EXECUTION.zh-CN.md` · `docs/SOLID-D2-DEMO-EXECUTION.zh-CN.md` → `docs/DEMO-SCRIPT.zh-CN.md` · `docs/INTERVIEW-DEMO.zh-CN.md` · `docs/changes/SOLID-D2-*-CLOSEOUT.zh-CN.md`
 
 ---
 
@@ -129,9 +129,9 @@
 | A | 补 plan_act events trace 示例（含 `plan_replanned`） | Planner 故事闭环 | 小 | ✅ 2026-06-25 · `docs/examples/plan_act_events_redacted.jsonl` |
 | A | 补 debug + `llm_stream_events` 的 events 片段 | P2-1 故事闭环 | 小 | ✅ 2026-06-25 · `docs/examples/llm_stream_events_redacted.jsonl` |
 | B | 失败 taxonomy 一页，从 CSV 自动生成 | 维护成本降 | 中 | ✅ 2026-06-27 · `scripts/gen_failure_taxonomy.py` · `reports/examples/failure_taxonomy.md` |
-| C | 录屏 / Glass 演示脚本（30s + 2min） | 现场印象 | 中 | ⏳ D 批次执行中 |
+| C | 录屏 / Glass 演示脚本（30s + 2min） | 现场印象 | 中 | ✅ 2026-06-27 · `docs/DEMO-SCRIPT.zh-CN.md` · `docs/INTERVIEW-DEMO.zh-CN.md` |
 
-**Solid 差距**：trace 示例已补；失败 taxonomy 自动化与演示脚本 D 批次处理。
+**Solid 差距**：P0-4 展示链路已闭环（trace 示例 + taxonomy + 演示脚本 + 面试总收口）。
 
 ---
 
@@ -233,7 +233,7 @@
 14. ~~**P0-3 B 成本 + pass matrix**~~ ✅ 2026-06-25 · `reports/report_20260625T100708.md`
 15. ~~**P0-2 收尾 flaky 多 run**~~ ✅ 2026-06-25 · `reports/report_20260625T095943.md`
 
-**D 批次（D-1 已完成，D-2 待执行）**：
+**D 批次（D-1 + D-2 已完成，2026-06-27）**：
 
 - **D-1（Codex 5.3）** `docs/SOLID-D1-SWEBENCH-EXECUTION.zh-CN.md`：
   16. ~~**P0-1 C 大版 — SWE-bench Lite 子集接入**~~ ✅ 2026-06-25 · `datasets/swebench_lite_tasks.json` · `reports/examples/swebench_lite_real.md`
@@ -244,8 +244,8 @@
 - **D-2（Composer 2.5）** `docs/SOLID-D2-REMAINING-EXECUTION.zh-CN.md`：
   17. ~~**P0-4 B — 失败 taxonomy 自动生成**~~ ✅ 2026-06-27 · `reports/examples/failure_taxonomy.md` · `docs/changes/SOLID-D2-REMAINING-CLOSEOUT.zh-CN.md`
   18. ~~**P0-3 C — 多模型矩阵**~~ ✅ 2026-06-27 · `reports/report_20260627T033945.md`
-  19. **P0-4 C — 演示脚本**：30s + 2min 讲解稿 + 真实 trace 走查
-  20. **文档总收口**：`INTERVIEW-DEMO` 整合 A–D 全部证据（已可回填 SWE-bench 数字）
+  19. ~~**P0-4 C — 演示脚本**~~ ✅ 2026-06-27 · `docs/DEMO-SCRIPT.zh-CN.md`
+  20. ~~**文档总收口 — INTERVIEW-DEMO A–D**~~ ✅ 2026-06-27 · `docs/INTERVIEW-DEMO.zh-CN.md` · `docs/changes/SOLID-D2-DEMO-CLOSEOUT.zh-CN.md`
 
 **仍 defer**：真 SSE、L2 摘要、多 worker、LLM planner、P2-2 Docker —— scope 大、面试边际收益递减。
 
