@@ -133,10 +133,14 @@ class RepositoryGrader:
     def __init__(self,*,context='desktop-linux',backend_factory=DockerExecutionBackend):
         self.context,self.backend_factory=context,backend_factory
 
-    async def execute(self,files,*,image,test_paths,python_paths,collect_only=False,timeout=300):
+    async def execute(self,files,*,image,test_paths,python_paths,collect_only=False,timeout=300,selectors=None):
         files=validate_files(files)
         for p in test_paths: relative_path(p)
         for p in python_paths: relative_path(p,dot=True)
+        targets=list(test_paths if selectors is None else selectors)
+        for selector in targets:
+            if not isinstance(selector,str) or not selector or selector.startswith('-') or '\n' in selector or '\x00' in selector:
+                raise ValueError('unsafe test selector')
         backend=self.backend_factory(image=image,context=self.context,memory_bytes=1024*1024*1024,
             workspace_bytes=128*1024*1024,tmpfs_bytes=64*1024*1024,network='none')
         result=dict(status='invalid_env',receipt=None,cleanup_ok=False,runner_hash=RUNNER_HASH)
@@ -152,7 +156,7 @@ class RepositoryGrader:
                 "from pathlib import Path; print(Path('/opt/grader-environment.txt').read_text())",limit=256*1024)
             result['pip_freeze']=frozen.decode('utf-8')
             request=ExecutionRequest(argv=['/usr/local/bin/python','-I','-B','-c',RUNNER],
-                stdin_bytes=json.dumps(dict(test_paths=list(test_paths),python_paths=list(python_paths),collect_only=collect_only)).encode(),
+                stdin_bytes=json.dumps(dict(test_paths=targets,python_paths=list(python_paths),collect_only=collect_only)).encode(),
                 env={'PYTEST_DISABLE_PLUGIN_AUTOLOAD':'1','PYTHONDONTWRITEBYTECODE':'1'},
                 deadline_mono=time.monotonic()+timeout,
                 quotas=OutputQuotas(memory_per_stream_bytes=512*1024,artifact_per_tool_bytes=0))
