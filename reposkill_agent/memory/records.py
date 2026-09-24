@@ -192,3 +192,56 @@ class UseRecord(StrictModel):
         ):
             raise ValueError("following_requires_evidence")
         return self
+
+
+VerificationStatus = Literal[
+    "validated_fix", "partial_attempt", "failed_attempt", "unverified"
+]
+
+
+class CardDependency(StrictModel):
+    """File touched by a historical attempt, plus symbols worth re-checking."""
+
+    path: str = Field(min_length=1)
+    symbols: tuple[str, ...] = ()
+
+
+class MemoryCard(StrictModel):
+    """Structured experience distilled from one public source trajectory.
+
+    This is the card form used by the new retrieval plugin. It lives next to
+    ``MemoryRecord`` and reuses the same secret screen. It is not a validated
+    ``MemoryRecord``: grader status is carried separately and defaults to
+    unverified.
+    """
+
+    repo: str = Field(min_length=1)
+    version: str = Field(min_length=7)
+    source_id: str = Field(min_length=1)
+    issue_summary: str = Field(min_length=1)
+    relevant_files: tuple[str, ...] = ()
+    test_commands: tuple[str, ...] = ()
+    env_pitfalls: tuple[str, ...] = ()
+    fix_approach: str = Field(min_length=1)
+    verification_status: VerificationStatus = "unverified"
+    dependencies: tuple[CardDependency, ...] = ()
+    distillation: Literal["rule", "llm_distilled"] = "rule"
+    observations: tuple[str, ...] = ()
+    actions: tuple[str, ...] = ()
+    public_verification: str = ""
+    failure_notes: tuple[str, ...] = ()
+
+    @model_validator(mode="after")
+    def screen(self):
+        if contains_secret(
+            "\n".join(
+                (
+                    self.issue_summary,
+                    self.fix_approach,
+                    " ".join(self.env_pitfalls),
+                    " ".join(self.test_commands),
+                )
+            )
+        ):
+            raise ValueError("secret_content_excluded")
+        return self
