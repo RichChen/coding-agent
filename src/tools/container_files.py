@@ -27,9 +27,36 @@ else:
         if len(data)>limit: raise ValueError('file size limit')
         content=data.decode('utf-8')
     if name=='read_file':
-        limits=[n for n in (p.get('limit'),req.get('line_limit')) if n is not None]
-        if limits: content='\n'.join(content.split('\n')[:max(0,min(limits))])
-        print(content)
+        lines=content.split('\n'); total=len(lines)
+        start=p.get('offset') or 1
+        if not isinstance(start,int) or start<1: start=1
+        limits=[n for n in (p.get('limit'),req.get('line_limit')) if isinstance(n,int) and n>0]
+        end=total if not limits else min(total, start-1+min(limits))
+        if start>total:
+            print(f'[showing lines {start}-{start-1} of {total}; call read_file with offset=1 to continue]')
+        else:
+            numbered=[f'{start+i}|{line}' for i,line in enumerate(lines[start-1:end])]
+            cap=req.get('char_limit')
+            cut=False
+            if isinstance(cap,int) and cap>0:
+                kept=[]; used=0
+                for line in numbered:
+                    extra=len(line)+(1 if kept else 0)
+                    if kept and used+extra>cap:
+                        cut=True; break
+                    if not kept and len(line)>cap:
+                        kept.append(line[:cap]); cut=True; break
+                    kept.append(line); used+=extra
+                if len(kept)<len(numbered):
+                    end=start+len(kept)-1
+                    numbered=kept
+            else:
+                cut=False
+            body='\n'.join(numbered)
+            if end<total or cut:
+                hint=f'[showing lines {start}-{end} of {total}; call read_file with offset={end+1} to continue]'
+                body=(body+'\n'+hint) if body else hint
+            print(body)
     else:
         if name in ('edit_file','search_replace'):
             old=p['old_string'] if name=='edit_file' else p['search']
@@ -61,7 +88,7 @@ class ContainerFileTool(Tool):
         limit = ctx.file_size_limit_bytes if ctx.file_size_limit_bytes is not None else 1024*1024
         request = ExecutionRequest(argv=["/usr/local/bin/python", "-I", "-S", "-c", FILE_CODE],
             stdin_bytes=json.dumps(dict(name=self.name, params=params, file_limit=min(limit,1024*1024),
-                                       line_limit=ctx.read_file_max_lines)).encode(),
+                                       line_limit=ctx.read_file_max_lines, char_limit=ctx.tool_output_max_chars)).encode(),
             env={}, cwd=ctx.workspace_root, cancel_event=ctx.extra.get("cancel_event"),
             deadline_mono=deadline.effective_deadline_mono() if deadline else time.monotonic()+30,
             run_meter=ctx.extra.get("run_output_meter"),
@@ -69,7 +96,7 @@ class ContainerFileTool(Tool):
                 if ctx.extra.get('artifact_dir') and ctx.extra.get('operation_id') else None)
         result = await self.backend.execute(request)
         output = result.observation_text()
-        if ctx.tool_output_max_chars is not None:
+        if ctx.tool_output_max_chars is not None and self.name != "read_file":
             output = output[:ctx.tool_output_max_chars]
         return ToolResult(ctx.call_id, self.name, result.status.value=="succeeded", output,
             error=result.error_message, status=RunCommandTool._map_status(result.status),

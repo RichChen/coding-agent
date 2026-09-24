@@ -9,9 +9,43 @@ from src.policy.limits import check_content_size, check_file_size
 from src.tools.base import SideEffectClass, Tool, ToolContext, ToolResult
 
 
+def format_file_view(text: str, *, offset: int | None, limit: int | None, max_chars: int | None) -> str:
+    """Numbered slice of a file. Truncation keeps whole lines and tells the model how to continue."""
+    lines = text.split("\n")
+    total = len(lines)
+    start = 1 if not isinstance(offset, int) or offset < 1 else offset
+    if start > total:
+        return f"[showing lines {start}-{max(start - 1, 0)} of {total}; call read_file with offset=1 to continue]"
+    end = total if not isinstance(limit, int) or limit < 1 else min(total, start - 1 + limit)
+    numbered = [f"{start + i}|{line}" for i, line in enumerate(lines[start - 1:end])]
+    cut_for_chars = False
+    if max_chars is not None:
+        kept: list[str] = []
+        used = 0
+        for line in numbered:
+            extra = len(line) + (1 if kept else 0)
+            if kept and used + extra > max_chars:
+                cut_for_chars = True
+                break
+            if not kept and len(line) > max_chars:
+                kept.append(line[:max_chars])
+                cut_for_chars = True
+                break
+            kept.append(line)
+            used += extra
+        if len(kept) < len(numbered):
+            end = start + len(kept) - 1 if kept else start - 1
+            numbered = kept
+    body = "\n".join(numbered)
+    if end < total or cut_for_chars:
+        hint = f"[showing lines {start}-{end} of {total}; call read_file with offset={end + 1} to continue]"
+        body = f"{body}\n{hint}" if body else hint
+    return body
+
+
 class ReadFileTool(Tool):
     name = "read_file"
-    description = "Read the contents of a file in the workspace."
+    description = "Read a file in the workspace. Lines are numbered. Use offset to continue a truncated read."
     side_effect = SideEffectClass.READ_ONLY
     parameters = {
         "type": "object",
@@ -20,9 +54,13 @@ class ReadFileTool(Tool):
                 "type": "string",
                 "description": "Relative path to the file within the workspace.",
             },
+            "offset": {
+                "type": "integer",
+                "description": "First line to return, starting at 1.",
+            },
             "limit": {
                 "type": "integer",
-                "description": "Optional max number of lines to return. Default: all lines.",
+                "description": "Maximum number of lines to return.",
             },
         },
         "required": ["path"],
@@ -32,7 +70,8 @@ class ReadFileTool(Tool):
     async def execute(self, params: dict, ctx: ToolContext) -> ToolResult:
         call_id = self.resolve_call_id(params, ctx)
         raw_path = params.get("path", "")
-        model_limit = params.get("limit")  # model-requested line limit
+        model_limit = params.get("limit")
+        offset = params.get("offset")
         sandbox = ctx.sandbox
         resolved = sandbox.resolve(raw_path) if sandbox else ctx.workspace_root / raw_path
 
@@ -77,23 +116,18 @@ class ReadFileTool(Tool):
                 error=str(e),
             )
 
-        # 行数截断：取 model_limit 与 read_file_max_lines 中的较小值
         effective_limit: int | None = None
-        if model_limit is not None and isinstance(model_limit, int):
+        if isinstance(model_limit, int):
             effective_limit = model_limit
         if ctx.read_file_max_lines is not None:
             if effective_limit is None or ctx.read_file_max_lines < effective_limit:
                 effective_limit = ctx.read_file_max_lines
-
-        if effective_limit is not None:
-            lines = content.split("\n")
-            if len(lines) > effective_limit:
-                truncated = "\n".join(lines[:effective_limit])
-                content = f"{truncated}\n... ({len(lines) - effective_limit} more lines)"
-
-        # 字符数截断（最后防线）
-        if ctx.tool_output_max_chars is not None and len(content) > ctx.tool_output_max_chars:
-            content = content[:ctx.tool_output_max_chars] + "\n... (output truncated)"
+        content = format_file_view(
+            content,
+            offset=offset if isinstance(offset, int) else None,
+            limit=effective_limit,
+            max_chars=ctx.tool_output_max_chars,
+        )
 
         return ToolResult(
             call_id=call_id,

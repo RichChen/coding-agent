@@ -28,7 +28,7 @@ class TestFileTools:
             {"path": "test.txt", "_call_id": "c2"}, ctx
         )
         assert result.success
-        assert result.output == "hello world"
+        assert result.output == "1|hello world"
 
     @pytest.mark.asyncio
     async def test_read_nonexistent(self, ctx):
@@ -148,7 +148,7 @@ class TestFileSizeLimit:
         tool = ReadFileTool()
         result = await tool.execute({"path": "small.txt", "_call_id": "c1"}, ctx)
         assert result.success
-        assert result.output == small_content
+        assert result.output == "1|" + small_content
 
     @pytest.mark.asyncio
     async def test_write_exceeds_limit(self, ctx):
@@ -203,10 +203,9 @@ class TestOutputTruncation:
         tool = ReadFileTool()
         result = await tool.execute({"path": "many_lines.txt", "_call_id": "c1"}, ctx)
         assert result.success
-        assert "... (20 more lines)" in result.output
-        # First 10 lines present, 11th not
-        assert "line 0" in result.output
-        assert "line 9" in result.output
+        assert "[showing lines 1-10 of 30; call read_file with offset=11 to continue]" in result.output
+        assert "1|line 0" in result.output
+        assert "10|line 9" in result.output
         assert "line 10" not in result.output
 
     @pytest.mark.asyncio
@@ -220,9 +219,9 @@ class TestOutputTruncation:
             {"path": "many_lines.txt", "limit": 3, "_call_id": "c1"}, ctx
         )
         assert result.success
-        assert "... (27 more lines)" in result.output
-        assert "line 0" in result.output
-        assert "line 2" in result.output
+        assert "[showing lines 1-3 of 30; call read_file with offset=4 to continue]" in result.output
+        assert "1|line 0" in result.output
+        assert "3|line 2" in result.output
         assert "line 3" not in result.output
 
     @pytest.mark.asyncio
@@ -234,8 +233,8 @@ class TestOutputTruncation:
         tool = ReadFileTool()
         result = await tool.execute({"path": "big.txt", "_call_id": "c1"}, ctx)
         assert result.success
-        assert "... (output truncated)" in result.output
-        assert len(result.output) <= 500 + len("\n... (output truncated)")
+        assert "call read_file with offset=" in result.output
+        assert result.output.split("\n", 1)[0].startswith("1|")
 
     @pytest.mark.asyncio
     async def test_read_file_no_truncation_when_under_limit(self, ctx):
@@ -245,7 +244,19 @@ class TestOutputTruncation:
         tool = ReadFileTool()
         result = await tool.execute({"path": "short.txt", "_call_id": "c1"}, ctx)
         assert result.success
-        assert result.output == "short file"
+        assert result.output == "1|short file"
+
+    @pytest.mark.asyncio
+    async def test_read_file_offset_continues(self, ctx):
+        content = "\n".join(f"line {i}" for i in range(30))
+        (ctx.workspace_root / "many_lines.txt").write_text(content)
+        tool = ReadFileTool()
+        result = await tool.execute(
+            {"path": "many_lines.txt", "offset": 11, "limit": 2, "_call_id": "c1"}, ctx
+        )
+        assert result.success
+        assert result.output.startswith("11|line 10\n12|line 11\n")
+        assert "offset=13" in result.output
 
     @pytest.mark.asyncio
     async def test_command_output_truncation(self, ctx):
