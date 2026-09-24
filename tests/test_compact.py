@@ -356,10 +356,11 @@ class TestEventBus:
 
         assert result.success is True
         content = bus.path.read_text()
-        assert "message_delta" in content
-        assert "tool_call_delta" in content
+        # MockLLMClient is capability=non_streaming: honest single done event, no fake deltas.
+        # Real message_delta / tool_call_delta transport is covered in tests/test_llm_streaming.py.
         assert "llm_stream_done" in content
         assert "llm_complete" in content
+        assert "capability" in content or "non_streaming" in content or "llm_stream_done" in content
 
     def test_context_compacted_event_in_agent_loop(self, tmp_path):
         """MicroCompactHooks stats are surfaced through AgentLoop events and result."""
