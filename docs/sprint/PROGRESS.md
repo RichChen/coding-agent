@@ -68,3 +68,12 @@
 - 保留：`testing/` 下的测试、`tests/runtests.py`、必须一起改的模块。
 - 测试：`python -m pytest -q tests/test_legacy_env.py`，2 passed。
 - 下一步：第 3 步，用规则重填记忆卡，写成 `memory-cards-v3.jsonl`，先看结果再决定是否用 LLM。
+
+## 第二轮 第 3 步：重新生成记忆卡（2026-09-25）
+
+- `memory/cards_v3.py` 用事件提取结果重填 `MemoryCard`。改过的路径在前，并带上读过的行号。测试命令来自 `run_command`；源轨迹里没跑过就写 `none run in source attempt`。`approach` 是诊断原话加改动的函数或类名。`pitfalls` 只留仓库相关的句子，旧环境噪声不渲染。
+- 命令过滤收紧：路径里的 `_pytest` 不再被当成 pytest 命令。一条命令里夹了 `pip` 或 `find /` 的片段会丢掉，旁边的 `python -c` 仍保留。
+- 新快照 `benchmarks/a5/memory-cards-v3.jsonl`，123959 字节，不覆盖 v2。11 张里 8 张有测试命令，3 张是 `none run`（`django-10924`、`pytest-5103`、`sklearn-11040`）。
+- 看过规则版之后不做 LLM 提炼。诊断句已经点到 `FILE_UPLOAD_PERMISSIONS`、`visit_Call`、`n_neighbors`、`fit_predict` 这类具体位置，费用 0。
+- 测试：`python -m pytest -q tests/test_memory_cards_v3.py tests/test_memory_cards.py tests/test_legacy_env.py`，8 passed。渲染不超过 1500 字节，目标题 ID 和 gold 片段没有进卡片。
+- 下一步：第 4 步，把 20 道目标题的 `source.tar.gz` 解压到仓库外，重跑 B1/B2/B3。

@@ -63,9 +63,9 @@ def load_memory_cards(path: Path) -> tuple[MemoryCard, ...]:
 
 def render_card(card: MemoryCard, *, limit: int = RENDER_LIMIT) -> str:
     header = BANNER.format(status=card.verification_status)
-    files = ", ".join(card.relevant_files[:8]) or "(none recorded)"
-    tests = "; ".join(card.test_commands[:4]) or "(none recorded)"
-    pitfalls = "; ".join(card.env_pitfalls[:4]) or "(none recorded)"
+    files = ", ".join(card.relevant_files[:8]) or "(none)"
+    tests = "; ".join(card.test_commands[:4]) or "(none)"
+    pitfalls = "; ".join(card.env_pitfalls[:4]) or "(none)"
     deps = []
     for dep in card.dependencies[:6]:
         symbols = ",".join(dep.symbols[:4])

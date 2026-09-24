@@ -143,7 +143,9 @@ def _take_tool(payload, artifacts, reads, searches, edited, commands, edits, ski
 
 def _keep_command(command: str) -> bool:
     lowered = command.lower()
-    return any(token in lowered for token in _COMMAND_KEEP)
+    if "runtests.py" in lowered or "python -c" in lowered or "python -m" in lowered:
+        return True
+    return bool(re.search(r"(^|[^\w])pytest([^\w]|$)", lowered))
 
 
 def _take_assistant(payload, artifacts, assistant, skipped) -> None:
