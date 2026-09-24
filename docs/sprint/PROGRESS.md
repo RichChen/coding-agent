@@ -60,3 +60,11 @@
 - 11 条里 `django-10924` 和 `sklearn-11040` 没有符合条件的测试命令。`django-10914`、`sklearn-10297`、`pytest-5221` 没对上改动符号。
 - 测试：`python -m pytest -q tests/test_event_extract.py`。目标题 ID 和 gold/test patch 里长度 ≥ 80 的新增行没有出现在提取结果里。
 - 下一步：第 2 步，滤掉旧镜像里的缺依赖、git 不存在、全盘搜索和 stub。
+
+## 第二轮 第 2 步：过滤旧环境噪声（2026-09-25）
+
+- `memory/legacy_env.py` 的 `is_legacy_env_artifact` / `split_legacy`。命中的条目标成旧环境噪声，不渲染给模型。
+- 滤掉：`pip install` / `pip download`；`No module named` 后面是 six、pluggy、attr、py、more_itertools、numpy、mpmath、packaging、pytz、sqlparse；`git: not found`；`find /`；`/tmp/stubs`；域名解析失败、拉不到包、连接被拒绝。
+- 保留：`testing/` 下的测试、`tests/runtests.py`、必须一起改的模块。
+- 测试：`python -m pytest -q tests/test_legacy_env.py`，2 passed。
+- 下一步：第 3 步，用规则重填记忆卡，写成 `memory-cards-v3.jsonl`，先看结果再决定是否用 LLM。
