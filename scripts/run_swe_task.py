@@ -9,6 +9,7 @@ from __future__ import annotations
 import argparse
 import asyncio
 import base64
+import hashlib
 import json
 import subprocess
 import sys
@@ -184,7 +185,7 @@ def public_issue(task: dict) -> str:
     )
 
 
-def grader_spec(task: dict, base: dict[str, bytes]) -> RepositorySpec:
+def grader_spec(task: dict, base: dict[str, bytes] | None = None) -> RepositorySpec:
     receipt = load_json(ROOT / task["receipt"])
     binding = receipt["private_source_binding"]
     private = load_json(Path(binding["path"]))
@@ -207,18 +208,22 @@ def grader_spec(task: dict, base: dict[str, bytes]) -> RepositorySpec:
         p2p = [node for node in p2p if node not in excluded]
     editable = tuple(binding.get("gold_patch_paths") or [])
     baseline_root = ROOT / task["baseline"]
+    original_root = ROOT / task["original"]
     overlay = {}
     for relative in test_paths:
-        original = base.get(relative)
         candidate_path = baseline_root / relative
         if not candidate_path.is_file():
             continue
         updated = candidate_path.read_bytes()
+        original = None if base is None else base.get(relative)
+        if original is None:
+            original_path = original_root / relative
+            original = original_path.read_bytes() if original_path.is_file() else b""
         if updated != original:
             overlay[relative] = base64.b64encode(updated).decode("ascii")
     return RepositorySpec(
         task_id=task["id"],
-        base_hash=tree_hash(base),
+        base_hash=hashlib.sha256(task["id"].encode()).hexdigest(),
         image=receipt["baseline_image_digest"],
         editable_paths=editable,
         test_paths=test_paths,
@@ -367,8 +372,7 @@ async def run_task(task: dict, profile: Path, output: Path, *, mock: bool) -> di
     output.mkdir(parents=True, exist_ok=True)
     workspace = output / "workspace"
     workspace.mkdir()
-    base = read_tree(ROOT / task["original"])
-    spec = grader_spec(task, base)
+    spec = grader_spec(task)
     receipt = load_json(ROOT / task["receipt"])
     backend = BaselineImageBackend(
         image=receipt["baseline_image_digest"],
