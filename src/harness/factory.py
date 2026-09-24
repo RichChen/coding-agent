@@ -31,6 +31,7 @@ from src.policy.dispatcher import ReadSearchDispatcher
 from src.tools.command import RunCommandTool
 from src.tools.edit import EditFileTool
 from src.tools.files import ListDirTool, ReadFileTool, WriteFileTool
+from src.tools.search import SearchCodeTool
 from src.tools.patch import SearchReplaceTool
 from src.tools.registry import ToolRegistry
 from src.tracing.events import EventBus
@@ -150,7 +151,7 @@ def build_agent(
     exec_profile = cmd_cfg.get("execution_profile", "legacy_host")
     docker_backend = None
     if exec_profile == "docker_linux":
-        if set(enabled) - {"read_file", "write_file", "list_dir", "edit_file", "search_replace", "run_command"}:
+        if set(enabled) - {"read_file", "write_file", "list_dir", "edit_file", "search_replace", "run_command", "search_code"}:
             raise ValueError("Docker profile rejects host-only/debug/subagent tools")
         if execution_backend is not None:
             docker_backend = execution_backend
@@ -200,6 +201,8 @@ def build_agent(
         tools.register(file_tool(SearchReplaceTool()))
     if "edit_file" in enabled:
         tools.register(file_tool(EditFileTool()))
+    if "search_code" in enabled:
+        tools.register(SearchCodeTool(execution_backend=docker_backend))
 
     subagent_cfg = rt_cfg.get("subagents", {})
     if subagent_cfg.get("enabled"):

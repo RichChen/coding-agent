@@ -30,7 +30,7 @@ policy:
   file_size_limit_bytes: 1048576
   tool_output_max_chars: 16000
 tools:
-  enabled: [read_file, write_file, list_dir, edit_file, search_replace, run_command]
+  enabled: [read_file, write_file, list_dir, edit_file, search_replace, run_command, search_code]
 tracing:
   lifecycle_events: true
   llm_stream_events: true

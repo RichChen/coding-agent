@@ -6,6 +6,7 @@ from src.policy.sandbox import Sandbox
 from src.tools.base import ToolContext
 from src.tools.files import ListDirTool, ReadFileTool, WriteFileTool
 from src.tools.patch import SearchReplaceTool
+from src.tools.search import SearchCodeTool
 
 
 class TestFileTools:
@@ -337,3 +338,22 @@ class TestEditFile:
         )
         assert not result.success
         assert "denied" in result.error.lower()
+
+
+class TestSearchCode:
+    @pytest.fixture
+    def ctx(self, tmp_path):
+        sandbox = Sandbox(workspace_root=tmp_path)
+        return ToolContext(workspace_root=tmp_path, sandbox=sandbox)
+
+    @pytest.mark.asyncio
+    async def test_search_returns_path_line_and_caps(self, ctx):
+        (ctx.workspace_root / "a.py").write_text("keep\nneedle here\n")
+        (ctx.workspace_root / "b.txt").write_text("needle\n")
+        tool = SearchCodeTool()
+        result = await tool.execute(
+            {"pattern": "needle", "glob": "*.py", "max_results": 1, "_call_id": "c1"}, ctx
+        )
+        assert result.success, result.error
+        assert result.output.splitlines()[0] == "a.py:2: needle here"
+        assert "b.txt" not in result.output
