@@ -37,7 +37,7 @@ class TestMicroCompact:
         # c1 and c2 are old but c2 has >100 chars, should be compressed
         assert "Wrote 10 bytes" in result[3]["content"]
         # c2 > 100 chars should be compressed
-        assert "[Previous: used run_command]" == result[4]["content"]
+        assert "[Elided result of run_command() — exit unknown, 1 lines]" == result[4]["content"]
 
     def test_read_file_preserved(self):
         messages = [
@@ -52,7 +52,7 @@ class TestMicroCompact:
         # read_file should be preserved even though old and >100 chars
         assert "x" * 200 == result[3]["content"]
         # run_command should be compressed
-        assert "[Previous: used run_command]" == result[5]["content"]
+        assert "[Elided result of run_command() — exit unknown, 1 lines]" == result[5]["content"]
 
     def test_short_content_not_compressed(self):
         messages = [
@@ -140,7 +140,7 @@ class TestMicroCompact:
         assert "y" * 200 in result[5]["content"]
         assert "z" * 200 in result[7]["content"]
         # First compressed
-        assert "[Previous: used run_command]" == result[3]["content"]
+        assert "[Elided result of run_command() — exit unknown, 1 lines]" == result[3]["content"]
         assert ctx.extra["context_stats"]["did_compact"] is True
         assert ctx.extra["context_stats"]["compacted_tool_count"] == 1
 
@@ -176,7 +176,7 @@ class TestMicroCompact:
         result, stats = micro_compact_openai_messages_with_stats(messages, keep_recent=0)
 
         assert result[1]["content"] == "original task should stay intact"
-        assert result[3]["content"] == "[Previous: used run_command]"
+        assert result[3]["content"] == "[Elided result of run_command() — exit unknown, 1 lines]"
         assert result[5]["content"].startswith("Error: command failed")
         assert "changed.py" in result[7]["content"]
         assert "helper.py" in result[9]["content"]
@@ -230,10 +230,25 @@ class TestMicroCompact:
         ctx = HookContext(step_number=0)
         result = asyncio.run(hooks.before_llm(messages, ctx))
 
-        assert result[3]["content"] == "[Previous: used run_command]"
+        assert result[3]["content"] == "[Elided result of run_command() — exit unknown, 1 lines]"
         stats = ctx.extra["context_stats"]
         assert stats["did_compact"] is True
         assert stats["estimated_tokens_after"] < stats["estimated_tokens_before"]
+
+    def test_elided_placeholder_keeps_read_arguments(self):
+        call = _make_tc("c1", "read_file")
+        call["function"]["arguments"] = '{"path": "src/_pytest/nodes.py", "offset": 400}'
+        messages = [
+            {"role": "user", "content": "task"},
+            _make_assistant_msg([call]),
+            _make_tool_msg("c1", "\n".join(["x"] * 300)),
+            _make_assistant_msg([_make_tc("c2", "read_file")]),
+            _make_tool_msg("c2", "recent"),
+        ]
+        result = micro_compact_openai_messages(messages, keep_recent=1, preserve_tools=set())
+        assert result[2]["content"] == (
+            "[Elided result of read_file(path=src/_pytest/nodes.py, offset=400) — 300 lines; re-read if needed]"
+        )
 
 
 class TestEventBus:

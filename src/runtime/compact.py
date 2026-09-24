@@ -8,6 +8,8 @@ Does NOT summarise via LLM (that's Layer 2 auto-compact, not implemented here).
 
 from __future__ import annotations
 
+import json
+import re
 from dataclasses import dataclass
 from typing import Any
 
@@ -125,6 +127,47 @@ def _protected_tool_indices(
     return protected
 
 
+def _call_arguments(messages: list[dict], call_id: str) -> dict:
+    for msg in messages:
+        if msg.get("role") != "assistant":
+            continue
+        for call in msg.get("tool_calls") or []:
+            if call.get("id") != call_id:
+                continue
+            raw = (call.get("function") or {}).get("arguments") or "{}"
+            try:
+                parsed = json.loads(raw) if isinstance(raw, str) else raw
+            except json.JSONDecodeError:
+                return {}
+            return parsed if isinstance(parsed, dict) else {}
+    return {}
+
+
+def _elide_tool_result(messages: list[dict], call_id: str, tool_name: str, content: str) -> str:
+    args = _call_arguments(messages, call_id)
+    lines = content.count("\n") + (1 if content else 0)
+    if tool_name == "read_file":
+        path = args.get("path", "")
+        offset = args.get("offset")
+        extra = f", offset={offset}" if offset else ""
+        return f"[Elided result of read_file(path={path}{extra}) — {lines} lines; re-read if needed]"
+    if tool_name == "run_command":
+        command = args.get("command") or " ".join(str(part) for part in (args.get("argv") or []))
+        command = " ".join(str(command).split())
+        if len(command) > 80:
+            command = command[:77] + "..."
+        match = re.search(r"exit_code=(-?\d+|null)", content)
+        exit_code = match.group(1) if match else "unknown"
+        return f"[Elided result of run_command({command}) — exit {exit_code}, {lines} lines]"
+    if tool_name == "search_code":
+        pattern = str(args.get("pattern", ""))[:80]
+        path = args.get("path", ".")
+        return f"[Elided result of search_code(pattern={pattern}, path={path}) — {lines} lines; re-run if needed]"
+    path = args.get("path")
+    inside = f"path={path}" if path else ""
+    return f"[Elided result of {tool_name}({inside}) — {lines} lines]"
+
+
 def micro_compact_openai_messages_with_stats(
     messages: list[dict],
     *,
@@ -136,8 +179,8 @@ def micro_compact_openai_messages_with_stats(
     Rules:
     - The most recent *keep_recent* tool messages are always kept verbatim.
     - Tool messages for tools in *preserve_tools* are always kept verbatim.
-    - Other tool messages with content > 100 chars are replaced with
-      ``[Previous: used {tool_name}]``.
+    - Other tool messages with content > 100 chars are replaced with an
+      elided line that keeps the tool name, key arguments, and line count.
     - Non-tool messages are never touched.
     """
     if preserve_tools is None:
@@ -189,7 +232,7 @@ def micro_compact_openai_messages_with_stats(
         if len(content) > 100:
             messages[idx] = {
                 **msg,
-                "content": f"[Previous: used {tool_name}]",
+                "content": _elide_tool_result(messages, call_id, tool_name, content),
             }
             compacted_tool_count += 1
         else:
