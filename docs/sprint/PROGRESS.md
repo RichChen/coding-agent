@@ -49,3 +49,16 @@
 没有再跑 sympy / sklearn，也没有做 thinking 对照。继续跑会再花钱，而 grader 现在给不出 pass/partial/fail，解出数不会增加。
 
 下一步：停在审计节点。见 `docs/sprint/CHECKPOINT-1.md`。
+
+## 第二轮 第 0 步：堵住统计和忽略漏洞
+
+日期：2026-09-25。花费：0 CNY。tag：`sprint2-start`（打在本轮改动之前）。
+
+审计结论已核对：5221、5227 改过代码，但 `export_delta` 用 gold 文件白名单，changelog 一碰就把整份 delta 丢掉了。本步还没改那条导出路径。
+
+- `.gitignore` 在放行 `*.json` 之后增加 `docs/upgrade/evidence/**/private*`。`git check-ignore -v` 确认 `H3/final/private-spec.json` 被忽略，`git status` 不再列出这批 private-spec。
+- summary 按 `tool.intent` 计工具调用；`first_edit_step` 是第一次编辑前的 `model.started` 次数；`stop_reason` 取 `run.finished`，取不到就写 `unknown` 并附上原始字段。
+- summary 增加 `snapshot_error`。事件里有编辑、收集到的改动为空时，status 设为 `delta_lost` 并在 stdout 打印 `DELTA_LOST`。
+- `tests/test_run_swe_task.py` 3 项通过。
+
+下一步：第 1 步，agent 改跑 baseline 镜像，delta 收集全部改动。

@@ -233,18 +233,62 @@ def solved(evaluation: dict) -> bool:
     return f2p_failed == 0 and regression_ok and all(case.get("satisfied") is True for case in cases)
 
 
-def first_edit_step(events: list[dict]) -> int | None:
+def _event_tool_name(event: dict) -> str:
+    payload = event.get("payload") or {}
+    return str(payload.get("name") or payload.get("tool") or "")
+
+
+def summarize_events(events: list[dict], result_plain: dict | None, run_error: str | None) -> dict:
+    """Count tool.intent events. Edit round is the model.started count before the first edit."""
+    tool_calls = 0
+    model_rounds = 0
+    first_edit = None
+    saw_edit = False
     for event in events:
-        payload = event.get("payload") or {}
-        name = payload.get("tool") or payload.get("name") or event.get("tool")
-        if name in EDIT_TOOLS:
-            step = payload.get("step") or event.get("step")
-            return int(step) if step is not None else event.get("seq")
-        calls = payload.get("tool_calls") or []
-        if any((call.get("name") in EDIT_TOOLS) for call in calls if isinstance(call, dict)):
-            step = payload.get("step") or event.get("step")
-            return int(step) if step is not None else event.get("seq")
-    return None
+        kind = event.get("event_type")
+        if kind == "model.started":
+            model_rounds += 1
+        elif kind == "tool.intent":
+            tool_calls += 1
+            if _event_tool_name(event) in EDIT_TOOLS:
+                saw_edit = True
+                if first_edit is None:
+                    first_edit = model_rounds
+    return {
+        "tool_calls": tool_calls,
+        "first_edit_step": first_edit,
+        "saw_edit": saw_edit,
+        "stop_reason": _stop_reason(events, result_plain or {}, run_error),
+    }
+
+
+def _stop_reason(events: list[dict], result_plain: dict, run_error: str | None) -> str:
+    if run_error:
+        return run_error
+    finished = None
+    for event in events:
+        if event.get("event_type") == "run.finished":
+            finished = event.get("payload") or {}
+    source = finished if finished is not None else result_plain
+    reason = source.get("failure_reason") or source.get("stop_reason")
+    if reason and str(reason).lower() not in {"none", "null"}:
+        return str(reason)
+    if source:
+        raw = {key: source.get(key) for key in ("failure_reason", "stop_reason", "success", "termination_kind")}
+        return "unknown: " + json.dumps(raw, default=str)
+    return "unknown"
+
+
+def delta_changes(delta: dict | None) -> list[str]:
+    if not delta:
+        return []
+    names = list((delta.get("changed") or {}).keys())
+    names.extend(delta.get("deleted") or [])
+    return sorted(names)
+
+
+def delta_lost(events_summary: dict, delta: dict | None) -> bool:
+    return bool(events_summary.get("saw_edit")) and not delta_changes(delta)
 
 
 def make_ledger(state_path: Path) -> CnyBudgetLedger:
@@ -346,6 +390,7 @@ async def run_task(task: dict, profile: Path, output: Path, *, mock: bool) -> di
         if close is not None:
             await close()
     delta = backend.candidate_delta
+    snapshot_error = getattr(backend, "snapshot_error", None)
     if delta is not None:
         (output / "candidate-delta.json").write_text(json.dumps(delta, indent=2), encoding="utf-8")
     candidate = apply_delta(base, delta)
@@ -360,22 +405,25 @@ async def run_task(task: dict, profile: Path, output: Path, *, mock: bool) -> di
         events = [json.loads(line) for line in events_path.read_text(encoding="utf-8").splitlines() if line.strip()]
     result_plain = plain(result) if result else {}
     attempts = result_plain.get("llm_attempts") or []
-    tool_calls = 0
-    for event in events:
-        payload = event.get("payload") or {}
-        tool_calls += len(payload.get("tool_calls") or [])
+    stats = summarize_events(events, result_plain, run_error)
+    changed = delta_changes(delta) or list(evaluation.get("changed_paths") or [])
+    lost = delta_lost(stats, delta)
+    if lost:
+        print(f"DELTA_LOST {task['id']}: edit tools ran but the collected delta is empty. snapshot_error={snapshot_error}", flush=True)
     summary = {
         "task_id": task["id"],
         "variant": "B0",
-        "solved": solved(evaluation),
+        "solved": False if lost else solved(evaluation),
+        "status": "delta_lost" if lost else evaluation.get("status"),
         "grader_status": evaluation.get("status"),
-        "changed_files": evaluation.get("changed_paths") or [],
-        "first_edit_step": first_edit_step(events),
+        "changed_files": changed,
+        "first_edit_step": stats["first_edit_step"],
         "model_calls": len(attempts),
-        "tool_calls": tool_calls,
+        "tool_calls": stats["tool_calls"],
         "peak_context": _peak_context(result_plain, events),
         "cost_cny": str(ledger.cost_committed - before),
-        "stop_reason": run_error or result_plain.get("failure_reason") or result_plain.get("stop_reason"),
+        "stop_reason": stats["stop_reason"],
+        "snapshot_error": snapshot_error,
         "git": {
             "coding-harness": git_state(ROOT),
             "coding-agent": git_state(ROOT.parent / "coding-agent"),
