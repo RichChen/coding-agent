@@ -1,6 +1,6 @@
 # CHECKPOINT-1
 
-日期：2026-09-24。范围：`pre-capability-sprint..HEAD`。累计花费 **1.591 CNY**。没有跑 20 个 pilot、B1–B3 或 240 矩阵。
+日期：2026-09-24。范围：`pre-capability-sprint..HEAD`。累计花费 **1.798 CNY**。没有跑 20 个 pilot、B1–B3 或 240 矩阵。其中 0.207 CNY 是密钥修好前一次空 Bearer 的 pytest-5103（3 次调用，没有改文件）。
 
 ## 提交
 

@@ -26,7 +26,7 @@
 
 ## 第 2 步：B0 能力改造
 
-日期：2026-09-24。本步花费：1.591 CNY。累计：1.591 CNY。
+日期：2026-09-24。本步花费：1.798 CNY。累计：1.798 CNY。
 
 每项都有零模型测试，并单独提交：
 
@@ -36,7 +36,7 @@
 - `prompts/swe_b0.md` 经 `system_prompt_path` 加载。每轮上下文末尾注入 `remaining model calls: N/M`。`run_command` 超时在 dev profile 里已是 120 秒。
 - 嵌套配置 `configs/sprint/b0.yaml` 原先找不到仓库 `.env`，真实调用时 Bearer 为空。已改为从配置文件向上查找 `.env`。
 
-对照跑的是 3 道 pytest dev 题，不是 20 个 pilot。产物在 `runs/step2-b0b/` 和 `runs/step2-b0c/`。
+对照跑的是 pytest dev 题，不是 20 个 pilot。密钥修好之前有一次空 Bearer 的 pytest-5103（`runs/step2-b0/`）：没有改文件，模型调用 3，费用 0.207，停止原因 `model_parse_error`，grader `partial`。有效对照在 `runs/step2-b0b/` 和 `runs/step2-b0c/`。
 
 | 题 | solved | 改动文件 | 模型调用 | 费用 | 停止原因 | grader |
 | --- | --- | --- | --- | --- | --- | --- |
