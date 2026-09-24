@@ -1,5 +1,6 @@
 import asyncio
 import os
+import sys
 
 import pytest
 
@@ -86,7 +87,7 @@ class TestRunCommandToolArgv:
         tool = RunCommandTool(command_policy=CommandPolicy(allow_all=True))
         result = asyncio.run(
             tool.execute(
-                {"command": "python -c \"print('shell_ok')\""},
+                {"command": f'"{sys.executable}" -c "print(\'shell_ok\')"'},
                 ToolContext(workspace_root=workspace),
             )
         )

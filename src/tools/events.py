@@ -8,7 +8,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from src.tools.base import Tool, ToolContext, ToolResult
+from src.tools.base import SideEffectClass, Tool, ToolContext, ToolResult
 from src.tracing.events import EventBus
 
 
@@ -21,6 +21,7 @@ class ReadEventsTool(Tool):
 
     name = "read_events"
     description = "Read the lifecycle event log (JSONL) from the current session."
+    side_effect = SideEffectClass.READ_ONLY
     parameters = {
         "type": "object",
         "properties": {
@@ -29,6 +30,7 @@ class ReadEventsTool(Tool):
                 "description": "Max number of recent events to return. Default: 50.",
             },
         },
+        "additionalProperties": False,
     }
 
     def __init__(self, event_bus: EventBus | None = None):
@@ -39,7 +41,7 @@ class ReadEventsTool(Tool):
 
     async def execute(self, params: dict, ctx: ToolContext) -> ToolResult:
         limit = params.get("limit", 50)
-        call_id = params.get("_call_id", "")
+        call_id = self.resolve_call_id(params, ctx)
 
         if self._event_bus is None or self._event_bus.path is None:
             return ToolResult(

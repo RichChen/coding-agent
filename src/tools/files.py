@@ -5,15 +5,14 @@ English: file tools — all paths go through Sandbox.resolve under workspace_roo
 
 from __future__ import annotations
 
-from pathlib import Path
-
 from src.policy.limits import check_content_size, check_file_size
-from src.tools.base import Tool, ToolContext, ToolResult
+from src.tools.base import SideEffectClass, Tool, ToolContext, ToolResult
 
 
 class ReadFileTool(Tool):
     name = "read_file"
     description = "Read the contents of a file in the workspace."
+    side_effect = SideEffectClass.READ_ONLY
     parameters = {
         "type": "object",
         "properties": {
@@ -27,9 +26,11 @@ class ReadFileTool(Tool):
             },
         },
         "required": ["path"],
+        "additionalProperties": False,
     }
 
     async def execute(self, params: dict, ctx: ToolContext) -> ToolResult:
+        call_id = self.resolve_call_id(params, ctx)
         raw_path = params.get("path", "")
         model_limit = params.get("limit")  # model-requested line limit
         sandbox = ctx.sandbox
@@ -37,7 +38,7 @@ class ReadFileTool(Tool):
 
         if resolved is None:
             return ToolResult(
-                call_id=params.get("_call_id", ""),
+                call_id=call_id,
                 name=self.name,
                 success=False,
                 output="",
@@ -50,7 +51,7 @@ class ReadFileTool(Tool):
             err = check_file_size(resolved, size_limit)
             if err:
                 return ToolResult(
-                    call_id=params.get("_call_id", ""),
+                    call_id=call_id,
                     name=self.name,
                     success=False,
                     output="",
@@ -61,7 +62,7 @@ class ReadFileTool(Tool):
             content = resolved.read_text(encoding="utf-8")
         except FileNotFoundError:
             return ToolResult(
-                call_id=params.get("_call_id", ""),
+                call_id=call_id,
                 name=self.name,
                 success=False,
                 output="",
@@ -69,7 +70,7 @@ class ReadFileTool(Tool):
             )
         except Exception as e:
             return ToolResult(
-                call_id=params.get("_call_id", ""),
+                call_id=call_id,
                 name=self.name,
                 success=False,
                 output="",
@@ -95,7 +96,7 @@ class ReadFileTool(Tool):
             content = content[:ctx.tool_output_max_chars] + "\n... (output truncated)"
 
         return ToolResult(
-            call_id=params.get("_call_id", ""),
+            call_id=call_id,
             name=self.name,
             success=True,
             output=content,
@@ -105,6 +106,7 @@ class ReadFileTool(Tool):
 class WriteFileTool(Tool):
     name = "write_file"
     description = "Write content to a file in the workspace. Creates parent directories if needed."
+    side_effect = SideEffectClass.IDEMPOTENT_WRITE
     parameters = {
         "type": "object",
         "properties": {
@@ -118,9 +120,11 @@ class WriteFileTool(Tool):
             },
         },
         "required": ["path", "content"],
+        "additionalProperties": False,
     }
 
     async def execute(self, params: dict, ctx: ToolContext) -> ToolResult:
+        call_id = self.resolve_call_id(params, ctx)
         raw_path = params.get("path", "")
         content = params.get("content", "")
         sandbox = ctx.sandbox
@@ -128,7 +132,7 @@ class WriteFileTool(Tool):
 
         if resolved is None:
             return ToolResult(
-                call_id=params.get("_call_id", ""),
+                call_id=call_id,
                 name=self.name,
                 success=False,
                 output="",
@@ -141,7 +145,7 @@ class WriteFileTool(Tool):
             err = check_content_size(content, limit)
             if err:
                 return ToolResult(
-                    call_id=params.get("_call_id", ""),
+                    call_id=call_id,
                     name=self.name,
                     success=False,
                     output="",
@@ -150,10 +154,15 @@ class WriteFileTool(Tool):
 
         try:
             resolved.parent.mkdir(parents=True, exist_ok=True)
-            resolved.write_text(content, encoding="utf-8")
+            from src.tracing.artifacts import atomic_replace
+            from src.runtime.recovery import file_hash
+            proof = ctx.extra.get("replacement_proof")
+            if proof and file_hash(resolved) != proof["before"]:
+                raise ValueError("file changed after intent; refusing replacement")
+            atomic_replace(resolved, content.encode("utf-8"))
         except Exception as e:
             return ToolResult(
-                call_id=params.get("_call_id", ""),
+                call_id=call_id,
                 name=self.name,
                 success=False,
                 output="",
@@ -161,7 +170,7 @@ class WriteFileTool(Tool):
             )
 
         return ToolResult(
-            call_id=params.get("_call_id", ""),
+            call_id=call_id,
             name=self.name,
             success=True,
             output=f"Wrote {len(content)} bytes to {raw_path}",
@@ -171,6 +180,7 @@ class WriteFileTool(Tool):
 class ListDirTool(Tool):
     name = "list_dir"
     description = "List files and directories in the workspace."
+    side_effect = SideEffectClass.READ_ONLY
     parameters = {
         "type": "object",
         "properties": {
@@ -180,16 +190,18 @@ class ListDirTool(Tool):
             },
         },
         "required": ["path"],
+        "additionalProperties": False,
     }
 
     async def execute(self, params: dict, ctx: ToolContext) -> ToolResult:
+        call_id = self.resolve_call_id(params, ctx)
         raw_path = params.get("path", ".")
         sandbox = ctx.sandbox
         resolved = sandbox.resolve(raw_path) if sandbox else ctx.workspace_root / raw_path
 
         if resolved is None:
             return ToolResult(
-                call_id=params.get("_call_id", ""),
+                call_id=call_id,
                 name=self.name,
                 success=False,
                 output="",
@@ -198,7 +210,7 @@ class ListDirTool(Tool):
 
         if not resolved.is_dir():
             return ToolResult(
-                call_id=params.get("_call_id", ""),
+                call_id=call_id,
                 name=self.name,
                 success=False,
                 output="",
@@ -213,7 +225,7 @@ class ListDirTool(Tool):
             output = "\n".join(items) if items else "(empty directory)"
         except Exception as e:
             return ToolResult(
-                call_id=params.get("_call_id", ""),
+                call_id=call_id,
                 name=self.name,
                 success=False,
                 output="",
@@ -221,7 +233,7 @@ class ListDirTool(Tool):
             )
 
         return ToolResult(
-            call_id=params.get("_call_id", ""),
+            call_id=call_id,
             name=self.name,
             success=True,
             output=output,

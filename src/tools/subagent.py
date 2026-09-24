@@ -12,7 +12,7 @@ from src.llm.client import LLMClient
 from src.policy.budget import Budget
 from src.policy.sandbox import Sandbox
 from src.runtime.loop import AgentLoop
-from src.tools.base import Tool, ToolContext, ToolResult
+from src.tools.base import SideEffectClass, Tool, ToolContext, ToolResult
 from src.tools.files import ListDirTool, ReadFileTool
 from src.tools.registry import ToolRegistry
 from src.tracing.logger import TraceLogger
@@ -39,6 +39,7 @@ class SubagentTaskTool(Tool):
         "Delegate a focused readonly analysis task to a child agent. "
         "The child can only list directories and read files."
     )
+    side_effect = SideEffectClass.READ_ONLY
     parameters = {
         "type": "object",
         "properties": {
@@ -48,6 +49,7 @@ class SubagentTaskTool(Tool):
             },
         },
         "required": ["task"],
+        "additionalProperties": False,
     }
 
     def __init__(
@@ -63,6 +65,7 @@ class SubagentTaskTool(Tool):
         file_size_limit_bytes: int | None = None,
         tool_output_max_chars: int | None = None,
         read_file_max_lines: int | None = None,
+        model_ledger=None,
     ):
         self.llm = llm
         self.output_dir = Path(output_dir)
@@ -74,9 +77,10 @@ class SubagentTaskTool(Tool):
         self.file_size_limit_bytes = file_size_limit_bytes
         self.tool_output_max_chars = tool_output_max_chars
         self.read_file_max_lines = read_file_max_lines
+        self.model_ledger = model_ledger
 
     async def execute(self, params: dict[str, Any], ctx: ToolContext) -> ToolResult:
-        call_id = params.get("_call_id", "")
+        call_id = self.resolve_call_id(params, ctx)
         task = str(params.get("task", "")).strip()
 
         if not task:
@@ -114,14 +118,25 @@ class SubagentTaskTool(Tool):
         tools.register(ReadFileTool())
         tools.register(ListDirTool())
 
+        # Share parent ledger when present; child still has its own step budget but
+        # model calls debit the shared ledger. Parent deadline/cancel via cancel_event.
+        parent_deadline = ctx.extra.get("deadline")
+        parent_cancel = ctx.extra.get("cancel_event")
+        child_timeout = self.total_timeout_seconds
+        if parent_deadline is not None:
+            rem = parent_deadline.remaining()
+            if rem is not None:
+                child_timeout = min(child_timeout, max(0.01, rem))
+
         child = AgentLoop(
             llm=self.llm,
             tools=tools,
             sandbox=Sandbox(workspace_root=ctx.workspace_root),
             budget=Budget(
                 max_steps=self.max_steps,
-                total_timeout_seconds=self.total_timeout_seconds,
+                total_timeout_seconds=child_timeout,
                 step_timeout_seconds=self.step_timeout_seconds,
+                model_ledger=self.model_ledger,
             ),
             tracer=tracer,
             enabled_tools=["read_file", "list_dir"],
@@ -129,7 +144,13 @@ class SubagentTaskTool(Tool):
             tool_output_max_chars=self.tool_output_max_chars,
             read_file_max_lines=self.read_file_max_lines,
             system_prompt=READONLY_SUBAGENT_PROMPT,
+            cancel_event=parent_cancel,
+            model_ledger=self.model_ledger,
         )
+        # Align child run deadline with remaining parent deadline when available.
+        if parent_deadline is not None and parent_deadline.run_deadline_mono is not None:
+            child.deadline.run_deadline_mono = parent_deadline.run_deadline_mono
+            child.deadline.cancel_event = parent_cancel or parent_deadline.cancel_event
 
         result = await child.run(task, task_id=child_id)
         trace = TraceRun(

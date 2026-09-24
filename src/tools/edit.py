@@ -6,7 +6,7 @@ with new_string. Unlike search_replace, it does NOT require exactly one match.
 
 from __future__ import annotations
 
-from src.tools.base import Tool, ToolContext, ToolResult
+from src.tools.base import SideEffectClass, Tool, ToolContext, ToolResult
 
 
 class EditFileTool(Tool):
@@ -15,6 +15,7 @@ class EditFileTool(Tool):
         "Replace the first occurrence of old_string with new_string in a file. "
         "Does NOT require the match to be unique."
     )
+    side_effect = SideEffectClass.IDEMPOTENT_WRITE
     parameters = {
         "type": "object",
         "properties": {
@@ -32,13 +33,14 @@ class EditFileTool(Tool):
             },
         },
         "required": ["path", "old_string", "new_string"],
+        "additionalProperties": False,
     }
 
     async def execute(self, params: dict, ctx: ToolContext) -> ToolResult:
         raw_path = params.get("path", "")
         old_str = params.get("old_string", "")
         new_str = params.get("new_string", "")
-        call_id = params.get("_call_id", "")
+        call_id = self.resolve_call_id(params, ctx)
 
         sandbox = ctx.sandbox
         resolved = sandbox.resolve(raw_path) if sandbox else ctx.workspace_root / raw_path

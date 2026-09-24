@@ -5,7 +5,7 @@ English: exact single-match search/replace for small edits.
 
 from __future__ import annotations
 
-from src.tools.base import Tool, ToolContext, ToolResult
+from src.tools.base import SideEffectClass, Tool, ToolContext, ToolResult
 
 
 class SearchReplaceTool(Tool):
@@ -14,6 +14,7 @@ class SearchReplaceTool(Tool):
         "Search for a string in a file and replace it. "
         "The search string must match exactly once; use for small targeted edits."
     )
+    side_effect = SideEffectClass.IDEMPOTENT_WRITE
     parameters = {
         "type": "object",
         "properties": {
@@ -31,13 +32,14 @@ class SearchReplaceTool(Tool):
             },
         },
         "required": ["path", "search", "replace"],
+        "additionalProperties": False,
     }
 
     async def execute(self, params: dict, ctx: ToolContext) -> ToolResult:
         raw_path = params.get("path", "")
         search = params.get("search", "")
         replace = params.get("replace", "")
-        call_id = params.get("_call_id", "")
+        call_id = self.resolve_call_id(params, ctx)
 
         sandbox = ctx.sandbox
         resolved = sandbox.resolve(raw_path) if sandbox else ctx.workspace_root / raw_path
