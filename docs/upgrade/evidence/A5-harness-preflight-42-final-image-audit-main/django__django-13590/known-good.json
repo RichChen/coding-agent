@@ -1,0 +1,47 @@
+{
+  "task_id": "django__django-13590",
+  "kind": "known-good",
+  "image": "coding-harness-a5-known-good@sha256:53f64134485a7ffe49c70f548ca7e43a22d54aedb10f34ed9f7fb912adb282a7",
+  "status": "verified",
+  "model_calls": 0,
+  "paid": false,
+  "expected_members": 9520,
+  "mismatches": [],
+  "generated": {
+    "Django.egg-info": {
+      "kind": "dir",
+      "size": 180
+    },
+    "Django.egg-info/top_level.txt": {
+      "kind": "file",
+      "size": 7
+    },
+    "Django.egg-info/requires.txt": {
+      "kind": "file",
+      "size": 84
+    },
+    "Django.egg-info/not-zip-safe": {
+      "kind": "file",
+      "size": 1
+    },
+    "Django.egg-info/entry_points.txt": {
+      "kind": "file",
+      "size": 83
+    },
+    "Django.egg-info/dependency_links.txt": {
+      "kind": "file",
+      "size": 1
+    },
+    "Django.egg-info/SOURCES.txt": {
+      "kind": "file",
+      "size": 295768
+    },
+    "Django.egg-info/PKG-INFO": {
+      "kind": "file",
+      "size": 3821
+    }
+  },
+  "environment": "asgiref==3.5.2\n# Editable install with no version control (Django==3.2)\n-e /workspace\nexceptiongroup==1.3.1\niniconfig==2.1.0\npackaging==26.3\npip==23.0.1\npluggy==1.6.0\npytest==7.4.4\npytz==2023.3\nsetuptools==58.1.0\nsqlparse==0.4.4\ntomli==2.4.1\ntyping_extensions==4.16.0\nwheel==0.44.0\n",
+  "python": "3.9.19",
+  "cleanup_verified": true
+}

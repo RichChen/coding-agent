@@ -1,0 +1,48 @@
+{
+  "assigned_task_ids": [
+    "public-settings-001"
+  ],
+  "public_task_hash": "81d300c845fa6670079320f4e6573fab67cc330b4e0bd7c794fa976719f1fa5c",
+  "config_hash": "5b2ce57adf671728d0efabb5b5b95053abf3db896a701be9ddee47f29758bcf6",
+  "code_hash": "1627705cfcc00dd78d80ff15669d7ec97a2c008107c0eea76e29c7595b3c4fd7",
+  "base_hash": "480d581e78fdc09ece114125f80b9b139295d0b02ebeca115b5d08a6c47838a4",
+  "private_spec_hash": "d39f25ec6189ca4b504bb7a18ecbd2eae515c5922900f70e456840d4b3a959bc",
+  "model": "deepseek-flash",
+  "context": "desktop-linux",
+  "agent_capabilities": {
+    "profile": "docker_linux",
+    "platform": "linux-container",
+    "image": "coding-harness-h3-tests@sha256:18872d18b9bc347cf4441b1d9b53b9662ea719f057bd471c7d4cbfce4dc2e78e",
+    "context": "desktop-linux",
+    "cancel": true,
+    "filesystem_isolation": true,
+    "network_control": true,
+    "network_default": "none",
+    "resource_limits": true,
+    "complete_isolation": false,
+    "cpu_limit": 1.0,
+    "memory_limit_bytes": 536870912,
+    "pids_limit": 128,
+    "workspace_limit_bytes": 67108864,
+    "tmpfs_limit_bytes": 16777216,
+    "tree_reclaim_guaranteed": true,
+    "privileged": false,
+    "docker_socket_mounted": false,
+    "host_mounts": false,
+    "workspace_transfer_limit": 8388608
+  },
+  "enforced_budget": {
+    "max_steps": 8,
+    "total_timeout_seconds": 120,
+    "step_timeout_seconds": 30,
+    "max_model_calls": 4,
+    "max_tokens": 16000,
+    "max_cost_usd": 0.03
+  },
+  "python": "3.13.9 | packaged by Anaconda, Inc. | (main, Oct 21 2025, 19:09:58) [MSC v.1929 64 bit (AMD64)]",
+  "host_platform": "Windows-10-10.0.19045-SP0",
+  "git_commit": "1f5903b620895ad8af3289ffeae529c15c3576a0",
+  "code_hash_includes_uncommitted_source": true,
+  "schema": "h3.bundle.v1",
+  "results_hash": "1fc4d624a708d6c35efab31bc8bbe158ae9c58d1678f26033ff5ea79bd41fc37"
+}

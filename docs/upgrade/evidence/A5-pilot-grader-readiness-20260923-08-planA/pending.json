@@ -1,0 +1,52 @@
+{
+  "schema": "a5.h3-harness-pending.plan-a.v1",
+  "contract_ref": {
+    "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\A5-REAL240-HARNESS-CONTRACT.zh-CN.md",
+    "sha256": "87a9e8013250a63c686090fb71c605c2db91fba6c722b7ee7e14253a05c25fa7"
+  },
+  "items": [
+    {
+      "id": "agent_b0_b3_semantics",
+      "status": "pending_agent",
+      "need": "agent-side B0/B1/B2/B3 runtime semantics, memory view, injection location, and injection receipt schema"
+    },
+    {
+      "id": "agent_target_binding",
+      "status": "pending_agent",
+      "need": "agent-side canonical_id/agent_task_id/public_task/base mapping and 20-target grader readiness consumption"
+    },
+    {
+      "id": "agent_consumption_manifest",
+      "status": "pending_agent",
+      "need": "agent-side manifest/hash for the allowed validated_lightweight memory snapshot"
+    },
+    {
+      "id": "matrix_coverage_crosscheck",
+      "status": "pending_agent",
+      "need": "agent-side confirmation of unchanged 20 x B0-B3 x seed 42/43/44 coverage (240 rows)"
+    },
+    {
+      "id": "dual_fingerprint_refreeze",
+      "status": "must_refreeze_after_both_sides_change",
+      "need": "recompute and freeze harness and coding-agent source fingerprints after both sides finish H3 changes; current pending fingerprint is not an H3 authorization"
+    },
+    {
+      "id": "h3_manifest_hash_recheck",
+      "status": "pending_both_sides",
+      "need": "cross-check agent package hashes against this handoff, model binding, matrix lock, and receipt schemas"
+    },
+    {
+      "id": "receipt_importer",
+      "status": "pending_harness",
+      "need": "final B0-B3 injection/grader/cleanup/usage receipt importer validation before any real run"
+    },
+    {
+      "id": "paid_authorization",
+      "status": "not_requested",
+      "need": "explicit paid pilot authorization remains required; this Plan A package grants none"
+    }
+  ],
+  "model_calls": 0,
+  "paid": false,
+  "pilot_started": false
+}

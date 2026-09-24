@@ -1,0 +1,501 @@
+{
+  "task_id": "old-facts",
+  "success": true,
+  "final_answer": "{\"endpoint\": null, \"timeout_ms\": null, \"retry_limit\": null, \"idempotency_header\": null}",
+  "failure_reason": "none",
+  "steps": [],
+  "total_elapsed_ms": 3694.309099999373,
+  "total_tokens": 5075,
+  "tool_failures": 0,
+  "policy_blocks": 0,
+  "total_tool_invocations": 0,
+  "plan": null,
+  "context_events": [
+    {
+      "strategy": "summary",
+      "requested": "summary",
+      "actually_injected": "summary",
+      "summary_provider": "llm",
+      "raw_message_hash": "2f81fb2a547ad2e93f3969ddb063e882b13e458c8c7501a2ac81478b8ec11581",
+      "raw_serialized_bytes": 17925,
+      "summary_records": [
+        {
+          "summary_id": "5a64044d224748dfbaf7d56951bb32d9",
+          "provider": "llm",
+          "model": "deepseek-flash",
+          "provider_binding": {
+            "provider": "llm",
+            "adapter": "host-llm-summary-1",
+            "model": "deepseek-flash",
+            "endpoint": "https://api.deepseek.com/v1",
+            "thinking": "disabled"
+          },
+          "prompt_version": "true-summary-1",
+          "config_version": "r2-lite-1",
+          "prompt_hash": "e7c163d0911fd1df34da112001747c50a1f398757be9a05e5ec7f1db7f43fa7b",
+          "config_hash": "b36b6083456002b1b0c2a4d2dc0401363501e4ec5024a883a7f8d2648a5575a7",
+          "raw_message_hash": "2f81fb2a547ad2e93f3969ddb063e882b13e458c8c7501a2ac81478b8ec11581",
+          "source_hash": "e9902bec59e258e3b09663eb9a686754e6325b809a1b8f75b9de1e4679d9f432",
+          "source_start": 2,
+          "source_end": 10,
+          "source_event_seq": 3,
+          "source_event_range": [
+            3,
+            3
+          ],
+          "source_step_range": [
+            0,
+            3
+          ],
+          "source_step_range_kind": "zero_based_raw_assistant_turns",
+          "snapshot_step": 0,
+          "source_range_kind": "raw_history_snapshot",
+          "generated_step": 0,
+          "status": "llm_success",
+          "text": "The user asked to recover the CURRENT accepted deployment settings from earlier public observations and return only a JSON object with keys endpoint, timeout_ms, retry_limit, idempotency_header, using documented values rather than defaults or guesses, and null where unsupported by visible evidence; they also stated not to infer configuration from record counts, timestamps, or route enumeration, that no new tools are available, and not to claim the integration issue is fixed. Four read_file calls were made on public-0.txt through public-3.txt. The batch 0 tool output contained an authoritative public release record labeled as the accepted CURRENT deployment configuration: {\"endpoint\": \"/v2/telemetry\", \"idempotency_header\": \"X-Run-Token\", \"retry_limit\": 3, \"timeout_ms\": 1750}, followed by inventory records 000-043 for component_0_*. Batches 1, 2, and 3 outputs contained only inventory/navigation records (component_1_*, component_2_*, component_3_*, records 000-043 each) explicitly described as navigation records only, not configuration defaults. No errors were reported in the tool outputs. No tests, file changes, or fixes were performed or verified, and the integration issue was not claimed fixed. The requested final JSON object was not produced in the visible events.",
+          "model_calls": 1,
+          "usage": {
+            "prompt_tokens": 4218,
+            "completion_tokens": 285,
+            "total_tokens": 4503,
+            "provenance": "provider",
+            "prompt_cache_hit_tokens": 0,
+            "prompt_cache_miss_tokens": 4218
+          },
+          "usage_provenance": "provider",
+          "input_tokens": 4218,
+          "output_tokens": 285,
+          "total_tokens": 4503,
+          "cost_usd": 0.0016073999999999997,
+          "cost_provenance": "price_table_estimate",
+          "started_at": "2026-09-21T08:45:57.335891+00:00",
+          "elapsed_seconds": 2.2528527000104077,
+          "before_bytes": 16940,
+          "after_bytes": 1533,
+          "estimated_input_tokens": 4241,
+          "estimated_output_tokens": 384,
+          "request_size": {
+            "serialized_bytes": 18750,
+            "estimated_input_tokens": 4688,
+            "admission_input_tokens": 19326,
+            "reserved_output_tokens": 512,
+            "estimate_method": "utf8_bytes_div_4_estimated",
+            "admission_method": "utf8_bytes_plus_protocol_allowance"
+          },
+          "tokens_committed": 4503,
+          "cost_committed_usd": 0.0016073999999999997,
+          "price_table": {
+            "prompt_per_1k": 0.0003,
+            "completion_per_1k": 0.0012
+          },
+          "currency": "USD",
+          "price_version": "deepseek-official-2026-09-21-peak",
+          "completed_at": "2026-09-21T08:45:59.627113+00:00"
+        }
+      ],
+      "overflow": false,
+      "serialized_bytes": 2544,
+      "estimated_input_tokens": 636,
+      "admission_input_tokens": 3216,
+      "reserved_output_tokens": 512,
+      "estimate_method": "utf8_bytes_div_4_estimated",
+      "admission_method": "utf8_bytes_plus_protocol_allowance",
+      "summary_calls": 1,
+      "summary_model_calls": 1,
+      "summary_accounting": {
+        "provider": "llm",
+        "model_calls": 1,
+        "known_total_tokens": 4503,
+        "unknown_usage_calls": 0,
+        "tokens_committed": 4503,
+        "estimated_cost_usd": 0.0016073999999999997,
+        "cost_committed_usd": 0.0016073999999999997,
+        "elapsed_seconds": 2.2528527000104077,
+        "records": [
+          {
+            "summary_id": "5a64044d224748dfbaf7d56951bb32d9",
+            "provider": "llm",
+            "model": "deepseek-flash",
+            "provider_binding": {
+              "provider": "llm",
+              "adapter": "host-llm-summary-1",
+              "model": "deepseek-flash",
+              "endpoint": "https://api.deepseek.com/v1",
+              "thinking": "disabled"
+            },
+            "prompt_version": "true-summary-1",
+            "config_version": "r2-lite-1",
+            "prompt_hash": "e7c163d0911fd1df34da112001747c50a1f398757be9a05e5ec7f1db7f43fa7b",
+            "config_hash": "b36b6083456002b1b0c2a4d2dc0401363501e4ec5024a883a7f8d2648a5575a7",
+            "raw_message_hash": "2f81fb2a547ad2e93f3969ddb063e882b13e458c8c7501a2ac81478b8ec11581",
+            "source_hash": "e9902bec59e258e3b09663eb9a686754e6325b809a1b8f75b9de1e4679d9f432",
+            "source_start": 2,
+            "source_end": 10,
+            "source_event_seq": 3,
+            "source_event_range": [
+              3,
+              3
+            ],
+            "source_step_range": [
+              0,
+              3
+            ],
+            "source_step_range_kind": "zero_based_raw_assistant_turns",
+            "snapshot_step": 0,
+            "source_range_kind": "raw_history_snapshot",
+            "generated_step": 0,
+            "status": "llm_success",
+            "text": "The user asked to recover the CURRENT accepted deployment settings from earlier public observations and return only a JSON object with keys endpoint, timeout_ms, retry_limit, idempotency_header, using documented values rather than defaults or guesses, and null where unsupported by visible evidence; they also stated not to infer configuration from record counts, timestamps, or route enumeration, that no new tools are available, and not to claim the integration issue is fixed. Four read_file calls were made on public-0.txt through public-3.txt. The batch 0 tool output contained an authoritative public release record labeled as the accepted CURRENT deployment configuration: {\"endpoint\": \"/v2/telemetry\", \"idempotency_header\": \"X-Run-Token\", \"retry_limit\": 3, \"timeout_ms\": 1750}, followed by inventory records 000-043 for component_0_*. Batches 1, 2, and 3 outputs contained only inventory/navigation records (component_1_*, component_2_*, component_3_*, records 000-043 each) explicitly described as navigation records only, not configuration defaults. No errors were reported in the tool outputs. No tests, file changes, or fixes were performed or verified, and the integration issue was not claimed fixed. The requested final JSON object was not produced in the visible events.",
+            "model_calls": 1,
+            "usage": {
+              "prompt_tokens": 4218,
+              "completion_tokens": 285,
+              "total_tokens": 4503,
+              "provenance": "provider",
+              "prompt_cache_hit_tokens": 0,
+              "prompt_cache_miss_tokens": 4218
+            },
+            "usage_provenance": "provider",
+            "input_tokens": 4218,
+            "output_tokens": 285,
+            "total_tokens": 4503,
+            "cost_usd": 0.0016073999999999997,
+            "cost_provenance": "price_table_estimate",
+            "started_at": "2026-09-21T08:45:57.335891+00:00",
+            "elapsed_seconds": 2.2528527000104077,
+            "before_bytes": 16940,
+            "after_bytes": 1533,
+            "estimated_input_tokens": 4241,
+            "estimated_output_tokens": 384,
+            "request_size": {
+              "serialized_bytes": 18750,
+              "estimated_input_tokens": 4688,
+              "admission_input_tokens": 19326,
+              "reserved_output_tokens": 512,
+              "estimate_method": "utf8_bytes_div_4_estimated",
+              "admission_method": "utf8_bytes_plus_protocol_allowance"
+            },
+            "tokens_committed": 4503,
+            "cost_committed_usd": 0.0016073999999999997,
+            "price_table": {
+              "prompt_per_1k": 0.0003,
+              "completion_per_1k": 0.0012
+            },
+            "currency": "USD",
+            "price_version": "deepseek-official-2026-09-21-peak",
+            "completed_at": "2026-09-21T08:45:59.627113+00:00"
+          }
+        ]
+      },
+      "manager_state": {
+        "schema_version": "0.1",
+        "summary_calls": 1,
+        "summaries": [
+          {
+            "summary_id": "5a64044d224748dfbaf7d56951bb32d9",
+            "provider": "llm",
+            "model": "deepseek-flash",
+            "provider_binding": {
+              "provider": "llm",
+              "adapter": "host-llm-summary-1",
+              "model": "deepseek-flash",
+              "endpoint": "https://api.deepseek.com/v1",
+              "thinking": "disabled"
+            },
+            "prompt_version": "true-summary-1",
+            "config_version": "r2-lite-1",
+            "prompt_hash": "e7c163d0911fd1df34da112001747c50a1f398757be9a05e5ec7f1db7f43fa7b",
+            "config_hash": "b36b6083456002b1b0c2a4d2dc0401363501e4ec5024a883a7f8d2648a5575a7",
+            "raw_message_hash": "2f81fb2a547ad2e93f3969ddb063e882b13e458c8c7501a2ac81478b8ec11581",
+            "source_hash": "e9902bec59e258e3b09663eb9a686754e6325b809a1b8f75b9de1e4679d9f432",
+            "source_start": 2,
+            "source_end": 10,
+            "source_event_seq": 3,
+            "source_event_range": [
+              3,
+              3
+            ],
+            "source_step_range": [
+              0,
+              3
+            ],
+            "source_step_range_kind": "zero_based_raw_assistant_turns",
+            "snapshot_step": 0,
+            "source_range_kind": "raw_history_snapshot",
+            "generated_step": 0,
+            "status": "llm_success",
+            "text": "The user asked to recover the CURRENT accepted deployment settings from earlier public observations and return only a JSON object with keys endpoint, timeout_ms, retry_limit, idempotency_header, using documented values rather than defaults or guesses, and null where unsupported by visible evidence; they also stated not to infer configuration from record counts, timestamps, or route enumeration, that no new tools are available, and not to claim the integration issue is fixed. Four read_file calls were made on public-0.txt through public-3.txt. The batch 0 tool output contained an authoritative public release record labeled as the accepted CURRENT deployment configuration: {\"endpoint\": \"/v2/telemetry\", \"idempotency_header\": \"X-Run-Token\", \"retry_limit\": 3, \"timeout_ms\": 1750}, followed by inventory records 000-043 for component_0_*. Batches 1, 2, and 3 outputs contained only inventory/navigation records (component_1_*, component_2_*, component_3_*, records 000-043 each) explicitly described as navigation records only, not configuration defaults. No errors were reported in the tool outputs. No tests, file changes, or fixes were performed or verified, and the integration issue was not claimed fixed. The requested final JSON object was not produced in the visible events.",
+            "model_calls": 1,
+            "usage": {
+              "prompt_tokens": 4218,
+              "completion_tokens": 285,
+              "total_tokens": 4503,
+              "provenance": "provider",
+              "prompt_cache_hit_tokens": 0,
+              "prompt_cache_miss_tokens": 4218
+            },
+            "usage_provenance": "provider",
+            "input_tokens": 4218,
+            "output_tokens": 285,
+            "total_tokens": 4503,
+            "cost_usd": 0.0016073999999999997,
+            "cost_provenance": "price_table_estimate",
+            "started_at": "2026-09-21T08:45:57.335891+00:00",
+            "elapsed_seconds": 2.2528527000104077,
+            "before_bytes": 16940,
+            "after_bytes": 1533,
+            "estimated_input_tokens": 4241,
+            "estimated_output_tokens": 384,
+            "request_size": {
+              "serialized_bytes": 18750,
+              "estimated_input_tokens": 4688,
+              "admission_input_tokens": 19326,
+              "reserved_output_tokens": 512,
+              "estimate_method": "utf8_bytes_div_4_estimated",
+              "admission_method": "utf8_bytes_plus_protocol_allowance"
+            },
+            "tokens_committed": 4503,
+            "cost_committed_usd": 0.0016073999999999997,
+            "price_table": {
+              "prompt_per_1k": 0.0003,
+              "completion_per_1k": 0.0012
+            },
+            "currency": "USD",
+            "price_version": "deepseek-official-2026-09-21-peak",
+            "completed_at": "2026-09-21T08:45:59.627113+00:00"
+          }
+        ],
+        "plugin_state": {},
+        "summary_provider": "llm",
+        "summary_attempts": [
+          {
+            "summary_id": "5a64044d224748dfbaf7d56951bb32d9",
+            "provider": "llm",
+            "model": "deepseek-flash",
+            "provider_binding": {
+              "provider": "llm",
+              "adapter": "host-llm-summary-1",
+              "model": "deepseek-flash",
+              "endpoint": "https://api.deepseek.com/v1",
+              "thinking": "disabled"
+            },
+            "prompt_version": "true-summary-1",
+            "config_version": "r2-lite-1",
+            "prompt_hash": "e7c163d0911fd1df34da112001747c50a1f398757be9a05e5ec7f1db7f43fa7b",
+            "config_hash": "b36b6083456002b1b0c2a4d2dc0401363501e4ec5024a883a7f8d2648a5575a7",
+            "raw_message_hash": "2f81fb2a547ad2e93f3969ddb063e882b13e458c8c7501a2ac81478b8ec11581",
+            "source_hash": "e9902bec59e258e3b09663eb9a686754e6325b809a1b8f75b9de1e4679d9f432",
+            "source_start": 2,
+            "source_end": 10,
+            "source_event_seq": 3,
+            "source_event_range": [
+              3,
+              3
+            ],
+            "source_step_range": [
+              0,
+              3
+            ],
+            "source_step_range_kind": "zero_based_raw_assistant_turns",
+            "snapshot_step": 0,
+            "source_range_kind": "raw_history_snapshot",
+            "generated_step": 0,
+            "status": "llm_success",
+            "text": "The user asked to recover the CURRENT accepted deployment settings from earlier public observations and return only a JSON object with keys endpoint, timeout_ms, retry_limit, idempotency_header, using documented values rather than defaults or guesses, and null where unsupported by visible evidence; they also stated not to infer configuration from record counts, timestamps, or route enumeration, that no new tools are available, and not to claim the integration issue is fixed. Four read_file calls were made on public-0.txt through public-3.txt. The batch 0 tool output contained an authoritative public release record labeled as the accepted CURRENT deployment configuration: {\"endpoint\": \"/v2/telemetry\", \"idempotency_header\": \"X-Run-Token\", \"retry_limit\": 3, \"timeout_ms\": 1750}, followed by inventory records 000-043 for component_0_*. Batches 1, 2, and 3 outputs contained only inventory/navigation records (component_1_*, component_2_*, component_3_*, records 000-043 each) explicitly described as navigation records only, not configuration defaults. No errors were reported in the tool outputs. No tests, file changes, or fixes were performed or verified, and the integration issue was not claimed fixed. The requested final JSON object was not produced in the visible events.",
+            "model_calls": 1,
+            "usage": {
+              "prompt_tokens": 4218,
+              "completion_tokens": 285,
+              "total_tokens": 4503,
+              "provenance": "provider",
+              "prompt_cache_hit_tokens": 0,
+              "prompt_cache_miss_tokens": 4218
+            },
+            "usage_provenance": "provider",
+            "input_tokens": 4218,
+            "output_tokens": 285,
+            "total_tokens": 4503,
+            "cost_usd": 0.0016073999999999997,
+            "cost_provenance": "price_table_estimate",
+            "started_at": "2026-09-21T08:45:57.335891+00:00",
+            "elapsed_seconds": 2.2528527000104077,
+            "before_bytes": 16940,
+            "after_bytes": 1533,
+            "estimated_input_tokens": 4241,
+            "estimated_output_tokens": 384,
+            "request_size": {
+              "serialized_bytes": 18750,
+              "estimated_input_tokens": 4688,
+              "admission_input_tokens": 19326,
+              "reserved_output_tokens": 512,
+              "estimate_method": "utf8_bytes_div_4_estimated",
+              "admission_method": "utf8_bytes_plus_protocol_allowance"
+            },
+            "tokens_committed": 4503,
+            "cost_committed_usd": 0.0016073999999999997,
+            "price_table": {
+              "prompt_per_1k": 0.0003,
+              "completion_per_1k": 0.0012
+            },
+            "currency": "USD",
+            "price_version": "deepseek-official-2026-09-21-peak",
+            "completed_at": "2026-09-21T08:45:59.627113+00:00"
+          }
+        ],
+        "dispatch_calls": 0,
+        "dispatch_receipts": [],
+        "dispatch_observations": []
+      },
+      "plugin": {
+        "name": "noop",
+        "requested": [],
+        "actually_injected": [],
+        "rejected": [],
+        "action_proposals": [],
+        "method_degraded": false,
+        "policy_error": null,
+        "schema_version": "0.1",
+        "ignored_optional_fields": [],
+        "events": []
+      },
+      "max_tokens": 8000,
+      "view_hash": "0860aa5a3c1972b5cd89f7fa1a4db700244e4de27e6dd851672602f2a466d0a2",
+      "view_serialized_bytes": 2520,
+      "step": 0
+    }
+  ],
+  "subagent_traces": [],
+  "llm_attempts": [
+    {
+      "attempt": 0,
+      "success": true,
+      "error_kind": null,
+      "status_code": null,
+      "message": null,
+      "elapsed_ms": 591.2078999972437,
+      "usage": {
+        "prompt_tokens": 543,
+        "completion_tokens": 29,
+        "total_tokens": 572,
+        "provenance": "provider",
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 543
+      },
+      "usage_provenance": "provider"
+    }
+  ],
+  "termination_kind": null,
+  "cleanup_elapsed_s": null,
+  "model_budget": {
+    "calls_started": 2,
+    "tokens_committed": 5075,
+    "cost_committed": 0.0018050999999999998,
+    "outstanding_reservations": 0,
+    "max_model_calls": 2,
+    "max_tokens": 131072,
+    "max_cost_usd": 0.05,
+    "settlements": [
+      {
+        "total_tokens": 4503,
+        "provenance": "provider",
+        "cost_usd": 0.0016073999999999997,
+        "cost_provenance": "provider_split",
+        "note": null
+      },
+      {
+        "total_tokens": 572,
+        "provenance": "provider",
+        "cost_usd": 0.0001977,
+        "cost_provenance": "provider_split",
+        "note": null
+      }
+    ]
+  },
+  "run_output": null,
+  "execution": null,
+  "summary": {
+    "provider": "llm",
+    "model_calls": 1,
+    "known_total_tokens": 4503,
+    "unknown_usage_calls": 0,
+    "tokens_committed": 4503,
+    "estimated_cost_usd": 0.0016073999999999997,
+    "cost_committed_usd": 0.0016073999999999997,
+    "elapsed_seconds": 2.2528527000104077,
+    "records": [
+      {
+        "summary_id": "5a64044d224748dfbaf7d56951bb32d9",
+        "provider": "llm",
+        "model": "deepseek-flash",
+        "provider_binding": {
+          "provider": "llm",
+          "adapter": "host-llm-summary-1",
+          "model": "deepseek-flash",
+          "endpoint": "https://api.deepseek.com/v1",
+          "thinking": "disabled"
+        },
+        "prompt_version": "true-summary-1",
+        "config_version": "r2-lite-1",
+        "prompt_hash": "e7c163d0911fd1df34da112001747c50a1f398757be9a05e5ec7f1db7f43fa7b",
+        "config_hash": "b36b6083456002b1b0c2a4d2dc0401363501e4ec5024a883a7f8d2648a5575a7",
+        "raw_message_hash": "2f81fb2a547ad2e93f3969ddb063e882b13e458c8c7501a2ac81478b8ec11581",
+        "source_hash": "e9902bec59e258e3b09663eb9a686754e6325b809a1b8f75b9de1e4679d9f432",
+        "source_start": 2,
+        "source_end": 10,
+        "source_event_seq": 3,
+        "source_event_range": [
+          3,
+          3
+        ],
+        "source_step_range": [
+          0,
+          3
+        ],
+        "source_step_range_kind": "zero_based_raw_assistant_turns",
+        "snapshot_step": 0,
+        "source_range_kind": "raw_history_snapshot",
+        "generated_step": 0,
+        "status": "llm_success",
+        "text": "The user asked to recover the CURRENT accepted deployment settings from earlier public observations and return only a JSON object with keys endpoint, timeout_ms, retry_limit, idempotency_header, using documented values rather than defaults or guesses, and null where unsupported by visible evidence; they also stated not to infer configuration from record counts, timestamps, or route enumeration, that no new tools are available, and not to claim the integration issue is fixed. Four read_file calls were made on public-0.txt through public-3.txt. The batch 0 tool output contained an authoritative public release record labeled as the accepted CURRENT deployment configuration: {\"endpoint\": \"/v2/telemetry\", \"idempotency_header\": \"X-Run-Token\", \"retry_limit\": 3, \"timeout_ms\": 1750}, followed by inventory records 000-043 for component_0_*. Batches 1, 2, and 3 outputs contained only inventory/navigation records (component_1_*, component_2_*, component_3_*, records 000-043 each) explicitly described as navigation records only, not configuration defaults. No errors were reported in the tool outputs. No tests, file changes, or fixes were performed or verified, and the integration issue was not claimed fixed. The requested final JSON object was not produced in the visible events.",
+        "model_calls": 1,
+        "usage": {
+          "prompt_tokens": 4218,
+          "completion_tokens": 285,
+          "total_tokens": 4503,
+          "provenance": "provider",
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 4218
+        },
+        "usage_provenance": "provider",
+        "input_tokens": 4218,
+        "output_tokens": 285,
+        "total_tokens": 4503,
+        "cost_usd": 0.0016073999999999997,
+        "cost_provenance": "price_table_estimate",
+        "started_at": "2026-09-21T08:45:57.335891+00:00",
+        "elapsed_seconds": 2.2528527000104077,
+        "before_bytes": 16940,
+        "after_bytes": 1533,
+        "estimated_input_tokens": 4241,
+        "estimated_output_tokens": 384,
+        "request_size": {
+          "serialized_bytes": 18750,
+          "estimated_input_tokens": 4688,
+          "admission_input_tokens": 19326,
+          "reserved_output_tokens": 512,
+          "estimate_method": "utf8_bytes_div_4_estimated",
+          "admission_method": "utf8_bytes_plus_protocol_allowance"
+        },
+        "tokens_committed": 4503,
+        "cost_committed_usd": 0.0016073999999999997,
+        "price_table": {
+          "prompt_per_1k": 0.0003,
+          "completion_per_1k": 0.0012
+        },
+        "currency": "USD",
+        "price_version": "deepseek-official-2026-09-21-peak",
+        "completed_at": "2026-09-21T08:45:59.627113+00:00"
+      }
+    ]
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "task_id": "django__django-13265",
+  "repo": "django/django",
+  "base_revision": "b2b0711b555fa292751763c2df4fe577c396f265",
+  "role": "target",
+  "status": "image_context_ready",
+  "attempt": 20,
+  "retries": 0,
+  "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\django__django-13265\\source-receipt.json",
+  "image_digest": null,
+  "model_calls": 0,
+  "paid": false,
+  "source": {
+    "archive_sha256": "1f33092ede7bdacc03c825df4b170d0eaae2c3ce47944a04eedb22b9e2e1345c",
+    "archive_bytes": 9340862,
+    "inventory_sha256": "5d8a3b133cf9db0dfa1051769b7738c74deb5ff6381b5edd83588a5cba7490eb",
+    "file_count": 6393,
+    "total_bytes": 38513500,
+    "source_tree_hash": null,
+    "nonregular_paths": [
+      "docs/_theme/djangodocs-epub/static/docicons-behindscenes.png",
+      "docs/_theme/djangodocs-epub/static/docicons-note.png",
+      "docs/_theme/djangodocs-epub/static/docicons-philosophy.png",
+      "docs/_theme/djangodocs-epub/static/docicons-warning.png"
+    ],
+    "complete_member_inventory_verified": true,
+    "within_runtime_limits": false
+  },
+  "transport_mode": "image_backed_base_plus_delta",
+  "base_image": "python@sha256:603879aeff06df23f0d392a19f7ce02aa85e14e6b4d25fd9647b116e0cb93467",
+  "image_context": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-21-image-contexts\\tasks\\django__django-13265\\image-context",
+  "image_context_sha256": "09083a0031fe0777ea3ffeb139304c140b4a104a6bf8c4d1fb921d438550df1b",
+  "reason": "docker_build_deferred",
+  "duration_seconds": 0.7805376999895088
+}

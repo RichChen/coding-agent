@@ -1,0 +1,20 @@
+{
+  "image": "coding-harness-a5-known-good@sha256:dc05f30b2ecdf38532fffeee38196a6a2fef667b68e4c7b24a6e7e10597abe7b",
+  "args": [
+    "-q",
+    "--tb=short",
+    "testing"
+  ],
+  "status": "invalid_env",
+  "model_calls": 0,
+  "paid": false,
+  "reason": "DockerUnavailable: Docker control unavailable: PermissionError",
+  "cleanup_verified": true,
+  "lifecycle": [
+    {
+      "event": "destroyed",
+      "container": "h3-5bf3ec0844344844b9e67043b7403144",
+      "elapsed_s": 8.00006091594696e-07
+    }
+  ]
+}

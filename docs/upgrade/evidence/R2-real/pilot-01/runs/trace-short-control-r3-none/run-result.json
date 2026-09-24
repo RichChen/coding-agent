@@ -1,0 +1,124 @@
+{
+  "task_id": "short-control",
+  "success": true,
+  "final_answer": "{\"endpoint\":\"/v1/health-events\",\"timeout_ms\":850,\"retry_limit\":4,\"idempotency_header\":\"X-Event-Nonce\"}",
+  "failure_reason": "none",
+  "steps": [],
+  "total_elapsed_ms": 1981.8998999980977,
+  "total_tokens": 264,
+  "tool_failures": 0,
+  "policy_blocks": 0,
+  "total_tool_invocations": 0,
+  "plan": null,
+  "context_events": [
+    {
+      "strategy": "none",
+      "requested": "none",
+      "actually_injected": "none",
+      "summary_provider": "fixture",
+      "raw_message_hash": "5fde6a4b7dac6529fe3d5b22f512bfc46b1e45e9a78c18b95af9ad1bb0c86420",
+      "raw_serialized_bytes": 1090,
+      "summary_records": [],
+      "overflow": false,
+      "serialized_bytes": 1114,
+      "estimated_input_tokens": 279,
+      "admission_input_tokens": 1754,
+      "reserved_output_tokens": 512,
+      "estimate_method": "utf8_bytes_div_4_estimated",
+      "admission_method": "utf8_bytes_plus_protocol_allowance",
+      "summary_calls": 0,
+      "summary_model_calls": 0,
+      "summary_accounting": {
+        "provider": "fixture",
+        "model_calls": 0,
+        "known_total_tokens": 0,
+        "unknown_usage_calls": 0,
+        "tokens_committed": 0,
+        "estimated_cost_usd": null,
+        "cost_committed_usd": 0,
+        "elapsed_seconds": 0,
+        "records": []
+      },
+      "manager_state": {
+        "schema_version": "0.1",
+        "summary_calls": 0,
+        "summaries": [],
+        "plugin_state": {},
+        "summary_provider": "fixture",
+        "summary_attempts": [],
+        "dispatch_calls": 0,
+        "dispatch_receipts": [],
+        "dispatch_observations": []
+      },
+      "plugin": {
+        "name": "noop",
+        "requested": [],
+        "actually_injected": [],
+        "rejected": [],
+        "action_proposals": [],
+        "method_degraded": false,
+        "policy_error": null,
+        "schema_version": "0.1",
+        "ignored_optional_fields": [],
+        "events": []
+      },
+      "max_tokens": 8000,
+      "view_hash": "5fde6a4b7dac6529fe3d5b22f512bfc46b1e45e9a78c18b95af9ad1bb0c86420",
+      "view_serialized_bytes": 1090,
+      "step": 0
+    }
+  ],
+  "subagent_traces": [],
+  "llm_attempts": [
+    {
+      "attempt": 0,
+      "success": true,
+      "error_kind": null,
+      "status_code": null,
+      "message": null,
+      "elapsed_ms": 1086.8470999994315,
+      "usage": {
+        "prompt_tokens": 228,
+        "completion_tokens": 36,
+        "total_tokens": 264,
+        "provenance": "provider",
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 228
+      },
+      "usage_provenance": "provider"
+    }
+  ],
+  "termination_kind": null,
+  "cleanup_elapsed_s": null,
+  "model_budget": {
+    "calls_started": 1,
+    "tokens_committed": 264,
+    "cost_committed": 0.00011159999999999999,
+    "outstanding_reservations": 0,
+    "max_model_calls": 2,
+    "max_tokens": 131072,
+    "max_cost_usd": 0.05,
+    "settlements": [
+      {
+        "total_tokens": 264,
+        "provenance": "provider",
+        "cost_usd": 0.00011159999999999999,
+        "cost_provenance": "provider_split",
+        "note": null
+      }
+    ]
+  },
+  "run_output": null,
+  "execution": null,
+  "summary": {
+    "provider": "fixture",
+    "model_calls": 0,
+    "known_total_tokens": 0,
+    "unknown_usage_calls": 0,
+    "tokens_committed": 0,
+    "estimated_cost_usd": null,
+    "cost_committed_usd": 0,
+    "elapsed_seconds": 0,
+    "records": []
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "actual_model_injection": false,
+  "artifacts": {
+    "agent-public-task.json": "e3d90b9de13b5f47a7e478ee3f9e4484f9ef26d1356d161729b0cffbbff3f75c",
+    "fixture/plugin-off-decision.json": "52304dbcc1e84f9c5f8ec8ec653563c9230fdd7a4fe598721e73f93958c45892",
+    "fixture/plugin-on-decision.json": "973777cb7ccaa49caf777fab518c3c49415b07cdcfb59f884aa85737cdd86015",
+    "fixture/policy-input.json": "a215795ce3410507e6973b9569d5e3b3c1df0a917eb202b17647d18aa02349df",
+    "fixture/raw-messages.json": "8d325ce49be29f577767d07b128a28b1f284399428b9fc07c06725211256e6c0",
+    "private/agent-evaluation-index.json": "65fe63df88a618f53bc9bcf72dfb98a7781dc0ac577dcb432a7d9008ae002674",
+    "private/evaluation-spec.json": "094f81552a96d432625626b7a82be7117c77837d5318dfeda10998cff692182f",
+    "public-task.json": "359d058041e8cfb977dbbef86ae6addc4a2b0636472d16dd4cfdb8c6dd7c3af6",
+    "public-workspace/public_checks.py": "96a3f1a39d7a6a7e312d6f5b3c4314493910921e6890028978d92d85b909283c",
+    "public-workspace/settings.py": "0de617391832da1e5b01b492a05bf10bb6d1ecfc3915df3878719b2713273d1c"
+  },
+  "base_hash": "480d581e78fdc09ece114125f80b9b139295d0b02ebeca115b5d08a6c47838a4",
+  "external_model_calls": 0,
+  "host_budget_requirements": {
+    "context_max_tokens": 24000,
+    "context_strategy": "none",
+    "cost_cap": "freeze_with_provider_price_before_real_api",
+    "max_injection_bytes": 4096,
+    "max_model_calls": 4,
+    "max_steps": 8,
+    "max_tokens": 16000,
+    "model_max_output_tokens": 4000,
+    "step_timeout_seconds": 30,
+    "total_timeout_seconds": 120
+  },
+  "image_availability": "not_checked",
+  "kind": "h4-preparation-only",
+  "limitations": [
+    "H4 observations contain hashes only; no content resolver",
+    "H4 rejects action proposals with dispatcher_not_enabled",
+    "H4 prepared-view injection is not model-operation receipt"
+  ],
+  "memory_snapshot": "empty",
+  "pending": [
+    "harness_real_run_success_evidence",
+    "host_custom_plugin_registration_and_persistent_fingerprint",
+    "fixed_model_price_and_cost_cap",
+    "verify_pinned_image_available"
+  ],
+  "policy_wire": "0.1",
+  "protocol_mode": "realistic",
+  "public_files": {
+    "public_checks.py": "96a3f1a39d7a6a7e312d6f5b3c4314493910921e6890028978d92d85b909283c",
+    "settings.py": "0de617391832da1e5b01b492a05bf10bb6d1ecfc3915df3878719b2713273d1c"
+  },
+  "real_api_ready": false,
+  "repair_success": null,
+  "schema_version": "1.0",
+  "task_id": "public-settings-001",
+  "tool_calls_executed": 0
+}

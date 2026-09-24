@@ -1,0 +1,24 @@
+{
+  "schema": "a5.image-backed-source.v1",
+  "task_id": "sphinx-doc__sphinx-8713",
+  "repo": "sphinx-doc/sphinx",
+  "base_revision": "3ed7590ed411bd93b26098faab4f23619cdb2267",
+  "transport_mode": "image_backed_base_plus_delta",
+  "archive_sha256": "a411b2bae6f2c0a331c7f47ba8b519365ecf49d8d1580d46466edc8d3cb36550",
+  "archive_bytes": 5981448,
+  "source_tree_hash": "4eafd959e16e6ca0350742a9db1d7df0d1b1352b729351ea9f5a334d1ddc378c",
+  "file_count": 1467,
+  "total_bytes": 16366995,
+  "inventory_sha256": "ac95cf2d2331b6ac0aad0e9df1d088deb608e587373f2c200a4a7886af05490f",
+  "nonregular_paths": [],
+  "base_image": "python@sha256:603879aeff06df23f0d392a19f7ce02aa85e14e6b4d25fd9647b116e0cb93467",
+  "dockerfile_sha256": "4d1343c4a2f9ed8897d15a24243ade5dbe9da956b578877bec2bb0215a85bf3c",
+  "agent_return_contract": {
+    "schema": "a5.snapshot.delta.v1",
+    "max_bytes": 8388608,
+    "max_files": 2048,
+    "requires_base_tree_hash": true,
+    "requires_candidate_tree_hash": true,
+    "allowlist_required": true
+  }
+}

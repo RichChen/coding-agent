@@ -1,0 +1,35 @@
+{
+  "task_id": "django__django-13590",
+  "status": "ready",
+  "image": "coding-harness-a5-known-good@sha256:53f64134485a7ffe49c70f548ca7e43a22d54aedb10f34ed9f7fb912adb282a7",
+  "repo": "django/django",
+  "full_collection_count": 14288,
+  "full_collection_hash": "25ae90b34c54f7b0bee9370bfac362ee246433d7ca62d56aeef5d7ec1f8c7ca2",
+  "full_suite_passed": 0,
+  "full_suite_failed": 0,
+  "full_suite_skipped": 0,
+  "calibration_mode": "full_repository_collection_plus_known_good_target_and_rejection_checks",
+  "evidence_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-01\\tasks\\django__django-13590\\full-repo\\evidence.json",
+  "negative_checks": [
+    {
+      "case": "protected_path_change",
+      "status": "rejected",
+      "reason": "protected_or_unassigned_path_changed"
+    },
+    {
+      "case": "missing_receipt",
+      "status": "rejected",
+      "reason": "missing_or_incomplete_receipt"
+    },
+    {
+      "case": "input_integrity_change",
+      "status": "rejected",
+      "reason": "frozen_input_changed_during_tests"
+    }
+  ],
+  "negative_checks_passed": true,
+  "known_good_target_status": null,
+  "cleanup_verified": true,
+  "model_calls": 0,
+  "paid": false
+}

@@ -1,0 +1,12 @@
+{
+  "schema": "a5.canary-preflight.v2",
+  "status": "blocked_before_provider",
+  "scope_lock_path": "D:/crq/src/coding-agent/reports/upgrade/a5-agent-canary-authorization-20260924/canary-scope-lock.json",
+  "scope_lock_sha256": "8123b7dfe669c100f080b4ca414437ff0dc8d875797416ccfd5efe90506719c5",
+  "dotenv": {"path": "D:/crq/src/coding-harness/.env", "llm_api_key_present": true, "secret_emitted": false},
+  "provider": {"launch_attempted": false, "model_calls": 0, "paid": false},
+  "execution_backend": {"required": "docker_linux", "docker_linux_available": false, "observed": "Docker API permission denied on dockerDesktopLinuxEngine"},
+  "target": {"canonical_id":"pytest-dev__pytest-7220","base_commit":"56bf819c2f4eaf8b36bd8c42c06bb59d5a3bfc0f","public_workspace_present":false},
+  "scope": {"authorized_runs":4,"rounds_per_run":6,"max_total_rounds":24,"unrun_matrix_rows_reserved":236},
+  "reason": "The provider credential is available from .env, but the required docker_linux execution backend is unavailable; no paid request was sent."
+}

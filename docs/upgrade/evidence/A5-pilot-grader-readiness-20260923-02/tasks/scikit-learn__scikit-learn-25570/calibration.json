@@ -1,0 +1,74 @@
+{
+  "task_id": "scikit-learn__scikit-learn-25570",
+  "status": "ready",
+  "grader_ready": true,
+  "repo": "scikit-learn/scikit-learn",
+  "base_revision": "cd25abee0ad0ac95225d4a9be8948eff69f49690",
+  "image": "coding-harness-a5-recheck@sha256:2c96683a336ec11d9e43a7c4a67a35fd2500a28bfae636a3e256562221ebf6a9",
+  "model_calls": 0,
+  "paid": false,
+  "canonical_binding_required": true,
+  "input_baseline_status": "baseline_ready",
+  "pilot_binding": {
+    "status": "pass",
+    "reason": null,
+    "canonical_target_id": "scikit-learn__scikit-learn-25570",
+    "repo": "scikit-learn/scikit-learn",
+    "expected_repo": "scikit-learn/scikit-learn",
+    "base_revision": "cd25abee0ad0ac95225d4a9be8948eff69f49690",
+    "expected_base_commit": "cd25abee0ad0ac95225d4a9be8948eff69f49690",
+    "pilot_base_hash": "8337d3a08383b8a5256b66c976f17acbef9b4cad2cb57bcd2da09eb7c24340c1"
+  },
+  "known_good_binding": {
+    "status": "pass",
+    "reason": null,
+    "receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-45-last-native-recheck\\tasks\\scikit-learn__scikit-learn-25570\\known-good\\evidence.json",
+    "receipt_sha256": "db46732883b3247ac55b0f8532e2e8882322fe724dc2ee5c5e0972f0a3222be6",
+    "image": "coding-harness-a5-recheck@sha256:2c96683a336ec11d9e43a7c4a67a35fd2500a28bfae636a3e256562221ebf6a9",
+    "receipt_image": "coding-harness-a5-recheck@sha256:2c96683a336ec11d9e43a7c4a67a35fd2500a28bfae636a3e256562221ebf6a9",
+    "expected_outcomes": {
+      "sklearn/compose/tests/test_column_transformer.py::test_empty_selection_pandas_output[list]": "passed",
+      "sklearn/compose/tests/test_column_transformer.py::test_empty_selection_pandas_output[bool]": "passed",
+      "sklearn/compose/tests/test_column_transformer.py::test_empty_selection_pandas_output[bool_int]": "passed"
+    },
+    "verified_outcomes": {
+      "sklearn/compose/tests/test_column_transformer.py::test_empty_selection_pandas_output[list]": "passed",
+      "sklearn/compose/tests/test_column_transformer.py::test_empty_selection_pandas_output[bool]": "passed",
+      "sklearn/compose/tests/test_column_transformer.py::test_empty_selection_pandas_output[bool_int]": "passed"
+    },
+    "cleanup_verified": true
+  },
+  "reason": null,
+  "full_collection_status": "ready",
+  "full_collection_count": 27784,
+  "full_collection_hash": "67ac7debd507bcd2446db09c491fadcd5fb449bfbaf51214470ab15e5a5bb8cd",
+  "collection_evidence_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-02\\tasks\\scikit-learn__scikit-learn-25570\\full-repo\\evidence.json",
+  "collection_evidence_sha256": "434183e39f6a23b26445e2eb387da4ab79eda3f9bf9f3bf831f9989c65ad06a9",
+  "cleanup_verified": true,
+  "calibration_mode": "full_repo_collection_plus_bound_known_good_target_plus_executed_host_grader_policy_checks",
+  "negative_checks": {
+    "scope": "executed_host_policy_fixture_not_target_specific",
+    "checks": [
+      {
+        "case": "protected_path_change",
+        "status": "rejected",
+        "observed_status": "fail",
+        "observed_reason": "protected_or_unassigned_path_changed"
+      },
+      {
+        "case": "missing_receipt",
+        "status": "rejected",
+        "observed_status": "invalid_env",
+        "observed_reason": "missing_or_incomplete_receipt"
+      },
+      {
+        "case": "input_integrity_change",
+        "status": "rejected",
+        "observed_status": "fail",
+        "observed_reason": "frozen_input_changed_during_tests"
+      }
+    ],
+    "passed": true
+  },
+  "negative_checks_passed": true
+}

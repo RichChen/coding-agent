@@ -1,0 +1,81 @@
+{
+  "schema": "a5.h3.plan-a-disposition.v1",
+  "plan": "A",
+  "status": "frozen_offline_blocked_on_contract_target",
+  "experiment_id": "a5-pilot-20-v1",
+  "matrix": {
+    "assigned": 240,
+    "targets": 20,
+    "variants": [
+      "B0",
+      "B1",
+      "B2",
+      "B3"
+    ],
+    "repeats": 3,
+    "seeds": [
+      42,
+      43,
+      44
+    ],
+    "rule": "retain the exact 20 x 4 x 3 denominator; do not delete or rewrite targets"
+  },
+  "django_13265": {
+    "status": "contract_blocker",
+    "grader_ready": false,
+    "future_assignment_rows": 12,
+    "future_row_statuses": [
+      "blocked",
+      "invalid_env",
+      "not_run"
+    ],
+    "preserve_f2p_method_ids": [
+      "migrations.test_autodetector.AutodetectorTests.test_add_model_order_with_respect_to_index_constraint",
+      "migrations.test_autodetector.AutodetectorTests.test_add_model_order_with_respect_to_index_foo_together",
+      "migrations.test_autodetector.AutodetectorTests.test_set_alter_order_with_respect_to_index_constraint_foo_together",
+      "migrations.test_autodetector.AutodetectorTests.test_supports_functools_partial"
+    ],
+    "expected_f2p_count": 4,
+    "actual_baseline_failed": [
+      "migrations.test_autodetector.AutodetectorTests.test_add_model_order_with_respect_to_index_constraint",
+      "migrations.test_autodetector.AutodetectorTests.test_set_alter_order_with_respect_to_index_constraint_foo_together"
+    ],
+    "unexpected_baseline_passed": [
+      "migrations.test_autodetector.AutodetectorTests.test_add_model_order_with_respect_to_index_foo_together",
+      "migrations.test_autodetector.AutodetectorTests.test_supports_functools_partial"
+    ],
+    "forbidden_actions": [
+      "delete_f2p_id",
+      "rewrite_test_identity",
+      "mark_grader_ready",
+      "remove_from_denominator"
+    ]
+  },
+  "source_evidence": {
+    "preflight_48_contract_resolution": {
+      "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-48-django-contract-resolution\\contract-resolution.json",
+      "sha256": "c198d977d371a2f759fdbe37600cafe14b3053e563720174a329e0ce8fefbb29"
+    },
+    "readiness_07": {
+      "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\readiness.json",
+      "sha256": "6cb66a03f98a633a6cc6016b845c51738d48e204dfa08207363406bafd4998dd"
+    },
+    "django_contract_audit_07": {
+      "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\django-contract-audit.json",
+      "sha256": "53a772971b2350a1752534c5fe55e42e88ebb96946343650716779ae75a17661"
+    },
+    "pilot_matrix_lock": {
+      "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-real240-78-pilot-lock\\pilot-matrix-lock.json",
+      "sha256": "fe33d1212d7de5ad4e6bee6a90e0cd0df5f5b5ff7e4b28d7abc1bbcd2bd70e25"
+    },
+    "harness_contract": {
+      "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\A5-REAL240-HARNESS-CONTRACT.zh-CN.md",
+      "sha256": "87a9e8013250a63c686090fb71c605c2db91fba6c722b7ee7e14253a05c25fa7"
+    }
+  },
+  "model_calls": 0,
+  "paid": false,
+  "provider_started": false,
+  "memory_build_started": false,
+  "pilot_started": false
+}

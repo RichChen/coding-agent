@@ -1,0 +1,32 @@
+{
+  "schema": "a5.memory-pool.s1-paid-authorization.v1",
+  "authorized_at": "2026-09-22T17:45:00+08:00",
+  "authority": "user_message_authorize_six_sources_budget_unconstrained",
+  "contract": "docs/upgrade/A5-PRE-MEMORY-CURSOR-CONTRACT.zh-CN.md",
+  "s0_attempt": "docs/upgrade/evidence/A5-memory-pool-73-candidate-index",
+  "paid_execution": true,
+  "pilot_started": false,
+  "sources": [
+    "django__django-10914",
+    "sympy__sympy-11400",
+    "scikit-learn__scikit-learn-10297",
+    "pytest-dev__pytest-5103",
+    "django__django-10924",
+    "sympy__sympy-11870"
+  ],
+  "budget": {
+    "currency": "CNY",
+    "memory_build_independent": true,
+    "user_guidance": "budget_not_a_concern_for_this_s1_scope",
+    "hard_caps_this_attempt": {
+      "total": "50.000",
+      "build": "20.000",
+      "pilot": "29.920",
+      "reserve": "0.080"
+    },
+    "note": "pilot phase remains unused; unknown usage keeps reserve"
+  },
+  "model_calls_before_start": 0,
+  "cli": "scripts/a5_memory_source_smoke.py",
+  "config": "configs/memory-smoke-a5.yaml"
+}

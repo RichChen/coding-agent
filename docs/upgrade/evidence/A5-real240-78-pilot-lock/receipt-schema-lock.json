@@ -1,0 +1,54 @@
+{
+  "schema": "a5.receipt-schema-lock.v1",
+  "pilot_receipt_schema": "a5.pilot-run-receipt.v1",
+  "legacy_host_receipt_schema": "a5.receipt.v1",
+  "required_fields": [
+    "assignment_id",
+    "experiment_id",
+    "canonical_target_id",
+    "agent_task_id",
+    "variant",
+    "repeat_id",
+    "seed",
+    "public_task_hash",
+    "target_base_hash",
+    "memory_snapshot_hash",
+    "injection_receipt_refs",
+    "model_binding_hash",
+    "harness_fingerprint",
+    "agent_fingerprint",
+    "operation_id",
+    "attempt_ids",
+    "usage",
+    "reservation",
+    "settlement",
+    "candidate_hash",
+    "grader_receipt_ref",
+    "cleanup_verified",
+    "status",
+    "failure_reason",
+    "created_at",
+    "finished_at"
+  ],
+  "variants": [
+    "B0",
+    "B1",
+    "B2",
+    "B3"
+  ],
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "repeat_to_seed": {
+    "0": 42,
+    "1": 43,
+    "2": 44
+  },
+  "b0": "injection_receipt_refs must be empty",
+  "b1_b3": "each injection needs source_hash, evidence_hash, snapshot_hash, injection_receipt_hash",
+  "unknown_usage": "settlement.status=unknown_keeps_reserve",
+  "missing_binding": "status remains missing/invalid; not rewritten as fail or pass",
+  "fixture_cannot_be_paid": true
+}

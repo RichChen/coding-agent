@@ -1,0 +1,41 @@
+{
+  "cleanup_verified": true,
+  "snapshot_error": "DockerUnavailable: Docker exec failed: Traceback (most recent call last):\n  File \"/opt/a5-tree.py\", line 297, in <module>\n    main()\n  File \"/opt/a5-tree.py\", line 287, in main\n    result = export_delta('/workspace', manifest, json.load(sys.stdin)['allowed_paths'])\n  File \"/opt/a5-tree.py\", line 192, in export_delta\n    raise ValueError('candidate changed unassigned paths: ' + repr(sorted(set(changed) - allowed)[:10]))\nValueError: candidate changed unassigned paths: ['changelog/5222.feature.rst']\n",
+  "lifecycle": [
+    {
+      "event": "created",
+      "container": "h3-4c200f9770bd418ab9caf976944b642c",
+      "image_id": "sha256:5a274055d0938df68223ceca14a82f325100dc9879152556af40b573d0c15371"
+    },
+    {
+      "event": "destroyed",
+      "container": "h3-4c200f9770bd418ab9caf976944b642c",
+      "elapsed_s": 0.27936980000231415
+    }
+  ],
+  "capabilities": {
+    "profile": "docker_linux",
+    "platform": "linux-container",
+    "image": "coding-harness-a5-transport@sha256:5a274055d0938df68223ceca14a82f325100dc9879152556af40b573d0c15371",
+    "context": "desktop-linux",
+    "cancel": true,
+    "filesystem_isolation": true,
+    "network_control": true,
+    "network_default": "none",
+    "resource_limits": true,
+    "complete_isolation": false,
+    "cpu_limit": 1.0,
+    "memory_limit_bytes": 1073741824,
+    "pids_limit": 128,
+    "workspace_limit_bytes": 268435456,
+    "tmpfs_limit_bytes": 67108864,
+    "tree_reclaim_guaranteed": true,
+    "privileged": false,
+    "docker_socket_mounted": false,
+    "host_mounts": false,
+    "workspace_transfer_limit": 8388608,
+    "transport": "image_backed_base_plus_delta",
+    "source_tree_hash": "8d27c57ac8c8a87ebfe6536d4c2de1eb759c741ec205fd3f8930decbb7b3d0ca",
+    "delta_schema": "a5.typed-tree.delta.v1"
+  }
+}

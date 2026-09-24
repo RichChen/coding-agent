@@ -1,0 +1,33 @@
+{
+  "schema": "a5.canary-formal-runner-audit.v1",
+  "status": "blocked_before_paid_call",
+  "scope_lock_sha256": "8123b7dfe669c100f080b4ca414437ff0dc8d875797416ccfd5efe90506719c5",
+  "selected_assignments": [
+    "87bf671718fd79759fd6cf24982d7a8a1889be5c127ef9d998afb5addaa2b503",
+    "88dc1c53accd08f1d0f9607872be6d2767abeee1534d6e9037b3748b76801bd1",
+    "304ff626d8fac1b6ec7fed9e18b129688cd5206e57e6194c911866f07a32902b",
+    "9b4f22fd4a814d2101300c83dddbbb01824d47c4e322be7f287a8c94681b8e9b"
+  ],
+  "preflight_passed": {
+    "scope_is_exactly_four_rows": true,
+    "assignments_unchanged": true,
+    "source_archive_sha256": "56ab5df6573cba42f4ac8c38986dc3ae30998829dd9d7b084c5c15ad2486e6d9",
+    "source_archive_root_commit": "56bf819c2f4eaf8b36bd8c42c06bb59d5a3bfc0f",
+    "source_archive_file_count": 513,
+    "generated_version_file_bound": true,
+    "fixed_docker_image_available": true,
+    "dotenv_key_available": true
+  },
+  "formal_runner_checks": {
+    "harness_run_h3_accepts_agent_graph_runner": false,
+    "agent_graph_runner_owns_docker_grader_and_cleanup_receipt": false,
+    "agent_graph_runner_emits_operation_attempt_bound_injection_receipts": false,
+    "agent_lightweight_receipt_status": "prepared_not_injected",
+    "receipt_importer_can_accept_real_pilot_schema": true,
+    "receipt_importer_can_create_real_receipt": false
+  },
+  "exact_blocker": "The harness H3 runner is coupled to src.harness.factory.AgentLoop and its DockerExecutionBackend/RunSession/IndependentGrader. The coding-agent TaskGraphRunner is a separate synchronous runtime; it has no adapter into that H3 runner, no fixed Docker grader lifecycle, and its lightweight injection receipts are hard-coded prepared_not_injected with actual_hash/model_operation_id/model_attempt_id absent. Starting paid calls now would produce no contract-valid receipts and would require a fabricated loop or untracked bridge.",
+  "paid_call_started": false,
+  "model_calls": 0,
+  "paid": false
+}

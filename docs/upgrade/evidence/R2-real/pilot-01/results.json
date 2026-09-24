@@ -1,0 +1,2442 @@
+{
+  "assigned": 44,
+  "rows": [
+    {
+      "phase": "trace",
+      "task_id": "old-facts",
+      "repeat": 1,
+      "strategy": "mask-then-summary",
+      "run_id": "trace-old-facts-r1-mask-then-summary",
+      "status": "answered",
+      "success": false,
+      "correct": 0,
+      "facts": 4,
+      "passed": null,
+      "collected": null,
+      "abstentions": 4,
+      "unsupported_values": 0,
+      "summary_calls": 0,
+      "main_calls": 1,
+      "usage": {
+        "model": "deepseek-flash",
+        "attempts": 1,
+        "unknown_usage_attempts": 0,
+        "provider_totals": {
+          "prompt_tokens": 446,
+          "completion_tokens": 29,
+          "total_tokens": 475,
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 446
+        },
+        "known_subtotals": {
+          "prompt_tokens": 446,
+          "completion_tokens": 29,
+          "total_tokens": 475,
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 446
+        },
+        "cost_usd": null,
+        "cost_provenance": "not_reconciled_with_account_billing",
+        "estimated_cost_usd_range": [
+          8.429999999999999e-05,
+          0.00016859999999999998
+        ],
+        "estimate_basis": "off-peak/peak interval, excludes account discounts, not an invoice",
+        "peak_usd_per_million": {
+          "hit": 0.006,
+          "miss": 0.3,
+          "output": 1.2
+        },
+        "pricing_source": "https://api-docs.deepseek.com/quick_start/pricing",
+        "pricing_retrieved": "2026-09-21"
+      },
+      "summary_known_tokens": 0,
+      "committed_usd": 0.0001686,
+      "total_elapsed_ms": 2554.323900010786,
+      "sent_view_bytes": 2134,
+      "cleanup_ok": null,
+      "termination": null
+    },
+    {
+      "phase": "trace",
+      "task_id": "old-facts",
+      "repeat": 1,
+      "strategy": "summary",
+      "run_id": "trace-old-facts-r1-summary",
+      "status": "answered",
+      "success": false,
+      "correct": 0,
+      "facts": 4,
+      "passed": null,
+      "collected": null,
+      "abstentions": 4,
+      "unsupported_values": 0,
+      "summary_calls": 1,
+      "main_calls": 1,
+      "usage": {
+        "model": "deepseek-flash",
+        "attempts": 2,
+        "unknown_usage_attempts": 0,
+        "provider_totals": {
+          "prompt_tokens": 4761,
+          "completion_tokens": 314,
+          "total_tokens": 5075,
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 4761
+        },
+        "known_subtotals": {
+          "prompt_tokens": 4761,
+          "completion_tokens": 314,
+          "total_tokens": 5075,
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 4761
+        },
+        "cost_usd": null,
+        "cost_provenance": "not_reconciled_with_account_billing",
+        "estimated_cost_usd_range": [
+          0.0009025499999999999,
+          0.0018050999999999998
+        ],
+        "estimate_basis": "off-peak/peak interval, excludes account discounts, not an invoice",
+        "peak_usd_per_million": {
+          "hit": 0.006,
+          "miss": 0.3,
+          "output": 1.2
+        },
+        "pricing_source": "https://api-docs.deepseek.com/quick_start/pricing",
+        "pricing_retrieved": "2026-09-21"
+      },
+      "summary_known_tokens": 4503,
+      "committed_usd": 0.0018050999999999998,
+      "total_elapsed_ms": 3694.309099999373,
+      "sent_view_bytes": 2544,
+      "cleanup_ok": null,
+      "termination": null
+    },
+    {
+      "phase": "trace",
+      "task_id": "old-facts",
+      "repeat": 1,
+      "strategy": "none",
+      "run_id": "trace-old-facts-r1-none",
+      "status": "context_overflow",
+      "success": false,
+      "correct": 0,
+      "facts": 4,
+      "passed": null,
+      "collected": null,
+      "abstentions": 0,
+      "unsupported_values": 0,
+      "summary_calls": 0,
+      "main_calls": 0,
+      "usage": {
+        "model": "deepseek-flash",
+        "attempts": 0,
+        "unknown_usage_attempts": 0,
+        "provider_totals": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0,
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 0
+        },
+        "known_subtotals": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0,
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 0
+        },
+        "cost_usd": null,
+        "cost_provenance": "not_reconciled_with_account_billing",
+        "estimated_cost_usd_range": null,
+        "estimate_basis": "off-peak/peak interval, excludes account discounts, not an invoice",
+        "peak_usd_per_million": {
+          "hit": 0.006,
+          "miss": 0.3,
+          "output": 1.2
+        },
+        "pricing_source": "https://api-docs.deepseek.com/quick_start/pricing",
+        "pricing_retrieved": "2026-09-21"
+      },
+      "summary_known_tokens": 0,
+      "committed_usd": 0.0,
+      "total_elapsed_ms": 904.0789999999106,
+      "sent_view_bytes": 0,
+      "cleanup_ok": null,
+      "termination": "context_overflow"
+    },
+    {
+      "phase": "trace",
+      "task_id": "old-facts",
+      "repeat": 1,
+      "strategy": "masking",
+      "run_id": "trace-old-facts-r1-masking",
+      "status": "answered",
+      "success": false,
+      "correct": 0,
+      "facts": 4,
+      "passed": null,
+      "collected": null,
+      "abstentions": 4,
+      "unsupported_values": 0,
+      "summary_calls": 0,
+      "main_calls": 1,
+      "usage": {
+        "model": "deepseek-flash",
+        "attempts": 1,
+        "unknown_usage_attempts": 0,
+        "provider_totals": {
+          "prompt_tokens": 446,
+          "completion_tokens": 35,
+          "total_tokens": 481,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 190
+        },
+        "known_subtotals": {
+          "prompt_tokens": 446,
+          "completion_tokens": 35,
+          "total_tokens": 481,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 190
+        },
+        "cost_usd": null,
+        "cost_provenance": "not_reconciled_with_account_billing",
+        "estimated_cost_usd_range": [
+          5.0268e-05,
+          0.000100536
+        ],
+        "estimate_basis": "off-peak/peak interval, excludes account discounts, not an invoice",
+        "peak_usd_per_million": {
+          "hit": 0.006,
+          "miss": 0.3,
+          "output": 1.2
+        },
+        "pricing_source": "https://api-docs.deepseek.com/quick_start/pricing",
+        "pricing_retrieved": "2026-09-21"
+      },
+      "summary_known_tokens": 0,
+      "committed_usd": 0.0001758,
+      "total_elapsed_ms": 2072.7029999980005,
+      "sent_view_bytes": 2134,
+      "cleanup_ok": null,
+      "termination": null
+    },
+    {
+      "phase": "trace",
+      "task_id": "old-facts",
+      "repeat": 2,
+      "strategy": "masking",
+      "run_id": "trace-old-facts-r2-masking",
+      "status": "answered",
+      "success": false,
+      "correct": 0,
+      "facts": 4,
+      "passed": null,
+      "collected": null,
+      "abstentions": 4,
+      "unsupported_values": 0,
+      "summary_calls": 0,
+      "main_calls": 1,
+      "usage": {
+        "model": "deepseek-flash",
+        "attempts": 1,
+        "unknown_usage_attempts": 0,
+        "provider_totals": {
+          "prompt_tokens": 446,
+          "completion_tokens": 35,
+          "total_tokens": 481,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 190
+        },
+        "known_subtotals": {
+          "prompt_tokens": 446,
+          "completion_tokens": 35,
+          "total_tokens": 481,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 190
+        },
+        "cost_usd": null,
+        "cost_provenance": "not_reconciled_with_account_billing",
+        "estimated_cost_usd_range": [
+          5.0268e-05,
+          0.000100536
+        ],
+        "estimate_basis": "off-peak/peak interval, excludes account discounts, not an invoice",
+        "peak_usd_per_million": {
+          "hit": 0.006,
+          "miss": 0.3,
+          "output": 1.2
+        },
+        "pricing_source": "https://api-docs.deepseek.com/quick_start/pricing",
+        "pricing_retrieved": "2026-09-21"
+      },
+      "summary_known_tokens": 0,
+      "committed_usd": 0.0001758,
+      "total_elapsed_ms": 1931.4497000013944,
+      "sent_view_bytes": 2134,
+      "cleanup_ok": null,
+      "termination": null
+    },
+    {
+      "phase": "trace",
+      "task_id": "old-facts",
+      "repeat": 2,
+      "strategy": "summary",
+      "run_id": "trace-old-facts-r2-summary",
+      "status": "answered",
+      "success": false,
+      "correct": 0,
+      "facts": 4,
+      "passed": null,
+      "collected": null,
+      "abstentions": 4,
+      "unsupported_values": 0,
+      "summary_calls": 1,
+      "main_calls": 1,
+      "usage": {
+        "model": "deepseek-flash",
+        "attempts": 2,
+        "unknown_usage_attempts": 0,
+        "provider_totals": {
+          "prompt_tokens": 4816,
+          "completion_tokens": 379,
+          "total_tokens": 5195,
+          "prompt_cache_hit_tokens": 3968,
+          "prompt_cache_miss_tokens": 848
+        },
+        "known_subtotals": {
+          "prompt_tokens": 4816,
+          "completion_tokens": 379,
+          "total_tokens": 5195,
+          "prompt_cache_hit_tokens": 3968,
+          "prompt_cache_miss_tokens": 848
+        },
+        "cost_usd": null,
+        "cost_provenance": "not_reconciled_with_account_billing",
+        "estimated_cost_usd_range": [
+          0.000366504,
+          0.000733008
+        ],
+        "estimate_basis": "off-peak/peak interval, excludes account discounts, not an invoice",
+        "peak_usd_per_million": {
+          "hit": 0.006,
+          "miss": 0.3,
+          "output": 1.2
+        },
+        "pricing_source": "https://api-docs.deepseek.com/quick_start/pricing",
+        "pricing_retrieved": "2026-09-21"
+      },
+      "summary_known_tokens": 4568,
+      "committed_usd": 0.0018995999999999998,
+      "total_elapsed_ms": 4075.0910000060685,
+      "sent_view_bytes": 2886,
+      "cleanup_ok": null,
+      "termination": null
+    },
+    {
+      "phase": "trace",
+      "task_id": "old-facts",
+      "repeat": 2,
+      "strategy": "mask-then-summary",
+      "run_id": "trace-old-facts-r2-mask-then-summary",
+      "status": "answered",
+      "success": false,
+      "correct": 0,
+      "facts": 4,
+      "passed": null,
+      "collected": null,
+      "abstentions": 4,
+      "unsupported_values": 0,
+      "summary_calls": 0,
+      "main_calls": 1,
+      "usage": {
+        "model": "deepseek-flash",
+        "attempts": 1,
+        "unknown_usage_attempts": 0,
+        "provider_totals": {
+          "prompt_tokens": 446,
+          "completion_tokens": 35,
+          "total_tokens": 481,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 190
+        },
+        "known_subtotals": {
+          "prompt_tokens": 446,
+          "completion_tokens": 35,
+          "total_tokens": 481,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 190
+        },
+        "cost_usd": null,
+        "cost_provenance": "not_reconciled_with_account_billing",
+        "estimated_cost_usd_range": [
+          5.0268e-05,
+          0.000100536
+        ],
+        "estimate_basis": "off-peak/peak interval, excludes account discounts, not an invoice",
+        "peak_usd_per_million": {
+          "hit": 0.006,
+          "miss": 0.3,
+          "output": 1.2
+        },
+        "pricing_source": "https://api-docs.deepseek.com/quick_start/pricing",
+        "pricing_retrieved": "2026-09-21"
+      },
+      "summary_known_tokens": 0,
+      "committed_usd": 0.0001758,
+      "total_elapsed_ms": 1966.99100000842,
+      "sent_view_bytes": 2134,
+      "cleanup_ok": null,
+      "termination": null
+    },
+    {
+      "phase": "trace",
+      "task_id": "old-facts",
+      "repeat": 2,
+      "strategy": "none",
+      "run_id": "trace-old-facts-r2-none",
+      "status": "context_overflow",
+      "success": false,
+      "correct": 0,
+      "facts": 4,
+      "passed": null,
+      "collected": null,
+      "abstentions": 0,
+      "unsupported_values": 0,
+      "summary_calls": 0,
+      "main_calls": 0,
+      "usage": {
+        "model": "deepseek-flash",
+        "attempts": 0,
+        "unknown_usage_attempts": 0,
+        "provider_totals": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0,
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 0
+        },
+        "known_subtotals": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0,
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 0
+        },
+        "cost_usd": null,
+        "cost_provenance": "not_reconciled_with_account_billing",
+        "estimated_cost_usd_range": null,
+        "estimate_basis": "off-peak/peak interval, excludes account discounts, not an invoice",
+        "peak_usd_per_million": {
+          "hit": 0.006,
+          "miss": 0.3,
+          "output": 1.2
+        },
+        "pricing_source": "https://api-docs.deepseek.com/quick_start/pricing",
+        "pricing_retrieved": "2026-09-21"
+      },
+      "summary_known_tokens": 0,
+      "committed_usd": 0.0,
+      "total_elapsed_ms": 691.7419999954291,
+      "sent_view_bytes": 0,
+      "cleanup_ok": null,
+      "termination": "context_overflow"
+    },
+    {
+      "phase": "trace",
+      "task_id": "old-facts",
+      "repeat": 3,
+      "strategy": "summary",
+      "run_id": "trace-old-facts-r3-summary",
+      "status": "answered",
+      "success": true,
+      "correct": 4,
+      "facts": 4,
+      "passed": null,
+      "collected": null,
+      "abstentions": 0,
+      "unsupported_values": 0,
+      "summary_calls": 1,
+      "main_calls": 1,
+      "usage": {
+        "model": "deepseek-flash",
+        "attempts": 2,
+        "unknown_usage_attempts": 0,
+        "provider_totals": {
+          "prompt_tokens": 4742,
+          "completion_tokens": 307,
+          "total_tokens": 5049,
+          "prompt_cache_hit_tokens": 3968,
+          "prompt_cache_miss_tokens": 774
+        },
+        "known_subtotals": {
+          "prompt_tokens": 4742,
+          "completion_tokens": 307,
+          "total_tokens": 5049,
+          "prompt_cache_hit_tokens": 3968,
+          "prompt_cache_miss_tokens": 774
+        },
+        "cost_usd": null,
+        "cost_provenance": "not_reconciled_with_account_billing",
+        "estimated_cost_usd_range": [
+          0.00031220399999999995,
+          0.0006244079999999999
+        ],
+        "estimate_basis": "off-peak/peak interval, excludes account discounts, not an invoice",
+        "peak_usd_per_million": {
+          "hit": 0.006,
+          "miss": 0.3,
+          "output": 1.2
+        },
+        "pricing_source": "https://api-docs.deepseek.com/quick_start/pricing",
+        "pricing_retrieved": "2026-09-21"
+      },
+      "summary_known_tokens": 4483,
+      "committed_usd": 0.0017909999999999996,
+      "total_elapsed_ms": 4159.702299992205,
+      "sent_view_bytes": 2501,
+      "cleanup_ok": null,
+      "termination": null
+    },
+    {
+      "phase": "trace",
+      "task_id": "old-facts",
+      "repeat": 3,
+      "strategy": "none",
+      "run_id": "trace-old-facts-r3-none",
+      "status": "context_overflow",
+      "success": false,
+      "correct": 0,
+      "facts": 4,
+      "passed": null,
+      "collected": null,
+      "abstentions": 0,
+      "unsupported_values": 0,
+      "summary_calls": 0,
+      "main_calls": 0,
+      "usage": {
+        "model": "deepseek-flash",
+        "attempts": 0,
+        "unknown_usage_attempts": 0,
+        "provider_totals": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0,
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 0
+        },
+        "known_subtotals": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0,
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 0
+        },
+        "cost_usd": null,
+        "cost_provenance": "not_reconciled_with_account_billing",
+        "estimated_cost_usd_range": null,
+        "estimate_basis": "off-peak/peak interval, excludes account discounts, not an invoice",
+        "peak_usd_per_million": {
+          "hit": 0.006,
+          "miss": 0.3,
+          "output": 1.2
+        },
+        "pricing_source": "https://api-docs.deepseek.com/quick_start/pricing",
+        "pricing_retrieved": "2026-09-21"
+      },
+      "summary_known_tokens": 0,
+      "committed_usd": 0.0,
+      "total_elapsed_ms": 841.0061000031419,
+      "sent_view_bytes": 0,
+      "cleanup_ok": null,
+      "termination": "context_overflow"
+    },
+    {
+      "phase": "trace",
+      "task_id": "old-facts",
+      "repeat": 3,
+      "strategy": "masking",
+      "run_id": "trace-old-facts-r3-masking",
+      "status": "answered",
+      "success": false,
+      "correct": 0,
+      "facts": 4,
+      "passed": null,
+      "collected": null,
+      "abstentions": 4,
+      "unsupported_values": 0,
+      "summary_calls": 0,
+      "main_calls": 1,
+      "usage": {
+        "model": "deepseek-flash",
+        "attempts": 1,
+        "unknown_usage_attempts": 0,
+        "provider_totals": {
+          "prompt_tokens": 446,
+          "completion_tokens": 35,
+          "total_tokens": 481,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 190
+        },
+        "known_subtotals": {
+          "prompt_tokens": 446,
+          "completion_tokens": 35,
+          "total_tokens": 481,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 190
+        },
+        "cost_usd": null,
+        "cost_provenance": "not_reconciled_with_account_billing",
+        "estimated_cost_usd_range": [
+          5.0268e-05,
+          0.000100536
+        ],
+        "estimate_basis": "off-peak/peak interval, excludes account discounts, not an invoice",
+        "peak_usd_per_million": {
+          "hit": 0.006,
+          "miss": 0.3,
+          "output": 1.2
+        },
+        "pricing_source": "https://api-docs.deepseek.com/quick_start/pricing",
+        "pricing_retrieved": "2026-09-21"
+      },
+      "summary_known_tokens": 0,
+      "committed_usd": 0.0001758,
+      "total_elapsed_ms": 2135.0130999926478,
+      "sent_view_bytes": 2134,
+      "cleanup_ok": null,
+      "termination": null
+    },
+    {
+      "phase": "trace",
+      "task_id": "old-facts",
+      "repeat": 3,
+      "strategy": "mask-then-summary",
+      "run_id": "trace-old-facts-r3-mask-then-summary",
+      "status": "answered",
+      "success": false,
+      "correct": 0,
+      "facts": 4,
+      "passed": null,
+      "collected": null,
+      "abstentions": 4,
+      "unsupported_values": 0,
+      "summary_calls": 0,
+      "main_calls": 1,
+      "usage": {
+        "model": "deepseek-flash",
+        "attempts": 1,
+        "unknown_usage_attempts": 0,
+        "provider_totals": {
+          "prompt_tokens": 446,
+          "completion_tokens": 29,
+          "total_tokens": 475,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 190
+        },
+        "known_subtotals": {
+          "prompt_tokens": 446,
+          "completion_tokens": 29,
+          "total_tokens": 475,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 190
+        },
+        "cost_usd": null,
+        "cost_provenance": "not_reconciled_with_account_billing",
+        "estimated_cost_usd_range": [
+          4.6668e-05,
+          9.3336e-05
+        ],
+        "estimate_basis": "off-peak/peak interval, excludes account discounts, not an invoice",
+        "peak_usd_per_million": {
+          "hit": 0.006,
+          "miss": 0.3,
+          "output": 1.2
+        },
+        "pricing_source": "https://api-docs.deepseek.com/quick_start/pricing",
+        "pricing_retrieved": "2026-09-21"
+      },
+      "summary_known_tokens": 0,
+      "committed_usd": 0.0001686,
+      "total_elapsed_ms": 1815.0815999979386,
+      "sent_view_bytes": 2134,
+      "cleanup_ok": null,
+      "termination": null
+    },
+    {
+      "phase": "trace",
+      "task_id": "assistant-pressure",
+      "repeat": 1,
+      "strategy": "mask-then-summary",
+      "run_id": "trace-assistant-pressure-r1-mask-then-summary",
+      "status": "answered",
+      "success": false,
+      "correct": 0,
+      "facts": 4,
+      "passed": null,
+      "collected": null,
+      "abstentions": 4,
+      "unsupported_values": 0,
+      "summary_calls": 1,
+      "main_calls": 1,
+      "usage": {
+        "model": "deepseek-flash",
+        "attempts": 2,
+        "unknown_usage_attempts": 0,
+        "provider_totals": {
+          "prompt_tokens": 6130,
+          "completion_tokens": 244,
+          "total_tokens": 6374,
+          "prompt_cache_hit_tokens": 128,
+          "prompt_cache_miss_tokens": 6002
+        },
+        "known_subtotals": {
+          "prompt_tokens": 6130,
+          "completion_tokens": 244,
+          "total_tokens": 6374,
+          "prompt_cache_hit_tokens": 128,
+          "prompt_cache_miss_tokens": 6002
+        },
+        "cost_usd": null,
+        "cost_provenance": "not_reconciled_with_account_billing",
+        "estimated_cost_usd_range": [
+          0.001047084,
+          0.002094168
+        ],
+        "estimate_basis": "off-peak/peak interval, excludes account discounts, not an invoice",
+        "peak_usd_per_million": {
+          "hit": 0.006,
+          "miss": 0.3,
+          "output": 1.2
+        },
+        "pricing_source": "https://api-docs.deepseek.com/quick_start/pricing",
+        "pricing_retrieved": "2026-09-21"
+      },
+      "summary_known_tokens": 5874,
+      "committed_usd": 0.0021317999999999997,
+      "total_elapsed_ms": 3870.2169000025606,
+      "sent_view_bytes": 2267,
+      "cleanup_ok": null,
+      "termination": null
+    },
+    {
+      "phase": "trace",
+      "task_id": "assistant-pressure",
+      "repeat": 1,
+      "strategy": "none",
+      "run_id": "trace-assistant-pressure-r1-none",
+      "status": "context_overflow",
+      "success": false,
+      "correct": 0,
+      "facts": 4,
+      "passed": null,
+      "collected": null,
+      "abstentions": 0,
+      "unsupported_values": 0,
+      "summary_calls": 0,
+      "main_calls": 0,
+      "usage": {
+        "model": "deepseek-flash",
+        "attempts": 0,
+        "unknown_usage_attempts": 0,
+        "provider_totals": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0,
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 0
+        },
+        "known_subtotals": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0,
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 0
+        },
+        "cost_usd": null,
+        "cost_provenance": "not_reconciled_with_account_billing",
+        "estimated_cost_usd_range": null,
+        "estimate_basis": "off-peak/peak interval, excludes account discounts, not an invoice",
+        "peak_usd_per_million": {
+          "hit": 0.006,
+          "miss": 0.3,
+          "output": 1.2
+        },
+        "pricing_source": "https://api-docs.deepseek.com/quick_start/pricing",
+        "pricing_retrieved": "2026-09-21"
+      },
+      "summary_known_tokens": 0,
+      "committed_usd": 0.0,
+      "total_elapsed_ms": 714.5632000028854,
+      "sent_view_bytes": 0,
+      "cleanup_ok": null,
+      "termination": "context_overflow"
+    },
+    {
+      "phase": "trace",
+      "task_id": "assistant-pressure",
+      "repeat": 1,
+      "strategy": "masking",
+      "run_id": "trace-assistant-pressure-r1-masking",
+      "status": "context_overflow",
+      "success": false,
+      "correct": 0,
+      "facts": 4,
+      "passed": null,
+      "collected": null,
+      "abstentions": 0,
+      "unsupported_values": 0,
+      "summary_calls": 0,
+      "main_calls": 0,
+      "usage": {
+        "model": "deepseek-flash",
+        "attempts": 0,
+        "unknown_usage_attempts": 0,
+        "provider_totals": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0,
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 0
+        },
+        "known_subtotals": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0,
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 0
+        },
+        "cost_usd": null,
+        "cost_provenance": "not_reconciled_with_account_billing",
+        "estimated_cost_usd_range": null,
+        "estimate_basis": "off-peak/peak interval, excludes account discounts, not an invoice",
+        "peak_usd_per_million": {
+          "hit": 0.006,
+          "miss": 0.3,
+          "output": 1.2
+        },
+        "pricing_source": "https://api-docs.deepseek.com/quick_start/pricing",
+        "pricing_retrieved": "2026-09-21"
+      },
+      "summary_known_tokens": 0,
+      "committed_usd": 0.0,
+      "total_elapsed_ms": 717.2755000065081,
+      "sent_view_bytes": 0,
+      "cleanup_ok": null,
+      "termination": "context_overflow"
+    },
+    {
+      "phase": "trace",
+      "task_id": "assistant-pressure",
+      "repeat": 1,
+      "strategy": "summary",
+      "run_id": "trace-assistant-pressure-r1-summary",
+      "status": "answered",
+      "success": false,
+      "correct": 0,
+      "facts": 4,
+      "passed": null,
+      "collected": null,
+      "abstentions": 4,
+      "unsupported_values": 0,
+      "summary_calls": 1,
+      "main_calls": 1,
+      "usage": {
+        "model": "deepseek-flash",
+        "attempts": 2,
+        "unknown_usage_attempts": 0,
+        "provider_totals": {
+          "prompt_tokens": 6150,
+          "completion_tokens": 264,
+          "total_tokens": 6414,
+          "prompt_cache_hit_tokens": 5504,
+          "prompt_cache_miss_tokens": 646
+        },
+        "known_subtotals": {
+          "prompt_tokens": 6150,
+          "completion_tokens": 264,
+          "total_tokens": 6414,
+          "prompt_cache_hit_tokens": 5504,
+          "prompt_cache_miss_tokens": 646
+        },
+        "cost_usd": null,
+        "cost_provenance": "not_reconciled_with_account_billing",
+        "estimated_cost_usd_range": [
+          0.000271812,
+          0.000543624
+        ],
+        "estimate_basis": "off-peak/peak interval, excludes account discounts, not an invoice",
+        "peak_usd_per_million": {
+          "hit": 0.006,
+          "miss": 0.3,
+          "output": 1.2
+        },
+        "pricing_source": "https://api-docs.deepseek.com/quick_start/pricing",
+        "pricing_retrieved": "2026-09-21"
+      },
+      "summary_known_tokens": 5894,
+      "committed_usd": 0.0021618,
+      "total_elapsed_ms": 3996.4997000060976,
+      "sent_view_bytes": 2369,
+      "cleanup_ok": null,
+      "termination": null
+    },
+    {
+      "phase": "trace",
+      "task_id": "assistant-pressure",
+      "repeat": 2,
+      "strategy": "mask-then-summary",
+      "run_id": "trace-assistant-pressure-r2-mask-then-summary",
+      "status": "answered",
+      "success": false,
+      "correct": 0,
+      "facts": 4,
+      "passed": null,
+      "collected": null,
+      "abstentions": 4,
+      "unsupported_values": 0,
+      "summary_calls": 1,
+      "main_calls": 1,
+      "usage": {
+        "model": "deepseek-flash",
+        "attempts": 2,
+        "unknown_usage_attempts": 0,
+        "provider_totals": {
+          "prompt_tokens": 6147,
+          "completion_tokens": 260,
+          "total_tokens": 6407,
+          "prompt_cache_hit_tokens": 5504,
+          "prompt_cache_miss_tokens": 643
+        },
+        "known_subtotals": {
+          "prompt_tokens": 6147,
+          "completion_tokens": 260,
+          "total_tokens": 6407,
+          "prompt_cache_hit_tokens": 5504,
+          "prompt_cache_miss_tokens": 643
+        },
+        "cost_usd": null,
+        "cost_provenance": "not_reconciled_with_account_billing",
+        "estimated_cost_usd_range": [
+          0.000268962,
+          0.000537924
+        ],
+        "estimate_basis": "off-peak/peak interval, excludes account discounts, not an invoice",
+        "peak_usd_per_million": {
+          "hit": 0.006,
+          "miss": 0.3,
+          "output": 1.2
+        },
+        "pricing_source": "https://api-docs.deepseek.com/quick_start/pricing",
+        "pricing_retrieved": "2026-09-21"
+      },
+      "summary_known_tokens": 5890,
+      "committed_usd": 0.0021560999999999998,
+      "total_elapsed_ms": 3674.144599994179,
+      "sent_view_bytes": 2308,
+      "cleanup_ok": null,
+      "termination": null
+    },
+    {
+      "phase": "trace",
+      "task_id": "assistant-pressure",
+      "repeat": 2,
+      "strategy": "none",
+      "run_id": "trace-assistant-pressure-r2-none",
+      "status": "context_overflow",
+      "success": false,
+      "correct": 0,
+      "facts": 4,
+      "passed": null,
+      "collected": null,
+      "abstentions": 0,
+      "unsupported_values": 0,
+      "summary_calls": 0,
+      "main_calls": 0,
+      "usage": {
+        "model": "deepseek-flash",
+        "attempts": 0,
+        "unknown_usage_attempts": 0,
+        "provider_totals": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0,
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 0
+        },
+        "known_subtotals": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0,
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 0
+        },
+        "cost_usd": null,
+        "cost_provenance": "not_reconciled_with_account_billing",
+        "estimated_cost_usd_range": null,
+        "estimate_basis": "off-peak/peak interval, excludes account discounts, not an invoice",
+        "peak_usd_per_million": {
+          "hit": 0.006,
+          "miss": 0.3,
+          "output": 1.2
+        },
+        "pricing_source": "https://api-docs.deepseek.com/quick_start/pricing",
+        "pricing_retrieved": "2026-09-21"
+      },
+      "summary_known_tokens": 0,
+      "committed_usd": 0.0,
+      "total_elapsed_ms": 594.3303999956697,
+      "sent_view_bytes": 0,
+      "cleanup_ok": null,
+      "termination": "context_overflow"
+    },
+    {
+      "phase": "trace",
+      "task_id": "assistant-pressure",
+      "repeat": 2,
+      "strategy": "masking",
+      "run_id": "trace-assistant-pressure-r2-masking",
+      "status": "context_overflow",
+      "success": false,
+      "correct": 0,
+      "facts": 4,
+      "passed": null,
+      "collected": null,
+      "abstentions": 0,
+      "unsupported_values": 0,
+      "summary_calls": 0,
+      "main_calls": 0,
+      "usage": {
+        "model": "deepseek-flash",
+        "attempts": 0,
+        "unknown_usage_attempts": 0,
+        "provider_totals": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0,
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 0
+        },
+        "known_subtotals": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0,
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 0
+        },
+        "cost_usd": null,
+        "cost_provenance": "not_reconciled_with_account_billing",
+        "estimated_cost_usd_range": null,
+        "estimate_basis": "off-peak/peak interval, excludes account discounts, not an invoice",
+        "peak_usd_per_million": {
+          "hit": 0.006,
+          "miss": 0.3,
+          "output": 1.2
+        },
+        "pricing_source": "https://api-docs.deepseek.com/quick_start/pricing",
+        "pricing_retrieved": "2026-09-21"
+      },
+      "summary_known_tokens": 0,
+      "committed_usd": 0.0,
+      "total_elapsed_ms": 684.8534000018844,
+      "sent_view_bytes": 0,
+      "cleanup_ok": null,
+      "termination": "context_overflow"
+    },
+    {
+      "phase": "trace",
+      "task_id": "assistant-pressure",
+      "repeat": 2,
+      "strategy": "summary",
+      "run_id": "trace-assistant-pressure-r2-summary",
+      "status": "answered",
+      "success": false,
+      "correct": 0,
+      "facts": 4,
+      "passed": null,
+      "collected": null,
+      "abstentions": 4,
+      "unsupported_values": 0,
+      "summary_calls": 1,
+      "main_calls": 1,
+      "usage": {
+        "model": "deepseek-flash",
+        "attempts": 2,
+        "unknown_usage_attempts": 0,
+        "provider_totals": {
+          "prompt_tokens": 6142,
+          "completion_tokens": 256,
+          "total_tokens": 6398,
+          "prompt_cache_hit_tokens": 5504,
+          "prompt_cache_miss_tokens": 638
+        },
+        "known_subtotals": {
+          "prompt_tokens": 6142,
+          "completion_tokens": 256,
+          "total_tokens": 6398,
+          "prompt_cache_hit_tokens": 5504,
+          "prompt_cache_miss_tokens": 638
+        },
+        "cost_usd": null,
+        "cost_provenance": "not_reconciled_with_account_billing",
+        "estimated_cost_usd_range": [
+          0.00026581200000000004,
+          0.0005316240000000001
+        ],
+        "estimate_basis": "off-peak/peak interval, excludes account discounts, not an invoice",
+        "peak_usd_per_million": {
+          "hit": 0.006,
+          "miss": 0.3,
+          "output": 1.2
+        },
+        "pricing_source": "https://api-docs.deepseek.com/quick_start/pricing",
+        "pricing_retrieved": "2026-09-21"
+      },
+      "summary_known_tokens": 5886,
+      "committed_usd": 0.0021498,
+      "total_elapsed_ms": 3783.399100007955,
+      "sent_view_bytes": 2339,
+      "cleanup_ok": null,
+      "termination": null
+    },
+    {
+      "phase": "trace",
+      "task_id": "assistant-pressure",
+      "repeat": 3,
+      "strategy": "masking",
+      "run_id": "trace-assistant-pressure-r3-masking",
+      "status": "context_overflow",
+      "success": false,
+      "correct": 0,
+      "facts": 4,
+      "passed": null,
+      "collected": null,
+      "abstentions": 0,
+      "unsupported_values": 0,
+      "summary_calls": 0,
+      "main_calls": 0,
+      "usage": {
+        "model": "deepseek-flash",
+        "attempts": 0,
+        "unknown_usage_attempts": 0,
+        "provider_totals": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0,
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 0
+        },
+        "known_subtotals": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0,
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 0
+        },
+        "cost_usd": null,
+        "cost_provenance": "not_reconciled_with_account_billing",
+        "estimated_cost_usd_range": null,
+        "estimate_basis": "off-peak/peak interval, excludes account discounts, not an invoice",
+        "peak_usd_per_million": {
+          "hit": 0.006,
+          "miss": 0.3,
+          "output": 1.2
+        },
+        "pricing_source": "https://api-docs.deepseek.com/quick_start/pricing",
+        "pricing_retrieved": "2026-09-21"
+      },
+      "summary_known_tokens": 0,
+      "committed_usd": 0.0,
+      "total_elapsed_ms": 701.4716999983648,
+      "sent_view_bytes": 0,
+      "cleanup_ok": null,
+      "termination": "context_overflow"
+    },
+    {
+      "phase": "trace",
+      "task_id": "assistant-pressure",
+      "repeat": 3,
+      "strategy": "none",
+      "run_id": "trace-assistant-pressure-r3-none",
+      "status": "context_overflow",
+      "success": false,
+      "correct": 0,
+      "facts": 4,
+      "passed": null,
+      "collected": null,
+      "abstentions": 0,
+      "unsupported_values": 0,
+      "summary_calls": 0,
+      "main_calls": 0,
+      "usage": {
+        "model": "deepseek-flash",
+        "attempts": 0,
+        "unknown_usage_attempts": 0,
+        "provider_totals": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0,
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 0
+        },
+        "known_subtotals": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0,
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 0
+        },
+        "cost_usd": null,
+        "cost_provenance": "not_reconciled_with_account_billing",
+        "estimated_cost_usd_range": null,
+        "estimate_basis": "off-peak/peak interval, excludes account discounts, not an invoice",
+        "peak_usd_per_million": {
+          "hit": 0.006,
+          "miss": 0.3,
+          "output": 1.2
+        },
+        "pricing_source": "https://api-docs.deepseek.com/quick_start/pricing",
+        "pricing_retrieved": "2026-09-21"
+      },
+      "summary_known_tokens": 0,
+      "committed_usd": 0.0,
+      "total_elapsed_ms": 714.9149000033503,
+      "sent_view_bytes": 0,
+      "cleanup_ok": null,
+      "termination": "context_overflow"
+    },
+    {
+      "phase": "trace",
+      "task_id": "assistant-pressure",
+      "repeat": 3,
+      "strategy": "summary",
+      "run_id": "trace-assistant-pressure-r3-summary",
+      "status": "answered",
+      "success": false,
+      "correct": 0,
+      "facts": 4,
+      "passed": null,
+      "collected": null,
+      "abstentions": 4,
+      "unsupported_values": 0,
+      "summary_calls": 1,
+      "main_calls": 1,
+      "usage": {
+        "model": "deepseek-flash",
+        "attempts": 2,
+        "unknown_usage_attempts": 0,
+        "provider_totals": {
+          "prompt_tokens": 6166,
+          "completion_tokens": 277,
+          "total_tokens": 6443,
+          "prompt_cache_hit_tokens": 5504,
+          "prompt_cache_miss_tokens": 662
+        },
+        "known_subtotals": {
+          "prompt_tokens": 6166,
+          "completion_tokens": 277,
+          "total_tokens": 6443,
+          "prompt_cache_hit_tokens": 5504,
+          "prompt_cache_miss_tokens": 662
+        },
+        "cost_usd": null,
+        "cost_provenance": "not_reconciled_with_account_billing",
+        "estimated_cost_usd_range": [
+          0.000282012,
+          0.000564024
+        ],
+        "estimate_basis": "off-peak/peak interval, excludes account discounts, not an invoice",
+        "peak_usd_per_million": {
+          "hit": 0.006,
+          "miss": 0.3,
+          "output": 1.2
+        },
+        "pricing_source": "https://api-docs.deepseek.com/quick_start/pricing",
+        "pricing_retrieved": "2026-09-21"
+      },
+      "summary_known_tokens": 5907,
+      "committed_usd": 0.0021821999999999996,
+      "total_elapsed_ms": 4641.93179999711,
+      "sent_view_bytes": 2422,
+      "cleanup_ok": null,
+      "termination": null
+    },
+    {
+      "phase": "trace",
+      "task_id": "assistant-pressure",
+      "repeat": 3,
+      "strategy": "mask-then-summary",
+      "run_id": "trace-assistant-pressure-r3-mask-then-summary",
+      "status": "answered",
+      "success": false,
+      "correct": 0,
+      "facts": 4,
+      "passed": null,
+      "collected": null,
+      "abstentions": 4,
+      "unsupported_values": 0,
+      "summary_calls": 1,
+      "main_calls": 1,
+      "usage": {
+        "model": "deepseek-flash",
+        "attempts": 2,
+        "unknown_usage_attempts": 0,
+        "provider_totals": {
+          "prompt_tokens": 6147,
+          "completion_tokens": 260,
+          "total_tokens": 6407,
+          "prompt_cache_hit_tokens": 5504,
+          "prompt_cache_miss_tokens": 643
+        },
+        "known_subtotals": {
+          "prompt_tokens": 6147,
+          "completion_tokens": 260,
+          "total_tokens": 6407,
+          "prompt_cache_hit_tokens": 5504,
+          "prompt_cache_miss_tokens": 643
+        },
+        "cost_usd": null,
+        "cost_provenance": "not_reconciled_with_account_billing",
+        "estimated_cost_usd_range": [
+          0.000268962,
+          0.000537924
+        ],
+        "estimate_basis": "off-peak/peak interval, excludes account discounts, not an invoice",
+        "peak_usd_per_million": {
+          "hit": 0.006,
+          "miss": 0.3,
+          "output": 1.2
+        },
+        "pricing_source": "https://api-docs.deepseek.com/quick_start/pricing",
+        "pricing_retrieved": "2026-09-21"
+      },
+      "summary_known_tokens": 5890,
+      "committed_usd": 0.0021560999999999998,
+      "total_elapsed_ms": 4024.6983999968506,
+      "sent_view_bytes": 2308,
+      "cleanup_ok": null,
+      "termination": null
+    },
+    {
+      "phase": "trace",
+      "task_id": "short-control",
+      "repeat": 1,
+      "strategy": "masking",
+      "run_id": "trace-short-control-r1-masking",
+      "status": "answered",
+      "success": true,
+      "correct": 4,
+      "facts": 4,
+      "passed": null,
+      "collected": null,
+      "abstentions": 0,
+      "unsupported_values": 0,
+      "summary_calls": 0,
+      "main_calls": 1,
+      "usage": {
+        "model": "deepseek-flash",
+        "attempts": 1,
+        "unknown_usage_attempts": 0,
+        "provider_totals": {
+          "prompt_tokens": 228,
+          "completion_tokens": 36,
+          "total_tokens": 264,
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 228
+        },
+        "known_subtotals": {
+          "prompt_tokens": 228,
+          "completion_tokens": 36,
+          "total_tokens": 264,
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 228
+        },
+        "cost_usd": null,
+        "cost_provenance": "not_reconciled_with_account_billing",
+        "estimated_cost_usd_range": [
+          5.5799999999999994e-05,
+          0.00011159999999999999
+        ],
+        "estimate_basis": "off-peak/peak interval, excludes account discounts, not an invoice",
+        "peak_usd_per_million": {
+          "hit": 0.006,
+          "miss": 0.3,
+          "output": 1.2
+        },
+        "pricing_source": "https://api-docs.deepseek.com/quick_start/pricing",
+        "pricing_retrieved": "2026-09-21"
+      },
+      "summary_known_tokens": 0,
+      "committed_usd": 0.00011159999999999999,
+      "total_elapsed_ms": 1726.8755999975838,
+      "sent_view_bytes": 1114,
+      "cleanup_ok": null,
+      "termination": null
+    },
+    {
+      "phase": "trace",
+      "task_id": "short-control",
+      "repeat": 1,
+      "strategy": "mask-then-summary",
+      "run_id": "trace-short-control-r1-mask-then-summary",
+      "status": "answered",
+      "success": true,
+      "correct": 4,
+      "facts": 4,
+      "passed": null,
+      "collected": null,
+      "abstentions": 0,
+      "unsupported_values": 0,
+      "summary_calls": 0,
+      "main_calls": 1,
+      "usage": {
+        "model": "deepseek-flash",
+        "attempts": 1,
+        "unknown_usage_attempts": 0,
+        "provider_totals": {
+          "prompt_tokens": 228,
+          "completion_tokens": 36,
+          "total_tokens": 264,
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 228
+        },
+        "known_subtotals": {
+          "prompt_tokens": 228,
+          "completion_tokens": 36,
+          "total_tokens": 264,
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 228
+        },
+        "cost_usd": null,
+        "cost_provenance": "not_reconciled_with_account_billing",
+        "estimated_cost_usd_range": [
+          5.5799999999999994e-05,
+          0.00011159999999999999
+        ],
+        "estimate_basis": "off-peak/peak interval, excludes account discounts, not an invoice",
+        "peak_usd_per_million": {
+          "hit": 0.006,
+          "miss": 0.3,
+          "output": 1.2
+        },
+        "pricing_source": "https://api-docs.deepseek.com/quick_start/pricing",
+        "pricing_retrieved": "2026-09-21"
+      },
+      "summary_known_tokens": 0,
+      "committed_usd": 0.00011159999999999999,
+      "total_elapsed_ms": 1825.5319000018062,
+      "sent_view_bytes": 1114,
+      "cleanup_ok": null,
+      "termination": null
+    },
+    {
+      "phase": "trace",
+      "task_id": "short-control",
+      "repeat": 1,
+      "strategy": "summary",
+      "run_id": "trace-short-control-r1-summary",
+      "status": "answered",
+      "success": true,
+      "correct": 4,
+      "facts": 4,
+      "passed": null,
+      "collected": null,
+      "abstentions": 0,
+      "unsupported_values": 0,
+      "summary_calls": 0,
+      "main_calls": 1,
+      "usage": {
+        "model": "deepseek-flash",
+        "attempts": 1,
+        "unknown_usage_attempts": 0,
+        "provider_totals": {
+          "prompt_tokens": 228,
+          "completion_tokens": 36,
+          "total_tokens": 264,
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 228
+        },
+        "known_subtotals": {
+          "prompt_tokens": 228,
+          "completion_tokens": 36,
+          "total_tokens": 264,
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 228
+        },
+        "cost_usd": null,
+        "cost_provenance": "not_reconciled_with_account_billing",
+        "estimated_cost_usd_range": [
+          5.5799999999999994e-05,
+          0.00011159999999999999
+        ],
+        "estimate_basis": "off-peak/peak interval, excludes account discounts, not an invoice",
+        "peak_usd_per_million": {
+          "hit": 0.006,
+          "miss": 0.3,
+          "output": 1.2
+        },
+        "pricing_source": "https://api-docs.deepseek.com/quick_start/pricing",
+        "pricing_retrieved": "2026-09-21"
+      },
+      "summary_known_tokens": 0,
+      "committed_usd": 0.00011159999999999999,
+      "total_elapsed_ms": 1935.8007999981055,
+      "sent_view_bytes": 1114,
+      "cleanup_ok": null,
+      "termination": null
+    },
+    {
+      "phase": "trace",
+      "task_id": "short-control",
+      "repeat": 1,
+      "strategy": "none",
+      "run_id": "trace-short-control-r1-none",
+      "status": "answered",
+      "success": true,
+      "correct": 4,
+      "facts": 4,
+      "passed": null,
+      "collected": null,
+      "abstentions": 0,
+      "unsupported_values": 0,
+      "summary_calls": 0,
+      "main_calls": 1,
+      "usage": {
+        "model": "deepseek-flash",
+        "attempts": 1,
+        "unknown_usage_attempts": 0,
+        "provider_totals": {
+          "prompt_tokens": 228,
+          "completion_tokens": 36,
+          "total_tokens": 264,
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 228
+        },
+        "known_subtotals": {
+          "prompt_tokens": 228,
+          "completion_tokens": 36,
+          "total_tokens": 264,
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 228
+        },
+        "cost_usd": null,
+        "cost_provenance": "not_reconciled_with_account_billing",
+        "estimated_cost_usd_range": [
+          5.5799999999999994e-05,
+          0.00011159999999999999
+        ],
+        "estimate_basis": "off-peak/peak interval, excludes account discounts, not an invoice",
+        "peak_usd_per_million": {
+          "hit": 0.006,
+          "miss": 0.3,
+          "output": 1.2
+        },
+        "pricing_source": "https://api-docs.deepseek.com/quick_start/pricing",
+        "pricing_retrieved": "2026-09-21"
+      },
+      "summary_known_tokens": 0,
+      "committed_usd": 0.00011159999999999999,
+      "total_elapsed_ms": 1883.6120000050869,
+      "sent_view_bytes": 1114,
+      "cleanup_ok": null,
+      "termination": null
+    },
+    {
+      "phase": "trace",
+      "task_id": "short-control",
+      "repeat": 2,
+      "strategy": "none",
+      "run_id": "trace-short-control-r2-none",
+      "status": "answered",
+      "success": true,
+      "correct": 4,
+      "facts": 4,
+      "passed": null,
+      "collected": null,
+      "abstentions": 0,
+      "unsupported_values": 0,
+      "summary_calls": 0,
+      "main_calls": 1,
+      "usage": {
+        "model": "deepseek-flash",
+        "attempts": 1,
+        "unknown_usage_attempts": 0,
+        "provider_totals": {
+          "prompt_tokens": 228,
+          "completion_tokens": 36,
+          "total_tokens": 264,
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 228
+        },
+        "known_subtotals": {
+          "prompt_tokens": 228,
+          "completion_tokens": 36,
+          "total_tokens": 264,
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 228
+        },
+        "cost_usd": null,
+        "cost_provenance": "not_reconciled_with_account_billing",
+        "estimated_cost_usd_range": [
+          5.5799999999999994e-05,
+          0.00011159999999999999
+        ],
+        "estimate_basis": "off-peak/peak interval, excludes account discounts, not an invoice",
+        "peak_usd_per_million": {
+          "hit": 0.006,
+          "miss": 0.3,
+          "output": 1.2
+        },
+        "pricing_source": "https://api-docs.deepseek.com/quick_start/pricing",
+        "pricing_retrieved": "2026-09-21"
+      },
+      "summary_known_tokens": 0,
+      "committed_usd": 0.00011159999999999999,
+      "total_elapsed_ms": 2459.8001999984263,
+      "sent_view_bytes": 1114,
+      "cleanup_ok": null,
+      "termination": null
+    },
+    {
+      "phase": "trace",
+      "task_id": "short-control",
+      "repeat": 2,
+      "strategy": "summary",
+      "run_id": "trace-short-control-r2-summary",
+      "status": "answered",
+      "success": true,
+      "correct": 4,
+      "facts": 4,
+      "passed": null,
+      "collected": null,
+      "abstentions": 0,
+      "unsupported_values": 0,
+      "summary_calls": 0,
+      "main_calls": 1,
+      "usage": {
+        "model": "deepseek-flash",
+        "attempts": 1,
+        "unknown_usage_attempts": 0,
+        "provider_totals": {
+          "prompt_tokens": 228,
+          "completion_tokens": 36,
+          "total_tokens": 264,
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 228
+        },
+        "known_subtotals": {
+          "prompt_tokens": 228,
+          "completion_tokens": 36,
+          "total_tokens": 264,
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 228
+        },
+        "cost_usd": null,
+        "cost_provenance": "not_reconciled_with_account_billing",
+        "estimated_cost_usd_range": [
+          5.5799999999999994e-05,
+          0.00011159999999999999
+        ],
+        "estimate_basis": "off-peak/peak interval, excludes account discounts, not an invoice",
+        "peak_usd_per_million": {
+          "hit": 0.006,
+          "miss": 0.3,
+          "output": 1.2
+        },
+        "pricing_source": "https://api-docs.deepseek.com/quick_start/pricing",
+        "pricing_retrieved": "2026-09-21"
+      },
+      "summary_known_tokens": 0,
+      "committed_usd": 0.00011159999999999999,
+      "total_elapsed_ms": 2131.720799996401,
+      "sent_view_bytes": 1114,
+      "cleanup_ok": null,
+      "termination": null
+    },
+    {
+      "phase": "trace",
+      "task_id": "short-control",
+      "repeat": 2,
+      "strategy": "masking",
+      "run_id": "trace-short-control-r2-masking",
+      "status": "answered",
+      "success": true,
+      "correct": 4,
+      "facts": 4,
+      "passed": null,
+      "collected": null,
+      "abstentions": 0,
+      "unsupported_values": 0,
+      "summary_calls": 0,
+      "main_calls": 1,
+      "usage": {
+        "model": "deepseek-flash",
+        "attempts": 1,
+        "unknown_usage_attempts": 0,
+        "provider_totals": {
+          "prompt_tokens": 228,
+          "completion_tokens": 36,
+          "total_tokens": 264,
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 228
+        },
+        "known_subtotals": {
+          "prompt_tokens": 228,
+          "completion_tokens": 36,
+          "total_tokens": 264,
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 228
+        },
+        "cost_usd": null,
+        "cost_provenance": "not_reconciled_with_account_billing",
+        "estimated_cost_usd_range": [
+          5.5799999999999994e-05,
+          0.00011159999999999999
+        ],
+        "estimate_basis": "off-peak/peak interval, excludes account discounts, not an invoice",
+        "peak_usd_per_million": {
+          "hit": 0.006,
+          "miss": 0.3,
+          "output": 1.2
+        },
+        "pricing_source": "https://api-docs.deepseek.com/quick_start/pricing",
+        "pricing_retrieved": "2026-09-21"
+      },
+      "summary_known_tokens": 0,
+      "committed_usd": 0.00011159999999999999,
+      "total_elapsed_ms": 1570.226800002274,
+      "sent_view_bytes": 1114,
+      "cleanup_ok": null,
+      "termination": null
+    },
+    {
+      "phase": "trace",
+      "task_id": "short-control",
+      "repeat": 2,
+      "strategy": "mask-then-summary",
+      "run_id": "trace-short-control-r2-mask-then-summary",
+      "status": "answered",
+      "success": true,
+      "correct": 4,
+      "facts": 4,
+      "passed": null,
+      "collected": null,
+      "abstentions": 0,
+      "unsupported_values": 0,
+      "summary_calls": 0,
+      "main_calls": 1,
+      "usage": {
+        "model": "deepseek-flash",
+        "attempts": 1,
+        "unknown_usage_attempts": 0,
+        "provider_totals": {
+          "prompt_tokens": 228,
+          "completion_tokens": 36,
+          "total_tokens": 264,
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 228
+        },
+        "known_subtotals": {
+          "prompt_tokens": 228,
+          "completion_tokens": 36,
+          "total_tokens": 264,
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 228
+        },
+        "cost_usd": null,
+        "cost_provenance": "not_reconciled_with_account_billing",
+        "estimated_cost_usd_range": [
+          5.5799999999999994e-05,
+          0.00011159999999999999
+        ],
+        "estimate_basis": "off-peak/peak interval, excludes account discounts, not an invoice",
+        "peak_usd_per_million": {
+          "hit": 0.006,
+          "miss": 0.3,
+          "output": 1.2
+        },
+        "pricing_source": "https://api-docs.deepseek.com/quick_start/pricing",
+        "pricing_retrieved": "2026-09-21"
+      },
+      "summary_known_tokens": 0,
+      "committed_usd": 0.00011159999999999999,
+      "total_elapsed_ms": 1871.8538999964949,
+      "sent_view_bytes": 1114,
+      "cleanup_ok": null,
+      "termination": null
+    },
+    {
+      "phase": "trace",
+      "task_id": "short-control",
+      "repeat": 3,
+      "strategy": "summary",
+      "run_id": "trace-short-control-r3-summary",
+      "status": "answered",
+      "success": true,
+      "correct": 4,
+      "facts": 4,
+      "passed": null,
+      "collected": null,
+      "abstentions": 0,
+      "unsupported_values": 0,
+      "summary_calls": 0,
+      "main_calls": 1,
+      "usage": {
+        "model": "deepseek-flash",
+        "attempts": 1,
+        "unknown_usage_attempts": 0,
+        "provider_totals": {
+          "prompt_tokens": 228,
+          "completion_tokens": 36,
+          "total_tokens": 264,
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 228
+        },
+        "known_subtotals": {
+          "prompt_tokens": 228,
+          "completion_tokens": 36,
+          "total_tokens": 264,
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 228
+        },
+        "cost_usd": null,
+        "cost_provenance": "not_reconciled_with_account_billing",
+        "estimated_cost_usd_range": [
+          5.5799999999999994e-05,
+          0.00011159999999999999
+        ],
+        "estimate_basis": "off-peak/peak interval, excludes account discounts, not an invoice",
+        "peak_usd_per_million": {
+          "hit": 0.006,
+          "miss": 0.3,
+          "output": 1.2
+        },
+        "pricing_source": "https://api-docs.deepseek.com/quick_start/pricing",
+        "pricing_retrieved": "2026-09-21"
+      },
+      "summary_known_tokens": 0,
+      "committed_usd": 0.00011159999999999999,
+      "total_elapsed_ms": 2025.1820999983465,
+      "sent_view_bytes": 1114,
+      "cleanup_ok": null,
+      "termination": null
+    },
+    {
+      "phase": "trace",
+      "task_id": "short-control",
+      "repeat": 3,
+      "strategy": "mask-then-summary",
+      "run_id": "trace-short-control-r3-mask-then-summary",
+      "status": "answered",
+      "success": true,
+      "correct": 4,
+      "facts": 4,
+      "passed": null,
+      "collected": null,
+      "abstentions": 0,
+      "unsupported_values": 0,
+      "summary_calls": 0,
+      "main_calls": 1,
+      "usage": {
+        "model": "deepseek-flash",
+        "attempts": 1,
+        "unknown_usage_attempts": 0,
+        "provider_totals": {
+          "prompt_tokens": 228,
+          "completion_tokens": 36,
+          "total_tokens": 264,
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 228
+        },
+        "known_subtotals": {
+          "prompt_tokens": 228,
+          "completion_tokens": 36,
+          "total_tokens": 264,
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 228
+        },
+        "cost_usd": null,
+        "cost_provenance": "not_reconciled_with_account_billing",
+        "estimated_cost_usd_range": [
+          5.5799999999999994e-05,
+          0.00011159999999999999
+        ],
+        "estimate_basis": "off-peak/peak interval, excludes account discounts, not an invoice",
+        "peak_usd_per_million": {
+          "hit": 0.006,
+          "miss": 0.3,
+          "output": 1.2
+        },
+        "pricing_source": "https://api-docs.deepseek.com/quick_start/pricing",
+        "pricing_retrieved": "2026-09-21"
+      },
+      "summary_known_tokens": 0,
+      "committed_usd": 0.00011159999999999999,
+      "total_elapsed_ms": 1972.943499989924,
+      "sent_view_bytes": 1114,
+      "cleanup_ok": null,
+      "termination": null
+    },
+    {
+      "phase": "trace",
+      "task_id": "short-control",
+      "repeat": 3,
+      "strategy": "none",
+      "run_id": "trace-short-control-r3-none",
+      "status": "answered",
+      "success": true,
+      "correct": 4,
+      "facts": 4,
+      "passed": null,
+      "collected": null,
+      "abstentions": 0,
+      "unsupported_values": 0,
+      "summary_calls": 0,
+      "main_calls": 1,
+      "usage": {
+        "model": "deepseek-flash",
+        "attempts": 1,
+        "unknown_usage_attempts": 0,
+        "provider_totals": {
+          "prompt_tokens": 228,
+          "completion_tokens": 36,
+          "total_tokens": 264,
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 228
+        },
+        "known_subtotals": {
+          "prompt_tokens": 228,
+          "completion_tokens": 36,
+          "total_tokens": 264,
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 228
+        },
+        "cost_usd": null,
+        "cost_provenance": "not_reconciled_with_account_billing",
+        "estimated_cost_usd_range": [
+          5.5799999999999994e-05,
+          0.00011159999999999999
+        ],
+        "estimate_basis": "off-peak/peak interval, excludes account discounts, not an invoice",
+        "peak_usd_per_million": {
+          "hit": 0.006,
+          "miss": 0.3,
+          "output": 1.2
+        },
+        "pricing_source": "https://api-docs.deepseek.com/quick_start/pricing",
+        "pricing_retrieved": "2026-09-21"
+      },
+      "summary_known_tokens": 0,
+      "committed_usd": 0.00011159999999999999,
+      "total_elapsed_ms": 1981.8998999980977,
+      "sent_view_bytes": 1114,
+      "cleanup_ok": null,
+      "termination": null
+    },
+    {
+      "phase": "trace",
+      "task_id": "short-control",
+      "repeat": 3,
+      "strategy": "masking",
+      "run_id": "trace-short-control-r3-masking",
+      "status": "answered",
+      "success": true,
+      "correct": 4,
+      "facts": 4,
+      "passed": null,
+      "collected": null,
+      "abstentions": 0,
+      "unsupported_values": 0,
+      "summary_calls": 0,
+      "main_calls": 1,
+      "usage": {
+        "model": "deepseek-flash",
+        "attempts": 1,
+        "unknown_usage_attempts": 0,
+        "provider_totals": {
+          "prompt_tokens": 228,
+          "completion_tokens": 36,
+          "total_tokens": 264,
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 228
+        },
+        "known_subtotals": {
+          "prompt_tokens": 228,
+          "completion_tokens": 36,
+          "total_tokens": 264,
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 228
+        },
+        "cost_usd": null,
+        "cost_provenance": "not_reconciled_with_account_billing",
+        "estimated_cost_usd_range": [
+          5.5799999999999994e-05,
+          0.00011159999999999999
+        ],
+        "estimate_basis": "off-peak/peak interval, excludes account discounts, not an invoice",
+        "peak_usd_per_million": {
+          "hit": 0.006,
+          "miss": 0.3,
+          "output": 1.2
+        },
+        "pricing_source": "https://api-docs.deepseek.com/quick_start/pricing",
+        "pricing_retrieved": "2026-09-21"
+      },
+      "summary_known_tokens": 0,
+      "committed_usd": 0.00011159999999999999,
+      "total_elapsed_ms": 1905.9042000008048,
+      "sent_view_bytes": 1114,
+      "cleanup_ok": null,
+      "termination": null
+    },
+    {
+      "phase": "repair",
+      "task_id": "boltons-475-strutils-slice",
+      "repeat": 1,
+      "strategy": "summary",
+      "run_id": "repair-boltons-475-strutils-slice-r1-summary",
+      "status": "partial",
+      "success": false,
+      "correct": null,
+      "facts": null,
+      "passed": 8,
+      "collected": 18,
+      "abstentions": null,
+      "unsupported_values": null,
+      "summary_calls": 0,
+      "main_calls": 1,
+      "usage": {
+        "model": "deepseek-flash",
+        "attempts": 1,
+        "unknown_usage_attempts": 0,
+        "provider_totals": {
+          "prompt_tokens": 1394,
+          "completion_tokens": 80,
+          "total_tokens": 1474,
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 1394
+        },
+        "known_subtotals": {
+          "prompt_tokens": 1394,
+          "completion_tokens": 80,
+          "total_tokens": 1474,
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 1394
+        },
+        "cost_usd": null,
+        "cost_provenance": "not_reconciled_with_account_billing",
+        "estimated_cost_usd_range": [
+          0.0002571,
+          0.0005142
+        ],
+        "estimate_basis": "off-peak/peak interval, excludes account discounts, not an invoice",
+        "peak_usd_per_million": {
+          "hit": 0.006,
+          "miss": 0.3,
+          "output": 1.2
+        },
+        "pricing_source": "https://api-docs.deepseek.com/quick_start/pricing",
+        "pricing_retrieved": "2026-09-21"
+      },
+      "summary_known_tokens": 0,
+      "committed_usd": 0.0005141999999999999,
+      "total_elapsed_ms": 4196.116399994935,
+      "sent_view_bytes": 4898,
+      "cleanup_ok": true,
+      "termination": "context_overflow"
+    },
+    {
+      "phase": "repair",
+      "task_id": "boltons-475-strutils-slice",
+      "repeat": 1,
+      "strategy": "masking",
+      "run_id": "repair-boltons-475-strutils-slice-r1-masking",
+      "status": "partial",
+      "success": false,
+      "correct": null,
+      "facts": null,
+      "passed": 8,
+      "collected": 18,
+      "abstentions": null,
+      "unsupported_values": null,
+      "summary_calls": 0,
+      "main_calls": 1,
+      "usage": {
+        "model": "deepseek-flash",
+        "attempts": 1,
+        "unknown_usage_attempts": 0,
+        "provider_totals": {
+          "prompt_tokens": 1394,
+          "completion_tokens": 80,
+          "total_tokens": 1474,
+          "prompt_cache_hit_tokens": 1152,
+          "prompt_cache_miss_tokens": 242
+        },
+        "known_subtotals": {
+          "prompt_tokens": 1394,
+          "completion_tokens": 80,
+          "total_tokens": 1474,
+          "prompt_cache_hit_tokens": 1152,
+          "prompt_cache_miss_tokens": 242
+        },
+        "cost_usd": null,
+        "cost_provenance": "not_reconciled_with_account_billing",
+        "estimated_cost_usd_range": [
+          8.7756e-05,
+          0.000175512
+        ],
+        "estimate_basis": "off-peak/peak interval, excludes account discounts, not an invoice",
+        "peak_usd_per_million": {
+          "hit": 0.006,
+          "miss": 0.3,
+          "output": 1.2
+        },
+        "pricing_source": "https://api-docs.deepseek.com/quick_start/pricing",
+        "pricing_retrieved": "2026-09-21"
+      },
+      "summary_known_tokens": 0,
+      "committed_usd": 0.0005141999999999999,
+      "total_elapsed_ms": 3577.410499987309,
+      "sent_view_bytes": 4898,
+      "cleanup_ok": true,
+      "termination": "context_overflow"
+    },
+    {
+      "phase": "repair",
+      "task_id": "boltons-475-strutils-slice",
+      "repeat": 2,
+      "strategy": "masking",
+      "run_id": "repair-boltons-475-strutils-slice-r2-masking",
+      "status": "partial",
+      "success": false,
+      "correct": null,
+      "facts": null,
+      "passed": 8,
+      "collected": 18,
+      "abstentions": null,
+      "unsupported_values": null,
+      "summary_calls": 0,
+      "main_calls": 1,
+      "usage": {
+        "model": "deepseek-flash",
+        "attempts": 1,
+        "unknown_usage_attempts": 0,
+        "provider_totals": {
+          "prompt_tokens": 1394,
+          "completion_tokens": 80,
+          "total_tokens": 1474,
+          "prompt_cache_hit_tokens": 1152,
+          "prompt_cache_miss_tokens": 242
+        },
+        "known_subtotals": {
+          "prompt_tokens": 1394,
+          "completion_tokens": 80,
+          "total_tokens": 1474,
+          "prompt_cache_hit_tokens": 1152,
+          "prompt_cache_miss_tokens": 242
+        },
+        "cost_usd": null,
+        "cost_provenance": "not_reconciled_with_account_billing",
+        "estimated_cost_usd_range": [
+          8.7756e-05,
+          0.000175512
+        ],
+        "estimate_basis": "off-peak/peak interval, excludes account discounts, not an invoice",
+        "peak_usd_per_million": {
+          "hit": 0.006,
+          "miss": 0.3,
+          "output": 1.2
+        },
+        "pricing_source": "https://api-docs.deepseek.com/quick_start/pricing",
+        "pricing_retrieved": "2026-09-21"
+      },
+      "summary_known_tokens": 0,
+      "committed_usd": 0.0005141999999999999,
+      "total_elapsed_ms": 3617.1013999992283,
+      "sent_view_bytes": 4898,
+      "cleanup_ok": true,
+      "termination": "context_overflow"
+    },
+    {
+      "phase": "repair",
+      "task_id": "boltons-475-strutils-slice",
+      "repeat": 2,
+      "strategy": "summary",
+      "run_id": "repair-boltons-475-strutils-slice-r2-summary",
+      "status": "partial",
+      "success": false,
+      "correct": null,
+      "facts": null,
+      "passed": 8,
+      "collected": 18,
+      "abstentions": null,
+      "unsupported_values": null,
+      "summary_calls": 0,
+      "main_calls": 1,
+      "usage": {
+        "model": "deepseek-flash",
+        "attempts": 1,
+        "unknown_usage_attempts": 0,
+        "provider_totals": {
+          "prompt_tokens": 1394,
+          "completion_tokens": 80,
+          "total_tokens": 1474,
+          "prompt_cache_hit_tokens": 1152,
+          "prompt_cache_miss_tokens": 242
+        },
+        "known_subtotals": {
+          "prompt_tokens": 1394,
+          "completion_tokens": 80,
+          "total_tokens": 1474,
+          "prompt_cache_hit_tokens": 1152,
+          "prompt_cache_miss_tokens": 242
+        },
+        "cost_usd": null,
+        "cost_provenance": "not_reconciled_with_account_billing",
+        "estimated_cost_usd_range": [
+          8.7756e-05,
+          0.000175512
+        ],
+        "estimate_basis": "off-peak/peak interval, excludes account discounts, not an invoice",
+        "peak_usd_per_million": {
+          "hit": 0.006,
+          "miss": 0.3,
+          "output": 1.2
+        },
+        "pricing_source": "https://api-docs.deepseek.com/quick_start/pricing",
+        "pricing_retrieved": "2026-09-21"
+      },
+      "summary_known_tokens": 0,
+      "committed_usd": 0.0005141999999999999,
+      "total_elapsed_ms": 3879.2111999937333,
+      "sent_view_bytes": 4898,
+      "cleanup_ok": true,
+      "termination": "context_overflow"
+    },
+    {
+      "phase": "repair",
+      "task_id": "public-settings-001",
+      "repeat": 1,
+      "strategy": "summary",
+      "run_id": "repair-public-settings-001-r1-summary",
+      "status": "pass",
+      "success": true,
+      "correct": null,
+      "facts": null,
+      "passed": 4,
+      "collected": 4,
+      "abstentions": null,
+      "unsupported_values": null,
+      "summary_calls": 1,
+      "main_calls": 6,
+      "usage": {
+        "model": "deepseek-flash",
+        "attempts": 7,
+        "unknown_usage_attempts": 0,
+        "provider_totals": {
+          "prompt_tokens": 11584,
+          "completion_tokens": 913,
+          "total_tokens": 12497,
+          "prompt_cache_hit_tokens": 8320,
+          "prompt_cache_miss_tokens": 3264
+        },
+        "known_subtotals": {
+          "prompt_tokens": 11584,
+          "completion_tokens": 913,
+          "total_tokens": 12497,
+          "prompt_cache_hit_tokens": 8320,
+          "prompt_cache_miss_tokens": 3264
+        },
+        "cost_usd": null,
+        "cost_provenance": "not_reconciled_with_account_billing",
+        "estimated_cost_usd_range": [
+          0.0010623599999999998,
+          0.0021247199999999996
+        ],
+        "estimate_basis": "off-peak/peak interval, excludes account discounts, not an invoice",
+        "peak_usd_per_million": {
+          "hit": 0.006,
+          "miss": 0.3,
+          "output": 1.2
+        },
+        "pricing_source": "https://api-docs.deepseek.com/quick_start/pricing",
+        "pricing_retrieved": "2026-09-21"
+      },
+      "summary_known_tokens": 1415,
+      "committed_usd": 0.004570799999999999,
+      "total_elapsed_ms": 14447.398799995426,
+      "sent_view_bytes": 38916,
+      "cleanup_ok": true,
+      "termination": null
+    },
+    {
+      "phase": "repair",
+      "task_id": "public-settings-001",
+      "repeat": 1,
+      "strategy": "masking",
+      "run_id": "repair-public-settings-001-r1-masking",
+      "status": "pass",
+      "success": true,
+      "correct": null,
+      "facts": null,
+      "passed": 4,
+      "collected": 4,
+      "abstentions": null,
+      "unsupported_values": null,
+      "summary_calls": 0,
+      "main_calls": 6,
+      "usage": {
+        "model": "deepseek-flash",
+        "attempts": 6,
+        "unknown_usage_attempts": 0,
+        "provider_totals": {
+          "prompt_tokens": 9775,
+          "completion_tokens": 511,
+          "total_tokens": 10286,
+          "prompt_cache_hit_tokens": 8064,
+          "prompt_cache_miss_tokens": 1711
+        },
+        "known_subtotals": {
+          "prompt_tokens": 9775,
+          "completion_tokens": 511,
+          "total_tokens": 10286,
+          "prompt_cache_hit_tokens": 8064,
+          "prompt_cache_miss_tokens": 1711
+        },
+        "cost_usd": null,
+        "cost_provenance": "not_reconciled_with_account_billing",
+        "estimated_cost_usd_range": [
+          0.000587442,
+          0.001174884
+        ],
+        "estimate_basis": "off-peak/peak interval, excludes account discounts, not an invoice",
+        "peak_usd_per_million": {
+          "hit": 0.006,
+          "miss": 0.3,
+          "output": 1.2
+        },
+        "pricing_source": "https://api-docs.deepseek.com/quick_start/pricing",
+        "pricing_retrieved": "2026-09-21"
+      },
+      "summary_known_tokens": 0,
+      "committed_usd": 0.0035456999999999993,
+      "total_elapsed_ms": 12745.01309999323,
+      "sent_view_bytes": 36918,
+      "cleanup_ok": true,
+      "termination": "context_overflow"
+    },
+    {
+      "phase": "repair",
+      "task_id": "public-settings-001",
+      "repeat": 2,
+      "strategy": "masking",
+      "run_id": "repair-public-settings-001-r2-masking",
+      "status": "pass",
+      "success": true,
+      "correct": null,
+      "facts": null,
+      "passed": 4,
+      "collected": 4,
+      "abstentions": null,
+      "unsupported_values": null,
+      "summary_calls": 0,
+      "main_calls": 6,
+      "usage": {
+        "model": "deepseek-flash",
+        "attempts": 6,
+        "unknown_usage_attempts": 0,
+        "provider_totals": {
+          "prompt_tokens": 9726,
+          "completion_tokens": 548,
+          "total_tokens": 10274,
+          "prompt_cache_hit_tokens": 8064,
+          "prompt_cache_miss_tokens": 1662
+        },
+        "known_subtotals": {
+          "prompt_tokens": 9726,
+          "completion_tokens": 548,
+          "total_tokens": 10274,
+          "prompt_cache_hit_tokens": 8064,
+          "prompt_cache_miss_tokens": 1662
+        },
+        "cost_usd": null,
+        "cost_provenance": "not_reconciled_with_account_billing",
+        "estimated_cost_usd_range": [
+          0.0006022919999999999,
+          0.0012045839999999999
+        ],
+        "estimate_basis": "off-peak/peak interval, excludes account discounts, not an invoice",
+        "peak_usd_per_million": {
+          "hit": 0.006,
+          "miss": 0.3,
+          "output": 1.2
+        },
+        "pricing_source": "https://api-docs.deepseek.com/quick_start/pricing",
+        "pricing_retrieved": "2026-09-21"
+      },
+      "summary_known_tokens": 0,
+      "committed_usd": 0.0035754000000000003,
+      "total_elapsed_ms": 12586.5163999988,
+      "sent_view_bytes": 36653,
+      "cleanup_ok": true,
+      "termination": "context_overflow"
+    },
+    {
+      "phase": "repair",
+      "task_id": "public-settings-001",
+      "repeat": 2,
+      "strategy": "summary",
+      "run_id": "repair-public-settings-001-r2-summary",
+      "status": "pass",
+      "success": true,
+      "correct": null,
+      "facts": null,
+      "passed": 4,
+      "collected": 4,
+      "abstentions": null,
+      "unsupported_values": null,
+      "summary_calls": 1,
+      "main_calls": 6,
+      "usage": {
+        "model": "deepseek-flash",
+        "attempts": 7,
+        "unknown_usage_attempts": 0,
+        "provider_totals": {
+          "prompt_tokens": 11584,
+          "completion_tokens": 908,
+          "total_tokens": 12492,
+          "prompt_cache_hit_tokens": 8832,
+          "prompt_cache_miss_tokens": 2752
+        },
+        "known_subtotals": {
+          "prompt_tokens": 11584,
+          "completion_tokens": 908,
+          "total_tokens": 12492,
+          "prompt_cache_hit_tokens": 8832,
+          "prompt_cache_miss_tokens": 2752
+        },
+        "cost_usd": null,
+        "cost_provenance": "not_reconciled_with_account_billing",
+        "estimated_cost_usd_range": [
+          0.000984096,
+          0.001968192
+        ],
+        "estimate_basis": "off-peak/peak interval, excludes account discounts, not an invoice",
+        "peak_usd_per_million": {
+          "hit": 0.006,
+          "miss": 0.3,
+          "output": 1.2
+        },
+        "pricing_source": "https://api-docs.deepseek.com/quick_start/pricing",
+        "pricing_retrieved": "2026-09-21"
+      },
+      "summary_known_tokens": 1416,
+      "committed_usd": 0.004564799999999999,
+      "total_elapsed_ms": 14685.84990000818,
+      "sent_view_bytes": 38892,
+      "cleanup_ok": true,
+      "termination": null
+    }
+  ]
+}

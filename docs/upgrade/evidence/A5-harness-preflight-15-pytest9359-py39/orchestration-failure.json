@@ -1,0 +1,16 @@
+{
+  "schema": "a5.host-preflight.orchestration-failure.v1",
+  "status": "blocked",
+  "task_id": "pytest-dev__pytest-9359",
+  "reason": "prior_attempt_14_aggregate_receipts_not_yet_available",
+  "error_kind": "FileNotFoundError",
+  "exit_code": 1,
+  "required_input": "D:/crq/src/coding-harness/docs/upgrade/evidence/A5-harness-preflight-14-host-pytest/receipts.json",
+  "base_image": "python@sha256:6e4a4eb8ce1238cb552dd44cc37f9187e448e9bfcf24262c5badfd69fee1bef0",
+  "environment_execution_started": false,
+  "source_inventory_unchanged": 24,
+  "model_calls": 0,
+  "model_reservations": 0,
+  "paid": false,
+  "next_action": "wait_for_attempt14_completion_then_retry_in_new_attempt16"
+}

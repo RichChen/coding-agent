@@ -1,0 +1,49 @@
+{
+  "schema": "a5.real240.profile-lock.v3",
+  "protocol_version": "a5-real240-v9",
+  "predecessor": "a5-real240-v8",
+  "reason": "align_context_with_memory_smoke_profile",
+  "profile": {
+    "max_steps": 35,
+    "total_timeout_seconds": 1200,
+    "step_timeout_seconds": 120,
+    "context_strategy": "masking",
+    "keep_recent_tool_results": 4,
+    "context_max_tokens": 96000,
+    "tool_output_max_chars": 12000,
+    "max_model_calls": 24,
+    "max_tokens": 2592000,
+    "llm_max_tokens": 12000,
+    "max_cost_usd": 1.5,
+    "tool_calls": 30
+  },
+  "budget": {
+    "total_cny": "50.000",
+    "reservation_policy": "worst_case_before_call",
+    "worst_case_per_attempt_cny": "0.288",
+    "estimate_for_240": "B0_measured_unit_price_only_after_v9_canary",
+    "unknown_usage": "keep_reservation",
+    "historical_imports": {
+      "v6_cny": "0.050",
+      "v7_cny": "0.189",
+      "v8_b0_cny": "0.175"
+    }
+  },
+  "acceptance": {
+    "b0_required_tests": [
+      "testing/test_nodes.py::test_failure_with_changed_cwd",
+      "testing/test_nodes.py::test_ischildnode[--True]"
+    ],
+    "record_changed_file_count": true,
+    "record_actual_model_attempts": true,
+    "record_peak_context": true,
+    "stop_if_zero_changed_files": true,
+    "stop_if_required_tests_fail": true
+  },
+  "canary": {
+    "phase1": "B0 only",
+    "phase2": "B0/B1/B2/B3 only after B0 gate",
+    "prior_v8_separate": true
+  },
+  "frozen_for_matrix": true
+}

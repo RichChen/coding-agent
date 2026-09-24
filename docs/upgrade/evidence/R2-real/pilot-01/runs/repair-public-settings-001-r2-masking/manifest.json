@@ -1,0 +1,77 @@
+{
+  "assigned_task_ids": [
+    "public-settings-001"
+  ],
+  "public_task_hash": "3ae4cd07b3cf43f6d750b4decf00d789b429ea1ccdffd52c3e0afb1887e9ff11",
+  "config_hash": "6e453de627d690f4608dcd4b64ab1dd2d60759d6858760b7ca8d3487184cc9a9",
+  "code_hash": "6caac87762ceef9d4f88e24f4d8524c9db53e9b165f7242196b9cee50ba8cbb5",
+  "base_hash": "480d581e78fdc09ece114125f80b9b139295d0b02ebeca115b5d08a6c47838a4",
+  "private_spec_hash": "d39f25ec6189ca4b504bb7a18ecbd2eae515c5922900f70e456840d4b3a959bc",
+  "model": "deepseek-flash",
+  "context": "desktop-linux",
+  "agent_capabilities": {
+    "profile": "docker_linux",
+    "platform": "linux-container",
+    "image": "coding-harness-h3-tests@sha256:18872d18b9bc347cf4441b1d9b53b9662ea719f057bd471c7d4cbfce4dc2e78e",
+    "context": "desktop-linux",
+    "cancel": true,
+    "filesystem_isolation": true,
+    "network_control": true,
+    "network_default": "none",
+    "resource_limits": true,
+    "complete_isolation": false,
+    "cpu_limit": 1.0,
+    "memory_limit_bytes": 536870912,
+    "pids_limit": 128,
+    "workspace_limit_bytes": 67108864,
+    "tmpfs_limit_bytes": 16777216,
+    "tree_reclaim_guaranteed": true,
+    "privileged": false,
+    "docker_socket_mounted": false,
+    "host_mounts": false,
+    "workspace_transfer_limit": 8388608
+  },
+  "enforced_budget": {
+    "max_steps": 20,
+    "total_timeout_seconds": 600,
+    "step_timeout_seconds": 120,
+    "max_model_calls": 24,
+    "max_tokens": 200000,
+    "max_cost_usd": 0.3
+  },
+  "python": "3.13.9 | packaged by Anaconda, Inc. | (main, Oct 21 2025, 19:09:58) [MSC v.1929 64 bit (AMD64)]",
+  "host_platform": "Windows-10-10.0.19045-SP0",
+  "git_commit": "1f5903b620895ad8af3289ffeae529c15c3576a0",
+  "code_hash_includes_uncommitted_source": true,
+  "context_policy": {
+    "policy": {
+      "strategy": "masking",
+      "max_tokens": 12000,
+      "keep_recent": 1,
+      "compact_token_threshold": null,
+      "max_summary_calls": 2,
+      "max_injection_bytes": 4096,
+      "dispatcher": "disabled",
+      "dispatcher_max_calls": 0,
+      "summary_provider": "fixture",
+      "summary_failure": "reject",
+      "summary_max_tokens": 131072,
+      "summary_max_output_tokens": 512,
+      "summary_max_output_bytes": 8192,
+      "summary_input_max_bytes": 65536,
+      "summary_timeout_seconds": 30.0,
+      "summary_time_budget_seconds": 60.0,
+      "summary_price_version": "deepseek-official-2026-09-21-peak"
+    },
+    "plugin": {
+      "name": "noop",
+      "version": "0.1",
+      "candidates": []
+    },
+    "dispatcher": null,
+    "summary_provider": null,
+    "summary_prompt_version": "true-summary-1",
+    "summary_config_version": "r2-lite-1",
+    "runner_version": "r2-lite-view-1"
+  }
+}

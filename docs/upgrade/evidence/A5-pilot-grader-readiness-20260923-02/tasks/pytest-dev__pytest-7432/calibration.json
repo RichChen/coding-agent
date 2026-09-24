@@ -1,0 +1,70 @@
+{
+  "task_id": "pytest-dev__pytest-7432",
+  "status": "ready",
+  "grader_ready": true,
+  "repo": "pytest-dev/pytest",
+  "base_revision": "e6e300e729dd33956e5448d8be9a0b1540b4e53a",
+  "image": "coding-harness-a5-recheck@sha256:5c97017803c8c6454734cf88e5e2d110c73d6e9f38243f027a6b310b79246770",
+  "model_calls": 0,
+  "paid": false,
+  "canonical_binding_required": true,
+  "input_baseline_status": "baseline_ready",
+  "pilot_binding": {
+    "status": "pass",
+    "reason": null,
+    "canonical_target_id": "pytest-dev__pytest-7432",
+    "repo": "pytest-dev/pytest",
+    "expected_repo": "pytest-dev/pytest",
+    "base_revision": "e6e300e729dd33956e5448d8be9a0b1540b4e53a",
+    "expected_base_commit": "e6e300e729dd33956e5448d8be9a0b1540b4e53a",
+    "pilot_base_hash": "ebcc96ae47acc454228e307f7bd8fbdbd60ddd034d777964a30b4ccb95752ac3"
+  },
+  "known_good_binding": {
+    "status": "pass",
+    "reason": null,
+    "receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-39-pytest-full-collection\\tasks\\pytest-dev__pytest-7432\\known-good\\evidence.json",
+    "receipt_sha256": "c4051cb62c02e1e45f304b33988007d1a5f1777c6d20545f344c188e7b4911c1",
+    "image": "coding-harness-a5-recheck@sha256:5c97017803c8c6454734cf88e5e2d110c73d6e9f38243f027a6b310b79246770",
+    "receipt_image": "coding-harness-a5-recheck@sha256:5c97017803c8c6454734cf88e5e2d110c73d6e9f38243f027a6b310b79246770",
+    "expected_outcomes": {
+      "testing/test_skipping.py::TestXFail::test_xfail_run_with_skip_mark[test_input1-expected1]": "passed"
+    },
+    "verified_outcomes": {
+      "testing/test_skipping.py::TestXFail::test_xfail_run_with_skip_mark[test_input1-expected1]": "passed"
+    },
+    "cleanup_verified": true
+  },
+  "reason": null,
+  "full_collection_status": "ready",
+  "full_collection_count": 2957,
+  "full_collection_hash": "a5cd8298a6a8570d51279621ade8e7fe97160ee51ec06decb8e0a5589cf64294",
+  "collection_evidence_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-02\\tasks\\pytest-dev__pytest-7432\\full-repo\\evidence.json",
+  "collection_evidence_sha256": "b0ae3b2545edbf28211420f1cdc293311250a713f80e6b8c610a13bfd50b87c3",
+  "cleanup_verified": true,
+  "calibration_mode": "full_repo_collection_plus_bound_known_good_target_plus_executed_host_grader_policy_checks",
+  "negative_checks": {
+    "scope": "executed_host_policy_fixture_not_target_specific",
+    "checks": [
+      {
+        "case": "protected_path_change",
+        "status": "rejected",
+        "observed_status": "fail",
+        "observed_reason": "protected_or_unassigned_path_changed"
+      },
+      {
+        "case": "missing_receipt",
+        "status": "rejected",
+        "observed_status": "invalid_env",
+        "observed_reason": "missing_or_incomplete_receipt"
+      },
+      {
+        "case": "input_integrity_change",
+        "status": "rejected",
+        "observed_status": "fail",
+        "observed_reason": "frozen_input_changed_during_tests"
+      }
+    ],
+    "passed": true
+  },
+  "negative_checks_passed": true
+}

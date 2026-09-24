@@ -1,0 +1,15 @@
+{
+  "schema": "a5.failure-retry-ledger.v1",
+  "attempt": 25,
+  "entries": [
+    {
+      "task_id": "sympy__sympy-20154",
+      "status": "invalid_env",
+      "reason": "environment_or_baseline_preflight_failed",
+      "error": "RuntimeError: docker image build failed: ERROR: open C:\\Users\\Administrator\\.docker\\buildx\\.lock: Access is denied.\n"
+    }
+  ],
+  "model_calls": 0,
+  "model_reservations": 0,
+  "paid": false
+}

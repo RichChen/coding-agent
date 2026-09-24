@@ -1,0 +1,15 @@
+{
+  "schema": "a5.canary-harness-artifact-manifest.v1",
+  "status": "launch_preflight_blocked",
+  "artifacts": [
+    {"path":"canary-scope-receipt.json","sha256":"52bf54e34c1f74d2b50317d9e9510fce402747499f62f74daf2d02d323a1f844"},
+    {"path":"run-receipts.jsonl","sha256":"baaec4d6973df9911fa683827350c8f071dcbc804081551a6b286b89ede44001"},
+    {"path":"injection-receipts.jsonl","sha256":"394cbb0bc3b1bec9c40626b8f0f2091f53d5fa40b88e03d4a40040a953aa51fe"},
+    {"path":"pending.json","sha256":"67b63a007a8f887df9c77a56821aff55df0cafc3d4f216259e732808334cab8b"},
+    {"path":"selected-assignments.json","sha256":"1d33208665b0bdc7e774e29f50290b996807ab71ea21707ed57be6b662e96858"}
+  ],
+  "external_scope_lock_sha256":"8123b7dfe669c100f080b4ca414437ff0dc8d875797416ccfd5efe90506719c5",
+  "model_calls":0,
+  "paid":false,
+  "unrun_matrix_rows":236
+}

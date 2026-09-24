@@ -1,0 +1,26 @@
+{
+  "schema": "a5.real240.h2-readiness.v1",
+  "status": "fixture_wiring_verified",
+  "fixture_only": true,
+  "model_calls": 0,
+  "paid": false,
+  "real_240_started": false,
+  "fail_closed_all_ok": true,
+  "success_conditions": [
+    "B0 accepted with no injection",
+    "B1-B3 accepted only with source/evidence/snapshot/injection hashes",
+    "assignment mismatch, snapshot drift, duplicate attempt, unknown usage, missing grader, cleanup false rejected",
+    "fixture_only=true, model_calls=0, paid=false"
+  ],
+  "failure_conditions": [
+    "any fail-closed case does not match expected error"
+  ],
+  "stop_conditions": [
+    "do not copy fixture receipts into real pilot ledgers",
+    "do not start provider or paid 240"
+  ],
+  "pending": [
+    "H3 agent-side B0-B3 runtime and target graders",
+    "H4 paid authorization"
+  ]
+}

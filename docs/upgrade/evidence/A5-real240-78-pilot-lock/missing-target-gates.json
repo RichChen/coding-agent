@@ -1,0 +1,63 @@
+{
+  "schema": "a5.missing-target-gates.v1",
+  "status": "blocked",
+  "blocking_gates": [
+    "target_grader_readiness",
+    "harness_fingerprint",
+    "agent_b0b3_runtime_semantics",
+    "agent_snapshot_consumption",
+    "paid_pilot_authorization"
+  ],
+  "gates": [
+    {
+      "id": "target_grader_readiness",
+      "status": "missing",
+      "grader_ready": 0,
+      "awaiting_repo_grader_readiness": 20,
+      "assigned_targets": 20,
+      "image_backed_initial24_grader_ready": 4
+    },
+    {
+      "id": "model_binding",
+      "status": "present",
+      "hash": "ab1cad7069b9b496b74a1bc523121eebd205b1868ce875bff5ba4b91cf739a29",
+      "errors": []
+    },
+    {
+      "id": "harness_fingerprint",
+      "status": "drifted",
+      "frozen": "3b963ddc1af8d906b1d6811a8b2046162818474a5bd3bc953a7b305a124ca017",
+      "live": "b596cc4cb8381cac514efe4ab69919f16296d6877cf009530552f2ede07198b3"
+    },
+    {
+      "id": "agent_fingerprint",
+      "status": "present",
+      "frozen": "c47d837b309d503898fbe74ffdca18421c297d0c9fb8fb1df57b2921e37b12f2",
+      "live": "c47d837b309d503898fbe74ffdca18421c297d0c9fb8fb1df57b2921e37b12f2"
+    },
+    {
+      "id": "agent_b0b3_runtime_semantics",
+      "status": "pending_h3"
+    },
+    {
+      "id": "agent_snapshot_consumption",
+      "status": "pending_h3",
+      "canonical_validated_memory_records": 0,
+      "runnable_frozen": false
+    },
+    {
+      "id": "paid_pilot_authorization",
+      "status": "missing",
+      "paid_pilot_started": false
+    },
+    {
+      "id": "matrix",
+      "status": "locked",
+      "errors": []
+    }
+  ],
+  "real_240_started": false,
+  "paid": false,
+  "model_calls": 0,
+  "note": "H1 locks matrix/schema/budget but cannot start provider calls while target grader, fingerprint freeze, agent B0-B3 semantics, or paid authorization are missing"
+}

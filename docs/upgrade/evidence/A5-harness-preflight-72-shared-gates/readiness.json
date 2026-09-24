@@ -1,0 +1,16 @@
+{
+  "schema": "a5.readiness.v2",
+  "status": "approval_boundary_ready",
+  "shared_gates_ready_for_approval": true,
+  "ready_for_paid_build": false,
+  "memory_build_eligible": false,
+  "remaining16_preflight": "blocked",
+  "model_calls": 0,
+  "paid_build_started": false,
+  "paid_pilot_started": false,
+  "blocking_reasons": [
+    "memory_pool_source_and_grader_gates_blocked",
+    "explicit_paid_build_authorization_not_recorded"
+  ],
+  "evidence": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-72-shared-gates\\shared-gates.json"
+}

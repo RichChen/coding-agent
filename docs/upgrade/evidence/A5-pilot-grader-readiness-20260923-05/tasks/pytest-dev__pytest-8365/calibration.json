@@ -1,0 +1,84 @@
+{
+  "task_id": "pytest-dev__pytest-8365",
+  "status": "ready",
+  "grader_ready": true,
+  "repo": "pytest-dev/pytest",
+  "base_revision": "4964b468c83c06971eb743fbc57cc404f760c573",
+  "image": "coding-harness-a5-pytest@sha256:99a6136cf06433b05cd09d6ba81aec351dde7ebd5b07a7c4fa5892c0f167852a",
+  "model_calls": 0,
+  "paid": false,
+  "canonical_binding_required": true,
+  "input_baseline_status": "baseline_ready",
+  "pilot_binding": {
+    "status": "pass",
+    "reason": null,
+    "canonical_target_id": "pytest-dev__pytest-8365",
+    "repo": "pytest-dev/pytest",
+    "expected_repo": "pytest-dev/pytest",
+    "base_revision": "4964b468c83c06971eb743fbc57cc404f760c573",
+    "expected_base_commit": "4964b468c83c06971eb743fbc57cc404f760c573",
+    "pilot_base_hash": "0d6cbcd0b5c2af149c136b2cbb44a7c70ac2e41ada3a1fbbc7a31154bb07ad15"
+  },
+  "known_good_binding": {
+    "status": "pass",
+    "reason": null,
+    "receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-14-host-pytest\\tasks\\pytest-dev__pytest-8365\\known-good\\evidence.json",
+    "receipt_sha256": "6d980dec2ade3ef6febbcf79e665ca0627c2b424c4cd7777c618daf8520e3e94",
+    "image": "coding-harness-a5-pytest@sha256:99a6136cf06433b05cd09d6ba81aec351dde7ebd5b07a7c4fa5892c0f167852a",
+    "receipt_image": "coding-harness-a5-pytest@sha256:99a6136cf06433b05cd09d6ba81aec351dde7ebd5b07a7c4fa5892c0f167852a",
+    "expected_outcomes": {
+      "testing/test_tmpdir.py::test_tmp_path_factory_handles_invalid_dir_characters": "passed"
+    },
+    "verified_outcomes": {
+      "testing/test_tmpdir.py::test_tmp_path_factory_handles_invalid_dir_characters": "passed"
+    },
+    "cleanup_verified": true
+  },
+  "reason": null,
+  "full_collection_status": "ready",
+  "full_collection_count": 3049,
+  "full_collection_hash": "28d0702d7a9974c5e4b0547d8cbb23e32b29465b5c56afcb099c7d3091f074e8",
+  "collection_evidence_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-05\\tasks\\pytest-dev__pytest-8365\\full-repo\\evidence.json",
+  "collection_evidence_sha256": "d62022bfec6b1a8ff6262f404027533e920f0913812533359219f4006ea57708",
+  "source_seed": {
+    "mode": "explicit_archive_files",
+    "archive_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\pytest-dev__pytest-8365\\source.tar.gz",
+    "archive_sha256": "972e266e9e055878d90bac983c281243bc7169e70638c2ff9caa25fb61759fb5",
+    "source_tree_hash": "5dbfebcb6296f88d014cacbcfa91bd1f93a770d2d328835fb7e92314322da979",
+    "file_count": 536,
+    "total_bytes": 4337759,
+    "generated_files": {
+      "src/_pytest/_version.py": {
+        "ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-runtime-generated-20260923-03\\pytest-dev__pytest-8365\\src\\_pytest\\_version.py",
+        "sha256": "3492d0ad346a33ec6d249f0819bc17f720f012e740a055eb35c7325d434ca43a"
+      }
+    }
+  },
+  "cleanup_verified": true,
+  "calibration_mode": "full_repo_collection_plus_bound_known_good_target_plus_executed_host_grader_policy_checks",
+  "negative_checks": {
+    "scope": "executed_host_policy_fixture_not_target_specific",
+    "checks": [
+      {
+        "case": "protected_path_change",
+        "status": "rejected",
+        "observed_status": "fail",
+        "observed_reason": "protected_or_unassigned_path_changed"
+      },
+      {
+        "case": "missing_receipt",
+        "status": "rejected",
+        "observed_status": "invalid_env",
+        "observed_reason": "missing_or_incomplete_receipt"
+      },
+      {
+        "case": "input_integrity_change",
+        "status": "rejected",
+        "observed_status": "fail",
+        "observed_reason": "frozen_input_changed_during_tests"
+      }
+    ],
+    "passed": true
+  },
+  "negative_checks_passed": true
+}

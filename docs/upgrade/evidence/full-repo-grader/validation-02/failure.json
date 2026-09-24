@@ -1,0 +1,8 @@
+{
+  "status": "invalid_env",
+  "phase": "collection_evidence_serialization",
+  "error": "TypeError: Object of type bytes is not JSON serializable",
+  "cause": "New pip_freeze evidence retained Docker stdout bytes without UTF-8 decoding.",
+  "action": "Decode pip_freeze to text; preserve this attempt and rerun in validation-03.",
+  "model_calls": 0
+}

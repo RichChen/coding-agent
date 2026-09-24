@@ -1,0 +1,82 @@
+{
+  "task_id": "sphinx-doc__sphinx-8595",
+  "repo": "sphinx-doc/sphinx",
+  "base_revision": "b19bce971e82f2497d67fdacdeca8db08ae0ba56",
+  "status": "invalid_env",
+  "attempt": 25,
+  "retries": 0,
+  "model_calls": 0,
+  "paid": false,
+  "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sphinx-doc__sphinx-8595\\source-receipt.json",
+  "transport_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-23-transport-smoke\\tasks\\sphinx-doc__sphinx-8595\\receipt.json",
+  "source": {
+    "schema": "a5.full-archive-inventory.v1",
+    "repo": "sphinx-doc/sphinx",
+    "base_revision": "b19bce971e82f2497d67fdacdeca8db08ae0ba56",
+    "archive_sha256": "3bc84c594f995feb7b15505dc9cd413caf228ab0ddb6f97b66801f56d22cad74",
+    "archive_bytes": 5994677,
+    "git_pax_commit": "b19bce971e82f2497d67fdacdeca8db08ae0ba56",
+    "source_tree_hash": "0ca46a2e8318574b5241c2a24780dc81e322c53c7c07ba86c2c22070b95348b7",
+    "inventory_sha256": "9f31207644c1f879c13ac065891ad20a8be18271e6f9248be08fc8cfd6f9abee",
+    "file_count": 1464,
+    "total_bytes": 16428590,
+    "nonregular_paths": [],
+    "excluded_upstream_paths": [],
+    "snapshot_kind": "complete_pinned_upstream_archive",
+    "within_runtime_limits": false,
+    "inventory_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sphinx-doc__sphinx-8595\\source-inventory.json"
+  },
+  "transport_mode": "image_backed_base_plus_delta",
+  "transport_image_digest": "coding-harness-a5-transport@sha256:7e841ccec53c7b00081d2b144fc9db37c4bb54a69e9ed5215f5cb69858875456",
+  "baseline_image_digest": "coding-harness-a5-baseline@sha256:34393c5e25a2f339f99121749f878c4bdb389e9c2e56a38e794473e1072793f4",
+  "known_good_image_digest": "coding-harness-a5-known-good@sha256:536a34d5739509a35ed9a519b12946befcc2dfbb3d710e98d7df7ccf4486205c",
+  "baseline_image_id": "sha256:34393c5e25a2f339f99121749f878c4bdb389e9c2e56a38e794473e1072793f4",
+  "known_good_image_id": "sha256:536a34d5739509a35ed9a519b12946befcc2dfbb3d710e98d7df7ccf4486205c",
+  "private_source_binding": {
+    "path": "D:\\crq\\src\\coding-agent\\reports\\upgrade\\a5-pilot20-preparation-20260921-v4\\private\\tasks\\a5-task-0f00e18f18495633\\source-row.json",
+    "sha256": "875c5b089228f0f426b71a7cb2d33c3a4047294755cc096aa93fa538b3554be5",
+    "test_patch_sha256": "441f4e2ab16c90acf8161135eea31eb6e46eac4b22d100104fe35b3f9c0a3d4f",
+    "gold_patch_sha256": "e49e0193e868dbd51b26a9f09163ce7604090ed1676ff719f8dfb038424d6ad9",
+    "test_patch_paths": [
+      "tests/roots/test-ext-autodoc/target/empty_all.py",
+      "tests/test_ext_autodoc_automodule.py"
+    ],
+    "gold_patch_paths": [
+      "sphinx/ext/autodoc/__init__.py"
+    ]
+  },
+  "snapshot_binding": {
+    "original_tree_hash": "d2b18b4d8a1216e65475fa0703068b25785bb1bbcd622203b61d8d9a60af3178",
+    "baseline_tree_hash": "3a8cd1552d302b1814ecaab0ac8c815d9e44eb68371f842c0f2195acedf353f7",
+    "known_good_tree_hash": "dfb47b21aefca3d82099a28250a132bbac4d61eebd498d2b1790945166f43898"
+  },
+  "python_version": null,
+  "pytest_version": "7.4.4",
+  "collection": {
+    "status": "invalid_env",
+    "count": 0,
+    "hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "nodeids": [],
+    "receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-25k-repo-baseline-sphinx8595\\tasks\\sphinx-doc__sphinx-8595\\collection\\evidence.json",
+    "collection_errors": []
+  },
+  "baseline": {
+    "status": "baseline_invalid",
+    "failure_nodeids": [
+      "tests/test_ext_autodoc_automodule.py::test_empty_all"
+    ],
+    "outcomes": {},
+    "missing_exact_nodeids": [
+      "tests/test_ext_autodoc_automodule.py::test_empty_all"
+    ],
+    "receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-25k-repo-baseline-sphinx8595\\tasks\\sphinx-doc__sphinx-8595\\baseline\\evidence.json"
+  },
+  "grader": {
+    "status": "pending_full_repo_grader",
+    "known_good": "fail",
+    "known_good_outcomes": {}
+  },
+  "cleanup_verified": true,
+  "dependencies": "see image pip freeze receipt",
+  "reason": "environment_or_baseline_gate_failed"
+}

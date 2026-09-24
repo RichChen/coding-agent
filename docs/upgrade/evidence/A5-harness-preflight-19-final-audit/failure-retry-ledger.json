@@ -1,0 +1,1222 @@
+{
+  "attempts": [
+    {
+      "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\failure-retry-ledger.json",
+      "sha256": "5403ffa10e30791e42ce87efb5dc749eb53cb97008de2a277aa0323bc7e9fa50",
+      "content": {
+        "phase": "source_acquisition",
+        "entries": [
+          {
+            "task_id": "django__django-13265",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0
+          },
+          {
+            "task_id": "django__django-15781",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0
+          },
+          {
+            "task_id": "django__django-13590",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0
+          },
+          {
+            "task_id": "django__django-13448",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0
+          },
+          {
+            "task_id": "sympy__sympy-20154",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0
+          },
+          {
+            "task_id": "sympy__sympy-24152",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0
+          },
+          {
+            "task_id": "sympy__sympy-20442",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0
+          },
+          {
+            "task_id": "sympy__sympy-18532",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0
+          },
+          {
+            "task_id": "scikit-learn__scikit-learn-25747",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0
+          },
+          {
+            "task_id": "scikit-learn__scikit-learn-25500",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0
+          },
+          {
+            "task_id": "scikit-learn__scikit-learn-25638",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0
+          },
+          {
+            "task_id": "scikit-learn__scikit-learn-25570",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0
+          },
+          {
+            "task_id": "pytest-dev__pytest-8365",
+            "status": "blocked",
+            "reason": "source_acquired_repo_specific_environment_preflight_pending",
+            "attempt": 1,
+            "retries": 0
+          },
+          {
+            "task_id": "pytest-dev__pytest-7432",
+            "status": "blocked",
+            "reason": "source_acquired_repo_specific_environment_preflight_pending",
+            "attempt": 1,
+            "retries": 0
+          },
+          {
+            "task_id": "pytest-dev__pytest-9359",
+            "status": "blocked",
+            "reason": "source_acquired_repo_specific_environment_preflight_pending",
+            "attempt": 1,
+            "retries": 0
+          },
+          {
+            "task_id": "pytest-dev__pytest-7220",
+            "status": "blocked",
+            "reason": "source_acquired_repo_specific_environment_preflight_pending",
+            "attempt": 1,
+            "retries": 0
+          },
+          {
+            "task_id": "sphinx-doc__sphinx-10451",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0
+          },
+          {
+            "task_id": "sphinx-doc__sphinx-8721",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0
+          },
+          {
+            "task_id": "sphinx-doc__sphinx-8595",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0
+          },
+          {
+            "task_id": "sphinx-doc__sphinx-8713",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0
+          },
+          {
+            "task_id": "django__django-10914",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0
+          },
+          {
+            "task_id": "sympy__sympy-11400",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0
+          },
+          {
+            "task_id": "scikit-learn__scikit-learn-10297",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0
+          },
+          {
+            "task_id": "pytest-dev__pytest-5103",
+            "status": "blocked",
+            "reason": "source_acquired_repo_specific_environment_preflight_pending",
+            "attempt": 1,
+            "retries": 0
+          }
+        ],
+        "model_calls": 0,
+        "model_reservations": 0,
+        "paid": false
+      }
+    },
+    {
+      "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-18-pytest5103-plugins\\failure-retry-ledger.json",
+      "sha256": "684f7081aa12ad700fcebcd9207e07607056cd41630855b5d88911dbe2bccbac",
+      "content": {
+        "entries": [
+          {
+            "task_id": "django__django-13265",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\django__django-13265\\source-receipt.json"
+          },
+          {
+            "task_id": "django__django-15781",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\django__django-15781\\source-receipt.json"
+          },
+          {
+            "task_id": "django__django-13590",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\django__django-13590\\source-receipt.json"
+          },
+          {
+            "task_id": "django__django-13448",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\django__django-13448\\source-receipt.json"
+          },
+          {
+            "task_id": "sympy__sympy-20154",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sympy__sympy-20154\\source-receipt.json"
+          },
+          {
+            "task_id": "sympy__sympy-24152",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sympy__sympy-24152\\source-receipt.json"
+          },
+          {
+            "task_id": "sympy__sympy-20442",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sympy__sympy-20442\\source-receipt.json"
+          },
+          {
+            "task_id": "sympy__sympy-18532",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sympy__sympy-18532\\source-receipt.json"
+          },
+          {
+            "task_id": "scikit-learn__scikit-learn-25747",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\scikit-learn__scikit-learn-25747\\source-receipt.json"
+          },
+          {
+            "task_id": "scikit-learn__scikit-learn-25500",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\scikit-learn__scikit-learn-25500\\source-receipt.json"
+          },
+          {
+            "task_id": "scikit-learn__scikit-learn-25638",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\scikit-learn__scikit-learn-25638\\source-receipt.json"
+          },
+          {
+            "task_id": "scikit-learn__scikit-learn-25570",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\scikit-learn__scikit-learn-25570\\source-receipt.json"
+          },
+          {
+            "task_id": "pytest-dev__pytest-8365",
+            "status": "ready",
+            "reason": "all_preflight_checks_passed",
+            "attempt": 3,
+            "retries": 1,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\pytest-dev__pytest-8365\\source-receipt.json"
+          },
+          {
+            "task_id": "pytest-dev__pytest-7432",
+            "status": "grader_unavailable",
+            "reason": "benchmark_nodeids_not_in_full_collection",
+            "attempt": 3,
+            "retries": 1,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\pytest-dev__pytest-7432\\source-receipt.json"
+          },
+          {
+            "task_id": "pytest-dev__pytest-9359",
+            "status": "baseline_pass",
+            "reason": "baseline_or_known_good_or_negative_gate_failed",
+            "attempt": 3,
+            "retries": 1,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\pytest-dev__pytest-9359\\source-receipt.json"
+          },
+          {
+            "task_id": "pytest-dev__pytest-7220",
+            "status": "ready",
+            "reason": "all_preflight_checks_passed",
+            "attempt": 3,
+            "retries": 1,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\pytest-dev__pytest-7220\\source-receipt.json"
+          },
+          {
+            "task_id": "sphinx-doc__sphinx-10451",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sphinx-doc__sphinx-10451\\source-receipt.json"
+          },
+          {
+            "task_id": "sphinx-doc__sphinx-8721",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sphinx-doc__sphinx-8721\\source-receipt.json"
+          },
+          {
+            "task_id": "sphinx-doc__sphinx-8595",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sphinx-doc__sphinx-8595\\source-receipt.json"
+          },
+          {
+            "task_id": "sphinx-doc__sphinx-8713",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sphinx-doc__sphinx-8713\\source-receipt.json"
+          },
+          {
+            "task_id": "django__django-10914",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\django__django-10914\\source-receipt.json"
+          },
+          {
+            "task_id": "sympy__sympy-11400",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sympy__sympy-11400\\source-receipt.json"
+          },
+          {
+            "task_id": "scikit-learn__scikit-learn-10297",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\scikit-learn__scikit-learn-10297\\source-receipt.json"
+          },
+          {
+            "task_id": "pytest-dev__pytest-5103",
+            "status": "ready",
+            "reason": "all_preflight_checks_passed",
+            "attempt": 5,
+            "retries": 3,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\pytest-dev__pytest-5103\\source-receipt.json"
+          }
+        ],
+        "model_calls": 0,
+        "model_reservations": 0,
+        "paid": false
+      }
+    },
+    {
+      "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-16-pytest9359-py39\\failure-retry-ledger.json",
+      "sha256": "f82cdd1d6049976827f65f7f700c09380be1738e52500bfb44db315b3f4e9d3b",
+      "content": {
+        "entries": [
+          {
+            "task_id": "django__django-13265",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\django__django-13265\\source-receipt.json"
+          },
+          {
+            "task_id": "django__django-15781",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\django__django-15781\\source-receipt.json"
+          },
+          {
+            "task_id": "django__django-13590",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\django__django-13590\\source-receipt.json"
+          },
+          {
+            "task_id": "django__django-13448",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\django__django-13448\\source-receipt.json"
+          },
+          {
+            "task_id": "sympy__sympy-20154",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sympy__sympy-20154\\source-receipt.json"
+          },
+          {
+            "task_id": "sympy__sympy-24152",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sympy__sympy-24152\\source-receipt.json"
+          },
+          {
+            "task_id": "sympy__sympy-20442",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sympy__sympy-20442\\source-receipt.json"
+          },
+          {
+            "task_id": "sympy__sympy-18532",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sympy__sympy-18532\\source-receipt.json"
+          },
+          {
+            "task_id": "scikit-learn__scikit-learn-25747",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\scikit-learn__scikit-learn-25747\\source-receipt.json"
+          },
+          {
+            "task_id": "scikit-learn__scikit-learn-25500",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\scikit-learn__scikit-learn-25500\\source-receipt.json"
+          },
+          {
+            "task_id": "scikit-learn__scikit-learn-25638",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\scikit-learn__scikit-learn-25638\\source-receipt.json"
+          },
+          {
+            "task_id": "scikit-learn__scikit-learn-25570",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\scikit-learn__scikit-learn-25570\\source-receipt.json"
+          },
+          {
+            "task_id": "pytest-dev__pytest-8365",
+            "status": "ready",
+            "reason": "all_preflight_checks_passed",
+            "attempt": 3,
+            "retries": 1,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\pytest-dev__pytest-8365\\source-receipt.json"
+          },
+          {
+            "task_id": "pytest-dev__pytest-7432",
+            "status": "grader_unavailable",
+            "reason": "benchmark_nodeids_not_in_full_collection",
+            "attempt": 3,
+            "retries": 1,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\pytest-dev__pytest-7432\\source-receipt.json"
+          },
+          {
+            "task_id": "pytest-dev__pytest-9359",
+            "status": "ready",
+            "reason": "all_preflight_checks_passed",
+            "attempt": 4,
+            "retries": 2,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\pytest-dev__pytest-9359\\source-receipt.json"
+          },
+          {
+            "task_id": "pytest-dev__pytest-7220",
+            "status": "ready",
+            "reason": "all_preflight_checks_passed",
+            "attempt": 3,
+            "retries": 1,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\pytest-dev__pytest-7220\\source-receipt.json"
+          },
+          {
+            "task_id": "sphinx-doc__sphinx-10451",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sphinx-doc__sphinx-10451\\source-receipt.json"
+          },
+          {
+            "task_id": "sphinx-doc__sphinx-8721",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sphinx-doc__sphinx-8721\\source-receipt.json"
+          },
+          {
+            "task_id": "sphinx-doc__sphinx-8595",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sphinx-doc__sphinx-8595\\source-receipt.json"
+          },
+          {
+            "task_id": "sphinx-doc__sphinx-8713",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sphinx-doc__sphinx-8713\\source-receipt.json"
+          },
+          {
+            "task_id": "django__django-10914",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\django__django-10914\\source-receipt.json"
+          },
+          {
+            "task_id": "sympy__sympy-11400",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sympy__sympy-11400\\source-receipt.json"
+          },
+          {
+            "task_id": "scikit-learn__scikit-learn-10297",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\scikit-learn__scikit-learn-10297\\source-receipt.json"
+          },
+          {
+            "task_id": "pytest-dev__pytest-5103",
+            "status": "invalid_env",
+            "reason": "baseline_or_known_good_or_negative_gate_failed",
+            "attempt": 3,
+            "retries": 1,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\pytest-dev__pytest-5103\\source-receipt.json"
+          }
+        ],
+        "model_calls": 0,
+        "model_reservations": 0,
+        "paid": false
+      }
+    },
+    {
+      "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-17-pytest5103-deps\\failure-retry-ledger.json",
+      "sha256": "0277cbb1865e87984cd3b7ff435db82362f7b097ff211b5a9886f82c5439a95b",
+      "content": {
+        "entries": [
+          {
+            "task_id": "django__django-13265",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\django__django-13265\\source-receipt.json"
+          },
+          {
+            "task_id": "django__django-15781",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\django__django-15781\\source-receipt.json"
+          },
+          {
+            "task_id": "django__django-13590",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\django__django-13590\\source-receipt.json"
+          },
+          {
+            "task_id": "django__django-13448",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\django__django-13448\\source-receipt.json"
+          },
+          {
+            "task_id": "sympy__sympy-20154",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sympy__sympy-20154\\source-receipt.json"
+          },
+          {
+            "task_id": "sympy__sympy-24152",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sympy__sympy-24152\\source-receipt.json"
+          },
+          {
+            "task_id": "sympy__sympy-20442",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sympy__sympy-20442\\source-receipt.json"
+          },
+          {
+            "task_id": "sympy__sympy-18532",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sympy__sympy-18532\\source-receipt.json"
+          },
+          {
+            "task_id": "scikit-learn__scikit-learn-25747",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\scikit-learn__scikit-learn-25747\\source-receipt.json"
+          },
+          {
+            "task_id": "scikit-learn__scikit-learn-25500",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\scikit-learn__scikit-learn-25500\\source-receipt.json"
+          },
+          {
+            "task_id": "scikit-learn__scikit-learn-25638",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\scikit-learn__scikit-learn-25638\\source-receipt.json"
+          },
+          {
+            "task_id": "scikit-learn__scikit-learn-25570",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\scikit-learn__scikit-learn-25570\\source-receipt.json"
+          },
+          {
+            "task_id": "pytest-dev__pytest-8365",
+            "status": "ready",
+            "reason": "all_preflight_checks_passed",
+            "attempt": 3,
+            "retries": 1,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\pytest-dev__pytest-8365\\source-receipt.json"
+          },
+          {
+            "task_id": "pytest-dev__pytest-7432",
+            "status": "grader_unavailable",
+            "reason": "benchmark_nodeids_not_in_full_collection",
+            "attempt": 3,
+            "retries": 1,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\pytest-dev__pytest-7432\\source-receipt.json"
+          },
+          {
+            "task_id": "pytest-dev__pytest-9359",
+            "status": "baseline_pass",
+            "reason": "baseline_or_known_good_or_negative_gate_failed",
+            "attempt": 3,
+            "retries": 1,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\pytest-dev__pytest-9359\\source-receipt.json"
+          },
+          {
+            "task_id": "pytest-dev__pytest-7220",
+            "status": "ready",
+            "reason": "all_preflight_checks_passed",
+            "attempt": 3,
+            "retries": 1,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\pytest-dev__pytest-7220\\source-receipt.json"
+          },
+          {
+            "task_id": "sphinx-doc__sphinx-10451",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sphinx-doc__sphinx-10451\\source-receipt.json"
+          },
+          {
+            "task_id": "sphinx-doc__sphinx-8721",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sphinx-doc__sphinx-8721\\source-receipt.json"
+          },
+          {
+            "task_id": "sphinx-doc__sphinx-8595",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sphinx-doc__sphinx-8595\\source-receipt.json"
+          },
+          {
+            "task_id": "sphinx-doc__sphinx-8713",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sphinx-doc__sphinx-8713\\source-receipt.json"
+          },
+          {
+            "task_id": "django__django-10914",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\django__django-10914\\source-receipt.json"
+          },
+          {
+            "task_id": "sympy__sympy-11400",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sympy__sympy-11400\\source-receipt.json"
+          },
+          {
+            "task_id": "scikit-learn__scikit-learn-10297",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\scikit-learn__scikit-learn-10297\\source-receipt.json"
+          },
+          {
+            "task_id": "pytest-dev__pytest-5103",
+            "status": "invalid_env",
+            "reason": "baseline_or_known_good_or_negative_gate_failed",
+            "attempt": 4,
+            "retries": 2,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\pytest-dev__pytest-5103\\source-receipt.json"
+          }
+        ],
+        "model_calls": 0,
+        "model_reservations": 0,
+        "paid": false
+      }
+    },
+    {
+      "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-14-host-pytest\\failure-retry-ledger.json",
+      "sha256": "e833eee3cafb10ab042e14e83cf740c31f3a1e7b2de7ceec5b84e217a0c06cc7",
+      "content": {
+        "entries": [
+          {
+            "task_id": "django__django-13265",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\django__django-13265\\source-receipt.json"
+          },
+          {
+            "task_id": "django__django-15781",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\django__django-15781\\source-receipt.json"
+          },
+          {
+            "task_id": "django__django-13590",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\django__django-13590\\source-receipt.json"
+          },
+          {
+            "task_id": "django__django-13448",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\django__django-13448\\source-receipt.json"
+          },
+          {
+            "task_id": "sympy__sympy-20154",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sympy__sympy-20154\\source-receipt.json"
+          },
+          {
+            "task_id": "sympy__sympy-24152",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sympy__sympy-24152\\source-receipt.json"
+          },
+          {
+            "task_id": "sympy__sympy-20442",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sympy__sympy-20442\\source-receipt.json"
+          },
+          {
+            "task_id": "sympy__sympy-18532",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sympy__sympy-18532\\source-receipt.json"
+          },
+          {
+            "task_id": "scikit-learn__scikit-learn-25747",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\scikit-learn__scikit-learn-25747\\source-receipt.json"
+          },
+          {
+            "task_id": "scikit-learn__scikit-learn-25500",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\scikit-learn__scikit-learn-25500\\source-receipt.json"
+          },
+          {
+            "task_id": "scikit-learn__scikit-learn-25638",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\scikit-learn__scikit-learn-25638\\source-receipt.json"
+          },
+          {
+            "task_id": "scikit-learn__scikit-learn-25570",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\scikit-learn__scikit-learn-25570\\source-receipt.json"
+          },
+          {
+            "task_id": "pytest-dev__pytest-8365",
+            "status": "ready",
+            "reason": "all_preflight_checks_passed",
+            "attempt": 3,
+            "retries": 1,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\pytest-dev__pytest-8365\\source-receipt.json"
+          },
+          {
+            "task_id": "pytest-dev__pytest-7432",
+            "status": "grader_unavailable",
+            "reason": "benchmark_nodeids_not_in_full_collection",
+            "attempt": 3,
+            "retries": 1,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\pytest-dev__pytest-7432\\source-receipt.json"
+          },
+          {
+            "task_id": "pytest-dev__pytest-9359",
+            "status": "baseline_pass",
+            "reason": "baseline_or_known_good_or_negative_gate_failed",
+            "attempt": 3,
+            "retries": 1,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\pytest-dev__pytest-9359\\source-receipt.json"
+          },
+          {
+            "task_id": "pytest-dev__pytest-7220",
+            "status": "ready",
+            "reason": "all_preflight_checks_passed",
+            "attempt": 3,
+            "retries": 1,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\pytest-dev__pytest-7220\\source-receipt.json"
+          },
+          {
+            "task_id": "sphinx-doc__sphinx-10451",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sphinx-doc__sphinx-10451\\source-receipt.json"
+          },
+          {
+            "task_id": "sphinx-doc__sphinx-8721",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sphinx-doc__sphinx-8721\\source-receipt.json"
+          },
+          {
+            "task_id": "sphinx-doc__sphinx-8595",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sphinx-doc__sphinx-8595\\source-receipt.json"
+          },
+          {
+            "task_id": "sphinx-doc__sphinx-8713",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sphinx-doc__sphinx-8713\\source-receipt.json"
+          },
+          {
+            "task_id": "django__django-10914",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\django__django-10914\\source-receipt.json"
+          },
+          {
+            "task_id": "sympy__sympy-11400",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sympy__sympy-11400\\source-receipt.json"
+          },
+          {
+            "task_id": "scikit-learn__scikit-learn-10297",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\scikit-learn__scikit-learn-10297\\source-receipt.json"
+          },
+          {
+            "task_id": "pytest-dev__pytest-5103",
+            "status": "invalid_env",
+            "reason": "baseline_or_known_good_or_negative_gate_failed",
+            "attempt": 3,
+            "retries": 1,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\pytest-dev__pytest-5103\\source-receipt.json"
+          }
+        ],
+        "model_calls": 0,
+        "model_reservations": 0,
+        "paid": false
+      }
+    },
+    {
+      "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-13-host-pytest\\failure-retry-ledger.json",
+      "sha256": "212ac57b9e69ce1778a1d0b60798299ac5425f52380dd21a34111a5eb01900dd",
+      "content": {
+        "entries": [
+          {
+            "task_id": "django__django-13265",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\django__django-13265\\source-receipt.json"
+          },
+          {
+            "task_id": "django__django-15781",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\django__django-15781\\source-receipt.json"
+          },
+          {
+            "task_id": "django__django-13590",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\django__django-13590\\source-receipt.json"
+          },
+          {
+            "task_id": "django__django-13448",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\django__django-13448\\source-receipt.json"
+          },
+          {
+            "task_id": "sympy__sympy-20154",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sympy__sympy-20154\\source-receipt.json"
+          },
+          {
+            "task_id": "sympy__sympy-24152",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sympy__sympy-24152\\source-receipt.json"
+          },
+          {
+            "task_id": "sympy__sympy-20442",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sympy__sympy-20442\\source-receipt.json"
+          },
+          {
+            "task_id": "sympy__sympy-18532",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sympy__sympy-18532\\source-receipt.json"
+          },
+          {
+            "task_id": "scikit-learn__scikit-learn-25747",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\scikit-learn__scikit-learn-25747\\source-receipt.json"
+          },
+          {
+            "task_id": "scikit-learn__scikit-learn-25500",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\scikit-learn__scikit-learn-25500\\source-receipt.json"
+          },
+          {
+            "task_id": "scikit-learn__scikit-learn-25638",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\scikit-learn__scikit-learn-25638\\source-receipt.json"
+          },
+          {
+            "task_id": "scikit-learn__scikit-learn-25570",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\scikit-learn__scikit-learn-25570\\source-receipt.json"
+          },
+          {
+            "task_id": "pytest-dev__pytest-8365",
+            "status": "invalid_env",
+            "reason": "environment_or_grader_preparation_failed",
+            "attempt": 2,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\pytest-dev__pytest-8365\\source-receipt.json"
+          },
+          {
+            "task_id": "pytest-dev__pytest-7432",
+            "status": "invalid_env",
+            "reason": "environment_or_grader_preparation_failed",
+            "attempt": 2,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\pytest-dev__pytest-7432\\source-receipt.json"
+          },
+          {
+            "task_id": "pytest-dev__pytest-9359",
+            "status": "invalid_env",
+            "reason": "environment_or_grader_preparation_failed",
+            "attempt": 2,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\pytest-dev__pytest-9359\\source-receipt.json"
+          },
+          {
+            "task_id": "pytest-dev__pytest-7220",
+            "status": "invalid_env",
+            "reason": "environment_or_grader_preparation_failed",
+            "attempt": 2,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\pytest-dev__pytest-7220\\source-receipt.json"
+          },
+          {
+            "task_id": "sphinx-doc__sphinx-10451",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sphinx-doc__sphinx-10451\\source-receipt.json"
+          },
+          {
+            "task_id": "sphinx-doc__sphinx-8721",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sphinx-doc__sphinx-8721\\source-receipt.json"
+          },
+          {
+            "task_id": "sphinx-doc__sphinx-8595",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sphinx-doc__sphinx-8595\\source-receipt.json"
+          },
+          {
+            "task_id": "sphinx-doc__sphinx-8713",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sphinx-doc__sphinx-8713\\source-receipt.json"
+          },
+          {
+            "task_id": "django__django-10914",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\django__django-10914\\source-receipt.json"
+          },
+          {
+            "task_id": "sympy__sympy-11400",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sympy__sympy-11400\\source-receipt.json"
+          },
+          {
+            "task_id": "scikit-learn__scikit-learn-10297",
+            "status": "invalid_env",
+            "reason": "full_source_exceeds_runtime_limits",
+            "attempt": 1,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\scikit-learn__scikit-learn-10297\\source-receipt.json"
+          },
+          {
+            "task_id": "pytest-dev__pytest-5103",
+            "status": "invalid_env",
+            "reason": "environment_or_grader_preparation_failed",
+            "attempt": 2,
+            "retries": 0,
+            "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\pytest-dev__pytest-5103\\source-receipt.json"
+          }
+        ],
+        "model_calls": 0,
+        "model_reservations": 0,
+        "paid": false
+      }
+    },
+    {
+      "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-15-pytest9359-py39\\orchestration-failure.json",
+      "sha256": "0dc7881a3eef62f080502346713cd90bdb5879afd4c152dba6beedd7f82f9026",
+      "content": {
+        "schema": "a5.host-preflight.orchestration-failure.v1",
+        "status": "blocked",
+        "task_id": "pytest-dev__pytest-9359",
+        "reason": "prior_attempt_14_aggregate_receipts_not_yet_available",
+        "error_kind": "FileNotFoundError",
+        "exit_code": 1,
+        "required_input": "D:/crq/src/coding-harness/docs/upgrade/evidence/A5-harness-preflight-14-host-pytest/receipts.json",
+        "base_image": "python@sha256:6e4a4eb8ce1238cb552dd44cc37f9187e448e9bfcf24262c5badfd69fee1bef0",
+        "environment_execution_started": false,
+        "source_inventory_unchanged": 24,
+        "model_calls": 0,
+        "model_reservations": 0,
+        "paid": false,
+        "next_action": "wait_for_attempt14_completion_then_retry_in_new_attempt16"
+      }
+    }
+  ],
+  "model_calls": 0,
+  "model_reservations": 0,
+  "paid": false
+}

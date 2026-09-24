@@ -1,0 +1,30 @@
+{
+  "task_id": "scikit-learn__scikit-learn-25500",
+  "repo": "scikit-learn/scikit-learn",
+  "base_revision": "4db04923a754b6a2defa1b172f55d492b85d165e",
+  "role": "target",
+  "status": "image_context_ready",
+  "attempt": 20,
+  "retries": 0,
+  "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\scikit-learn__scikit-learn-25500\\source-receipt.json",
+  "image_digest": null,
+  "model_calls": 0,
+  "paid": false,
+  "source": {
+    "archive_sha256": "f5aa6b197a3681b1339c89c2c9b51bba121dbe91657ad317bc707ad9305675f6",
+    "archive_bytes": 7402291,
+    "inventory_sha256": "f1ff83e448c693b7b4a0b81416eb407ecba77383868eaf683c10eb840468cacc",
+    "file_count": 1532,
+    "total_bytes": 20682366,
+    "source_tree_hash": "5d2802d064d8167b0d9c07f59ab348278917f72d2da7f3994a8c56338acb92a4",
+    "nonregular_paths": [],
+    "complete_member_inventory_verified": true,
+    "within_runtime_limits": false
+  },
+  "transport_mode": "image_backed_base_plus_delta",
+  "base_image": "python@sha256:603879aeff06df23f0d392a19f7ce02aa85e14e6b4d25fd9647b116e0cb93467",
+  "image_context": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-21-image-contexts\\tasks\\scikit-learn__scikit-learn-25500\\image-context",
+  "image_context_sha256": "a55d36c7bde1562e00c434eb631c898000103c5246fe46894a5434f0662b5038",
+  "reason": "docker_build_deferred",
+  "duration_seconds": 0.46031460000085644
+}

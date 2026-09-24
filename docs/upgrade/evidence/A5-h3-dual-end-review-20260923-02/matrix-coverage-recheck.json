@@ -1,0 +1,68 @@
+{
+  "schema": "a5.h3-matrix-coverage-recheck.v1",
+  "source_path": "D:\\crq\\src\\coding-agent\\reports\\upgrade\\a5-pilot20-preparation-20260921-v4\\assignments.json",
+  "source_sha256": "5ef02ef8f8b8d5960f180b24856801efa1d134bcc892e51d585686d15d81792d",
+  "expected_source_sha256": "5ef02ef8f8b8d5960f180b24856801efa1d134bcc892e51d585686d15d81792d",
+  "source_hash_match": true,
+  "row_count": 240,
+  "unique_assignment_ids": 240,
+  "unique_cells": 240,
+  "duplicate_cells": [],
+  "target_count": 20,
+  "variants": [
+    "B0",
+    "B1",
+    "B2",
+    "B3"
+  ],
+  "organization_seeds": [
+    42,
+    43,
+    44
+  ],
+  "variant_counts": {
+    "B0": 60,
+    "B1": 60,
+    "B2": 60,
+    "B3": 60
+  },
+  "seed_counts": {
+    "42": 80,
+    "43": 80,
+    "44": 80
+  },
+  "all_planned_not_started": true,
+  "all_provider_seed_null": true,
+  "all_run_attempt_zero": true,
+  "django_13265_rows": 12,
+  "pass": true,
+  "agent_projection": {
+    "schema": "a5.canonical-bind-assignment-coverage.v1",
+    "assignments_sha256": "5ef02ef8f8b8d5960f180b24856801efa1d134bcc892e51d585686d15d81792d",
+    "matrix": "20 targets x 4 variants x 3 repeats",
+    "row_count": 240,
+    "covered_cells": 240,
+    "cells_expected": 240,
+    "variant_counts": {
+      "B0": 60,
+      "B1": 60,
+      "B2": 60,
+      "B3": 60
+    },
+    "seed_counts": {
+      "42": 80,
+      "43": 80,
+      "44": 80
+    },
+    "repeat_counts": {
+      "0": 80,
+      "1": 80,
+      "2": 80
+    },
+    "coverage_complete": true,
+    "django_13265_rows_retained": 12,
+    "django_13265_retained_in_denominator": true,
+    "states_unchanged": true,
+    "provider_calls": 0
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "rows": [
+    {
+      "task_id": "scikit-learn__scikit-learn-25747",
+      "repo": "scikit-learn/scikit-learn",
+      "base_revision": "2c867b8f822eb7a684f0d5c4359e4426e1c9cfe0",
+      "status": "invalid_env",
+      "attempt": "A5-harness-preflight-38-sklearn-snapshot-smoke",
+      "retries": 0,
+      "model_calls": 0,
+      "paid": false,
+      "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\scikit-learn__scikit-learn-25747\\source-receipt.json",
+      "transport_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-23-transport-smoke\\tasks\\scikit-learn__scikit-learn-25747\\receipt.json",
+      "reason": "preflight_recheck_failed",
+      "error": "ValueError: expected exactly one collected identity for 'sklearn/utils/tests/test_set_output.py::test_set_output_pandas_keep_index': []",
+      "previous_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-27-repo-baseline\\tasks\\scikit-learn__scikit-learn-25747\\receipt.json",
+      "previous_receipt_sha256": "5d72b03259b7bebfbf9c0a28f94d0268fe4cf58a28f2d562d26a4c5e726e83d0",
+      "private_source_binding": {
+        "path": "D:\\crq\\src\\coding-agent\\reports\\upgrade\\a5-pilot20-preparation-20260921-v4\\private\\tasks\\a5-task-07b0ed7ca1d52f88\\source-row.json",
+        "sha256": "a275dbe406755e2abd2668f06210e490f35da82b94c17eb33ff2bb7c401c083c",
+        "test_patch_sha256": "a3294d6c41c9d144ff8d52010455e6b624ec2b32a1e385f9e672cac30ce018b3",
+        "gold_patch_sha256": "cd985cfd10afb83adb9d714fb81873b001a56de5938d93b5a9c7dbb641d3c9b3",
+        "test_patch_paths": [
+          "sklearn/utils/tests/test_set_output.py"
+        ],
+        "gold_patch_paths": [
+          "sklearn/utils/_set_output.py"
+        ]
+      },
+      "source": {
+        "schema": "a5.full-archive-inventory.v1",
+        "repo": "scikit-learn/scikit-learn",
+        "base_revision": "2c867b8f822eb7a684f0d5c4359e4426e1c9cfe0",
+        "archive_sha256": "2e30657bf995547dea101d594eaf7c4f885953bf780c0c8380e2e3fd045c741a",
+        "archive_bytes": 7412695,
+        "git_pax_commit": "2c867b8f822eb7a684f0d5c4359e4426e1c9cfe0",
+        "source_tree_hash": "e6e6290d1c0a547b0aa656fbc121564fc75798373ae36b8ea04247700ce95cfa",
+        "inventory_sha256": "2705cb0d5cc3cc59983c93042030cdd71ab6a683c8f4a81992e838521cdefece",
+        "file_count": 1522,
+        "total_bytes": 20731203,
+        "nonregular_paths": [],
+        "excluded_upstream_paths": [],
+        "snapshot_kind": "complete_pinned_upstream_archive",
+        "within_runtime_limits": false,
+        "inventory_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\scikit-learn__scikit-learn-25747\\source-inventory.json"
+      },
+      "baseline_image_digest": "coding-harness-a5-recheck@sha256:1d3179151535d1fcf2931280a52792928e79bb404f7d22e5e5a50d72da40ccb6",
+      "baseline_image_id": "sha256:1d3179151535d1fcf2931280a52792928e79bb404f7d22e5e5a50d72da40ccb6",
+      "known_good_image_digest": "coding-harness-a5-recheck@sha256:90274a820c1a94456ae4b9c3f2f36d557982b5bdedbbc209c4bcb8dd24f496da",
+      "known_good_image_id": "sha256:90274a820c1a94456ae4b9c3f2f36d557982b5bdedbbc209c4bcb8dd24f496da",
+      "collection": {
+        "status": "invalid_env",
+        "count": 0,
+        "nodeids": [],
+        "hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-38-sklearn-snapshot-smoke\\tasks\\scikit-learn__scikit-learn-25747\\collection\\evidence.json"
+      }
+    }
+  ],
+  "full_denominator": 24,
+  "model_calls": 0,
+  "paid": false,
+  "memory_build_eligible": false
+}

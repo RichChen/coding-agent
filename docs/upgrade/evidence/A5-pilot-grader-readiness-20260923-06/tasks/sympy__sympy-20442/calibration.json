@@ -1,0 +1,70 @@
+{
+  "task_id": "sympy__sympy-20442",
+  "status": "ready",
+  "grader_ready": true,
+  "repo": "sympy/sympy",
+  "base_revision": "1abbc0ac3e552cb184317194e5d5c5b9dd8fb640",
+  "image": "coding-harness-a5-known-good@sha256:43779d24b3ba008a374ded0b97c368f94bb4abcdd19f49ed808cbaf29b1e240e",
+  "model_calls": 0,
+  "paid": false,
+  "canonical_binding_required": true,
+  "input_baseline_status": "baseline_ready",
+  "pilot_binding": {
+    "status": "pass",
+    "reason": null,
+    "canonical_target_id": "sympy__sympy-20442",
+    "repo": "sympy/sympy",
+    "expected_repo": "sympy/sympy",
+    "base_revision": "1abbc0ac3e552cb184317194e5d5c5b9dd8fb640",
+    "expected_base_commit": "1abbc0ac3e552cb184317194e5d5c5b9dd8fb640",
+    "pilot_base_hash": "5987b1c800910fde8aaa18e0b73c49c9b881ccd12cf6de0216002b9f582d18a0"
+  },
+  "known_good_binding": {
+    "status": "pass",
+    "reason": null,
+    "receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-32-preserved-mode-recheck\\tasks\\sympy__sympy-20442\\known-good\\evidence.json",
+    "receipt_sha256": "ff108ffa9dec0851d0992b65a51d827bd01507a863d74dd88aa5b9470eb7f20e",
+    "image": "coding-harness-a5-known-good@sha256:43779d24b3ba008a374ded0b97c368f94bb4abcdd19f49ed808cbaf29b1e240e",
+    "receipt_image": "coding-harness-a5-known-good@sha256:43779d24b3ba008a374ded0b97c368f94bb4abcdd19f49ed808cbaf29b1e240e",
+    "expected_outcomes": {
+      "sympy/physics/units/tests/test_quantities.py::test_convert_to": "passed"
+    },
+    "verified_outcomes": {
+      "sympy/physics/units/tests/test_quantities.py::test_convert_to": "passed"
+    },
+    "cleanup_verified": true
+  },
+  "reason": null,
+  "full_collection_status": "ready",
+  "full_collection_count": 10008,
+  "full_collection_hash": "45c9c048ac78cabd791be9130be893149af84449e9396c025827fa2b8bf082bc",
+  "collection_evidence_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-06\\tasks\\sympy__sympy-20442\\full-repo\\evidence.json",
+  "collection_evidence_sha256": "0a9b95b67a78bfc1fad3b59c91d40a11e4fe70c0ddc2f5efeb5fa41d1e7ae772",
+  "cleanup_verified": true,
+  "calibration_mode": "full_repo_collection_plus_bound_known_good_target_plus_executed_host_grader_policy_checks",
+  "negative_checks": {
+    "scope": "executed_host_policy_fixture_not_target_specific",
+    "checks": [
+      {
+        "case": "protected_path_change",
+        "status": "rejected",
+        "observed_status": "fail",
+        "observed_reason": "protected_or_unassigned_path_changed"
+      },
+      {
+        "case": "missing_receipt",
+        "status": "rejected",
+        "observed_status": "invalid_env",
+        "observed_reason": "missing_or_incomplete_receipt"
+      },
+      {
+        "case": "input_integrity_change",
+        "status": "rejected",
+        "observed_status": "fail",
+        "observed_reason": "frozen_input_changed_during_tests"
+      }
+    ],
+    "passed": true
+  },
+  "negative_checks_passed": true
+}

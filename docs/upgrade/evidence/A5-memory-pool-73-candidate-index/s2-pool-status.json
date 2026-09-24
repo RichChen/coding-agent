@@ -1,0 +1,35 @@
+{
+  "schema": "a5.memory-pool.s2-status.v1",
+  "status": "blocked_until_s1_plumbing_stable",
+  "model_calls": 0,
+  "paid": false,
+  "target_validated_or_candidate": "about_12_to_15_not_a_promise",
+  "actual_validated": 0,
+  "actual_candidate": 0,
+  "actual_rejected": 0,
+  "actual_blocked": 5,
+  "blocked_sources": [
+    "django__django-11001",
+    "django__django-11019",
+    "sympy__sympy-12236",
+    "pytest-dev__pytest-5413",
+    "pytest-dev__pytest-5495"
+  ],
+  "states": {
+    "candidate": [],
+    "validated": [],
+    "rejected": [],
+    "blocked": [
+      "django__django-11001",
+      "django__django-11019",
+      "sympy__sympy-12236",
+      "pytest-dev__pytest-5413",
+      "pytest-dev__pytest-5495"
+    ]
+  },
+  "promotion_rule": "No promotion without real public trajectory, public validation artifact, independent receipt, dependency/provenance review, and readable hashes.",
+  "stop_conditions_observed": [
+    "no_real_trajectory_bound_to_any_record_yet",
+    "paid_build_not_authorized_in_this_handoff"
+  ]
+}

@@ -1,0 +1,568 @@
+{
+  "schema": "a5.image-backed-full-repo-grader-calibration-receipts.v1",
+  "rows": [
+    {
+      "task_id": "django__django-15781",
+      "status": "ready",
+      "image": "coding-harness-a5-known-good@sha256:69f4a4bf74714ad76457519e3a732613f47b628db1049ddb56c71f318a23dc34",
+      "repo": "django/django",
+      "full_collection_count": 15884,
+      "full_collection_hash": "d1f873a1dca7104721dc64a1de74dd723adaa4a529f9beda5dacdd30bdb726be",
+      "full_suite_passed": 0,
+      "full_suite_failed": 0,
+      "full_suite_skipped": 0,
+      "calibration_mode": "full_repository_collection_plus_known_good_target_and_rejection_checks",
+      "evidence_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-01\\tasks\\django__django-15781\\full-repo\\evidence.json",
+      "negative_checks": [
+        {
+          "case": "protected_path_change",
+          "status": "rejected",
+          "reason": "protected_or_unassigned_path_changed"
+        },
+        {
+          "case": "missing_receipt",
+          "status": "rejected",
+          "reason": "missing_or_incomplete_receipt"
+        },
+        {
+          "case": "input_integrity_change",
+          "status": "rejected",
+          "reason": "frozen_input_changed_during_tests"
+        }
+      ],
+      "negative_checks_passed": true,
+      "known_good_target_status": null,
+      "cleanup_verified": true,
+      "model_calls": 0,
+      "paid": false
+    },
+    {
+      "task_id": "django__django-13590",
+      "status": "ready",
+      "image": "coding-harness-a5-known-good@sha256:53f64134485a7ffe49c70f548ca7e43a22d54aedb10f34ed9f7fb912adb282a7",
+      "repo": "django/django",
+      "full_collection_count": 14288,
+      "full_collection_hash": "25ae90b34c54f7b0bee9370bfac362ee246433d7ca62d56aeef5d7ec1f8c7ca2",
+      "full_suite_passed": 0,
+      "full_suite_failed": 0,
+      "full_suite_skipped": 0,
+      "calibration_mode": "full_repository_collection_plus_known_good_target_and_rejection_checks",
+      "evidence_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-01\\tasks\\django__django-13590\\full-repo\\evidence.json",
+      "negative_checks": [
+        {
+          "case": "protected_path_change",
+          "status": "rejected",
+          "reason": "protected_or_unassigned_path_changed"
+        },
+        {
+          "case": "missing_receipt",
+          "status": "rejected",
+          "reason": "missing_or_incomplete_receipt"
+        },
+        {
+          "case": "input_integrity_change",
+          "status": "rejected",
+          "reason": "frozen_input_changed_during_tests"
+        }
+      ],
+      "negative_checks_passed": true,
+      "known_good_target_status": null,
+      "cleanup_verified": true,
+      "model_calls": 0,
+      "paid": false
+    },
+    {
+      "task_id": "django__django-13448",
+      "status": "ready",
+      "image": "coding-harness-a5-known-good@sha256:ff9a9b2b595c5a7e405aa324bdada15b612b2ab6eae2bcbc3b690672aed9b257",
+      "repo": "django/django",
+      "full_collection_count": 14222,
+      "full_collection_hash": "50fbdc3aa2bb27f89b6773e05e6be6850a95a29332adef703f5fbe0836022884",
+      "full_suite_passed": 0,
+      "full_suite_failed": 0,
+      "full_suite_skipped": 0,
+      "calibration_mode": "full_repository_collection_plus_known_good_target_and_rejection_checks",
+      "evidence_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-01\\tasks\\django__django-13448\\full-repo\\evidence.json",
+      "negative_checks": [
+        {
+          "case": "protected_path_change",
+          "status": "rejected",
+          "reason": "protected_or_unassigned_path_changed"
+        },
+        {
+          "case": "missing_receipt",
+          "status": "rejected",
+          "reason": "missing_or_incomplete_receipt"
+        },
+        {
+          "case": "input_integrity_change",
+          "status": "rejected",
+          "reason": "frozen_input_changed_during_tests"
+        }
+      ],
+      "negative_checks_passed": true,
+      "known_good_target_status": null,
+      "cleanup_verified": true,
+      "model_calls": 0,
+      "paid": false
+    },
+    {
+      "task_id": "sympy__sympy-20154",
+      "status": "ready",
+      "image": "coding-harness-a5-known-good@sha256:5cf0b1cfdc41510af3bbb879bd65d7a28346a3a22f2183897eb1f1303ca47818",
+      "repo": "sympy/sympy",
+      "full_collection_count": 9995,
+      "full_collection_hash": "bdaf78e0e115aba0e3bba8839d8b3dd561fd74d8d2f0dbef2bbe14bff6982898",
+      "full_suite_passed": 0,
+      "full_suite_failed": 0,
+      "full_suite_skipped": 0,
+      "calibration_mode": "full_repository_collection_plus_known_good_target_and_rejection_checks",
+      "evidence_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-01\\tasks\\sympy__sympy-20154\\full-repo\\evidence.json",
+      "negative_checks": [
+        {
+          "case": "protected_path_change",
+          "status": "rejected",
+          "reason": "protected_or_unassigned_path_changed"
+        },
+        {
+          "case": "missing_receipt",
+          "status": "rejected",
+          "reason": "missing_or_incomplete_receipt"
+        },
+        {
+          "case": "input_integrity_change",
+          "status": "rejected",
+          "reason": "frozen_input_changed_during_tests"
+        }
+      ],
+      "negative_checks_passed": true,
+      "known_good_target_status": null,
+      "cleanup_verified": true,
+      "model_calls": 0,
+      "paid": false
+    },
+    {
+      "task_id": "sympy__sympy-24152",
+      "status": "ready",
+      "image": "coding-harness-a5-known-good@sha256:0a29a3e113055a73ef0724ee2a2f986401e304928971fb4c0444008e37c1d22c",
+      "repo": "sympy/sympy",
+      "full_collection_count": 11061,
+      "full_collection_hash": "bcb46cfa85df5bff3d1c67b1dfebb1a98a2c6d0e901e447c8911cb5f9e20c67e",
+      "full_suite_passed": 0,
+      "full_suite_failed": 0,
+      "full_suite_skipped": 0,
+      "calibration_mode": "full_repository_collection_plus_known_good_target_and_rejection_checks",
+      "evidence_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-01\\tasks\\sympy__sympy-24152\\full-repo\\evidence.json",
+      "negative_checks": [
+        {
+          "case": "protected_path_change",
+          "status": "rejected",
+          "reason": "protected_or_unassigned_path_changed"
+        },
+        {
+          "case": "missing_receipt",
+          "status": "rejected",
+          "reason": "missing_or_incomplete_receipt"
+        },
+        {
+          "case": "input_integrity_change",
+          "status": "rejected",
+          "reason": "frozen_input_changed_during_tests"
+        }
+      ],
+      "negative_checks_passed": true,
+      "known_good_target_status": null,
+      "cleanup_verified": true,
+      "model_calls": 0,
+      "paid": false
+    },
+    {
+      "task_id": "sympy__sympy-20442",
+      "status": "ready",
+      "image": "coding-harness-a5-known-good@sha256:43779d24b3ba008a374ded0b97c368f94bb4abcdd19f49ed808cbaf29b1e240e",
+      "repo": "sympy/sympy",
+      "full_collection_count": 10008,
+      "full_collection_hash": "45c9c048ac78cabd791be9130be893149af84449e9396c025827fa2b8bf082bc",
+      "full_suite_passed": 0,
+      "full_suite_failed": 0,
+      "full_suite_skipped": 0,
+      "calibration_mode": "full_repository_collection_plus_known_good_target_and_rejection_checks",
+      "evidence_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-01\\tasks\\sympy__sympy-20442\\full-repo\\evidence.json",
+      "negative_checks": [
+        {
+          "case": "protected_path_change",
+          "status": "rejected",
+          "reason": "protected_or_unassigned_path_changed"
+        },
+        {
+          "case": "missing_receipt",
+          "status": "rejected",
+          "reason": "missing_or_incomplete_receipt"
+        },
+        {
+          "case": "input_integrity_change",
+          "status": "rejected",
+          "reason": "frozen_input_changed_during_tests"
+        }
+      ],
+      "negative_checks_passed": true,
+      "known_good_target_status": null,
+      "cleanup_verified": true,
+      "model_calls": 0,
+      "paid": false
+    },
+    {
+      "task_id": "sympy__sympy-18532",
+      "status": "fail",
+      "image": "coding-harness-a5-known-good@sha256:8854ab47e905ef0e4395dc29c890cb0847fea4c022465fd885cf048e41a61056",
+      "repo": "sympy/sympy",
+      "full_collection_count": 9473,
+      "full_collection_hash": "c437117276b3693b3839f631b7ce76c1add2b9ba8dca7a8baaf6104d78c0a3ef",
+      "full_suite_passed": 0,
+      "full_suite_failed": 0,
+      "full_suite_skipped": 0,
+      "calibration_mode": "full_repository_collection_plus_known_good_target_and_rejection_checks",
+      "evidence_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-01\\tasks\\sympy__sympy-18532\\full-repo\\evidence.json",
+      "negative_checks": [
+        {
+          "case": "protected_path_change",
+          "status": "rejected",
+          "reason": "protected_or_unassigned_path_changed"
+        },
+        {
+          "case": "missing_receipt",
+          "status": "rejected",
+          "reason": "missing_or_incomplete_receipt"
+        },
+        {
+          "case": "input_integrity_change",
+          "status": "rejected",
+          "reason": "frozen_input_changed_during_tests"
+        }
+      ],
+      "negative_checks_passed": true,
+      "known_good_target_status": null,
+      "cleanup_verified": true,
+      "model_calls": 0,
+      "paid": false
+    },
+    {
+      "task_id": "scikit-learn__scikit-learn-25747",
+      "status": "ready",
+      "image": "coding-harness-a5-recheck@sha256:90274a820c1a94456ae4b9c3f2f36d557982b5bdedbbc209c4bcb8dd24f496da",
+      "repo": "scikit-learn/scikit-learn",
+      "full_collection_count": 28046,
+      "full_collection_hash": "d924fb0fab058ddc62d8c92fddbb06e32462d419ec26826ecc624166536fdb59",
+      "full_suite_passed": 0,
+      "full_suite_failed": 0,
+      "full_suite_skipped": 0,
+      "calibration_mode": "full_repository_collection_plus_known_good_target_and_rejection_checks",
+      "evidence_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-01\\tasks\\scikit-learn__scikit-learn-25747\\full-repo\\evidence.json",
+      "negative_checks": [
+        {
+          "case": "protected_path_change",
+          "status": "rejected",
+          "reason": "protected_or_unassigned_path_changed"
+        },
+        {
+          "case": "missing_receipt",
+          "status": "rejected",
+          "reason": "missing_or_incomplete_receipt"
+        },
+        {
+          "case": "input_integrity_change",
+          "status": "rejected",
+          "reason": "frozen_input_changed_during_tests"
+        }
+      ],
+      "negative_checks_passed": true,
+      "known_good_target_status": null,
+      "cleanup_verified": true,
+      "model_calls": 0,
+      "paid": false
+    },
+    {
+      "task_id": "scikit-learn__scikit-learn-25500",
+      "status": "ready",
+      "image": "coding-harness-a5-recheck@sha256:c6f3f2772bb05e66c7a3cfbab7f1da877122e5e55862421ca870aa19641e4b01",
+      "repo": "scikit-learn/scikit-learn",
+      "full_collection_count": 27634,
+      "full_collection_hash": "c01f4fff3c2d85a2d72a4025201c24ce1f43bef69ef2f3e27f27e67c9b9d09e0",
+      "full_suite_passed": 0,
+      "full_suite_failed": 0,
+      "full_suite_skipped": 0,
+      "calibration_mode": "full_repository_collection_plus_known_good_target_and_rejection_checks",
+      "evidence_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-01\\tasks\\scikit-learn__scikit-learn-25500\\full-repo\\evidence.json",
+      "negative_checks": [
+        {
+          "case": "protected_path_change",
+          "status": "rejected",
+          "reason": "protected_or_unassigned_path_changed"
+        },
+        {
+          "case": "missing_receipt",
+          "status": "rejected",
+          "reason": "missing_or_incomplete_receipt"
+        },
+        {
+          "case": "input_integrity_change",
+          "status": "rejected",
+          "reason": "frozen_input_changed_during_tests"
+        }
+      ],
+      "negative_checks_passed": true,
+      "known_good_target_status": null,
+      "cleanup_verified": true,
+      "model_calls": 0,
+      "paid": false
+    },
+    {
+      "task_id": "scikit-learn__scikit-learn-25638",
+      "status": "ready",
+      "image": "coding-harness-a5-recheck@sha256:ba48914b40353c9aec0bd0bb0d036625a6166b5f3d8e084a924e561d7d1b6c71",
+      "repo": "scikit-learn/scikit-learn",
+      "full_collection_count": 27997,
+      "full_collection_hash": "2ad77a43704838772368810d815ec6d7ff4e83a36aa25b0be2aff1356c4b7f78",
+      "full_suite_passed": 0,
+      "full_suite_failed": 0,
+      "full_suite_skipped": 0,
+      "calibration_mode": "full_repository_collection_plus_known_good_target_and_rejection_checks",
+      "evidence_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-01\\tasks\\scikit-learn__scikit-learn-25638\\full-repo\\evidence.json",
+      "negative_checks": [
+        {
+          "case": "protected_path_change",
+          "status": "rejected",
+          "reason": "protected_or_unassigned_path_changed"
+        },
+        {
+          "case": "missing_receipt",
+          "status": "rejected",
+          "reason": "missing_or_incomplete_receipt"
+        },
+        {
+          "case": "input_integrity_change",
+          "status": "rejected",
+          "reason": "frozen_input_changed_during_tests"
+        }
+      ],
+      "negative_checks_passed": true,
+      "known_good_target_status": null,
+      "cleanup_verified": true,
+      "model_calls": 0,
+      "paid": false
+    },
+    {
+      "task_id": "scikit-learn__scikit-learn-25570",
+      "status": "fail",
+      "image": "coding-harness-a5-recheck@sha256:2c96683a336ec11d9e43a7c4a67a35fd2500a28bfae636a3e256562221ebf6a9",
+      "repo": "scikit-learn/scikit-learn",
+      "full_collection_count": 0,
+      "full_collection_hash": null,
+      "full_suite_passed": 0,
+      "full_suite_failed": 0,
+      "full_suite_skipped": 0,
+      "calibration_mode": "full_repository_collection_plus_known_good_target_and_rejection_checks",
+      "evidence_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-01\\tasks\\scikit-learn__scikit-learn-25570\\full-repo\\evidence.json",
+      "negative_checks": [
+        {
+          "case": "protected_path_change",
+          "status": "rejected",
+          "reason": "protected_or_unassigned_path_changed"
+        },
+        {
+          "case": "missing_receipt",
+          "status": "rejected",
+          "reason": "missing_or_incomplete_receipt"
+        },
+        {
+          "case": "input_integrity_change",
+          "status": "rejected",
+          "reason": "frozen_input_changed_during_tests"
+        }
+      ],
+      "negative_checks_passed": true,
+      "known_good_target_status": null,
+      "cleanup_verified": true,
+      "model_calls": 0,
+      "paid": false
+    },
+    {
+      "task_id": "pytest-dev__pytest-7432",
+      "status": "ready",
+      "image": "coding-harness-a5-recheck@sha256:5c97017803c8c6454734cf88e5e2d110c73d6e9f38243f027a6b310b79246770",
+      "repo": "pytest-dev/pytest",
+      "full_collection_count": 2957,
+      "full_collection_hash": "a5cd8298a6a8570d51279621ade8e7fe97160ee51ec06decb8e0a5589cf64294",
+      "full_suite_passed": 0,
+      "full_suite_failed": 0,
+      "full_suite_skipped": 0,
+      "calibration_mode": "full_repository_collection_plus_known_good_target_and_rejection_checks",
+      "evidence_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-01\\tasks\\pytest-dev__pytest-7432\\full-repo\\evidence.json",
+      "negative_checks": [
+        {
+          "case": "protected_path_change",
+          "status": "rejected",
+          "reason": "protected_or_unassigned_path_changed"
+        },
+        {
+          "case": "missing_receipt",
+          "status": "rejected",
+          "reason": "missing_or_incomplete_receipt"
+        },
+        {
+          "case": "input_integrity_change",
+          "status": "rejected",
+          "reason": "frozen_input_changed_during_tests"
+        }
+      ],
+      "negative_checks_passed": true,
+      "known_good_target_status": null,
+      "cleanup_verified": true,
+      "model_calls": 0,
+      "paid": false
+    },
+    {
+      "task_id": "sphinx-doc__sphinx-10451",
+      "status": "ready",
+      "image": "coding-harness-a5-known-good@sha256:c5ddba1dd1ddaadcaebe16c85b53d40e308bea95ac6a467fac22a829d0ff40d4",
+      "repo": "sphinx-doc/sphinx",
+      "full_collection_count": 1798,
+      "full_collection_hash": "b6e97b0132af05955ef33bcaebef32b1ebc7bb433d061696dfa304ccb8d5ef4c",
+      "full_suite_passed": 0,
+      "full_suite_failed": 0,
+      "full_suite_skipped": 0,
+      "calibration_mode": "full_repository_collection_plus_known_good_target_and_rejection_checks",
+      "evidence_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-01\\tasks\\sphinx-doc__sphinx-10451\\full-repo\\evidence.json",
+      "negative_checks": [
+        {
+          "case": "protected_path_change",
+          "status": "rejected",
+          "reason": "protected_or_unassigned_path_changed"
+        },
+        {
+          "case": "missing_receipt",
+          "status": "rejected",
+          "reason": "missing_or_incomplete_receipt"
+        },
+        {
+          "case": "input_integrity_change",
+          "status": "rejected",
+          "reason": "frozen_input_changed_during_tests"
+        }
+      ],
+      "negative_checks_passed": true,
+      "known_good_target_status": null,
+      "cleanup_verified": true,
+      "model_calls": 0,
+      "paid": false
+    },
+    {
+      "task_id": "sphinx-doc__sphinx-8721",
+      "status": "ready",
+      "image": "coding-harness-a5-recheck@sha256:5808165c6309a13d45ef473aa3f6350ecf43d1633f97dac89edf0b4754b06bec",
+      "repo": "sphinx-doc/sphinx",
+      "full_collection_count": 1655,
+      "full_collection_hash": "32019f5ee1bb7d823d1345e3764bc26c88d22912266b8dbdcf2dcf26b9308e95",
+      "full_suite_passed": 0,
+      "full_suite_failed": 0,
+      "full_suite_skipped": 0,
+      "calibration_mode": "full_repository_collection_plus_known_good_target_and_rejection_checks",
+      "evidence_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-01\\tasks\\sphinx-doc__sphinx-8721\\full-repo\\evidence.json",
+      "negative_checks": [
+        {
+          "case": "protected_path_change",
+          "status": "rejected",
+          "reason": "protected_or_unassigned_path_changed"
+        },
+        {
+          "case": "missing_receipt",
+          "status": "rejected",
+          "reason": "missing_or_incomplete_receipt"
+        },
+        {
+          "case": "input_integrity_change",
+          "status": "rejected",
+          "reason": "frozen_input_changed_during_tests"
+        }
+      ],
+      "negative_checks_passed": true,
+      "known_good_target_status": null,
+      "cleanup_verified": true,
+      "model_calls": 0,
+      "paid": false
+    },
+    {
+      "task_id": "sphinx-doc__sphinx-8595",
+      "status": "ready",
+      "image": "coding-harness-a5-known-good@sha256:37958016f1dd7f141db9a9b1aef1d634ef4d5519f99e11371b9148a2fdc7d37d",
+      "repo": "sphinx-doc/sphinx",
+      "full_collection_count": 1640,
+      "full_collection_hash": "3691455ff8d55885f0cf4b0ab5fef9dd7c1ccb25a70fe685d0ad368ba2e0aa32",
+      "full_suite_passed": 0,
+      "full_suite_failed": 0,
+      "full_suite_skipped": 0,
+      "calibration_mode": "full_repository_collection_plus_known_good_target_and_rejection_checks",
+      "evidence_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-01\\tasks\\sphinx-doc__sphinx-8595\\full-repo\\evidence.json",
+      "negative_checks": [
+        {
+          "case": "protected_path_change",
+          "status": "rejected",
+          "reason": "protected_or_unassigned_path_changed"
+        },
+        {
+          "case": "missing_receipt",
+          "status": "rejected",
+          "reason": "missing_or_incomplete_receipt"
+        },
+        {
+          "case": "input_integrity_change",
+          "status": "rejected",
+          "reason": "frozen_input_changed_during_tests"
+        }
+      ],
+      "negative_checks_passed": true,
+      "known_good_target_status": null,
+      "cleanup_verified": true,
+      "model_calls": 0,
+      "paid": false
+    },
+    {
+      "task_id": "sphinx-doc__sphinx-8713",
+      "status": "ready",
+      "image": "coding-harness-a5-known-good@sha256:f369fcaa06d92480132ac61576c3aa9fc6eb62e4a28c00bed3b5c872a236c542",
+      "repo": "sphinx-doc/sphinx",
+      "full_collection_count": 1654,
+      "full_collection_hash": "68b57e844f0ded1b0d612f6a50c6995ff6cbdbdff946f771c79c0349a5f7aef4",
+      "full_suite_passed": 0,
+      "full_suite_failed": 0,
+      "full_suite_skipped": 0,
+      "calibration_mode": "full_repository_collection_plus_known_good_target_and_rejection_checks",
+      "evidence_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-01\\tasks\\sphinx-doc__sphinx-8713\\full-repo\\evidence.json",
+      "negative_checks": [
+        {
+          "case": "protected_path_change",
+          "status": "rejected",
+          "reason": "protected_or_unassigned_path_changed"
+        },
+        {
+          "case": "missing_receipt",
+          "status": "rejected",
+          "reason": "missing_or_incomplete_receipt"
+        },
+        {
+          "case": "input_integrity_change",
+          "status": "rejected",
+          "reason": "frozen_input_changed_during_tests"
+        }
+      ],
+      "negative_checks_passed": true,
+      "known_good_target_status": null,
+      "cleanup_verified": true,
+      "model_calls": 0,
+      "paid": false
+    }
+  ],
+  "full_denominator": 16,
+  "model_calls": 0,
+  "paid": false
+}

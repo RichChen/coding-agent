@@ -1,0 +1,57 @@
+{
+  "task_id": "trace-old-facts-r2-summary",
+  "success": true,
+  "final_answer": "{\"endpoint\": \"/v2/telemetry\", \"timeout_ms\": 1750, \"retry_limit\": 3, \"idempotency_header\": \"X-Run-Token\"}",
+  "failure_reason": "none",
+  "steps": [],
+  "total_elapsed_ms": 2002.7799000090454,
+  "total_tokens": 645,
+  "tool_failures": 0,
+  "policy_blocks": 0,
+  "total_tool_invocations": 0,
+  "plan": null,
+  "context_events": [],
+  "subagent_traces": [],
+  "llm_attempts": [
+    {
+      "attempt": 0,
+      "success": true,
+      "error_kind": null,
+      "status_code": null,
+      "message": null,
+      "elapsed_ms": 940.1784000074258,
+      "usage": {
+        "prompt_tokens": 603,
+        "completion_tokens": 42,
+        "total_tokens": 645,
+        "provenance": "provider",
+        "prompt_cache_hit_tokens": 384,
+        "prompt_cache_miss_tokens": 219
+      },
+      "usage_provenance": "provider"
+    }
+  ],
+  "termination_kind": null,
+  "cleanup_elapsed_s": null,
+  "model_budget": {
+    "calls_started": 1,
+    "tokens_committed": 645,
+    "cost_committed": 0.00023129999999999998,
+    "outstanding_reservations": 0,
+    "max_model_calls": 1,
+    "max_tokens": 32768,
+    "max_cost_usd": 0.02,
+    "settlements": [
+      {
+        "total_tokens": 645,
+        "provenance": "provider",
+        "cost_usd": 0.00023129999999999998,
+        "cost_provenance": "provider_split",
+        "note": null
+      }
+    ]
+  },
+  "run_output": null,
+  "execution": null,
+  "summary": null
+}

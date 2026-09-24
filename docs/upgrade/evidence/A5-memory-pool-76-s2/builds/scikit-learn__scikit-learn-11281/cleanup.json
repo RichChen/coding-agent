@@ -1,0 +1,41 @@
+{
+  "cleanup_verified": true,
+  "snapshot_error": null,
+  "lifecycle": [
+    {
+      "event": "created",
+      "container": "h3-e960a91dc9c94ddca5de718abab8db2f",
+      "image_id": "sha256:90999f34d6caf641aff0ed037739df567417516699fe262b08f7be453a817b5b"
+    },
+    {
+      "event": "destroyed",
+      "container": "h3-e960a91dc9c94ddca5de718abab8db2f",
+      "elapsed_s": 0.48265460002585314
+    }
+  ],
+  "capabilities": {
+    "profile": "docker_linux",
+    "platform": "linux-container",
+    "image": "coding-harness-a5-transport@sha256:90999f34d6caf641aff0ed037739df567417516699fe262b08f7be453a817b5b",
+    "context": "desktop-linux",
+    "cancel": true,
+    "filesystem_isolation": true,
+    "network_control": true,
+    "network_default": "none",
+    "resource_limits": true,
+    "complete_isolation": false,
+    "cpu_limit": 1.0,
+    "memory_limit_bytes": 1073741824,
+    "pids_limit": 128,
+    "workspace_limit_bytes": 268435456,
+    "tmpfs_limit_bytes": 67108864,
+    "tree_reclaim_guaranteed": true,
+    "privileged": false,
+    "docker_socket_mounted": false,
+    "host_mounts": false,
+    "workspace_transfer_limit": 8388608,
+    "transport": "image_backed_base_plus_delta",
+    "source_tree_hash": "3b59c6a9424ad4429648f8312d8cfaa42415cd790b1ca5cd8bcff746131002c5",
+    "delta_schema": "a5.typed-tree.delta.v1"
+  }
+}

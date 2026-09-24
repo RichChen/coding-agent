@@ -1,0 +1,55 @@
+{
+  "task_id": "django__django-10914",
+  "agent_task_id": "a5-build-b117be26241cbe45",
+  "repo": "django/django",
+  "base_revision": "e7fd69d051eaa67cb17f172a39b57253e9cb831a",
+  "role": "preflight_history_candidate",
+  "status": "invalid_env",
+  "source": {
+    "schema": "a5.full-archive-inventory.v1",
+    "repo": "django/django",
+    "base_revision": "e7fd69d051eaa67cb17f172a39b57253e9cb831a",
+    "archive_sha256": "27704b4b7dbfa16b5c4dcd066b38b6ba50a29f76e266c126866b55faaa157808",
+    "archive_bytes": 8816163,
+    "git_pax_commit": "e7fd69d051eaa67cb17f172a39b57253e9cb831a",
+    "source_tree_hash": null,
+    "inventory_sha256": "1bc3ef6df33c85ad0ca5b5eafa5fe8d3880092ee210483e5b48b18bb64619faa",
+    "file_count": 6054,
+    "total_bytes": 36070365,
+    "nonregular_paths": [
+      "docs/_theme/djangodocs-epub/static/docicons-behindscenes.png",
+      "docs/_theme/djangodocs-epub/static/docicons-note.png",
+      "docs/_theme/djangodocs-epub/static/docicons-philosophy.png",
+      "docs/_theme/djangodocs-epub/static/docicons-warning.png"
+    ],
+    "excluded_upstream_paths": [],
+    "snapshot_kind": "complete_pinned_upstream_archive",
+    "within_runtime_limits": false,
+    "inventory_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\django__django-10914\\source-inventory.json"
+  },
+  "image_digest": null,
+  "python_version": null,
+  "pytest_version": null,
+  "dependencies": null,
+  "collection": {
+    "status": "not_run",
+    "count": null,
+    "hash": null
+  },
+  "baseline": {
+    "status": "not_run",
+    "failure_nodeids": null
+  },
+  "grader": {
+    "status": "not_run",
+    "known_good": "not_run",
+    "negative_rejection": "not_run"
+  },
+  "cleanup": "not_applicable_no_container_started",
+  "model_calls": 0,
+  "paid": false,
+  "attempt": 1,
+  "retries": 0,
+  "reason": "full_source_exceeds_runtime_limits",
+  "duration_seconds": 10.699891699987347
+}

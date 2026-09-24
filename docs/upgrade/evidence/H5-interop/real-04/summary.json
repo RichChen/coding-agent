@@ -1,0 +1,186 @@
+{
+  "variants": [
+    {
+      "variant": "off",
+      "status": "pass",
+      "passed": 4,
+      "collected": 4,
+      "model_calls": 4,
+      "termination": "max_model_calls",
+      "usage": {
+        "model": "deepseek-flash",
+        "attempts": 4,
+        "unknown_usage_attempts": 0,
+        "provider_totals": {
+          "prompt_tokens": 6325,
+          "completion_tokens": 516,
+          "total_tokens": 6841,
+          "prompt_cache_hit_tokens": 5504,
+          "prompt_cache_miss_tokens": 821
+        },
+        "known_subtotals": {
+          "prompt_tokens": 6325,
+          "completion_tokens": 516,
+          "total_tokens": 6841,
+          "prompt_cache_hit_tokens": 5504,
+          "prompt_cache_miss_tokens": 821
+        },
+        "cost_usd": null,
+        "cost_provenance": "not_reconciled_with_account_billing",
+        "estimated_cost_usd_range": [
+          0.00044926199999999997,
+          0.0008985239999999999
+        ],
+        "estimate_basis": "off-peak/peak interval, excludes account discounts, not an invoice",
+        "peak_usd_per_million": {
+          "hit": 0.006,
+          "miss": 0.3,
+          "output": 1.2
+        },
+        "pricing_source": "https://api-docs.deepseek.com/quick_start/pricing",
+        "pricing_retrieved": "2026-09-21"
+      },
+      "requested": 0,
+      "prepared_view_injections": 0,
+      "proposals_rejected": 0,
+      "degraded": false,
+      "model_start_links": [
+        {
+          "context_seq": 5,
+          "model_seq": 6,
+          "operation_id": "826444ff4da44a34ac52c1867ab13b88",
+          "attempt_id": "94002a65c059469caff88d6bc516960a"
+        },
+        {
+          "context_seq": 14,
+          "model_seq": 15,
+          "operation_id": "5908749aa6184e42b9f080b29ba81cf3",
+          "attempt_id": "4ecfeeeb634548f6b6d205c2bfb16ad2"
+        },
+        {
+          "context_seq": 23,
+          "model_seq": 24,
+          "operation_id": "a6ed5196853c41d79e623c05ff270751",
+          "attempt_id": "698424dc84b4488ea339ccb65bdd4ccd"
+        },
+        {
+          "context_seq": 30,
+          "model_seq": 31,
+          "operation_id": "d0f252ddea1d4066b782c8b368f067fc",
+          "attempt_id": "04cace309c104830bec71c7eb38e7df3"
+        }
+      ],
+      "private_canary_and_key_absent": true,
+      "replay_equal": true
+    },
+    {
+      "variant": "on",
+      "status": "pass",
+      "passed": 4,
+      "collected": 4,
+      "model_calls": 4,
+      "termination": null,
+      "usage": {
+        "model": "deepseek-flash",
+        "attempts": 4,
+        "unknown_usage_attempts": 0,
+        "provider_totals": {
+          "prompt_tokens": 6775,
+          "completion_tokens": 739,
+          "total_tokens": 7514,
+          "prompt_cache_hit_tokens": 5504,
+          "prompt_cache_miss_tokens": 1271
+        },
+        "known_subtotals": {
+          "prompt_tokens": 6775,
+          "completion_tokens": 739,
+          "total_tokens": 7514,
+          "prompt_cache_hit_tokens": 5504,
+          "prompt_cache_miss_tokens": 1271
+        },
+        "cost_usd": null,
+        "cost_provenance": "not_reconciled_with_account_billing",
+        "estimated_cost_usd_range": [
+          0.000650562,
+          0.001301124
+        ],
+        "estimate_basis": "off-peak/peak interval, excludes account discounts, not an invoice",
+        "peak_usd_per_million": {
+          "hit": 0.006,
+          "miss": 0.3,
+          "output": 1.2
+        },
+        "pricing_source": "https://api-docs.deepseek.com/quick_start/pricing",
+        "pricing_retrieved": "2026-09-21"
+      },
+      "requested": 2,
+      "prepared_view_injections": 5,
+      "proposals_rejected": 3,
+      "degraded": false,
+      "model_start_links": [
+        {
+          "context_seq": 7,
+          "model_seq": 8,
+          "operation_id": "4e5d86f2eabb452a90c0c9145fe06272",
+          "attempt_id": "dea5041b9b844c92988b6a864f510451"
+        },
+        {
+          "context_seq": 17,
+          "model_seq": 18,
+          "operation_id": "6e778d83633d4a8981a4112dde0c672e",
+          "attempt_id": "125f07ee8e754b18ab07b5c83081f67c"
+        },
+        {
+          "context_seq": 24,
+          "model_seq": 25,
+          "operation_id": "fa6750b707c54b66bdd2ca4939219d7a",
+          "attempt_id": "4da88b1280f7454797da5a71ba633a87"
+        },
+        {
+          "context_seq": 31,
+          "model_seq": 32,
+          "operation_id": "01ef8b6719174786be98cf2e2a4bc464",
+          "attempt_id": "5c5ae31288c24e859104c64369850d60"
+        }
+      ],
+      "private_canary_and_key_absent": true,
+      "replay_equal": true
+    }
+  ],
+  "full_denominator": 2,
+  "passed": 2,
+  "usage": {
+    "model": "deepseek-flash",
+    "attempts": 8,
+    "unknown_usage_attempts": 0,
+    "provider_totals": {
+      "prompt_tokens": 13100,
+      "completion_tokens": 1255,
+      "total_tokens": 14355,
+      "prompt_cache_hit_tokens": 11008,
+      "prompt_cache_miss_tokens": 2092
+    },
+    "known_subtotals": {
+      "prompt_tokens": 13100,
+      "completion_tokens": 1255,
+      "total_tokens": 14355,
+      "prompt_cache_hit_tokens": 11008,
+      "prompt_cache_miss_tokens": 2092
+    },
+    "cost_usd": null,
+    "cost_provenance": "not_reconciled_with_account_billing",
+    "estimated_cost_usd_range": [
+      0.0010998240000000001,
+      0.0021996480000000002
+    ],
+    "estimate_basis": "off-peak/peak interval, excludes account discounts, not an invoice",
+    "peak_usd_per_million": {
+      "hit": 0.006,
+      "miss": 0.3,
+      "output": 1.2
+    },
+    "pricing_source": "https://api-docs.deepseek.com/quick_start/pricing",
+    "pricing_retrieved": "2026-09-21"
+  },
+  "note": "connection smoke only; synthetic task, empty memory, host read/search dispatch only; no performance conclusion"
+}

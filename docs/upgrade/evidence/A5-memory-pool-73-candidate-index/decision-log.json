@@ -1,0 +1,189 @@
+{
+  "schema": "a5.memory-pool.decision-log.v1",
+  "created_at": "2026-09-22T09:39:43.441072+00:00",
+  "contract": "docs/upgrade/A5-PRE-MEMORY-CURSOR-CONTRACT.zh-CN.md",
+  "handoff_execution": {
+    "runs_implemented": false,
+    "provider_calls": 0,
+    "paid": false,
+    "memory_build_started": false,
+    "pilot_started": false,
+    "fixture_only_shared_gates": true
+  },
+  "counts": {
+    "sources_indexed": 20,
+    "baseline_ready": 15,
+    "invalid_env": 5,
+    "grader_ready_inherited": 0,
+    "smoke_selected": 6,
+    "s2_shortlist": 9,
+    "validated_memory_records": 0,
+    "candidate_memory_records": 0
+  },
+  "s1_smoke_selection": [
+    "django__django-10914",
+    "sympy__sympy-11400",
+    "scikit-learn__scikit-learn-10297",
+    "pytest-dev__pytest-5103",
+    "django__django-10924",
+    "sympy__sympy-11870"
+  ],
+  "s2_expansion_shortlist": [
+    "django__django-11039",
+    "sympy__sympy-11897",
+    "sympy__sympy-12171",
+    "scikit-learn__scikit-learn-10508",
+    "scikit-learn__scikit-learn-10949",
+    "scikit-learn__scikit-learn-11040",
+    "scikit-learn__scikit-learn-11281",
+    "pytest-dev__pytest-5221",
+    "pytest-dev__pytest-5227"
+  ],
+  "decisions": [
+    {
+      "source_id": "django__django-10914",
+      "decision": "select_for_S1_smoke_after_paid_authorization",
+      "environment_status": "baseline_ready",
+      "grader_status": "not_grader_ready",
+      "rationale": "Selected for future S1 smoke because baseline_ready evidence exists and repo family diversity is needed; not auto-promoted to grader-ready or MemoryRecord."
+    },
+    {
+      "source_id": "django__django-10924",
+      "decision": "select_for_S1_smoke_after_paid_authorization",
+      "environment_status": "baseline_ready",
+      "grader_status": "collect_only_clue_not_inherited",
+      "rationale": "Selected for future S1 smoke because baseline_ready evidence exists and repo family diversity is needed; not auto-promoted to grader-ready or MemoryRecord."
+    },
+    {
+      "source_id": "django__django-11001",
+      "decision": "defer_diagnose_do_not_block_pool",
+      "environment_status": "invalid_env",
+      "grader_status": "not_grader_ready",
+      "rationale": "Invalid env / anomaly retained in ledger; does not block other sources."
+    },
+    {
+      "source_id": "django__django-11019",
+      "decision": "defer_diagnose_do_not_block_pool",
+      "environment_status": "invalid_env",
+      "grader_status": "not_grader_ready",
+      "rationale": "Invalid env / anomaly retained in ledger; does not block other sources."
+    },
+    {
+      "source_id": "django__django-11039",
+      "decision": "hold_for_S2_expansion_after_S1",
+      "environment_status": "baseline_ready",
+      "grader_status": "collect_only_clue_not_inherited",
+      "rationale": "Baseline ready but deferred until S1 provenance/receipt path is stable."
+    },
+    {
+      "source_id": "sympy__sympy-11400",
+      "decision": "select_for_S1_smoke_after_paid_authorization",
+      "environment_status": "baseline_ready",
+      "grader_status": "not_grader_ready",
+      "rationale": "Selected for future S1 smoke because baseline_ready evidence exists and repo family diversity is needed; not auto-promoted to grader-ready or MemoryRecord."
+    },
+    {
+      "source_id": "sympy__sympy-11870",
+      "decision": "select_for_S1_smoke_after_paid_authorization",
+      "environment_status": "baseline_ready",
+      "grader_status": "collect_only_clue_not_inherited",
+      "rationale": "Selected for future S1 smoke because baseline_ready evidence exists and repo family diversity is needed; not auto-promoted to grader-ready or MemoryRecord."
+    },
+    {
+      "source_id": "sympy__sympy-11897",
+      "decision": "hold_for_S2_expansion_after_S1",
+      "environment_status": "baseline_ready",
+      "grader_status": "collect_only_clue_not_inherited",
+      "rationale": "Baseline ready but deferred until S1 provenance/receipt path is stable."
+    },
+    {
+      "source_id": "sympy__sympy-12171",
+      "decision": "hold_for_S2_expansion_after_S1",
+      "environment_status": "baseline_ready",
+      "grader_status": "collect_only_clue_not_inherited",
+      "rationale": "Baseline ready but deferred until S1 provenance/receipt path is stable."
+    },
+    {
+      "source_id": "sympy__sympy-12236",
+      "decision": "defer_diagnose_do_not_block_pool",
+      "environment_status": "invalid_env",
+      "grader_status": "not_grader_ready",
+      "rationale": "Invalid env / anomaly retained in ledger; does not block other sources."
+    },
+    {
+      "source_id": "scikit-learn__scikit-learn-10297",
+      "decision": "select_for_S1_smoke_after_paid_authorization",
+      "environment_status": "baseline_ready",
+      "grader_status": "not_grader_ready",
+      "rationale": "Selected for future S1 smoke because baseline_ready evidence exists and repo family diversity is needed; not auto-promoted to grader-ready or MemoryRecord."
+    },
+    {
+      "source_id": "scikit-learn__scikit-learn-10508",
+      "decision": "hold_for_S2_expansion_after_S1",
+      "environment_status": "baseline_ready",
+      "grader_status": "collect_only_clue_not_inherited",
+      "rationale": "Baseline ready but deferred until S1 provenance/receipt path is stable."
+    },
+    {
+      "source_id": "scikit-learn__scikit-learn-10949",
+      "decision": "hold_for_S2_expansion_after_S1",
+      "environment_status": "baseline_ready",
+      "grader_status": "collect_only_clue_not_inherited",
+      "rationale": "Baseline ready but deferred until S1 provenance/receipt path is stable."
+    },
+    {
+      "source_id": "scikit-learn__scikit-learn-11040",
+      "decision": "hold_for_S2_expansion_after_S1",
+      "environment_status": "baseline_ready",
+      "grader_status": "collect_only_clue_not_inherited",
+      "rationale": "Baseline ready but deferred until S1 provenance/receipt path is stable."
+    },
+    {
+      "source_id": "scikit-learn__scikit-learn-11281",
+      "decision": "hold_for_S2_expansion_after_S1",
+      "environment_status": "baseline_ready",
+      "grader_status": "collect_only_clue_not_inherited",
+      "rationale": "Baseline ready but deferred until S1 provenance/receipt path is stable."
+    },
+    {
+      "source_id": "pytest-dev__pytest-5103",
+      "decision": "select_for_S1_smoke_after_paid_authorization",
+      "environment_status": "baseline_ready",
+      "grader_status": "not_grader_ready",
+      "rationale": "Selected for future S1 smoke because baseline_ready evidence exists and repo family diversity is needed; not auto-promoted to grader-ready or MemoryRecord."
+    },
+    {
+      "source_id": "pytest-dev__pytest-5221",
+      "decision": "hold_for_S2_expansion_after_S1",
+      "environment_status": "baseline_ready",
+      "grader_status": "collect_only_clue_not_inherited",
+      "rationale": "Baseline ready but deferred until S1 provenance/receipt path is stable."
+    },
+    {
+      "source_id": "pytest-dev__pytest-5227",
+      "decision": "hold_for_S2_expansion_after_S1",
+      "environment_status": "baseline_ready",
+      "grader_status": "collect_only_clue_not_inherited",
+      "rationale": "Baseline ready but deferred until S1 provenance/receipt path is stable."
+    },
+    {
+      "source_id": "pytest-dev__pytest-5413",
+      "decision": "defer_diagnose_do_not_block_pool",
+      "environment_status": "invalid_env",
+      "grader_status": "not_grader_ready",
+      "rationale": "Invalid env / anomaly retained in ledger; does not block other sources."
+    },
+    {
+      "source_id": "pytest-dev__pytest-5495",
+      "decision": "defer_diagnose_do_not_block_pool",
+      "environment_status": "invalid_env",
+      "grader_status": "not_grader_ready",
+      "rationale": "Invalid env / anomaly retained in ledger; does not block other sources."
+    }
+  ],
+  "notes": [
+    "This attempt only builds the candidate index and public handoff; it does not execute smoke/build.",
+    "71/72 claimed grader_ready=11 is not accepted under the v2 contract.",
+    "Django method-level baseline mismatches are not waived as arbitrary F2P failure."
+  ]
+}

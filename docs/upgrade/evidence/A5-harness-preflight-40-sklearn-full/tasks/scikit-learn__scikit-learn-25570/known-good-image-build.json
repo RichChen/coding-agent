@@ -1,0 +1,16 @@
+{
+  "argv": [
+    "docker",
+    "--context",
+    "desktop-linux",
+    "build",
+    "--pull=false",
+    "--network=default",
+    "--progress=plain",
+    "-t",
+    "coding-harness-a5-recheck:scikit-learn-scikit-learn-25570-known-good",
+    "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-40-sklearn-full\\tasks\\scikit-learn__scikit-learn-25570\\known-good-image"
+  ],
+  "exit_code": 0,
+  "combined_log_sha256": "554f96997ade03a75b7a5630250f5f54b2a688f5d14111bfd55975db9aeb5c7a"
+}

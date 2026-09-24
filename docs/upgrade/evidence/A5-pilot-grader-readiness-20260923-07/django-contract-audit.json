@@ -1,0 +1,21 @@
+{
+  "schema": "a5.django-f2p-contract-audit.v1",
+  "task_id": "django__django-13265",
+  "repo": "django/django",
+  "base_revision": "b2b0711b555fa292751763c2df4fe577c396f265",
+  "contract_status": "blocked_requires_contract_revision",
+  "reason": "declared_f2p_does_not_match_fixed_base_behavior",
+  "expected_f2p_count": 4,
+  "actual_baseline_failed": [
+    "migrations.test_autodetector.AutodetectorTests.test_add_model_order_with_respect_to_index_constraint",
+    "migrations.test_autodetector.AutodetectorTests.test_set_alter_order_with_respect_to_index_constraint_foo_together"
+  ],
+  "unexpected_baseline_passed": [
+    "migrations.test_autodetector.AutodetectorTests.test_add_model_order_with_respect_to_index_foo_together",
+    "migrations.test_autodetector.AutodetectorTests.test_supports_functools_partial"
+  ],
+  "baseline_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-32-preserved-mode-recheck\\tasks\\django__django-13265\\baseline\\evidence.json",
+  "known_good_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-32-preserved-mode-recheck\\tasks\\django__django-13265\\known-good\\evidence.json",
+  "canonical_bound": false,
+  "action_required": "version_contract_and_rebaseline_before_grader_binding"
+}

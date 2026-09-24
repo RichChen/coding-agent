@@ -1,0 +1,40 @@
+{
+  "schema": "a5.canary-scope-receipt.v1",
+  "status": "launch_preflight_blocked",
+  "scope_lock": {
+    "path": "D:/crq/src/coding-agent/reports/upgrade/a5-agent-canary-authorization-20260924/canary-scope-lock.json",
+    "sha256": "8123b7dfe669c100f080b4ca414437ff0dc8d875797416ccfd5efe90506719c5",
+    "max_runs": 4,
+    "rounds_per_run": 6,
+    "max_total_rounds": 24,
+    "unrun_matrix_rows_reserved": 236
+  },
+  "assignment_binding": {
+    "path": "D:/crq/src/coding-agent/reports/upgrade/a5-pilot20-preparation-20260921-v4/assignments.json",
+    "sha256": "5ef02ef8f8b8d5960f180b24856801efa1d134bcc892e51d585686d15d81792d",
+    "selected_target": "pytest-dev__pytest-7220",
+    "selected_variants": ["B0", "B1", "B2", "B3"],
+    "selected_seed": 42,
+    "selected_rows": 4,
+    "matrix_mutated": false
+  },
+  "runtime_binding": {
+    "path": "D:/crq/src/coding-agent/reports/upgrade/a5-agent-lightweight-runtime-20260923/canonical-memory-runtime-binding.json",
+    "sha256": "8df46f9ae13fda185ff346d157b2dfa56b6181bf1c2ace0591095a336995a891",
+    "artifact_manifest_sha256": "fa670fd6c6d3d0f164ad6d0d8070a812cde5569d1bffdfeab8c6928daa6f6f80",
+    "snapshot_sha256": "1ab4f6cd9b0ae8a90658b4cf90058f72d7fdc7750f13122b9bbb9fbee10be780",
+    "agent_source_fingerprint": "47a8546101a3e02fd7d7281b15a9314926e8d8dc924f8e29cb3016f5e0300052"
+  },
+  "preflight": {
+    "llm_api_key_present": false,
+    "provider_launch": false,
+    "model_calls": 0,
+    "paid": false,
+    "target_workspace_available": false,
+    "reason": "LLM_API_KEY is not configured in the harness process; no provider request was attempted. The preparation bundle contains task JSON/evaluation metadata but no runnable public workspace checkout for pytest-7220."
+  },
+  "runs": [],
+  "unrun_matrix_rows": 236,
+  "claims_forbidden": ["H3_pass", "full_240_pilot", "paid_240_authorization"],
+  "next_required_inputs": ["provider credential in process environment", "pinned public workspace checkout for pytest-7220", "agent runtime path that emits provider-backed injection receipts"]
+}

@@ -1,0 +1,62 @@
+{
+  "checks": {
+    "off": {
+      "binding": {
+        "registration_id": "reposkill",
+        "name": "reposkill-public",
+        "wire_version": "0.1",
+        "implementation_sha256": "32c1c40a902c2206d2e524aaf0ea8716421b117dc454a8bc8fa15cb442ab5a5e",
+        "config_sha256": "68134651c8e8d46cbaf5589e9b4915cbdd10661455122d80f00c73387bb9398e",
+        "state_contract": "external-json-v1",
+        "capabilities": [
+          "context_candidates"
+        ],
+        "action_dispatch": "disabled"
+      },
+      "fixture_equal": true,
+      "new_instance_state_equal": true,
+      "candidates": 0,
+      "proposals": 0
+    },
+    "on": {
+      "binding": {
+        "registration_id": "reposkill",
+        "name": "reposkill-public",
+        "wire_version": "0.1",
+        "implementation_sha256": "32c1c40a902c2206d2e524aaf0ea8716421b117dc454a8bc8fa15cb442ab5a5e",
+        "config_sha256": "76d6b2f3ef5b67ac6aacbcac1e09d02eb75313b9b744cfb6f2f0e093b9fec5af",
+        "state_contract": "external-json-v1",
+        "capabilities": [
+          "context_candidates"
+        ],
+        "action_dispatch": "disabled"
+      },
+      "fixture_equal": true,
+      "new_instance_state_equal": true,
+      "candidates": 1,
+      "proposals": 2
+    }
+  },
+  "model_calls": 0,
+  "source_sha256": "32c1c40a902c2206d2e524aaf0ea8716421b117dc454a8bc8fa15cb442ab5a5e",
+  "task_hash": "81d300c845fa6670079320f4e6573fab67cc330b4e0bd7c794fa976719f1fa5c",
+  "private_spec_hash": "d39f25ec6189ca4b504bb7a18ecbd2eae515c5922900f70e456840d4b3a959bc",
+  "harness_code_hash": "e765c4a9623363e186fd5f6ca3dee4d4eeb047e47f77ef6128cdf8b5c7f3a3fb",
+  "frozen_at": "2026-09-21T05:35:57.180523+00:00",
+  "wire": "0.1",
+  "memory_snapshot": [],
+  "proposals": "host_dispatch_read_search",
+  "cost_limit_basis": "USD 0.03 per run; peak uncached input/output prices, conservative cache-blind estimate; not billing",
+  "original_public_budget": {
+    "currency": null,
+    "input_tokens": 12000,
+    "max_cost": null,
+    "model_calls": 4,
+    "output_tokens": 4000,
+    "retry_limit": 0,
+    "tool_calls": 8,
+    "wall_seconds": 120
+  },
+  "budget_mapping": "model calls and wall time enforced exactly; total tokens combined at 16000; input/output/tool sublimits not separately enforced",
+  "system_instruction": "Use python -B for public checks; only edit settings.py. No new workspace files."
+}

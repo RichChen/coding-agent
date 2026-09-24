@@ -1,0 +1,57 @@
+{
+  "schema": "a5.memory-pool.s2-status.v1",
+  "attempt_id": "A5-memory-pool-76-s2",
+  "created_at": "2026-09-22T11:41:15.705111+00:00",
+  "status": "partial_pool_ready",
+  "target_validated_or_candidate": "about_12_to_15_not_a_promise",
+  "actual_validated": 11,
+  "actual_candidate": 0,
+  "actual_rejected": 0,
+  "actual_failed_retained": 4,
+  "actual_blocked": 5,
+  "validated_sources": [
+    "django__django-10914",
+    "django__django-10924",
+    "sympy__sympy-11400",
+    "scikit-learn__scikit-learn-10297",
+    "pytest-dev__pytest-5103",
+    "django__django-11039",
+    "sympy__sympy-12171",
+    "scikit-learn__scikit-learn-10949",
+    "scikit-learn__scikit-learn-11040",
+    "pytest-dev__pytest-5221",
+    "scikit-learn__scikit-learn-11281"
+  ],
+  "failed_sources": [
+    "sympy__sympy-11870",
+    "sympy__sympy-11897",
+    "scikit-learn__scikit-learn-10508",
+    "pytest-dev__pytest-5227"
+  ],
+  "blocked_sources": [
+    "django__django-11001",
+    "django__django-11019",
+    "sympy__sympy-12236",
+    "pytest-dev__pytest-5413",
+    "pytest-dev__pytest-5495"
+  ],
+  "validation_scope": "public_independent_smoke_receipt_plus_rule_provenance_review",
+  "private_grader_run": false,
+  "cost_ledger_s2_builds": {
+    "currency": "CNY",
+    "spent_cny": "2.483",
+    "model_calls": 223
+  },
+  "s1_cost_ref": "docs/upgrade/evidence/A5-memory-pool-75-s1-smoke/s1-summary.json",
+  "gaps": [
+    "below_15_honest_stop",
+    "private_full_repo_grader_not_run",
+    "sympy_11870_11897_and_pytest_5227_and_sklearn_10508_failed_retained"
+  ],
+  "stop_conditions_observed": [
+    "additional_identical_retries_would_lack_new_algorithmic_evidence_for_remaining_failures",
+    "remaining_unused_sources_exist_but_15_is_not_a_promise_and_pool_is_usable"
+  ],
+  "model_calls": 223,
+  "paid": true
+}

@@ -1,0 +1,88 @@
+{
+  "task_id": "scikit-learn__scikit-learn-25638",
+  "status": "ready",
+  "grader_ready": true,
+  "repo": "scikit-learn/scikit-learn",
+  "base_revision": "6adb209acd63825affc884abcd85381f148fb1b0",
+  "image": "coding-harness-a5-recheck@sha256:ba48914b40353c9aec0bd0bb0d036625a6166b5f3d8e084a924e561d7d1b6c71",
+  "model_calls": 0,
+  "paid": false,
+  "canonical_binding_required": true,
+  "input_baseline_status": "baseline_ready",
+  "pilot_binding": {
+    "status": "pass",
+    "reason": null,
+    "canonical_target_id": "scikit-learn__scikit-learn-25638",
+    "repo": "scikit-learn/scikit-learn",
+    "expected_repo": "scikit-learn/scikit-learn",
+    "base_revision": "6adb209acd63825affc884abcd85381f148fb1b0",
+    "expected_base_commit": "6adb209acd63825affc884abcd85381f148fb1b0",
+    "pilot_base_hash": "3828c4feceaaba4f5d6ab51636fd5b1a2d12862dacff097f0105cb937bc02da7"
+  },
+  "known_good_binding": {
+    "status": "pass",
+    "reason": null,
+    "receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-43-sklearn-native-recheck\\tasks\\scikit-learn__scikit-learn-25638\\known-good\\evidence.json",
+    "receipt_sha256": "5ffa0891817a89481a149f36fcb349386ffda3a19248686ef87fb523651a0543",
+    "image": "coding-harness-a5-recheck@sha256:ba48914b40353c9aec0bd0bb0d036625a6166b5f3d8e084a924e561d7d1b6c71",
+    "receipt_image": "coding-harness-a5-recheck@sha256:ba48914b40353c9aec0bd0bb0d036625a6166b5f3d8e084a924e561d7d1b6c71",
+    "expected_outcomes": {
+      "sklearn/metrics/tests/test_classification.py::test_confusion_matrix_pandas_nullable[Int64]": "passed",
+      "sklearn/metrics/tests/test_classification.py::test_confusion_matrix_pandas_nullable[Float64]": "passed",
+      "sklearn/metrics/tests/test_classification.py::test_confusion_matrix_pandas_nullable[boolean]": "passed",
+      "sklearn/preprocessing/tests/test_label.py::test_label_binarizer_pandas_nullable[Int64]": "passed",
+      "sklearn/preprocessing/tests/test_label.py::test_label_binarizer_pandas_nullable[Float64]": "passed",
+      "sklearn/preprocessing/tests/test_label.py::test_label_binarizer_pandas_nullable[boolean]": "passed",
+      "sklearn/utils/tests/test_multiclass.py::test_type_of_target_pandas_nullable": "passed",
+      "sklearn/utils/tests/test_multiclass.py::test_unique_labels_pandas_nullable[Int64]": "passed",
+      "sklearn/utils/tests/test_multiclass.py::test_unique_labels_pandas_nullable[Float64]": "passed",
+      "sklearn/utils/tests/test_multiclass.py::test_unique_labels_pandas_nullable[boolean]": "passed"
+    },
+    "verified_outcomes": {
+      "sklearn/metrics/tests/test_classification.py::test_confusion_matrix_pandas_nullable[Int64]": "passed",
+      "sklearn/metrics/tests/test_classification.py::test_confusion_matrix_pandas_nullable[Float64]": "passed",
+      "sklearn/metrics/tests/test_classification.py::test_confusion_matrix_pandas_nullable[boolean]": "passed",
+      "sklearn/preprocessing/tests/test_label.py::test_label_binarizer_pandas_nullable[Int64]": "passed",
+      "sklearn/preprocessing/tests/test_label.py::test_label_binarizer_pandas_nullable[Float64]": "passed",
+      "sklearn/preprocessing/tests/test_label.py::test_label_binarizer_pandas_nullable[boolean]": "passed",
+      "sklearn/utils/tests/test_multiclass.py::test_type_of_target_pandas_nullable": "passed",
+      "sklearn/utils/tests/test_multiclass.py::test_unique_labels_pandas_nullable[Int64]": "passed",
+      "sklearn/utils/tests/test_multiclass.py::test_unique_labels_pandas_nullable[Float64]": "passed",
+      "sklearn/utils/tests/test_multiclass.py::test_unique_labels_pandas_nullable[boolean]": "passed"
+    },
+    "cleanup_verified": true
+  },
+  "reason": null,
+  "full_collection_status": "ready",
+  "full_collection_count": 27997,
+  "full_collection_hash": "2ad77a43704838772368810d815ec6d7ff4e83a36aa25b0be2aff1356c4b7f78",
+  "collection_evidence_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-06\\tasks\\scikit-learn__scikit-learn-25638\\full-repo\\evidence.json",
+  "collection_evidence_sha256": "d232a5d15ff474c8013f5411f9490d698c97daadc4cacfab5b4c5a5d25fe3bd0",
+  "cleanup_verified": true,
+  "calibration_mode": "full_repo_collection_plus_bound_known_good_target_plus_executed_host_grader_policy_checks",
+  "negative_checks": {
+    "scope": "executed_host_policy_fixture_not_target_specific",
+    "checks": [
+      {
+        "case": "protected_path_change",
+        "status": "rejected",
+        "observed_status": "fail",
+        "observed_reason": "protected_or_unassigned_path_changed"
+      },
+      {
+        "case": "missing_receipt",
+        "status": "rejected",
+        "observed_status": "invalid_env",
+        "observed_reason": "missing_or_incomplete_receipt"
+      },
+      {
+        "case": "input_integrity_change",
+        "status": "rejected",
+        "observed_status": "fail",
+        "observed_reason": "frozen_input_changed_during_tests"
+      }
+    ],
+    "passed": true
+  },
+  "negative_checks_passed": true
+}

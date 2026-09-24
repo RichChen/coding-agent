@@ -1,0 +1,50 @@
+{
+  "task_id": "sphinx-doc__sphinx-8721",
+  "agent_task_id": "a5-task-e328c531ac4ed0ae",
+  "repo": "sphinx-doc/sphinx",
+  "base_revision": "82ef497a8c88f0f6e50d84520e7276bfbf65025d",
+  "role": "target",
+  "status": "invalid_env",
+  "source": {
+    "schema": "a5.full-archive-inventory.v1",
+    "repo": "sphinx-doc/sphinx",
+    "base_revision": "82ef497a8c88f0f6e50d84520e7276bfbf65025d",
+    "archive_sha256": "7ddcc24c4596b2642739430f4eede6d61b851e8664e0e6dc7d7807742ea40834",
+    "archive_bytes": 5998815,
+    "git_pax_commit": "82ef497a8c88f0f6e50d84520e7276bfbf65025d",
+    "source_tree_hash": "6baa2fafe16070e983b87f1e1356cd51c7ddafddb67f173f3d3d7ffcb7b8f0f4",
+    "inventory_sha256": "263e70d2aa3ae6aa1714f2c2b6595f53a3ad0db2ebcf943ae25390a9bd1122d8",
+    "file_count": 1473,
+    "total_bytes": 16466026,
+    "nonregular_paths": [],
+    "excluded_upstream_paths": [],
+    "snapshot_kind": "complete_pinned_upstream_archive",
+    "within_runtime_limits": false,
+    "inventory_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sphinx-doc__sphinx-8721\\source-inventory.json"
+  },
+  "image_digest": null,
+  "python_version": null,
+  "pytest_version": null,
+  "dependencies": null,
+  "collection": {
+    "status": "not_run",
+    "count": null,
+    "hash": null
+  },
+  "baseline": {
+    "status": "not_run",
+    "failure_nodeids": null
+  },
+  "grader": {
+    "status": "not_run",
+    "known_good": "not_run",
+    "negative_rejection": "not_run"
+  },
+  "cleanup": "not_applicable_no_container_started",
+  "model_calls": 0,
+  "paid": false,
+  "attempt": 1,
+  "retries": 0,
+  "reason": "full_source_exceeds_runtime_limits",
+  "duration_seconds": 10.29496260000451
+}

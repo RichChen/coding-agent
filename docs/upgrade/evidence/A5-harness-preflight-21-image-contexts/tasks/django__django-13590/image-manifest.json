@@ -1,0 +1,29 @@
+{
+  "schema": "a5.image-backed-source.v1",
+  "task_id": "django__django-13590",
+  "repo": "django/django",
+  "base_revision": "755dbf39fcdc491fe9b588358303e259c7750be4",
+  "transport_mode": "image_backed_base_plus_delta",
+  "archive_sha256": "213a5810c2553385182b03bef2b674a7bf0b7904ef7ad19f388c60e144f06f84",
+  "archive_bytes": 9375172,
+  "source_tree_hash": null,
+  "file_count": 6412,
+  "total_bytes": 38713009,
+  "inventory_sha256": "4aff4a641d5fe7a946a3ca5d35f4a1146813e7e8ec7f11ad730ad408aea88838",
+  "nonregular_paths": [
+    "docs/_theme/djangodocs-epub/static/docicons-behindscenes.png",
+    "docs/_theme/djangodocs-epub/static/docicons-note.png",
+    "docs/_theme/djangodocs-epub/static/docicons-philosophy.png",
+    "docs/_theme/djangodocs-epub/static/docicons-warning.png"
+  ],
+  "base_image": "python@sha256:603879aeff06df23f0d392a19f7ce02aa85e14e6b4d25fd9647b116e0cb93467",
+  "dockerfile_sha256": "4d1343c4a2f9ed8897d15a24243ade5dbe9da956b578877bec2bb0215a85bf3c",
+  "agent_return_contract": {
+    "schema": "a5.snapshot.delta.v1",
+    "max_bytes": 8388608,
+    "max_files": 2048,
+    "requires_base_tree_hash": true,
+    "requires_candidate_tree_hash": true,
+    "allowlist_required": true
+  }
+}

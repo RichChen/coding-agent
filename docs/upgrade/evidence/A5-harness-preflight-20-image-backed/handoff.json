@@ -1,0 +1,32 @@
+{
+  "schema": "a5.memory-pool-preflight-handoff.v1",
+  "status": "blocked",
+  "image_transport": "complete_archive_image_backed_base_plus_bounded_delta",
+  "source_count": 24,
+  "memory_build_sources": [
+    "django__django-10914",
+    "django__django-10924",
+    "django__django-11001",
+    "django__django-11019",
+    "django__django-11039",
+    "sympy__sympy-11400",
+    "sympy__sympy-11870",
+    "sympy__sympy-11897",
+    "sympy__sympy-12171",
+    "sympy__sympy-12236",
+    "scikit-learn__scikit-learn-10297",
+    "scikit-learn__scikit-learn-10508",
+    "scikit-learn__scikit-learn-10949",
+    "scikit-learn__scikit-learn-11040",
+    "scikit-learn__scikit-learn-11281",
+    "pytest-dev__pytest-5103",
+    "pytest-dev__pytest-5221",
+    "pytest-dev__pytest-5227",
+    "pytest-dev__pytest-5413",
+    "pytest-dev__pytest-5495"
+  ],
+  "ready_for_paid_memory_build": false,
+  "ready_for_environment_continuation": false,
+  "reason": "image binding alone does not satisfy repo-specific baseline/grader or shared gates",
+  "receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-20-image-backed\\receipts.json"
+}

@@ -1,0 +1,28 @@
+{
+  "schema": "a5.memory-pool.provenance-review.v1",
+  "source_id": "django__django-10924",
+  "source_dir": "D:/crq/src/coding-harness/docs/upgrade/evidence/A5-memory-pool-75-s1-smoke/django__django-10924-reverify",
+  "decision": "validated",
+  "reasons": [],
+  "reviewed": true,
+  "reviewed_at": "2026-09-22T11:25:09.181688+00:00",
+  "review_method": "rule_based",
+  "validation_scope": "public_independent_smoke_receipt",
+  "private_grader_run": false,
+  "hashes": {
+    "public_input_sha256": "14aca8ea35f5aa0cd2bbf5b68ab652a342ec0d7ce63ecf72d3097bb5828c59cb",
+    "trajectory_sha256": "0fc2a021027cbe3e4c479a1914d252403ce313c17b4164c585eabdc4c75813c6",
+    "validation_receipt_sha256": "a840e3f81289434e04aa15c405b2b8bc88c98b9070b7aec3d1ce524f0ea7350d",
+    "candidate_delta_sha256": "23d9109fb7df3566c7a6706a594755bf61962d3722111391538768e4fdcf098a"
+  },
+  "bindings": {
+    "repo": "django/django",
+    "base_revision": "bceadd2788dc2dad53eba0caae172bd8522fd483",
+    "source_tree_hash": "fb405ebe87df8a1b14ace9894b65c7ee62206700f254f232c8cc2e85149d21dd",
+    "transport_image_digest": "coding-harness-a5-transport@sha256:d1fe04ccf596a49c79abaf30cb411c2f2245e3f579cc14de282604230037b847",
+    "run_attempt_id": "a5-s1-django__django-10924-11bdf9c4b046",
+    "delta_changed_files": 2,
+    "model_calls": 24,
+    "paid": true
+  }
+}

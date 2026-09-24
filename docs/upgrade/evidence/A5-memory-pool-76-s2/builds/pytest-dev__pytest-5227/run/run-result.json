@@ -1,0 +1,2832 @@
+{
+  "task_id": "a5-build-6673c7e7745db910",
+  "success": false,
+  "final_answer": "The changes are complete. Here's a summary of what I did to resolve the issue \"Improve default logging format\":\n\n## Changes Made\n\n### 1. Source edit — `src/_pytest/logging.py` (line 18)\nChanged the default log format from:\n```python\nDEFAULT_LOG_FORMAT = \"%(filename)-25s %(lineno)4d %(levelname)-8s %(message)s\"\n```\nto:\n```python\nDEFAULT_LOG_FORMAT = \"%(levelname)-8s %(name)s:%(filename)s:%(lineno)d %(message)s\"\n```\n\nThis adds the logger **name** (module name, e.g. `django.db.backends`) as requested in the issue, while keeping the filename and line number. The new output looks like:\n```\nDEBUG    django.db.backends:utils.py:114 (0.000) SELECT ...\nDEBUG    multipart.multipart:multipart.py:604 Calling on_field_start with no data\n```\n\n### 2. Documentation — `doc/en/logging.rst`\n- Updated the example captured-log output to reflect the new format (`WARNING  test_reporting:test_reporting.py:26 text going to logger`).\n- Updated the descriptive sentence to mention that the default format shows the log level, logger name, source file/line number, and message.\n\n### 3. Changelog — `changelog/2791.feature.rst` (new file)\nAdded a feature changelog entry describing the new default logging format.\n\n## Notes\n- The `testing/logging/test_formatter.py` tests use their own explicit `logfmt` strings to test the formatter itself, so they are unaffected by the default change.\n- The `testing/logging/test_reporting.py` tests use wildcard matching (`*`) around the message portion, so they remain compatible with the new format.\n- I verified the new format string renders correctly with a standalone `logging.Formatter` check (dependencies for running the full test suite aren't installed in this environment).",
+  "failure_reason": "unknown",
+  "steps": [
+    {
+      "step": 0,
+      "phase": "acting",
+      "messages_snapshot": 5,
+      "llm_text": "I'll start by exploring the repository structure and finding the relevant logging code.",
+      "tool_calls": [
+        {
+          "name": "run_command",
+          "args": {
+            "command": "cd /workspace && grep -rn \"DEFAULT_LOG_FORMAT\" --include=*.py ."
+          },
+          "raw_arguments": "{\"command\": \"cd /workspace && grep -rn \\\"DEFAULT_LOG_FORMAT\\\" --include=*.py .\"}",
+          "parse_error": null
+        },
+        {
+          "name": "list_dir",
+          "args": {
+            "path": "."
+          },
+          "raw_arguments": "{\"path\": \".\"}",
+          "parse_error": null
+        }
+      ],
+      "tool_results": [
+        {
+          "name": "run_command",
+          "success": true,
+          "status": "succeeded",
+          "error_kind": null,
+          "output": "./src/_pytest/logging.py:18:DEFAULT_LOG_FORMAT = \"%(filename)-25s %(lineno)4d %(levelname)-8s %(message)s\"\n./src/_pytest/logging.py:111:        default=DEFAULT_LOG_FORMAT,\n./src/_pytest/logging.py:156:        default=DEFAULT_LOG_FORMAT,\n\n[exit_code=0 status=succeeded truncated=false bytes_seen=237 bytes_kept=474 cleanup=not_required duration_ms=102]"
+        },
+        {
+          "name": "list_dir",
+          "success": true,
+          "status": "succeeded",
+          "error_kind": null,
+          "output": "[F] .coveragerc\n[F] .gitattributes\n[D] .github\n[F] .gitignore\n[F] .pre-commit-config.yaml\n[F] .travis.yml\n[F] AUTHORS\n[F] CHANGELOG.rst\n[F] CITATION\n[F] CONTRIBUTING.rst\n[F] HOWTORELEASE.rst\n[F] LICENSE\n[F] README.rst\n[F] azure-pipelines.yml\n[D] bench\n[D] changelog\n[D] doc\n[D] extra\n[F] pyproject.toml\n[D] scripts\n[F] setup.cfg\n[F] setup.py\n[D] src\n[D] testing\n[F] tox.ini\n\n[exit_code=0 status=succeeded truncated=false bytes_seen=374 bytes_kept=748 cleanup=not_required duration_ms=145]"
+        }
+      ],
+      "elapsed_ms": 1677.1780999843031
+    },
+    {
+      "step": 1,
+      "phase": "acting",
+      "messages_snapshot": 7,
+      "llm_text": null,
+      "tool_calls": [
+        {
+          "name": "read_file",
+          "args": {
+            "path": "src/_pytest/logging.py",
+            "limit": 200
+          },
+          "raw_arguments": "{\"path\": \"src/_pytest/logging.py\", \"limit\": 200}",
+          "parse_error": null
+        }
+      ],
+      "tool_results": [
+        {
+          "name": "read_file",
+          "success": true,
+          "status": "succeeded",
+          "error_kind": null,
+          "output": "\"\"\" Access and control log capturing. \"\"\"\nfrom __future__ import absolute_import\nfrom __future__ import division\nfrom __future__ import print_function\n\nimport logging\nimport re\nfrom contextlib import contextmanager\n\nimport py\nimport six\n\nimport pytest\nfrom _pytest.compat import dummy_context_manager\nfrom _pytest.config import create_terminal_writer\nfrom _pytest.pathlib import Path\n\nDEFAULT_LOG_FORMAT = \"%(filename)-25s %(lineno)4d %(levelname)-8s %(message)s\"\nDEFAULT_LOG_DATE_FORMAT = \"%H:%M:%S\""
+        }
+      ],
+      "elapsed_ms": 1597.7834000077564
+    },
+    {
+      "step": 2,
+      "phase": "acting",
+      "messages_snapshot": 9,
+      "llm_text": "Now let me look at the tests and docs referencing the log format.",
+      "tool_calls": [
+        {
+          "name": "run_command",
+          "args": {
+            "command": "cd /workspace && grep -rn \"filename)-25s\\|lineno)4d\\|DEFAULT_LOG_FORMAT\\|log_format\" --include=*.py --include=*.rst testing/ doc/ src/ | head -50"
+          },
+          "raw_arguments": "{\"command\": \"cd /workspace && grep -rn \\\"filename)-25s\\\\|lineno)4d\\\\|DEFAULT_LOG_FORMAT\\\\|log_format\\\" --include=*.py --include=*.rst testing/ doc/ src/ | head -50\"}",
+          "parse_error": null
+        }
+      ],
+      "tool_results": [
+        {
+          "name": "run_command",
+          "success": true,
+          "status": "succeeded",
+          "error_kind": null,
+          "output": "testing/logging/test_formatter.py:9:    logfmt = \"%(filename)-25s %(lineno)4d %(levelname)-8s %(message)s\"\ndoc/en/logging.rst:58:    log_format = %(asctime)s %(levelname)s %(message)s\ndoc/en/reference.rst:1219:.. confval:: log_format\ndoc/en/reference.rst:1228:        log_format = %(asctime)s %(levelname)s %(message)s\nsrc/_pytest/logging.py:18:DEFAULT_LOG_FORMAT = \"%(filename)-25s %(lineno)4d %(levelname)-8s %(message)s\"\nsrc/_pytest/logging.py:110:        dest=\"log_format\",\nsrc/_pytest/logging.py"
+        }
+      ],
+      "elapsed_ms": 1519.8401999950875
+    },
+    {
+      "step": 3,
+      "phase": "acting",
+      "messages_snapshot": 11,
+      "llm_text": null,
+      "tool_calls": [
+        {
+          "name": "read_file",
+          "args": {
+            "path": "testing/logging/test_formatter.py"
+          },
+          "raw_arguments": "{\"path\": \"testing/logging/test_formatter.py\"}",
+          "parse_error": null
+        }
+      ],
+      "tool_results": [
+        {
+          "name": "read_file",
+          "success": true,
+          "status": "succeeded",
+          "error_kind": null,
+          "output": "import logging\n\nimport py.io\n\nfrom _pytest.logging import ColoredLevelFormatter\n\n\ndef test_coloredlogformatter():\n    logfmt = \"%(filename)-25s %(lineno)4d %(levelname)-8s %(message)s\"\n\n    record = logging.LogRecord(\n        name=\"dummy\",\n        level=logging.INFO,\n        pathname=\"dummypath\",\n        lineno=10,\n        msg=\"Test Message\",\n        args=(),\n        exc_info=False,\n    )\n\n    class ColorConfig(object):\n        class option(object):\n            pass\n\n    tw = py.io.TerminalWrite"
+        }
+      ],
+      "elapsed_ms": 1206.5533000277355
+    },
+    {
+      "step": 4,
+      "phase": "acting",
+      "messages_snapshot": 13,
+      "llm_text": "Now let me make the source edit to change the default log format:",
+      "tool_calls": [
+        {
+          "name": "search_replace",
+          "args": {
+            "path": "src/_pytest/logging.py",
+            "search": "DEFAULT_LOG_FORMAT = \"%(filename)-25s %(lineno)4d %(levelname)-8s %(message)s\"",
+            "replace": "DEFAULT_LOG_FORMAT = \"%(levelname)-8s %(name)s:%(filename)s:%(lineno)d %(message)s\""
+          },
+          "raw_arguments": "{\"path\": \"src/_pytest/logging.py\", \"search\": \"DEFAULT_LOG_FORMAT = \\\"%(filename)-25s %(lineno)4d %(levelname)-8s %(message)s\\\"\", \"replace\": \"DEFAULT_LOG_FORMAT = \\\"%(levelname)-8s %(name)s:%(filename)s:%(lineno)d %(message)s\\\"\"}",
+          "parse_error": null
+        }
+      ],
+      "tool_results": [
+        {
+          "name": "search_replace",
+          "success": true,
+          "status": "succeeded",
+          "error_kind": null,
+          "output": "file updated\n\n[exit_code=0 status=succeeded truncated=false bytes_seen=13 bytes_kept=26 cleanup=not_required duration_ms=128]"
+        }
+      ],
+      "elapsed_ms": 1717.7597999980208
+    },
+    {
+      "step": 5,
+      "phase": "acting",
+      "messages_snapshot": 15,
+      "llm_text": "Now let me check the docs and other places that may reference the old format, and update the test to match the new format.",
+      "tool_calls": [
+        {
+          "name": "read_file",
+          "args": {
+            "path": "doc/en/logging.rst",
+            "limit": 80
+          },
+          "raw_arguments": "{\"path\": \"doc/en/logging.rst\", \"limit\": 80}",
+          "parse_error": null
+        }
+      ],
+      "tool_results": [
+        {
+          "name": "read_file",
+          "success": true,
+          "status": "succeeded",
+          "error_kind": null,
+          "output": ".. _logging:\n\nLogging\n-------\n\n\n\n\npytest captures log messages of level ``WARNING`` or above automatically and displays them in their own section\nfor each failed test in the same manner as captured stdout and stderr.\n\nRunning without options:\n\n.. code-block:: bash\n\n    pytest\n\nShows failed tests like so:\n\n.. code-block:: pytest\n\n    ----------------------- Captured stdlog call ----------------------\n    test_reporting.py    26 WARNING  text going to logger\n    ----------------------- Captured st"
+        }
+      ],
+      "elapsed_ms": 1758.3207999996375
+    },
+    {
+      "step": 6,
+      "phase": "acting",
+      "messages_snapshot": 17,
+      "llm_text": "Let me update the docs example to reflect the new default format:",
+      "tool_calls": [
+        {
+          "name": "search_replace",
+          "args": {
+            "path": "doc/en/logging.rst",
+            "search": "    ----------------------- Captured stdlog call ----------------------\n    test_reporting.py    26 WARNING  text going to logger\n    ----------------------- Captured stdout call ----------------------",
+            "replace": "    ----------------------- Captured stdlog call ----------------------\n    WARNING  test_reporting:test_reporting.py:26 text going to logger\n    ----------------------- Captured stdout call ----------------------"
+          },
+          "raw_arguments": "{\"path\": \"doc/en/logging.rst\", \"search\": \"    ----------------------- Captured stdlog call ----------------------\\n    test_reporting.py    26 WARNING  text going to logger\\n    ----------------------- Captured stdout call ----------------------\", \"replace\": \"    ----------------------- Captured stdlog call ----------------------\\n    WARNING  test_reporting:test_reporting.py:26 text going to logger\\n    ----------------------- Captured stdout call ----------------------\"}",
+          "parse_error": null
+        }
+      ],
+      "tool_results": [
+        {
+          "name": "search_replace",
+          "success": true,
+          "status": "succeeded",
+          "error_kind": null,
+          "output": "file updated\n\n[exit_code=0 status=succeeded truncated=false bytes_seen=13 bytes_kept=26 cleanup=not_required duration_ms=155]"
+        }
+      ],
+      "elapsed_ms": 1843.2094999880064
+    },
+    {
+      "step": 7,
+      "phase": "acting",
+      "messages_snapshot": 20,
+      "llm_text": "Now let me check the changelog directory and update the test file to use the new format:",
+      "tool_calls": [
+        {
+          "name": "list_dir",
+          "args": {
+            "path": "changelog"
+          },
+          "raw_arguments": "{\"path\": \"changelog\"}",
+          "parse_error": null
+        },
+        {
+          "name": "run_command",
+          "args": {
+            "command": "cd /workspace && grep -rn \"filename)-25s\\|lineno)4d\\|Captured stdlog\\|WARNING  text\\|text going to logger\" --include=*.py --include=*.rst testing/ doc/ | head -40"
+          },
+          "raw_arguments": "{\"command\": \"cd /workspace && grep -rn \\\"filename)-25s\\\\|lineno)4d\\\\|Captured stdlog\\\\|WARNING  text\\\\|text going to logger\\\" --include=*.py --include=*.rst testing/ doc/ | head -40\"}",
+          "parse_error": null
+        }
+      ],
+      "tool_results": [
+        {
+          "name": "list_dir",
+          "success": true,
+          "status": "succeeded",
+          "error_kind": null,
+          "output": "[F] 4826.feature.rst\n[F] 4907.feature.rst\n[F] 4935.doc.rst\n[F] 4942.trivial.rst\n[F] 5026.feature.rst\n[F] 5034.feature.rst\n[F] 5035.feature.rst\n[F] 5059.feature.rst\n[F] 5059.trivial.rst\n[F] 5068.feature.rst\n[F] 5069.trivial.rst\n[F] 5082.trivial.rst\n[F] 5089.bugfix.rst\n[F] 5108.feature.rst\n[F] 5113.bugfix.rst\n[F] 5139.bugfix.rst\n[F] 5144.bugfix.rst\n[F] 5171.doc.rst\n[F] 5172.feature.rst\n[F] 5177.feature.rst\n[F] 5182.trivial.rst\n[F] 5188.doc.rst\n[F] 5202.trivial.rst\n[F] 5220.feature.rst\n[F] README.r"
+        },
+        {
+          "name": "run_command",
+          "success": true,
+          "status": "succeeded",
+          "error_kind": null,
+          "output": "testing/logging/test_formatter.py:9:    logfmt = \"%(filename)-25s %(lineno)4d %(levelname)-8s %(message)s\"\ntesting/logging/test_reporting.py:41:            logger.info('text going to logger')\ntesting/logging/test_reporting.py:47:    result.stdout.fnmatch_lines([\"*- Captured *log call -*\", \"*text going to logger*\"])\ntesting/logging/test_reporting.py:72:    result.stdout.fnmatch_lines([\"*error text going to logger*\"])\ntesting/logging/test_reporting.py:74:    assert \"warning text going to logger\" n"
+        }
+      ],
+      "elapsed_ms": 1755.5426000035368
+    },
+    {
+      "step": 8,
+      "phase": "acting",
+      "messages_snapshot": 22,
+      "llm_text": "Let me look at the test_formatter.py to update the test that uses the old format:",
+      "tool_calls": [
+        {
+          "name": "read_file",
+          "args": {
+            "path": "testing/logging/test_formatter.py"
+          },
+          "raw_arguments": "{\"path\": \"testing/logging/test_formatter.py\"}",
+          "parse_error": null
+        }
+      ],
+      "tool_results": [
+        {
+          "name": "read_file",
+          "success": true,
+          "status": "succeeded",
+          "error_kind": null,
+          "output": "import logging\n\nimport py.io\n\nfrom _pytest.logging import ColoredLevelFormatter\n\n\ndef test_coloredlogformatter():\n    logfmt = \"%(filename)-25s %(lineno)4d %(levelname)-8s %(message)s\"\n\n    record = logging.LogRecord(\n        name=\"dummy\",\n        level=logging.INFO,\n        pathname=\"dummypath\",\n        lineno=10,\n        msg=\"Test Message\",\n        args=(),\n        exc_info=False,\n    )\n\n    class ColorConfig(object):\n        class option(object):\n            pass\n\n    tw = py.io.TerminalWrite"
+        }
+      ],
+      "elapsed_ms": 1981.339799996931
+    },
+    {
+      "step": 9,
+      "phase": "acting",
+      "messages_snapshot": 24,
+      "llm_text": "This test uses its own explicit logfmt, so it doesn't need to change (it's testing the formatter, not the default). Let me check the test_reporting.py for tests that depend on the default format:",
+      "tool_calls": [
+        {
+          "name": "read_file",
+          "args": {
+            "path": "testing/logging/test_reporting.py",
+            "limit": 120
+          },
+          "raw_arguments": "{\"path\": \"testing/logging/test_reporting.py\", \"limit\": 120}",
+          "parse_error": null
+        }
+      ],
+      "tool_results": [
+        {
+          "name": "read_file",
+          "success": true,
+          "status": "succeeded",
+          "error_kind": null,
+          "output": "# -*- coding: utf-8 -*-\nimport os\nimport re\nfrom io import open\n\nimport six\n\nimport pytest\n\n\ndef test_nothing_logged(testdir):\n    testdir.makepyfile(\n        \"\"\"\n        import sys\n\n        def test_foo():\n            sys.stdout.write('text going to stdout')\n            sys.stderr.write('text going to stderr')\n            assert False\n        \"\"\"\n    )\n    result = testdir.runpytest()\n    assert result.ret == 1\n    result.stdout.fnmatch_lines([\"*- Captured stdout call -*\", \"text going to stdout"
+        }
+      ],
+      "elapsed_ms": 1788.0972999846563
+    },
+    {
+      "step": 10,
+      "phase": "acting",
+      "messages_snapshot": 27,
+      "llm_text": "These tests use wildcards so they should still pass. Now let me add a changelog entry. Let me check the issue number - the format change relates to issue about improving default logging format. Let me check the changelog README for format:",
+      "tool_calls": [
+        {
+          "name": "read_file",
+          "args": {
+            "path": "changelog/5220.feature.rst"
+          },
+          "raw_arguments": "{\"path\": \"changelog/5220.feature.rst\"}",
+          "parse_error": null
+        },
+        {
+          "name": "read_file",
+          "args": {
+            "path": "changelog/README.rst"
+          },
+          "raw_arguments": "{\"path\": \"changelog/README.rst\"}",
+          "parse_error": null
+        }
+      ],
+      "tool_results": [
+        {
+          "name": "read_file",
+          "success": true,
+          "status": "succeeded",
+          "error_kind": null,
+          "output": "``--fixtures`` now also shows fixture scope for scopes other than ``\"function\"``.\n\n\n[exit_code=0 status=succeeded truncated=false bytes_seen=83 bytes_kept=166 cleanup=not_required duration_ms=133]"
+        },
+        {
+          "name": "read_file",
+          "success": true,
+          "status": "succeeded",
+          "error_kind": null,
+          "output": "This directory contains \"newsfragments\" which are short files that contain a small **ReST**-formatted\ntext that will be added to the next ``CHANGELOG``.\n\nThe ``CHANGELOG`` will be read by users, so this description should be aimed to pytest users\ninstead of describing internal changes which are only relevant to the developers.\n\nMake sure to use full sentences with correct case and punctuation, for example::\n\n    Fix issue with non-ascii messages from the ``warnings`` module.\n\nEach file should be"
+        }
+      ],
+      "elapsed_ms": 1786.8454000272322
+    },
+    {
+      "step": 11,
+      "phase": "acting",
+      "messages_snapshot": 29,
+      "llm_text": "The issue is #2791 (Improve default logging format). Let me add a changelog entry:",
+      "tool_calls": [
+        {
+          "name": "write_file",
+          "args": {
+            "path": "changelog/2791.feature.rst",
+            "content": "The default logging format now includes the logger name (``%(name)s``) and the\nsource file and line number, for example\n``%(levelname)-8s %(name)s:%(filename)s:%(lineno)d %(message)s``.\n"
+          },
+          "raw_arguments": "{\"path\": \"changelog/2791.feature.rst\", \"content\": \"The default logging format now includes the logger name (``%(name)s``) and the\\nsource file and line number, for example\\n``%(levelname)-8s %(name)s:%(filename)s:%(lineno)d %(message)s``.\\n\"}",
+          "parse_error": null
+        }
+      ],
+      "tool_results": [
+        {
+          "name": "write_file",
+          "success": true,
+          "status": "succeeded",
+          "error_kind": null,
+          "output": "file updated\n\n[exit_code=0 status=succeeded truncated=false bytes_seen=13 bytes_kept=26 cleanup=not_required duration_ms=143]"
+        }
+      ],
+      "elapsed_ms": 1911.4682000072207
+    },
+    {
+      "step": 12,
+      "phase": "acting",
+      "messages_snapshot": 32,
+      "llm_text": "Now let me verify the change and run the relevant tests:",
+      "tool_calls": [
+        {
+          "name": "run_command",
+          "args": {
+            "command": "cd /workspace && grep -n \"DEFAULT_LOG_FORMAT\" src/_pytest/logging.py"
+          },
+          "raw_arguments": "{\"command\": \"cd /workspace && grep -n \\\"DEFAULT_LOG_FORMAT\\\" src/_pytest/logging.py\"}",
+          "parse_error": null
+        },
+        {
+          "name": "run_command",
+          "args": {
+            "command": "cd /workspace && PYTHONDONTWRITEBYTECODE=1 python -m pytest testing/logging/test_formatter.py testing/logging/test_reporting.py -q 2>&1 | tail -20"
+          },
+          "raw_arguments": "{\"command\": \"cd /workspace && PYTHONDONTWRITEBYTECODE=1 python -m pytest testing/logging/test_formatter.py testing/logging/test_reporting.py -q 2>&1 | tail -20\"}",
+          "parse_error": null
+        }
+      ],
+      "tool_results": [
+        {
+          "name": "run_command",
+          "success": true,
+          "status": "succeeded",
+          "error_kind": null,
+          "output": "18:DEFAULT_LOG_FORMAT = \"%(levelname)-8s %(name)s:%(filename)s:%(lineno)d %(message)s\"\n111:        default=DEFAULT_LOG_FORMAT,\n156:        default=DEFAULT_LOG_FORMAT,\n\n[exit_code=0 status=succeeded truncated=false bytes_seen=167 bytes_kept=334 cleanup=not_required duration_ms=109]"
+        },
+        {
+          "name": "run_command",
+          "success": true,
+          "status": "succeeded",
+          "error_kind": null,
+          "output": "/usr/local/bin/python: No module named pytest\n\n[exit_code=0 status=succeeded truncated=false bytes_seen=46 bytes_kept=92 cleanup=not_required duration_ms=258]"
+        }
+      ],
+      "elapsed_ms": 2030.826900008833
+    },
+    {
+      "step": 13,
+      "phase": "acting",
+      "messages_snapshot": 34,
+      "llm_text": null,
+      "tool_calls": [
+        {
+          "name": "run_command",
+          "args": {
+            "command": "cd /workspace && PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python -m pytest testing/logging/test_formatter.py testing/logging/test_reporting.py -q 2>&1 | tail -20"
+          },
+          "raw_arguments": "{\"command\": \"cd /workspace && PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python -m pytest testing/logging/test_formatter.py testing/logging/test_reporting.py -q 2>&1 | tail -20\"}",
+          "parse_error": null
+        }
+      ],
+      "tool_results": [
+        {
+          "name": "run_command",
+          "success": true,
+          "status": "succeeded",
+          "error_kind": null,
+          "output": "Traceback (most recent call last):\n  File \"/usr/local/lib/python3.9/runpy.py\", line 197, in _run_module_as_main\n    return _run_code(code, main_globals, None,\n  File \"/usr/local/lib/python3.9/runpy.py\", line 87, in _run_code\n    exec(code, run_globals)\n  File \"/workspace/src/pytest.py\", line 7, in <module>\n    from _pytest.assertion import register_assert_rewrite\n  File \"/workspace/src/_pytest/assertion/__init__.py\", line 10, in <module>\n    import six\nModuleNotFoundError: No module named 'six'\n"
+        }
+      ],
+      "elapsed_ms": 2160.7503999839537
+    },
+    {
+      "step": 14,
+      "phase": "acting",
+      "messages_snapshot": 36,
+      "llm_text": "Dependencies aren't installed. Let me verify the format string works correctly with a standalone check:",
+      "tool_calls": [
+        {
+          "name": "run_command",
+          "args": {
+            "command": "cd /workspace && PYTHONDONTWRITEBYTECODE=1 python -c \"\nimport logging\nfmt = '%(levelname)-8s %(name)s:%(filename)s:%(lineno)d %(message)s'\nr = logging.LogRecord('django.db.backends', logging.DEBUG, '/x/utils.py', 114, 'SELECT ...', None, None)\nprint(logging.Formatter(fmt).format(r))\n\""
+          },
+          "raw_arguments": "{\"command\": \"cd /workspace && PYTHONDONTWRITEBYTECODE=1 python -c \\\"\\nimport logging\\nfmt = '%(levelname)-8s %(name)s:%(filename)s:%(lineno)d %(message)s'\\nr = logging.LogRecord('django.db.backends', logging.DEBUG, '/x/utils.py', 114, 'SELECT ...', None, None)\\nprint(logging.Formatter(fmt).format(r))\\n\\\"\"}",
+          "parse_error": null
+        }
+      ],
+      "tool_results": [
+        {
+          "name": "run_command",
+          "success": true,
+          "status": "succeeded",
+          "error_kind": null,
+          "output": "DEBUG    django.db.backends:utils.py:114 SELECT ...\n\n[exit_code=0 status=succeeded truncated=false bytes_seen=52 bytes_kept=104 cleanup=not_required duration_ms=165]"
+        }
+      ],
+      "elapsed_ms": 2088.3613000041805
+    },
+    {
+      "step": 15,
+      "phase": "acting",
+      "messages_snapshot": 38,
+      "llm_text": "The format works as expected. Let me also check if there are any other docs or tests referencing the old default format that I should update:",
+      "tool_calls": [
+        {
+          "name": "run_command",
+          "args": {
+            "command": "cd /workspace && grep -rn \"filename)-25s\\|lineno)4d\\|Captured stdlog\\|Captured log call\" --include=*.py --include=*.rst . | grep -v \".git/\" | head -40"
+          },
+          "raw_arguments": "{\"command\": \"cd /workspace && grep -rn \\\"filename)-25s\\\\|lineno)4d\\\\|Captured stdlog\\\\|Captured log call\\\" --include=*.py --include=*.rst . | grep -v \\\".git/\\\" | head -40\"}",
+          "parse_error": null
+        }
+      ],
+      "tool_results": [
+        {
+          "name": "run_command",
+          "success": true,
+          "status": "succeeded",
+          "error_kind": null,
+          "output": "./testing/logging/test_formatter.py:9:    logfmt = \"%(filename)-25s %(lineno)4d %(levelname)-8s %(message)s\"\n./doc/en/logging.rst:22:    ----------------------- Captured stdlog call ----------------------\n./doc/en/logging.rst:45:    ----------------------- Captured stdlog call ----------------------\n\n[exit_code=0 status=succeeded truncated=false bytes_seen=301 bytes_kept=602 cleanup=not_required duration_ms=169]"
+        }
+      ],
+      "elapsed_ms": 1748.971499997424
+    },
+    {
+      "step": 16,
+      "phase": "acting",
+      "messages_snapshot": 40,
+      "llm_text": "The test_formatter.py uses its own explicit logfmt (testing the formatter itself, not the default), so it's fine. Let me check the second doc example at line 45:",
+      "tool_calls": [
+        {
+          "name": "read_file",
+          "args": {
+            "path": "doc/en/logging.rst",
+            "limit": 60
+          },
+          "raw_arguments": "{\"path\": \"doc/en/logging.rst\", \"limit\": 60}",
+          "parse_error": null
+        }
+      ],
+      "tool_results": [
+        {
+          "name": "read_file",
+          "success": true,
+          "status": "succeeded",
+          "error_kind": null,
+          "output": ".. _logging:\n\nLogging\n-------\n\n\n\n\npytest captures log messages of level ``WARNING`` or above automatically and displays them in their own section\nfor each failed test in the same manner as captured stdout and stderr.\n\nRunning without options:\n\n.. code-block:: bash\n\n    pytest\n\nShows failed tests like so:\n\n.. code-block:: pytest\n\n    ----------------------- Captured stdlog call ----------------------\n    WARNING  test_reporting:test_reporting.py:26 text going to logger\n    -----------------------"
+        }
+      ],
+      "elapsed_ms": 1760.7742999971379
+    },
+    {
+      "step": 17,
+      "phase": "acting",
+      "messages_snapshot": 42,
+      "llm_text": "Let me update the descriptive text to mention the logger name:",
+      "tool_calls": [
+        {
+          "name": "search_replace",
+          "args": {
+            "path": "doc/en/logging.rst",
+            "search": "By default each captured log message shows the module, line number, log level\nand message.",
+            "replace": "By default each captured log message shows the log level, logger name, source\nfile and line number, and message."
+          },
+          "raw_arguments": "{\"path\": \"doc/en/logging.rst\", \"search\": \"By default each captured log message shows the module, line number, log level\\nand message.\", \"replace\": \"By default each captured log message shows the log level, logger name, source\\nfile and line number, and message.\"}",
+          "parse_error": null
+        }
+      ],
+      "tool_results": [
+        {
+          "name": "search_replace",
+          "success": true,
+          "status": "succeeded",
+          "error_kind": null,
+          "output": "file updated\n\n[exit_code=0 status=succeeded truncated=false bytes_seen=13 bytes_kept=26 cleanup=not_required duration_ms=151]"
+        }
+      ],
+      "elapsed_ms": 2032.6826999953482
+    },
+    {
+      "step": 18,
+      "phase": "acting",
+      "messages_snapshot": 44,
+      "llm_text": "Now let me verify the final state of the changes:",
+      "tool_calls": [
+        {
+          "name": "run_command",
+          "args": {
+            "command": "cd /workspace && grep -n \"DEFAULT_LOG_FORMAT\" src/_pytest/logging.py && echo \"---\" && sed -n '20,26p' doc/en/logging.rst && echo \"---\" && cat changelog/2791.feature.rst"
+          },
+          "raw_arguments": "{\"command\": \"cd /workspace && grep -n \\\"DEFAULT_LOG_FORMAT\\\" src/_pytest/logging.py && echo \\\"---\\\" && sed -n '20,26p' doc/en/logging.rst && echo \\\"---\\\" && cat changelog/2791.feature.rst\"}",
+          "parse_error": null
+        }
+      ],
+      "tool_results": [
+        {
+          "name": "run_command",
+          "success": true,
+          "status": "succeeded",
+          "error_kind": null,
+          "output": "18:DEFAULT_LOG_FORMAT = \"%(levelname)-8s %(name)s:%(filename)s:%(lineno)d %(message)s\"\n111:        default=DEFAULT_LOG_FORMAT,\n156:        default=DEFAULT_LOG_FORMAT,\n---\n.. code-block:: pytest\n\n    ----------------------- Captured stdlog call ----------------------\n    WARNING  test_reporting:test_reporting.py:26 text going to logger\n    ----------------------- Captured stdout call ----------------------\n    text going to stdout\n    ----------------------- Captured stderr call -----------------"
+        }
+      ],
+      "elapsed_ms": 1648.8318000047002
+    },
+    {
+      "step": 19,
+      "phase": "acting",
+      "messages_snapshot": 46,
+      "llm_text": "All changes are in place. Let me do a final review of the complete diff:",
+      "tool_calls": [
+        {
+          "name": "run_command",
+          "args": {
+            "command": "cd /workspace && git diff --stat && echo \"===\" && git status --short"
+          },
+          "raw_arguments": "{\"command\": \"cd /workspace && git diff --stat && echo \\\"===\\\" && git status --short\"}",
+          "parse_error": null
+        }
+      ],
+      "tool_results": [
+        {
+          "name": "run_command",
+          "success": false,
+          "status": "failed",
+          "error_kind": "nonzero_exit",
+          "output": "[stderr]\n/bin/sh: 1: git: not found\n\n[exit_code=127 status=failed truncated=false bytes_seen=27 bytes_kept=54 cleanup=not_required duration_ms=196]\nError: nonzero_exit"
+        }
+      ],
+      "elapsed_ms": 2127.2982000082266
+    },
+    {
+      "step": 20,
+      "phase": "acting",
+      "messages_snapshot": 48,
+      "llm_text": "Git isn't available, but I've verified all changes directly. Let me do a final confirmation of the source edit:",
+      "tool_calls": [
+        {
+          "name": "read_file",
+          "args": {
+            "path": "src/_pytest/logging.py",
+            "limit": 20
+          },
+          "raw_arguments": "{\"path\": \"src/_pytest/logging.py\", \"limit\": 20}",
+          "parse_error": null
+        }
+      ],
+      "tool_results": [
+        {
+          "name": "read_file",
+          "success": true,
+          "status": "succeeded",
+          "error_kind": null,
+          "output": "\"\"\" Access and control log capturing. \"\"\"\nfrom __future__ import absolute_import\nfrom __future__ import division\nfrom __future__ import print_function\n\nimport logging\nimport re\nfrom contextlib import contextmanager\n\nimport py\nimport six\n\nimport pytest\nfrom _pytest.compat import dummy_context_manager\nfrom _pytest.config import create_terminal_writer\nfrom _pytest.pathlib import Path\n\nDEFAULT_LOG_FORMAT = \"%(levelname)-8s %(name)s:%(filename)s:%(lineno)d %(message)s\"\nDEFAULT_LOG_DATE_FORMAT = \"%H:%"
+        }
+      ],
+      "elapsed_ms": 2019.2544000165071
+    },
+    {
+      "step": 21,
+      "phase": "done",
+      "messages_snapshot": 48,
+      "llm_text": "The changes are complete. Here's a summary of what I did to resolve the issue \"Improve default logging format\":\n\n## Changes Made\n\n### 1. Source edit — `src/_pytest/logging.py` (line 18)\nChanged the default log format from:\n```python\nDEFAULT_LOG_FORMAT = \"%(filename)-25s %(lineno)4d %(levelname)-8s %(message)s\"\n```\nto:\n```python\nDEFAULT_LOG_FORMAT = \"%(levelname)-8s %(name)s:%(filename)s:%(lineno)d %(message)s\"\n```\n\nThis adds the logger **name** (module name, e.g. `django.db.backends`) as requested in the issue, while keeping the filename and line number. The new output looks like:\n```\nDEBUG    django.db.backends:utils.py:114 (0.000) SELECT ...\nDEBUG    multipart.multipart:multipart.py:604 Calling on_field_start with no data\n```\n\n### 2. Documentation — `doc/en/logging.rst`\n- Updated the example captured-log output to reflect the new format (`WARNING  test_reporting:test_reporting.py:26 text going to logger`).\n- Updated the descriptive sentence to mention that the default format shows the log level, logger name, source file/line number, and message.\n\n### 3. Changelog — `changelog/2791.feature.rst` (new file)\nAdded a feature changelog entry describing the new default logging format.\n\n## Notes\n- The `testing/logging/test_formatter.py` tests use their own explicit `logfmt` strings to test the formatter itself, so they are unaffected by the default change.\n- The `testing/logging/test_reporting.py` tests use wildcard matching (`*`) around the message portion, so they remain compatible with the new format.\n- I verified the new format string renders correctly with a standalone `logging.Formatter` check (dependencies for running the full test suite aren't installed in this environment).",
+      "tool_calls": [],
+      "tool_results": [],
+      "elapsed_ms": 3455.55549999699
+    }
+  ],
+  "total_elapsed_ms": 56208.31729998463,
+  "total_tokens": 89879,
+  "tool_failures": 1,
+  "policy_blocks": 0,
+  "total_tool_invocations": 25,
+  "plan": null,
+  "context_events": [
+    {
+      "strategy": "masking",
+      "requested": "masking",
+      "actually_injected": "none",
+      "summary_provider": "fixture",
+      "raw_message_hash": "6dd5eeb1c271800e030744d20fabe87f36a7cac7e1d7589ae06bad917113ffdb",
+      "raw_serialized_bytes": 2400,
+      "summary_records": [],
+      "overflow": false,
+      "serialized_bytes": 5204,
+      "estimated_input_tokens": 1301,
+      "admission_input_tokens": 6548,
+      "reserved_output_tokens": 4096,
+      "estimate_method": "utf8_bytes_div_4_estimated",
+      "admission_method": "utf8_bytes_plus_protocol_allowance",
+      "masking": {
+        "message_count_before": 2,
+        "message_count_after": 2,
+        "chars_before": 2234,
+        "chars_after": 2234,
+        "chars_saved": 0,
+        "tool_messages_before": 0,
+        "tool_messages_after": 0,
+        "compacted_tool_count": 0,
+        "preserved_tool_count": 0,
+        "keep_recent": 4,
+        "did_compact": false,
+        "estimated_tokens_before": 558,
+        "estimated_tokens_after": 558
+      },
+      "compacted_tool_count": 0,
+      "summary_calls": 0,
+      "summary_model_calls": 0,
+      "summary_accounting": {
+        "provider": "fixture",
+        "model_calls": 0,
+        "known_total_tokens": 0,
+        "unknown_usage_calls": 0,
+        "tokens_committed": 0,
+        "estimated_cost_usd": null,
+        "cost_committed_usd": 0,
+        "elapsed_seconds": 0,
+        "records": []
+      },
+      "manager_state": {
+        "schema_version": "0.1",
+        "summary_calls": 0,
+        "summaries": [],
+        "plugin_state": {},
+        "summary_provider": "fixture",
+        "summary_attempts": [],
+        "dispatch_calls": 0,
+        "dispatch_receipts": [],
+        "dispatch_observations": []
+      },
+      "plugin": {
+        "name": "noop",
+        "requested": [],
+        "actually_injected": [],
+        "rejected": [],
+        "action_proposals": [],
+        "method_degraded": false,
+        "policy_error": null,
+        "schema_version": "0.1",
+        "ignored_optional_fields": [],
+        "events": []
+      },
+      "max_tokens": 96000,
+      "view_hash": "6dd5eeb1c271800e030744d20fabe87f36a7cac7e1d7589ae06bad917113ffdb",
+      "view_serialized_bytes": 2400,
+      "step": 0
+    },
+    {
+      "strategy": "masking",
+      "requested": "masking",
+      "actually_injected": "none",
+      "summary_provider": "fixture",
+      "raw_message_hash": "3f4e9cbc3b99c952528b5459fc0006dd854f14fe329f5a374ddcf5945198e1b5",
+      "raw_serialized_bytes": 3885,
+      "summary_records": [],
+      "overflow": false,
+      "serialized_bytes": 6689,
+      "estimated_input_tokens": 1673,
+      "admission_input_tokens": 8129,
+      "reserved_output_tokens": 4096,
+      "estimate_method": "utf8_bytes_div_4_estimated",
+      "admission_method": "utf8_bytes_plus_protocol_allowance",
+      "masking": {
+        "message_count_before": 5,
+        "message_count_after": 5,
+        "chars_before": 3160,
+        "chars_after": 3160,
+        "chars_saved": 0,
+        "tool_messages_before": 2,
+        "tool_messages_after": 2,
+        "compacted_tool_count": 0,
+        "preserved_tool_count": 2,
+        "keep_recent": 4,
+        "did_compact": false,
+        "estimated_tokens_before": 813,
+        "estimated_tokens_after": 813
+      },
+      "compacted_tool_count": 0,
+      "summary_calls": 0,
+      "summary_model_calls": 0,
+      "summary_accounting": {
+        "provider": "fixture",
+        "model_calls": 0,
+        "known_total_tokens": 0,
+        "unknown_usage_calls": 0,
+        "tokens_committed": 0,
+        "estimated_cost_usd": null,
+        "cost_committed_usd": 0,
+        "elapsed_seconds": 0,
+        "records": []
+      },
+      "manager_state": {
+        "schema_version": "0.1",
+        "summary_calls": 0,
+        "summaries": [],
+        "plugin_state": {},
+        "summary_provider": "fixture",
+        "summary_attempts": [],
+        "dispatch_calls": 0,
+        "dispatch_receipts": [],
+        "dispatch_observations": []
+      },
+      "plugin": {
+        "name": "noop",
+        "requested": [],
+        "actually_injected": [],
+        "rejected": [],
+        "action_proposals": [],
+        "method_degraded": false,
+        "policy_error": null,
+        "schema_version": "0.1",
+        "ignored_optional_fields": [],
+        "events": []
+      },
+      "max_tokens": 96000,
+      "view_hash": "3f4e9cbc3b99c952528b5459fc0006dd854f14fe329f5a374ddcf5945198e1b5",
+      "view_serialized_bytes": 3885,
+      "step": 1
+    },
+    {
+      "strategy": "masking",
+      "requested": "masking",
+      "actually_injected": "none",
+      "summary_provider": "fixture",
+      "raw_message_hash": "d260acd3b438338867dace2538aea4170410014d425f3b9faeef362779705418",
+      "raw_serialized_bytes": 10744,
+      "summary_records": [],
+      "overflow": false,
+      "serialized_bytes": 13548,
+      "estimated_input_tokens": 3387,
+      "admission_input_tokens": 15052,
+      "reserved_output_tokens": 4096,
+      "estimate_method": "utf8_bytes_div_4_estimated",
+      "admission_method": "utf8_bytes_plus_protocol_allowance",
+      "masking": {
+        "message_count_before": 7,
+        "message_count_after": 7,
+        "chars_before": 9386,
+        "chars_after": 9386,
+        "chars_saved": 0,
+        "tool_messages_before": 3,
+        "tool_messages_after": 3,
+        "compacted_tool_count": 0,
+        "preserved_tool_count": 3,
+        "keep_recent": 4,
+        "did_compact": false,
+        "estimated_tokens_before": 2381,
+        "estimated_tokens_after": 2381
+      },
+      "compacted_tool_count": 0,
+      "summary_calls": 0,
+      "summary_model_calls": 0,
+      "summary_accounting": {
+        "provider": "fixture",
+        "model_calls": 0,
+        "known_total_tokens": 0,
+        "unknown_usage_calls": 0,
+        "tokens_committed": 0,
+        "estimated_cost_usd": null,
+        "cost_committed_usd": 0,
+        "elapsed_seconds": 0,
+        "records": []
+      },
+      "manager_state": {
+        "schema_version": "0.1",
+        "summary_calls": 0,
+        "summaries": [],
+        "plugin_state": {},
+        "summary_provider": "fixture",
+        "summary_attempts": [],
+        "dispatch_calls": 0,
+        "dispatch_receipts": [],
+        "dispatch_observations": []
+      },
+      "plugin": {
+        "name": "noop",
+        "requested": [],
+        "actually_injected": [],
+        "rejected": [],
+        "action_proposals": [],
+        "method_degraded": false,
+        "policy_error": null,
+        "schema_version": "0.1",
+        "ignored_optional_fields": [],
+        "events": []
+      },
+      "max_tokens": 96000,
+      "view_hash": "d260acd3b438338867dace2538aea4170410014d425f3b9faeef362779705418",
+      "view_serialized_bytes": 10744,
+      "step": 2
+    },
+    {
+      "strategy": "masking",
+      "requested": "masking",
+      "actually_injected": "none",
+      "summary_provider": "fixture",
+      "raw_message_hash": "ee85ad9e4e5197ea6cf2a6c7328c295ae7f4403c7272c870c8d549e48e9029f6",
+      "raw_serialized_bytes": 12270,
+      "summary_records": [],
+      "overflow": false,
+      "serialized_bytes": 15074,
+      "estimated_input_tokens": 3769,
+      "admission_input_tokens": 16642,
+      "reserved_output_tokens": 4096,
+      "estimate_method": "utf8_bytes_div_4_estimated",
+      "admission_method": "utf8_bytes_plus_protocol_allowance",
+      "masking": {
+        "message_count_before": 9,
+        "message_count_after": 9,
+        "chars_before": 10468,
+        "chars_after": 10468,
+        "chars_saved": 0,
+        "tool_messages_before": 4,
+        "tool_messages_after": 4,
+        "compacted_tool_count": 0,
+        "preserved_tool_count": 4,
+        "keep_recent": 4,
+        "did_compact": false,
+        "estimated_tokens_before": 2693,
+        "estimated_tokens_after": 2693
+      },
+      "compacted_tool_count": 0,
+      "summary_calls": 0,
+      "summary_model_calls": 0,
+      "summary_accounting": {
+        "provider": "fixture",
+        "model_calls": 0,
+        "known_total_tokens": 0,
+        "unknown_usage_calls": 0,
+        "tokens_committed": 0,
+        "estimated_cost_usd": null,
+        "cost_committed_usd": 0,
+        "elapsed_seconds": 0,
+        "records": []
+      },
+      "manager_state": {
+        "schema_version": "0.1",
+        "summary_calls": 0,
+        "summaries": [],
+        "plugin_state": {},
+        "summary_provider": "fixture",
+        "summary_attempts": [],
+        "dispatch_calls": 0,
+        "dispatch_receipts": [],
+        "dispatch_observations": []
+      },
+      "plugin": {
+        "name": "noop",
+        "requested": [],
+        "actually_injected": [],
+        "rejected": [],
+        "action_proposals": [],
+        "method_degraded": false,
+        "policy_error": null,
+        "schema_version": "0.1",
+        "ignored_optional_fields": [],
+        "events": []
+      },
+      "max_tokens": 96000,
+      "view_hash": "ee85ad9e4e5197ea6cf2a6c7328c295ae7f4403c7272c870c8d549e48e9029f6",
+      "view_serialized_bytes": 12270,
+      "step": 3
+    },
+    {
+      "strategy": "masking",
+      "requested": "masking",
+      "actually_injected": "masking",
+      "summary_provider": "fixture",
+      "raw_message_hash": "3b7b7aa64981c741c9e7eae451ff605ee380dfde63a8ecd46ec526995ae5290f",
+      "raw_serialized_bytes": 13639,
+      "summary_records": [],
+      "overflow": false,
+      "serialized_bytes": 16114,
+      "estimated_input_tokens": 4029,
+      "admission_input_tokens": 17746,
+      "reserved_output_tokens": 4096,
+      "estimate_method": "utf8_bytes_div_4_estimated",
+      "admission_method": "utf8_bytes_plus_protocol_allowance",
+      "masking": {
+        "message_count_before": 11,
+        "message_count_after": 11,
+        "chars_before": 11499,
+        "chars_after": 11176,
+        "chars_saved": 323,
+        "tool_messages_before": 5,
+        "tool_messages_after": 5,
+        "compacted_tool_count": 1,
+        "preserved_tool_count": 4,
+        "keep_recent": 4,
+        "did_compact": true,
+        "estimated_tokens_before": 2962,
+        "estimated_tokens_after": 2881
+      },
+      "compacted_tool_count": 1,
+      "summary_calls": 0,
+      "summary_model_calls": 0,
+      "summary_accounting": {
+        "provider": "fixture",
+        "model_calls": 0,
+        "known_total_tokens": 0,
+        "unknown_usage_calls": 0,
+        "tokens_committed": 0,
+        "estimated_cost_usd": null,
+        "cost_committed_usd": 0,
+        "elapsed_seconds": 0,
+        "records": []
+      },
+      "manager_state": {
+        "schema_version": "0.1",
+        "summary_calls": 0,
+        "summaries": [],
+        "plugin_state": {},
+        "summary_provider": "fixture",
+        "summary_attempts": [],
+        "dispatch_calls": 0,
+        "dispatch_receipts": [],
+        "dispatch_observations": []
+      },
+      "plugin": {
+        "name": "noop",
+        "requested": [],
+        "actually_injected": [],
+        "rejected": [],
+        "action_proposals": [],
+        "method_degraded": false,
+        "policy_error": null,
+        "schema_version": "0.1",
+        "ignored_optional_fields": [],
+        "events": []
+      },
+      "max_tokens": 96000,
+      "view_hash": "59a108c0a2e6ea60a0191fb5587c52696d310f3930bc526c462d63b16af15074",
+      "view_serialized_bytes": 13310,
+      "step": 4
+    },
+    {
+      "strategy": "masking",
+      "requested": "masking",
+      "actually_injected": "masking",
+      "summary_provider": "fixture",
+      "raw_message_hash": "17212bd2ec4bb9a6fc8b37d502911b3937818abf3b1120ce1ad37858f5401bd7",
+      "raw_serialized_bytes": 14319,
+      "summary_records": [],
+      "overflow": false,
+      "serialized_bytes": 16305,
+      "estimated_input_tokens": 4077,
+      "admission_input_tokens": 18001,
+      "reserved_output_tokens": 4096,
+      "estimate_method": "utf8_bytes_div_4_estimated",
+      "admission_method": "utf8_bytes_plus_protocol_allowance",
+      "masking": {
+        "message_count_before": 13,
+        "message_count_after": 13,
+        "chars_before": 11689,
+        "chars_after": 10903,
+        "chars_saved": 786,
+        "tool_messages_before": 6,
+        "tool_messages_after": 6,
+        "compacted_tool_count": 2,
+        "preserved_tool_count": 4,
+        "keep_recent": 4,
+        "did_compact": true,
+        "estimated_tokens_before": 3067,
+        "estimated_tokens_after": 2870
+      },
+      "compacted_tool_count": 2,
+      "summary_calls": 0,
+      "summary_model_calls": 0,
+      "summary_accounting": {
+        "provider": "fixture",
+        "model_calls": 0,
+        "known_total_tokens": 0,
+        "unknown_usage_calls": 0,
+        "tokens_committed": 0,
+        "estimated_cost_usd": null,
+        "cost_committed_usd": 0,
+        "elapsed_seconds": 0,
+        "records": []
+      },
+      "manager_state": {
+        "schema_version": "0.1",
+        "summary_calls": 0,
+        "summaries": [],
+        "plugin_state": {},
+        "summary_provider": "fixture",
+        "summary_attempts": [],
+        "dispatch_calls": 0,
+        "dispatch_receipts": [],
+        "dispatch_observations": []
+      },
+      "plugin": {
+        "name": "noop",
+        "requested": [],
+        "actually_injected": [],
+        "rejected": [],
+        "action_proposals": [],
+        "method_degraded": false,
+        "policy_error": null,
+        "schema_version": "0.1",
+        "ignored_optional_fields": [],
+        "events": []
+      },
+      "max_tokens": 96000,
+      "view_hash": "4500f1cb1956e2d3bd1b213cc8a1ccb5925a74e52e35a8fbc2f261d85808af95",
+      "view_serialized_bytes": 13501,
+      "step": 5
+    },
+    {
+      "strategy": "masking",
+      "requested": "masking",
+      "actually_injected": "masking",
+      "summary_provider": "fixture",
+      "raw_message_hash": "5421ee1b4a576e1ebb31d2654f470549eba8551b5c3bd69a7f05507fce5d12b3",
+      "raw_serialized_bytes": 17205,
+      "summary_records": [],
+      "overflow": false,
+      "serialized_bytes": 12649,
+      "estimated_input_tokens": 3163,
+      "admission_input_tokens": 14409,
+      "reserved_output_tokens": 4096,
+      "estimate_method": "utf8_bytes_div_4_estimated",
+      "admission_method": "utf8_bytes_plus_protocol_allowance",
+      "masking": {
+        "message_count_before": 15,
+        "message_count_after": 15,
+        "chars_before": 14205,
+        "chars_after": 7219,
+        "chars_saved": 6986,
+        "tool_messages_before": 7,
+        "tool_messages_after": 7,
+        "compacted_tool_count": 3,
+        "preserved_tool_count": 4,
+        "keep_recent": 4,
+        "did_compact": true,
+        "estimated_tokens_before": 3706,
+        "estimated_tokens_after": 1960
+      },
+      "compacted_tool_count": 3,
+      "summary_calls": 0,
+      "summary_model_calls": 0,
+      "summary_accounting": {
+        "provider": "fixture",
+        "model_calls": 0,
+        "known_total_tokens": 0,
+        "unknown_usage_calls": 0,
+        "tokens_committed": 0,
+        "estimated_cost_usd": null,
+        "cost_committed_usd": 0,
+        "elapsed_seconds": 0,
+        "records": []
+      },
+      "manager_state": {
+        "schema_version": "0.1",
+        "summary_calls": 0,
+        "summaries": [],
+        "plugin_state": {},
+        "summary_provider": "fixture",
+        "summary_attempts": [],
+        "dispatch_calls": 0,
+        "dispatch_receipts": [],
+        "dispatch_observations": []
+      },
+      "plugin": {
+        "name": "noop",
+        "requested": [],
+        "actually_injected": [],
+        "rejected": [],
+        "action_proposals": [],
+        "method_degraded": false,
+        "policy_error": null,
+        "schema_version": "0.1",
+        "ignored_optional_fields": [],
+        "events": []
+      },
+      "max_tokens": 96000,
+      "view_hash": "807c09d01962db93d28a5ee370a7d52793a133949857f23757f3e0bd213c2e85",
+      "view_serialized_bytes": 9845,
+      "step": 6
+    },
+    {
+      "strategy": "masking",
+      "requested": "masking",
+      "actually_injected": "masking",
+      "summary_provider": "fixture",
+      "raw_message_hash": "728df976efe43fc66a6875bc176ddd6b28cf4d40ac2856dfda47a78864b25a1c",
+      "raw_serialized_bytes": 18130,
+      "summary_records": [],
+      "overflow": false,
+      "serialized_bytes": 12557,
+      "estimated_input_tokens": 3140,
+      "admission_input_tokens": 14381,
+      "reserved_output_tokens": 4096,
+      "estimate_method": "utf8_bytes_div_4_estimated",
+      "admission_method": "utf8_bytes_plus_protocol_allowance",
+      "masking": {
+        "message_count_before": 17,
+        "message_count_after": 17,
+        "chars_before": 14395,
+        "chars_after": 6420,
+        "chars_saved": 7975,
+        "tool_messages_before": 8,
+        "tool_messages_after": 8,
+        "compacted_tool_count": 4,
+        "preserved_tool_count": 4,
+        "keep_recent": 4,
+        "did_compact": true,
+        "estimated_tokens_before": 3873,
+        "estimated_tokens_after": 1879
+      },
+      "compacted_tool_count": 4,
+      "summary_calls": 0,
+      "summary_model_calls": 0,
+      "summary_accounting": {
+        "provider": "fixture",
+        "model_calls": 0,
+        "known_total_tokens": 0,
+        "unknown_usage_calls": 0,
+        "tokens_committed": 0,
+        "estimated_cost_usd": null,
+        "cost_committed_usd": 0,
+        "elapsed_seconds": 0,
+        "records": []
+      },
+      "manager_state": {
+        "schema_version": "0.1",
+        "summary_calls": 0,
+        "summaries": [],
+        "plugin_state": {},
+        "summary_provider": "fixture",
+        "summary_attempts": [],
+        "dispatch_calls": 0,
+        "dispatch_receipts": [],
+        "dispatch_observations": []
+      },
+      "plugin": {
+        "name": "noop",
+        "requested": [],
+        "actually_injected": [],
+        "rejected": [],
+        "action_proposals": [],
+        "method_degraded": false,
+        "policy_error": null,
+        "schema_version": "0.1",
+        "ignored_optional_fields": [],
+        "events": []
+      },
+      "max_tokens": 96000,
+      "view_hash": "17e7d364ee4e33cd535740fcf8b96ed7a2206ff6850a1f3a513c93331e9bd770",
+      "view_serialized_bytes": 9753,
+      "step": 7
+    },
+    {
+      "strategy": "masking",
+      "requested": "masking",
+      "actually_injected": "masking",
+      "summary_provider": "fixture",
+      "raw_message_hash": "d2e5c79d920adba490a609a1e3be16d8926530562f1f9ffc785a99f070ca553c",
+      "raw_serialized_bytes": 21943,
+      "summary_records": [],
+      "overflow": false,
+      "serialized_bytes": 15313,
+      "estimated_input_tokens": 3829,
+      "admission_input_tokens": 17233,
+      "reserved_output_tokens": 4096,
+      "estimate_method": "utf8_bytes_div_4_estimated",
+      "admission_method": "utf8_bytes_plus_protocol_allowance",
+      "masking": {
+        "message_count_before": 20,
+        "message_count_after": 20,
+        "chars_before": 17478,
+        "chars_after": 8498,
+        "chars_saved": 8980,
+        "tool_messages_before": 10,
+        "tool_messages_after": 10,
+        "compacted_tool_count": 5,
+        "preserved_tool_count": 5,
+        "keep_recent": 4,
+        "did_compact": true,
+        "estimated_tokens_before": 4695,
+        "estimated_tokens_after": 2450
+      },
+      "compacted_tool_count": 5,
+      "summary_calls": 0,
+      "summary_model_calls": 0,
+      "summary_accounting": {
+        "provider": "fixture",
+        "model_calls": 0,
+        "known_total_tokens": 0,
+        "unknown_usage_calls": 0,
+        "tokens_committed": 0,
+        "estimated_cost_usd": null,
+        "cost_committed_usd": 0,
+        "elapsed_seconds": 0,
+        "records": []
+      },
+      "manager_state": {
+        "schema_version": "0.1",
+        "summary_calls": 0,
+        "summaries": [],
+        "plugin_state": {},
+        "summary_provider": "fixture",
+        "summary_attempts": [],
+        "dispatch_calls": 0,
+        "dispatch_receipts": [],
+        "dispatch_observations": []
+      },
+      "plugin": {
+        "name": "noop",
+        "requested": [],
+        "actually_injected": [],
+        "rejected": [],
+        "action_proposals": [],
+        "method_degraded": false,
+        "policy_error": null,
+        "schema_version": "0.1",
+        "ignored_optional_fields": [],
+        "events": []
+      },
+      "max_tokens": 96000,
+      "view_hash": "8f13b283debad39c3896888f0188f5a53f1c341e7e90e8fa6d921c9db8b9f686",
+      "view_serialized_bytes": 12509,
+      "step": 8
+    },
+    {
+      "strategy": "masking",
+      "requested": "masking",
+      "actually_injected": "masking",
+      "summary_provider": "fixture",
+      "raw_message_hash": "0e7c44f2c9a7f1f9ce3d8747fdf6024d20b046e95624cdc7cd9816ae8101e0af",
+      "raw_serialized_bytes": 23391,
+      "summary_records": [],
+      "overflow": false,
+      "serialized_bytes": 16761,
+      "estimated_input_tokens": 4191,
+      "admission_input_tokens": 18745,
+      "reserved_output_tokens": 4096,
+      "estimate_method": "utf8_bytes_div_4_estimated",
+      "admission_method": "utf8_bytes_plus_protocol_allowance",
+      "masking": {
+        "message_count_before": 22,
+        "message_count_after": 22,
+        "chars_before": 18590,
+        "chars_after": 9610,
+        "chars_saved": 8980,
+        "tool_messages_before": 11,
+        "tool_messages_after": 11,
+        "compacted_tool_count": 5,
+        "preserved_tool_count": 6,
+        "keep_recent": 4,
+        "did_compact": true,
+        "estimated_tokens_before": 4984,
+        "estimated_tokens_after": 2739
+      },
+      "compacted_tool_count": 5,
+      "summary_calls": 0,
+      "summary_model_calls": 0,
+      "summary_accounting": {
+        "provider": "fixture",
+        "model_calls": 0,
+        "known_total_tokens": 0,
+        "unknown_usage_calls": 0,
+        "tokens_committed": 0,
+        "estimated_cost_usd": null,
+        "cost_committed_usd": 0,
+        "elapsed_seconds": 0,
+        "records": []
+      },
+      "manager_state": {
+        "schema_version": "0.1",
+        "summary_calls": 0,
+        "summaries": [],
+        "plugin_state": {},
+        "summary_provider": "fixture",
+        "summary_attempts": [],
+        "dispatch_calls": 0,
+        "dispatch_receipts": [],
+        "dispatch_observations": []
+      },
+      "plugin": {
+        "name": "noop",
+        "requested": [],
+        "actually_injected": [],
+        "rejected": [],
+        "action_proposals": [],
+        "method_degraded": false,
+        "policy_error": null,
+        "schema_version": "0.1",
+        "ignored_optional_fields": [],
+        "events": []
+      },
+      "max_tokens": 96000,
+      "view_hash": "bdfa2f3be91b8e429d11e29aff3f14303143e0ce39dadb81dd481896e3b38446",
+      "view_serialized_bytes": 13957,
+      "step": 9
+    },
+    {
+      "strategy": "masking",
+      "requested": "masking",
+      "actually_injected": "masking",
+      "summary_provider": "fixture",
+      "raw_message_hash": "119af69838277acc4a7d4f6250dd736010d93818298f5bccff6f3fc1d0e20a8b",
+      "raw_serialized_bytes": 27901,
+      "summary_records": [],
+      "overflow": false,
+      "serialized_bytes": 18817,
+      "estimated_input_tokens": 4705,
+      "admission_input_tokens": 20865,
+      "reserved_output_tokens": 4096,
+      "estimate_method": "utf8_bytes_div_4_estimated",
+      "admission_method": "utf8_bytes_plus_protocol_allowance",
+      "masking": {
+        "message_count_before": 24,
+        "message_count_after": 24,
+        "chars_before": 22594,
+        "chars_after": 11246,
+        "chars_saved": 11348,
+        "tool_messages_before": 12,
+        "tool_messages_after": 12,
+        "compacted_tool_count": 6,
+        "preserved_tool_count": 6,
+        "keep_recent": 4,
+        "did_compact": true,
+        "estimated_tokens_before": 6000,
+        "estimated_tokens_after": 3163
+      },
+      "compacted_tool_count": 6,
+      "summary_calls": 0,
+      "summary_model_calls": 0,
+      "summary_accounting": {
+        "provider": "fixture",
+        "model_calls": 0,
+        "known_total_tokens": 0,
+        "unknown_usage_calls": 0,
+        "tokens_committed": 0,
+        "estimated_cost_usd": null,
+        "cost_committed_usd": 0,
+        "elapsed_seconds": 0,
+        "records": []
+      },
+      "manager_state": {
+        "schema_version": "0.1",
+        "summary_calls": 0,
+        "summaries": [],
+        "plugin_state": {},
+        "summary_provider": "fixture",
+        "summary_attempts": [],
+        "dispatch_calls": 0,
+        "dispatch_receipts": [],
+        "dispatch_observations": []
+      },
+      "plugin": {
+        "name": "noop",
+        "requested": [],
+        "actually_injected": [],
+        "rejected": [],
+        "action_proposals": [],
+        "method_degraded": false,
+        "policy_error": null,
+        "schema_version": "0.1",
+        "ignored_optional_fields": [],
+        "events": []
+      },
+      "max_tokens": 96000,
+      "view_hash": "aa6e9f93d768462aabe61925e51743043305bd569eb47134b29be024e72a03ff",
+      "view_serialized_bytes": 16013,
+      "step": 10
+    },
+    {
+      "strategy": "masking",
+      "requested": "masking",
+      "actually_injected": "masking",
+      "summary_provider": "fixture",
+      "raw_message_hash": "9fe5b70b7847154b5c9efa4403b878a69bb47302b0d31e61d3ae1574baadac1b",
+      "raw_serialized_bytes": 30681,
+      "summary_records": [],
+      "overflow": false,
+      "serialized_bytes": 18571,
+      "estimated_input_tokens": 4643,
+      "admission_input_tokens": 20715,
+      "reserved_output_tokens": 4096,
+      "estimate_method": "utf8_bytes_div_4_estimated",
+      "admission_method": "utf8_bytes_plus_protocol_allowance",
+      "masking": {
+        "message_count_before": 27,
+        "message_count_after": 27,
+        "chars_before": 24833,
+        "chars_after": 10543,
+        "chars_saved": 14290,
+        "tool_messages_before": 14,
+        "tool_messages_after": 14,
+        "compacted_tool_count": 8,
+        "preserved_tool_count": 6,
+        "keep_recent": 4,
+        "did_compact": true,
+        "estimated_tokens_before": 6577,
+        "estimated_tokens_after": 3005
+      },
+      "compacted_tool_count": 8,
+      "summary_calls": 0,
+      "summary_model_calls": 0,
+      "summary_accounting": {
+        "provider": "fixture",
+        "model_calls": 0,
+        "known_total_tokens": 0,
+        "unknown_usage_calls": 0,
+        "tokens_committed": 0,
+        "estimated_cost_usd": null,
+        "cost_committed_usd": 0,
+        "elapsed_seconds": 0,
+        "records": []
+      },
+      "manager_state": {
+        "schema_version": "0.1",
+        "summary_calls": 0,
+        "summaries": [],
+        "plugin_state": {},
+        "summary_provider": "fixture",
+        "summary_attempts": [],
+        "dispatch_calls": 0,
+        "dispatch_receipts": [],
+        "dispatch_observations": []
+      },
+      "plugin": {
+        "name": "noop",
+        "requested": [],
+        "actually_injected": [],
+        "rejected": [],
+        "action_proposals": [],
+        "method_degraded": false,
+        "policy_error": null,
+        "schema_version": "0.1",
+        "ignored_optional_fields": [],
+        "events": []
+      },
+      "max_tokens": 96000,
+      "view_hash": "1ed26f848a1977f206c7c964c88207774b675bfe537faba711d0563c07c5d5a2",
+      "view_serialized_bytes": 15767,
+      "step": 11
+    },
+    {
+      "strategy": "masking",
+      "requested": "masking",
+      "actually_injected": "masking",
+      "summary_provider": "fixture",
+      "raw_message_hash": "d3948c6b88c1d10f49960a597d763d04bf45f3a2699ae6c95ad3cdcd81673193",
+      "raw_serialized_bytes": 31379,
+      "summary_records": [],
+      "overflow": false,
+      "serialized_bytes": 18116,
+      "estimated_input_tokens": 4529,
+      "admission_input_tokens": 20324,
+      "reserved_output_tokens": 4096,
+      "estimate_method": "utf8_bytes_div_4_estimated",
+      "admission_method": "utf8_bytes_plus_protocol_allowance",
+      "masking": {
+        "message_count_before": 29,
+        "message_count_after": 29,
+        "chars_before": 25040,
+        "chars_after": 9651,
+        "chars_saved": 15389,
+        "tool_messages_before": 15,
+        "tool_messages_after": 15,
+        "compacted_tool_count": 10,
+        "preserved_tool_count": 5,
+        "keep_recent": 4,
+        "did_compact": true,
+        "estimated_tokens_before": 6689,
+        "estimated_tokens_after": 2842
+      },
+      "compacted_tool_count": 10,
+      "summary_calls": 0,
+      "summary_model_calls": 0,
+      "summary_accounting": {
+        "provider": "fixture",
+        "model_calls": 0,
+        "known_total_tokens": 0,
+        "unknown_usage_calls": 0,
+        "tokens_committed": 0,
+        "estimated_cost_usd": null,
+        "cost_committed_usd": 0,
+        "elapsed_seconds": 0,
+        "records": []
+      },
+      "manager_state": {
+        "schema_version": "0.1",
+        "summary_calls": 0,
+        "summaries": [],
+        "plugin_state": {},
+        "summary_provider": "fixture",
+        "summary_attempts": [],
+        "dispatch_calls": 0,
+        "dispatch_receipts": [],
+        "dispatch_observations": []
+      },
+      "plugin": {
+        "name": "noop",
+        "requested": [],
+        "actually_injected": [],
+        "rejected": [],
+        "action_proposals": [],
+        "method_degraded": false,
+        "policy_error": null,
+        "schema_version": "0.1",
+        "ignored_optional_fields": [],
+        "events": []
+      },
+      "max_tokens": 96000,
+      "view_hash": "a09d17795a7f3ade86e3e0c1e10a48022f6b5e818ac3e798196ca5cab6051fe9",
+      "view_serialized_bytes": 15312,
+      "step": 12
+    },
+    {
+      "strategy": "masking",
+      "requested": "masking",
+      "actually_injected": "masking",
+      "summary_provider": "fixture",
+      "raw_message_hash": "ba79651a99128b7564174b0c3d6abf2855407cc227cea939a304dd18adf8af43",
+      "raw_serialized_bytes": 32565,
+      "summary_records": [],
+      "overflow": false,
+      "serialized_bytes": 19127,
+      "estimated_input_tokens": 4782,
+      "admission_input_tokens": 21431,
+      "reserved_output_tokens": 4096,
+      "estimate_method": "utf8_bytes_div_4_estimated",
+      "admission_method": "utf8_bytes_plus_protocol_allowance",
+      "masking": {
+        "message_count_before": 32,
+        "message_count_after": 32,
+        "chars_before": 25535,
+        "chars_after": 9976,
+        "chars_saved": 15559,
+        "tool_messages_before": 17,
+        "tool_messages_after": 17,
+        "compacted_tool_count": 11,
+        "preserved_tool_count": 6,
+        "keep_recent": 4,
+        "did_compact": true,
+        "estimated_tokens_before": 6875,
+        "estimated_tokens_after": 2985
+      },
+      "compacted_tool_count": 11,
+      "summary_calls": 0,
+      "summary_model_calls": 0,
+      "summary_accounting": {
+        "provider": "fixture",
+        "model_calls": 0,
+        "known_total_tokens": 0,
+        "unknown_usage_calls": 0,
+        "tokens_committed": 0,
+        "estimated_cost_usd": null,
+        "cost_committed_usd": 0,
+        "elapsed_seconds": 0,
+        "records": []
+      },
+      "manager_state": {
+        "schema_version": "0.1",
+        "summary_calls": 0,
+        "summaries": [],
+        "plugin_state": {},
+        "summary_provider": "fixture",
+        "summary_attempts": [],
+        "dispatch_calls": 0,
+        "dispatch_receipts": [],
+        "dispatch_observations": []
+      },
+      "plugin": {
+        "name": "noop",
+        "requested": [],
+        "actually_injected": [],
+        "rejected": [],
+        "action_proposals": [],
+        "method_degraded": false,
+        "policy_error": null,
+        "schema_version": "0.1",
+        "ignored_optional_fields": [],
+        "events": []
+      },
+      "max_tokens": 96000,
+      "view_hash": "ac0d34950a88af45844445ad749ea98690133997c4425efe99ca3886018bac89",
+      "view_serialized_bytes": 16323,
+      "step": 13
+    },
+    {
+      "strategy": "masking",
+      "requested": "masking",
+      "actually_injected": "masking",
+      "summary_provider": "fixture",
+      "raw_message_hash": "86f540b1370f137a6956b29fa535f4cc590e491c0856e0a97084390a7e7d498b",
+      "raw_serialized_bytes": 33618,
+      "summary_records": [],
+      "overflow": false,
+      "serialized_bytes": 14376,
+      "estimated_input_tokens": 3594,
+      "admission_input_tokens": 16744,
+      "reserved_output_tokens": 4096,
+      "estimate_method": "utf8_bytes_div_4_estimated",
+      "admission_method": "utf8_bytes_plus_protocol_allowance",
+      "masking": {
+        "message_count_before": 34,
+        "message_count_after": 34,
+        "chars_before": 26150,
+        "chars_after": 5030,
+        "chars_saved": 21120,
+        "tool_messages_before": 18,
+        "tool_messages_after": 18,
+        "compacted_tool_count": 13,
+        "preserved_tool_count": 5,
+        "keep_recent": 4,
+        "did_compact": true,
+        "estimated_tokens_before": 7072,
+        "estimated_tokens_after": 1792
+      },
+      "compacted_tool_count": 13,
+      "summary_calls": 0,
+      "summary_model_calls": 0,
+      "summary_accounting": {
+        "provider": "fixture",
+        "model_calls": 0,
+        "known_total_tokens": 0,
+        "unknown_usage_calls": 0,
+        "tokens_committed": 0,
+        "estimated_cost_usd": null,
+        "cost_committed_usd": 0,
+        "elapsed_seconds": 0,
+        "records": []
+      },
+      "manager_state": {
+        "schema_version": "0.1",
+        "summary_calls": 0,
+        "summaries": [],
+        "plugin_state": {},
+        "summary_provider": "fixture",
+        "summary_attempts": [],
+        "dispatch_calls": 0,
+        "dispatch_receipts": [],
+        "dispatch_observations": []
+      },
+      "plugin": {
+        "name": "noop",
+        "requested": [],
+        "actually_injected": [],
+        "rejected": [],
+        "action_proposals": [],
+        "method_degraded": false,
+        "policy_error": null,
+        "schema_version": "0.1",
+        "ignored_optional_fields": [],
+        "events": []
+      },
+      "max_tokens": 96000,
+      "view_hash": "1b90dc6d1a9cf8d175dc1971335ea04f8213aa4e74d9ebcc68dc94d46e01b7e6",
+      "view_serialized_bytes": 11572,
+      "step": 14
+    },
+    {
+      "strategy": "masking",
+      "requested": "masking",
+      "actually_injected": "masking",
+      "summary_provider": "fixture",
+      "raw_message_hash": "3877d3313344284b7e82f690ab93acd14095350a87728948f15441e2cd2502bc",
+      "raw_serialized_bytes": 34445,
+      "summary_records": [],
+      "overflow": false,
+      "serialized_bytes": 15203,
+      "estimated_input_tokens": 3801,
+      "admission_input_tokens": 17635,
+      "reserved_output_tokens": 4096,
+      "estimate_method": "utf8_bytes_div_4_estimated",
+      "admission_method": "utf8_bytes_plus_protocol_allowance",
+      "masking": {
+        "message_count_before": 36,
+        "message_count_after": 36,
+        "chars_before": 26418,
+        "chars_after": 5298,
+        "chars_saved": 21120,
+        "tool_messages_before": 19,
+        "tool_messages_after": 19,
+        "compacted_tool_count": 13,
+        "preserved_tool_count": 6,
+        "keep_recent": 4,
+        "did_compact": true,
+        "estimated_tokens_before": 7216,
+        "estimated_tokens_after": 1936
+      },
+      "compacted_tool_count": 13,
+      "summary_calls": 0,
+      "summary_model_calls": 0,
+      "summary_accounting": {
+        "provider": "fixture",
+        "model_calls": 0,
+        "known_total_tokens": 0,
+        "unknown_usage_calls": 0,
+        "tokens_committed": 0,
+        "estimated_cost_usd": null,
+        "cost_committed_usd": 0,
+        "elapsed_seconds": 0,
+        "records": []
+      },
+      "manager_state": {
+        "schema_version": "0.1",
+        "summary_calls": 0,
+        "summaries": [],
+        "plugin_state": {},
+        "summary_provider": "fixture",
+        "summary_attempts": [],
+        "dispatch_calls": 0,
+        "dispatch_receipts": [],
+        "dispatch_observations": []
+      },
+      "plugin": {
+        "name": "noop",
+        "requested": [],
+        "actually_injected": [],
+        "rejected": [],
+        "action_proposals": [],
+        "method_degraded": false,
+        "policy_error": null,
+        "schema_version": "0.1",
+        "ignored_optional_fields": [],
+        "events": []
+      },
+      "max_tokens": 96000,
+      "view_hash": "adccfa6ba210e5548ead4d409ad2802c1afa2e70fcbc2bc1d50ae40bf55f5189",
+      "view_serialized_bytes": 12399,
+      "step": 15
+    },
+    {
+      "strategy": "masking",
+      "requested": "masking",
+      "actually_injected": "masking",
+      "summary_provider": "fixture",
+      "raw_message_hash": "54ae1c76cea1660b5c472da11a7db6d8bc7cc10cd50009389c9b07bd61b4365b",
+      "raw_serialized_bytes": 35434,
+      "summary_records": [],
+      "overflow": false,
+      "serialized_bytes": 15933,
+      "estimated_input_tokens": 3984,
+      "admission_input_tokens": 18429,
+      "reserved_output_tokens": 4096,
+      "estimate_method": "utf8_bytes_div_4_estimated",
+      "admission_method": "utf8_bytes_plus_protocol_allowance",
+      "masking": {
+        "message_count_before": 38,
+        "message_count_after": 38,
+        "chars_before": 26974,
+        "chars_after": 5601,
+        "chars_saved": 21373,
+        "tool_messages_before": 20,
+        "tool_messages_after": 20,
+        "compacted_tool_count": 14,
+        "preserved_tool_count": 6,
+        "keep_recent": 4,
+        "did_compact": true,
+        "estimated_tokens_before": 7398,
+        "estimated_tokens_after": 2055
+      },
+      "compacted_tool_count": 14,
+      "summary_calls": 0,
+      "summary_model_calls": 0,
+      "summary_accounting": {
+        "provider": "fixture",
+        "model_calls": 0,
+        "known_total_tokens": 0,
+        "unknown_usage_calls": 0,
+        "tokens_committed": 0,
+        "estimated_cost_usd": null,
+        "cost_committed_usd": 0,
+        "elapsed_seconds": 0,
+        "records": []
+      },
+      "manager_state": {
+        "schema_version": "0.1",
+        "summary_calls": 0,
+        "summaries": [],
+        "plugin_state": {},
+        "summary_provider": "fixture",
+        "summary_attempts": [],
+        "dispatch_calls": 0,
+        "dispatch_receipts": [],
+        "dispatch_observations": []
+      },
+      "plugin": {
+        "name": "noop",
+        "requested": [],
+        "actually_injected": [],
+        "rejected": [],
+        "action_proposals": [],
+        "method_degraded": false,
+        "policy_error": null,
+        "schema_version": "0.1",
+        "ignored_optional_fields": [],
+        "events": []
+      },
+      "max_tokens": 96000,
+      "view_hash": "366b50602fbe7ff5e93497ca1e6765a67d6ebf1784fc9ce6d19c4579b1fb1bf3",
+      "view_serialized_bytes": 13129,
+      "step": 16
+    },
+    {
+      "strategy": "masking",
+      "requested": "masking",
+      "actually_injected": "masking",
+      "summary_provider": "fixture",
+      "raw_message_hash": "1b47077265eda396541feabf2440ef63bc4fd54686c7ef0d6568a3014ff5b12b",
+      "raw_serialized_bytes": 37812,
+      "summary_records": [],
+      "overflow": false,
+      "serialized_bytes": 18179,
+      "estimated_input_tokens": 4545,
+      "admission_input_tokens": 20739,
+      "reserved_output_tokens": 4096,
+      "estimate_method": "utf8_bytes_div_4_estimated",
+      "admission_method": "utf8_bytes_plus_protocol_allowance",
+      "masking": {
+        "message_count_before": 40,
+        "message_count_after": 40,
+        "chars_before": 29002,
+        "chars_after": 7499,
+        "chars_saved": 21503,
+        "tool_messages_before": 21,
+        "tool_messages_after": 21,
+        "compacted_tool_count": 15,
+        "preserved_tool_count": 6,
+        "keep_recent": 4,
+        "did_compact": true,
+        "estimated_tokens_before": 7916,
+        "estimated_tokens_after": 2540
+      },
+      "compacted_tool_count": 15,
+      "summary_calls": 0,
+      "summary_model_calls": 0,
+      "summary_accounting": {
+        "provider": "fixture",
+        "model_calls": 0,
+        "known_total_tokens": 0,
+        "unknown_usage_calls": 0,
+        "tokens_committed": 0,
+        "estimated_cost_usd": null,
+        "cost_committed_usd": 0,
+        "elapsed_seconds": 0,
+        "records": []
+      },
+      "manager_state": {
+        "schema_version": "0.1",
+        "summary_calls": 0,
+        "summaries": [],
+        "plugin_state": {},
+        "summary_provider": "fixture",
+        "summary_attempts": [],
+        "dispatch_calls": 0,
+        "dispatch_receipts": [],
+        "dispatch_observations": []
+      },
+      "plugin": {
+        "name": "noop",
+        "requested": [],
+        "actually_injected": [],
+        "rejected": [],
+        "action_proposals": [],
+        "method_degraded": false,
+        "policy_error": null,
+        "schema_version": "0.1",
+        "ignored_optional_fields": [],
+        "events": []
+      },
+      "max_tokens": 96000,
+      "view_hash": "f7fd08a8686341d2dca4b153e7d6e714fcf2a188db6defffdfba090aff450441",
+      "view_serialized_bytes": 15375,
+      "step": 17
+    },
+    {
+      "strategy": "masking",
+      "requested": "masking",
+      "actually_injected": "masking",
+      "summary_provider": "fixture",
+      "raw_message_hash": "035f2fe8fcb606400485a23d8b61f27213641bcaa7d2696986d0448340967a50",
+      "raw_serialized_bytes": 38518,
+      "summary_records": [],
+      "overflow": false,
+      "serialized_bytes": 18183,
+      "estimated_input_tokens": 4546,
+      "admission_input_tokens": 20807,
+      "reserved_output_tokens": 4096,
+      "estimate_method": "utf8_bytes_div_4_estimated",
+      "admission_method": "utf8_bytes_plus_protocol_allowance",
+      "masking": {
+        "message_count_before": 42,
+        "message_count_after": 42,
+        "chars_before": 29189,
+        "chars_after": 7005,
+        "chars_saved": 22184,
+        "tool_messages_before": 22,
+        "tool_messages_after": 22,
+        "compacted_tool_count": 17,
+        "preserved_tool_count": 5,
+        "keep_recent": 4,
+        "did_compact": true,
+        "estimated_tokens_before": 8028,
+        "estimated_tokens_after": 2482
+      },
+      "compacted_tool_count": 17,
+      "summary_calls": 0,
+      "summary_model_calls": 0,
+      "summary_accounting": {
+        "provider": "fixture",
+        "model_calls": 0,
+        "known_total_tokens": 0,
+        "unknown_usage_calls": 0,
+        "tokens_committed": 0,
+        "estimated_cost_usd": null,
+        "cost_committed_usd": 0,
+        "elapsed_seconds": 0,
+        "records": []
+      },
+      "manager_state": {
+        "schema_version": "0.1",
+        "summary_calls": 0,
+        "summaries": [],
+        "plugin_state": {},
+        "summary_provider": "fixture",
+        "summary_attempts": [],
+        "dispatch_calls": 0,
+        "dispatch_receipts": [],
+        "dispatch_observations": []
+      },
+      "plugin": {
+        "name": "noop",
+        "requested": [],
+        "actually_injected": [],
+        "rejected": [],
+        "action_proposals": [],
+        "method_degraded": false,
+        "policy_error": null,
+        "schema_version": "0.1",
+        "ignored_optional_fields": [],
+        "events": []
+      },
+      "max_tokens": 96000,
+      "view_hash": "3bd4536eafaedf1e249f6a53a68420396b5584fefa2b460dc5332f7c9597e0d8",
+      "view_serialized_bytes": 15379,
+      "step": 18
+    },
+    {
+      "strategy": "masking",
+      "requested": "masking",
+      "actually_injected": "masking",
+      "summary_provider": "fixture",
+      "raw_message_hash": "45bdcc3b706e3d0860f8b917b357efa9161d7555ff454344d4755386a18dc10b",
+      "raw_serialized_bytes": 39838,
+      "summary_records": [],
+      "overflow": false,
+      "serialized_bytes": 19364,
+      "estimated_input_tokens": 4841,
+      "admission_input_tokens": 22052,
+      "reserved_output_tokens": 4096,
+      "estimate_method": "utf8_bytes_div_4_estimated",
+      "admission_method": "utf8_bytes_plus_protocol_allowance",
+      "masking": {
+        "message_count_before": 44,
+        "message_count_after": 44,
+        "chars_before": 30049,
+        "chars_after": 7728,
+        "chars_saved": 22321,
+        "tool_messages_before": 23,
+        "tool_messages_after": 23,
+        "compacted_tool_count": 18,
+        "preserved_tool_count": 5,
+        "keep_recent": 4,
+        "did_compact": true,
+        "estimated_tokens_before": 8291,
+        "estimated_tokens_after": 2710
+      },
+      "compacted_tool_count": 18,
+      "summary_calls": 0,
+      "summary_model_calls": 0,
+      "summary_accounting": {
+        "provider": "fixture",
+        "model_calls": 0,
+        "known_total_tokens": 0,
+        "unknown_usage_calls": 0,
+        "tokens_committed": 0,
+        "estimated_cost_usd": null,
+        "cost_committed_usd": 0,
+        "elapsed_seconds": 0,
+        "records": []
+      },
+      "manager_state": {
+        "schema_version": "0.1",
+        "summary_calls": 0,
+        "summaries": [],
+        "plugin_state": {},
+        "summary_provider": "fixture",
+        "summary_attempts": [],
+        "dispatch_calls": 0,
+        "dispatch_receipts": [],
+        "dispatch_observations": []
+      },
+      "plugin": {
+        "name": "noop",
+        "requested": [],
+        "actually_injected": [],
+        "rejected": [],
+        "action_proposals": [],
+        "method_degraded": false,
+        "policy_error": null,
+        "schema_version": "0.1",
+        "ignored_optional_fields": [],
+        "events": []
+      },
+      "max_tokens": 96000,
+      "view_hash": "277be386c6693f7718be838f18bd0ff2bdf4c917b9f11dd7098a15c9113656bd",
+      "view_serialized_bytes": 16560,
+      "step": 19
+    },
+    {
+      "strategy": "masking",
+      "requested": "masking",
+      "actually_injected": "masking",
+      "summary_provider": "fixture",
+      "raw_message_hash": "3a580256a17543e9fa16b9d7e814049b6fd5df0bf86f03dbf13e34d13df52028",
+      "raw_serialized_bytes": 40432,
+      "summary_records": [],
+      "overflow": false,
+      "serialized_bytes": 19565,
+      "estimated_input_tokens": 4892,
+      "admission_input_tokens": 22317,
+      "reserved_output_tokens": 4096,
+      "estimate_method": "utf8_bytes_div_4_estimated",
+      "admission_method": "utf8_bytes_plus_protocol_allowance",
+      "masking": {
+        "message_count_before": 46,
+        "message_count_after": 46,
+        "chars_before": 30308,
+        "chars_after": 7600,
+        "chars_saved": 22708,
+        "tool_messages_before": 24,
+        "tool_messages_after": 24,
+        "compacted_tool_count": 19,
+        "preserved_tool_count": 5,
+        "keep_recent": 4,
+        "did_compact": true,
+        "estimated_tokens_before": 8377,
+        "estimated_tokens_after": 2700
+      },
+      "compacted_tool_count": 19,
+      "summary_calls": 0,
+      "summary_model_calls": 0,
+      "summary_accounting": {
+        "provider": "fixture",
+        "model_calls": 0,
+        "known_total_tokens": 0,
+        "unknown_usage_calls": 0,
+        "tokens_committed": 0,
+        "estimated_cost_usd": null,
+        "cost_committed_usd": 0,
+        "elapsed_seconds": 0,
+        "records": []
+      },
+      "manager_state": {
+        "schema_version": "0.1",
+        "summary_calls": 0,
+        "summaries": [],
+        "plugin_state": {},
+        "summary_provider": "fixture",
+        "summary_attempts": [],
+        "dispatch_calls": 0,
+        "dispatch_receipts": [],
+        "dispatch_observations": []
+      },
+      "plugin": {
+        "name": "noop",
+        "requested": [],
+        "actually_injected": [],
+        "rejected": [],
+        "action_proposals": [],
+        "method_degraded": false,
+        "policy_error": null,
+        "schema_version": "0.1",
+        "ignored_optional_fields": [],
+        "events": []
+      },
+      "max_tokens": 96000,
+      "view_hash": "0612054399699374f524a789bc27b4d5f6486fdd1d2b30b4ebaae3f727295898",
+      "view_serialized_bytes": 16761,
+      "step": 20
+    },
+    {
+      "strategy": "masking",
+      "requested": "masking",
+      "actually_injected": "masking",
+      "summary_provider": "fixture",
+      "raw_message_hash": "fac9bc47467e2b355c15a4f52abf44000b30267f5f7f696cfee485b5f2c37ffd",
+      "raw_serialized_bytes": 41484,
+      "summary_records": [],
+      "overflow": false,
+      "serialized_bytes": 18710,
+      "estimated_input_tokens": 4678,
+      "admission_input_tokens": 21526,
+      "reserved_output_tokens": 4096,
+      "estimate_method": "utf8_bytes_div_4_estimated",
+      "admission_method": "utf8_bytes_plus_protocol_allowance",
+      "masking": {
+        "message_count_before": 48,
+        "message_count_after": 48,
+        "chars_before": 31041,
+        "chars_after": 6492,
+        "chars_saved": 24549,
+        "tool_messages_before": 25,
+        "tool_messages_after": 25,
+        "compacted_tool_count": 20,
+        "preserved_tool_count": 5,
+        "keep_recent": 4,
+        "did_compact": true,
+        "estimated_tokens_before": 8572,
+        "estimated_tokens_after": 2434
+      },
+      "compacted_tool_count": 20,
+      "summary_calls": 0,
+      "summary_model_calls": 0,
+      "summary_accounting": {
+        "provider": "fixture",
+        "model_calls": 0,
+        "known_total_tokens": 0,
+        "unknown_usage_calls": 0,
+        "tokens_committed": 0,
+        "estimated_cost_usd": null,
+        "cost_committed_usd": 0,
+        "elapsed_seconds": 0,
+        "records": []
+      },
+      "manager_state": {
+        "schema_version": "0.1",
+        "summary_calls": 0,
+        "summaries": [],
+        "plugin_state": {},
+        "summary_provider": "fixture",
+        "summary_attempts": [],
+        "dispatch_calls": 0,
+        "dispatch_receipts": [],
+        "dispatch_observations": []
+      },
+      "plugin": {
+        "name": "noop",
+        "requested": [],
+        "actually_injected": [],
+        "rejected": [],
+        "action_proposals": [],
+        "method_degraded": false,
+        "policy_error": null,
+        "schema_version": "0.1",
+        "ignored_optional_fields": [],
+        "events": []
+      },
+      "max_tokens": 96000,
+      "view_hash": "af18d3627379b5e55c37429662e063a383126f612fbb3345c22b9caaf73265f0",
+      "view_serialized_bytes": 15906,
+      "step": 21
+    }
+  ],
+  "subagent_traces": [],
+  "llm_attempts": [
+    {
+      "attempt": 0,
+      "success": true,
+      "error_kind": null,
+      "status_code": null,
+      "message": null,
+      "elapsed_ms": 1183.544300001813,
+      "usage": {
+        "prompt_tokens": 1493,
+        "completion_tokens": 98,
+        "total_tokens": 1591,
+        "provenance": "provider",
+        "prompt_cache_hit_tokens": 896,
+        "prompt_cache_miss_tokens": 597
+      },
+      "usage_provenance": "provider"
+    },
+    {
+      "attempt": 0,
+      "success": true,
+      "error_kind": null,
+      "status_code": null,
+      "message": null,
+      "elapsed_ms": 1055.6298000155948,
+      "usage": {
+        "prompt_tokens": 1921,
+        "completion_tokens": 59,
+        "total_tokens": 1980,
+        "provenance": "provider",
+        "prompt_cache_hit_tokens": 1536,
+        "prompt_cache_miss_tokens": 385
+      },
+      "usage_provenance": "provider"
+    },
+    {
+      "attempt": 0,
+      "success": true,
+      "error_kind": null,
+      "status_code": null,
+      "message": null,
+      "elapsed_ms": 970.0365000171587,
+      "usage": {
+        "prompt_tokens": 3493,
+        "completion_tokens": 98,
+        "total_tokens": 3591,
+        "provenance": "provider",
+        "prompt_cache_hit_tokens": 1792,
+        "prompt_cache_miss_tokens": 1701
+      },
+      "usage_provenance": "provider"
+    },
+    {
+      "attempt": 0,
+      "success": true,
+      "error_kind": null,
+      "status_code": null,
+      "message": null,
+      "elapsed_ms": 662.620400020387,
+      "usage": {
+        "prompt_tokens": 3926,
+        "completion_tokens": 43,
+        "total_tokens": 3969,
+        "provenance": "provider",
+        "prompt_cache_hit_tokens": 3584,
+        "prompt_cache_miss_tokens": 342
+      },
+      "usage_provenance": "provider"
+    },
+    {
+      "attempt": 0,
+      "success": true,
+      "error_kind": null,
+      "status_code": null,
+      "message": null,
+      "elapsed_ms": 1153.5117999883369,
+      "usage": {
+        "prompt_tokens": 4152,
+        "completion_tokens": 148,
+        "total_tokens": 4300,
+        "provenance": "provider",
+        "prompt_cache_hit_tokens": 1408,
+        "prompt_cache_miss_tokens": 2744
+      },
+      "usage_provenance": "provider"
+    },
+    {
+      "attempt": 0,
+      "success": true,
+      "error_kind": null,
+      "status_code": null,
+      "message": null,
+      "elapsed_ms": 1081.7382999812253,
+      "usage": {
+        "prompt_tokens": 4152,
+        "completion_tokens": 83,
+        "total_tokens": 4235,
+        "provenance": "provider",
+        "prompt_cache_hit_tokens": 1536,
+        "prompt_cache_miss_tokens": 2616
+      },
+      "usage_provenance": "provider"
+    },
+    {
+      "attempt": 0,
+      "success": true,
+      "error_kind": null,
+      "status_code": null,
+      "message": null,
+      "elapsed_ms": 1151.3297999917995,
+      "usage": {
+        "prompt_tokens": 3316,
+        "completion_tokens": 158,
+        "total_tokens": 3474,
+        "provenance": "provider",
+        "prompt_cache_hit_tokens": 1536,
+        "prompt_cache_miss_tokens": 1780
+      },
+      "usage_provenance": "provider"
+    },
+    {
+      "attempt": 0,
+      "success": true,
+      "error_kind": null,
+      "status_code": null,
+      "message": null,
+      "elapsed_ms": 945.7534000102896,
+      "usage": {
+        "prompt_tokens": 3203,
+        "completion_tokens": 138,
+        "total_tokens": 3341,
+        "provenance": "provider",
+        "prompt_cache_hit_tokens": 1664,
+        "prompt_cache_miss_tokens": 1539
+      },
+      "usage_provenance": "provider"
+    },
+    {
+      "attempt": 0,
+      "success": true,
+      "error_kind": null,
+      "status_code": null,
+      "message": null,
+      "elapsed_ms": 1171.387499984121,
+      "usage": {
+        "prompt_tokens": 3993,
+        "completion_tokens": 61,
+        "total_tokens": 4054,
+        "provenance": "provider",
+        "prompt_cache_hit_tokens": 1664,
+        "prompt_cache_miss_tokens": 2329
+      },
+      "usage_provenance": "provider"
+    },
+    {
+      "attempt": 0,
+      "success": true,
+      "error_kind": null,
+      "status_code": null,
+      "message": null,
+      "elapsed_ms": 1089.5415999984834,
+      "usage": {
+        "prompt_tokens": 4341,
+        "completion_tokens": 103,
+        "total_tokens": 4444,
+        "provenance": "provider",
+        "prompt_cache_hit_tokens": 3968,
+        "prompt_cache_miss_tokens": 373
+      },
+      "usage_provenance": "provider"
+    },
+    {
+      "attempt": 0,
+      "success": true,
+      "error_kind": null,
+      "status_code": null,
+      "message": null,
+      "elapsed_ms": 1059.1719999792986,
+      "usage": {
+        "prompt_tokens": 4826,
+        "completion_tokens": 131,
+        "total_tokens": 4957,
+        "provenance": "provider",
+        "prompt_cache_hit_tokens": 1920,
+        "prompt_cache_miss_tokens": 2906
+      },
+      "usage_provenance": "provider"
+    },
+    {
+      "attempt": 0,
+      "success": true,
+      "error_kind": null,
+      "status_code": null,
+      "message": null,
+      "elapsed_ms": 1190.3620999946725,
+      "usage": {
+        "prompt_tokens": 4591,
+        "completion_tokens": 136,
+        "total_tokens": 4727,
+        "provenance": "provider",
+        "prompt_cache_hit_tokens": 2304,
+        "prompt_cache_miss_tokens": 2287
+      },
+      "usage_provenance": "provider"
+    },
+    {
+      "attempt": 0,
+      "success": true,
+      "error_kind": null,
+      "status_code": null,
+      "message": null,
+      "elapsed_ms": 1130.818800011184,
+      "usage": {
+        "prompt_tokens": 4476,
+        "completion_tokens": 141,
+        "total_tokens": 4617,
+        "provenance": "provider",
+        "prompt_cache_hit_tokens": 1792,
+        "prompt_cache_miss_tokens": 2684
+      },
+      "usage_provenance": "provider"
+    },
+    {
+      "attempt": 0,
+      "success": true,
+      "error_kind": null,
+      "status_code": null,
+      "message": null,
+      "elapsed_ms": 1205.6448000075761,
+      "usage": {
+        "prompt_tokens": 4715,
+        "completion_tokens": 87,
+        "total_tokens": 4802,
+        "provenance": "provider",
+        "prompt_cache_hit_tokens": 3584,
+        "prompt_cache_miss_tokens": 1131
+      },
+      "usage_provenance": "provider"
+    },
+    {
+      "attempt": 0,
+      "success": true,
+      "error_kind": null,
+      "status_code": null,
+      "message": null,
+      "elapsed_ms": 1186.3737999810837,
+      "usage": {
+        "prompt_tokens": 3633,
+        "completion_tokens": 150,
+        "total_tokens": 3783,
+        "provenance": "provider",
+        "prompt_cache_hit_tokens": 2560,
+        "prompt_cache_miss_tokens": 1073
+      },
+      "usage_provenance": "provider"
+    },
+    {
+      "attempt": 0,
+      "success": true,
+      "error_kind": null,
+      "status_code": null,
+      "message": null,
+      "elapsed_ms": 708.6577000154648,
+      "usage": {
+        "prompt_tokens": 3839,
+        "completion_tokens": 115,
+        "total_tokens": 3954,
+        "provenance": "provider",
+        "prompt_cache_hit_tokens": 3584,
+        "prompt_cache_miss_tokens": 255
+      },
+      "usage_provenance": "provider"
+    },
+    {
+      "attempt": 0,
+      "success": true,
+      "error_kind": null,
+      "status_code": null,
+      "message": null,
+      "elapsed_ms": 845.2259000041522,
+      "usage": {
+        "prompt_tokens": 4002,
+        "completion_tokens": 96,
+        "total_tokens": 4098,
+        "provenance": "provider",
+        "prompt_cache_hit_tokens": 3072,
+        "prompt_cache_miss_tokens": 930
+      },
+      "usage_provenance": "provider"
+    },
+    {
+      "attempt": 0,
+      "success": true,
+      "error_kind": null,
+      "status_code": null,
+      "message": null,
+      "elapsed_ms": 909.6265000116546,
+      "usage": {
+        "prompt_tokens": 4513,
+        "completion_tokens": 124,
+        "total_tokens": 4637,
+        "provenance": "provider",
+        "prompt_cache_hit_tokens": 3072,
+        "prompt_cache_miss_tokens": 1441
+      },
+      "usage_provenance": "provider"
+    },
+    {
+      "attempt": 0,
+      "success": true,
+      "error_kind": null,
+      "status_code": null,
+      "message": null,
+      "elapsed_ms": 645.2890999789815,
+      "usage": {
+        "prompt_tokens": 4475,
+        "completion_tokens": 106,
+        "total_tokens": 4581,
+        "provenance": "provider",
+        "prompt_cache_hit_tokens": 2176,
+        "prompt_cache_miss_tokens": 2299
+      },
+      "usage_provenance": "provider"
+    },
+    {
+      "attempt": 0,
+      "success": true,
+      "error_kind": null,
+      "status_code": null,
+      "message": null,
+      "elapsed_ms": 1036.8513999856077,
+      "usage": {
+        "prompt_tokens": 4758,
+        "completion_tokens": 71,
+        "total_tokens": 4829,
+        "provenance": "provider",
+        "prompt_cache_hit_tokens": 3328,
+        "prompt_cache_miss_tokens": 1430
+      },
+      "usage_provenance": "provider"
+    },
+    {
+      "attempt": 0,
+      "success": true,
+      "error_kind": null,
+      "status_code": null,
+      "message": null,
+      "elapsed_ms": 909.310999995796,
+      "usage": {
+        "prompt_tokens": 4790,
+        "completion_tokens": 82,
+        "total_tokens": 4872,
+        "provenance": "provider",
+        "prompt_cache_hit_tokens": 3456,
+        "prompt_cache_miss_tokens": 1334
+      },
+      "usage_provenance": "provider"
+    },
+    {
+      "attempt": 0,
+      "success": true,
+      "error_kind": null,
+      "status_code": null,
+      "message": null,
+      "elapsed_ms": 2197.8469000023324,
+      "usage": {
+        "prompt_tokens": 4615,
+        "completion_tokens": 428,
+        "total_tokens": 5043,
+        "provenance": "provider",
+        "prompt_cache_hit_tokens": 3584,
+        "prompt_cache_miss_tokens": 1031
+      },
+      "usage_provenance": "provider"
+    }
+  ],
+  "termination_kind": "candidate_snapshot_failed",
+  "cleanup_elapsed_s": 0.26832809997722507,
+  "model_budget": {
+    "calls_started": 22,
+    "tokens_committed": 89879,
+    "cost_committed": 0.0,
+    "outstanding_reservations": 0,
+    "max_model_calls": 24,
+    "max_tokens": 500000,
+    "max_cost_usd": null,
+    "settlements": [
+      {
+        "total_tokens": 1591,
+        "provenance": "provider",
+        "cost_usd": null,
+        "cost_provenance": "unknown",
+        "note": null
+      },
+      {
+        "total_tokens": 1980,
+        "provenance": "provider",
+        "cost_usd": null,
+        "cost_provenance": "unknown",
+        "note": null
+      },
+      {
+        "total_tokens": 3591,
+        "provenance": "provider",
+        "cost_usd": null,
+        "cost_provenance": "unknown",
+        "note": null
+      },
+      {
+        "total_tokens": 3969,
+        "provenance": "provider",
+        "cost_usd": null,
+        "cost_provenance": "unknown",
+        "note": null
+      },
+      {
+        "total_tokens": 4300,
+        "provenance": "provider",
+        "cost_usd": null,
+        "cost_provenance": "unknown",
+        "note": null
+      },
+      {
+        "total_tokens": 4235,
+        "provenance": "provider",
+        "cost_usd": null,
+        "cost_provenance": "unknown",
+        "note": null
+      },
+      {
+        "total_tokens": 3474,
+        "provenance": "provider",
+        "cost_usd": null,
+        "cost_provenance": "unknown",
+        "note": null
+      },
+      {
+        "total_tokens": 3341,
+        "provenance": "provider",
+        "cost_usd": null,
+        "cost_provenance": "unknown",
+        "note": null
+      },
+      {
+        "total_tokens": 4054,
+        "provenance": "provider",
+        "cost_usd": null,
+        "cost_provenance": "unknown",
+        "note": null
+      },
+      {
+        "total_tokens": 4444,
+        "provenance": "provider",
+        "cost_usd": null,
+        "cost_provenance": "unknown",
+        "note": null
+      },
+      {
+        "total_tokens": 4957,
+        "provenance": "provider",
+        "cost_usd": null,
+        "cost_provenance": "unknown",
+        "note": null
+      },
+      {
+        "total_tokens": 4727,
+        "provenance": "provider",
+        "cost_usd": null,
+        "cost_provenance": "unknown",
+        "note": null
+      },
+      {
+        "total_tokens": 4617,
+        "provenance": "provider",
+        "cost_usd": null,
+        "cost_provenance": "unknown",
+        "note": null
+      },
+      {
+        "total_tokens": 4802,
+        "provenance": "provider",
+        "cost_usd": null,
+        "cost_provenance": "unknown",
+        "note": null
+      },
+      {
+        "total_tokens": 3783,
+        "provenance": "provider",
+        "cost_usd": null,
+        "cost_provenance": "unknown",
+        "note": null
+      },
+      {
+        "total_tokens": 3954,
+        "provenance": "provider",
+        "cost_usd": null,
+        "cost_provenance": "unknown",
+        "note": null
+      },
+      {
+        "total_tokens": 4098,
+        "provenance": "provider",
+        "cost_usd": null,
+        "cost_provenance": "unknown",
+        "note": null
+      },
+      {
+        "total_tokens": 4637,
+        "provenance": "provider",
+        "cost_usd": null,
+        "cost_provenance": "unknown",
+        "note": null
+      },
+      {
+        "total_tokens": 4581,
+        "provenance": "provider",
+        "cost_usd": null,
+        "cost_provenance": "unknown",
+        "note": null
+      },
+      {
+        "total_tokens": 4829,
+        "provenance": "provider",
+        "cost_usd": null,
+        "cost_provenance": "unknown",
+        "note": null
+      },
+      {
+        "total_tokens": 4872,
+        "provenance": "provider",
+        "cost_usd": null,
+        "cost_provenance": "unknown",
+        "note": null
+      },
+      {
+        "total_tokens": 5043,
+        "provenance": "provider",
+        "cost_usd": null,
+        "cost_provenance": "unknown",
+        "note": null
+      }
+    ]
+  },
+  "run_output": {
+    "limit_bytes": 16777216,
+    "bytes_kept": 24059,
+    "bytes_seen": 24059,
+    "peak_read_buffer_bytes": 6109,
+    "cancelled_producer": false,
+    "producers_stopped": false
+  },
+  "execution": {
+    "capabilities": {
+      "profile": "docker_linux",
+      "platform": "linux-container",
+      "image": "coding-harness-a5-transport@sha256:5a274055d0938df68223ceca14a82f325100dc9879152556af40b573d0c15371",
+      "context": "desktop-linux",
+      "cancel": true,
+      "filesystem_isolation": true,
+      "network_control": true,
+      "network_default": "none",
+      "resource_limits": true,
+      "complete_isolation": false,
+      "cpu_limit": 1.0,
+      "memory_limit_bytes": 1073741824,
+      "pids_limit": 128,
+      "workspace_limit_bytes": 268435456,
+      "tmpfs_limit_bytes": 67108864,
+      "tree_reclaim_guaranteed": true,
+      "privileged": false,
+      "docker_socket_mounted": false,
+      "host_mounts": false,
+      "workspace_transfer_limit": 8388608,
+      "transport": "image_backed_base_plus_delta",
+      "source_tree_hash": "8d27c57ac8c8a87ebfe6536d4c2de1eb759c741ec205fd3f8930decbb7b3d0ca",
+      "delta_schema": "a5.typed-tree.delta.v1"
+    },
+    "lifecycle": [
+      {
+        "event": "created",
+        "container": "h3-54aa4b2e9f154d63be840b04406310b6",
+        "image_id": "sha256:5a274055d0938df68223ceca14a82f325100dc9879152556af40b573d0c15371"
+      },
+      {
+        "event": "destroyed",
+        "container": "h3-54aa4b2e9f154d63be840b04406310b6",
+        "elapsed_s": 0.26832809997722507
+      }
+    ],
+    "snapshot_error": "DockerUnavailable: Docker exec failed: Traceback (most recent call last):\n  File \"/opt/a5-tree.py\", line 297, in <module>\n    main()\n  File \"/opt/a5-tree.py\", line 287, in main\n    result = export_delta('/workspace', manifest, json.load(sys.stdin)['allowed_paths'])\n  File \"/opt/a5-tree.py\", line 192, in export_delta\n    raise ValueError('candidate changed unassigned paths: ' + repr(sorted(set(changed) - allowed)[:10]))\nValueError: candidate changed unassigned paths: ['changelog/2791.feature.rst']\n",
+    "cleanup_ok": true,
+    "unavailable_error": null
+  },
+  "summary": {
+    "provider": "fixture",
+    "model_calls": 0,
+    "known_total_tokens": 0,
+    "unknown_usage_calls": 0,
+    "tokens_committed": 0,
+    "estimated_cost_usd": null,
+    "cost_committed_usd": 0,
+    "elapsed_seconds": 0,
+    "records": []
+  }
+}

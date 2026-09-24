@@ -1,0 +1,26 @@
+{
+  "task_id": "django__django-13265",
+  "status": "blocked",
+  "grader_ready": false,
+  "repo": "django/django",
+  "base_revision": "b2b0711b555fa292751763c2df4fe577c396f265",
+  "image": "coding-harness-a5-known-good@sha256:c6f709c6f0be0c2a52590300ca6ccc0a86193086d0dd50e183132aa7bb582468",
+  "model_calls": 0,
+  "paid": false,
+  "canonical_binding_required": true,
+  "input_baseline_status": "baseline_mismatch",
+  "pilot_binding": {
+    "status": "pass",
+    "reason": null,
+    "canonical_target_id": "django__django-13265",
+    "repo": "django/django",
+    "expected_repo": "django/django",
+    "base_revision": "b2b0711b555fa292751763c2df4fe577c396f265",
+    "expected_base_commit": "b2b0711b555fa292751763c2df4fe577c396f265",
+    "pilot_base_hash": "8d7a13396e19723734aa5ec43703ab0d32d7a8f5ee53a35cad520bb50bf5eb60"
+  },
+  "reason": "input_baseline_status_not_ready",
+  "full_collection_status": "not_run",
+  "negative_checks_passed": false,
+  "input_blocker": null
+}

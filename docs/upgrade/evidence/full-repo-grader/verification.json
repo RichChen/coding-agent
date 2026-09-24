@@ -1,0 +1,27 @@
+{
+  "record_type": "observed_command_results",
+  "model_calls": 0,
+  "tests": {
+    "command": ".venv\\Scripts\\python.exe -m pytest tests/test_repo_grader.py tests/test_h3_grader.py tests/test_h3_contracts.py tests/test_execution_limits.py -q --basetemp .tmp-repo-grader-tests-04",
+    "passed": 56,
+    "duration_seconds": 4.20,
+    "exit_code": 0
+  },
+  "cli_known_good": {"status": "pass", "passed": 482, "collected": 484},
+  "cli_missing_candidate": {"status": "invalid_env", "assigned_tasks": 1, "collected": 484, "nonzero_exit": true},
+  "offline_cli_regeneration": {
+    "command": ".venv\\Scripts\\python.exe scripts/run_repo_grader.py --regenerate docs/upgrade/evidence/full-repo-grader/cli-known-good/evaluation",
+    "before_sha256": "11742bd3053abd04c2145a14c2639e52550b10ea0463627df123f50d02e2d946",
+    "after_sha256": "11742bd3053abd04c2145a14c2639e52550b10ea0463627df123f50d02e2d946",
+    "exit_code": 0
+  },
+  "image_build": {
+    "command": "docker --context desktop-linux build --progress plain -t coding-harness-flask4992-grader:attempt-02 docs/upgrade/evidence/full-repo-grader/attempt-02/build",
+    "exit_code": 0,
+    "image_digest": "sha256:2a19ad90214fcaf08388547c0a37deb209996c263a2358466da8aa4fa497f4e0",
+    "manifest_digest": "sha256:a8f9fe5be7faeb18cf3c9d219694423f0749121fb406396bbe3b6c70a43349d3",
+    "config_digest": "sha256:c9c9e601ea36b1b8eb6e427d0015119a094cb4519ad2ddd5d3bf1dd6d35ed96f"
+  },
+  "audit": {"status": "ready", "checks_passed": 22, "environments_ready": 1, "environments_assigned": 12},
+  "git_diff_check": {"exit_code": 0, "note": "Existing tracked edits checked; only line-ending warnings. New grader files reviewed separately."}
+}

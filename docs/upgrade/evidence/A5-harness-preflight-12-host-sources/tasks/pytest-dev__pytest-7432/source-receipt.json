@@ -1,0 +1,50 @@
+{
+  "task_id": "pytest-dev__pytest-7432",
+  "agent_task_id": "a5-task-4c6d41a0680e18c8",
+  "repo": "pytest-dev/pytest",
+  "base_revision": "e6e300e729dd33956e5448d8be9a0b1540b4e53a",
+  "role": "target",
+  "status": "blocked",
+  "source": {
+    "schema": "a5.full-archive-inventory.v1",
+    "repo": "pytest-dev/pytest",
+    "base_revision": "e6e300e729dd33956e5448d8be9a0b1540b4e53a",
+    "archive_sha256": "5b7f9d7d90d2b68ed2cecb3007ebe851aec8d5cfa92b4e322eeed8a0152953cb",
+    "archive_bytes": 1068738,
+    "git_pax_commit": "e6e300e729dd33956e5448d8be9a0b1540b4e53a",
+    "source_tree_hash": "91f4cc71a81fe09955f8e73ce94cba921d435efd4e6120eead36687782735f4c",
+    "inventory_sha256": "1ad5e39153377b4550e2af1a0230a0d7af0fc7bc41d41a5467b3e123692a199a",
+    "file_count": 541,
+    "total_bytes": 3731202,
+    "nonregular_paths": [],
+    "excluded_upstream_paths": [],
+    "snapshot_kind": "complete_pinned_upstream_archive",
+    "within_runtime_limits": true,
+    "inventory_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\pytest-dev__pytest-7432\\source-inventory.json"
+  },
+  "image_digest": null,
+  "python_version": null,
+  "pytest_version": null,
+  "dependencies": null,
+  "collection": {
+    "status": "not_run",
+    "count": null,
+    "hash": null
+  },
+  "baseline": {
+    "status": "not_run",
+    "failure_nodeids": null
+  },
+  "grader": {
+    "status": "not_run",
+    "known_good": "not_run",
+    "negative_rejection": "not_run"
+  },
+  "cleanup": "not_applicable_no_container_started",
+  "model_calls": 0,
+  "paid": false,
+  "attempt": 1,
+  "retries": 0,
+  "reason": "source_acquired_repo_specific_environment_preflight_pending",
+  "duration_seconds": 2.680076000004192
+}

@@ -1,0 +1,36 @@
+{
+  "schema": "a5.django.contract-resolution.v1",
+  "task_id": "django__django-13265",
+  "base_revision": "b2b0711b555fa292751763c2df4fe577c396f265",
+  "source_row_sha256": "c036feaf057958932db217869b985684b582d32900fa6453f550a4d9285902b8",
+  "test_patch_sha256": "9dbe567b66508b480fc90ec41e9a0c2ecec9543edf766011a8e7aa941f9623fd",
+  "gold_patch_sha256": "1b68d8f38620d1ba3576b9029aa905f3554d15410ea1f029926b8dc162aac1aa",
+  "f2p_method_ids": [
+    "migrations.test_autodetector.AutodetectorTests.test_add_model_order_with_respect_to_index_constraint",
+    "migrations.test_autodetector.AutodetectorTests.test_add_model_order_with_respect_to_index_foo_together",
+    "migrations.test_autodetector.AutodetectorTests.test_set_alter_order_with_respect_to_index_constraint_foo_together",
+    "migrations.test_autodetector.AutodetectorTests.test_supports_functools_partial"
+  ],
+  "baseline_outcome_by_method": {
+    "migrations.test_autodetector.AutodetectorTests.test_add_model_order_with_respect_to_index_constraint": "failed",
+    "migrations.test_autodetector.AutodetectorTests.test_add_model_order_with_respect_to_index_foo_together": "passed",
+    "migrations.test_autodetector.AutodetectorTests.test_set_alter_order_with_respect_to_index_constraint_foo_together": "failed",
+    "migrations.test_autodetector.AutodetectorTests.test_supports_functools_partial": "passed"
+  },
+  "known_good_outcome_by_method": {
+    "migrations.test_autodetector.AutodetectorTests.test_add_model_order_with_respect_to_index_constraint": "passed",
+    "migrations.test_autodetector.AutodetectorTests.test_add_model_order_with_respect_to_index_foo_together": "passed",
+    "migrations.test_autodetector.AutodetectorTests.test_set_alter_order_with_respect_to_index_constraint_foo_together": "passed",
+    "migrations.test_autodetector.AutodetectorTests.test_supports_functools_partial": "passed"
+  },
+  "decision": "contract_valid_baseline_mismatch_is_real",
+  "reason": "F2P is method-level. Two methods contain the intended defect and fail in baseline; two methods are regression/compatibility checks and pass in baseline. The private test patch declares all four as F2P, but does not require every F2P method to fail.",
+  "actions": [
+    "preserve all four F2P identities",
+    "preserve baseline and known-good images and receipts",
+    "do not fuzzy-map, delete, or rewrite test identities",
+    "keep baseline contract mismatch visible until the benchmark owner explicitly revises the contract"
+  ],
+  "model_calls": 0,
+  "paid": false
+}

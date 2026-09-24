@@ -1,0 +1,1392 @@
+{
+  "schema": "a5.image-backed-full-repo-grader-calibration-receipts.v2",
+  "rows": [
+    {
+      "task_id": "pytest-dev__pytest-7220",
+      "status": "blocked",
+      "grader_ready": false,
+      "repo": "pytest-dev/pytest",
+      "base_revision": "56bf819c2f4eaf8b36bd8c42c06bb59d5a3bfc0f",
+      "image": "coding-harness-a5-pytest@sha256:5ff30847f41d2c2c66f161c8b97a3bba9a2b11823be8cff8c1f5f896babdb376",
+      "model_calls": 0,
+      "paid": false,
+      "canonical_binding_required": true,
+      "input_baseline_status": "baseline_ready",
+      "pilot_binding": {
+        "status": "pass",
+        "reason": null,
+        "canonical_target_id": "pytest-dev__pytest-7220",
+        "repo": "pytest-dev/pytest",
+        "expected_repo": "pytest-dev/pytest",
+        "base_revision": "56bf819c2f4eaf8b36bd8c42c06bb59d5a3bfc0f",
+        "expected_base_commit": "56bf819c2f4eaf8b36bd8c42c06bb59d5a3bfc0f",
+        "pilot_base_hash": "98c55d8f72e86fd1a54c12ee6c0dab8511821337902eeb28fa4f454dea783060"
+      },
+      "known_good_binding": {
+        "status": "pass",
+        "reason": null,
+        "receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-14-host-pytest\\tasks\\pytest-dev__pytest-7220\\known-good\\evidence.json",
+        "receipt_sha256": "6a64fbb435e013608c8516ad7df8958d7b64a8acbe72ac1ddcfe861b57c5544e",
+        "image": "coding-harness-a5-pytest@sha256:5ff30847f41d2c2c66f161c8b97a3bba9a2b11823be8cff8c1f5f896babdb376",
+        "receipt_image": "coding-harness-a5-pytest@sha256:5ff30847f41d2c2c66f161c8b97a3bba9a2b11823be8cff8c1f5f896babdb376",
+        "expected_outcomes": {
+          "testing/test_nodes.py::test_failure_with_changed_cwd": "passed"
+        },
+        "verified_outcomes": {
+          "testing/test_nodes.py::test_failure_with_changed_cwd": "passed"
+        },
+        "cleanup_verified": true
+      },
+      "reason": "collection_or_executable_grader_policy_check_failed",
+      "full_collection_status": "invalid_env",
+      "full_collection_count": 0,
+      "full_collection_hash": null,
+      "collection_evidence_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-02\\tasks\\pytest-dev__pytest-7220\\full-repo\\evidence.json",
+      "collection_evidence_sha256": "2a465e05bc1a326a275b48488f39f9a04b3f3acfd4e72bae418b19e3bef6982c",
+      "cleanup_verified": true,
+      "calibration_mode": "full_repo_collection_plus_bound_known_good_target_plus_executed_host_grader_policy_checks",
+      "negative_checks": {
+        "scope": "executed_host_policy_fixture_not_target_specific",
+        "checks": [
+          {
+            "case": "protected_path_change",
+            "status": "rejected",
+            "observed_status": "fail",
+            "observed_reason": "protected_or_unassigned_path_changed"
+          },
+          {
+            "case": "missing_receipt",
+            "status": "rejected",
+            "observed_status": "invalid_env",
+            "observed_reason": "missing_or_incomplete_receipt"
+          },
+          {
+            "case": "input_integrity_change",
+            "status": "rejected",
+            "observed_status": "fail",
+            "observed_reason": "frozen_input_changed_during_tests"
+          }
+        ],
+        "passed": true
+      },
+      "negative_checks_passed": true
+    },
+    {
+      "task_id": "pytest-dev__pytest-7432",
+      "status": "ready",
+      "grader_ready": true,
+      "repo": "pytest-dev/pytest",
+      "base_revision": "e6e300e729dd33956e5448d8be9a0b1540b4e53a",
+      "image": "coding-harness-a5-recheck@sha256:5c97017803c8c6454734cf88e5e2d110c73d6e9f38243f027a6b310b79246770",
+      "model_calls": 0,
+      "paid": false,
+      "canonical_binding_required": true,
+      "input_baseline_status": "baseline_ready",
+      "pilot_binding": {
+        "status": "pass",
+        "reason": null,
+        "canonical_target_id": "pytest-dev__pytest-7432",
+        "repo": "pytest-dev/pytest",
+        "expected_repo": "pytest-dev/pytest",
+        "base_revision": "e6e300e729dd33956e5448d8be9a0b1540b4e53a",
+        "expected_base_commit": "e6e300e729dd33956e5448d8be9a0b1540b4e53a",
+        "pilot_base_hash": "ebcc96ae47acc454228e307f7bd8fbdbd60ddd034d777964a30b4ccb95752ac3"
+      },
+      "known_good_binding": {
+        "status": "pass",
+        "reason": null,
+        "receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-39-pytest-full-collection\\tasks\\pytest-dev__pytest-7432\\known-good\\evidence.json",
+        "receipt_sha256": "c4051cb62c02e1e45f304b33988007d1a5f1777c6d20545f344c188e7b4911c1",
+        "image": "coding-harness-a5-recheck@sha256:5c97017803c8c6454734cf88e5e2d110c73d6e9f38243f027a6b310b79246770",
+        "receipt_image": "coding-harness-a5-recheck@sha256:5c97017803c8c6454734cf88e5e2d110c73d6e9f38243f027a6b310b79246770",
+        "expected_outcomes": {
+          "testing/test_skipping.py::TestXFail::test_xfail_run_with_skip_mark[test_input1-expected1]": "passed"
+        },
+        "verified_outcomes": {
+          "testing/test_skipping.py::TestXFail::test_xfail_run_with_skip_mark[test_input1-expected1]": "passed"
+        },
+        "cleanup_verified": true
+      },
+      "reason": null,
+      "full_collection_status": "ready",
+      "full_collection_count": 2957,
+      "full_collection_hash": "a5cd8298a6a8570d51279621ade8e7fe97160ee51ec06decb8e0a5589cf64294",
+      "collection_evidence_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-02\\tasks\\pytest-dev__pytest-7432\\full-repo\\evidence.json",
+      "collection_evidence_sha256": "b0ae3b2545edbf28211420f1cdc293311250a713f80e6b8c610a13bfd50b87c3",
+      "cleanup_verified": true,
+      "calibration_mode": "full_repo_collection_plus_bound_known_good_target_plus_executed_host_grader_policy_checks",
+      "negative_checks": {
+        "scope": "executed_host_policy_fixture_not_target_specific",
+        "checks": [
+          {
+            "case": "protected_path_change",
+            "status": "rejected",
+            "observed_status": "fail",
+            "observed_reason": "protected_or_unassigned_path_changed"
+          },
+          {
+            "case": "missing_receipt",
+            "status": "rejected",
+            "observed_status": "invalid_env",
+            "observed_reason": "missing_or_incomplete_receipt"
+          },
+          {
+            "case": "input_integrity_change",
+            "status": "rejected",
+            "observed_status": "fail",
+            "observed_reason": "frozen_input_changed_during_tests"
+          }
+        ],
+        "passed": true
+      },
+      "negative_checks_passed": true
+    },
+    {
+      "task_id": "sympy__sympy-18532",
+      "status": "blocked",
+      "grader_ready": false,
+      "repo": "sympy/sympy",
+      "base_revision": "74227f900b05009d4eed62e34a166228788a32ca",
+      "image": "coding-harness-a5-known-good@sha256:8854ab47e905ef0e4395dc29c890cb0847fea4c022465fd885cf048e41a61056",
+      "model_calls": 0,
+      "paid": false,
+      "canonical_binding_required": true,
+      "input_baseline_status": "baseline_ready",
+      "pilot_binding": {
+        "status": "pass",
+        "reason": null,
+        "canonical_target_id": "sympy__sympy-18532",
+        "repo": "sympy/sympy",
+        "expected_repo": "sympy/sympy",
+        "base_revision": "74227f900b05009d4eed62e34a166228788a32ca",
+        "expected_base_commit": "74227f900b05009d4eed62e34a166228788a32ca",
+        "pilot_base_hash": "b8d8f133affa1f8eeacefe85db88989f53b81c45b83a0d046cd28e25478e359c"
+      },
+      "known_good_binding": {
+        "status": "pass",
+        "reason": null,
+        "receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-37-historical-and-sympy\\tasks\\sympy__sympy-18532\\known-good\\evidence.json",
+        "receipt_sha256": "b54e10a99da765b48b93b2f8cdeae1d7964a00a06c8f64b2f0a506c4745965ca",
+        "image": "coding-harness-a5-known-good@sha256:8854ab47e905ef0e4395dc29c890cb0847fea4c022465fd885cf048e41a61056",
+        "receipt_image": "coding-harness-a5-known-good@sha256:8854ab47e905ef0e4395dc29c890cb0847fea4c022465fd885cf048e41a61056",
+        "expected_outcomes": {
+          "sympy/codegen/tests/test_cnodes.py::test_sizeof": "passed",
+          "sympy/core/tests/test_basic.py::test_atoms": "passed"
+        },
+        "verified_outcomes": {
+          "sympy/codegen/tests/test_cnodes.py::test_sizeof": "passed",
+          "sympy/core/tests/test_basic.py::test_atoms": "passed"
+        },
+        "cleanup_verified": true
+      },
+      "reason": "collection_or_executable_grader_policy_check_failed",
+      "full_collection_status": "invalid_env",
+      "full_collection_count": 9473,
+      "full_collection_hash": null,
+      "collection_evidence_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-02\\tasks\\sympy__sympy-18532\\full-repo\\evidence.json",
+      "collection_evidence_sha256": "2f2cd0112edd758e2d6ca4dcf7192f879ebaccba5775272fb218224922bde4f5",
+      "cleanup_verified": true,
+      "calibration_mode": "full_repo_collection_plus_bound_known_good_target_plus_executed_host_grader_policy_checks",
+      "negative_checks": {
+        "scope": "executed_host_policy_fixture_not_target_specific",
+        "checks": [
+          {
+            "case": "protected_path_change",
+            "status": "rejected",
+            "observed_status": "fail",
+            "observed_reason": "protected_or_unassigned_path_changed"
+          },
+          {
+            "case": "missing_receipt",
+            "status": "rejected",
+            "observed_status": "invalid_env",
+            "observed_reason": "missing_or_incomplete_receipt"
+          },
+          {
+            "case": "input_integrity_change",
+            "status": "rejected",
+            "observed_status": "fail",
+            "observed_reason": "frozen_input_changed_during_tests"
+          }
+        ],
+        "passed": true
+      },
+      "negative_checks_passed": true
+    },
+    {
+      "task_id": "scikit-learn__scikit-learn-25500",
+      "status": "ready",
+      "grader_ready": true,
+      "repo": "scikit-learn/scikit-learn",
+      "base_revision": "4db04923a754b6a2defa1b172f55d492b85d165e",
+      "image": "coding-harness-a5-recheck@sha256:c6f3f2772bb05e66c7a3cfbab7f1da877122e5e55862421ca870aa19641e4b01",
+      "model_calls": 0,
+      "paid": false,
+      "canonical_binding_required": true,
+      "input_baseline_status": "baseline_ready",
+      "pilot_binding": {
+        "status": "pass",
+        "reason": null,
+        "canonical_target_id": "scikit-learn__scikit-learn-25500",
+        "repo": "scikit-learn/scikit-learn",
+        "expected_repo": "scikit-learn/scikit-learn",
+        "base_revision": "4db04923a754b6a2defa1b172f55d492b85d165e",
+        "expected_base_commit": "4db04923a754b6a2defa1b172f55d492b85d165e",
+        "pilot_base_hash": "16ed6c1fa4be8002606fdceb7876e6dad7bb807c6839fc6efdc32dbf67309fa0"
+      },
+      "known_good_binding": {
+        "status": "pass",
+        "reason": null,
+        "receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-43-sklearn-native-recheck\\tasks\\scikit-learn__scikit-learn-25500\\known-good\\evidence.json",
+        "receipt_sha256": "62a13fa2ea1882384cce93f5c93825814861b5b6e75ea5f7a606ff55e2e6695a",
+        "image": "coding-harness-a5-recheck@sha256:c6f3f2772bb05e66c7a3cfbab7f1da877122e5e55862421ca870aa19641e4b01",
+        "receipt_image": "coding-harness-a5-recheck@sha256:c6f3f2772bb05e66c7a3cfbab7f1da877122e5e55862421ca870aa19641e4b01",
+        "expected_outcomes": {
+          "sklearn/tests/test_isotonic.py::test_isotonic_regression_output_predict": "passed"
+        },
+        "verified_outcomes": {
+          "sklearn/tests/test_isotonic.py::test_isotonic_regression_output_predict": "passed"
+        },
+        "cleanup_verified": true
+      },
+      "reason": null,
+      "full_collection_status": "ready",
+      "full_collection_count": 27634,
+      "full_collection_hash": "c01f4fff3c2d85a2d72a4025201c24ce1f43bef69ef2f3e27f27e67c9b9d09e0",
+      "collection_evidence_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-02\\tasks\\scikit-learn__scikit-learn-25500\\full-repo\\evidence.json",
+      "collection_evidence_sha256": "f6032f40f011d713c069c85804b026ef47855b5f45adac478e86bc37789a7bce",
+      "cleanup_verified": true,
+      "calibration_mode": "full_repo_collection_plus_bound_known_good_target_plus_executed_host_grader_policy_checks",
+      "negative_checks": {
+        "scope": "executed_host_policy_fixture_not_target_specific",
+        "checks": [
+          {
+            "case": "protected_path_change",
+            "status": "rejected",
+            "observed_status": "fail",
+            "observed_reason": "protected_or_unassigned_path_changed"
+          },
+          {
+            "case": "missing_receipt",
+            "status": "rejected",
+            "observed_status": "invalid_env",
+            "observed_reason": "missing_or_incomplete_receipt"
+          },
+          {
+            "case": "input_integrity_change",
+            "status": "rejected",
+            "observed_status": "fail",
+            "observed_reason": "frozen_input_changed_during_tests"
+          }
+        ],
+        "passed": true
+      },
+      "negative_checks_passed": true
+    },
+    {
+      "task_id": "django__django-15781",
+      "status": "ready",
+      "grader_ready": true,
+      "repo": "django/django",
+      "base_revision": "8d160f154f0240a423e83ffe0690e472f837373c",
+      "image": "coding-harness-a5-known-good@sha256:69f4a4bf74714ad76457519e3a732613f47b628db1049ddb56c71f318a23dc34",
+      "model_calls": 0,
+      "paid": false,
+      "canonical_binding_required": true,
+      "input_baseline_status": "baseline_ready",
+      "pilot_binding": {
+        "status": "pass",
+        "reason": null,
+        "canonical_target_id": "django__django-15781",
+        "repo": "django/django",
+        "expected_repo": "django/django",
+        "base_revision": "8d160f154f0240a423e83ffe0690e472f837373c",
+        "expected_base_commit": "8d160f154f0240a423e83ffe0690e472f837373c",
+        "pilot_base_hash": "68658a83e3804b661335a8a6deb24407f188720cf7fee5fbc45e1e49e34be4e8"
+      },
+      "known_good_binding": {
+        "status": "pass",
+        "reason": null,
+        "receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-32-preserved-mode-recheck\\tasks\\django__django-15781\\known-good\\evidence.json",
+        "receipt_sha256": "fce81009e80c6b17b8234fcf0160c3504fa13cbba73fdd8b76ba5826d15f5c17",
+        "image": "coding-harness-a5-known-good@sha256:69f4a4bf74714ad76457519e3a732613f47b628db1049ddb56c71f318a23dc34",
+        "receipt_image": "coding-harness-a5-known-good@sha256:69f4a4bf74714ad76457519e3a732613f47b628db1049ddb56c71f318a23dc34",
+        "expected_outcomes": {
+          "user_commands.tests.CommandTests.test_create_parser_kwargs": "passed"
+        },
+        "verified_outcomes": {
+          "user_commands.tests.CommandTests.test_create_parser_kwargs": "passed"
+        },
+        "cleanup_verified": true
+      },
+      "reason": null,
+      "full_collection_status": "ready",
+      "full_collection_count": 15884,
+      "full_collection_hash": "d1f873a1dca7104721dc64a1de74dd723adaa4a529f9beda5dacdd30bdb726be",
+      "collection_evidence_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-02\\tasks\\django__django-15781\\full-repo\\evidence.json",
+      "collection_evidence_sha256": "b30c6fc40b900c138a5a0b1e8d6cdcbb3f59c041135548ce67adfad7954712a1",
+      "cleanup_verified": true,
+      "calibration_mode": "full_repo_collection_plus_bound_known_good_target_plus_executed_host_grader_policy_checks",
+      "negative_checks": {
+        "scope": "executed_host_policy_fixture_not_target_specific",
+        "checks": [
+          {
+            "case": "protected_path_change",
+            "status": "rejected",
+            "observed_status": "fail",
+            "observed_reason": "protected_or_unassigned_path_changed"
+          },
+          {
+            "case": "missing_receipt",
+            "status": "rejected",
+            "observed_status": "invalid_env",
+            "observed_reason": "missing_or_incomplete_receipt"
+          },
+          {
+            "case": "input_integrity_change",
+            "status": "rejected",
+            "observed_status": "fail",
+            "observed_reason": "frozen_input_changed_during_tests"
+          }
+        ],
+        "passed": true
+      },
+      "negative_checks_passed": true
+    },
+    {
+      "task_id": "sphinx-doc__sphinx-10451",
+      "status": "ready",
+      "grader_ready": true,
+      "repo": "sphinx-doc/sphinx",
+      "base_revision": "195e911f1dab04b8ddeacbe04b7d214aaf81bb0b",
+      "image": "coding-harness-a5-known-good@sha256:c5ddba1dd1ddaadcaebe16c85b53d40e308bea95ac6a467fac22a829d0ff40d4",
+      "model_calls": 0,
+      "paid": false,
+      "canonical_binding_required": true,
+      "input_baseline_status": "baseline_ready",
+      "pilot_binding": {
+        "status": "pass",
+        "reason": null,
+        "canonical_target_id": "sphinx-doc__sphinx-10451",
+        "repo": "sphinx-doc/sphinx",
+        "expected_repo": "sphinx-doc/sphinx",
+        "base_revision": "195e911f1dab04b8ddeacbe04b7d214aaf81bb0b",
+        "expected_base_commit": "195e911f1dab04b8ddeacbe04b7d214aaf81bb0b",
+        "pilot_base_hash": "d9eda74bf647d7526bbdcf48a6a49a4cd3c907b5840d41e36d34dc013c9aeb15"
+      },
+      "known_good_binding": {
+        "status": "pass",
+        "reason": null,
+        "receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-35-sphinx-test-files\\tasks\\sphinx-doc__sphinx-10451\\known-good\\evidence.json",
+        "receipt_sha256": "c0c9a0ce4c0995e0c56ed9e9e776be6b1ce141b1ff0922054153bffad602bde7",
+        "image": "coding-harness-a5-known-good@sha256:c5ddba1dd1ddaadcaebe16c85b53d40e308bea95ac6a467fac22a829d0ff40d4",
+        "receipt_image": "coding-harness-a5-known-good@sha256:c5ddba1dd1ddaadcaebe16c85b53d40e308bea95ac6a467fac22a829d0ff40d4",
+        "expected_outcomes": {
+          "tests/test_ext_napoleon_docstring.py::test_napoleon_and_autodoc_typehints_description_all": "passed",
+          "tests/test_ext_napoleon_docstring.py::test_napoleon_and_autodoc_typehints_description_documented_params": "passed"
+        },
+        "verified_outcomes": {
+          "tests/test_ext_napoleon_docstring.py::test_napoleon_and_autodoc_typehints_description_all": "passed",
+          "tests/test_ext_napoleon_docstring.py::test_napoleon_and_autodoc_typehints_description_documented_params": "passed"
+        },
+        "cleanup_verified": true
+      },
+      "reason": null,
+      "full_collection_status": "ready",
+      "full_collection_count": 1798,
+      "full_collection_hash": "b6e97b0132af05955ef33bcaebef32b1ebc7bb433d061696dfa304ccb8d5ef4c",
+      "collection_evidence_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-02\\tasks\\sphinx-doc__sphinx-10451\\full-repo\\evidence.json",
+      "collection_evidence_sha256": "a66575023436dbbf0160e6400e5222bfe1fcfaf35d1a4d01c906f4db3c08105e",
+      "cleanup_verified": true,
+      "calibration_mode": "full_repo_collection_plus_bound_known_good_target_plus_executed_host_grader_policy_checks",
+      "negative_checks": {
+        "scope": "executed_host_policy_fixture_not_target_specific",
+        "checks": [
+          {
+            "case": "protected_path_change",
+            "status": "rejected",
+            "observed_status": "fail",
+            "observed_reason": "protected_or_unassigned_path_changed"
+          },
+          {
+            "case": "missing_receipt",
+            "status": "rejected",
+            "observed_status": "invalid_env",
+            "observed_reason": "missing_or_incomplete_receipt"
+          },
+          {
+            "case": "input_integrity_change",
+            "status": "rejected",
+            "observed_status": "fail",
+            "observed_reason": "frozen_input_changed_during_tests"
+          }
+        ],
+        "passed": true
+      },
+      "negative_checks_passed": true
+    },
+    {
+      "task_id": "django__django-13265",
+      "status": "blocked",
+      "grader_ready": false,
+      "repo": "django/django",
+      "base_revision": "b2b0711b555fa292751763c2df4fe577c396f265",
+      "image": "coding-harness-a5-known-good@sha256:c6f709c6f0be0c2a52590300ca6ccc0a86193086d0dd50e183132aa7bb582468",
+      "model_calls": 0,
+      "paid": false,
+      "canonical_binding_required": true,
+      "input_baseline_status": "baseline_mismatch",
+      "pilot_binding": {
+        "status": "pass",
+        "reason": null,
+        "canonical_target_id": "django__django-13265",
+        "repo": "django/django",
+        "expected_repo": "django/django",
+        "base_revision": "b2b0711b555fa292751763c2df4fe577c396f265",
+        "expected_base_commit": "b2b0711b555fa292751763c2df4fe577c396f265",
+        "pilot_base_hash": "8d7a13396e19723734aa5ec43703ab0d32d7a8f5ee53a35cad520bb50bf5eb60"
+      },
+      "reason": "input_baseline_status_not_ready",
+      "full_collection_status": "not_run",
+      "negative_checks_passed": false,
+      "input_blocker": null
+    },
+    {
+      "task_id": "sphinx-doc__sphinx-8721",
+      "status": "ready",
+      "grader_ready": true,
+      "repo": "sphinx-doc/sphinx",
+      "base_revision": "82ef497a8c88f0f6e50d84520e7276bfbf65025d",
+      "image": "coding-harness-a5-recheck@sha256:5808165c6309a13d45ef473aa3f6350ecf43d1633f97dac89edf0b4754b06bec",
+      "model_calls": 0,
+      "paid": false,
+      "canonical_binding_required": true,
+      "input_baseline_status": "baseline_ready",
+      "pilot_binding": {
+        "status": "pass",
+        "reason": null,
+        "canonical_target_id": "sphinx-doc__sphinx-8721",
+        "repo": "sphinx-doc/sphinx",
+        "expected_repo": "sphinx-doc/sphinx",
+        "base_revision": "82ef497a8c88f0f6e50d84520e7276bfbf65025d",
+        "expected_base_commit": "82ef497a8c88f0f6e50d84520e7276bfbf65025d",
+        "pilot_base_hash": "3e9e6bd4cee95b76b21f2f914c69357a1db2b53340b21049d43a7331d33fdc0b"
+      },
+      "known_good_binding": {
+        "status": "pass",
+        "reason": null,
+        "receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-36-repo-compat\\tasks\\sphinx-doc__sphinx-8721\\known-good\\evidence.json",
+        "receipt_sha256": "b504cf0732f2ae3cce46324441b926eba67ef941a05404e9cc5d67accf71034d",
+        "image": "coding-harness-a5-recheck@sha256:5808165c6309a13d45ef473aa3f6350ecf43d1633f97dac89edf0b4754b06bec",
+        "receipt_image": "coding-harness-a5-recheck@sha256:5808165c6309a13d45ef473aa3f6350ecf43d1633f97dac89edf0b4754b06bec",
+        "expected_outcomes": {
+          "tests/test_ext_viewcode.py::test_viewcode_epub_default": "passed"
+        },
+        "verified_outcomes": {
+          "tests/test_ext_viewcode.py::test_viewcode_epub_default": "passed"
+        },
+        "cleanup_verified": true
+      },
+      "reason": null,
+      "full_collection_status": "ready",
+      "full_collection_count": 1655,
+      "full_collection_hash": "32019f5ee1bb7d823d1345e3764bc26c88d22912266b8dbdcf2dcf26b9308e95",
+      "collection_evidence_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-02\\tasks\\sphinx-doc__sphinx-8721\\full-repo\\evidence.json",
+      "collection_evidence_sha256": "7c8d8ecf99e43addfc325e52dc73c5f6458ce364ba29165b2e41e76bbee9cf61",
+      "cleanup_verified": true,
+      "calibration_mode": "full_repo_collection_plus_bound_known_good_target_plus_executed_host_grader_policy_checks",
+      "negative_checks": {
+        "scope": "executed_host_policy_fixture_not_target_specific",
+        "checks": [
+          {
+            "case": "protected_path_change",
+            "status": "rejected",
+            "observed_status": "fail",
+            "observed_reason": "protected_or_unassigned_path_changed"
+          },
+          {
+            "case": "missing_receipt",
+            "status": "rejected",
+            "observed_status": "invalid_env",
+            "observed_reason": "missing_or_incomplete_receipt"
+          },
+          {
+            "case": "input_integrity_change",
+            "status": "rejected",
+            "observed_status": "fail",
+            "observed_reason": "frozen_input_changed_during_tests"
+          }
+        ],
+        "passed": true
+      },
+      "negative_checks_passed": true
+    },
+    {
+      "task_id": "pytest-dev__pytest-8365",
+      "status": "blocked",
+      "grader_ready": false,
+      "repo": "pytest-dev/pytest",
+      "base_revision": "4964b468c83c06971eb743fbc57cc404f760c573",
+      "image": "coding-harness-a5-pytest@sha256:99a6136cf06433b05cd09d6ba81aec351dde7ebd5b07a7c4fa5892c0f167852a",
+      "model_calls": 0,
+      "paid": false,
+      "canonical_binding_required": true,
+      "input_baseline_status": "baseline_ready",
+      "pilot_binding": {
+        "status": "pass",
+        "reason": null,
+        "canonical_target_id": "pytest-dev__pytest-8365",
+        "repo": "pytest-dev/pytest",
+        "expected_repo": "pytest-dev/pytest",
+        "base_revision": "4964b468c83c06971eb743fbc57cc404f760c573",
+        "expected_base_commit": "4964b468c83c06971eb743fbc57cc404f760c573",
+        "pilot_base_hash": "0d6cbcd0b5c2af149c136b2cbb44a7c70ac2e41ada3a1fbbc7a31154bb07ad15"
+      },
+      "known_good_binding": {
+        "status": "pass",
+        "reason": null,
+        "receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-14-host-pytest\\tasks\\pytest-dev__pytest-8365\\known-good\\evidence.json",
+        "receipt_sha256": "6d980dec2ade3ef6febbcf79e665ca0627c2b424c4cd7777c618daf8520e3e94",
+        "image": "coding-harness-a5-pytest@sha256:99a6136cf06433b05cd09d6ba81aec351dde7ebd5b07a7c4fa5892c0f167852a",
+        "receipt_image": "coding-harness-a5-pytest@sha256:99a6136cf06433b05cd09d6ba81aec351dde7ebd5b07a7c4fa5892c0f167852a",
+        "expected_outcomes": {
+          "testing/test_tmpdir.py::test_tmp_path_factory_handles_invalid_dir_characters": "passed"
+        },
+        "verified_outcomes": {
+          "testing/test_tmpdir.py::test_tmp_path_factory_handles_invalid_dir_characters": "passed"
+        },
+        "cleanup_verified": true
+      },
+      "reason": "collection_or_executable_grader_policy_check_failed",
+      "full_collection_status": "invalid_env",
+      "full_collection_count": 0,
+      "full_collection_hash": null,
+      "collection_evidence_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-02\\tasks\\pytest-dev__pytest-8365\\full-repo\\evidence.json",
+      "collection_evidence_sha256": "5672e919f19cd79250b66330ebc3080ae0e3694d17e8465409c82ee5caf79c91",
+      "cleanup_verified": true,
+      "calibration_mode": "full_repo_collection_plus_bound_known_good_target_plus_executed_host_grader_policy_checks",
+      "negative_checks": {
+        "scope": "executed_host_policy_fixture_not_target_specific",
+        "checks": [
+          {
+            "case": "protected_path_change",
+            "status": "rejected",
+            "observed_status": "fail",
+            "observed_reason": "protected_or_unassigned_path_changed"
+          },
+          {
+            "case": "missing_receipt",
+            "status": "rejected",
+            "observed_status": "invalid_env",
+            "observed_reason": "missing_or_incomplete_receipt"
+          },
+          {
+            "case": "input_integrity_change",
+            "status": "rejected",
+            "observed_status": "fail",
+            "observed_reason": "frozen_input_changed_during_tests"
+          }
+        ],
+        "passed": true
+      },
+      "negative_checks_passed": true
+    },
+    {
+      "task_id": "scikit-learn__scikit-learn-25638",
+      "status": "ready",
+      "grader_ready": true,
+      "repo": "scikit-learn/scikit-learn",
+      "base_revision": "6adb209acd63825affc884abcd85381f148fb1b0",
+      "image": "coding-harness-a5-recheck@sha256:ba48914b40353c9aec0bd0bb0d036625a6166b5f3d8e084a924e561d7d1b6c71",
+      "model_calls": 0,
+      "paid": false,
+      "canonical_binding_required": true,
+      "input_baseline_status": "baseline_ready",
+      "pilot_binding": {
+        "status": "pass",
+        "reason": null,
+        "canonical_target_id": "scikit-learn__scikit-learn-25638",
+        "repo": "scikit-learn/scikit-learn",
+        "expected_repo": "scikit-learn/scikit-learn",
+        "base_revision": "6adb209acd63825affc884abcd85381f148fb1b0",
+        "expected_base_commit": "6adb209acd63825affc884abcd85381f148fb1b0",
+        "pilot_base_hash": "3828c4feceaaba4f5d6ab51636fd5b1a2d12862dacff097f0105cb937bc02da7"
+      },
+      "known_good_binding": {
+        "status": "pass",
+        "reason": null,
+        "receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-43-sklearn-native-recheck\\tasks\\scikit-learn__scikit-learn-25638\\known-good\\evidence.json",
+        "receipt_sha256": "5ffa0891817a89481a149f36fcb349386ffda3a19248686ef87fb523651a0543",
+        "image": "coding-harness-a5-recheck@sha256:ba48914b40353c9aec0bd0bb0d036625a6166b5f3d8e084a924e561d7d1b6c71",
+        "receipt_image": "coding-harness-a5-recheck@sha256:ba48914b40353c9aec0bd0bb0d036625a6166b5f3d8e084a924e561d7d1b6c71",
+        "expected_outcomes": {
+          "sklearn/metrics/tests/test_classification.py::test_confusion_matrix_pandas_nullable[Int64]": "passed",
+          "sklearn/metrics/tests/test_classification.py::test_confusion_matrix_pandas_nullable[Float64]": "passed",
+          "sklearn/metrics/tests/test_classification.py::test_confusion_matrix_pandas_nullable[boolean]": "passed",
+          "sklearn/preprocessing/tests/test_label.py::test_label_binarizer_pandas_nullable[Int64]": "passed",
+          "sklearn/preprocessing/tests/test_label.py::test_label_binarizer_pandas_nullable[Float64]": "passed",
+          "sklearn/preprocessing/tests/test_label.py::test_label_binarizer_pandas_nullable[boolean]": "passed",
+          "sklearn/utils/tests/test_multiclass.py::test_type_of_target_pandas_nullable": "passed",
+          "sklearn/utils/tests/test_multiclass.py::test_unique_labels_pandas_nullable[Int64]": "passed",
+          "sklearn/utils/tests/test_multiclass.py::test_unique_labels_pandas_nullable[Float64]": "passed",
+          "sklearn/utils/tests/test_multiclass.py::test_unique_labels_pandas_nullable[boolean]": "passed"
+        },
+        "verified_outcomes": {
+          "sklearn/metrics/tests/test_classification.py::test_confusion_matrix_pandas_nullable[Int64]": "passed",
+          "sklearn/metrics/tests/test_classification.py::test_confusion_matrix_pandas_nullable[Float64]": "passed",
+          "sklearn/metrics/tests/test_classification.py::test_confusion_matrix_pandas_nullable[boolean]": "passed",
+          "sklearn/preprocessing/tests/test_label.py::test_label_binarizer_pandas_nullable[Int64]": "passed",
+          "sklearn/preprocessing/tests/test_label.py::test_label_binarizer_pandas_nullable[Float64]": "passed",
+          "sklearn/preprocessing/tests/test_label.py::test_label_binarizer_pandas_nullable[boolean]": "passed",
+          "sklearn/utils/tests/test_multiclass.py::test_type_of_target_pandas_nullable": "passed",
+          "sklearn/utils/tests/test_multiclass.py::test_unique_labels_pandas_nullable[Int64]": "passed",
+          "sklearn/utils/tests/test_multiclass.py::test_unique_labels_pandas_nullable[Float64]": "passed",
+          "sklearn/utils/tests/test_multiclass.py::test_unique_labels_pandas_nullable[boolean]": "passed"
+        },
+        "cleanup_verified": true
+      },
+      "reason": null,
+      "full_collection_status": "ready",
+      "full_collection_count": 27997,
+      "full_collection_hash": "2ad77a43704838772368810d815ec6d7ff4e83a36aa25b0be2aff1356c4b7f78",
+      "collection_evidence_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-02\\tasks\\scikit-learn__scikit-learn-25638\\full-repo\\evidence.json",
+      "collection_evidence_sha256": "d232a5d15ff474c8013f5411f9490d698c97daadc4cacfab5b4c5a5d25fe3bd0",
+      "cleanup_verified": true,
+      "calibration_mode": "full_repo_collection_plus_bound_known_good_target_plus_executed_host_grader_policy_checks",
+      "negative_checks": {
+        "scope": "executed_host_policy_fixture_not_target_specific",
+        "checks": [
+          {
+            "case": "protected_path_change",
+            "status": "rejected",
+            "observed_status": "fail",
+            "observed_reason": "protected_or_unassigned_path_changed"
+          },
+          {
+            "case": "missing_receipt",
+            "status": "rejected",
+            "observed_status": "invalid_env",
+            "observed_reason": "missing_or_incomplete_receipt"
+          },
+          {
+            "case": "input_integrity_change",
+            "status": "rejected",
+            "observed_status": "fail",
+            "observed_reason": "frozen_input_changed_during_tests"
+          }
+        ],
+        "passed": true
+      },
+      "negative_checks_passed": true
+    },
+    {
+      "task_id": "django__django-13590",
+      "status": "ready",
+      "grader_ready": true,
+      "repo": "django/django",
+      "base_revision": "755dbf39fcdc491fe9b588358303e259c7750be4",
+      "image": "coding-harness-a5-known-good@sha256:53f64134485a7ffe49c70f548ca7e43a22d54aedb10f34ed9f7fb912adb282a7",
+      "model_calls": 0,
+      "paid": false,
+      "canonical_binding_required": true,
+      "input_baseline_status": "baseline_ready",
+      "pilot_binding": {
+        "status": "pass",
+        "reason": null,
+        "canonical_target_id": "django__django-13590",
+        "repo": "django/django",
+        "expected_repo": "django/django",
+        "base_revision": "755dbf39fcdc491fe9b588358303e259c7750be4",
+        "expected_base_commit": "755dbf39fcdc491fe9b588358303e259c7750be4",
+        "pilot_base_hash": "7ea6d93404c03717fc24d8e9b7b7fd2b6ecc1a0c10fc5f4b2469e46d9da52143"
+      },
+      "known_good_binding": {
+        "status": "pass",
+        "reason": null,
+        "receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-32-preserved-mode-recheck\\tasks\\django__django-13590\\known-good\\evidence.json",
+        "receipt_sha256": "2a5203cf1339266bfcb69434e544cae2a0389a446d093cba77d424d204898bff",
+        "image": "coding-harness-a5-known-good@sha256:53f64134485a7ffe49c70f548ca7e43a22d54aedb10f34ed9f7fb912adb282a7",
+        "receipt_image": "coding-harness-a5-known-good@sha256:53f64134485a7ffe49c70f548ca7e43a22d54aedb10f34ed9f7fb912adb282a7",
+        "expected_outcomes": {
+          "expressions.tests.IterableLookupInnerExpressionsTests.test_range_lookup_namedtuple": "passed"
+        },
+        "verified_outcomes": {
+          "expressions.tests.IterableLookupInnerExpressionsTests.test_range_lookup_namedtuple": "passed"
+        },
+        "cleanup_verified": true
+      },
+      "reason": null,
+      "full_collection_status": "ready",
+      "full_collection_count": 14288,
+      "full_collection_hash": "25ae90b34c54f7b0bee9370bfac362ee246433d7ca62d56aeef5d7ec1f8c7ca2",
+      "collection_evidence_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-02\\tasks\\django__django-13590\\full-repo\\evidence.json",
+      "collection_evidence_sha256": "ae8018ba33c1311f214de99d534a4886c9e4f8e2c064d788774fff62fcedbc54",
+      "cleanup_verified": true,
+      "calibration_mode": "full_repo_collection_plus_bound_known_good_target_plus_executed_host_grader_policy_checks",
+      "negative_checks": {
+        "scope": "executed_host_policy_fixture_not_target_specific",
+        "checks": [
+          {
+            "case": "protected_path_change",
+            "status": "rejected",
+            "observed_status": "fail",
+            "observed_reason": "protected_or_unassigned_path_changed"
+          },
+          {
+            "case": "missing_receipt",
+            "status": "rejected",
+            "observed_status": "invalid_env",
+            "observed_reason": "missing_or_incomplete_receipt"
+          },
+          {
+            "case": "input_integrity_change",
+            "status": "rejected",
+            "observed_status": "fail",
+            "observed_reason": "frozen_input_changed_during_tests"
+          }
+        ],
+        "passed": true
+      },
+      "negative_checks_passed": true
+    },
+    {
+      "task_id": "sympy__sympy-24152",
+      "status": "ready",
+      "grader_ready": true,
+      "repo": "sympy/sympy",
+      "base_revision": "b9af885473ad7e34b5b0826cb424dd26d8934670",
+      "image": "coding-harness-a5-known-good@sha256:0a29a3e113055a73ef0724ee2a2f986401e304928971fb4c0444008e37c1d22c",
+      "model_calls": 0,
+      "paid": false,
+      "canonical_binding_required": true,
+      "input_baseline_status": "baseline_ready",
+      "pilot_binding": {
+        "status": "pass",
+        "reason": null,
+        "canonical_target_id": "sympy__sympy-24152",
+        "repo": "sympy/sympy",
+        "expected_repo": "sympy/sympy",
+        "base_revision": "b9af885473ad7e34b5b0826cb424dd26d8934670",
+        "expected_base_commit": "b9af885473ad7e34b5b0826cb424dd26d8934670",
+        "pilot_base_hash": "1e10f7cdc1f0e825c947eef7c3d07acc45988fca7f2d59e2c461d763fcf63283"
+      },
+      "known_good_binding": {
+        "status": "pass",
+        "reason": null,
+        "receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-32-preserved-mode-recheck\\tasks\\sympy__sympy-24152\\known-good\\evidence.json",
+        "receipt_sha256": "20c9ec7e930b9a3b42346cc41bd6365ba7768be329ce6c318a3fdf96f3a8e5a4",
+        "image": "coding-harness-a5-known-good@sha256:0a29a3e113055a73ef0724ee2a2f986401e304928971fb4c0444008e37c1d22c",
+        "receipt_image": "coding-harness-a5-known-good@sha256:0a29a3e113055a73ef0724ee2a2f986401e304928971fb4c0444008e37c1d22c",
+        "expected_outcomes": {
+          "sympy/physics/quantum/tests/test_tensorproduct.py::test_tensor_product_expand": "passed"
+        },
+        "verified_outcomes": {
+          "sympy/physics/quantum/tests/test_tensorproduct.py::test_tensor_product_expand": "passed"
+        },
+        "cleanup_verified": true
+      },
+      "reason": null,
+      "full_collection_status": "ready",
+      "full_collection_count": 11061,
+      "full_collection_hash": "bcb46cfa85df5bff3d1c67b1dfebb1a98a2c6d0e901e447c8911cb5f9e20c67e",
+      "collection_evidence_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-02\\tasks\\sympy__sympy-24152\\full-repo\\evidence.json",
+      "collection_evidence_sha256": "78bf70bdd02f9ff727334cd22a9be3456d3a33c88eb8fe3b8a1a0ac2fb0a1bfc",
+      "cleanup_verified": true,
+      "calibration_mode": "full_repo_collection_plus_bound_known_good_target_plus_executed_host_grader_policy_checks",
+      "negative_checks": {
+        "scope": "executed_host_policy_fixture_not_target_specific",
+        "checks": [
+          {
+            "case": "protected_path_change",
+            "status": "rejected",
+            "observed_status": "fail",
+            "observed_reason": "protected_or_unassigned_path_changed"
+          },
+          {
+            "case": "missing_receipt",
+            "status": "rejected",
+            "observed_status": "invalid_env",
+            "observed_reason": "missing_or_incomplete_receipt"
+          },
+          {
+            "case": "input_integrity_change",
+            "status": "rejected",
+            "observed_status": "fail",
+            "observed_reason": "frozen_input_changed_during_tests"
+          }
+        ],
+        "passed": true
+      },
+      "negative_checks_passed": true
+    },
+    {
+      "task_id": "scikit-learn__scikit-learn-25747",
+      "status": "ready",
+      "grader_ready": true,
+      "repo": "scikit-learn/scikit-learn",
+      "base_revision": "2c867b8f822eb7a684f0d5c4359e4426e1c9cfe0",
+      "image": "coding-harness-a5-recheck@sha256:90274a820c1a94456ae4b9c3f2f36d557982b5bdedbbc209c4bcb8dd24f496da",
+      "model_calls": 0,
+      "paid": false,
+      "canonical_binding_required": true,
+      "input_baseline_status": "baseline_ready",
+      "pilot_binding": {
+        "status": "pass",
+        "reason": null,
+        "canonical_target_id": "scikit-learn__scikit-learn-25747",
+        "repo": "scikit-learn/scikit-learn",
+        "expected_repo": "scikit-learn/scikit-learn",
+        "base_revision": "2c867b8f822eb7a684f0d5c4359e4426e1c9cfe0",
+        "expected_base_commit": "2c867b8f822eb7a684f0d5c4359e4426e1c9cfe0",
+        "pilot_base_hash": "de1632245705f0609fd8622643a98ac0d7d01704808ea7f27aab4918b033627a"
+      },
+      "known_good_binding": {
+        "status": "pass",
+        "reason": null,
+        "receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-41-native-image-load\\tasks\\scikit-learn__scikit-learn-25747\\known-good\\evidence.json",
+        "receipt_sha256": "c6812bf0f45c1c6b99e9b152c8e9094298f236749f205f2b3ae05c603e735b97",
+        "image": "coding-harness-a5-recheck@sha256:90274a820c1a94456ae4b9c3f2f36d557982b5bdedbbc209c4bcb8dd24f496da",
+        "receipt_image": "coding-harness-a5-recheck@sha256:90274a820c1a94456ae4b9c3f2f36d557982b5bdedbbc209c4bcb8dd24f496da",
+        "expected_outcomes": {
+          "sklearn/utils/tests/test_set_output.py::test_set_output_pandas_keep_index": "passed"
+        },
+        "verified_outcomes": {
+          "sklearn/utils/tests/test_set_output.py::test_set_output_pandas_keep_index": "passed"
+        },
+        "cleanup_verified": true
+      },
+      "reason": null,
+      "full_collection_status": "ready",
+      "full_collection_count": 28046,
+      "full_collection_hash": "d924fb0fab058ddc62d8c92fddbb06e32462d419ec26826ecc624166536fdb59",
+      "collection_evidence_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-02\\tasks\\scikit-learn__scikit-learn-25747\\full-repo\\evidence.json",
+      "collection_evidence_sha256": "98c47484e995459931a84a2f166a2d52b67cce58d72a6ce870da999d5118f167",
+      "cleanup_verified": true,
+      "calibration_mode": "full_repo_collection_plus_bound_known_good_target_plus_executed_host_grader_policy_checks",
+      "negative_checks": {
+        "scope": "executed_host_policy_fixture_not_target_specific",
+        "checks": [
+          {
+            "case": "protected_path_change",
+            "status": "rejected",
+            "observed_status": "fail",
+            "observed_reason": "protected_or_unassigned_path_changed"
+          },
+          {
+            "case": "missing_receipt",
+            "status": "rejected",
+            "observed_status": "invalid_env",
+            "observed_reason": "missing_or_incomplete_receipt"
+          },
+          {
+            "case": "input_integrity_change",
+            "status": "rejected",
+            "observed_status": "fail",
+            "observed_reason": "frozen_input_changed_during_tests"
+          }
+        ],
+        "passed": true
+      },
+      "negative_checks_passed": true
+    },
+    {
+      "task_id": "scikit-learn__scikit-learn-25570",
+      "status": "ready",
+      "grader_ready": true,
+      "repo": "scikit-learn/scikit-learn",
+      "base_revision": "cd25abee0ad0ac95225d4a9be8948eff69f49690",
+      "image": "coding-harness-a5-recheck@sha256:2c96683a336ec11d9e43a7c4a67a35fd2500a28bfae636a3e256562221ebf6a9",
+      "model_calls": 0,
+      "paid": false,
+      "canonical_binding_required": true,
+      "input_baseline_status": "baseline_ready",
+      "pilot_binding": {
+        "status": "pass",
+        "reason": null,
+        "canonical_target_id": "scikit-learn__scikit-learn-25570",
+        "repo": "scikit-learn/scikit-learn",
+        "expected_repo": "scikit-learn/scikit-learn",
+        "base_revision": "cd25abee0ad0ac95225d4a9be8948eff69f49690",
+        "expected_base_commit": "cd25abee0ad0ac95225d4a9be8948eff69f49690",
+        "pilot_base_hash": "8337d3a08383b8a5256b66c976f17acbef9b4cad2cb57bcd2da09eb7c24340c1"
+      },
+      "known_good_binding": {
+        "status": "pass",
+        "reason": null,
+        "receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-45-last-native-recheck\\tasks\\scikit-learn__scikit-learn-25570\\known-good\\evidence.json",
+        "receipt_sha256": "db46732883b3247ac55b0f8532e2e8882322fe724dc2ee5c5e0972f0a3222be6",
+        "image": "coding-harness-a5-recheck@sha256:2c96683a336ec11d9e43a7c4a67a35fd2500a28bfae636a3e256562221ebf6a9",
+        "receipt_image": "coding-harness-a5-recheck@sha256:2c96683a336ec11d9e43a7c4a67a35fd2500a28bfae636a3e256562221ebf6a9",
+        "expected_outcomes": {
+          "sklearn/compose/tests/test_column_transformer.py::test_empty_selection_pandas_output[list]": "passed",
+          "sklearn/compose/tests/test_column_transformer.py::test_empty_selection_pandas_output[bool]": "passed",
+          "sklearn/compose/tests/test_column_transformer.py::test_empty_selection_pandas_output[bool_int]": "passed"
+        },
+        "verified_outcomes": {
+          "sklearn/compose/tests/test_column_transformer.py::test_empty_selection_pandas_output[list]": "passed",
+          "sklearn/compose/tests/test_column_transformer.py::test_empty_selection_pandas_output[bool]": "passed",
+          "sklearn/compose/tests/test_column_transformer.py::test_empty_selection_pandas_output[bool_int]": "passed"
+        },
+        "cleanup_verified": true
+      },
+      "reason": null,
+      "full_collection_status": "ready",
+      "full_collection_count": 27784,
+      "full_collection_hash": "67ac7debd507bcd2446db09c491fadcd5fb449bfbaf51214470ab15e5a5bb8cd",
+      "collection_evidence_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-02\\tasks\\scikit-learn__scikit-learn-25570\\full-repo\\evidence.json",
+      "collection_evidence_sha256": "434183e39f6a23b26445e2eb387da4ab79eda3f9bf9f3bf831f9989c65ad06a9",
+      "cleanup_verified": true,
+      "calibration_mode": "full_repo_collection_plus_bound_known_good_target_plus_executed_host_grader_policy_checks",
+      "negative_checks": {
+        "scope": "executed_host_policy_fixture_not_target_specific",
+        "checks": [
+          {
+            "case": "protected_path_change",
+            "status": "rejected",
+            "observed_status": "fail",
+            "observed_reason": "protected_or_unassigned_path_changed"
+          },
+          {
+            "case": "missing_receipt",
+            "status": "rejected",
+            "observed_status": "invalid_env",
+            "observed_reason": "missing_or_incomplete_receipt"
+          },
+          {
+            "case": "input_integrity_change",
+            "status": "rejected",
+            "observed_status": "fail",
+            "observed_reason": "frozen_input_changed_during_tests"
+          }
+        ],
+        "passed": true
+      },
+      "negative_checks_passed": true
+    },
+    {
+      "task_id": "sphinx-doc__sphinx-8595",
+      "status": "ready",
+      "grader_ready": true,
+      "repo": "sphinx-doc/sphinx",
+      "base_revision": "b19bce971e82f2497d67fdacdeca8db08ae0ba56",
+      "image": "coding-harness-a5-known-good@sha256:37958016f1dd7f141db9a9b1aef1d634ef4d5519f99e11371b9148a2fdc7d37d",
+      "model_calls": 0,
+      "paid": false,
+      "canonical_binding_required": true,
+      "input_baseline_status": "baseline_ready",
+      "pilot_binding": {
+        "status": "pass",
+        "reason": null,
+        "canonical_target_id": "sphinx-doc__sphinx-8595",
+        "repo": "sphinx-doc/sphinx",
+        "expected_repo": "sphinx-doc/sphinx",
+        "base_revision": "b19bce971e82f2497d67fdacdeca8db08ae0ba56",
+        "expected_base_commit": "b19bce971e82f2497d67fdacdeca8db08ae0ba56",
+        "pilot_base_hash": "20fcbd96cc498f1737cd4ac3f2fc84b19a092bcc1108f586e4961ebab8366399"
+      },
+      "known_good_binding": {
+        "status": "pass",
+        "reason": null,
+        "receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-35-sphinx-test-files\\tasks\\sphinx-doc__sphinx-8595\\known-good\\evidence.json",
+        "receipt_sha256": "e4a458ca488113d77ac89c55da40ed393954670ba7b5d8b5b8cde9876de001c7",
+        "image": "coding-harness-a5-known-good@sha256:37958016f1dd7f141db9a9b1aef1d634ef4d5519f99e11371b9148a2fdc7d37d",
+        "receipt_image": "coding-harness-a5-known-good@sha256:37958016f1dd7f141db9a9b1aef1d634ef4d5519f99e11371b9148a2fdc7d37d",
+        "expected_outcomes": {
+          "tests/test_ext_autodoc_automodule.py::test_empty_all": "passed"
+        },
+        "verified_outcomes": {
+          "tests/test_ext_autodoc_automodule.py::test_empty_all": "passed"
+        },
+        "cleanup_verified": true
+      },
+      "reason": null,
+      "full_collection_status": "ready",
+      "full_collection_count": 1640,
+      "full_collection_hash": "3691455ff8d55885f0cf4b0ab5fef9dd7c1ccb25a70fe685d0ad368ba2e0aa32",
+      "collection_evidence_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-02\\tasks\\sphinx-doc__sphinx-8595\\full-repo\\evidence.json",
+      "collection_evidence_sha256": "f65f67fdfba2689e47c26eb5396a30ec26ac1723b47857ac4051caf343e032c4",
+      "cleanup_verified": true,
+      "calibration_mode": "full_repo_collection_plus_bound_known_good_target_plus_executed_host_grader_policy_checks",
+      "negative_checks": {
+        "scope": "executed_host_policy_fixture_not_target_specific",
+        "checks": [
+          {
+            "case": "protected_path_change",
+            "status": "rejected",
+            "observed_status": "fail",
+            "observed_reason": "protected_or_unassigned_path_changed"
+          },
+          {
+            "case": "missing_receipt",
+            "status": "rejected",
+            "observed_status": "invalid_env",
+            "observed_reason": "missing_or_incomplete_receipt"
+          },
+          {
+            "case": "input_integrity_change",
+            "status": "rejected",
+            "observed_status": "fail",
+            "observed_reason": "frozen_input_changed_during_tests"
+          }
+        ],
+        "passed": true
+      },
+      "negative_checks_passed": true
+    },
+    {
+      "task_id": "django__django-13448",
+      "status": "ready",
+      "grader_ready": true,
+      "repo": "django/django",
+      "base_revision": "7b9596b974fb0ad1868b10c8c2174e10b72be403",
+      "image": "coding-harness-a5-known-good@sha256:ff9a9b2b595c5a7e405aa324bdada15b612b2ab6eae2bcbc3b690672aed9b257",
+      "model_calls": 0,
+      "paid": false,
+      "canonical_binding_required": true,
+      "input_baseline_status": "baseline_ready",
+      "pilot_binding": {
+        "status": "pass",
+        "reason": null,
+        "canonical_target_id": "django__django-13448",
+        "repo": "django/django",
+        "expected_repo": "django/django",
+        "base_revision": "7b9596b974fb0ad1868b10c8c2174e10b72be403",
+        "expected_base_commit": "7b9596b974fb0ad1868b10c8c2174e10b72be403",
+        "pilot_base_hash": "3b008247103afc1dd7cec92a6cfc493c9796e098deb2375bd5b70376edfb05f4"
+      },
+      "known_good_binding": {
+        "status": "pass",
+        "reason": null,
+        "receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-32-preserved-mode-recheck\\tasks\\django__django-13448\\known-good\\evidence.json",
+        "receipt_sha256": "f265033be7f7f41663b7c05911ce171ea757838ec2c20c908eeca75be3e142b1",
+        "image": "coding-harness-a5-known-good@sha256:ff9a9b2b595c5a7e405aa324bdada15b612b2ab6eae2bcbc3b690672aed9b257",
+        "receipt_image": "coding-harness-a5-known-good@sha256:ff9a9b2b595c5a7e405aa324bdada15b612b2ab6eae2bcbc3b690672aed9b257",
+        "expected_outcomes": {
+          "backends.base.test_creation.TestDbCreationTests.test_migrate_test_setting_false": "passed"
+        },
+        "verified_outcomes": {
+          "backends.base.test_creation.TestDbCreationTests.test_migrate_test_setting_false": "passed"
+        },
+        "cleanup_verified": true
+      },
+      "reason": null,
+      "full_collection_status": "ready",
+      "full_collection_count": 14222,
+      "full_collection_hash": "50fbdc3aa2bb27f89b6773e05e6be6850a95a29332adef703f5fbe0836022884",
+      "collection_evidence_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-02\\tasks\\django__django-13448\\full-repo\\evidence.json",
+      "collection_evidence_sha256": "e3aa1d17d7b35102aeb28fa9a5b103e725189dac0581f7bbdb2c6d88e746771c",
+      "cleanup_verified": true,
+      "calibration_mode": "full_repo_collection_plus_bound_known_good_target_plus_executed_host_grader_policy_checks",
+      "negative_checks": {
+        "scope": "executed_host_policy_fixture_not_target_specific",
+        "checks": [
+          {
+            "case": "protected_path_change",
+            "status": "rejected",
+            "observed_status": "fail",
+            "observed_reason": "protected_or_unassigned_path_changed"
+          },
+          {
+            "case": "missing_receipt",
+            "status": "rejected",
+            "observed_status": "invalid_env",
+            "observed_reason": "missing_or_incomplete_receipt"
+          },
+          {
+            "case": "input_integrity_change",
+            "status": "rejected",
+            "observed_status": "fail",
+            "observed_reason": "frozen_input_changed_during_tests"
+          }
+        ],
+        "passed": true
+      },
+      "negative_checks_passed": true
+    },
+    {
+      "task_id": "sympy__sympy-20442",
+      "status": "ready",
+      "grader_ready": true,
+      "repo": "sympy/sympy",
+      "base_revision": "1abbc0ac3e552cb184317194e5d5c5b9dd8fb640",
+      "image": "coding-harness-a5-known-good@sha256:43779d24b3ba008a374ded0b97c368f94bb4abcdd19f49ed808cbaf29b1e240e",
+      "model_calls": 0,
+      "paid": false,
+      "canonical_binding_required": true,
+      "input_baseline_status": "baseline_ready",
+      "pilot_binding": {
+        "status": "pass",
+        "reason": null,
+        "canonical_target_id": "sympy__sympy-20442",
+        "repo": "sympy/sympy",
+        "expected_repo": "sympy/sympy",
+        "base_revision": "1abbc0ac3e552cb184317194e5d5c5b9dd8fb640",
+        "expected_base_commit": "1abbc0ac3e552cb184317194e5d5c5b9dd8fb640",
+        "pilot_base_hash": "5987b1c800910fde8aaa18e0b73c49c9b881ccd12cf6de0216002b9f582d18a0"
+      },
+      "known_good_binding": {
+        "status": "pass",
+        "reason": null,
+        "receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-32-preserved-mode-recheck\\tasks\\sympy__sympy-20442\\known-good\\evidence.json",
+        "receipt_sha256": "ff108ffa9dec0851d0992b65a51d827bd01507a863d74dd88aa5b9470eb7f20e",
+        "image": "coding-harness-a5-known-good@sha256:43779d24b3ba008a374ded0b97c368f94bb4abcdd19f49ed808cbaf29b1e240e",
+        "receipt_image": "coding-harness-a5-known-good@sha256:43779d24b3ba008a374ded0b97c368f94bb4abcdd19f49ed808cbaf29b1e240e",
+        "expected_outcomes": {
+          "sympy/physics/units/tests/test_quantities.py::test_convert_to": "passed"
+        },
+        "verified_outcomes": {
+          "sympy/physics/units/tests/test_quantities.py::test_convert_to": "passed"
+        },
+        "cleanup_verified": true
+      },
+      "reason": null,
+      "full_collection_status": "ready",
+      "full_collection_count": 10008,
+      "full_collection_hash": "45c9c048ac78cabd791be9130be893149af84449e9396c025827fa2b8bf082bc",
+      "collection_evidence_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-02\\tasks\\sympy__sympy-20442\\full-repo\\evidence.json",
+      "collection_evidence_sha256": "0a9b95b67a78bfc1fad3b59c91d40a11e4fe70c0ddc2f5efeb5fa41d1e7ae772",
+      "cleanup_verified": true,
+      "calibration_mode": "full_repo_collection_plus_bound_known_good_target_plus_executed_host_grader_policy_checks",
+      "negative_checks": {
+        "scope": "executed_host_policy_fixture_not_target_specific",
+        "checks": [
+          {
+            "case": "protected_path_change",
+            "status": "rejected",
+            "observed_status": "fail",
+            "observed_reason": "protected_or_unassigned_path_changed"
+          },
+          {
+            "case": "missing_receipt",
+            "status": "rejected",
+            "observed_status": "invalid_env",
+            "observed_reason": "missing_or_incomplete_receipt"
+          },
+          {
+            "case": "input_integrity_change",
+            "status": "rejected",
+            "observed_status": "fail",
+            "observed_reason": "frozen_input_changed_during_tests"
+          }
+        ],
+        "passed": true
+      },
+      "negative_checks_passed": true
+    },
+    {
+      "task_id": "sympy__sympy-20154",
+      "status": "ready",
+      "grader_ready": true,
+      "repo": "sympy/sympy",
+      "base_revision": "bdb49c4abfb35554a3c8ce761696ffff3bb837fe",
+      "image": "coding-harness-a5-known-good@sha256:5cf0b1cfdc41510af3bbb879bd65d7a28346a3a22f2183897eb1f1303ca47818",
+      "model_calls": 0,
+      "paid": false,
+      "canonical_binding_required": true,
+      "input_baseline_status": "baseline_ready",
+      "pilot_binding": {
+        "status": "pass",
+        "reason": null,
+        "canonical_target_id": "sympy__sympy-20154",
+        "repo": "sympy/sympy",
+        "expected_repo": "sympy/sympy",
+        "base_revision": "bdb49c4abfb35554a3c8ce761696ffff3bb837fe",
+        "expected_base_commit": "bdb49c4abfb35554a3c8ce761696ffff3bb837fe",
+        "pilot_base_hash": "5a4ae9f34a69bedc82b5e96b4090b83ba07faaa36195de1c5ca9317b68118bd3"
+      },
+      "known_good_binding": {
+        "status": "pass",
+        "reason": null,
+        "receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-32-preserved-mode-recheck\\tasks\\sympy__sympy-20154\\known-good\\evidence.json",
+        "receipt_sha256": "e6fcbbe63e82a993dda554fc9e631a030f7663f396ff1dea4ddde123d4294312",
+        "image": "coding-harness-a5-known-good@sha256:5cf0b1cfdc41510af3bbb879bd65d7a28346a3a22f2183897eb1f1303ca47818",
+        "receipt_image": "coding-harness-a5-known-good@sha256:5cf0b1cfdc41510af3bbb879bd65d7a28346a3a22f2183897eb1f1303ca47818",
+        "expected_outcomes": {
+          "sympy/utilities/tests/test_iterables.py::test_partitions": "passed",
+          "sympy/utilities/tests/test_iterables.py::test_uniq": "passed"
+        },
+        "verified_outcomes": {
+          "sympy/utilities/tests/test_iterables.py::test_partitions": "passed",
+          "sympy/utilities/tests/test_iterables.py::test_uniq": "passed"
+        },
+        "cleanup_verified": true
+      },
+      "reason": null,
+      "full_collection_status": "ready",
+      "full_collection_count": 9995,
+      "full_collection_hash": "bdaf78e0e115aba0e3bba8839d8b3dd561fd74d8d2f0dbef2bbe14bff6982898",
+      "collection_evidence_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-02\\tasks\\sympy__sympy-20154\\full-repo\\evidence.json",
+      "collection_evidence_sha256": "45bbfa51db1b4689b5c74429ee211915e3f7cbd7dd894d7be24e7cac5ba8bb1c",
+      "cleanup_verified": true,
+      "calibration_mode": "full_repo_collection_plus_bound_known_good_target_plus_executed_host_grader_policy_checks",
+      "negative_checks": {
+        "scope": "executed_host_policy_fixture_not_target_specific",
+        "checks": [
+          {
+            "case": "protected_path_change",
+            "status": "rejected",
+            "observed_status": "fail",
+            "observed_reason": "protected_or_unassigned_path_changed"
+          },
+          {
+            "case": "missing_receipt",
+            "status": "rejected",
+            "observed_status": "invalid_env",
+            "observed_reason": "missing_or_incomplete_receipt"
+          },
+          {
+            "case": "input_integrity_change",
+            "status": "rejected",
+            "observed_status": "fail",
+            "observed_reason": "frozen_input_changed_during_tests"
+          }
+        ],
+        "passed": true
+      },
+      "negative_checks_passed": true
+    },
+    {
+      "task_id": "pytest-dev__pytest-9359",
+      "status": "blocked",
+      "grader_ready": false,
+      "repo": "pytest-dev/pytest",
+      "base_revision": "e2ee3144ed6e241dea8d96215fcdca18b3892551",
+      "image": "coding-harness-a5-pytest@sha256:c48b6349065199f5035cbfe94183358de9638de9bf11127d0fe34e02c76282e3",
+      "model_calls": 0,
+      "paid": false,
+      "canonical_binding_required": true,
+      "input_baseline_status": "baseline_ready",
+      "pilot_binding": {
+        "status": "pass",
+        "reason": null,
+        "canonical_target_id": "pytest-dev__pytest-9359",
+        "repo": "pytest-dev/pytest",
+        "expected_repo": "pytest-dev/pytest",
+        "base_revision": "e2ee3144ed6e241dea8d96215fcdca18b3892551",
+        "expected_base_commit": "e2ee3144ed6e241dea8d96215fcdca18b3892551",
+        "pilot_base_hash": "c874de80a9186bede84d14ee2ce200fe3ba5346e7618af93987f5e3eec47eb10"
+      },
+      "known_good_binding": {
+        "status": "pass",
+        "reason": null,
+        "receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-16-pytest9359-py39\\tasks\\pytest-dev__pytest-9359\\known-good\\evidence.json",
+        "receipt_sha256": "5921db1e570e5605e81f390a5b651848172da56de6787776fa26664df0658f1d",
+        "image": "coding-harness-a5-pytest@sha256:c48b6349065199f5035cbfe94183358de9638de9bf11127d0fe34e02c76282e3",
+        "receipt_image": "coding-harness-a5-pytest@sha256:c48b6349065199f5035cbfe94183358de9638de9bf11127d0fe34e02c76282e3",
+        "expected_outcomes": {
+          "testing/code/test_source.py::test_decorator": "passed"
+        },
+        "verified_outcomes": {
+          "testing/code/test_source.py::test_decorator": "passed"
+        },
+        "cleanup_verified": true
+      },
+      "reason": "collection_or_executable_grader_policy_check_failed",
+      "full_collection_status": "invalid_env",
+      "full_collection_count": 0,
+      "full_collection_hash": null,
+      "collection_evidence_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-02\\tasks\\pytest-dev__pytest-9359\\full-repo\\evidence.json",
+      "collection_evidence_sha256": "0cfda40b6bf605b1c80b99f373e937cddaee1458a3b560045ce35f1aa513b0cf",
+      "cleanup_verified": true,
+      "calibration_mode": "full_repo_collection_plus_bound_known_good_target_plus_executed_host_grader_policy_checks",
+      "negative_checks": {
+        "scope": "executed_host_policy_fixture_not_target_specific",
+        "checks": [
+          {
+            "case": "protected_path_change",
+            "status": "rejected",
+            "observed_status": "fail",
+            "observed_reason": "protected_or_unassigned_path_changed"
+          },
+          {
+            "case": "missing_receipt",
+            "status": "rejected",
+            "observed_status": "invalid_env",
+            "observed_reason": "missing_or_incomplete_receipt"
+          },
+          {
+            "case": "input_integrity_change",
+            "status": "rejected",
+            "observed_status": "fail",
+            "observed_reason": "frozen_input_changed_during_tests"
+          }
+        ],
+        "passed": true
+      },
+      "negative_checks_passed": true
+    },
+    {
+      "task_id": "sphinx-doc__sphinx-8713",
+      "status": "ready",
+      "grader_ready": true,
+      "repo": "sphinx-doc/sphinx",
+      "base_revision": "3ed7590ed411bd93b26098faab4f23619cdb2267",
+      "image": "coding-harness-a5-known-good@sha256:f369fcaa06d92480132ac61576c3aa9fc6eb62e4a28c00bed3b5c872a236c542",
+      "model_calls": 0,
+      "paid": false,
+      "canonical_binding_required": true,
+      "input_baseline_status": "baseline_ready",
+      "pilot_binding": {
+        "status": "pass",
+        "reason": null,
+        "canonical_target_id": "sphinx-doc__sphinx-8713",
+        "repo": "sphinx-doc/sphinx",
+        "expected_repo": "sphinx-doc/sphinx",
+        "base_revision": "3ed7590ed411bd93b26098faab4f23619cdb2267",
+        "expected_base_commit": "3ed7590ed411bd93b26098faab4f23619cdb2267",
+        "pilot_base_hash": "c9c63d5e89695a415edda3d4d0bfad261b353e2adda19d94eab3b6c78d5227f3"
+      },
+      "known_good_binding": {
+        "status": "pass",
+        "reason": null,
+        "receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-35-sphinx-test-files\\tasks\\sphinx-doc__sphinx-8713\\known-good\\evidence.json",
+        "receipt_sha256": "77eedd66e08c53c95dd08e712a1cbd74561e51f4e104f7962ba98836cd92751d",
+        "image": "coding-harness-a5-known-good@sha256:f369fcaa06d92480132ac61576c3aa9fc6eb62e4a28c00bed3b5c872a236c542",
+        "receipt_image": "coding-harness-a5-known-good@sha256:f369fcaa06d92480132ac61576c3aa9fc6eb62e4a28c00bed3b5c872a236c542",
+        "expected_outcomes": {
+          "tests/test_ext_napoleon_docstring.py::NumpyDocstringTest::test_parameters_with_class_reference": "passed"
+        },
+        "verified_outcomes": {
+          "tests/test_ext_napoleon_docstring.py::NumpyDocstringTest::test_parameters_with_class_reference": "passed"
+        },
+        "cleanup_verified": true
+      },
+      "reason": null,
+      "full_collection_status": "ready",
+      "full_collection_count": 1654,
+      "full_collection_hash": "68b57e844f0ded1b0d612f6a50c6995ff6cbdbdff946f771c79c0349a5f7aef4",
+      "collection_evidence_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-02\\tasks\\sphinx-doc__sphinx-8713\\full-repo\\evidence.json",
+      "collection_evidence_sha256": "7703dd94f9d0130a43fec882e6b0de4d4193fd8ff3f78ce2169501c64c340ced",
+      "cleanup_verified": true,
+      "calibration_mode": "full_repo_collection_plus_bound_known_good_target_plus_executed_host_grader_policy_checks",
+      "negative_checks": {
+        "scope": "executed_host_policy_fixture_not_target_specific",
+        "checks": [
+          {
+            "case": "protected_path_change",
+            "status": "rejected",
+            "observed_status": "fail",
+            "observed_reason": "protected_or_unassigned_path_changed"
+          },
+          {
+            "case": "missing_receipt",
+            "status": "rejected",
+            "observed_status": "invalid_env",
+            "observed_reason": "missing_or_incomplete_receipt"
+          },
+          {
+            "case": "input_integrity_change",
+            "status": "rejected",
+            "observed_status": "fail",
+            "observed_reason": "frozen_input_changed_during_tests"
+          }
+        ],
+        "passed": true
+      },
+      "negative_checks_passed": true
+    }
+  ],
+  "full_denominator": 20,
+  "model_calls": 0,
+  "paid": false
+}

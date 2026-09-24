@@ -1,0 +1,14 @@
+{
+  "schema": "a5.small-paid-pilot.scope-proposal.v1",
+  "status": "held_pending_h3",
+  "experiment_id": "a5-pilot-20-v1",
+  "canonical_target_id": "pytest-dev__pytest-7220",
+  "grader_ready": true,
+  "variants": ["B0", "B1", "B2", "B3"],
+  "seed": 42,
+  "runs": 4,
+  "model_calls_per_run": 6,
+  "expected_reference_ceiling_cny": "0.768",
+  "django__django-13265": "excluded",
+  "execution": "not opened; H3 must pass first; failure would stop remaining runs"
+}

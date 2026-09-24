@@ -1,0 +1,35 @@
+{
+  "task_id": "sphinx-doc__sphinx-8713",
+  "status": "ready",
+  "image": "coding-harness-a5-known-good@sha256:f369fcaa06d92480132ac61576c3aa9fc6eb62e4a28c00bed3b5c872a236c542",
+  "repo": "sphinx-doc/sphinx",
+  "full_collection_count": 1654,
+  "full_collection_hash": "68b57e844f0ded1b0d612f6a50c6995ff6cbdbdff946f771c79c0349a5f7aef4",
+  "full_suite_passed": 0,
+  "full_suite_failed": 0,
+  "full_suite_skipped": 0,
+  "calibration_mode": "full_repository_collection_plus_known_good_target_and_rejection_checks",
+  "evidence_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-01\\tasks\\sphinx-doc__sphinx-8713\\full-repo\\evidence.json",
+  "negative_checks": [
+    {
+      "case": "protected_path_change",
+      "status": "rejected",
+      "reason": "protected_or_unassigned_path_changed"
+    },
+    {
+      "case": "missing_receipt",
+      "status": "rejected",
+      "reason": "missing_or_incomplete_receipt"
+    },
+    {
+      "case": "input_integrity_change",
+      "status": "rejected",
+      "reason": "frozen_input_changed_during_tests"
+    }
+  ],
+  "negative_checks_passed": true,
+  "known_good_target_status": null,
+  "cleanup_verified": true,
+  "model_calls": 0,
+  "paid": false
+}

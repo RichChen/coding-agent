@@ -1,0 +1,6 @@
+{
+  "endpoint": "/v1/health-events",
+  "timeout_ms": 850,
+  "retry_limit": 4,
+  "idempotency_header": "X-Event-Nonce"
+}

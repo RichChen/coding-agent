@@ -1,0 +1,55 @@
+{
+  "task_id": "public-settings-001",
+  "base_hash": "480d581e78fdc09ece114125f80b9b139295d0b02ebeca115b5d08a6c47838a4",
+  "image": "coding-harness-h3-tests@sha256:18872d18b9bc347cf4441b1d9b53b9662ea719f057bd471c7d4cbfce4dc2e78e",
+  "editable_paths": [
+    "settings.py"
+  ],
+  "cases": [
+    {
+      "case_id": "private-empty",
+      "module_path": "settings.py",
+      "function": "parse_settings",
+      "args": [
+        "\n \t\n"
+      ],
+      "expected": {}
+    },
+    {
+      "case_id": "private-separator",
+      "module_path": "settings.py",
+      "function": "parse_settings",
+      "args": [
+        "token=a=b=c"
+      ],
+      "expected": {
+        "token": "a=b=c"
+      }
+    },
+    {
+      "case_id": "PRIVATE_H4_CANARY_7f2c",
+      "module_path": "settings.py",
+      "function": "parse_settings",
+      "args": [
+        " x = z \n\ny= q \n"
+      ],
+      "expected": {
+        "x": "z",
+        "y": "q"
+      }
+    },
+    {
+      "case_id": "private-basic",
+      "module_path": "settings.py",
+      "function": "parse_settings",
+      "args": [
+        "a=1\nb=2"
+      ],
+      "expected": {
+        "a": "1",
+        "b": "2"
+      }
+    }
+  ],
+  "timeout_seconds": 15.0
+}

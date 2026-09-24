@@ -1,0 +1,122 @@
+{
+  "schema": "a5.memory-pool.s1-smoke-summary.v1",
+  "attempt_id": "A5-memory-pool-75-s1-smoke",
+  "created_at": "2026-09-22T10:57:19.416573+00:00",
+  "budget_change": {
+    "max_model_calls": 24,
+    "context_max_tokens": 96000,
+    "max_steps": 35
+  },
+  "model_calls": 282,
+  "paid": true,
+  "counts": {
+    "sources_selected": 6,
+    "sources_with_e2e_plumbing": 6,
+    "candidate_memory_records": 5,
+    "validated_memory_records": 0,
+    "failed_kept_in_sample": 1,
+    "paid_attempts": 12
+  },
+  "primary_per_source": {
+    "django__django-10914": {
+      "dir": "django__django-10914-reverify",
+      "source_id": "django__django-10914",
+      "status": "candidate",
+      "validation_status": "pass",
+      "validation_reason": null,
+      "delta_changed_files": 4,
+      "model_calls": 24,
+      "paid": true,
+      "cost_cny": "0.244",
+      "memory_state": "candidate",
+      "wave": "reverify",
+      "operation_id": "a5-s1-django__django-10914-8d7e47f2be6b"
+    },
+    "django__django-10924": {
+      "dir": "django__django-10924-reverify",
+      "source_id": "django__django-10924",
+      "status": "candidate",
+      "validation_status": "pass",
+      "validation_reason": null,
+      "delta_changed_files": 2,
+      "model_calls": 24,
+      "paid": true,
+      "cost_cny": "0.257",
+      "memory_state": "candidate",
+      "wave": "reverify",
+      "operation_id": "a5-s1-django__django-10924-11bdf9c4b046"
+    },
+    "pytest-dev__pytest-5103": {
+      "dir": "pytest-dev__pytest-5103-reverify",
+      "source_id": "pytest-dev__pytest-5103",
+      "status": "candidate",
+      "validation_status": "pass",
+      "validation_reason": null,
+      "delta_changed_files": 1,
+      "model_calls": 24,
+      "paid": true,
+      "cost_cny": "0.399",
+      "memory_state": "candidate",
+      "wave": "reverify",
+      "operation_id": "a5-s1-pytest-dev__pytest-5103-f2b6969cfc48"
+    },
+    "scikit-learn__scikit-learn-10297": {
+      "dir": "scikit-learn__scikit-learn-10297-reverify",
+      "source_id": "scikit-learn__scikit-learn-10297",
+      "status": "candidate",
+      "validation_status": "pass",
+      "validation_reason": null,
+      "delta_changed_files": 2,
+      "model_calls": 23,
+      "paid": true,
+      "cost_cny": "0.310",
+      "memory_state": "candidate",
+      "wave": "reverify",
+      "operation_id": "a5-s1-scikit-learn__scikit-learn-10297-7e32000905a6"
+    },
+    "sympy__sympy-11400": {
+      "dir": "sympy__sympy-11400-reverify",
+      "source_id": "sympy__sympy-11400",
+      "status": "candidate",
+      "validation_status": "pass",
+      "validation_reason": null,
+      "delta_changed_files": 1,
+      "model_calls": 24,
+      "paid": true,
+      "cost_cny": "0.266",
+      "memory_state": "candidate",
+      "wave": "reverify",
+      "operation_id": "a5-s1-sympy__sympy-11400-56f2ae56c147"
+    },
+    "sympy__sympy-11870": {
+      "dir": "sympy__sympy-11870-reverify",
+      "source_id": "sympy__sympy-11870",
+      "status": "failed",
+      "validation_status": "fail",
+      "validation_reason": "no_candidate_changes",
+      "delta_changed_files": 0,
+      "model_calls": 24,
+      "paid": true,
+      "cost_cny": "0.292",
+      "memory_state": "rejected_or_failed",
+      "wave": "reverify",
+      "operation_id": "a5-s1-sympy__sympy-11870-b3b8025bf032"
+    }
+  },
+  "candidates": [
+    "django__django-10914",
+    "django__django-10924",
+    "pytest-dev__pytest-5103",
+    "scikit-learn__scikit-learn-10297",
+    "sympy__sympy-11400"
+  ],
+  "failed": [
+    "sympy__sympy-11870"
+  ],
+  "cost_ledger": {
+    "currency": "CNY",
+    "spent_cny": "3.366",
+    "model_calls": 282
+  },
+  "note": "Candidates pending provenance review; not auto-promoted to validated. sympy-11870 failed after one allowlist/mode reverify."
+}

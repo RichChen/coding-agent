@@ -1,0 +1,256 @@
+{
+  "image": "coding-harness-a5-pytest@sha256:c48b6349065199f5035cbfe94183358de9638de9bf11127d0fe34e02c76282e3",
+  "args": [
+    "--collect-only",
+    "-q",
+    "testing"
+  ],
+  "status": "executed",
+  "model_calls": 0,
+  "paid": false,
+  "isolation": {
+    "Id": "536c7e5742c97e941ce9497294363f2bbcba5919fe682ef4d44478f610c0c9d1",
+    "Created": "2026-09-23T07:55:03.902184677Z",
+    "Path": "/usr/local/bin/python",
+    "Args": [
+      "-I",
+      "-S",
+      "-c",
+      "import time; time.sleep(604800)"
+    ],
+    "State": {
+      "Status": "running",
+      "Running": true,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 14550,
+      "ExitCode": 0,
+      "Error": "",
+      "StartedAt": "2026-09-23T07:55:04.035331252Z",
+      "FinishedAt": "0001-01-01T00:00:00Z"
+    },
+    "Image": "sha256:c48b6349065199f5035cbfe94183358de9638de9bf11127d0fe34e02c76282e3",
+    "ResolvConfPath": "/var/lib/docker/containers/536c7e5742c97e941ce9497294363f2bbcba5919fe682ef4d44478f610c0c9d1/resolv.conf",
+    "HostnamePath": "/var/lib/docker/containers/536c7e5742c97e941ce9497294363f2bbcba5919fe682ef4d44478f610c0c9d1/hostname",
+    "HostsPath": "/var/lib/docker/containers/536c7e5742c97e941ce9497294363f2bbcba5919fe682ef4d44478f610c0c9d1/hosts",
+    "LogPath": "",
+    "Name": "/h3-34f901f33e98437583e3cd559af70eb3",
+    "RestartCount": 0,
+    "Driver": "overlayfs",
+    "Platform": "linux",
+    "MountLabel": "",
+    "ProcessLabel": "",
+    "AppArmorProfile": "",
+    "ExecIDs": null,
+    "HostConfig": {
+      "Binds": null,
+      "ContainerIDFile": "",
+      "LogConfig": {
+        "Type": "none",
+        "Config": {}
+      },
+      "NetworkMode": "none",
+      "PortBindings": {},
+      "RestartPolicy": {
+        "Name": "no",
+        "MaximumRetryCount": 0
+      },
+      "AutoRemove": false,
+      "VolumeDriver": "",
+      "VolumesFrom": null,
+      "ConsoleSize": [
+        0,
+        0
+      ],
+      "CapAdd": null,
+      "CapDrop": [
+        "ALL"
+      ],
+      "CgroupnsMode": "private",
+      "Dns": null,
+      "DnsOptions": [],
+      "DnsSearch": [],
+      "ExtraHosts": null,
+      "GroupAdd": null,
+      "IpcMode": "private",
+      "Cgroup": "",
+      "Links": null,
+      "OomScoreAdj": 0,
+      "PidMode": "",
+      "Privileged": false,
+      "PublishAllPorts": false,
+      "ReadonlyRootfs": true,
+      "SecurityOpt": [
+        "no-new-privileges:true"
+      ],
+      "Tmpfs": {
+        "/tmp": "rw,noexec,nosuid,nodev,size=536870912,mode=1777",
+        "/workspace": "rw,nosuid,nodev,size=536870912,mode=1777"
+      },
+      "UTSMode": "",
+      "UsernsMode": "",
+      "ShmSize": 67108864,
+      "Runtime": "runc",
+      "Isolation": "",
+      "CpuShares": 0,
+      "Memory": 2147483648,
+      "NanoCpus": 1000000000,
+      "CgroupParent": "",
+      "BlkioWeight": 0,
+      "BlkioWeightDevice": [],
+      "BlkioDeviceReadBps": [],
+      "BlkioDeviceWriteBps": [],
+      "BlkioDeviceReadIOps": [],
+      "BlkioDeviceWriteIOps": [],
+      "CpuPeriod": 0,
+      "CpuQuota": 0,
+      "CpuRealtimePeriod": 0,
+      "CpuRealtimeRuntime": 0,
+      "CpusetCpus": "",
+      "CpusetMems": "",
+      "Devices": [],
+      "DeviceCgroupRules": null,
+      "DeviceRequests": null,
+      "MemoryReservation": 0,
+      "MemorySwap": 2147483648,
+      "MemorySwappiness": null,
+      "OomKillDisable": null,
+      "PidsLimit": 128,
+      "Ulimits": null,
+      "CpuCount": 0,
+      "CpuPercent": 0,
+      "IOMaximumIOps": 0,
+      "IOMaximumBandwidth": 0,
+      "MaskedPaths": [
+        "/proc/acpi",
+        "/proc/asound",
+        "/proc/interrupts",
+        "/proc/kcore",
+        "/proc/keys",
+        "/proc/latency_stats",
+        "/proc/sched_debug",
+        "/proc/scsi",
+        "/proc/timer_list",
+        "/proc/timer_stats",
+        "/sys/devices/virtual/powercap",
+        "/sys/firmware"
+      ],
+      "ReadonlyPaths": [
+        "/proc/bus",
+        "/proc/fs",
+        "/proc/irq",
+        "/proc/sys",
+        "/proc/sysrq-trigger"
+      ]
+    },
+    "Storage": {
+      "RootFS": {
+        "Snapshot": {
+          "Name": "overlayfs"
+        }
+      }
+    },
+    "Mounts": [],
+    "Config": {
+      "Hostname": "536c7e5742c9",
+      "Domainname": "",
+      "User": "1000:1000",
+      "AttachStdin": false,
+      "AttachStdout": true,
+      "AttachStderr": true,
+      "Tty": false,
+      "OpenStdin": false,
+      "StdinOnce": false,
+      "Env": [
+        "PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+        "LANG=C.UTF-8",
+        "GPG_KEY=E3FF2839C048B25C084DEBE9B26995E310250568",
+        "PYTHON_VERSION=3.9.19",
+        "PYTHON_PIP_VERSION=23.0.1",
+        "PYTHON_SETUPTOOLS_VERSION=58.1.0",
+        "PYTHON_GET_PIP_URL=https://github.com/pypa/get-pip/raw/def4aec84b261b939137dd1c69eff0aabb4a7bf4/public/get-pip.py",
+        "PYTHON_GET_PIP_SHA256=bc37786ec99618416cc0a0ca32833da447f4d91ab51d2c138dd15b7af21e8e9a",
+        "PYTHONDONTWRITEBYTECODE=1",
+        "PYTEST_DISABLE_PLUGIN_AUTOLOAD=1"
+      ],
+      "Cmd": [
+        "-I",
+        "-S",
+        "-c",
+        "import time; time.sleep(604800)"
+      ],
+      "Image": "coding-harness-a5-pytest@sha256:c48b6349065199f5035cbfe94183358de9638de9bf11127d0fe34e02c76282e3",
+      "Volumes": null,
+      "WorkingDir": "/workspace",
+      "Entrypoint": [
+        "/usr/local/bin/python"
+      ],
+      "Labels": {
+        "coding-harness.h3": "true"
+      }
+    },
+    "NetworkSettings": {
+      "SandboxID": "b75675c760aec75e64b38293469dd611ecddeb5dce0c486a0b9da9cfbd8d441a",
+      "SandboxKey": "/var/run/docker/netns/b75675c760ae",
+      "Ports": {},
+      "Networks": {
+        "none": {
+          "IPAMConfig": null,
+          "Links": null,
+          "Aliases": null,
+          "DriverOpts": null,
+          "GwPriority": 0,
+          "NetworkID": "0578bece0afec6e9438c77cd1e9e80cf5e90a1209d171f5f2bea58f58ec4d45d",
+          "EndpointID": "0dcc8e32c20a71dc84201113331a41a05e1a57c9f4ea11d7e7c88ac0cd5e02d0",
+          "Gateway": "",
+          "IPAddress": "",
+          "MacAddress": "",
+          "IPPrefixLen": 0,
+          "IPv6Gateway": "",
+          "GlobalIPv6Address": "",
+          "GlobalIPv6PrefixLen": 0,
+          "DNSNames": null
+        }
+      }
+    },
+    "ImageManifestDescriptor": {
+      "mediaType": "application/vnd.oci.image.manifest.v1+json",
+      "digest": "sha256:5161b2d02c971dc1b3fccd8371bc0b8214173e8dbf90755960e0421798bcf7ee",
+      "size": 2764,
+      "platform": {
+        "architecture": "amd64",
+        "os": "linux"
+      }
+    }
+  },
+  "source_seed": {
+    "mode": "explicit_archive_files",
+    "file_count": 622,
+    "total_bytes": 4570658
+  },
+  "execution": {
+    "status": "failed",
+    "exit_code": 1,
+    "error_kind": "nonzero_exit",
+    "stdout": "",
+    "stderr": "Traceback (most recent call last):\n  File \"/tmp/a5-runner.py\", line 5, in <module>\n    import pytest\n  File \"/workspace/src/pytest/__init__.py\", line 7, in <module>\n    from _pytest.assertion import register_assert_rewrite\n  File \"/workspace/src/_pytest/assertion/__init__.py\", line 9, in <module>\n    from _pytest.assertion import rewrite\n  File \"/workspace/src/_pytest/assertion/rewrite.py\", line 33, in <module>\n    from _pytest._version import version\nModuleNotFoundError: No module named '_pytest._version'\n",
+    "truncated": false,
+    "duration_ms": 422.43080001208
+  },
+  "receipt_error": "DockerUnavailable: Docker exec failed: ent call last):\n  File \"<string>\", line 1, in <module>\n  File \"/usr/local/lib/python3.9/pathlib.py\", line 1259, in read_bytes\n    with self.open(mode='rb') as f:\n  File \"/usr/local/lib/python3.9/pathlib.py\", line 1252, in open\n    return io.open(self, mode, buffering, encoding, errors, newline,\n  File \"/usr/local/lib/python3.9/pathlib.py\", line 1120, in _opener\n    return self._accessor.open(self, flags, mode)\nFileNotFoundError: [Errno 2] No such file or directory: '/tmp/a5-pytest-receipt.json'\n",
+  "cleanup_verified": true,
+  "lifecycle": [
+    {
+      "event": "created",
+      "container": "h3-34f901f33e98437583e3cd559af70eb3",
+      "image_id": "sha256:c48b6349065199f5035cbfe94183358de9638de9bf11127d0fe34e02c76282e3"
+    },
+    {
+      "event": "destroyed",
+      "container": "h3-34f901f33e98437583e3cd559af70eb3",
+      "elapsed_s": 0.4497282000083942
+    }
+  ]
+}

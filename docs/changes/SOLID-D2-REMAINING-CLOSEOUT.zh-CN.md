@@ -9,7 +9,7 @@
 
 - **发现**：`.git` 目录为空，非有效仓库；使用 `C:\Program Files\Git\bin\git.exe` 执行 `git init` 重建。
 - **Commit 1**：`b4e14f2` — `feat(d1): SWE-bench subset, anti-cheat, scaffold expansion, contamination probe`
-- **Commit 2**：`aeb4ee6` — `feat(d2): failure taxonomy, model matrix, fix unstable tasks report`（5 个 D-2 专属文件；`report.py` / `test_runner.py` 等共享改动含于 commit 1）
+- **Commit 2**：`3bc7fda` — `feat(d2): failure taxonomy, model matrix, fix unstable tasks report`（5 个 D-2 专属文件；`report.py` / `test_runner.py` 等共享改动含于 commit 1）
 
 ---
 

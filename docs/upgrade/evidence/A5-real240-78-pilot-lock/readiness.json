@@ -1,0 +1,79 @@
+{
+  "schema": "a5.real240.h1-readiness.v1",
+  "status": "blocked",
+  "matrix_lock_status": "matrix_locked",
+  "execution_status": "blocked",
+  "real_240_started": false,
+  "paid_pilot_started": false,
+  "model_calls": 0,
+  "paid": false,
+  "blocking_gates": [
+    "target_grader_readiness",
+    "harness_fingerprint",
+    "agent_b0b3_runtime_semantics",
+    "agent_snapshot_consumption",
+    "paid_pilot_authorization"
+  ],
+  "input_hashes": {
+    "assignments": {
+      "path": "D:/crq/src/coding-agent/reports/upgrade/a5-pilot20-preparation-20260921-v4/assignments.json",
+      "sha256": "5ef02ef8f8b8d5960f180b24856801efa1d134bcc892e51d585686d15d81792d"
+    },
+    "experiment_contract": {
+      "path": "D:/crq/src/coding-agent/reports/upgrade/a5-pilot20-preparation-20260921-v4/experiment-contract.provisional.json",
+      "sha256": "4f7d1d8520c4a375dd62f16ad6fa26eeded5cf1ab356a51bbdf49886f1fcb991"
+    },
+    "canonical_handoff": {
+      "path": "D:/crq/src/coding-agent/configs/a5/canonical-handoff.json",
+      "sha256": "d18d9fa78da00230c30d62c61abce168b91812871d3435e14702aad7a761774c"
+    },
+    "consumption_manifest": {
+      "path": "D:/crq/src/coding-agent/configs/a5/pilot20-harness-consumption-manifest.json",
+      "sha256": "33ab6922caf6909888d672a8d97df49f305ed4cdabb8c402dfca4bca88cb0180"
+    },
+    "funding": {
+      "path": "D:/crq/src/coding-agent/configs/a5/funding-cny-v1.json",
+      "sha256": "f07b94b631905dfb19eba78b453f780ec447c2ac634ef8daf701e33a1af1b7a3"
+    },
+    "pilot_manifest": {
+      "path": "D:/crq/src/coding-harness/configs/a5/pilot20-harness-manifest.json",
+      "sha256": "65c0591227a9e9e417226d74f3a5a777d12c52f9b138973f538bcabdee02f2b6"
+    },
+    "model_binding": {
+      "path": "D:/crq/src/coding-harness/configs/a5/model-price-binding.json",
+      "sha256": "f7889374a80388d08a7a28f10b76d75c024b723627c1b687507f342da35da0c6"
+    },
+    "fingerprint": {
+      "path": "D:/crq/src/coding-harness/configs/a5/source-fingerprint.pending.json",
+      "sha256": "f53d51e25a6f8f1b868dc07b56cec17d0c094e805b244c6fd2e5550de09566aa"
+    },
+    "image_handoff": {
+      "path": "D:/crq/src/coding-harness/configs/a5/image-backed-handoff.json",
+      "sha256": "9a98bc4a8d0ec77ba551633cf343e89fffa2c8d3faeebb3afc14da67ffbcd4e6"
+    }
+  },
+  "success_conditions": [
+    "240 unique assignment rows",
+    "20 targets x B0/B1/B2/B3 x seeds 42/43/44",
+    "B0 has no injection; B1-B3 require injection receipts",
+    "receipt schema frozen",
+    "pilot cap 50.000 CNY and reference ceiling 46.080 frozen"
+  ],
+  "failure_conditions": [
+    "duplicate or missing assignment rows",
+    "target/variant/repeat/seed mismatch"
+  ],
+  "stop_conditions": [
+    "target grader missing",
+    "model binding missing or unverified",
+    "fingerprint missing or drifted",
+    "do not start provider, model, memory build, or paid 240"
+  ],
+  "pending": [
+    "H3 agent B0-B3 runtime semantics and injection receipts",
+    "H3 20 target grader readiness",
+    "H3 agent consumption of 11-record snapshot",
+    "H3 dual hash re-freeze after both sides stabilize",
+    "H4 explicit paid pilot authorization"
+  ]
+}

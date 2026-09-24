@@ -2,7 +2,7 @@
 
 ## Reference Project
 
-The project at `C:\Users\23500\Desktop\src\learn-claude-code-main` is the primary reference for this work. It teaches harness engineering for Claude Code — the model IS the agent, and the surrounding code is the harness.
+The project at `D:\crq\src\learn-claude-code-main` is the primary reference for this work. It teaches harness engineering for Claude Code — the model IS the agent, and the surrounding code is the harness.
 
 ### When to consult it
 - When implementing agent loops, tool use patterns, or harness infrastructure

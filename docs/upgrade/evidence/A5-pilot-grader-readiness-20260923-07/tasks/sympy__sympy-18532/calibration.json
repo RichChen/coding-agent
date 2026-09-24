@@ -1,0 +1,73 @@
+{
+  "task_id": "sympy__sympy-18532",
+  "status": "ready",
+  "grader_ready": true,
+  "repo": "sympy/sympy",
+  "base_revision": "74227f900b05009d4eed62e34a166228788a32ca",
+  "image": "coding-harness-a5-known-good@sha256:8854ab47e905ef0e4395dc29c890cb0847fea4c022465fd885cf048e41a61056",
+  "model_calls": 0,
+  "paid": false,
+  "canonical_binding_required": true,
+  "input_baseline_status": "baseline_ready",
+  "pilot_binding": {
+    "status": "pass",
+    "reason": null,
+    "canonical_target_id": "sympy__sympy-18532",
+    "repo": "sympy/sympy",
+    "expected_repo": "sympy/sympy",
+    "base_revision": "74227f900b05009d4eed62e34a166228788a32ca",
+    "expected_base_commit": "74227f900b05009d4eed62e34a166228788a32ca",
+    "pilot_base_hash": "b8d8f133affa1f8eeacefe85db88989f53b81c45b83a0d046cd28e25478e359c"
+  },
+  "known_good_binding": {
+    "status": "pass",
+    "reason": null,
+    "receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-37-historical-and-sympy\\tasks\\sympy__sympy-18532\\known-good\\evidence.json",
+    "receipt_sha256": "b54e10a99da765b48b93b2f8cdeae1d7964a00a06c8f64b2f0a506c4745965ca",
+    "image": "coding-harness-a5-known-good@sha256:8854ab47e905ef0e4395dc29c890cb0847fea4c022465fd885cf048e41a61056",
+    "receipt_image": "coding-harness-a5-known-good@sha256:8854ab47e905ef0e4395dc29c890cb0847fea4c022465fd885cf048e41a61056",
+    "expected_outcomes": {
+      "sympy/codegen/tests/test_cnodes.py::test_sizeof": "passed",
+      "sympy/core/tests/test_basic.py::test_atoms": "passed"
+    },
+    "verified_outcomes": {
+      "sympy/codegen/tests/test_cnodes.py::test_sizeof": "passed",
+      "sympy/core/tests/test_basic.py::test_atoms": "passed"
+    },
+    "cleanup_verified": true
+  },
+  "reason": null,
+  "full_collection_status": "ready",
+  "full_collection_count": 9497,
+  "full_collection_hash": "740e085b7246625fdc5ecb441ad37bcf8a09076c850f220f1a4daad764fef8c8",
+  "collection_evidence_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\sympy__sympy-18532\\full-repo\\evidence.json",
+  "collection_evidence_sha256": "0c9b7d911ad7ce262ae09ac00a117ef30584f9c7535f61287cf4a416546f06e3",
+  "source_seed": null,
+  "cleanup_verified": true,
+  "calibration_mode": "full_repo_collection_plus_bound_known_good_target_plus_executed_host_grader_policy_checks",
+  "negative_checks": {
+    "scope": "executed_host_policy_fixture_not_target_specific",
+    "checks": [
+      {
+        "case": "protected_path_change",
+        "status": "rejected",
+        "observed_status": "fail",
+        "observed_reason": "protected_or_unassigned_path_changed"
+      },
+      {
+        "case": "missing_receipt",
+        "status": "rejected",
+        "observed_status": "invalid_env",
+        "observed_reason": "missing_or_incomplete_receipt"
+      },
+      {
+        "case": "input_integrity_change",
+        "status": "rejected",
+        "observed_status": "fail",
+        "observed_reason": "frozen_input_changed_during_tests"
+      }
+    ],
+    "passed": true
+  },
+  "negative_checks_passed": true
+}

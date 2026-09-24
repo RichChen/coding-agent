@@ -1,0 +1,103 @@
+{
+  "schema": "a5.real240.h0-readiness.v1",
+  "status": "lightweight_snapshot_frozen",
+  "record_state": "validated_lightweight",
+  "n_records": 11,
+  "snapshot_hash": "1ab4f6cd9b0ae8a90658b4cf90058f72d7fdc7750f13122b9bbb9fbee10be780",
+  "boundary_passed": true,
+  "source_ready_20_of_20": false,
+  "full_grader_validated": false,
+  "paid_pilot_started": false,
+  "model_calls": 0,
+  "paid": false,
+  "input_hashes": {
+    "input": {
+      "path": "D:/crq/src/coding-harness/docs/upgrade/evidence/A5-memory-pool-76-s2/validated-memory-records.jsonl",
+      "exists": true,
+      "sha256": "463ed86e5d58f83ba011396b2be5b5e2ab4465142f13ca1fea7f059cec06b5fc"
+    },
+    "s2_status": {
+      "path": "D:/crq/src/coding-harness/docs/upgrade/evidence/A5-memory-pool-76-s2/s2-status.json",
+      "exists": true,
+      "sha256": "3234fa6a906157693bccae516eb4e20d0a609b52dceed8f616d759fc805429b9"
+    },
+    "failure_ledger": {
+      "path": "D:/crq/src/coding-harness/docs/upgrade/evidence/A5-memory-pool-76-s2/failure-ledger.jsonl",
+      "exists": true,
+      "sha256": "04a8b0fc88f33836b3340bd6e6095c5f7e93db7249a93a83e751d48134470a6a"
+    },
+    "carry_forward": {
+      "path": "D:/crq/src/coding-harness/docs/upgrade/evidence/A5-memory-pool-76-s2/provenance-review-carry-forward/validated-memory-records.jsonl",
+      "exists": true,
+      "sha256": "e10ed5c7312111079578f22670b71c75c1c8169cb67f95fa3bc8e3dc1ecad6a0"
+    },
+    "expand": {
+      "path": "D:/crq/src/coding-harness/docs/upgrade/evidence/A5-memory-pool-76-s2/provenance-review-expand/validated-memory-records.jsonl",
+      "exists": true,
+      "sha256": "c04bc608d878f9a29bf10a1c419aef7164531ffe9b1f28646fea3db7518192d2"
+    },
+    "authorization": {
+      "path": "D:/crq/src/coding-harness/docs/upgrade/evidence/A5-memory-pool-76-s2/authorization.json",
+      "exists": true,
+      "sha256": "d85c038b2641cc5f96ed147e69e58d41710f5046bef0d61fc0812cceb422a4d5"
+    },
+    "anomaly": {
+      "path": "D:/crq/src/coding-harness/docs/upgrade/evidence/A5-harness-preflight-71-memory-gates-final/anomaly-dispositions.json",
+      "exists": true,
+      "sha256": "6c80c0b1b024927eed684ac2d8633ff3ecd62f2945b02b946983d493e6ead9df"
+    },
+    "pilot_manifest": {
+      "path": "D:/crq/src/coding-harness/configs/a5/pilot20-harness-manifest.json",
+      "exists": true,
+      "sha256": "65c0591227a9e9e417226d74f3a5a777d12c52f9b138973f538bcabdee02f2b6"
+    },
+    "image_handoff": {
+      "path": "D:/crq/src/coding-harness/configs/a5/image-backed-handoff.json",
+      "exists": true,
+      "sha256": "9a98bc4a8d0ec77ba551633cf343e89fffa2c8d3faeebb3afc14da67ffbcd4e6"
+    },
+    "canonical_handoff": {
+      "path": "D:/crq/src/coding-agent/configs/a5/canonical-handoff.json",
+      "exists": true,
+      "sha256": "d18d9fa78da00230c30d62c61abce168b91812871d3435e14702aad7a761774c"
+    },
+    "consumption_manifest": {
+      "path": "D:/crq/src/coding-agent/configs/a5/pilot20-harness-consumption-manifest.json",
+      "exists": true,
+      "sha256": "33ab6922caf6909888d672a8d97df49f305ed4cdabb8c402dfca4bca88cb0180"
+    },
+    "funding": {
+      "path": "D:/crq/src/coding-agent/configs/a5/funding-cny-v1.json",
+      "exists": true,
+      "sha256": "f07b94b631905dfb19eba78b453f780ec447c2ac634ef8daf701e33a1af1b7a3"
+    },
+    "contract_carry_forward_missing": {
+      "path": "D:/crq/src/coding-harness/docs/upgrade/evidence/A5-memory-pool-75-s1-smoke/provenance-review-carry-forward/validated-memory-records.jsonl",
+      "exists": false,
+      "sha256": null,
+      "note": "contract listed this 75-s1 path; actual carry-forward records live in 76-s2 provenance-review-carry-forward"
+    }
+  },
+  "success_conditions": [
+    "11 unique source IDs",
+    "hashes and receipts readable",
+    "snapshot independently recomputable",
+    "no private markers",
+    "records exported only as validated_lightweight"
+  ],
+  "failure_conditions": [
+    "duplicate or missing source IDs",
+    "private marker or path escape",
+    "hash mismatch against public artifacts",
+    "failed/blocked rows promoted"
+  ],
+  "stop_conditions": [
+    "do not start provider/model/memory build/pilot from this snapshot",
+    "do not claim full-repo grader validation"
+  ],
+  "pending": [
+    "H3 agent consumption manifest/hash for these 11 records",
+    "H3 B0-B3 runtime semantics",
+    "H3 20 target grader readiness"
+  ]
+}

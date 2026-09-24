@@ -1,0 +1,15 @@
+{
+  "schema": "a5.h3-dual-end-review-artifact-manifest.v2",
+  "status": "blocked_not_h3_passed",
+  "artifacts": [
+    {"path":"source-fingerprint-refreeze.json","sha256":"8e71ad3eee1eb8b07d000edb0cb115a52df919aeb5ad4a8b9f416878840c0a22"},
+    {"path":"h3-dual-end-review.json","sha256":"424ea0e7e7f5d7ca66d8e27d9bbd43b8cb71709adf475debf7b0ed614532150d"},
+    {"path":"pending.json","sha256":"0e256c28cd74b1a39ab88dc67c71f0ec9653e02abc4f08229805f25cd3786a8f"},
+    {"path":"pilot-scope-proposal.json","sha256":"ae0de2bee88c0affd4c6a4b922dfffc3d34c4ce0fee4efc28c9be80b2b668744"}
+  ],
+  "external_inputs": {
+    "agent_runtime_manifest_sha256":"fa670fd6c6d3d0f164ad6d0d8070a812cde5569d1bffdfeab8c6928daa6f6f80",
+    "matrix_lock_sha256":"fe33d1212d7de5ad4e6bee6a90e0cd0df5f5b5ff7e4b28d7abc1bbcd2bd70e25",
+    "plan_a_readiness":"docs/upgrade/evidence/A5-pilot-grader-readiness-20260923-08-planA/readiness.json"
+  }
+}

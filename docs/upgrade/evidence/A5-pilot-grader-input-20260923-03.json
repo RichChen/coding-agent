@@ -1,0 +1,1202 @@
+{
+  "schema": "a5.pilot-grader-calibration-input.v1",
+  "rows": [
+    {
+      "task_id": "pytest-dev__pytest-7220",
+      "role": "target",
+      "repo": "pytest-dev/pytest",
+      "base_revision": "56bf819c2f4eaf8b36bd8c42c06bb59d5a3bfc0f",
+      "source": {
+        "schema": "a5.full-archive-inventory.v1",
+        "repo": "pytest-dev/pytest",
+        "base_revision": "56bf819c2f4eaf8b36bd8c42c06bb59d5a3bfc0f",
+        "archive_sha256": "56ab5df6573cba42f4ac8c38986dc3ae30998829dd9d7b084c5c15ad2486e6d9",
+        "archive_bytes": 1039354,
+        "git_pax_commit": "56bf819c2f4eaf8b36bd8c42c06bb59d5a3bfc0f",
+        "source_tree_hash": "d2a145586cf4423ae40205abdee97e10d5204e52559eaf8a78be50def175eed4",
+        "inventory_sha256": "56d16114d72adcf6fc6eae18002861bbda7299c7193f7e12b4023373ab64900f",
+        "file_count": 512,
+        "total_bytes": 3591593,
+        "nonregular_paths": [],
+        "excluded_upstream_paths": [],
+        "snapshot_kind": "complete_pinned_upstream_archive",
+        "within_runtime_limits": true,
+        "inventory_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\pytest-dev__pytest-7220\\source-inventory.json"
+      },
+      "source_complete": true,
+      "selected_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-27-repo-baseline\\tasks\\pytest-dev__pytest-7220\\receipt.json",
+      "selected_receipt_sha256": "cf3e2f03f5a226ba68117fe852108be567a3ce482c022dca01c5b5c192f182f1",
+      "model_calls": 0,
+      "paid": false,
+      "memory_build_eligible": false,
+      "environment_ready": true,
+      "environment_baseline_ready": true,
+      "grader_ready": true,
+      "status": "baseline_ready",
+      "carried_previous_attempt": true,
+      "previous_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-19-final-audit\\receipts.json",
+      "known_good_image_digest": "coding-harness-a5-pytest@sha256:5ff30847f41d2c2c66f161c8b97a3bba9a2b11823be8cff8c1f5f896babdb376",
+      "known_good_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-14-host-pytest\\tasks\\pytest-dev__pytest-7220\\known-good\\evidence.json",
+      "actual_baseline_failed": [
+        "testing/test_nodes.py::test_failure_with_changed_cwd"
+      ],
+      "known_good_pass": true,
+      "grader": {
+        "status": "ready",
+        "known_good": "pass",
+        "known_good_failed_nodeids": [],
+        "known_good_classifier_error": null,
+        "negative_rejection": [
+          {
+            "case": "tampered_test",
+            "status": "rejected_before_execution",
+            "path": "testing/conftest.py",
+            "rejected": true
+          },
+          {
+            "case": "tampered_config",
+            "status": "rejected_before_execution",
+            "path": "tox.ini",
+            "rejected": true
+          },
+          {
+            "case": "fake_stdout",
+            "rejected": true,
+            "classifier_error": "missing_or_incomplete_receipt"
+          }
+        ],
+        "known_good_outcomes": {
+          "testing/test_nodes.py::test_failure_with_changed_cwd": "passed"
+        }
+      },
+      "grader_input_restored_from_history": true,
+      "runtime_generated_files": {
+        "src/_pytest/_version.py": {
+          "ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-runtime-generated-20260923-03\\pytest-dev__pytest-7220\\src\\_pytest\\_version.py",
+          "sha256": "ad63ae757d7c7083a8caa0050af4c66bd7787bbcf4d1f1b2fa61c5f1bf07a1e9"
+        }
+      }
+    },
+    {
+      "task_id": "pytest-dev__pytest-7432",
+      "role": "target",
+      "repo": "pytest-dev/pytest",
+      "base_revision": "e6e300e729dd33956e5448d8be9a0b1540b4e53a",
+      "source": {
+        "schema": "a5.full-archive-inventory.v1",
+        "repo": "pytest-dev/pytest",
+        "base_revision": "e6e300e729dd33956e5448d8be9a0b1540b4e53a",
+        "archive_sha256": "5b7f9d7d90d2b68ed2cecb3007ebe851aec8d5cfa92b4e322eeed8a0152953cb",
+        "archive_bytes": 1068738,
+        "git_pax_commit": "e6e300e729dd33956e5448d8be9a0b1540b4e53a",
+        "source_tree_hash": "91f4cc71a81fe09955f8e73ce94cba921d435efd4e6120eead36687782735f4c",
+        "inventory_sha256": "1ad5e39153377b4550e2af1a0230a0d7af0fc7bc41d41a5467b3e123692a199a",
+        "file_count": 541,
+        "total_bytes": 3731202,
+        "nonregular_paths": [],
+        "excluded_upstream_paths": [],
+        "snapshot_kind": "complete_pinned_upstream_archive",
+        "within_runtime_limits": true,
+        "inventory_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\pytest-dev__pytest-7432\\source-inventory.json"
+      },
+      "source_complete": true,
+      "selected_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-39-pytest-full-collection\\tasks\\pytest-dev__pytest-7432\\receipt.json",
+      "selected_receipt_sha256": "e6881cfb094800eda280103406611759aa04aba2e7624a5103d4f8f4f33e71dd",
+      "model_calls": 0,
+      "paid": false,
+      "memory_build_eligible": false,
+      "status": "baseline_ready",
+      "environment_ready": true,
+      "environment_baseline_ready": true,
+      "grader_ready": false,
+      "collection_count": 2957,
+      "all_f2p_fail": true,
+      "known_good_pass": true,
+      "expected_f2p_count": 1,
+      "actual_baseline_failed": [
+        "testing/test_skipping.py::TestXFail::test_xfail_run_with_skip_mark[test_input1-expected1]"
+      ],
+      "unexpected_baseline_passed": [],
+      "baseline_image_digest": "coding-harness-a5-recheck@sha256:f1bccfd0200de2c36f86da6dcf4cf46b907666f99e7f10de24c193463804bb18",
+      "known_good_image_digest": "coding-harness-a5-recheck@sha256:5c97017803c8c6454734cf88e5e2d110c73d6e9f38243f027a6b310b79246770",
+      "image_audit_refs": {
+        "baseline": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-42-final-image-audit-main\\pytest-dev__pytest-7432\\baseline.json",
+        "known-good": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-42-final-image-audit-main\\pytest-dev__pytest-7432\\known-good.json"
+      },
+      "baseline_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-39-pytest-full-collection\\tasks\\pytest-dev__pytest-7432\\baseline\\evidence.json",
+      "known_good_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-39-pytest-full-collection\\tasks\\pytest-dev__pytest-7432\\known-good\\evidence.json"
+    },
+    {
+      "task_id": "sympy__sympy-18532",
+      "role": "target",
+      "repo": "sympy/sympy",
+      "base_revision": "74227f900b05009d4eed62e34a166228788a32ca",
+      "source": {
+        "schema": "a5.full-archive-inventory.v1",
+        "repo": "sympy/sympy",
+        "base_revision": "74227f900b05009d4eed62e34a166228788a32ca",
+        "archive_sha256": "b1cba448101be1efc844166e8490187d133b469ba68b510298dc52227970270d",
+        "archive_bytes": 6892186,
+        "git_pax_commit": "74227f900b05009d4eed62e34a166228788a32ca",
+        "source_tree_hash": "987d81c25585578bd490fbe3e50b032c0e0572bc9cd9e6cf958f1c3e4f26086d",
+        "inventory_sha256": "c25e38970985cec8edb7196d22899c30a3501c5093e081a491917860a00e0aa3",
+        "file_count": 1742,
+        "total_bytes": 31938205,
+        "nonregular_paths": [],
+        "excluded_upstream_paths": [],
+        "snapshot_kind": "complete_pinned_upstream_archive",
+        "within_runtime_limits": false,
+        "inventory_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sympy__sympy-18532\\source-inventory.json"
+      },
+      "source_complete": true,
+      "selected_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-37-historical-and-sympy\\tasks\\sympy__sympy-18532\\receipt.json",
+      "selected_receipt_sha256": "53157afe6672006a591b9e49d04562874c29671968e54badc238007cb3f50b2f",
+      "model_calls": 0,
+      "paid": false,
+      "memory_build_eligible": false,
+      "status": "baseline_ready",
+      "environment_ready": true,
+      "environment_baseline_ready": true,
+      "grader_ready": false,
+      "collection_count": 9497,
+      "all_f2p_fail": true,
+      "known_good_pass": true,
+      "expected_f2p_count": 2,
+      "actual_baseline_failed": [
+        "sympy/codegen/tests/test_cnodes.py::test_sizeof",
+        "sympy/core/tests/test_basic.py::test_atoms"
+      ],
+      "unexpected_baseline_passed": [],
+      "baseline_image_digest": "coding-harness-a5-baseline@sha256:9e0b0761709909850a0bb7d6157b7e674a01153fa8db4db82726b4b7bc920022",
+      "known_good_image_digest": "coding-harness-a5-known-good@sha256:8854ab47e905ef0e4395dc29c890cb0847fea4c022465fd885cf048e41a61056",
+      "image_audit_refs": {
+        "baseline": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-42-final-image-audit-main\\sympy__sympy-18532\\baseline.json",
+        "known-good": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-42-final-image-audit-main\\sympy__sympy-18532\\known-good.json"
+      },
+      "baseline_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-37-historical-and-sympy\\tasks\\sympy__sympy-18532\\baseline\\evidence.json",
+      "known_good_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-37-historical-and-sympy\\tasks\\sympy__sympy-18532\\known-good\\evidence.json"
+    },
+    {
+      "task_id": "scikit-learn__scikit-learn-25500",
+      "role": "target",
+      "repo": "scikit-learn/scikit-learn",
+      "base_revision": "4db04923a754b6a2defa1b172f55d492b85d165e",
+      "source": {
+        "schema": "a5.full-archive-inventory.v1",
+        "repo": "scikit-learn/scikit-learn",
+        "base_revision": "4db04923a754b6a2defa1b172f55d492b85d165e",
+        "archive_sha256": "f5aa6b197a3681b1339c89c2c9b51bba121dbe91657ad317bc707ad9305675f6",
+        "archive_bytes": 7402291,
+        "git_pax_commit": "4db04923a754b6a2defa1b172f55d492b85d165e",
+        "source_tree_hash": "5d2802d064d8167b0d9c07f59ab348278917f72d2da7f3994a8c56338acb92a4",
+        "inventory_sha256": "f1ff83e448c693b7b4a0b81416eb407ecba77383868eaf683c10eb840468cacc",
+        "file_count": 1532,
+        "total_bytes": 20682366,
+        "nonregular_paths": [],
+        "excluded_upstream_paths": [],
+        "snapshot_kind": "complete_pinned_upstream_archive",
+        "within_runtime_limits": false,
+        "inventory_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\scikit-learn__scikit-learn-25500\\source-inventory.json"
+      },
+      "source_complete": true,
+      "selected_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-43-sklearn-native-recheck\\tasks\\scikit-learn__scikit-learn-25500\\receipt.json",
+      "selected_receipt_sha256": "2bd85f3b709e19bddd0e427ebdf756270663fdd18d9515d82e52090fefdc68c9",
+      "model_calls": 0,
+      "paid": false,
+      "memory_build_eligible": false,
+      "status": "baseline_ready",
+      "environment_ready": true,
+      "environment_baseline_ready": true,
+      "grader_ready": false,
+      "collection_count": 27634,
+      "all_f2p_fail": true,
+      "known_good_pass": true,
+      "expected_f2p_count": 1,
+      "actual_baseline_failed": [
+        "sklearn/tests/test_isotonic.py::test_isotonic_regression_output_predict"
+      ],
+      "unexpected_baseline_passed": [],
+      "baseline_image_digest": "coding-harness-a5-recheck@sha256:9ce415aa565e354bd29d20460950f4c0e6a05e9792a8f67f69e0a9b9fa169631",
+      "known_good_image_digest": "coding-harness-a5-recheck@sha256:c6f3f2772bb05e66c7a3cfbab7f1da877122e5e55862421ca870aa19641e4b01",
+      "image_audit_refs": {
+        "baseline": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-44-native-image-audit\\scikit-learn__scikit-learn-25500\\baseline.json",
+        "known-good": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-44-native-image-audit\\scikit-learn__scikit-learn-25500\\known-good.json"
+      },
+      "baseline_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-43-sklearn-native-recheck\\tasks\\scikit-learn__scikit-learn-25500\\baseline\\evidence.json",
+      "known_good_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-43-sklearn-native-recheck\\tasks\\scikit-learn__scikit-learn-25500\\known-good\\evidence.json"
+    },
+    {
+      "task_id": "django__django-15781",
+      "role": "target",
+      "repo": "django/django",
+      "base_revision": "8d160f154f0240a423e83ffe0690e472f837373c",
+      "source": {
+        "schema": "a5.full-archive-inventory.v1",
+        "repo": "django/django",
+        "base_revision": "8d160f154f0240a423e83ffe0690e472f837373c",
+        "archive_sha256": "7406c0f42c1d69bbc6edd169d0c3e5f326d8fc88726f0454ffb540be98715f71",
+        "archive_bytes": 10191604,
+        "git_pax_commit": "8d160f154f0240a423e83ffe0690e472f837373c",
+        "source_tree_hash": null,
+        "inventory_sha256": "c75ed36036cbeb5a523228ea2fa8cc9af6ef9bfcd6fb98f33a45f38adb9c149e",
+        "file_count": 6637,
+        "total_bytes": 41586843,
+        "nonregular_paths": [
+          "docs/_theme/djangodocs-epub/static/docicons-behindscenes.png",
+          "docs/_theme/djangodocs-epub/static/docicons-note.png",
+          "docs/_theme/djangodocs-epub/static/docicons-philosophy.png",
+          "docs/_theme/djangodocs-epub/static/docicons-warning.png"
+        ],
+        "excluded_upstream_paths": [],
+        "snapshot_kind": "complete_pinned_upstream_archive",
+        "within_runtime_limits": false,
+        "inventory_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\django__django-15781\\source-inventory.json"
+      },
+      "source_complete": true,
+      "selected_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-32-preserved-mode-recheck\\tasks\\django__django-15781\\receipt.json",
+      "selected_receipt_sha256": "c9cfa40d1ad3792e3ee6439ed723c8e2ff93842594c2e145e0600978f9930f12",
+      "model_calls": 0,
+      "paid": false,
+      "memory_build_eligible": false,
+      "status": "baseline_ready",
+      "environment_ready": true,
+      "environment_baseline_ready": true,
+      "grader_ready": false,
+      "collection_count": 15884,
+      "all_f2p_fail": true,
+      "known_good_pass": true,
+      "expected_f2p_count": 1,
+      "actual_baseline_failed": [
+        "user_commands.tests.CommandTests.test_create_parser_kwargs"
+      ],
+      "unexpected_baseline_passed": [],
+      "baseline_image_digest": "coding-harness-a5-baseline@sha256:8c3017ec8a17b67de8304839726393be7a60d7f94601c2fb6906a7fc527bd909",
+      "known_good_image_digest": "coding-harness-a5-known-good@sha256:69f4a4bf74714ad76457519e3a732613f47b628db1049ddb56c71f318a23dc34",
+      "image_audit_refs": {
+        "baseline": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-42-final-image-audit-main\\django__django-15781\\baseline.json",
+        "known-good": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-42-final-image-audit-main\\django__django-15781\\known-good.json"
+      },
+      "baseline_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-32-preserved-mode-recheck\\tasks\\django__django-15781\\baseline\\evidence.json",
+      "known_good_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-32-preserved-mode-recheck\\tasks\\django__django-15781\\known-good\\evidence.json"
+    },
+    {
+      "task_id": "sphinx-doc__sphinx-10451",
+      "role": "target",
+      "repo": "sphinx-doc/sphinx",
+      "base_revision": "195e911f1dab04b8ddeacbe04b7d214aaf81bb0b",
+      "source": {
+        "schema": "a5.full-archive-inventory.v1",
+        "repo": "sphinx-doc/sphinx",
+        "base_revision": "195e911f1dab04b8ddeacbe04b7d214aaf81bb0b",
+        "archive_sha256": "375265e0e4c99aeac3db1bef092e0b34a2c464395daea07f67b727b6d74efa60",
+        "archive_bytes": 6727224,
+        "git_pax_commit": "195e911f1dab04b8ddeacbe04b7d214aaf81bb0b",
+        "source_tree_hash": "7ae35c4663fcfd7587711968fb7c18f9590e2f274f6e724de00cf1fa851f01dc",
+        "inventory_sha256": "2ec1c8a21560feb96bac85bbc3211fc4857809892d35705582c8e15cbb760f1b",
+        "file_count": 1599,
+        "total_bytes": 17835140,
+        "nonregular_paths": [],
+        "excluded_upstream_paths": [],
+        "snapshot_kind": "complete_pinned_upstream_archive",
+        "within_runtime_limits": false,
+        "inventory_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sphinx-doc__sphinx-10451\\source-inventory.json"
+      },
+      "source_complete": true,
+      "selected_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-35-sphinx-test-files\\tasks\\sphinx-doc__sphinx-10451\\receipt.json",
+      "selected_receipt_sha256": "07e19c6a5651bb86717d2a64ace99aecffeb87042f5805e3a7f1c07de6cbd190",
+      "model_calls": 0,
+      "paid": false,
+      "memory_build_eligible": false,
+      "status": "baseline_ready",
+      "environment_ready": true,
+      "environment_baseline_ready": true,
+      "grader_ready": false,
+      "collection_count": 1798,
+      "all_f2p_fail": true,
+      "known_good_pass": true,
+      "expected_f2p_count": 2,
+      "actual_baseline_failed": [
+        "tests/test_ext_napoleon_docstring.py::test_napoleon_and_autodoc_typehints_description_all",
+        "tests/test_ext_napoleon_docstring.py::test_napoleon_and_autodoc_typehints_description_documented_params"
+      ],
+      "unexpected_baseline_passed": [],
+      "baseline_image_digest": "coding-harness-a5-baseline@sha256:cdc2fa27cb44eb2c778676ceec1dd669d8455357d0a06e7bdc03b32d165ef397",
+      "known_good_image_digest": "coding-harness-a5-known-good@sha256:c5ddba1dd1ddaadcaebe16c85b53d40e308bea95ac6a467fac22a829d0ff40d4",
+      "image_audit_refs": {
+        "baseline": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-44-native-image-audit\\sphinx-doc__sphinx-10451\\baseline.json",
+        "known-good": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-44-native-image-audit\\sphinx-doc__sphinx-10451\\known-good.json"
+      },
+      "baseline_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-35-sphinx-test-files\\tasks\\sphinx-doc__sphinx-10451\\baseline\\evidence.json",
+      "known_good_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-35-sphinx-test-files\\tasks\\sphinx-doc__sphinx-10451\\known-good\\evidence.json"
+    },
+    {
+      "task_id": "django__django-13265",
+      "role": "target",
+      "repo": "django/django",
+      "base_revision": "b2b0711b555fa292751763c2df4fe577c396f265",
+      "source": {
+        "schema": "a5.full-archive-inventory.v1",
+        "repo": "django/django",
+        "base_revision": "b2b0711b555fa292751763c2df4fe577c396f265",
+        "archive_sha256": "1f33092ede7bdacc03c825df4b170d0eaae2c3ce47944a04eedb22b9e2e1345c",
+        "archive_bytes": 9340862,
+        "git_pax_commit": "b2b0711b555fa292751763c2df4fe577c396f265",
+        "source_tree_hash": null,
+        "inventory_sha256": "5d8a3b133cf9db0dfa1051769b7738c74deb5ff6381b5edd83588a5cba7490eb",
+        "file_count": 6393,
+        "total_bytes": 38513500,
+        "nonregular_paths": [
+          "docs/_theme/djangodocs-epub/static/docicons-behindscenes.png",
+          "docs/_theme/djangodocs-epub/static/docicons-note.png",
+          "docs/_theme/djangodocs-epub/static/docicons-philosophy.png",
+          "docs/_theme/djangodocs-epub/static/docicons-warning.png"
+        ],
+        "excluded_upstream_paths": [],
+        "snapshot_kind": "complete_pinned_upstream_archive",
+        "within_runtime_limits": false,
+        "inventory_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\django__django-13265\\source-inventory.json"
+      },
+      "source_complete": true,
+      "selected_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-32-preserved-mode-recheck\\tasks\\django__django-13265\\receipt.json",
+      "selected_receipt_sha256": "3b1354390bf736e01e4ae98596e892d34435ad7f5d62ad0ebd3db741d4cf9e0b",
+      "model_calls": 0,
+      "paid": false,
+      "memory_build_eligible": false,
+      "status": "baseline_mismatch",
+      "environment_ready": true,
+      "environment_baseline_ready": false,
+      "grader_ready": false,
+      "collection_count": 14078,
+      "all_f2p_fail": false,
+      "known_good_pass": true,
+      "expected_f2p_count": 4,
+      "actual_baseline_failed": [
+        "migrations.test_autodetector.AutodetectorTests.test_add_model_order_with_respect_to_index_constraint",
+        "migrations.test_autodetector.AutodetectorTests.test_set_alter_order_with_respect_to_index_constraint_foo_together"
+      ],
+      "unexpected_baseline_passed": [
+        "migrations.test_autodetector.AutodetectorTests.test_add_model_order_with_respect_to_index_foo_together",
+        "migrations.test_autodetector.AutodetectorTests.test_supports_functools_partial"
+      ],
+      "baseline_image_digest": "coding-harness-a5-baseline@sha256:1345f16620bd0ca13a9c07a606fadbfc4a310c3903b2a260a6ceff59a164b190",
+      "known_good_image_digest": "coding-harness-a5-known-good@sha256:c6f709c6f0be0c2a52590300ca6ccc0a86193086d0dd50e183132aa7bb582468",
+      "image_audit_refs": {
+        "baseline": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-42-final-image-audit-main\\django__django-13265\\baseline.json",
+        "known-good": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-42-final-image-audit-main\\django__django-13265\\known-good.json"
+      },
+      "baseline_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-32-preserved-mode-recheck\\tasks\\django__django-13265\\baseline\\evidence.json",
+      "known_good_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-32-preserved-mode-recheck\\tasks\\django__django-13265\\known-good\\evidence.json"
+    },
+    {
+      "task_id": "sphinx-doc__sphinx-8721",
+      "role": "target",
+      "repo": "sphinx-doc/sphinx",
+      "base_revision": "82ef497a8c88f0f6e50d84520e7276bfbf65025d",
+      "source": {
+        "schema": "a5.full-archive-inventory.v1",
+        "repo": "sphinx-doc/sphinx",
+        "base_revision": "82ef497a8c88f0f6e50d84520e7276bfbf65025d",
+        "archive_sha256": "7ddcc24c4596b2642739430f4eede6d61b851e8664e0e6dc7d7807742ea40834",
+        "archive_bytes": 5998815,
+        "git_pax_commit": "82ef497a8c88f0f6e50d84520e7276bfbf65025d",
+        "source_tree_hash": "6baa2fafe16070e983b87f1e1356cd51c7ddafddb67f173f3d3d7ffcb7b8f0f4",
+        "inventory_sha256": "263e70d2aa3ae6aa1714f2c2b6595f53a3ad0db2ebcf943ae25390a9bd1122d8",
+        "file_count": 1473,
+        "total_bytes": 16466026,
+        "nonregular_paths": [],
+        "excluded_upstream_paths": [],
+        "snapshot_kind": "complete_pinned_upstream_archive",
+        "within_runtime_limits": false,
+        "inventory_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sphinx-doc__sphinx-8721\\source-inventory.json"
+      },
+      "source_complete": true,
+      "selected_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-36-repo-compat\\tasks\\sphinx-doc__sphinx-8721\\receipt.json",
+      "selected_receipt_sha256": "a67d00a0b1961905f52d49c8ee8730101b45e7334e5e03a37e301d0d28d144c7",
+      "model_calls": 0,
+      "paid": false,
+      "memory_build_eligible": false,
+      "status": "baseline_ready",
+      "environment_ready": true,
+      "environment_baseline_ready": true,
+      "grader_ready": false,
+      "collection_count": 1655,
+      "all_f2p_fail": true,
+      "known_good_pass": true,
+      "expected_f2p_count": 1,
+      "actual_baseline_failed": [
+        "tests/test_ext_viewcode.py::test_viewcode_epub_default"
+      ],
+      "unexpected_baseline_passed": [],
+      "baseline_image_digest": "coding-harness-a5-recheck@sha256:d77bcb325ac2a664e6ab658b352cbacd1217c187e5c475a1579da64514789702",
+      "known_good_image_digest": "coding-harness-a5-recheck@sha256:5808165c6309a13d45ef473aa3f6350ecf43d1633f97dac89edf0b4754b06bec",
+      "image_audit_refs": {
+        "baseline": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-42-final-image-audit-main\\sphinx-doc__sphinx-8721\\baseline.json",
+        "known-good": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-42-final-image-audit-main\\sphinx-doc__sphinx-8721\\known-good.json"
+      },
+      "baseline_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-36-repo-compat\\tasks\\sphinx-doc__sphinx-8721\\baseline\\evidence.json",
+      "known_good_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-36-repo-compat\\tasks\\sphinx-doc__sphinx-8721\\known-good\\evidence.json"
+    },
+    {
+      "task_id": "pytest-dev__pytest-8365",
+      "role": "target",
+      "repo": "pytest-dev/pytest",
+      "base_revision": "4964b468c83c06971eb743fbc57cc404f760c573",
+      "source": {
+        "schema": "a5.full-archive-inventory.v1",
+        "repo": "pytest-dev/pytest",
+        "base_revision": "4964b468c83c06971eb743fbc57cc404f760c573",
+        "archive_sha256": "972e266e9e055878d90bac983c281243bc7169e70638c2ff9caa25fb61759fb5",
+        "archive_bytes": 1190917,
+        "git_pax_commit": "4964b468c83c06971eb743fbc57cc404f760c573",
+        "source_tree_hash": "faf5d395fc9cd01a0396fcb10f683cce33f52994aa5af11607345f2a3902a8ce",
+        "inventory_sha256": "46680cf4afbae57c89097f36d8f94b3b5dfa4683e5cc64fe26be872e4ac584cf",
+        "file_count": 535,
+        "total_bytes": 4337617,
+        "nonregular_paths": [],
+        "excluded_upstream_paths": [],
+        "snapshot_kind": "complete_pinned_upstream_archive",
+        "within_runtime_limits": true,
+        "inventory_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\pytest-dev__pytest-8365\\source-inventory.json"
+      },
+      "source_complete": true,
+      "selected_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-27-repo-baseline\\tasks\\pytest-dev__pytest-8365\\receipt.json",
+      "selected_receipt_sha256": "c234b63dc83502b7aa26ec47b6248aaa4c434081a8b109eb034e60224be53c55",
+      "model_calls": 0,
+      "paid": false,
+      "memory_build_eligible": false,
+      "environment_ready": true,
+      "environment_baseline_ready": true,
+      "grader_ready": true,
+      "status": "baseline_ready",
+      "carried_previous_attempt": true,
+      "previous_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-19-final-audit\\receipts.json",
+      "known_good_image_digest": "coding-harness-a5-pytest@sha256:99a6136cf06433b05cd09d6ba81aec351dde7ebd5b07a7c4fa5892c0f167852a",
+      "known_good_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-14-host-pytest\\tasks\\pytest-dev__pytest-8365\\known-good\\evidence.json",
+      "actual_baseline_failed": [
+        "testing/test_tmpdir.py::test_tmp_path_factory_handles_invalid_dir_characters"
+      ],
+      "known_good_pass": true,
+      "grader": {
+        "status": "ready",
+        "known_good": "pass",
+        "known_good_failed_nodeids": [],
+        "known_good_classifier_error": null,
+        "negative_rejection": [
+          {
+            "case": "tampered_test",
+            "status": "rejected_before_execution",
+            "path": "testing/conftest.py",
+            "rejected": true
+          },
+          {
+            "case": "tampered_config",
+            "status": "rejected_before_execution",
+            "path": "tox.ini",
+            "rejected": true
+          },
+          {
+            "case": "fake_stdout",
+            "rejected": true,
+            "classifier_error": "missing_or_incomplete_receipt"
+          }
+        ],
+        "known_good_outcomes": {
+          "testing/test_tmpdir.py::test_tmp_path_factory_handles_invalid_dir_characters": "passed"
+        }
+      },
+      "grader_input_restored_from_history": true,
+      "runtime_generated_files": {
+        "src/_pytest/_version.py": {
+          "ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-runtime-generated-20260923-03\\pytest-dev__pytest-8365\\src\\_pytest\\_version.py",
+          "sha256": "3492d0ad346a33ec6d249f0819bc17f720f012e740a055eb35c7325d434ca43a"
+        }
+      }
+    },
+    {
+      "task_id": "scikit-learn__scikit-learn-25638",
+      "role": "target",
+      "repo": "scikit-learn/scikit-learn",
+      "base_revision": "6adb209acd63825affc884abcd85381f148fb1b0",
+      "source": {
+        "schema": "a5.full-archive-inventory.v1",
+        "repo": "scikit-learn/scikit-learn",
+        "base_revision": "6adb209acd63825affc884abcd85381f148fb1b0",
+        "archive_sha256": "0d98d7eb99103caab47a9b850bc8e088deff4cd101a5c26d25c034343a1c1f80",
+        "archive_bytes": 7408997,
+        "git_pax_commit": "6adb209acd63825affc884abcd85381f148fb1b0",
+        "source_tree_hash": "48945d28783383f215e7c11921e94221fb04926ae83ea7c9fd0afd3be774cdde",
+        "inventory_sha256": "340f997862dd0b0241e66a87a12721affdfaedbce63f204c03d506b09cd1f8e2",
+        "file_count": 1521,
+        "total_bytes": 20712406,
+        "nonregular_paths": [],
+        "excluded_upstream_paths": [],
+        "snapshot_kind": "complete_pinned_upstream_archive",
+        "within_runtime_limits": false,
+        "inventory_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\scikit-learn__scikit-learn-25638\\source-inventory.json"
+      },
+      "source_complete": true,
+      "selected_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-43-sklearn-native-recheck\\tasks\\scikit-learn__scikit-learn-25638\\receipt.json",
+      "selected_receipt_sha256": "5662d0f21aac02cad4b095802b3d290b8ebb48b6caee89cbfd0c97822b4f6999",
+      "model_calls": 0,
+      "paid": false,
+      "memory_build_eligible": false,
+      "status": "baseline_ready",
+      "environment_ready": true,
+      "environment_baseline_ready": true,
+      "grader_ready": false,
+      "collection_count": 27997,
+      "all_f2p_fail": true,
+      "known_good_pass": true,
+      "expected_f2p_count": 10,
+      "actual_baseline_failed": [
+        "sklearn/metrics/tests/test_classification.py::test_confusion_matrix_pandas_nullable[Int64]",
+        "sklearn/metrics/tests/test_classification.py::test_confusion_matrix_pandas_nullable[Float64]",
+        "sklearn/metrics/tests/test_classification.py::test_confusion_matrix_pandas_nullable[boolean]",
+        "sklearn/preprocessing/tests/test_label.py::test_label_binarizer_pandas_nullable[Int64]",
+        "sklearn/preprocessing/tests/test_label.py::test_label_binarizer_pandas_nullable[Float64]",
+        "sklearn/preprocessing/tests/test_label.py::test_label_binarizer_pandas_nullable[boolean]",
+        "sklearn/utils/tests/test_multiclass.py::test_type_of_target_pandas_nullable",
+        "sklearn/utils/tests/test_multiclass.py::test_unique_labels_pandas_nullable[Int64]",
+        "sklearn/utils/tests/test_multiclass.py::test_unique_labels_pandas_nullable[Float64]",
+        "sklearn/utils/tests/test_multiclass.py::test_unique_labels_pandas_nullable[boolean]"
+      ],
+      "unexpected_baseline_passed": [],
+      "baseline_image_digest": "coding-harness-a5-recheck@sha256:5aeb18904211ed7b509c04b7fd6e74d941b5685e4fdd343d29c687641a2aa710",
+      "known_good_image_digest": "coding-harness-a5-recheck@sha256:ba48914b40353c9aec0bd0bb0d036625a6166b5f3d8e084a924e561d7d1b6c71",
+      "image_audit_refs": {
+        "baseline": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-44-native-image-audit\\scikit-learn__scikit-learn-25638\\baseline.json",
+        "known-good": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-44-native-image-audit\\scikit-learn__scikit-learn-25638\\known-good.json"
+      },
+      "baseline_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-43-sklearn-native-recheck\\tasks\\scikit-learn__scikit-learn-25638\\baseline\\evidence.json",
+      "known_good_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-43-sklearn-native-recheck\\tasks\\scikit-learn__scikit-learn-25638\\known-good\\evidence.json"
+    },
+    {
+      "task_id": "django__django-13590",
+      "role": "target",
+      "repo": "django/django",
+      "base_revision": "755dbf39fcdc491fe9b588358303e259c7750be4",
+      "source": {
+        "schema": "a5.full-archive-inventory.v1",
+        "repo": "django/django",
+        "base_revision": "755dbf39fcdc491fe9b588358303e259c7750be4",
+        "archive_sha256": "213a5810c2553385182b03bef2b674a7bf0b7904ef7ad19f388c60e144f06f84",
+        "archive_bytes": 9375172,
+        "git_pax_commit": "755dbf39fcdc491fe9b588358303e259c7750be4",
+        "source_tree_hash": null,
+        "inventory_sha256": "4aff4a641d5fe7a946a3ca5d35f4a1146813e7e8ec7f11ad730ad408aea88838",
+        "file_count": 6412,
+        "total_bytes": 38713009,
+        "nonregular_paths": [
+          "docs/_theme/djangodocs-epub/static/docicons-behindscenes.png",
+          "docs/_theme/djangodocs-epub/static/docicons-note.png",
+          "docs/_theme/djangodocs-epub/static/docicons-philosophy.png",
+          "docs/_theme/djangodocs-epub/static/docicons-warning.png"
+        ],
+        "excluded_upstream_paths": [],
+        "snapshot_kind": "complete_pinned_upstream_archive",
+        "within_runtime_limits": false,
+        "inventory_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\django__django-13590\\source-inventory.json"
+      },
+      "source_complete": true,
+      "selected_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-32-preserved-mode-recheck\\tasks\\django__django-13590\\receipt.json",
+      "selected_receipt_sha256": "c3600521b94b86ea5ef63ac3ece9ebfd17ee2054ce1ec8f709e4c7760eeb1015",
+      "model_calls": 0,
+      "paid": false,
+      "memory_build_eligible": false,
+      "status": "baseline_ready",
+      "environment_ready": true,
+      "environment_baseline_ready": true,
+      "grader_ready": false,
+      "collection_count": 14288,
+      "all_f2p_fail": true,
+      "known_good_pass": true,
+      "expected_f2p_count": 1,
+      "actual_baseline_failed": [
+        "expressions.tests.IterableLookupInnerExpressionsTests.test_range_lookup_namedtuple"
+      ],
+      "unexpected_baseline_passed": [],
+      "baseline_image_digest": "coding-harness-a5-baseline@sha256:5a6120dc14f9e6827f391ef67d5567dc67371ba4a2427de546ccbc2954de85d2",
+      "known_good_image_digest": "coding-harness-a5-known-good@sha256:53f64134485a7ffe49c70f548ca7e43a22d54aedb10f34ed9f7fb912adb282a7",
+      "image_audit_refs": {
+        "baseline": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-42-final-image-audit-main\\django__django-13590\\baseline.json",
+        "known-good": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-42-final-image-audit-main\\django__django-13590\\known-good.json"
+      },
+      "baseline_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-32-preserved-mode-recheck\\tasks\\django__django-13590\\baseline\\evidence.json",
+      "known_good_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-32-preserved-mode-recheck\\tasks\\django__django-13590\\known-good\\evidence.json"
+    },
+    {
+      "task_id": "sympy__sympy-24152",
+      "role": "target",
+      "repo": "sympy/sympy",
+      "base_revision": "b9af885473ad7e34b5b0826cb424dd26d8934670",
+      "source": {
+        "schema": "a5.full-archive-inventory.v1",
+        "repo": "sympy/sympy",
+        "base_revision": "b9af885473ad7e34b5b0826cb424dd26d8934670",
+        "archive_sha256": "ff92e14e517a36f3a5b318fb0005f753cd5a690c500509fd5d845dd483168abb",
+        "archive_bytes": 8066674,
+        "git_pax_commit": "b9af885473ad7e34b5b0826cb424dd26d8934670",
+        "source_tree_hash": "dd6a2f2819ea84569102b382da0b8a21d2cba8839b18419a9e945d8da74b0f1f",
+        "inventory_sha256": "2f3b87af7e821d50f6e09b7a79311a38b3791cb483ed6b0e101cad10abd6c61e",
+        "file_count": 1995,
+        "total_bytes": 36513507,
+        "nonregular_paths": [],
+        "excluded_upstream_paths": [],
+        "snapshot_kind": "complete_pinned_upstream_archive",
+        "within_runtime_limits": false,
+        "inventory_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sympy__sympy-24152\\source-inventory.json"
+      },
+      "source_complete": true,
+      "selected_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-32-preserved-mode-recheck\\tasks\\sympy__sympy-24152\\receipt.json",
+      "selected_receipt_sha256": "ea14b9757f3d0cc2384ae77891a5b7345ae7375d1b33c566237f1f3be3ac53bd",
+      "model_calls": 0,
+      "paid": false,
+      "memory_build_eligible": false,
+      "status": "baseline_ready",
+      "environment_ready": true,
+      "environment_baseline_ready": true,
+      "grader_ready": false,
+      "collection_count": 11061,
+      "all_f2p_fail": true,
+      "known_good_pass": true,
+      "expected_f2p_count": 1,
+      "actual_baseline_failed": [
+        "sympy/physics/quantum/tests/test_tensorproduct.py::test_tensor_product_expand"
+      ],
+      "unexpected_baseline_passed": [],
+      "baseline_image_digest": "coding-harness-a5-baseline@sha256:3f8346d1910baf3b6ce37831f3b272d091e04fca4185a77ceac108f922ce9b72",
+      "known_good_image_digest": "coding-harness-a5-known-good@sha256:0a29a3e113055a73ef0724ee2a2f986401e304928971fb4c0444008e37c1d22c",
+      "image_audit_refs": {
+        "baseline": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-42-final-image-audit-main\\sympy__sympy-24152\\baseline.json",
+        "known-good": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-42-final-image-audit-main\\sympy__sympy-24152\\known-good.json"
+      },
+      "baseline_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-32-preserved-mode-recheck\\tasks\\sympy__sympy-24152\\baseline\\evidence.json",
+      "known_good_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-32-preserved-mode-recheck\\tasks\\sympy__sympy-24152\\known-good\\evidence.json"
+    },
+    {
+      "task_id": "scikit-learn__scikit-learn-25747",
+      "role": "target",
+      "repo": "scikit-learn/scikit-learn",
+      "base_revision": "2c867b8f822eb7a684f0d5c4359e4426e1c9cfe0",
+      "source": {
+        "schema": "a5.full-archive-inventory.v1",
+        "repo": "scikit-learn/scikit-learn",
+        "base_revision": "2c867b8f822eb7a684f0d5c4359e4426e1c9cfe0",
+        "archive_sha256": "2e30657bf995547dea101d594eaf7c4f885953bf780c0c8380e2e3fd045c741a",
+        "archive_bytes": 7412695,
+        "git_pax_commit": "2c867b8f822eb7a684f0d5c4359e4426e1c9cfe0",
+        "source_tree_hash": "e6e6290d1c0a547b0aa656fbc121564fc75798373ae36b8ea04247700ce95cfa",
+        "inventory_sha256": "2705cb0d5cc3cc59983c93042030cdd71ab6a683c8f4a81992e838521cdefece",
+        "file_count": 1522,
+        "total_bytes": 20731203,
+        "nonregular_paths": [],
+        "excluded_upstream_paths": [],
+        "snapshot_kind": "complete_pinned_upstream_archive",
+        "within_runtime_limits": false,
+        "inventory_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\scikit-learn__scikit-learn-25747\\source-inventory.json"
+      },
+      "source_complete": true,
+      "selected_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-41-native-image-load\\tasks\\scikit-learn__scikit-learn-25747\\receipt.json",
+      "selected_receipt_sha256": "821bfe9d03280ac145b14bec40f38d35fe257b24e8bbdc43cbf27424b03c13e9",
+      "model_calls": 0,
+      "paid": false,
+      "memory_build_eligible": false,
+      "status": "baseline_ready",
+      "environment_ready": true,
+      "environment_baseline_ready": true,
+      "grader_ready": false,
+      "collection_count": 28046,
+      "all_f2p_fail": true,
+      "known_good_pass": true,
+      "expected_f2p_count": 1,
+      "actual_baseline_failed": [
+        "sklearn/utils/tests/test_set_output.py::test_set_output_pandas_keep_index"
+      ],
+      "unexpected_baseline_passed": [],
+      "baseline_image_digest": "coding-harness-a5-recheck@sha256:1d3179151535d1fcf2931280a52792928e79bb404f7d22e5e5a50d72da40ccb6",
+      "known_good_image_digest": "coding-harness-a5-recheck@sha256:90274a820c1a94456ae4b9c3f2f36d557982b5bdedbbc209c4bcb8dd24f496da",
+      "image_audit_refs": {
+        "baseline": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-44-native-image-audit\\scikit-learn__scikit-learn-25747\\baseline.json",
+        "known-good": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-44-native-image-audit\\scikit-learn__scikit-learn-25747\\known-good.json"
+      },
+      "baseline_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-41-native-image-load\\tasks\\scikit-learn__scikit-learn-25747\\baseline\\evidence.json",
+      "known_good_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-41-native-image-load\\tasks\\scikit-learn__scikit-learn-25747\\known-good\\evidence.json"
+    },
+    {
+      "task_id": "scikit-learn__scikit-learn-25570",
+      "role": "target",
+      "repo": "scikit-learn/scikit-learn",
+      "base_revision": "cd25abee0ad0ac95225d4a9be8948eff69f49690",
+      "source": {
+        "schema": "a5.full-archive-inventory.v1",
+        "repo": "scikit-learn/scikit-learn",
+        "base_revision": "cd25abee0ad0ac95225d4a9be8948eff69f49690",
+        "archive_sha256": "6815acadae48f5bd9fd089ba9a16428d54c1c066ae0bcafd02608ee0796106c2",
+        "archive_bytes": 7405853,
+        "git_pax_commit": "cd25abee0ad0ac95225d4a9be8948eff69f49690",
+        "source_tree_hash": "cb8dd2ebead142edd1d450522d82d9a8a05173ff6f3c9468c4475c717bd3ecf8",
+        "inventory_sha256": "b01249a3ccc7fef42c52627ca1e2bc886b6c67ffdf4b9342a76da8fa3a311c26",
+        "file_count": 1523,
+        "total_bytes": 20691076,
+        "nonregular_paths": [],
+        "excluded_upstream_paths": [],
+        "snapshot_kind": "complete_pinned_upstream_archive",
+        "within_runtime_limits": false,
+        "inventory_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\scikit-learn__scikit-learn-25570\\source-inventory.json"
+      },
+      "source_complete": true,
+      "selected_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-45-last-native-recheck\\tasks\\scikit-learn__scikit-learn-25570\\receipt.json",
+      "selected_receipt_sha256": "07f58119683408c14d44662866f362766cfc7a1df28fff01a08c5b7955c5b3d1",
+      "model_calls": 0,
+      "paid": false,
+      "memory_build_eligible": false,
+      "status": "baseline_ready",
+      "environment_ready": true,
+      "environment_baseline_ready": true,
+      "grader_ready": false,
+      "collection_count": 27784,
+      "all_f2p_fail": true,
+      "known_good_pass": true,
+      "expected_f2p_count": 3,
+      "actual_baseline_failed": [
+        "sklearn/compose/tests/test_column_transformer.py::test_empty_selection_pandas_output[list]",
+        "sklearn/compose/tests/test_column_transformer.py::test_empty_selection_pandas_output[bool]",
+        "sklearn/compose/tests/test_column_transformer.py::test_empty_selection_pandas_output[bool_int]"
+      ],
+      "unexpected_baseline_passed": [],
+      "baseline_image_digest": "coding-harness-a5-recheck@sha256:580b5874f2b4a5b676d37130083c53bc49bd97cf4ee54a6690176744055cab84",
+      "known_good_image_digest": "coding-harness-a5-recheck@sha256:2c96683a336ec11d9e43a7c4a67a35fd2500a28bfae636a3e256562221ebf6a9",
+      "image_audit_refs": {
+        "baseline": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-46-last-image-audit\\scikit-learn__scikit-learn-25570\\baseline.json",
+        "known-good": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-46-last-image-audit\\scikit-learn__scikit-learn-25570\\known-good.json"
+      },
+      "baseline_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-45-last-native-recheck\\tasks\\scikit-learn__scikit-learn-25570\\baseline\\evidence.json",
+      "known_good_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-45-last-native-recheck\\tasks\\scikit-learn__scikit-learn-25570\\known-good\\evidence.json"
+    },
+    {
+      "task_id": "sphinx-doc__sphinx-8595",
+      "role": "target",
+      "repo": "sphinx-doc/sphinx",
+      "base_revision": "b19bce971e82f2497d67fdacdeca8db08ae0ba56",
+      "source": {
+        "schema": "a5.full-archive-inventory.v1",
+        "repo": "sphinx-doc/sphinx",
+        "base_revision": "b19bce971e82f2497d67fdacdeca8db08ae0ba56",
+        "archive_sha256": "3bc84c594f995feb7b15505dc9cd413caf228ab0ddb6f97b66801f56d22cad74",
+        "archive_bytes": 5994677,
+        "git_pax_commit": "b19bce971e82f2497d67fdacdeca8db08ae0ba56",
+        "source_tree_hash": "0ca46a2e8318574b5241c2a24780dc81e322c53c7c07ba86c2c22070b95348b7",
+        "inventory_sha256": "9f31207644c1f879c13ac065891ad20a8be18271e6f9248be08fc8cfd6f9abee",
+        "file_count": 1464,
+        "total_bytes": 16428590,
+        "nonregular_paths": [],
+        "excluded_upstream_paths": [],
+        "snapshot_kind": "complete_pinned_upstream_archive",
+        "within_runtime_limits": false,
+        "inventory_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sphinx-doc__sphinx-8595\\source-inventory.json"
+      },
+      "source_complete": true,
+      "selected_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-35-sphinx-test-files\\tasks\\sphinx-doc__sphinx-8595\\receipt.json",
+      "selected_receipt_sha256": "9d6276e66c0dba7f9450ee31c00b95b1ac992dd7091a06dd979742ff0eea35e1",
+      "model_calls": 0,
+      "paid": false,
+      "memory_build_eligible": false,
+      "status": "baseline_ready",
+      "environment_ready": true,
+      "environment_baseline_ready": true,
+      "grader_ready": false,
+      "collection_count": 1640,
+      "all_f2p_fail": true,
+      "known_good_pass": true,
+      "expected_f2p_count": 1,
+      "actual_baseline_failed": [
+        "tests/test_ext_autodoc_automodule.py::test_empty_all"
+      ],
+      "unexpected_baseline_passed": [],
+      "baseline_image_digest": "coding-harness-a5-baseline@sha256:08038a4f8e02b84c379792ad651a3797b46713d81943d7fd2a2b047d7e4eb924",
+      "known_good_image_digest": "coding-harness-a5-known-good@sha256:37958016f1dd7f141db9a9b1aef1d634ef4d5519f99e11371b9148a2fdc7d37d",
+      "image_audit_refs": {
+        "baseline": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-42-final-image-audit-main\\sphinx-doc__sphinx-8595\\baseline.json",
+        "known-good": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-42-final-image-audit-main\\sphinx-doc__sphinx-8595\\known-good.json"
+      },
+      "baseline_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-35-sphinx-test-files\\tasks\\sphinx-doc__sphinx-8595\\baseline\\evidence.json",
+      "known_good_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-35-sphinx-test-files\\tasks\\sphinx-doc__sphinx-8595\\known-good\\evidence.json"
+    },
+    {
+      "task_id": "django__django-13448",
+      "role": "target",
+      "repo": "django/django",
+      "base_revision": "7b9596b974fb0ad1868b10c8c2174e10b72be403",
+      "source": {
+        "schema": "a5.full-archive-inventory.v1",
+        "repo": "django/django",
+        "base_revision": "7b9596b974fb0ad1868b10c8c2174e10b72be403",
+        "archive_sha256": "c31ef5b1c6c41a31b4773fe8413037232dbea1dc4ea33f73ffdebc92435ade6f",
+        "archive_bytes": 9362905,
+        "git_pax_commit": "7b9596b974fb0ad1868b10c8c2174e10b72be403",
+        "source_tree_hash": null,
+        "inventory_sha256": "4606713a512e05407ef631d7220407ca4c1ecb909ba6b891eba27a8077cd20e8",
+        "file_count": 6400,
+        "total_bytes": 38637667,
+        "nonregular_paths": [
+          "docs/_theme/djangodocs-epub/static/docicons-behindscenes.png",
+          "docs/_theme/djangodocs-epub/static/docicons-note.png",
+          "docs/_theme/djangodocs-epub/static/docicons-philosophy.png",
+          "docs/_theme/djangodocs-epub/static/docicons-warning.png"
+        ],
+        "excluded_upstream_paths": [],
+        "snapshot_kind": "complete_pinned_upstream_archive",
+        "within_runtime_limits": false,
+        "inventory_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\django__django-13448\\source-inventory.json"
+      },
+      "source_complete": true,
+      "selected_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-32-preserved-mode-recheck\\tasks\\django__django-13448\\receipt.json",
+      "selected_receipt_sha256": "ef11b1a8402e15d3f6912d6acbf6575e1b5630d5c82eaa585864e268e8a62592",
+      "model_calls": 0,
+      "paid": false,
+      "memory_build_eligible": false,
+      "status": "baseline_ready",
+      "environment_ready": true,
+      "environment_baseline_ready": true,
+      "grader_ready": false,
+      "collection_count": 14222,
+      "all_f2p_fail": true,
+      "known_good_pass": true,
+      "expected_f2p_count": 1,
+      "actual_baseline_failed": [
+        "backends.base.test_creation.TestDbCreationTests.test_migrate_test_setting_false"
+      ],
+      "unexpected_baseline_passed": [],
+      "baseline_image_digest": "coding-harness-a5-baseline@sha256:069eeae8f6981d6d03871a8fe19389bfadbfd93a728e76c215a29daaac053528",
+      "known_good_image_digest": "coding-harness-a5-known-good@sha256:ff9a9b2b595c5a7e405aa324bdada15b612b2ab6eae2bcbc3b690672aed9b257",
+      "image_audit_refs": {
+        "baseline": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-42-final-image-audit-main\\django__django-13448\\baseline.json",
+        "known-good": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-42-final-image-audit-main\\django__django-13448\\known-good.json"
+      },
+      "baseline_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-32-preserved-mode-recheck\\tasks\\django__django-13448\\baseline\\evidence.json",
+      "known_good_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-32-preserved-mode-recheck\\tasks\\django__django-13448\\known-good\\evidence.json"
+    },
+    {
+      "task_id": "sympy__sympy-20442",
+      "role": "target",
+      "repo": "sympy/sympy",
+      "base_revision": "1abbc0ac3e552cb184317194e5d5c5b9dd8fb640",
+      "source": {
+        "schema": "a5.full-archive-inventory.v1",
+        "repo": "sympy/sympy",
+        "base_revision": "1abbc0ac3e552cb184317194e5d5c5b9dd8fb640",
+        "archive_sha256": "ee0a80aa963aaa77f37175092ef9257619727e8c6b4b584b9946e531f7f055dc",
+        "archive_bytes": 6972736,
+        "git_pax_commit": "1abbc0ac3e552cb184317194e5d5c5b9dd8fb640",
+        "source_tree_hash": "ab7dbbc9cb0aa3d449c9f1721009d2a17495a971ec3c5731bb09202d483c1331",
+        "inventory_sha256": "6e5aca7d52550f796ab31a61c8c80a60e5e0f8fcf09aed84cc54b46e96a1101c",
+        "file_count": 1815,
+        "total_bytes": 32961753,
+        "nonregular_paths": [],
+        "excluded_upstream_paths": [],
+        "snapshot_kind": "complete_pinned_upstream_archive",
+        "within_runtime_limits": false,
+        "inventory_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sympy__sympy-20442\\source-inventory.json"
+      },
+      "source_complete": true,
+      "selected_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-32-preserved-mode-recheck\\tasks\\sympy__sympy-20442\\receipt.json",
+      "selected_receipt_sha256": "89a18e2a84b75fce058c5140fe8bc9febe375b5348451b8a80323b48a08e8023",
+      "model_calls": 0,
+      "paid": false,
+      "memory_build_eligible": false,
+      "status": "baseline_ready",
+      "environment_ready": true,
+      "environment_baseline_ready": true,
+      "grader_ready": false,
+      "collection_count": 10008,
+      "all_f2p_fail": true,
+      "known_good_pass": true,
+      "expected_f2p_count": 1,
+      "actual_baseline_failed": [
+        "sympy/physics/units/tests/test_quantities.py::test_convert_to"
+      ],
+      "unexpected_baseline_passed": [],
+      "baseline_image_digest": "coding-harness-a5-baseline@sha256:7d7bd0c873dfb07cb338d3713c4416dfd525b09c4b62c0a814be18f5ea936cec",
+      "known_good_image_digest": "coding-harness-a5-known-good@sha256:43779d24b3ba008a374ded0b97c368f94bb4abcdd19f49ed808cbaf29b1e240e",
+      "image_audit_refs": {
+        "baseline": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-42-final-image-audit-main\\sympy__sympy-20442\\baseline.json",
+        "known-good": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-42-final-image-audit-main\\sympy__sympy-20442\\known-good.json"
+      },
+      "baseline_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-32-preserved-mode-recheck\\tasks\\sympy__sympy-20442\\baseline\\evidence.json",
+      "known_good_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-32-preserved-mode-recheck\\tasks\\sympy__sympy-20442\\known-good\\evidence.json"
+    },
+    {
+      "task_id": "sympy__sympy-20154",
+      "role": "target",
+      "repo": "sympy/sympy",
+      "base_revision": "bdb49c4abfb35554a3c8ce761696ffff3bb837fe",
+      "source": {
+        "schema": "a5.full-archive-inventory.v1",
+        "repo": "sympy/sympy",
+        "base_revision": "bdb49c4abfb35554a3c8ce761696ffff3bb837fe",
+        "archive_sha256": "6bf852392fa24f95a6f8840c72298d9c8d483cfe6153e9bdca0d25fc8cff5720",
+        "archive_bytes": 6958813,
+        "git_pax_commit": "bdb49c4abfb35554a3c8ce761696ffff3bb837fe",
+        "source_tree_hash": "0a9e97fcf237be3f373a2c90966bfd59b653a20628dfbab48434ccdbf7af51b0",
+        "inventory_sha256": "2d3d3c373e997d89c3946a9caf9ce0a981861b745b7010c154d87e65f67f26e5",
+        "file_count": 1813,
+        "total_bytes": 32900772,
+        "nonregular_paths": [],
+        "excluded_upstream_paths": [],
+        "snapshot_kind": "complete_pinned_upstream_archive",
+        "within_runtime_limits": false,
+        "inventory_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sympy__sympy-20154\\source-inventory.json"
+      },
+      "source_complete": true,
+      "selected_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-32-preserved-mode-recheck\\tasks\\sympy__sympy-20154\\receipt.json",
+      "selected_receipt_sha256": "c9fae8f5b8592a1d8ab5074a5262c43c44fa566c7c6af83a94e16df940b2afa7",
+      "model_calls": 0,
+      "paid": false,
+      "memory_build_eligible": false,
+      "status": "baseline_ready",
+      "environment_ready": true,
+      "environment_baseline_ready": true,
+      "grader_ready": false,
+      "collection_count": 9995,
+      "all_f2p_fail": true,
+      "known_good_pass": true,
+      "expected_f2p_count": 2,
+      "actual_baseline_failed": [
+        "sympy/utilities/tests/test_iterables.py::test_partitions",
+        "sympy/utilities/tests/test_iterables.py::test_uniq"
+      ],
+      "unexpected_baseline_passed": [],
+      "baseline_image_digest": "coding-harness-a5-baseline@sha256:7bf82ec2de135edd3bf8e21fc27811cdc3c0ffcb9e766eac073a2e0bf0f6651a",
+      "known_good_image_digest": "coding-harness-a5-known-good@sha256:5cf0b1cfdc41510af3bbb879bd65d7a28346a3a22f2183897eb1f1303ca47818",
+      "image_audit_refs": {
+        "baseline": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-42-final-image-audit-main\\sympy__sympy-20154\\baseline.json",
+        "known-good": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-42-final-image-audit-main\\sympy__sympy-20154\\known-good.json"
+      },
+      "baseline_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-32-preserved-mode-recheck\\tasks\\sympy__sympy-20154\\baseline\\evidence.json",
+      "known_good_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-32-preserved-mode-recheck\\tasks\\sympy__sympy-20154\\known-good\\evidence.json"
+    },
+    {
+      "task_id": "pytest-dev__pytest-9359",
+      "role": "target",
+      "repo": "pytest-dev/pytest",
+      "base_revision": "e2ee3144ed6e241dea8d96215fcdca18b3892551",
+      "source": {
+        "schema": "a5.full-archive-inventory.v1",
+        "repo": "pytest-dev/pytest",
+        "base_revision": "e2ee3144ed6e241dea8d96215fcdca18b3892551",
+        "archive_sha256": "72bd646a146371e9d599406e97286a0717f7d56b16d090419b4f6c5800dc095f",
+        "archive_bytes": 1252206,
+        "git_pax_commit": "e2ee3144ed6e241dea8d96215fcdca18b3892551",
+        "source_tree_hash": "8ef859cda68565f2dbe6888cc0f626840d94b18ad666ac6507e63c9a72522e31",
+        "inventory_sha256": "c11f52316ea623aad03b49a2d54c5f78dfb80a3fc47589f8725f327712286fe2",
+        "file_count": 622,
+        "total_bytes": 4570658,
+        "nonregular_paths": [],
+        "excluded_upstream_paths": [],
+        "snapshot_kind": "complete_pinned_upstream_archive",
+        "within_runtime_limits": true,
+        "inventory_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\pytest-dev__pytest-9359\\source-inventory.json"
+      },
+      "source_complete": true,
+      "selected_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-27-repo-baseline\\tasks\\pytest-dev__pytest-9359\\receipt.json",
+      "selected_receipt_sha256": "205e3e597329394beafb765a0e136dd667555ec8744cf5533339ad281a741f86",
+      "model_calls": 0,
+      "paid": false,
+      "memory_build_eligible": false,
+      "environment_ready": true,
+      "environment_baseline_ready": true,
+      "grader_ready": true,
+      "status": "baseline_ready",
+      "carried_previous_attempt": true,
+      "previous_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-19-final-audit\\receipts.json",
+      "known_good_image_digest": "coding-harness-a5-pytest@sha256:c48b6349065199f5035cbfe94183358de9638de9bf11127d0fe34e02c76282e3",
+      "known_good_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-16-pytest9359-py39\\tasks\\pytest-dev__pytest-9359\\known-good\\evidence.json",
+      "actual_baseline_failed": [
+        "testing/code/test_source.py::test_decorator"
+      ],
+      "known_good_pass": true,
+      "grader": {
+        "status": "ready",
+        "known_good": "pass",
+        "known_good_failed_nodeids": [],
+        "known_good_classifier_error": null,
+        "negative_rejection": [
+          {
+            "case": "tampered_test",
+            "status": "rejected_before_execution",
+            "path": "testing/conftest.py",
+            "rejected": true
+          },
+          {
+            "case": "tampered_config",
+            "status": "rejected_before_execution",
+            "path": "tox.ini",
+            "rejected": true
+          },
+          {
+            "case": "fake_stdout",
+            "rejected": true,
+            "classifier_error": "missing_or_incomplete_receipt"
+          }
+        ],
+        "known_good_outcomes": {
+          "testing/code/test_source.py::test_decorator": "passed"
+        }
+      },
+      "grader_input_restored_from_history": true,
+      "runtime_generated_files": {
+        "src/_pytest/_version.py": {
+          "ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-runtime-generated-20260923-03\\pytest-dev__pytest-9359\\src\\_pytest\\_version.py",
+          "sha256": "494a8bf585c7999fe45c5e023aa2554d06bc8238aff405ba88d2b4c2cea5b63c"
+        }
+      }
+    },
+    {
+      "task_id": "sphinx-doc__sphinx-8713",
+      "role": "target",
+      "repo": "sphinx-doc/sphinx",
+      "base_revision": "3ed7590ed411bd93b26098faab4f23619cdb2267",
+      "source": {
+        "schema": "a5.full-archive-inventory.v1",
+        "repo": "sphinx-doc/sphinx",
+        "base_revision": "3ed7590ed411bd93b26098faab4f23619cdb2267",
+        "archive_sha256": "a411b2bae6f2c0a331c7f47ba8b519365ecf49d8d1580d46466edc8d3cb36550",
+        "archive_bytes": 5981448,
+        "git_pax_commit": "3ed7590ed411bd93b26098faab4f23619cdb2267",
+        "source_tree_hash": "4eafd959e16e6ca0350742a9db1d7df0d1b1352b729351ea9f5a334d1ddc378c",
+        "inventory_sha256": "ac95cf2d2331b6ac0aad0e9df1d088deb608e587373f2c200a4a7886af05490f",
+        "file_count": 1467,
+        "total_bytes": 16366995,
+        "nonregular_paths": [],
+        "excluded_upstream_paths": [],
+        "snapshot_kind": "complete_pinned_upstream_archive",
+        "within_runtime_limits": false,
+        "inventory_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sphinx-doc__sphinx-8713\\source-inventory.json"
+      },
+      "source_complete": true,
+      "selected_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-35-sphinx-test-files\\tasks\\sphinx-doc__sphinx-8713\\receipt.json",
+      "selected_receipt_sha256": "e3dc86a6ea9a1e305d19a75727593ed7c5d955e57abbccbe8deb6a1fbb7f73f7",
+      "model_calls": 0,
+      "paid": false,
+      "memory_build_eligible": false,
+      "status": "baseline_ready",
+      "environment_ready": true,
+      "environment_baseline_ready": true,
+      "grader_ready": false,
+      "collection_count": 1654,
+      "all_f2p_fail": true,
+      "known_good_pass": true,
+      "expected_f2p_count": 1,
+      "actual_baseline_failed": [
+        "tests/test_ext_napoleon_docstring.py::NumpyDocstringTest::test_parameters_with_class_reference"
+      ],
+      "unexpected_baseline_passed": [],
+      "baseline_image_digest": "coding-harness-a5-baseline@sha256:fa6bfa4c200740d01c8accb764edc793f253b4054b15cdbcfbcbbef4f214c55b",
+      "known_good_image_digest": "coding-harness-a5-known-good@sha256:f369fcaa06d92480132ac61576c3aa9fc6eb62e4a28c00bed3b5c872a236c542",
+      "image_audit_refs": {
+        "baseline": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-42-final-image-audit-main\\sphinx-doc__sphinx-8713\\baseline.json",
+        "known-good": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-42-final-image-audit-main\\sphinx-doc__sphinx-8713\\known-good.json"
+      },
+      "baseline_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-35-sphinx-test-files\\tasks\\sphinx-doc__sphinx-8713\\baseline\\evidence.json",
+      "known_good_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-35-sphinx-test-files\\tasks\\sphinx-doc__sphinx-8713\\known-good\\evidence.json"
+    }
+  ],
+  "assigned": 20,
+  "provenance": [
+    {
+      "task_id": "pytest-dev__pytest-7220",
+      "source": "history_grader_fields_over_current_identity"
+    },
+    {
+      "task_id": "pytest-dev__pytest-7432",
+      "source": "current"
+    },
+    {
+      "task_id": "sympy__sympy-18532",
+      "source": "current"
+    },
+    {
+      "task_id": "scikit-learn__scikit-learn-25500",
+      "source": "current"
+    },
+    {
+      "task_id": "django__django-15781",
+      "source": "current"
+    },
+    {
+      "task_id": "sphinx-doc__sphinx-10451",
+      "source": "current"
+    },
+    {
+      "task_id": "django__django-13265",
+      "source": "current"
+    },
+    {
+      "task_id": "sphinx-doc__sphinx-8721",
+      "source": "current"
+    },
+    {
+      "task_id": "pytest-dev__pytest-8365",
+      "source": "history_grader_fields_over_current_identity"
+    },
+    {
+      "task_id": "scikit-learn__scikit-learn-25638",
+      "source": "current"
+    },
+    {
+      "task_id": "django__django-13590",
+      "source": "current"
+    },
+    {
+      "task_id": "sympy__sympy-24152",
+      "source": "current"
+    },
+    {
+      "task_id": "scikit-learn__scikit-learn-25747",
+      "source": "current"
+    },
+    {
+      "task_id": "scikit-learn__scikit-learn-25570",
+      "source": "current"
+    },
+    {
+      "task_id": "sphinx-doc__sphinx-8595",
+      "source": "current"
+    },
+    {
+      "task_id": "django__django-13448",
+      "source": "current"
+    },
+    {
+      "task_id": "sympy__sympy-20442",
+      "source": "current"
+    },
+    {
+      "task_id": "sympy__sympy-20154",
+      "source": "current"
+    },
+    {
+      "task_id": "pytest-dev__pytest-9359",
+      "source": "history_grader_fields_over_current_identity"
+    },
+    {
+      "task_id": "sphinx-doc__sphinx-8713",
+      "source": "current"
+    }
+  ],
+  "input_hashes": {
+    "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-47-final-audit\\receipts.json": "f9efc85f6fe1776983aa6d72ef302b882cb8d14401b31fc79e3e4e115d1bead6",
+    "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-19-final-audit\\receipts.json": "5860359b19fad4d8073104c45ad30420030ba501e234598c37a34a5f473078bd",
+    "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-real240-78-pilot-lock\\pilot-matrix-lock.json": "fe33d1212d7de5ad4e6bee6a90e0cd0df5f5b5ff7e4b28d7abc1bbcd2bd70e25",
+    "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-runtime-generated-20260923-03\\pytest-dev__pytest-7220\\src\\_pytest\\_version.py": "ad63ae757d7c7083a8caa0050af4c66bd7787bbcf4d1f1b2fa61c5f1bf07a1e9",
+    "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-runtime-generated-20260923-03\\pytest-dev__pytest-8365\\src\\_pytest\\_version.py": "3492d0ad346a33ec6d249f0819bc17f720f012e740a055eb35c7325d434ca43a",
+    "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-runtime-generated-20260923-03\\pytest-dev__pytest-9359\\src\\_pytest\\_version.py": "494a8bf585c7999fe45c5e023aa2554d06bc8238aff405ba88d2b4c2cea5b63c"
+  },
+  "restored_targets": [
+    "pytest-dev__pytest-7220",
+    "pytest-dev__pytest-8365",
+    "pytest-dev__pytest-9359"
+  ],
+  "model_calls": 0,
+  "paid": false
+}

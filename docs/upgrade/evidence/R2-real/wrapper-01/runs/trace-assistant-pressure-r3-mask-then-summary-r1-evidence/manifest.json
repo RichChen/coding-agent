@@ -1,0 +1,125 @@
+{
+  "item_id": "trace-assistant-pressure-r3-mask-then-summary",
+  "category": "primary",
+  "task_id": "assistant-pressure",
+  "variant": "evidence",
+  "repeat": 1,
+  "run_id": "trace-assistant-pressure-r3-mask-then-summary-r1-evidence",
+  "raw_hash": "f74e16935faf855312ef0e6500185ff5253d74359bfcc1182314892734b9ff32",
+  "view_hash": "feda53e35ba1e23e1887ae0761640113b8cc019d6b60c980f6e559ee8b8421e8",
+  "config": {
+    "llm": {
+      "base_url": "https://api.deepseek.com/v1",
+      "api_key": "[REDACTED]",
+      "model": "deepseek-flash",
+      "temperature": 0.0,
+      "max_tokens": 512,
+      "supports_streaming": true,
+      "max_connections": 10,
+      "max_keepalive_connections": 5,
+      "trust_env": false,
+      "thinking": "disabled"
+    },
+    "runtime": {
+      "mode": "react",
+      "max_steps": 1,
+      "step_timeout_seconds": 120,
+      "total_timeout_seconds": 120,
+      "system_prompt_path": null,
+      "context": {
+        "strategy": "none",
+        "max_tokens": 8000,
+        "micro_compact": false,
+        "keep_recent_tool_results": 1,
+        "compact_token_threshold": null,
+        "summary_max_calls": 1,
+        "summary_provider": "fixture",
+        "summary_failure": "reject",
+        "summary_max_tokens": 131072,
+        "summary_max_output_tokens": 512,
+        "summary_max_output_bytes": 8192,
+        "summary_input_max_bytes": 65536,
+        "summary_timeout_seconds": 30.0,
+        "summary_time_budget_seconds": 60.0,
+        "summary_price_version": "deepseek-official-2026-09-21-peak",
+        "plugin": "noop",
+        "plugin_candidates": [],
+        "max_injection_bytes": 4096,
+        "dispatcher": "disabled",
+        "dispatcher_max_calls": 0
+      },
+      "planner": {
+        "enabled": false
+      },
+      "subagents": {
+        "enabled": false,
+        "max_depth": 1,
+        "readonly": true,
+        "max_steps": 3,
+        "share_parent_budget": false
+      },
+      "budget": {
+        "max_model_calls": 1,
+        "max_tokens": 32768,
+        "max_cost_usd": 0.02,
+        "price_table": {
+          "prompt_per_1k": 0.0003,
+          "completion_per_1k": 0.0012
+        },
+        "estimated_input_tokens": 512
+      }
+    },
+    "retry": {
+      "max_retries": 0,
+      "backoff_base_seconds": 1.0,
+      "backoff_factor": 2.0,
+      "retry_on": [
+        "timeout",
+        "model_error",
+        "http",
+        "network"
+      ]
+    },
+    "policy": {
+      "sandbox": {
+        "deny_absolute_paths": true,
+        "deny_parent_traversal": true,
+        "workspace_root": null
+      },
+      "command": {
+        "allow_all": true,
+        "allowed_prefixes": [],
+        "blocked_patterns": [],
+        "prefer_argv": false,
+        "env_whitelist": [],
+        "timeout_seconds": 30,
+        "execution_profile": "legacy_host",
+        "run_output_limit_bytes": 16777216,
+        "memory_per_stream_bytes": 65536,
+        "artifact_per_tool_bytes": 1048576,
+        "docker_image": "python@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9",
+        "docker_context": "desktop-linux",
+        "docker_cpus": 1.0,
+        "docker_memory_bytes": 536870912,
+        "docker_pids_limit": 128,
+        "docker_network": "none",
+        "docker_tmpfs_bytes": 16777216,
+        "docker_workspace_bytes": 67108864
+      },
+      "file_size_limit_bytes": 1048576,
+      "tool_output_max_chars": 16000,
+      "read_file_max_lines": null
+    },
+    "tools": {
+      "enabled": [],
+      "max_argument_bytes": 65536
+    },
+    "tracing": {
+      "format": "jsonl",
+      "output_dir": "traces",
+      "lifecycle_events": false,
+      "llm_stream_events": false
+    }
+  },
+  "source_item_hash": "de22d4609641c36e049d835170b72d703182368076947fea7d45f82739780736"
+}

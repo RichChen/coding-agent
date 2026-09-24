@@ -1,0 +1,191 @@
+{
+  "schema": "a5.failure-retry-ledger.v1",
+  "entries": [
+    {
+      "task_id": "django__django-10914",
+      "status": "missing_own_receipt",
+      "blockers": [
+        "historical_source_only_receipt_has_no_own_environment_baseline_or_grader"
+      ]
+    },
+    {
+      "task_id": "django__django-10924",
+      "status": "baseline_ready",
+      "blockers": [
+        "independent_full_repo_grader_pending"
+      ]
+    },
+    {
+      "task_id": "django__django-11001",
+      "status": "invalid_env",
+      "blockers": [
+        "environment_or_baseline_gate_failed",
+        "independent_full_repo_grader_pending"
+      ]
+    },
+    {
+      "task_id": "django__django-11019",
+      "status": "invalid_env",
+      "blockers": [
+        "environment_or_baseline_gate_failed",
+        "independent_full_repo_grader_pending"
+      ]
+    },
+    {
+      "task_id": "django__django-11039",
+      "status": "baseline_ready",
+      "blockers": [
+        "independent_full_repo_grader_pending"
+      ]
+    },
+    {
+      "task_id": "sympy__sympy-11400",
+      "status": "missing_own_receipt",
+      "blockers": [
+        "historical_source_only_receipt_has_no_own_environment_baseline_or_grader"
+      ]
+    },
+    {
+      "task_id": "sympy__sympy-11870",
+      "status": "baseline_ready",
+      "blockers": [
+        "independent_full_repo_grader_pending"
+      ]
+    },
+    {
+      "task_id": "sympy__sympy-11897",
+      "status": "baseline_ready",
+      "blockers": [
+        "independent_full_repo_grader_pending"
+      ]
+    },
+    {
+      "task_id": "sympy__sympy-12171",
+      "status": "baseline_ready",
+      "blockers": [
+        "independent_full_repo_grader_pending"
+      ]
+    },
+    {
+      "task_id": "sympy__sympy-12236",
+      "status": "invalid_env",
+      "blockers": [
+        "environment_or_baseline_gate_failed",
+        "independent_full_repo_grader_pending",
+        "known_good_did_not_pass_target_or_collection_invalid"
+      ]
+    },
+    {
+      "task_id": "scikit-learn__scikit-learn-10297",
+      "status": "missing_own_receipt",
+      "blockers": [
+        "historical_source_only_receipt_has_no_own_environment_baseline_or_grader"
+      ]
+    },
+    {
+      "task_id": "scikit-learn__scikit-learn-10508",
+      "status": "baseline_ready",
+      "blockers": [
+        "independent_full_repo_grader_pending"
+      ]
+    },
+    {
+      "task_id": "scikit-learn__scikit-learn-10949",
+      "status": "baseline_ready",
+      "blockers": [
+        "independent_full_repo_grader_pending"
+      ]
+    },
+    {
+      "task_id": "scikit-learn__scikit-learn-11040",
+      "status": "baseline_ready",
+      "blockers": [
+        "independent_full_repo_grader_pending"
+      ]
+    },
+    {
+      "task_id": "scikit-learn__scikit-learn-11281",
+      "status": "baseline_ready",
+      "blockers": [
+        "independent_full_repo_grader_pending"
+      ]
+    },
+    {
+      "task_id": "pytest-dev__pytest-5103",
+      "status": "missing_own_receipt",
+      "blockers": [
+        "historical_source_only_receipt_has_no_own_environment_baseline_or_grader"
+      ]
+    },
+    {
+      "task_id": "pytest-dev__pytest-5221",
+      "status": "baseline_ready",
+      "blockers": [
+        "independent_full_repo_grader_pending"
+      ]
+    },
+    {
+      "task_id": "pytest-dev__pytest-5227",
+      "status": "baseline_ready",
+      "blockers": [
+        "independent_full_repo_grader_pending"
+      ]
+    },
+    {
+      "task_id": "pytest-dev__pytest-5413",
+      "status": "invalid_env",
+      "blockers": [
+        "environment_or_baseline_gate_failed",
+        "independent_full_repo_grader_pending",
+        "known_good_did_not_pass_target_or_collection_invalid"
+      ]
+    },
+    {
+      "task_id": "pytest-dev__pytest-5495",
+      "status": "invalid_env",
+      "blockers": [
+        "environment_or_baseline_gate_failed",
+        "independent_full_repo_grader_pending",
+        "known_good_did_not_pass_target_or_collection_invalid"
+      ]
+    },
+    {
+      "task_id": "django__django-10914",
+      "status": "invalid_env",
+      "blockers": [
+        "historical_own_environment_baseline_not_verified",
+        "image_build_or_windows_symlink_acl_blocked",
+        "independent_full_repo_grader_not_run"
+      ]
+    },
+    {
+      "task_id": "sympy__sympy-11400",
+      "status": "invalid_env",
+      "blockers": [
+        "historical_own_environment_baseline_not_verified",
+        "image_build_or_windows_symlink_acl_blocked",
+        "independent_full_repo_grader_not_run"
+      ]
+    },
+    {
+      "task_id": "scikit-learn__scikit-learn-10297",
+      "status": "invalid_env",
+      "blockers": [
+        "historical_own_environment_baseline_not_verified",
+        "image_build_or_windows_symlink_acl_blocked",
+        "independent_full_repo_grader_not_run"
+      ]
+    },
+    {
+      "task_id": "pytest-dev__pytest-5103",
+      "status": "invalid_env",
+      "blockers": [
+        "historical_own_environment_baseline_not_verified",
+        "image_build_or_windows_symlink_acl_blocked",
+        "independent_full_repo_grader_not_run"
+      ]
+    }
+  ],
+  "model_calls": 0,
+  "paid": false
+}

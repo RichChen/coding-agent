@@ -1,0 +1,14 @@
+{
+  "schema": "a5.canary-harness-artifact-manifest.v2",
+  "status": "preflight_blocked",
+  "artifacts": [
+    {"path":"canary-preflight.json","sha256":"76266152cdf902681de9909f1b8907690a67d0edc3a4b001643ee509c2edb2e6"},
+    {"path":"session-receipt.json","sha256":"a03a292b5c36c6d3502dce4ce29800ed4899cad413141a81df20d67d37f7d854"},
+    {"path":"injection-receipts.jsonl","sha256":"18a5d4d2cf72ec1b6393854132cec2599b15bdf163c5d0b6d1d02eb00f1dae99"},
+    {"path":"pending.json","sha256":"bd1f70d72d12860186e51a3f8c784132b9fea36b193ac4169b797a4aeaf5c506"}
+  ],
+  "scope_lock_sha256":"8123b7dfe669c100f080b4ca414437ff0dc8d875797416ccfd5efe90506719c5",
+  "model_calls":0,
+  "paid":false,
+  "unrun_matrix_rows":236
+}

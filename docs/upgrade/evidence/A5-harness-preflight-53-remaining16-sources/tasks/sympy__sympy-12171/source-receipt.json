@@ -1,0 +1,50 @@
+{
+  "task_id": "sympy__sympy-12171",
+  "agent_task_id": "a5-build-2aa29e6c29720fb8",
+  "repo": "sympy/sympy",
+  "base_revision": "ca6ef27272be31c9dc3753ede9232c39df9a75d8",
+  "role": "memory_source",
+  "status": "invalid_env",
+  "source": {
+    "schema": "a5.full-archive-inventory.v1",
+    "repo": "sympy/sympy",
+    "base_revision": "ca6ef27272be31c9dc3753ede9232c39df9a75d8",
+    "archive_sha256": "6c3c839b4176a89fedf7b6c70e853270c4c651c56278788cb522191c2100efd0",
+    "archive_bytes": 4873086,
+    "git_pax_commit": "ca6ef27272be31c9dc3753ede9232c39df9a75d8",
+    "source_tree_hash": "8322dc813ab4b815a53a5e84950f77bec5456f11d1dbaf48dc4eb393c827bd80",
+    "inventory_sha256": "b721c63ca59cee47832984dcc488a82324ed8562bea1372aaf4c755ce49979a3",
+    "file_count": 1422,
+    "total_bytes": 18504789,
+    "nonregular_paths": [],
+    "excluded_upstream_paths": [],
+    "snapshot_kind": "complete_pinned_upstream_archive",
+    "within_runtime_limits": false,
+    "inventory_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-53-remaining16-sources\\tasks\\sympy__sympy-12171\\source-inventory.json"
+  },
+  "image_digest": null,
+  "python_version": null,
+  "pytest_version": null,
+  "dependencies": null,
+  "collection": {
+    "status": "not_run",
+    "count": null,
+    "hash": null
+  },
+  "baseline": {
+    "status": "not_run",
+    "failure_nodeids": null
+  },
+  "grader": {
+    "status": "not_run",
+    "known_good": "not_run",
+    "negative_rejection": "not_run"
+  },
+  "cleanup": "not_applicable_no_container_started",
+  "model_calls": 0,
+  "paid": false,
+  "attempt": 1,
+  "retries": 0,
+  "reason": "full_source_exceeds_runtime_limits",
+  "duration_seconds": 5.453991199989105
+}

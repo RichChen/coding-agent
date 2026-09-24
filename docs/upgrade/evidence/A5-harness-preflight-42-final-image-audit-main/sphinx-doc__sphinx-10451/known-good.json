@@ -1,0 +1,10 @@
+{
+  "task_id": "sphinx-doc__sphinx-10451",
+  "kind": "known-good",
+  "image": "coding-harness-a5-known-good@sha256:c5ddba1dd1ddaadcaebe16c85b53d40e308bea95ac6a467fac22a829d0ff40d4",
+  "status": "invalid",
+  "model_calls": 0,
+  "paid": false,
+  "error": "DockerUnavailable('Docker exec failed: Traceback (most recent call last):\\n  File \"<string>\", line 9, in <module>\\nValueError: upstream native file cannot be redirected: tests/roots/test-apidoc-duplicates/fish_licence/halibut.cpython-38-x86_64-linux-gnu.so\\n')",
+  "cleanup_verified": true
+}

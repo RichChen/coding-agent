@@ -1,0 +1,28 @@
+{
+  "schema": "a5.memory-pool.provenance-review.v1",
+  "source_id": "sympy__sympy-11400",
+  "source_dir": "D:/crq/src/coding-harness/docs/upgrade/evidence/A5-memory-pool-75-s1-smoke/sympy__sympy-11400-reverify",
+  "decision": "validated",
+  "reasons": [],
+  "reviewed": true,
+  "reviewed_at": "2026-09-22T11:25:09.185244+00:00",
+  "review_method": "rule_based",
+  "validation_scope": "public_independent_smoke_receipt",
+  "private_grader_run": false,
+  "hashes": {
+    "public_input_sha256": "b554b33f3d22e1ad52d2691f6694429055f3eb7966ab21e1f6889229af67f65f",
+    "trajectory_sha256": "027d4e54f0d6741be6d9930e93e4b01d4f64da0d3d3739fa4e649d269010c56a",
+    "validation_receipt_sha256": "b2ea7ee6226f7efdd6445f9888f620cd8e9cca9f9ba6cdcdad98c3df098939c1",
+    "candidate_delta_sha256": "956112bb7aa52cc4dcfc8879bb37642c02ed96d84e993cc907985956b71e701c"
+  },
+  "bindings": {
+    "repo": "sympy/sympy",
+    "base_revision": "8dcb12a6cf500e8738d6729ab954a261758f49ca",
+    "source_tree_hash": "e84f42b5e2329609b3cd6912c459da0cdad98570e9b59e6c2bef127492d0a8a3",
+    "transport_image_digest": "coding-harness-a5-transport@sha256:69deefd436081d10fd7c97d9482315669d7e8cc87565789e7b74e06b970e4e7f",
+    "run_attempt_id": "a5-s1-sympy__sympy-11400-56f2ae56c147",
+    "delta_changed_files": 1,
+    "model_calls": 24,
+    "paid": true
+  }
+}

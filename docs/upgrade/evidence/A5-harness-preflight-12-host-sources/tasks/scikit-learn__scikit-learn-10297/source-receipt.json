@@ -1,0 +1,50 @@
+{
+  "task_id": "scikit-learn__scikit-learn-10297",
+  "agent_task_id": "a5-build-28c10c92d52bbe54",
+  "repo": "scikit-learn/scikit-learn",
+  "base_revision": "b90661d6a46aa3619d3eec94d5281f5888add501",
+  "role": "preflight_history_candidate",
+  "status": "invalid_env",
+  "source": {
+    "schema": "a5.full-archive-inventory.v1",
+    "repo": "scikit-learn/scikit-learn",
+    "base_revision": "b90661d6a46aa3619d3eec94d5281f5888add501",
+    "archive_sha256": "3fc061ae95f36efada14bdef121d187121d11cfdf553cb1e82efb30fd137775e",
+    "archive_bytes": 5981287,
+    "git_pax_commit": "b90661d6a46aa3619d3eec94d5281f5888add501",
+    "source_tree_hash": "efbb4cd0dfdfb5d78fb740733d9fbb082abb1cab3997f26511a99203bddac593",
+    "inventory_sha256": "6e4f114fad7ba016c7d122c69a466b7a9031da64ef24117076f012877cb44cd1",
+    "file_count": 1105,
+    "total_bytes": 15147428,
+    "nonregular_paths": [],
+    "excluded_upstream_paths": [],
+    "snapshot_kind": "complete_pinned_upstream_archive",
+    "within_runtime_limits": false,
+    "inventory_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\scikit-learn__scikit-learn-10297\\source-inventory.json"
+  },
+  "image_digest": null,
+  "python_version": null,
+  "pytest_version": null,
+  "dependencies": null,
+  "collection": {
+    "status": "not_run",
+    "count": null,
+    "hash": null
+  },
+  "baseline": {
+    "status": "not_run",
+    "failure_nodeids": null
+  },
+  "grader": {
+    "status": "not_run",
+    "known_good": "not_run",
+    "negative_rejection": "not_run"
+  },
+  "cleanup": "not_applicable_no_container_started",
+  "model_calls": 0,
+  "paid": false,
+  "attempt": 1,
+  "retries": 0,
+  "reason": "full_source_exceeds_runtime_limits",
+  "duration_seconds": 8.02716739999596
+}

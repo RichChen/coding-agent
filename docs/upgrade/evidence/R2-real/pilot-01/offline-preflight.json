@@ -1,0 +1,77 @@
+{
+  "model_calls": 0,
+  "windows": [
+    {
+      "task_id": "old-facts",
+      "strategy": "none",
+      "status": "context_overflow",
+      "fixture_generations": 0
+    },
+    {
+      "task_id": "old-facts",
+      "strategy": "masking",
+      "status": "ready",
+      "fixture_generations": 0
+    },
+    {
+      "task_id": "old-facts",
+      "strategy": "summary",
+      "status": "ready",
+      "fixture_generations": 1
+    },
+    {
+      "task_id": "old-facts",
+      "strategy": "mask-then-summary",
+      "status": "ready",
+      "fixture_generations": 0
+    },
+    {
+      "task_id": "assistant-pressure",
+      "strategy": "none",
+      "status": "context_overflow",
+      "fixture_generations": 0
+    },
+    {
+      "task_id": "assistant-pressure",
+      "strategy": "masking",
+      "status": "context_overflow",
+      "fixture_generations": 0
+    },
+    {
+      "task_id": "assistant-pressure",
+      "strategy": "summary",
+      "status": "ready",
+      "fixture_generations": 1
+    },
+    {
+      "task_id": "assistant-pressure",
+      "strategy": "mask-then-summary",
+      "status": "ready",
+      "fixture_generations": 1
+    },
+    {
+      "task_id": "short-control",
+      "strategy": "none",
+      "status": "ready",
+      "fixture_generations": 0
+    },
+    {
+      "task_id": "short-control",
+      "strategy": "masking",
+      "status": "ready",
+      "fixture_generations": 0
+    },
+    {
+      "task_id": "short-control",
+      "strategy": "summary",
+      "status": "ready",
+      "fixture_generations": 0
+    },
+    {
+      "task_id": "short-control",
+      "strategy": "mask-then-summary",
+      "status": "ready",
+      "fixture_generations": 0
+    }
+  ]
+}

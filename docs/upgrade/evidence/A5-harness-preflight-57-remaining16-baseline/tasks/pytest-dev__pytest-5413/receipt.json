@@ -1,0 +1,81 @@
+{
+  "task_id": "pytest-dev__pytest-5413",
+  "repo": "pytest-dev/pytest",
+  "base_revision": "450d2646233c670654744d3d24330b69895bb9d2",
+  "status": "invalid_env",
+  "attempt": 25,
+  "retries": 0,
+  "model_calls": 0,
+  "paid": false,
+  "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-53-remaining16-sources\\tasks\\pytest-dev__pytest-5413\\source-receipt.json",
+  "transport_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-55-remaining16-transport\\tasks\\pytest-dev__pytest-5413\\receipt.json",
+  "source": {
+    "schema": "a5.full-archive-inventory.v1",
+    "repo": "pytest-dev/pytest",
+    "base_revision": "450d2646233c670654744d3d24330b69895bb9d2",
+    "archive_sha256": "5675b3a7fcdb847305c070821009cc1cb04bb1ff0a90a0cb7d48b68d505cbfe5",
+    "archive_bytes": 936357,
+    "git_pax_commit": "450d2646233c670654744d3d24330b69895bb9d2",
+    "source_tree_hash": "8b7a769d705f92eed158b3577ef3eafc06b36353b29cd074da19b0c73fbe718b",
+    "inventory_sha256": "d77c973fd2481431fba3384d932866629684b538b740234f59e47192d9f9232a",
+    "file_count": 426,
+    "total_bytes": 3140030,
+    "nonregular_paths": [],
+    "excluded_upstream_paths": [],
+    "snapshot_kind": "complete_pinned_upstream_archive",
+    "within_runtime_limits": true,
+    "inventory_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-53-remaining16-sources\\tasks\\pytest-dev__pytest-5413\\source-inventory.json"
+  },
+  "transport_mode": "image_backed_base_plus_delta",
+  "transport_image_digest": "coding-harness-a5-transport@sha256:9252ebc9bf14bfd8824bc9206f685628914e3ecc3010e652e2369d3cbc8ef1f4",
+  "baseline_image_digest": "coding-harness-a5-baseline@sha256:c03e6c41ccea7f6da1bf4b327e81fa77af86b6592a50846d873239cb1794b882",
+  "known_good_image_digest": "coding-harness-a5-known-good@sha256:94dfb18d671a595d8d74912c44d307f45bd1f53d31d2e57f22f782af94adb317",
+  "baseline_image_id": "sha256:c03e6c41ccea7f6da1bf4b327e81fa77af86b6592a50846d873239cb1794b882",
+  "known_good_image_id": "sha256:94dfb18d671a595d8d74912c44d307f45bd1f53d31d2e57f22f782af94adb317",
+  "private_source_binding": {
+    "path": "D:\\crq\\src\\coding-agent\\reports\\upgrade\\a5-pilot20-preparation-20260921-v4\\private\\history\\a5-task-bd078c02fd25fef6\\source-row.json",
+    "sha256": "dd2fc741d1a6fba3b14113150eb095a0968e57c5ddcec83fafff459763bfdaed",
+    "test_patch_sha256": "96a694cd889a4b1597e144bc9c0a127960111eab7621b805711b8ebe5ccad8f2",
+    "gold_patch_sha256": "34f5b421e92cf10334e75169f11e7f4a6e20cec510e6b679d26eb455e093e53f",
+    "test_patch_paths": [
+      "testing/code/test_excinfo.py"
+    ],
+    "gold_patch_paths": [
+      "src/_pytest/_code/code.py"
+    ]
+  },
+  "snapshot_binding": {
+    "original_tree_hash": "3e1c10ceef18896fba06d9b3b478075299f3d3b7a4f5a5b7934f807413bf3cb5",
+    "baseline_tree_hash": "7e965c0f51a0470b034f4773ba522c17263d7b0406f7da33769ce509fa4f0b4c",
+    "known_good_tree_hash": "008c3a2436cd94ab34974afba47c7668a90e89e670125e30a10484905d573cc2"
+  },
+  "python_version": null,
+  "pytest_version": null,
+  "collection": {
+    "status": "invalid_env",
+    "count": 0,
+    "hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "nodeids": [],
+    "receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-57-remaining16-baseline\\tasks\\pytest-dev__pytest-5413\\collection\\evidence.json",
+    "collection_errors": null
+  },
+  "baseline": {
+    "status": "baseline_invalid",
+    "failure_nodeids": [
+      "testing/code/test_excinfo.py::test_excinfo_repr_str"
+    ],
+    "outcomes": {},
+    "missing_exact_nodeids": [
+      "testing/code/test_excinfo.py::test_excinfo_repr_str"
+    ],
+    "receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-57-remaining16-baseline\\tasks\\pytest-dev__pytest-5413\\baseline\\evidence.json"
+  },
+  "grader": {
+    "status": "pending_full_repo_grader",
+    "known_good": "fail",
+    "known_good_outcomes": {}
+  },
+  "cleanup_verified": true,
+  "dependencies": "see image pip freeze receipt",
+  "reason": "environment_or_baseline_gate_failed"
+}

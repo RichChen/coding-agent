@@ -1,0 +1,28 @@
+{
+  "schema": "a5.memory-gates-final-readiness.v1",
+  "status": "blocked",
+  "assigned": 20,
+  "full_denominator": 20,
+  "source_complete": 20,
+  "environment_baseline_ready": 11,
+  "grader_ready": 11,
+  "eligible": 11,
+  "blocking_tasks": [
+    "django__django-10914",
+    "django__django-11001",
+    "django__django-11019",
+    "sympy__sympy-11400",
+    "sympy__sympy-12236",
+    "scikit-learn__scikit-learn-10297",
+    "pytest-dev__pytest-5103",
+    "pytest-dev__pytest-5413",
+    "pytest-dev__pytest-5495"
+  ],
+  "model_calls": 0,
+  "paid": false,
+  "paid_build_started": false,
+  "paid_pilot_started": false,
+  "memory_build_eligible": false,
+  "next_gate": "resolve historical host ACL/buildx failures and five remaining16 invalid_env rows; rerun full grader calibration",
+  "created_at": "2026-09-22T08:48:09.276396+00:00"
+}
