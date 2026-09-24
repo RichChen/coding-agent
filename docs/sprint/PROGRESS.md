@@ -51,3 +51,12 @@
 - `pytest-dev__pytest-5103` 为 `partial`，卡片改为 `partial_attempt`（F2P 0/1，P2P 20/64，数字不写入卡片）。
 - 其余 10 条是 `grader_unavailable`，仍为 `unverified`：django 3 条是文件数上限，sympy/sklearn 6 条是传输配额，`pytest-5221` 的 grader 没有给出 pass/partial/fail。
 - 测试：`python -m pytest -q tests/test_memory_cards.py tests/test_source_verification.py`，6 passed。
+
+## 第二轮 第 1 步：从原始事件流提取（2026-09-25）
+
+- 开工 tag：`mem2-start`（`c4ecbf0`）。
+- 11 条源的 `source_dir/run/events.jsonl` 都在。后面的 `state.saved` 整段 payload 是 `artifact_ref`，正文在 `run/session/artifacts`。读不到的字段会跳过并记下原因；这 11 条没有跳过。
+- 新模块 `memory/event_extract.py`：读文件的行号范围、`search_code` 的 pattern、测试相关命令（`pytest` / `runtests.py` / `python -c` / `python -m`）、模型诊断和最终回答各 1–3 句、用 `ast` 把 `search_replace` 对上改动后的 `def`/`class`。
+- 11 条里 `django-10924` 和 `sklearn-11040` 没有符合条件的测试命令。`django-10914`、`sklearn-10297`、`pytest-5221` 没对上改动符号。
+- 测试：`python -m pytest -q tests/test_event_extract.py`。目标题 ID 和 gold/test patch 里长度 ≥ 80 的新增行没有出现在提取结果里。
+- 下一步：第 2 步，滤掉旧镜像里的缺依赖、git 不存在、全盘搜索和 stub。
