@@ -291,7 +291,7 @@ class AgentLoop:
                 self.hooks.restore(saved['stats']['manager_state'])
             if (isinstance(self.hooks, WindowPolicyHooks) or saved['stats'].get('did_compact')) and (not context_events or context_events[-1] != saved['stats']):
                 context_events.append(copy.deepcopy(saved['stats']))
-            return view
+            return self._with_remaining_calls(view)
         view = copy.deepcopy(messages)
         max_output = int(getattr(self.llm, 'max_tokens', 4096) or 4096)
         hook_ctx = HookContext(step_number=step, workspace_root=str(self.sandbox.workspace_root), extra={
@@ -325,7 +325,14 @@ class AgentLoop:
             self.event_bus.emit('context_prepared',task_id=task_id,**stats)
             if stats.get('did_compact'):
                 self.event_bus.emit('context_compacted',task_id=task_id,**stats)
-        return view
+        return self._with_remaining_calls(view)
+
+    def _with_remaining_calls(self, view):
+        ledger = self.model_ledger
+        if ledger is None or ledger.max_model_calls is None:
+            return view
+        left = max(int(ledger.max_model_calls) - int(ledger.calls_started), 0)
+        return list(view) + [{"role": "user", "content": f"remaining model calls: {left}/{ledger.max_model_calls}"}]
 
     async def _call_llm(
         self,

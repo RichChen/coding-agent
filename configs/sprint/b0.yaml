@@ -9,6 +9,7 @@ llm:
   max_tokens: 8192
   trust_env: false
 runtime:
+  system_prompt_path: prompts/swe_b0.md
   max_steps: 60
   step_timeout_seconds: 120
   total_timeout_seconds: 1200

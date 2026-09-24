@@ -7,6 +7,7 @@ import pytest
 
 from src.llm.client import LLMResponse, ToolCall
 from src.policy.budget import Budget
+from src.policy.model_budget import ModelBudgetLedger
 from src.policy.sandbox import Sandbox
 from src.runtime.loop import AgentLoop
 from src.tools.files import ReadFileTool, WriteFileTool
@@ -262,3 +263,19 @@ class TestAgentLoopIntegration:
             FailureReason.USER_CANCELLED,
         )
         assert len(mock_llm.calls) == 0
+
+    def test_remaining_calls_appended_to_view(self, tmp_path):
+        tools = ToolRegistry()
+        sandbox = Sandbox(workspace_root=tmp_path)
+        budget = Budget(max_steps=5, total_timeout_seconds=30, step_timeout_seconds=10)
+        ledger = ModelBudgetLedger(max_model_calls=40)
+        ledger.calls_started = 3
+        agent = AgentLoop(
+            llm=MockLLMClient([]),
+            tools=tools,
+            sandbox=sandbox,
+            budget=budget,
+            model_ledger=ledger,
+        )
+        view = agent._with_remaining_calls([{"role": "system", "content": "s"}])
+        assert view[-1]["content"] == "remaining model calls: 37/40"
