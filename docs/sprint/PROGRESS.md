@@ -44,3 +44,10 @@
 - 离线检索：sphinx 四题和 `sympy-20154` 一条都选不到。B3 在没有目标仓库检出时，排上的卡都因路径不存在被拒绝。
 - 扩充若要做，13 条新源题、约 3.2–6.5 CNY，超过 3 元观察线，留给审计之后。
 - 下一步：停。等用户把 CHECKPOINT-1 交给审计者。
+
+## 补第 2 步：验证文件已到（2026-09-25）
+
+- `coding-harness/docs/sprint/memory-source-verification.json` 已存在。重新生成 `memory-cards-v2.jsonl`，只改了状态字段。
+- `pytest-dev__pytest-5103` 为 `partial`，卡片改为 `partial_attempt`（F2P 0/1，P2P 20/64，数字不写入卡片）。
+- 其余 10 条是 `grader_unavailable`，仍为 `unverified`：django 3 条是文件数上限，sympy/sklearn 6 条是传输配额，`pytest-5221` 的 grader 没有给出 pass/partial/fail。
+- 测试：`python -m pytest -q tests/test_memory_cards.py tests/test_source_verification.py`，6 passed。
