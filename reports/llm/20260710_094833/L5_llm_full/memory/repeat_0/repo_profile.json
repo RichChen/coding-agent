@@ -1,0 +1,25 @@
+{
+  "2348ecc141d69715": {
+    "repo_fingerprint": "2348ecc141d69715",
+    "test_commands": [
+      "python -m pytest tests/test_token_format_holdout.py -q"
+    ],
+    "top_level_entries": [
+      "__pycache__",
+      "auth_rules",
+      "conftest.py",
+      "tests"
+    ],
+    "common_files": [
+      "conftest.py",
+      "auth_rules/api.py",
+      "auth_rules/models.py",
+      "auth_rules/policy.py",
+      "auth_rules/tokens.py",
+      "auth_rules/__init__.py"
+    ],
+    "style_notes": [
+      "Authorization APIs return Result objects; role checks and token parsing should use structured errors, not bare bool or raised KeyError."
+    ]
+  }
+}

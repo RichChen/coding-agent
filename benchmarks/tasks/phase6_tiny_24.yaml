@@ -1,0 +1,147 @@
+tasks:
+  - id: fix_import_error_case01
+    issue: Fix ModuleNotFoundError in calculator import path (case 01).
+    repo_path: repos/fix_import_error
+    test_command: python -m pytest tests/ -q
+    expected_files: [app/calculator.py]
+    tags: [import, bugfix, repeated]
+  - id: fix_import_error_case02
+    issue: Resolve broken module import for calculator helpers (case 02).
+    repo_path: repos/fix_import_error
+    test_command: python -m pytest tests/ -q
+    expected_files: [app/calculator.py]
+    tags: [import, bugfix, repeated]
+  - id: fix_import_error_case03
+    issue: Tests fail due to missing module import in calculator (case 03).
+    repo_path: repos/fix_import_error
+    test_command: python -m pytest tests/ -q
+    expected_files: [app/calculator.py]
+    tags: [import, bugfix, repeated]
+  - id: fix_import_error_case04
+    issue: Repair wrong import line in calculator module (case 04).
+    repo_path: repos/fix_import_error
+    test_command: python -m pytest tests/ -q
+    expected_files: [app/calculator.py]
+    tags: [import, bugfix, repeated]
+  - id: fix_import_error_case05
+    issue: Import regression in calculator.py breaks tests (case 05).
+    repo_path: repos/fix_import_error
+    test_command: python -m pytest tests/ -q
+    expected_files: [app/calculator.py]
+    tags: [import, bugfix, repeated]
+  - id: fix_import_error_case06
+    issue: Fix calculator import statement for module resolution (case 06).
+    repo_path: repos/fix_import_error
+    test_command: python -m pytest tests/ -q
+    expected_files: [app/calculator.py]
+    tags: [import, bugfix, repeated]
+  - id: fix_import_error_case07
+    issue: Broken import in calculator should be corrected (case 07).
+    repo_path: repos/fix_import_error
+    test_command: python -m pytest tests/ -q
+    expected_files: [app/calculator.py]
+    tags: [import, bugfix, repeated]
+  - id: fix_import_error_case08
+    issue: Address module import failure from calculator test run (case 08).
+    repo_path: repos/fix_import_error
+    test_command: python -m pytest tests/ -q
+    expected_files: [app/calculator.py]
+    tags: [import, bugfix, repeated]
+
+  - id: fix_off_by_one_case01
+    issue: Inclusive range sum is off by one in range_sum (case 01).
+    repo_path: repos/fix_off_by_one
+    test_command: python -m pytest tests/ -q
+    expected_files: [app/range_sum.py]
+    tags: [logic, bugfix, repeated]
+  - id: fix_off_by_one_case02
+    issue: Fix loop boundary in range_sum implementation (case 02).
+    repo_path: repos/fix_off_by_one
+    test_command: python -m pytest tests/ -q
+    expected_files: [app/range_sum.py]
+    tags: [logic, bugfix, repeated]
+  - id: fix_off_by_one_case03
+    issue: End value is excluded unexpectedly in range_sum (case 03).
+    repo_path: repos/fix_off_by_one
+    test_command: python -m pytest tests/ -q
+    expected_files: [app/range_sum.py]
+    tags: [logic, bugfix, repeated]
+  - id: fix_off_by_one_case04
+    issue: Repair off-by-one error for inclusive sum calculation (case 04).
+    repo_path: repos/fix_off_by_one
+    test_command: python -m pytest tests/ -q
+    expected_files: [app/range_sum.py]
+    tags: [logic, bugfix, repeated]
+  - id: fix_off_by_one_case05
+    issue: range_sum misses the last element, patch it (case 05).
+    repo_path: repos/fix_off_by_one
+    test_command: python -m pytest tests/ -q
+    expected_files: [app/range_sum.py]
+    tags: [logic, bugfix, repeated]
+  - id: fix_off_by_one_case06
+    issue: Include upper bound in sum range logic (case 06).
+    repo_path: repos/fix_off_by_one
+    test_command: python -m pytest tests/ -q
+    expected_files: [app/range_sum.py]
+    tags: [logic, bugfix, repeated]
+  - id: fix_off_by_one_case07
+    issue: Correct boundary condition in range_sum for tests (case 07).
+    repo_path: repos/fix_off_by_one
+    test_command: python -m pytest tests/ -q
+    expected_files: [app/range_sum.py]
+    tags: [logic, bugfix, repeated]
+  - id: fix_off_by_one_case08
+    issue: Off-by-one defect in range_sum should be fixed (case 08).
+    repo_path: repos/fix_off_by_one
+    test_command: python -m pytest tests/ -q
+    expected_files: [app/range_sum.py]
+    tags: [logic, bugfix, repeated]
+
+  - id: add_greeting_function_case01
+    issue: Implement greet(name) with expected greeting format (case 01).
+    repo_path: repos/add_greeting_function
+    test_command: python -m pytest tests/ -q
+    expected_files: [app/greet.py]
+    tags: [feature, repeated]
+  - id: add_greeting_function_case02
+    issue: Add missing greet helper in greet.py (case 02).
+    repo_path: repos/add_greeting_function
+    test_command: python -m pytest tests/ -q
+    expected_files: [app/greet.py]
+    tags: [feature, repeated]
+  - id: add_greeting_function_case03
+    issue: Complete greeting function for test expectations (case 03).
+    repo_path: repos/add_greeting_function
+    test_command: python -m pytest tests/ -q
+    expected_files: [app/greet.py]
+    tags: [feature, repeated]
+  - id: add_greeting_function_case04
+    issue: Implement function returning Hello, name output (case 04).
+    repo_path: repos/add_greeting_function
+    test_command: python -m pytest tests/ -q
+    expected_files: [app/greet.py]
+    tags: [feature, repeated]
+  - id: add_greeting_function_case05
+    issue: Missing greet API should be added to module (case 05).
+    repo_path: repos/add_greeting_function
+    test_command: python -m pytest tests/ -q
+    expected_files: [app/greet.py]
+    tags: [feature, repeated]
+  - id: add_greeting_function_case06
+    issue: Add deterministic greet implementation (case 06).
+    repo_path: repos/add_greeting_function
+    test_command: python -m pytest tests/ -q
+    expected_files: [app/greet.py]
+    tags: [feature, repeated]
+  - id: add_greeting_function_case07
+    issue: Create greet function for existing tests (case 07).
+    repo_path: repos/add_greeting_function
+    test_command: python -m pytest tests/ -q
+    expected_files: [app/greet.py]
+    tags: [feature, repeated]
+  - id: add_greeting_function_case08
+    issue: Implement greeting utility function in app/greet.py (case 08).
+    repo_path: repos/add_greeting_function
+    test_command: python -m pytest tests/ -q
+    expected_files: [app/greet.py]
+    tags: [feature, repeated]

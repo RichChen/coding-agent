@@ -1,0 +1,26 @@
+{
+  "7a1d8d27ec4e177d": {
+    "repo_fingerprint": "7a1d8d27ec4e177d",
+    "test_commands": [
+      "python -m pytest tests/test_convention_holdout.py -q"
+    ],
+    "top_level_entries": [
+      "__pycache__",
+      "conftest.py",
+      "inventory",
+      "tests"
+    ],
+    "common_files": [
+      "conftest.py",
+      "inventory/api.py",
+      "inventory/discounts.py",
+      "inventory/models.py",
+      "inventory/pricing.py",
+      "inventory/validators.py",
+      "inventory/__init__.py"
+    ],
+    "style_notes": [
+      "Return Result[T] with .ok/.value/.error from APIs; tests assert result.ok and result.value — not raw int/bool and not bare exceptions."
+    ]
+  }
+}

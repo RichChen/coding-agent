@@ -1,0 +1,188 @@
+{
+  "$defs": {
+    "ArtifactRef": {
+      "additionalProperties": false,
+      "properties": {
+        "logical_id": {
+          "minLength": 1,
+          "title": "Logical Id",
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Sha256",
+          "type": "string"
+        },
+        "size_bytes": {
+          "minimum": 0,
+          "title": "Size Bytes",
+          "type": "integer"
+        },
+        "media_type": {
+          "default": "text/plain",
+          "title": "Media Type",
+          "type": "string"
+        },
+        "run_id": {
+          "minLength": 1,
+          "title": "Run Id",
+          "type": "string"
+        },
+        "relative_path": {
+          "title": "Relative Path",
+          "type": "string"
+        },
+        "sensitivity": {
+          "const": "public_observation",
+          "default": "public_observation",
+          "title": "Sensitivity",
+          "type": "string"
+        }
+      },
+      "required": [
+        "logical_id",
+        "sha256",
+        "size_bytes",
+        "run_id",
+        "relative_path"
+      ],
+      "title": "ArtifactRef",
+      "type": "object"
+    },
+    "SourceRef": {
+      "additionalProperties": false,
+      "properties": {
+        "task_id": {
+          "minLength": 1,
+          "title": "Task Id",
+          "type": "string"
+        },
+        "run_id": {
+          "minLength": 1,
+          "title": "Run Id",
+          "type": "string"
+        },
+        "repo_id": {
+          "minLength": 1,
+          "title": "Repo Id",
+          "type": "string"
+        },
+        "repo_revision": {
+          "minLength": 1,
+          "title": "Repo Revision",
+          "type": "string"
+        },
+        "protocol_mode": {
+          "enum": [
+            "realistic",
+            "diagnostic_oracle"
+          ],
+          "title": "Protocol Mode",
+          "type": "string"
+        },
+        "split": {
+          "enum": [
+            "memory_build",
+            "dev",
+            "heldout"
+          ],
+          "title": "Split",
+          "type": "string"
+        },
+        "occurred_at": {
+          "format": "date-time",
+          "title": "Occurred At",
+          "type": "string"
+        },
+        "artifact": {
+          "$ref": "#/$defs/ArtifactRef"
+        },
+        "duplicate_group": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Duplicate Group"
+        }
+      },
+      "required": [
+        "task_id",
+        "run_id",
+        "repo_id",
+        "repo_revision",
+        "protocol_mode",
+        "split",
+        "occurred_at",
+        "artifact"
+      ],
+      "title": "SourceRef",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "allowed_sources": {
+      "items": {
+        "$ref": "#/$defs/SourceRef"
+      },
+      "title": "Allowed Sources",
+      "type": "array"
+    },
+    "allowed_validation_artifacts": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/ArtifactRef"
+      },
+      "title": "Allowed Validation Artifacts",
+      "type": "array"
+    },
+    "target_task_ids": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Target Task Ids",
+      "type": "array"
+    },
+    "excluded_artifact_hashes": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Excluded Artifact Hashes",
+      "type": "array"
+    },
+    "excluded_duplicate_groups": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Excluded Duplicate Groups",
+      "type": "array"
+    },
+    "cutoff": {
+      "format": "date-time",
+      "title": "Cutoff",
+      "type": "string"
+    },
+    "allowed_repos": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Allowed Repos",
+      "type": "array"
+    }
+  },
+  "required": [
+    "allowed_sources",
+    "target_task_ids",
+    "cutoff"
+  ],
+  "title": "SourcePolicy",
+  "type": "object"
+}

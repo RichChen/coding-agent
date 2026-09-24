@@ -1,0 +1,2428 @@
+{
+  "schema": "a5.canonical-handoff.v1",
+  "date": "2026-09-21",
+  "experiment_id": "a5-pilot-20-v1",
+  "authority": "current_user_canonical_handoff_only_instruction",
+  "path_base": "D:/crq/src/coding-agent",
+  "audience": "host_only",
+  "status": "handoff_waiting",
+  "runnable_frozen": false,
+  "execution": {
+    "enabled": false,
+    "provider_calls_this_handoff": 0,
+    "paid_build_started": false,
+    "paid_pilot_started": false,
+    "validated_memory_records": 0,
+    "build_jobs_state": "prepared_not_started",
+    "automatic_gate_unlock": false
+  },
+  "canonical_identity": {
+    "key": "SWE-bench source_instance_id",
+    "harness_task_id": "canonical_id",
+    "agent_task_id": "existing opaque PublicTask task_id; do not rewrite",
+    "mapping_rule": "receipts must bind canonical_id, agent_task_id, job_id and exact repo/base"
+  },
+  "counts": {
+    "target_tasks": 20,
+    "memory_build_sources": 20,
+    "preflight_history_candidates": 4,
+    "initial_preflight_tasks": 24,
+    "remaining_memory_sources": 16,
+    "planned_pilot_task_runs": 240,
+    "max_memory_build_attempts": 40
+  },
+  "source_dataset": {
+    "dataset": "princeton-nlp/SWE-bench_Lite",
+    "revision": "6ec7bb89b9342f664a54a6e0a6ea6501d3437cc2",
+    "split": "test",
+    "source_url": "https://huggingface.co/datasets/princeton-nlp/SWE-bench_Lite/resolve/6ec7bb89b9342f664a54a6e0a6ea6501d3437cc2/data/test-00000-of-00001.parquet",
+    "sha256": "7a21f37b8bc179c7db5beeb14e88ac538ba283455c776e6b2535bbfb6e3551b4",
+    "size_bytes": 1119540,
+    "rows": 300,
+    "readme_sha256": "01d69da06269ac911e8d716a868838d53c9bf0a16b9b2fee9097cb5c84bff3d3",
+    "retrieved_on": "2026-09-21",
+    "license_status": "dataset_card_unspecified; per-repo attribution requires review",
+    "created_at_semantics": "upstream pull request creation time, not issue time or merge time",
+    "source_lock_ref": "configs/a5/pilot20-source-lock.json",
+    "source_lock_sha256": "53f50508569127a2b3e88a10532fbd0049f40196e3076f8bfc4e314a295381a0",
+    "public_target_review_ref": "configs/a5/pilot20-public-review.json",
+    "public_target_review_sha256": "d1fe518b3b697eb3a992db6ba24a4786c98c7c5f04766c09286e2502d1773ebd"
+  },
+  "schedule": {
+    "variants": [
+      "B0",
+      "B1",
+      "B2",
+      "B3"
+    ],
+    "repeats": 3,
+    "seeds": [
+      42,
+      43,
+      44
+    ],
+    "planned_task_runs": 240,
+    "assignments_ref": "reports/upgrade/a5-pilot20-preparation-20260921-v4/assignments.json",
+    "contract_ref": "reports/upgrade/a5-pilot20-preparation-20260921-v4/experiment-contract.provisional.json",
+    "contract_changed": false
+  },
+  "target_tasks": [
+    {
+      "canonical_id": "django__django-13265",
+      "agent_task_id": "a5-task-9d74ed989dbd3bb5",
+      "expected_repo": "django/django",
+      "expected_base_commit": "b2b0711b555fa292751763c2df4fe577c396f265",
+      "public_issue_sha256": "6d41387c67f83f41c8ab0e61b7a0167b8b4375db162fc12509a0ef70546bd6e6",
+      "public_task_path": "reports/upgrade/a5-pilot20-preparation-20260921-v4/public/tasks/a5-task-9d74ed989dbd3bb5.json",
+      "public_task_model_hash": "c50b2db72a11c3359da290b6fb7caafeeb88147c26a2bd2e19536fc6d5fbb13c",
+      "state": "planned_not_started",
+      "readiness": "awaiting_repo_grader_readiness",
+      "preflight_evidence": null
+    },
+    {
+      "canonical_id": "django__django-15781",
+      "agent_task_id": "a5-task-703c29e3748cc6fc",
+      "expected_repo": "django/django",
+      "expected_base_commit": "8d160f154f0240a423e83ffe0690e472f837373c",
+      "public_issue_sha256": "0f0a276d3b06bdc954edfe66424c4ee3d621e378bbb0306f50520970e2646dc5",
+      "public_task_path": "reports/upgrade/a5-pilot20-preparation-20260921-v4/public/tasks/a5-task-703c29e3748cc6fc.json",
+      "public_task_model_hash": "a4a9807aa02bfaeaf74293b42be43e196214e11dc61badc1a24e5228ecbdcdbe",
+      "state": "planned_not_started",
+      "readiness": "awaiting_repo_grader_readiness",
+      "preflight_evidence": null
+    },
+    {
+      "canonical_id": "django__django-13590",
+      "agent_task_id": "a5-task-dbbbc570b9ba0e23",
+      "expected_repo": "django/django",
+      "expected_base_commit": "755dbf39fcdc491fe9b588358303e259c7750be4",
+      "public_issue_sha256": "05b78c5617cc34ad2af8034fde1a60f353913bda2cecfe6c547ce5f80dfaafbf",
+      "public_task_path": "reports/upgrade/a5-pilot20-preparation-20260921-v4/public/tasks/a5-task-dbbbc570b9ba0e23.json",
+      "public_task_model_hash": "c4366879f9f7a42772a6c20e167e81e70ef3dcd384e8997e68a6da41e3682887",
+      "state": "planned_not_started",
+      "readiness": "awaiting_repo_grader_readiness",
+      "preflight_evidence": null
+    },
+    {
+      "canonical_id": "django__django-13448",
+      "agent_task_id": "a5-task-aa769cb3dfe9f323",
+      "expected_repo": "django/django",
+      "expected_base_commit": "7b9596b974fb0ad1868b10c8c2174e10b72be403",
+      "public_issue_sha256": "17f122a29f0213a2188323d692afe53022c387b592887312462f5b64ee2cbdfa",
+      "public_task_path": "reports/upgrade/a5-pilot20-preparation-20260921-v4/public/tasks/a5-task-aa769cb3dfe9f323.json",
+      "public_task_model_hash": "85ab05df193dd0a191b60a3bbab260632250cddb68efbee84141bb731d3e286e",
+      "state": "planned_not_started",
+      "readiness": "awaiting_repo_grader_readiness",
+      "preflight_evidence": null
+    },
+    {
+      "canonical_id": "sympy__sympy-20154",
+      "agent_task_id": "a5-task-532c204a7648a7cd",
+      "expected_repo": "sympy/sympy",
+      "expected_base_commit": "bdb49c4abfb35554a3c8ce761696ffff3bb837fe",
+      "public_issue_sha256": "16cda9e1dbc96941a98fa2f54a1545709b1a3aefe133b20841f69d6391bef6dd",
+      "public_task_path": "reports/upgrade/a5-pilot20-preparation-20260921-v4/public/tasks/a5-task-532c204a7648a7cd.json",
+      "public_task_model_hash": "d3cc53931cc4f0c829bf8414a8b778d767be4233bc90065fea21a52ed04b57e5",
+      "state": "planned_not_started",
+      "readiness": "awaiting_repo_grader_readiness",
+      "preflight_evidence": null
+    },
+    {
+      "canonical_id": "sympy__sympy-24152",
+      "agent_task_id": "a5-task-72007d74676c0af1",
+      "expected_repo": "sympy/sympy",
+      "expected_base_commit": "b9af885473ad7e34b5b0826cb424dd26d8934670",
+      "public_issue_sha256": "aa3445a87f82a5fbbfe971bca7bca544ce73e22c7f6a9925b9797de6878aaa1b",
+      "public_task_path": "reports/upgrade/a5-pilot20-preparation-20260921-v4/public/tasks/a5-task-72007d74676c0af1.json",
+      "public_task_model_hash": "f4c299d4d9b4ef0ecce591087cdc1cd29ff3635d2b41dfd9a5681737fa05fd54",
+      "state": "planned_not_started",
+      "readiness": "awaiting_repo_grader_readiness",
+      "preflight_evidence": null
+    },
+    {
+      "canonical_id": "sympy__sympy-20442",
+      "agent_task_id": "a5-task-515fa015f4d4445e",
+      "expected_repo": "sympy/sympy",
+      "expected_base_commit": "1abbc0ac3e552cb184317194e5d5c5b9dd8fb640",
+      "public_issue_sha256": "90dadedcc62e8e6f5b0ad38bd6a2bafabb9e796fb8affb288423a386837c5eb7",
+      "public_task_path": "reports/upgrade/a5-pilot20-preparation-20260921-v4/public/tasks/a5-task-515fa015f4d4445e.json",
+      "public_task_model_hash": "a5ee1db9f75993d0ee801936cb695b4b42288bc342f17257f8fedaf4b4cf4d0d",
+      "state": "planned_not_started",
+      "readiness": "awaiting_repo_grader_readiness",
+      "preflight_evidence": null
+    },
+    {
+      "canonical_id": "sympy__sympy-18532",
+      "agent_task_id": "a5-task-9b7d3e751f58d383",
+      "expected_repo": "sympy/sympy",
+      "expected_base_commit": "74227f900b05009d4eed62e34a166228788a32ca",
+      "public_issue_sha256": "ea8ba9c6ef25373f9d6955ab42298223c99634fa3d8a30ca115caf37564ed3a3",
+      "public_task_path": "reports/upgrade/a5-pilot20-preparation-20260921-v4/public/tasks/a5-task-9b7d3e751f58d383.json",
+      "public_task_model_hash": "83a48a2444a1b98fc3da3c75be95dc420f8d048b62f8f3ff2cb62624493d85e0",
+      "state": "planned_not_started",
+      "readiness": "awaiting_repo_grader_readiness",
+      "preflight_evidence": null
+    },
+    {
+      "canonical_id": "scikit-learn__scikit-learn-25747",
+      "agent_task_id": "a5-task-07b0ed7ca1d52f88",
+      "expected_repo": "scikit-learn/scikit-learn",
+      "expected_base_commit": "2c867b8f822eb7a684f0d5c4359e4426e1c9cfe0",
+      "public_issue_sha256": "9737299393a037ff2845a2f62b558550b2900387a4de7ee94c19b48d397f1d33",
+      "public_task_path": "reports/upgrade/a5-pilot20-preparation-20260921-v4/public/tasks/a5-task-07b0ed7ca1d52f88.json",
+      "public_task_model_hash": "8ce52e6882b466944bd814a6d4a351cfd1980aef0e243aa87cc0c33ad0d99887",
+      "state": "planned_not_started",
+      "readiness": "awaiting_repo_grader_readiness",
+      "preflight_evidence": null
+    },
+    {
+      "canonical_id": "scikit-learn__scikit-learn-25500",
+      "agent_task_id": "a5-task-43b70843ce92c9d8",
+      "expected_repo": "scikit-learn/scikit-learn",
+      "expected_base_commit": "4db04923a754b6a2defa1b172f55d492b85d165e",
+      "public_issue_sha256": "529fd586b8e8e321cbbf30946b8875fc0f1bf1e4567aaa6c191260f8d4740b23",
+      "public_task_path": "reports/upgrade/a5-pilot20-preparation-20260921-v4/public/tasks/a5-task-43b70843ce92c9d8.json",
+      "public_task_model_hash": "be83a11335a43b9039c0bc5969640a55973fab0342b89b807be1eeee09afb014",
+      "state": "planned_not_started",
+      "readiness": "awaiting_repo_grader_readiness",
+      "preflight_evidence": null
+    },
+    {
+      "canonical_id": "scikit-learn__scikit-learn-25638",
+      "agent_task_id": "a5-task-75abb1372af2ad22",
+      "expected_repo": "scikit-learn/scikit-learn",
+      "expected_base_commit": "6adb209acd63825affc884abcd85381f148fb1b0",
+      "public_issue_sha256": "230ba09f0ffc373c4e9282ff826932640024f3dae4b488898af2bf53e6775bdd",
+      "public_task_path": "reports/upgrade/a5-pilot20-preparation-20260921-v4/public/tasks/a5-task-75abb1372af2ad22.json",
+      "public_task_model_hash": "da8eb5a98df598056a7f8a548d78555511f9d5bf0dde75c2603055031fd8b3e0",
+      "state": "planned_not_started",
+      "readiness": "awaiting_repo_grader_readiness",
+      "preflight_evidence": null
+    },
+    {
+      "canonical_id": "scikit-learn__scikit-learn-25570",
+      "agent_task_id": "a5-task-73d6eb90b9a4b485",
+      "expected_repo": "scikit-learn/scikit-learn",
+      "expected_base_commit": "cd25abee0ad0ac95225d4a9be8948eff69f49690",
+      "public_issue_sha256": "0323e47ba4ba20a78b8251fd152f12f641662c29cc3f0782bf296ad9ae1198df",
+      "public_task_path": "reports/upgrade/a5-pilot20-preparation-20260921-v4/public/tasks/a5-task-73d6eb90b9a4b485.json",
+      "public_task_model_hash": "9010a9806d9394656d921fff8365bfcf42d95345ee26f12e85159a5a404daae7",
+      "state": "planned_not_started",
+      "readiness": "awaiting_repo_grader_readiness",
+      "preflight_evidence": null
+    },
+    {
+      "canonical_id": "pytest-dev__pytest-8365",
+      "agent_task_id": "a5-task-50d9fb2d3f6b37ab",
+      "expected_repo": "pytest-dev/pytest",
+      "expected_base_commit": "4964b468c83c06971eb743fbc57cc404f760c573",
+      "public_issue_sha256": "73b11b4c0bfb6a3212304f282d67eb116cfa2f55f936fd5c5d66c55756aaa81e",
+      "public_task_path": "reports/upgrade/a5-pilot20-preparation-20260921-v4/public/tasks/a5-task-50d9fb2d3f6b37ab.json",
+      "public_task_model_hash": "ed0c52a6d1d52d78d67afbb57eaaafed2afce61fc64b1d21cf9f805f503a4f44",
+      "state": "planned_not_started",
+      "readiness": "awaiting_repo_grader_readiness",
+      "preflight_evidence": null
+    },
+    {
+      "canonical_id": "pytest-dev__pytest-7432",
+      "agent_task_id": "a5-task-4c6d41a0680e18c8",
+      "expected_repo": "pytest-dev/pytest",
+      "expected_base_commit": "e6e300e729dd33956e5448d8be9a0b1540b4e53a",
+      "public_issue_sha256": "f8453cfb1e017be81d0fd5ac8fc5b6faeff6045f71763c81e7fd51537a81ef31",
+      "public_task_path": "reports/upgrade/a5-pilot20-preparation-20260921-v4/public/tasks/a5-task-4c6d41a0680e18c8.json",
+      "public_task_model_hash": "c4b61d1bf2d1eacc0cb77e4d2af1c97f97bc49b1e2c6c8c6e7e155a674f4ed18",
+      "state": "planned_not_started",
+      "readiness": "awaiting_repo_grader_readiness",
+      "preflight_evidence": null
+    },
+    {
+      "canonical_id": "pytest-dev__pytest-9359",
+      "agent_task_id": "a5-task-004e8cd8a7c80ba6",
+      "expected_repo": "pytest-dev/pytest",
+      "expected_base_commit": "e2ee3144ed6e241dea8d96215fcdca18b3892551",
+      "public_issue_sha256": "4ecb4b433b57d2b16a49a28e6dec7df49af58d83fe8740094e8571bf755747d0",
+      "public_task_path": "reports/upgrade/a5-pilot20-preparation-20260921-v4/public/tasks/a5-task-004e8cd8a7c80ba6.json",
+      "public_task_model_hash": "3f1262f30e77a6079e52ff2f61e0525a3742dae4fc2eee4b99cc9f53fcfe13da",
+      "state": "planned_not_started",
+      "readiness": "awaiting_repo_grader_readiness",
+      "preflight_evidence": null
+    },
+    {
+      "canonical_id": "pytest-dev__pytest-7220",
+      "agent_task_id": "a5-task-e726f5f0ccb4ea85",
+      "expected_repo": "pytest-dev/pytest",
+      "expected_base_commit": "56bf819c2f4eaf8b36bd8c42c06bb59d5a3bfc0f",
+      "public_issue_sha256": "a4106396b6e1d34ae148b176a00895e7a24a1ff2a047646606f748e313ce48e1",
+      "public_task_path": "reports/upgrade/a5-pilot20-preparation-20260921-v4/public/tasks/a5-task-e726f5f0ccb4ea85.json",
+      "public_task_model_hash": "9fca1f3596935cecc0642688fed74875c1d0eb98fbe90174f0f608116d93998e",
+      "state": "planned_not_started",
+      "readiness": "awaiting_repo_grader_readiness",
+      "preflight_evidence": null
+    },
+    {
+      "canonical_id": "sphinx-doc__sphinx-10451",
+      "agent_task_id": "a5-task-891cbbbdab60ba21",
+      "expected_repo": "sphinx-doc/sphinx",
+      "expected_base_commit": "195e911f1dab04b8ddeacbe04b7d214aaf81bb0b",
+      "public_issue_sha256": "a66a1c0efd93eb6b91bef416f3844b643dbbc94ba925862824c1f46a685a3af4",
+      "public_task_path": "reports/upgrade/a5-pilot20-preparation-20260921-v4/public/tasks/a5-task-891cbbbdab60ba21.json",
+      "public_task_model_hash": "0c44d9fb439b10c71809e5d511506360aef14140956fbc90c93ed9006b393438",
+      "state": "planned_not_started",
+      "readiness": "awaiting_repo_grader_readiness",
+      "preflight_evidence": null
+    },
+    {
+      "canonical_id": "sphinx-doc__sphinx-8721",
+      "agent_task_id": "a5-task-e328c531ac4ed0ae",
+      "expected_repo": "sphinx-doc/sphinx",
+      "expected_base_commit": "82ef497a8c88f0f6e50d84520e7276bfbf65025d",
+      "public_issue_sha256": "684041d7ab737dd04914a0017b92d238cd8dae72182457e3f3a21f494e7acb3e",
+      "public_task_path": "reports/upgrade/a5-pilot20-preparation-20260921-v4/public/tasks/a5-task-e328c531ac4ed0ae.json",
+      "public_task_model_hash": "aac3ecd8356d20be77c2f645c80d7157f74dade2f624b9e8ca3f1e2086974ec0",
+      "state": "planned_not_started",
+      "readiness": "awaiting_repo_grader_readiness",
+      "preflight_evidence": null
+    },
+    {
+      "canonical_id": "sphinx-doc__sphinx-8595",
+      "agent_task_id": "a5-task-0f00e18f18495633",
+      "expected_repo": "sphinx-doc/sphinx",
+      "expected_base_commit": "b19bce971e82f2497d67fdacdeca8db08ae0ba56",
+      "public_issue_sha256": "f5549e64af66510e584758f04371935b8c6c3a5fec4fda812b8571a7bd733be4",
+      "public_task_path": "reports/upgrade/a5-pilot20-preparation-20260921-v4/public/tasks/a5-task-0f00e18f18495633.json",
+      "public_task_model_hash": "a738b263825f040be133fccce57647d4cad235b467c992ade1c9bd1f41590f07",
+      "state": "planned_not_started",
+      "readiness": "awaiting_repo_grader_readiness",
+      "preflight_evidence": null
+    },
+    {
+      "canonical_id": "sphinx-doc__sphinx-8713",
+      "agent_task_id": "a5-task-31f59359335ec929",
+      "expected_repo": "sphinx-doc/sphinx",
+      "expected_base_commit": "3ed7590ed411bd93b26098faab4f23619cdb2267",
+      "public_issue_sha256": "1959ef656e51ae4f0b52dbde34d326b658917a0eba58804961368d891ef88382",
+      "public_task_path": "reports/upgrade/a5-pilot20-preparation-20260921-v4/public/tasks/a5-task-31f59359335ec929.json",
+      "public_task_model_hash": "77e67b97b2eab3923415fc497f94027f20cda6492cd64123094ff2d3d59ba381",
+      "state": "planned_not_started",
+      "readiness": "awaiting_repo_grader_readiness",
+      "preflight_evidence": null
+    }
+  ],
+  "memory_build_source_pool": [
+    {
+      "canonical_id": "django__django-10914",
+      "agent_task_id": "a5-build-b117be26241cbe45",
+      "job_id": "d304208a1fbc56e9a731abc18dd2e6b1bee59353ff5c5ab900986b4998b86180",
+      "expected_repo": "django/django",
+      "expected_base_commit": "e7fd69d051eaa67cb17f172a39b57253e9cb831a",
+      "preflight_history_candidate": true,
+      "provenance": {
+        "dataset_ref": "source_dataset",
+        "dataset_instance_id": "django__django-10914",
+        "source_url": "https://github.com/django/django/pull/10914",
+        "historical_pr_created_at": "2019-01-30T21:13:20+08:00",
+        "created_at_semantics": "upstream pull request creation time, not issue time or merge time",
+        "source_row": {
+          "path": "reports/upgrade/a5-pilot20-preparation-20260921-v4/private/history/a5-task-b117be26241cbe45/source-row.json",
+          "sha256": "6123f16adf07031cbb746a61a5dc8577657d121acab081ab8e83a4306925aede",
+          "canonical_sha256": "fd96a5abc717798e478db4c1373345c8a3d65fc14e25dbbfef0caa35e870cd36",
+          "access": "host_private_only"
+        },
+        "public_issue_sha256": "ba101c6d80094fe56bc64d74dcb7efe033a6e0d43dd77e8f00e65806fdbcdb8b",
+        "trimmed_issue_sha256": "4a220d6d3939b7088adf6de0c846146706237ce833c998a0d70d4ef0dc274cb5",
+        "license_status": "dataset_card_unspecified; per_source_license_review_pending"
+      },
+      "public_task": {
+        "path": "reports/upgrade/a5-funded-build-preparation-20260921-v12/public/a5-build-b117be26241cbe45.json",
+        "sha256": "8f14477312a2521ffec9825b3ccb5009c18bd4e5d788622582400394b13806c7",
+        "model_hash": "fe82ac99813efe938f3371fe7f807b992b1a4045becee44fd740fa5546d3271c",
+        "access": "public_DTO_only"
+      },
+      "private_evaluation_spec": {
+        "path": "reports/upgrade/a5-funded-build-preparation-20260921-v12/private/a5-build-b117be26241cbe45/evaluation-spec.json",
+        "sha256": "1506913efe123b2999260c112d4bc0af479652a59cbb96d47bd341c18d028fbb",
+        "access": "host_private_only"
+      },
+      "private_repository_evaluation": {
+        "path": "reports/upgrade/a5-funded-build-preparation-20260921-v12/private/a5-build-b117be26241cbe45/repository-evaluation.json",
+        "sha256": "ede016c188f79d11c29e967ef686467879a0bc1203b0cad3cdca0a15780b9456",
+        "access": "host_private_only",
+        "kind": "source_test_material_not_ready_RepositorySpec"
+      },
+      "target_dedup": {
+        "against": "target_tasks",
+        "compared_target_count": 20,
+        "source_instance_id_overlap": false,
+        "repo_base_commit_overlap": false,
+        "public_issue_hash_overlap": false,
+        "trimmed_issue_overlap": false,
+        "source_predates_all_same_repo_targets": true,
+        "semantic_duplicate_review": "pending; exact_checks_do_not_prove_semantic_independence"
+      },
+      "field_boundary_ref": "a5_public_private_boundary_v1",
+      "build_state": "prepared_not_started",
+      "readiness": "awaiting_repo_grader_readiness",
+      "paid_build_allowed": false,
+      "max_build_attempts": 2,
+      "attempt_plan": [
+        {
+          "attempt_id": "83829ac91777bfa22276a235ac66ffcca05700fd4b345a435086fa4e12f0d520",
+          "attempt": 1,
+          "state": "planned_not_started",
+          "retry_of": null
+        },
+        {
+          "attempt_id": "94d2866d5bf6166436d36c69aae457c96bd69e6d5b21fd45adae38068c1db671",
+          "attempt": 2,
+          "state": "planned_not_started",
+          "retry_of": "83829ac91777bfa22276a235ac66ffcca05700fd4b345a435086fa4e12f0d520"
+        }
+      ],
+      "evidence": {
+        "public_base_snapshot": null,
+        "environment_receipt": null,
+        "baseline_receipt": null,
+        "independent_grader_receipt": null,
+        "public_trajectory": null,
+        "public_validation": null,
+        "dependency_mapping": null,
+        "usage_receipt": null,
+        "validated_memory_record": null
+      },
+      "blockers": [
+        "24_task_initial_preflight_gate_not_passed",
+        "own_source_repo_environment_baseline_grader_preflight_missing",
+        "public_seed_license_and_semantic_review_pending",
+        "real_public_trajectory_and_independent_grader_receipts_missing",
+        "shared_model_price_ledger_fingerprint_receipt_gates_pending"
+      ]
+    },
+    {
+      "canonical_id": "django__django-10924",
+      "agent_task_id": "a5-build-ae0fcdf9882e7432",
+      "job_id": "23effe80c992130b24803abd0ac5e7237bc4901d88fd4afc7ff379e223a10f8a",
+      "expected_repo": "django/django",
+      "expected_base_commit": "bceadd2788dc2dad53eba0caae172bd8522fd483",
+      "preflight_history_candidate": false,
+      "provenance": {
+        "dataset_ref": "source_dataset",
+        "dataset_instance_id": "django__django-10924",
+        "source_url": "https://github.com/django/django/pull/10924",
+        "historical_pr_created_at": "2019-02-03T19:30:12+08:00",
+        "created_at_semantics": "upstream pull request creation time, not issue time or merge time",
+        "source_row": {
+          "path": "reports/upgrade/a5-pilot20-preparation-20260921-v4/private/history/a5-task-ae0fcdf9882e7432/source-row.json",
+          "sha256": "3886facac4d21d2f2063d37aa3c2de4acf0782d318fe7663cca2f594154e2fab",
+          "canonical_sha256": "9fa6e95f02cc3e2a3b2ebde3cbfc450c35ea8859348cebb564f6fd0cca71f52c",
+          "access": "host_private_only"
+        },
+        "public_issue_sha256": "311f3ac50765782a0c786b04adbfc95cc87ac8c71c79c83d937de711aea8b3a9",
+        "trimmed_issue_sha256": "f2257afc87a04cc3f2b3991ce0ac57bee63c7e5f007ec18217f0690d3140a383",
+        "license_status": "dataset_card_unspecified; per_source_license_review_pending"
+      },
+      "public_task": {
+        "path": "reports/upgrade/a5-funded-build-preparation-20260921-v12/public/a5-build-ae0fcdf9882e7432.json",
+        "sha256": "bd13b5b315a639f271ccb77bca9af84dd738fbb2f9a9e9eb76f2d39b9a599c9b",
+        "model_hash": "308b46841f24b4602e5cea6893cadd57dbb39b4946c8d62ed960227da8a1c0f6",
+        "access": "public_DTO_only"
+      },
+      "private_evaluation_spec": {
+        "path": "reports/upgrade/a5-funded-build-preparation-20260921-v12/private/a5-build-ae0fcdf9882e7432/evaluation-spec.json",
+        "sha256": "1eafd776ddd00c3e44c85e001354f277d5b68f02bd4407b2bd2951d89d180684",
+        "access": "host_private_only"
+      },
+      "private_repository_evaluation": {
+        "path": "reports/upgrade/a5-funded-build-preparation-20260921-v12/private/a5-build-ae0fcdf9882e7432/repository-evaluation.json",
+        "sha256": "ff1bbf2c08c4f121abac9713cd1a996ba7b6d1079f95c32625fcea09c396e1a5",
+        "access": "host_private_only",
+        "kind": "source_test_material_not_ready_RepositorySpec"
+      },
+      "target_dedup": {
+        "against": "target_tasks",
+        "compared_target_count": 20,
+        "source_instance_id_overlap": false,
+        "repo_base_commit_overlap": false,
+        "public_issue_hash_overlap": false,
+        "trimmed_issue_overlap": false,
+        "source_predates_all_same_repo_targets": true,
+        "semantic_duplicate_review": "pending; exact_checks_do_not_prove_semantic_independence"
+      },
+      "field_boundary_ref": "a5_public_private_boundary_v1",
+      "build_state": "prepared_not_started",
+      "readiness": "awaiting_repo_grader_readiness",
+      "paid_build_allowed": false,
+      "max_build_attempts": 2,
+      "attempt_plan": [
+        {
+          "attempt_id": "96a95eaaa8ce02faeacba398d87021507bf87d3e62d6ee7d3b408ef2fa843b60",
+          "attempt": 1,
+          "state": "planned_not_started",
+          "retry_of": null
+        },
+        {
+          "attempt_id": "813706011e1af48447d60cb11ba84b2064cc81514f52ad83ed7426c5b03886f6",
+          "attempt": 2,
+          "state": "planned_not_started",
+          "retry_of": "96a95eaaa8ce02faeacba398d87021507bf87d3e62d6ee7d3b408ef2fa843b60"
+        }
+      ],
+      "evidence": {
+        "public_base_snapshot": null,
+        "environment_receipt": null,
+        "baseline_receipt": null,
+        "independent_grader_receipt": null,
+        "public_trajectory": null,
+        "public_validation": null,
+        "dependency_mapping": null,
+        "usage_receipt": null,
+        "validated_memory_record": null
+      },
+      "blockers": [
+        "24_task_initial_preflight_gate_not_passed",
+        "own_source_repo_environment_baseline_grader_preflight_missing",
+        "public_seed_license_and_semantic_review_pending",
+        "real_public_trajectory_and_independent_grader_receipts_missing",
+        "shared_model_price_ledger_fingerprint_receipt_gates_pending"
+      ]
+    },
+    {
+      "canonical_id": "django__django-11001",
+      "agent_task_id": "a5-build-60d7f36f9b8a9c1f",
+      "job_id": "03bf4ce781a53eeb9c5d84b027a9d42856079783b2bc3b0a0366d392f1a826fb",
+      "expected_repo": "django/django",
+      "expected_base_commit": "ef082ebb84f00e38af4e8880d04e8365c2766d34",
+      "preflight_history_candidate": false,
+      "provenance": {
+        "dataset_ref": "source_dataset",
+        "dataset_instance_id": "django__django-11001",
+        "source_url": "https://github.com/django/django/pull/11001",
+        "historical_pr_created_at": "2019-02-17T21:02:09+08:00",
+        "created_at_semantics": "upstream pull request creation time, not issue time or merge time",
+        "source_row": {
+          "path": "reports/upgrade/a5-pilot20-preparation-20260921-v4/private/history/a5-task-60d7f36f9b8a9c1f/source-row.json",
+          "sha256": "fe9991925467f8fde56a188a859197fe32ea1e1336e8d43cb735c8743ff269cb",
+          "canonical_sha256": "91295bfa019051173849245bc2e36d72bf19e9b462f81431ad7f97f8933b2dc4",
+          "access": "host_private_only"
+        },
+        "public_issue_sha256": "328687883868f41f912690a4f9eb7c43d69d2ac70d89c93ec818a6d9244cdfb2",
+        "trimmed_issue_sha256": "d5fb5ca240dd5255e406ff25d8852798d16b83c477f6114f581e9f56f1af26d5",
+        "license_status": "dataset_card_unspecified; per_source_license_review_pending"
+      },
+      "public_task": {
+        "path": "reports/upgrade/a5-funded-build-preparation-20260921-v12/public/a5-build-60d7f36f9b8a9c1f.json",
+        "sha256": "1161e8d181675cda83bf4c097a16f3b6163f6e1b5503995e3decd8b586f1fe52",
+        "model_hash": "b11fa66c24212ae57832603ecd166761f48ae880d39e8f075b538c5f1d85a7a8",
+        "access": "public_DTO_only"
+      },
+      "private_evaluation_spec": {
+        "path": "reports/upgrade/a5-funded-build-preparation-20260921-v12/private/a5-build-60d7f36f9b8a9c1f/evaluation-spec.json",
+        "sha256": "34326d87cf7159798c85e11fc6fc256a320f8ed6572288a907fa950760372232",
+        "access": "host_private_only"
+      },
+      "private_repository_evaluation": {
+        "path": "reports/upgrade/a5-funded-build-preparation-20260921-v12/private/a5-build-60d7f36f9b8a9c1f/repository-evaluation.json",
+        "sha256": "c9465790142ea3a4be54d9d2653ad8f264690bbad51457cc7f9ac2424eafe8c2",
+        "access": "host_private_only",
+        "kind": "source_test_material_not_ready_RepositorySpec"
+      },
+      "target_dedup": {
+        "against": "target_tasks",
+        "compared_target_count": 20,
+        "source_instance_id_overlap": false,
+        "repo_base_commit_overlap": false,
+        "public_issue_hash_overlap": false,
+        "trimmed_issue_overlap": false,
+        "source_predates_all_same_repo_targets": true,
+        "semantic_duplicate_review": "pending; exact_checks_do_not_prove_semantic_independence"
+      },
+      "field_boundary_ref": "a5_public_private_boundary_v1",
+      "build_state": "prepared_not_started",
+      "readiness": "awaiting_repo_grader_readiness",
+      "paid_build_allowed": false,
+      "max_build_attempts": 2,
+      "attempt_plan": [
+        {
+          "attempt_id": "18591ab05dbfe71ca728de1cf1907ec35e92fab6a8b1957d878704a062e9991b",
+          "attempt": 1,
+          "state": "planned_not_started",
+          "retry_of": null
+        },
+        {
+          "attempt_id": "365734fb9d98c9238536217516b0e200f214a31ef436c38b959789ecc64186ac",
+          "attempt": 2,
+          "state": "planned_not_started",
+          "retry_of": "18591ab05dbfe71ca728de1cf1907ec35e92fab6a8b1957d878704a062e9991b"
+        }
+      ],
+      "evidence": {
+        "public_base_snapshot": null,
+        "environment_receipt": null,
+        "baseline_receipt": null,
+        "independent_grader_receipt": null,
+        "public_trajectory": null,
+        "public_validation": null,
+        "dependency_mapping": null,
+        "usage_receipt": null,
+        "validated_memory_record": null
+      },
+      "blockers": [
+        "24_task_initial_preflight_gate_not_passed",
+        "own_source_repo_environment_baseline_grader_preflight_missing",
+        "public_seed_license_and_semantic_review_pending",
+        "real_public_trajectory_and_independent_grader_receipts_missing",
+        "shared_model_price_ledger_fingerprint_receipt_gates_pending"
+      ]
+    },
+    {
+      "canonical_id": "django__django-11019",
+      "agent_task_id": "a5-build-f749d449024dee22",
+      "job_id": "f9ef49f745c327f15712c173c5890a6e3305762c9e6bbd3bd80f0774ada86375",
+      "expected_repo": "django/django",
+      "expected_base_commit": "93e892bb645b16ebaf287beb5fe7f3ffe8d10408",
+      "preflight_history_candidate": false,
+      "provenance": {
+        "dataset_ref": "source_dataset",
+        "dataset_instance_id": "django__django-11019",
+        "source_url": "https://github.com/django/django/pull/11019",
+        "historical_pr_created_at": "2019-02-23T23:51:14+08:00",
+        "created_at_semantics": "upstream pull request creation time, not issue time or merge time",
+        "source_row": {
+          "path": "reports/upgrade/a5-pilot20-preparation-20260921-v4/private/history/a5-task-f749d449024dee22/source-row.json",
+          "sha256": "04ef6c8cebff138f0ec71881f9d9bc1ae2250118db08f6d97e1ce44dc41c07df",
+          "canonical_sha256": "54202703365b28436fecc9b1a8f2241a3b86888bf594963faa7c1dd254664965",
+          "access": "host_private_only"
+        },
+        "public_issue_sha256": "6c115c1a1ddb2009474173bcadad5c119e71f74b84dac03ffff0652f856185e3",
+        "trimmed_issue_sha256": "31b69f95133ac171cd97af3ca0687d9a758a23b4cb7dec8aa8378a86ce619d49",
+        "license_status": "dataset_card_unspecified; per_source_license_review_pending"
+      },
+      "public_task": {
+        "path": "reports/upgrade/a5-funded-build-preparation-20260921-v12/public/a5-build-f749d449024dee22.json",
+        "sha256": "d1fa454bbd4496535fa749d54c6bdb1b792174801394ae557d98147defb6747f",
+        "model_hash": "a9f5036fb3d7cdc6276f77d823f7fc0c536bcae8f5638aa29665b0dfffb77f86",
+        "access": "public_DTO_only"
+      },
+      "private_evaluation_spec": {
+        "path": "reports/upgrade/a5-funded-build-preparation-20260921-v12/private/a5-build-f749d449024dee22/evaluation-spec.json",
+        "sha256": "2107310141996e8bc90b7edc19fa1bdfcf19d473522f16933c83db2ae0f0ae6f",
+        "access": "host_private_only"
+      },
+      "private_repository_evaluation": {
+        "path": "reports/upgrade/a5-funded-build-preparation-20260921-v12/private/a5-build-f749d449024dee22/repository-evaluation.json",
+        "sha256": "63f5ddf6a101dfabbee4db299ef41d1a1b40d3d58a6586b3e1ba83589302a7a0",
+        "access": "host_private_only",
+        "kind": "source_test_material_not_ready_RepositorySpec"
+      },
+      "target_dedup": {
+        "against": "target_tasks",
+        "compared_target_count": 20,
+        "source_instance_id_overlap": false,
+        "repo_base_commit_overlap": false,
+        "public_issue_hash_overlap": false,
+        "trimmed_issue_overlap": false,
+        "source_predates_all_same_repo_targets": true,
+        "semantic_duplicate_review": "pending; exact_checks_do_not_prove_semantic_independence"
+      },
+      "field_boundary_ref": "a5_public_private_boundary_v1",
+      "build_state": "prepared_not_started",
+      "readiness": "awaiting_repo_grader_readiness",
+      "paid_build_allowed": false,
+      "max_build_attempts": 2,
+      "attempt_plan": [
+        {
+          "attempt_id": "b450d00274a9630c455e4eaa1a48a4351607084c6066762e9ab867945190bece",
+          "attempt": 1,
+          "state": "planned_not_started",
+          "retry_of": null
+        },
+        {
+          "attempt_id": "715d84f39e06c71de82ff401f122c6d86636e6c747ffe74aa576b279f9a228bb",
+          "attempt": 2,
+          "state": "planned_not_started",
+          "retry_of": "b450d00274a9630c455e4eaa1a48a4351607084c6066762e9ab867945190bece"
+        }
+      ],
+      "evidence": {
+        "public_base_snapshot": null,
+        "environment_receipt": null,
+        "baseline_receipt": null,
+        "independent_grader_receipt": null,
+        "public_trajectory": null,
+        "public_validation": null,
+        "dependency_mapping": null,
+        "usage_receipt": null,
+        "validated_memory_record": null
+      },
+      "blockers": [
+        "24_task_initial_preflight_gate_not_passed",
+        "own_source_repo_environment_baseline_grader_preflight_missing",
+        "public_seed_license_and_semantic_review_pending",
+        "real_public_trajectory_and_independent_grader_receipts_missing",
+        "shared_model_price_ledger_fingerprint_receipt_gates_pending"
+      ]
+    },
+    {
+      "canonical_id": "django__django-11039",
+      "agent_task_id": "a5-build-fc47f0f0fa3593e5",
+      "job_id": "3ac712dc9270555d8ab1e138d4e3262506e3fcdbd75834d36a73a9dc1447b494",
+      "expected_repo": "django/django",
+      "expected_base_commit": "d5276398046ce4a102776a1e67dcac2884d80dfe",
+      "preflight_history_candidate": false,
+      "provenance": {
+        "dataset_ref": "source_dataset",
+        "dataset_instance_id": "django__django-11039",
+        "source_url": "https://github.com/django/django/pull/11039",
+        "historical_pr_created_at": "2019-03-01T18:24:38+08:00",
+        "created_at_semantics": "upstream pull request creation time, not issue time or merge time",
+        "source_row": {
+          "path": "reports/upgrade/a5-pilot20-preparation-20260921-v4/private/history/a5-task-fc47f0f0fa3593e5/source-row.json",
+          "sha256": "a518d164c4141aa882caca3e7bd7ccd6e09ff3f311fdd7597e71008bbcddbeb1",
+          "canonical_sha256": "3ba9a17744288f293c39850b4ef2d5a273e923bd3b85bcabf9abc9c0358ab016",
+          "access": "host_private_only"
+        },
+        "public_issue_sha256": "8de56ce0d0b350fe90ab1d8b140ef87bb16394cf14b83d96726fec788b9efaa0",
+        "trimmed_issue_sha256": "0b010716e1f0420065f155494ba30105737550b3cc202ecf81558b6c14b630c1",
+        "license_status": "dataset_card_unspecified; per_source_license_review_pending"
+      },
+      "public_task": {
+        "path": "reports/upgrade/a5-funded-build-preparation-20260921-v12/public/a5-build-fc47f0f0fa3593e5.json",
+        "sha256": "86a22ac03c4b94043273ed65c594822cc3947828ce0806e7377281d11c2afe7a",
+        "model_hash": "2d01ba62e51bcdaa1eebce67248470e45377c2150718fa9eea2ac5ccbbb5416d",
+        "access": "public_DTO_only"
+      },
+      "private_evaluation_spec": {
+        "path": "reports/upgrade/a5-funded-build-preparation-20260921-v12/private/a5-build-fc47f0f0fa3593e5/evaluation-spec.json",
+        "sha256": "1a6cd90548cb32535f9449d3a90f4b3a443e4ba766979790957e67b849673ff9",
+        "access": "host_private_only"
+      },
+      "private_repository_evaluation": {
+        "path": "reports/upgrade/a5-funded-build-preparation-20260921-v12/private/a5-build-fc47f0f0fa3593e5/repository-evaluation.json",
+        "sha256": "b2424e0a30b20320027ec81d9a3f5f31b48bd63ff919107f07986747b66e9ecf",
+        "access": "host_private_only",
+        "kind": "source_test_material_not_ready_RepositorySpec"
+      },
+      "target_dedup": {
+        "against": "target_tasks",
+        "compared_target_count": 20,
+        "source_instance_id_overlap": false,
+        "repo_base_commit_overlap": false,
+        "public_issue_hash_overlap": false,
+        "trimmed_issue_overlap": false,
+        "source_predates_all_same_repo_targets": true,
+        "semantic_duplicate_review": "pending; exact_checks_do_not_prove_semantic_independence"
+      },
+      "field_boundary_ref": "a5_public_private_boundary_v1",
+      "build_state": "prepared_not_started",
+      "readiness": "awaiting_repo_grader_readiness",
+      "paid_build_allowed": false,
+      "max_build_attempts": 2,
+      "attempt_plan": [
+        {
+          "attempt_id": "7aa6c260435ea7d1ac0c1737918222d2977c3b992b7fa744f9227d674a751d91",
+          "attempt": 1,
+          "state": "planned_not_started",
+          "retry_of": null
+        },
+        {
+          "attempt_id": "13928f7cdc7bd1f882e907faa31abf129ac9cb03cdc8a1902dfa2bfbc63f8b88",
+          "attempt": 2,
+          "state": "planned_not_started",
+          "retry_of": "7aa6c260435ea7d1ac0c1737918222d2977c3b992b7fa744f9227d674a751d91"
+        }
+      ],
+      "evidence": {
+        "public_base_snapshot": null,
+        "environment_receipt": null,
+        "baseline_receipt": null,
+        "independent_grader_receipt": null,
+        "public_trajectory": null,
+        "public_validation": null,
+        "dependency_mapping": null,
+        "usage_receipt": null,
+        "validated_memory_record": null
+      },
+      "blockers": [
+        "24_task_initial_preflight_gate_not_passed",
+        "own_source_repo_environment_baseline_grader_preflight_missing",
+        "public_seed_license_and_semantic_review_pending",
+        "real_public_trajectory_and_independent_grader_receipts_missing",
+        "shared_model_price_ledger_fingerprint_receipt_gates_pending"
+      ]
+    },
+    {
+      "canonical_id": "sympy__sympy-11400",
+      "agent_task_id": "a5-build-5024683a49dc2bbe",
+      "job_id": "5f07ccfa1fd26f35b5531204be5953af0ac21cc39b071d77db3e6ed3edd507ed",
+      "expected_repo": "sympy/sympy",
+      "expected_base_commit": "8dcb12a6cf500e8738d6729ab954a261758f49ca",
+      "preflight_history_candidate": true,
+      "provenance": {
+        "dataset_ref": "source_dataset",
+        "dataset_instance_id": "sympy__sympy-11400",
+        "source_url": "https://github.com/sympy/sympy/pull/11400",
+        "historical_pr_created_at": "2016-07-16T05:40:49+08:00",
+        "created_at_semantics": "upstream pull request creation time, not issue time or merge time",
+        "source_row": {
+          "path": "reports/upgrade/a5-pilot20-preparation-20260921-v4/private/history/a5-task-5024683a49dc2bbe/source-row.json",
+          "sha256": "84bc9b6a47d34c03204b5429f4466c83a92b26177fa4372618e218802975eabc",
+          "canonical_sha256": "7a5bcca051e4025b6e65207adb8b6ff8c51c04464307f36a8eff70f19a360429",
+          "access": "host_private_only"
+        },
+        "public_issue_sha256": "9a6712a007b41d41abe78419009d90f8932c9da7aa39d92a8a6fe0213be02c50",
+        "trimmed_issue_sha256": "c0639a3c09826a65f9b0ee858da855a8fc0a21d8c5ade431f9939d1e9e9e175a",
+        "license_status": "dataset_card_unspecified; per_source_license_review_pending"
+      },
+      "public_task": {
+        "path": "reports/upgrade/a5-funded-build-preparation-20260921-v12/public/a5-build-5024683a49dc2bbe.json",
+        "sha256": "70498575c1bd105b7ee19ba2669f324a4c1987ae82e0c436122dfdd583d6b60c",
+        "model_hash": "9815f2e7d2e273cac61e2f518f16a07866eb32619cc93c027f64bb6a320bda17",
+        "access": "public_DTO_only"
+      },
+      "private_evaluation_spec": {
+        "path": "reports/upgrade/a5-funded-build-preparation-20260921-v12/private/a5-build-5024683a49dc2bbe/evaluation-spec.json",
+        "sha256": "29940c807b5ae40aa4e3d0f1fab53a7c86ea1cab03a07dab9424cebec5d7840f",
+        "access": "host_private_only"
+      },
+      "private_repository_evaluation": {
+        "path": "reports/upgrade/a5-funded-build-preparation-20260921-v12/private/a5-build-5024683a49dc2bbe/repository-evaluation.json",
+        "sha256": "f49626c241fc53b4453b56d57031ad6d7f4c053d17abdb8a4e5a77fcdd57f77c",
+        "access": "host_private_only",
+        "kind": "source_test_material_not_ready_RepositorySpec"
+      },
+      "target_dedup": {
+        "against": "target_tasks",
+        "compared_target_count": 20,
+        "source_instance_id_overlap": false,
+        "repo_base_commit_overlap": false,
+        "public_issue_hash_overlap": false,
+        "trimmed_issue_overlap": false,
+        "source_predates_all_same_repo_targets": true,
+        "semantic_duplicate_review": "pending; exact_checks_do_not_prove_semantic_independence"
+      },
+      "field_boundary_ref": "a5_public_private_boundary_v1",
+      "build_state": "prepared_not_started",
+      "readiness": "awaiting_repo_grader_readiness",
+      "paid_build_allowed": false,
+      "max_build_attempts": 2,
+      "attempt_plan": [
+        {
+          "attempt_id": "5bae4138cedfdb246e9b24cf0b9bf6b398dcbb4925e545e1ac2709206b98845b",
+          "attempt": 1,
+          "state": "planned_not_started",
+          "retry_of": null
+        },
+        {
+          "attempt_id": "46a0508aec0679112cb77c0408ac81d102786307ed1ab0925a76b6f8e7a8c01e",
+          "attempt": 2,
+          "state": "planned_not_started",
+          "retry_of": "5bae4138cedfdb246e9b24cf0b9bf6b398dcbb4925e545e1ac2709206b98845b"
+        }
+      ],
+      "evidence": {
+        "public_base_snapshot": null,
+        "environment_receipt": null,
+        "baseline_receipt": null,
+        "independent_grader_receipt": null,
+        "public_trajectory": null,
+        "public_validation": null,
+        "dependency_mapping": null,
+        "usage_receipt": null,
+        "validated_memory_record": null
+      },
+      "blockers": [
+        "24_task_initial_preflight_gate_not_passed",
+        "own_source_repo_environment_baseline_grader_preflight_missing",
+        "public_seed_license_and_semantic_review_pending",
+        "real_public_trajectory_and_independent_grader_receipts_missing",
+        "shared_model_price_ledger_fingerprint_receipt_gates_pending"
+      ]
+    },
+    {
+      "canonical_id": "sympy__sympy-11870",
+      "agent_task_id": "a5-build-89090b11547fe93a",
+      "job_id": "167e329b31756b6614c36472aa70998c27728a9106dbb3873aab43f6e9cff629",
+      "expected_repo": "sympy/sympy",
+      "expected_base_commit": "5c2e1f96a7ff562d4a778f4ca9ffc9c81557197e",
+      "preflight_history_candidate": false,
+      "provenance": {
+        "dataset_ref": "source_dataset",
+        "dataset_instance_id": "sympy__sympy-11870",
+        "source_url": "https://github.com/sympy/sympy/pull/11870",
+        "historical_pr_created_at": "2016-11-18T05:36:03+08:00",
+        "created_at_semantics": "upstream pull request creation time, not issue time or merge time",
+        "source_row": {
+          "path": "reports/upgrade/a5-pilot20-preparation-20260921-v4/private/history/a5-task-89090b11547fe93a/source-row.json",
+          "sha256": "03b09346136652a8682ce7329d0fbffdeff332f08498024a2c19c80f99d1376c",
+          "canonical_sha256": "4e1a984c4ce66b15dd4c19034b8771305b6c2bb52c55162da16329a67adda1a2",
+          "access": "host_private_only"
+        },
+        "public_issue_sha256": "559f1e7d329bbc903cd42306487b188cec045fd9713b3523783a2dfbb4fcd697",
+        "trimmed_issue_sha256": "14409767b6bf5e901b0b93f778d2ac855b1448f58d7b466b458529374e8ed6cb",
+        "license_status": "dataset_card_unspecified; per_source_license_review_pending"
+      },
+      "public_task": {
+        "path": "reports/upgrade/a5-funded-build-preparation-20260921-v12/public/a5-build-89090b11547fe93a.json",
+        "sha256": "faf2a0cceca96b932f911dfbd84404599e9c47032fa164267897dc0a593fd001",
+        "model_hash": "26b91eaf1a9c11dca0580bf957902ccebfcf19458fe55981e1bf245d08c1d605",
+        "access": "public_DTO_only"
+      },
+      "private_evaluation_spec": {
+        "path": "reports/upgrade/a5-funded-build-preparation-20260921-v12/private/a5-build-89090b11547fe93a/evaluation-spec.json",
+        "sha256": "734218f7615167d581b5b55780de059d50f57ac18ef506ad10eb8b14cb16f146",
+        "access": "host_private_only"
+      },
+      "private_repository_evaluation": {
+        "path": "reports/upgrade/a5-funded-build-preparation-20260921-v12/private/a5-build-89090b11547fe93a/repository-evaluation.json",
+        "sha256": "20f8cc611c2261bb9f38461fdf423e0d7f8bae6b40da2687a92abd0853311589",
+        "access": "host_private_only",
+        "kind": "source_test_material_not_ready_RepositorySpec"
+      },
+      "target_dedup": {
+        "against": "target_tasks",
+        "compared_target_count": 20,
+        "source_instance_id_overlap": false,
+        "repo_base_commit_overlap": false,
+        "public_issue_hash_overlap": false,
+        "trimmed_issue_overlap": false,
+        "source_predates_all_same_repo_targets": true,
+        "semantic_duplicate_review": "pending; exact_checks_do_not_prove_semantic_independence"
+      },
+      "field_boundary_ref": "a5_public_private_boundary_v1",
+      "build_state": "prepared_not_started",
+      "readiness": "awaiting_repo_grader_readiness",
+      "paid_build_allowed": false,
+      "max_build_attempts": 2,
+      "attempt_plan": [
+        {
+          "attempt_id": "5685538f93690822a979c0d5eb898d6a53077258c8b83078653a6eca686915d0",
+          "attempt": 1,
+          "state": "planned_not_started",
+          "retry_of": null
+        },
+        {
+          "attempt_id": "637442e8dac7789dfead57099028a03ced35d9fc0924f8f3391406a3fdc350db",
+          "attempt": 2,
+          "state": "planned_not_started",
+          "retry_of": "5685538f93690822a979c0d5eb898d6a53077258c8b83078653a6eca686915d0"
+        }
+      ],
+      "evidence": {
+        "public_base_snapshot": null,
+        "environment_receipt": null,
+        "baseline_receipt": null,
+        "independent_grader_receipt": null,
+        "public_trajectory": null,
+        "public_validation": null,
+        "dependency_mapping": null,
+        "usage_receipt": null,
+        "validated_memory_record": null
+      },
+      "blockers": [
+        "24_task_initial_preflight_gate_not_passed",
+        "own_source_repo_environment_baseline_grader_preflight_missing",
+        "public_seed_license_and_semantic_review_pending",
+        "real_public_trajectory_and_independent_grader_receipts_missing",
+        "shared_model_price_ledger_fingerprint_receipt_gates_pending"
+      ]
+    },
+    {
+      "canonical_id": "sympy__sympy-11897",
+      "agent_task_id": "a5-build-9952d7b23356b0db",
+      "job_id": "3b6bde53dfa0a6dae9bcc0f2673a148ddafdd93d98f2d7f0b219f2e2bbba53a7",
+      "expected_repo": "sympy/sympy",
+      "expected_base_commit": "e2918c1205c47345eb73c9be68b14c0f15fdeb17",
+      "preflight_history_candidate": false,
+      "provenance": {
+        "dataset_ref": "source_dataset",
+        "dataset_instance_id": "sympy__sympy-11897",
+        "source_url": "https://github.com/sympy/sympy/pull/11897",
+        "historical_pr_created_at": "2016-12-03T22:40:51+08:00",
+        "created_at_semantics": "upstream pull request creation time, not issue time or merge time",
+        "source_row": {
+          "path": "reports/upgrade/a5-pilot20-preparation-20260921-v4/private/history/a5-task-9952d7b23356b0db/source-row.json",
+          "sha256": "90c27948928c9102a0acb6c5e9afa38cd32f64a410b8500633821ff26171044e",
+          "canonical_sha256": "b47e46cb086fb41515b2b8d093d4522b17d346ae67c9d8503c73514473d38580",
+          "access": "host_private_only"
+        },
+        "public_issue_sha256": "e4e755e5772aeae55a3939913d9ba1981f4fd13c4940cf646846626cd19cc0d5",
+        "trimmed_issue_sha256": "064b69ab7bf0f84004fe4dc46ef1cf382c0f1e84b764177d58173e9ace421ef8",
+        "license_status": "dataset_card_unspecified; per_source_license_review_pending"
+      },
+      "public_task": {
+        "path": "reports/upgrade/a5-funded-build-preparation-20260921-v12/public/a5-build-9952d7b23356b0db.json",
+        "sha256": "933d7cd4914d06d0077a3b754b6e3853440c7a31b48a408d93233802f3bf66de",
+        "model_hash": "5e66e729b4498d0099246ddc3f5139521dc2af0304f17ff38b5f126ae77a2b0a",
+        "access": "public_DTO_only"
+      },
+      "private_evaluation_spec": {
+        "path": "reports/upgrade/a5-funded-build-preparation-20260921-v12/private/a5-build-9952d7b23356b0db/evaluation-spec.json",
+        "sha256": "edccde34662ffbbef5413fe602b456729e6d4433830d1df85e77d0645d7e7484",
+        "access": "host_private_only"
+      },
+      "private_repository_evaluation": {
+        "path": "reports/upgrade/a5-funded-build-preparation-20260921-v12/private/a5-build-9952d7b23356b0db/repository-evaluation.json",
+        "sha256": "60db992bf752cb930d93e4c52e1ceb4b435fb4287e1a6beffd6f35efd8089d41",
+        "access": "host_private_only",
+        "kind": "source_test_material_not_ready_RepositorySpec"
+      },
+      "target_dedup": {
+        "against": "target_tasks",
+        "compared_target_count": 20,
+        "source_instance_id_overlap": false,
+        "repo_base_commit_overlap": false,
+        "public_issue_hash_overlap": false,
+        "trimmed_issue_overlap": false,
+        "source_predates_all_same_repo_targets": true,
+        "semantic_duplicate_review": "pending; exact_checks_do_not_prove_semantic_independence"
+      },
+      "field_boundary_ref": "a5_public_private_boundary_v1",
+      "build_state": "prepared_not_started",
+      "readiness": "awaiting_repo_grader_readiness",
+      "paid_build_allowed": false,
+      "max_build_attempts": 2,
+      "attempt_plan": [
+        {
+          "attempt_id": "f5785bc6da40d365f8f770bf7364f1150adbfd90044ff6703bb10e0a7b03767d",
+          "attempt": 1,
+          "state": "planned_not_started",
+          "retry_of": null
+        },
+        {
+          "attempt_id": "323c2ccea8d49e26c82c428e800548700998fec8f92060db8f36041af5a3e006",
+          "attempt": 2,
+          "state": "planned_not_started",
+          "retry_of": "f5785bc6da40d365f8f770bf7364f1150adbfd90044ff6703bb10e0a7b03767d"
+        }
+      ],
+      "evidence": {
+        "public_base_snapshot": null,
+        "environment_receipt": null,
+        "baseline_receipt": null,
+        "independent_grader_receipt": null,
+        "public_trajectory": null,
+        "public_validation": null,
+        "dependency_mapping": null,
+        "usage_receipt": null,
+        "validated_memory_record": null
+      },
+      "blockers": [
+        "24_task_initial_preflight_gate_not_passed",
+        "own_source_repo_environment_baseline_grader_preflight_missing",
+        "public_seed_license_and_semantic_review_pending",
+        "real_public_trajectory_and_independent_grader_receipts_missing",
+        "shared_model_price_ledger_fingerprint_receipt_gates_pending"
+      ]
+    },
+    {
+      "canonical_id": "sympy__sympy-12171",
+      "agent_task_id": "a5-build-2aa29e6c29720fb8",
+      "job_id": "1bd9403df36c7f0048010b4fdfdfb22f08163680663ee42996cd5ab3a8c3f660",
+      "expected_repo": "sympy/sympy",
+      "expected_base_commit": "ca6ef27272be31c9dc3753ede9232c39df9a75d8",
+      "preflight_history_candidate": false,
+      "provenance": {
+        "dataset_ref": "source_dataset",
+        "dataset_instance_id": "sympy__sympy-12171",
+        "source_url": "https://github.com/sympy/sympy/pull/12171",
+        "historical_pr_created_at": "2017-02-14T02:20:56+08:00",
+        "created_at_semantics": "upstream pull request creation time, not issue time or merge time",
+        "source_row": {
+          "path": "reports/upgrade/a5-pilot20-preparation-20260921-v4/private/history/a5-task-2aa29e6c29720fb8/source-row.json",
+          "sha256": "9d69d96cdff2f75a257a8623146b5044d830ab0e92e326e52256b06830e9fd3a",
+          "canonical_sha256": "0c9ab722162bc52f1cc55e6350f9f667fc907dfcb8f01d0709b1cd7abb6d2b48",
+          "access": "host_private_only"
+        },
+        "public_issue_sha256": "ba93a7f790815a6d01ea439b81197ec776c0d712c3e7cc2c22c8b64fb9c6fe29",
+        "trimmed_issue_sha256": "e1ceaf7960a099c0fcba86be1a907ea69216eeff06ad797dc946edc78267cdc7",
+        "license_status": "dataset_card_unspecified; per_source_license_review_pending"
+      },
+      "public_task": {
+        "path": "reports/upgrade/a5-funded-build-preparation-20260921-v12/public/a5-build-2aa29e6c29720fb8.json",
+        "sha256": "3503dfe8136cf18f234c91624750bd312b6849ea2f85a46cb47dba81e4c3b25b",
+        "model_hash": "c8151a9948fb0d6c835e9f34b35dd51bd244a4af492eea60ee18bf4139ee3f03",
+        "access": "public_DTO_only"
+      },
+      "private_evaluation_spec": {
+        "path": "reports/upgrade/a5-funded-build-preparation-20260921-v12/private/a5-build-2aa29e6c29720fb8/evaluation-spec.json",
+        "sha256": "4a4f6ecdc903c2ea7cec8134cf8688f04454d759796055ae42ddb2702ea1586f",
+        "access": "host_private_only"
+      },
+      "private_repository_evaluation": {
+        "path": "reports/upgrade/a5-funded-build-preparation-20260921-v12/private/a5-build-2aa29e6c29720fb8/repository-evaluation.json",
+        "sha256": "b4987e3c611937249b068c7b95c5238553fc94433228b687d325bc8b698544ed",
+        "access": "host_private_only",
+        "kind": "source_test_material_not_ready_RepositorySpec"
+      },
+      "target_dedup": {
+        "against": "target_tasks",
+        "compared_target_count": 20,
+        "source_instance_id_overlap": false,
+        "repo_base_commit_overlap": false,
+        "public_issue_hash_overlap": false,
+        "trimmed_issue_overlap": false,
+        "source_predates_all_same_repo_targets": true,
+        "semantic_duplicate_review": "pending; exact_checks_do_not_prove_semantic_independence"
+      },
+      "field_boundary_ref": "a5_public_private_boundary_v1",
+      "build_state": "prepared_not_started",
+      "readiness": "awaiting_repo_grader_readiness",
+      "paid_build_allowed": false,
+      "max_build_attempts": 2,
+      "attempt_plan": [
+        {
+          "attempt_id": "2eece760b645bf026a352ead32d28a213da2e6a32797c19db33b011bcad2379a",
+          "attempt": 1,
+          "state": "planned_not_started",
+          "retry_of": null
+        },
+        {
+          "attempt_id": "4fd9cf250effe70cab1182032dfa5d0d707eb8cd74c6f040d22b92d7dec8a91c",
+          "attempt": 2,
+          "state": "planned_not_started",
+          "retry_of": "2eece760b645bf026a352ead32d28a213da2e6a32797c19db33b011bcad2379a"
+        }
+      ],
+      "evidence": {
+        "public_base_snapshot": null,
+        "environment_receipt": null,
+        "baseline_receipt": null,
+        "independent_grader_receipt": null,
+        "public_trajectory": null,
+        "public_validation": null,
+        "dependency_mapping": null,
+        "usage_receipt": null,
+        "validated_memory_record": null
+      },
+      "blockers": [
+        "24_task_initial_preflight_gate_not_passed",
+        "own_source_repo_environment_baseline_grader_preflight_missing",
+        "public_seed_license_and_semantic_review_pending",
+        "real_public_trajectory_and_independent_grader_receipts_missing",
+        "shared_model_price_ledger_fingerprint_receipt_gates_pending"
+      ]
+    },
+    {
+      "canonical_id": "sympy__sympy-12236",
+      "agent_task_id": "a5-build-0373c6f2795ea174",
+      "job_id": "18bea747cb5340e83f8aa3374cef4bcbe0a434523f6c83959fcafaf9997bc5b7",
+      "expected_repo": "sympy/sympy",
+      "expected_base_commit": "d60497958f6dea7f5e25bc41e9107a6a63694d01",
+      "preflight_history_candidate": false,
+      "provenance": {
+        "dataset_ref": "source_dataset",
+        "dataset_instance_id": "sympy__sympy-12236",
+        "source_url": "https://github.com/sympy/sympy/pull/12236",
+        "historical_pr_created_at": "2017-03-01T22:52:16+08:00",
+        "created_at_semantics": "upstream pull request creation time, not issue time or merge time",
+        "source_row": {
+          "path": "reports/upgrade/a5-pilot20-preparation-20260921-v4/private/history/a5-task-0373c6f2795ea174/source-row.json",
+          "sha256": "c1e6560b908611acd896a56e16dea7296e26d7e37a06712627d1b65d1e94e212",
+          "canonical_sha256": "40b71ce0697cbdb72332014f9f7cd4241f1c1b807944be2bf5c0b156245c7b93",
+          "access": "host_private_only"
+        },
+        "public_issue_sha256": "d29915a1ab11847c64bf83e4ea389c3b68fd2030fde3d7cfb03dafffbf99d08e",
+        "trimmed_issue_sha256": "5d80615aa4d89239a073638d7a9edef01c8c8a25e70fdc07052f94ef34b2751d",
+        "license_status": "dataset_card_unspecified; per_source_license_review_pending"
+      },
+      "public_task": {
+        "path": "reports/upgrade/a5-funded-build-preparation-20260921-v12/public/a5-build-0373c6f2795ea174.json",
+        "sha256": "79dab47e8db5a160046cbd9265c37822ff82f5112b54e167ece510b275e80eec",
+        "model_hash": "129762e96bfa082db965395cc68b5994b46ae485c616be88266247ac327230af",
+        "access": "public_DTO_only"
+      },
+      "private_evaluation_spec": {
+        "path": "reports/upgrade/a5-funded-build-preparation-20260921-v12/private/a5-build-0373c6f2795ea174/evaluation-spec.json",
+        "sha256": "b3266134119628979ea6ad985cb2514f6093b792c3272b9aadc53d531de51726",
+        "access": "host_private_only"
+      },
+      "private_repository_evaluation": {
+        "path": "reports/upgrade/a5-funded-build-preparation-20260921-v12/private/a5-build-0373c6f2795ea174/repository-evaluation.json",
+        "sha256": "49dfd6068ea617f49b1dd9cbe1b894b155154547d5e06257fa7fcefe5fb6f314",
+        "access": "host_private_only",
+        "kind": "source_test_material_not_ready_RepositorySpec"
+      },
+      "target_dedup": {
+        "against": "target_tasks",
+        "compared_target_count": 20,
+        "source_instance_id_overlap": false,
+        "repo_base_commit_overlap": false,
+        "public_issue_hash_overlap": false,
+        "trimmed_issue_overlap": false,
+        "source_predates_all_same_repo_targets": true,
+        "semantic_duplicate_review": "pending; exact_checks_do_not_prove_semantic_independence"
+      },
+      "field_boundary_ref": "a5_public_private_boundary_v1",
+      "build_state": "prepared_not_started",
+      "readiness": "awaiting_repo_grader_readiness",
+      "paid_build_allowed": false,
+      "max_build_attempts": 2,
+      "attempt_plan": [
+        {
+          "attempt_id": "9949c04721aff2e12141bc77aebea3f61e445072295e008e2de0b5fbe6f128ed",
+          "attempt": 1,
+          "state": "planned_not_started",
+          "retry_of": null
+        },
+        {
+          "attempt_id": "9af6d989909153d05d62e60c6bdc8e5044c9531412711f4ff93033020f2d92db",
+          "attempt": 2,
+          "state": "planned_not_started",
+          "retry_of": "9949c04721aff2e12141bc77aebea3f61e445072295e008e2de0b5fbe6f128ed"
+        }
+      ],
+      "evidence": {
+        "public_base_snapshot": null,
+        "environment_receipt": null,
+        "baseline_receipt": null,
+        "independent_grader_receipt": null,
+        "public_trajectory": null,
+        "public_validation": null,
+        "dependency_mapping": null,
+        "usage_receipt": null,
+        "validated_memory_record": null
+      },
+      "blockers": [
+        "24_task_initial_preflight_gate_not_passed",
+        "own_source_repo_environment_baseline_grader_preflight_missing",
+        "public_seed_license_and_semantic_review_pending",
+        "real_public_trajectory_and_independent_grader_receipts_missing",
+        "shared_model_price_ledger_fingerprint_receipt_gates_pending"
+      ]
+    },
+    {
+      "canonical_id": "scikit-learn__scikit-learn-10297",
+      "agent_task_id": "a5-build-28c10c92d52bbe54",
+      "job_id": "0c2e6a6c36cd4df2e3bbf4d705a4ed700a3f0a68611a5ea5942ec3f624605c6d",
+      "expected_repo": "scikit-learn/scikit-learn",
+      "expected_base_commit": "b90661d6a46aa3619d3eec94d5281f5888add501",
+      "preflight_history_candidate": true,
+      "provenance": {
+        "dataset_ref": "source_dataset",
+        "dataset_instance_id": "scikit-learn__scikit-learn-10297",
+        "source_url": "https://github.com/scikit-learn/scikit-learn/pull/10297",
+        "historical_pr_created_at": "2017-12-13T06:07:47+08:00",
+        "created_at_semantics": "upstream pull request creation time, not issue time or merge time",
+        "source_row": {
+          "path": "reports/upgrade/a5-pilot20-preparation-20260921-v4/private/history/a5-task-28c10c92d52bbe54/source-row.json",
+          "sha256": "45ffcbc3dacc817a349d75d049d00f497d425563b338981a7e0d0c04545214c0",
+          "canonical_sha256": "12929ade236ec18918fb5b77c60a3001d5dd0e65723e02e11d9d057fe8a91bb6",
+          "access": "host_private_only"
+        },
+        "public_issue_sha256": "80b289fedf3bc996489e3ce2ce6f575ea7c8153524ea8736ccd7e0dad0c29a41",
+        "trimmed_issue_sha256": "06ea9ecc2fb569a1c7ca808a0208461cd04f7f4cb42c13e998afd34ac44d12c4",
+        "license_status": "dataset_card_unspecified; per_source_license_review_pending"
+      },
+      "public_task": {
+        "path": "reports/upgrade/a5-funded-build-preparation-20260921-v12/public/a5-build-28c10c92d52bbe54.json",
+        "sha256": "95e399d0faee12f139e009df752d4586269db1bd9f9ed78fb5217bc2e6534687",
+        "model_hash": "57e7801cd2dc6ea686d59e7ae2eb39d1c16c2f898455222a46acec8d36383d20",
+        "access": "public_DTO_only"
+      },
+      "private_evaluation_spec": {
+        "path": "reports/upgrade/a5-funded-build-preparation-20260921-v12/private/a5-build-28c10c92d52bbe54/evaluation-spec.json",
+        "sha256": "b0ade62cf30d2f843bce7864b1999e278d856971f219e75aafbdd7910a3b79f1",
+        "access": "host_private_only"
+      },
+      "private_repository_evaluation": {
+        "path": "reports/upgrade/a5-funded-build-preparation-20260921-v12/private/a5-build-28c10c92d52bbe54/repository-evaluation.json",
+        "sha256": "d71d8427d37b685f9419bb005eeb8a61d7e18897df0d34d921cbdd01ddb4a062",
+        "access": "host_private_only",
+        "kind": "source_test_material_not_ready_RepositorySpec"
+      },
+      "target_dedup": {
+        "against": "target_tasks",
+        "compared_target_count": 20,
+        "source_instance_id_overlap": false,
+        "repo_base_commit_overlap": false,
+        "public_issue_hash_overlap": false,
+        "trimmed_issue_overlap": false,
+        "source_predates_all_same_repo_targets": true,
+        "semantic_duplicate_review": "pending; exact_checks_do_not_prove_semantic_independence"
+      },
+      "field_boundary_ref": "a5_public_private_boundary_v1",
+      "build_state": "prepared_not_started",
+      "readiness": "awaiting_repo_grader_readiness",
+      "paid_build_allowed": false,
+      "max_build_attempts": 2,
+      "attempt_plan": [
+        {
+          "attempt_id": "45758b9179ffb78a284a1e07411da13199c2966650d758c0689ed112869b19df",
+          "attempt": 1,
+          "state": "planned_not_started",
+          "retry_of": null
+        },
+        {
+          "attempt_id": "7da98e1f2c7d56295b33e2bb5a36cb7d1e458157b1cb45ba994ae58d34056098",
+          "attempt": 2,
+          "state": "planned_not_started",
+          "retry_of": "45758b9179ffb78a284a1e07411da13199c2966650d758c0689ed112869b19df"
+        }
+      ],
+      "evidence": {
+        "public_base_snapshot": null,
+        "environment_receipt": null,
+        "baseline_receipt": null,
+        "independent_grader_receipt": null,
+        "public_trajectory": null,
+        "public_validation": null,
+        "dependency_mapping": null,
+        "usage_receipt": null,
+        "validated_memory_record": null
+      },
+      "blockers": [
+        "24_task_initial_preflight_gate_not_passed",
+        "own_source_repo_environment_baseline_grader_preflight_missing",
+        "public_seed_license_and_semantic_review_pending",
+        "real_public_trajectory_and_independent_grader_receipts_missing",
+        "shared_model_price_ledger_fingerprint_receipt_gates_pending"
+      ]
+    },
+    {
+      "canonical_id": "scikit-learn__scikit-learn-10508",
+      "agent_task_id": "a5-build-7714baee59012ad1",
+      "job_id": "9e9405c13f7de1e954cd9eca7a603664dc450d554ac30c826f95804bf0f90b6e",
+      "expected_repo": "scikit-learn/scikit-learn",
+      "expected_base_commit": "c753b77ac49e72ebc0fe5e3c2369fe628f975017",
+      "preflight_history_candidate": false,
+      "provenance": {
+        "dataset_ref": "source_dataset",
+        "dataset_instance_id": "scikit-learn__scikit-learn-10508",
+        "source_url": "https://github.com/scikit-learn/scikit-learn/pull/10508",
+        "historical_pr_created_at": "2018-01-20T02:00:29+08:00",
+        "created_at_semantics": "upstream pull request creation time, not issue time or merge time",
+        "source_row": {
+          "path": "reports/upgrade/a5-pilot20-preparation-20260921-v4/private/history/a5-task-7714baee59012ad1/source-row.json",
+          "sha256": "b0ce9c1fb7212359fb88de77febabf95870ee939090d8ba84733f8490dd7caf9",
+          "canonical_sha256": "007629c96080f4e0ed3519cb8b5535aeb5444e614b7d77cb4069e9c1600d2c16",
+          "access": "host_private_only"
+        },
+        "public_issue_sha256": "78a56f2b40bed531f50fce13f4a877943b003df526983ca62afcfae8cfe3e94f",
+        "trimmed_issue_sha256": "3e99a3bce6736ec9eb97932d4c4d3169f791a2ce0775322656ef6b1ae5cb68b3",
+        "license_status": "dataset_card_unspecified; per_source_license_review_pending"
+      },
+      "public_task": {
+        "path": "reports/upgrade/a5-funded-build-preparation-20260921-v12/public/a5-build-7714baee59012ad1.json",
+        "sha256": "0846aa477b6c2334d904c3c8548efed9e5cd55476eb46a1abdf34465347aface",
+        "model_hash": "9bd1a26fbc0c8867165146b242dada387df5170935eb036e16df678e84c5fe8b",
+        "access": "public_DTO_only"
+      },
+      "private_evaluation_spec": {
+        "path": "reports/upgrade/a5-funded-build-preparation-20260921-v12/private/a5-build-7714baee59012ad1/evaluation-spec.json",
+        "sha256": "24c0beae26526d54e60b5fc3fef813bfd55992eec4fc5f3dcdba63f720b85bcf",
+        "access": "host_private_only"
+      },
+      "private_repository_evaluation": {
+        "path": "reports/upgrade/a5-funded-build-preparation-20260921-v12/private/a5-build-7714baee59012ad1/repository-evaluation.json",
+        "sha256": "6c90173f2333f117a8ee33777b2b19effabe3e11f9fc83eaa2e3a7fcf1f2f377",
+        "access": "host_private_only",
+        "kind": "source_test_material_not_ready_RepositorySpec"
+      },
+      "target_dedup": {
+        "against": "target_tasks",
+        "compared_target_count": 20,
+        "source_instance_id_overlap": false,
+        "repo_base_commit_overlap": false,
+        "public_issue_hash_overlap": false,
+        "trimmed_issue_overlap": false,
+        "source_predates_all_same_repo_targets": true,
+        "semantic_duplicate_review": "pending; exact_checks_do_not_prove_semantic_independence"
+      },
+      "field_boundary_ref": "a5_public_private_boundary_v1",
+      "build_state": "prepared_not_started",
+      "readiness": "awaiting_repo_grader_readiness",
+      "paid_build_allowed": false,
+      "max_build_attempts": 2,
+      "attempt_plan": [
+        {
+          "attempt_id": "f1fa3c7d49c4c0afec1c5cbf8ff27c1773b70d6ca35e3c715e383512d83c0446",
+          "attempt": 1,
+          "state": "planned_not_started",
+          "retry_of": null
+        },
+        {
+          "attempt_id": "af5e5370edac1bb1f87ca3e024ae51178eda70ab3474c8ac26f2bf7ee0bc2a06",
+          "attempt": 2,
+          "state": "planned_not_started",
+          "retry_of": "f1fa3c7d49c4c0afec1c5cbf8ff27c1773b70d6ca35e3c715e383512d83c0446"
+        }
+      ],
+      "evidence": {
+        "public_base_snapshot": null,
+        "environment_receipt": null,
+        "baseline_receipt": null,
+        "independent_grader_receipt": null,
+        "public_trajectory": null,
+        "public_validation": null,
+        "dependency_mapping": null,
+        "usage_receipt": null,
+        "validated_memory_record": null
+      },
+      "blockers": [
+        "24_task_initial_preflight_gate_not_passed",
+        "own_source_repo_environment_baseline_grader_preflight_missing",
+        "public_seed_license_and_semantic_review_pending",
+        "real_public_trajectory_and_independent_grader_receipts_missing",
+        "shared_model_price_ledger_fingerprint_receipt_gates_pending"
+      ]
+    },
+    {
+      "canonical_id": "scikit-learn__scikit-learn-10949",
+      "agent_task_id": "a5-build-cc2be6e16ca90488",
+      "job_id": "93691d2fc4e148ed0dd7c7c0f047d4c12e4f195abceba423c054b4647378e779",
+      "expected_repo": "scikit-learn/scikit-learn",
+      "expected_base_commit": "3b5abf76597ce6aff76192869f92647c1b5259e7",
+      "preflight_history_candidate": false,
+      "provenance": {
+        "dataset_ref": "source_dataset",
+        "dataset_instance_id": "scikit-learn__scikit-learn-10949",
+        "source_url": "https://github.com/scikit-learn/scikit-learn/pull/10949",
+        "historical_pr_created_at": "2018-04-10T23:30:56+08:00",
+        "created_at_semantics": "upstream pull request creation time, not issue time or merge time",
+        "source_row": {
+          "path": "reports/upgrade/a5-pilot20-preparation-20260921-v4/private/history/a5-task-cc2be6e16ca90488/source-row.json",
+          "sha256": "4953b3817d6b589aa35849acaa8d1fffb9466608bd510575a8b3ec6af0a2228a",
+          "canonical_sha256": "1ebe23989cb58b74235f8b7b09c55eb6d96e69c03492ef4e84d3df250ec9eb7a",
+          "access": "host_private_only"
+        },
+        "public_issue_sha256": "40f5a61a0ce68793a6b95f704e7f2be7f23716e4d7794d5c123607612cc2473b",
+        "trimmed_issue_sha256": "bf4868919658c602c6195cd8d85d649ab5dc75a9da1f8eaba23dfc58e9a8b8d1",
+        "license_status": "dataset_card_unspecified; per_source_license_review_pending"
+      },
+      "public_task": {
+        "path": "reports/upgrade/a5-funded-build-preparation-20260921-v12/public/a5-build-cc2be6e16ca90488.json",
+        "sha256": "491c65438177f7b3780037624b12cb1df134f2aa493b827420837ac9a70c2569",
+        "model_hash": "e82970c851e0e9410c351c82636fd9ad6d08f5537e3b012ca4c5fe4bc72007fd",
+        "access": "public_DTO_only"
+      },
+      "private_evaluation_spec": {
+        "path": "reports/upgrade/a5-funded-build-preparation-20260921-v12/private/a5-build-cc2be6e16ca90488/evaluation-spec.json",
+        "sha256": "5768996cff3fc97729fa6afe791d92ff3f0f4e608bd85dce90cdcf606ac20842",
+        "access": "host_private_only"
+      },
+      "private_repository_evaluation": {
+        "path": "reports/upgrade/a5-funded-build-preparation-20260921-v12/private/a5-build-cc2be6e16ca90488/repository-evaluation.json",
+        "sha256": "af74708e972fcb80978f90cf7e897e9cdb10fba2c1d92ba722529adc75f27cd4",
+        "access": "host_private_only",
+        "kind": "source_test_material_not_ready_RepositorySpec"
+      },
+      "target_dedup": {
+        "against": "target_tasks",
+        "compared_target_count": 20,
+        "source_instance_id_overlap": false,
+        "repo_base_commit_overlap": false,
+        "public_issue_hash_overlap": false,
+        "trimmed_issue_overlap": false,
+        "source_predates_all_same_repo_targets": true,
+        "semantic_duplicate_review": "pending; exact_checks_do_not_prove_semantic_independence"
+      },
+      "field_boundary_ref": "a5_public_private_boundary_v1",
+      "build_state": "prepared_not_started",
+      "readiness": "awaiting_repo_grader_readiness",
+      "paid_build_allowed": false,
+      "max_build_attempts": 2,
+      "attempt_plan": [
+        {
+          "attempt_id": "21fc9a34a49cb557dcf47c8f42f378d411b3d4112c4a0a2d6704ae0cc3779847",
+          "attempt": 1,
+          "state": "planned_not_started",
+          "retry_of": null
+        },
+        {
+          "attempt_id": "4875eb79ebb98e9592bb3709fb2c24b68525cd77e79d7a45ec6b6cecd0c48a95",
+          "attempt": 2,
+          "state": "planned_not_started",
+          "retry_of": "21fc9a34a49cb557dcf47c8f42f378d411b3d4112c4a0a2d6704ae0cc3779847"
+        }
+      ],
+      "evidence": {
+        "public_base_snapshot": null,
+        "environment_receipt": null,
+        "baseline_receipt": null,
+        "independent_grader_receipt": null,
+        "public_trajectory": null,
+        "public_validation": null,
+        "dependency_mapping": null,
+        "usage_receipt": null,
+        "validated_memory_record": null
+      },
+      "blockers": [
+        "24_task_initial_preflight_gate_not_passed",
+        "own_source_repo_environment_baseline_grader_preflight_missing",
+        "public_seed_license_and_semantic_review_pending",
+        "real_public_trajectory_and_independent_grader_receipts_missing",
+        "shared_model_price_ledger_fingerprint_receipt_gates_pending"
+      ]
+    },
+    {
+      "canonical_id": "scikit-learn__scikit-learn-11040",
+      "agent_task_id": "a5-build-326320c7b35bcda4",
+      "job_id": "ff8d57683a6cbc4bc20099e91cd3dd7fb455fc2b4b14a60359d6629f6d8e9eb9",
+      "expected_repo": "scikit-learn/scikit-learn",
+      "expected_base_commit": "96a02f3934952d486589dddd3f00b40d5a5ab5f2",
+      "preflight_history_candidate": false,
+      "provenance": {
+        "dataset_ref": "source_dataset",
+        "dataset_instance_id": "scikit-learn__scikit-learn-11040",
+        "source_url": "https://github.com/scikit-learn/scikit-learn/pull/11040",
+        "historical_pr_created_at": "2018-04-28T15:18:33+08:00",
+        "created_at_semantics": "upstream pull request creation time, not issue time or merge time",
+        "source_row": {
+          "path": "reports/upgrade/a5-pilot20-preparation-20260921-v4/private/history/a5-task-326320c7b35bcda4/source-row.json",
+          "sha256": "da0cacb82a323f1fce1d1cbd3890b7b2c73cfc579c32a8c56d188f9d289f2ce1",
+          "canonical_sha256": "1baaaf6c499b4981e7fa3426a83321890883d5cd68948621f0511d71a298de87",
+          "access": "host_private_only"
+        },
+        "public_issue_sha256": "579ad8e224f9138de8b94e75bf84b8d5f07120c852819c677960ff853eccd050",
+        "trimmed_issue_sha256": "399ba277bff31afbe7ea89f9fb2a3450612755a6c14b9cc078205d647df75ff1",
+        "license_status": "dataset_card_unspecified; per_source_license_review_pending"
+      },
+      "public_task": {
+        "path": "reports/upgrade/a5-funded-build-preparation-20260921-v12/public/a5-build-326320c7b35bcda4.json",
+        "sha256": "5c8d7a085726c28438123dd2c7686153479ed31939c0702a0770cbf89627abf7",
+        "model_hash": "6371b5e929a646aa4e059e5e70f74e82af756834d51087ef811af32055614ee0",
+        "access": "public_DTO_only"
+      },
+      "private_evaluation_spec": {
+        "path": "reports/upgrade/a5-funded-build-preparation-20260921-v12/private/a5-build-326320c7b35bcda4/evaluation-spec.json",
+        "sha256": "c494628a4cb5c3c7a609b4ffb4448c47be34bf30f041d7301a52b7e787ce6ca3",
+        "access": "host_private_only"
+      },
+      "private_repository_evaluation": {
+        "path": "reports/upgrade/a5-funded-build-preparation-20260921-v12/private/a5-build-326320c7b35bcda4/repository-evaluation.json",
+        "sha256": "ad9147a84507c2f42b2c1f87d24d3ed8f2776651d24dc5c158581af47318074f",
+        "access": "host_private_only",
+        "kind": "source_test_material_not_ready_RepositorySpec"
+      },
+      "target_dedup": {
+        "against": "target_tasks",
+        "compared_target_count": 20,
+        "source_instance_id_overlap": false,
+        "repo_base_commit_overlap": false,
+        "public_issue_hash_overlap": false,
+        "trimmed_issue_overlap": false,
+        "source_predates_all_same_repo_targets": true,
+        "semantic_duplicate_review": "pending; exact_checks_do_not_prove_semantic_independence"
+      },
+      "field_boundary_ref": "a5_public_private_boundary_v1",
+      "build_state": "prepared_not_started",
+      "readiness": "awaiting_repo_grader_readiness",
+      "paid_build_allowed": false,
+      "max_build_attempts": 2,
+      "attempt_plan": [
+        {
+          "attempt_id": "46adaf50f53e7b6a97f9224b0b55fbb0abcca6e4b13e4ccf8d4c3fbcefae8e66",
+          "attempt": 1,
+          "state": "planned_not_started",
+          "retry_of": null
+        },
+        {
+          "attempt_id": "5bb1b3864fc51ebb2d73cc6fd2580477b8b861a5fe6886c1e92ae1b72483438e",
+          "attempt": 2,
+          "state": "planned_not_started",
+          "retry_of": "46adaf50f53e7b6a97f9224b0b55fbb0abcca6e4b13e4ccf8d4c3fbcefae8e66"
+        }
+      ],
+      "evidence": {
+        "public_base_snapshot": null,
+        "environment_receipt": null,
+        "baseline_receipt": null,
+        "independent_grader_receipt": null,
+        "public_trajectory": null,
+        "public_validation": null,
+        "dependency_mapping": null,
+        "usage_receipt": null,
+        "validated_memory_record": null
+      },
+      "blockers": [
+        "24_task_initial_preflight_gate_not_passed",
+        "own_source_repo_environment_baseline_grader_preflight_missing",
+        "public_seed_license_and_semantic_review_pending",
+        "real_public_trajectory_and_independent_grader_receipts_missing",
+        "shared_model_price_ledger_fingerprint_receipt_gates_pending"
+      ]
+    },
+    {
+      "canonical_id": "scikit-learn__scikit-learn-11281",
+      "agent_task_id": "a5-build-b431cb025216862d",
+      "job_id": "595dc3119735a52f16d1d0d4cb123c9d6c3a63175bdcbb16a432fbffed29a4cc",
+      "expected_repo": "scikit-learn/scikit-learn",
+      "expected_base_commit": "4143356c3c51831300789e4fdf795d83716dbab6",
+      "preflight_history_candidate": false,
+      "provenance": {
+        "dataset_ref": "source_dataset",
+        "dataset_instance_id": "scikit-learn__scikit-learn-11281",
+        "source_url": "https://github.com/scikit-learn/scikit-learn/pull/11281",
+        "historical_pr_created_at": "2018-06-16T01:15:25+08:00",
+        "created_at_semantics": "upstream pull request creation time, not issue time or merge time",
+        "source_row": {
+          "path": "reports/upgrade/a5-pilot20-preparation-20260921-v4/private/history/a5-task-b431cb025216862d/source-row.json",
+          "sha256": "4b991398f50d0d3da80e0d9ba69e2c7d768cf4eab317609c1e1cf71d23997757",
+          "canonical_sha256": "682605ee0562af4949986c1a440c5b4e1cab2f7695c9d24b548ab74277d5a3c1",
+          "access": "host_private_only"
+        },
+        "public_issue_sha256": "59d311777619ca7bc26885ac39bf12eb54acd85c817f50ec747a84151a0d532f",
+        "trimmed_issue_sha256": "077b6777c73b4c2548000a2b49db29ca0404c5a0efd2a9b07ebabe6f07535efa",
+        "license_status": "dataset_card_unspecified; per_source_license_review_pending"
+      },
+      "public_task": {
+        "path": "reports/upgrade/a5-funded-build-preparation-20260921-v12/public/a5-build-b431cb025216862d.json",
+        "sha256": "5e0f7b43916a037c50e463efc60209ccf360086883a869bf032d3dad3b296eb3",
+        "model_hash": "53001cafb329df2c4b7ddf90e39deaa2e240bd6155837e36f2636bff56e037c4",
+        "access": "public_DTO_only"
+      },
+      "private_evaluation_spec": {
+        "path": "reports/upgrade/a5-funded-build-preparation-20260921-v12/private/a5-build-b431cb025216862d/evaluation-spec.json",
+        "sha256": "09b9ef051d181dfdc3d17f623d8238fcaaad472b3080ca83fe05f1a0c439bf14",
+        "access": "host_private_only"
+      },
+      "private_repository_evaluation": {
+        "path": "reports/upgrade/a5-funded-build-preparation-20260921-v12/private/a5-build-b431cb025216862d/repository-evaluation.json",
+        "sha256": "224af5b765144b84582a2736b67e4d358a60e8c136f1b6a34749307bf345f37b",
+        "access": "host_private_only",
+        "kind": "source_test_material_not_ready_RepositorySpec"
+      },
+      "target_dedup": {
+        "against": "target_tasks",
+        "compared_target_count": 20,
+        "source_instance_id_overlap": false,
+        "repo_base_commit_overlap": false,
+        "public_issue_hash_overlap": false,
+        "trimmed_issue_overlap": false,
+        "source_predates_all_same_repo_targets": true,
+        "semantic_duplicate_review": "pending; exact_checks_do_not_prove_semantic_independence"
+      },
+      "field_boundary_ref": "a5_public_private_boundary_v1",
+      "build_state": "prepared_not_started",
+      "readiness": "awaiting_repo_grader_readiness",
+      "paid_build_allowed": false,
+      "max_build_attempts": 2,
+      "attempt_plan": [
+        {
+          "attempt_id": "5f04bce364cb35d0a1f415c6e7050bbd4ade26bd2858cca59100a5f12080f5f6",
+          "attempt": 1,
+          "state": "planned_not_started",
+          "retry_of": null
+        },
+        {
+          "attempt_id": "e4400a6722402728e736f53f3e606e1f7b2b3326572845ea72096ab1ea1c0d4f",
+          "attempt": 2,
+          "state": "planned_not_started",
+          "retry_of": "5f04bce364cb35d0a1f415c6e7050bbd4ade26bd2858cca59100a5f12080f5f6"
+        }
+      ],
+      "evidence": {
+        "public_base_snapshot": null,
+        "environment_receipt": null,
+        "baseline_receipt": null,
+        "independent_grader_receipt": null,
+        "public_trajectory": null,
+        "public_validation": null,
+        "dependency_mapping": null,
+        "usage_receipt": null,
+        "validated_memory_record": null
+      },
+      "blockers": [
+        "24_task_initial_preflight_gate_not_passed",
+        "own_source_repo_environment_baseline_grader_preflight_missing",
+        "public_seed_license_and_semantic_review_pending",
+        "real_public_trajectory_and_independent_grader_receipts_missing",
+        "shared_model_price_ledger_fingerprint_receipt_gates_pending"
+      ]
+    },
+    {
+      "canonical_id": "pytest-dev__pytest-5103",
+      "agent_task_id": "a5-build-47b71eeda51b255d",
+      "job_id": "6ee9edfe11721e41cfa838c17f5f3d9196eec597ba9dcf81d9159cafc7032a88",
+      "expected_repo": "pytest-dev/pytest",
+      "expected_base_commit": "10ca84ffc56c2dd2d9dc4bd71b7b898e083500cd",
+      "preflight_history_candidate": true,
+      "provenance": {
+        "dataset_ref": "source_dataset",
+        "dataset_instance_id": "pytest-dev__pytest-5103",
+        "source_url": "https://github.com/pytest-dev/pytest/pull/5103",
+        "historical_pr_created_at": "2019-04-14T00:17:45+08:00",
+        "created_at_semantics": "upstream pull request creation time, not issue time or merge time",
+        "source_row": {
+          "path": "reports/upgrade/a5-pilot20-preparation-20260921-v4/private/history/a5-task-47b71eeda51b255d/source-row.json",
+          "sha256": "7700d23fa7d02f71541b5a6866cf04ad617b88837282cd94df5a9102913472fb",
+          "canonical_sha256": "e6945f4d73650a01f9261d0da73764a30a3098896d1f4a557aafc996f006a834",
+          "access": "host_private_only"
+        },
+        "public_issue_sha256": "92b5c0a0c415a78c9b42b5cfab6f2137190332221fbce3c857d42d0e196fdb0c",
+        "trimmed_issue_sha256": "e910ee5e0a914b05e4fe31568b4393a9e80e11f51f3cf9c4084bf36d53b5fdd9",
+        "license_status": "dataset_card_unspecified; per_source_license_review_pending"
+      },
+      "public_task": {
+        "path": "reports/upgrade/a5-funded-build-preparation-20260921-v12/public/a5-build-47b71eeda51b255d.json",
+        "sha256": "682d345ce6e18729b92dfe5c680b53ae0b97be736c7a20932704397935890881",
+        "model_hash": "17fb1743cbd537ef0c0c1786c57dcffa72b392edadaea41d401f6290b40772c7",
+        "access": "public_DTO_only"
+      },
+      "private_evaluation_spec": {
+        "path": "reports/upgrade/a5-funded-build-preparation-20260921-v12/private/a5-build-47b71eeda51b255d/evaluation-spec.json",
+        "sha256": "8ec27eabc69f501274ff6cbbd9f2d124204f28f6428f7b014d0dd7b63a053a93",
+        "access": "host_private_only"
+      },
+      "private_repository_evaluation": {
+        "path": "reports/upgrade/a5-funded-build-preparation-20260921-v12/private/a5-build-47b71eeda51b255d/repository-evaluation.json",
+        "sha256": "0684840711ab4f93a0d166d5f2dc16e50ceafca6de42acbba97a20b94a2f99cc",
+        "access": "host_private_only",
+        "kind": "source_test_material_not_ready_RepositorySpec"
+      },
+      "target_dedup": {
+        "against": "target_tasks",
+        "compared_target_count": 20,
+        "source_instance_id_overlap": false,
+        "repo_base_commit_overlap": false,
+        "public_issue_hash_overlap": false,
+        "trimmed_issue_overlap": false,
+        "source_predates_all_same_repo_targets": true,
+        "semantic_duplicate_review": "pending; exact_checks_do_not_prove_semantic_independence"
+      },
+      "field_boundary_ref": "a5_public_private_boundary_v1",
+      "build_state": "prepared_not_started",
+      "readiness": "awaiting_repo_grader_readiness",
+      "paid_build_allowed": false,
+      "max_build_attempts": 2,
+      "attempt_plan": [
+        {
+          "attempt_id": "9bf05540e2d22c64c238b23af0d3eb9653649f5b194b99c5370c6aa91220919f",
+          "attempt": 1,
+          "state": "planned_not_started",
+          "retry_of": null
+        },
+        {
+          "attempt_id": "701655089c926e9569e389bd0f569cbf783da4a7e1c75ab3f74bd041801dbb2c",
+          "attempt": 2,
+          "state": "planned_not_started",
+          "retry_of": "9bf05540e2d22c64c238b23af0d3eb9653649f5b194b99c5370c6aa91220919f"
+        }
+      ],
+      "evidence": {
+        "public_base_snapshot": null,
+        "environment_receipt": null,
+        "baseline_receipt": null,
+        "independent_grader_receipt": null,
+        "public_trajectory": null,
+        "public_validation": null,
+        "dependency_mapping": null,
+        "usage_receipt": null,
+        "validated_memory_record": null
+      },
+      "blockers": [
+        "24_task_initial_preflight_gate_not_passed",
+        "own_source_repo_environment_baseline_grader_preflight_missing",
+        "public_seed_license_and_semantic_review_pending",
+        "real_public_trajectory_and_independent_grader_receipts_missing",
+        "shared_model_price_ledger_fingerprint_receipt_gates_pending"
+      ]
+    },
+    {
+      "canonical_id": "pytest-dev__pytest-5221",
+      "agent_task_id": "a5-build-a2ecaa68e847d13a",
+      "job_id": "cf575de06b794caa6bef1fbf72c97d0059e98b1691e4461a39a278cacaea3734",
+      "expected_repo": "pytest-dev/pytest",
+      "expected_base_commit": "4a2fdce62b73944030cff9b3e52862868ca9584d",
+      "preflight_history_candidate": false,
+      "provenance": {
+        "dataset_ref": "source_dataset",
+        "dataset_instance_id": "pytest-dev__pytest-5221",
+        "source_url": "https://github.com/pytest-dev/pytest/pull/5221",
+        "historical_pr_created_at": "2019-05-07T06:36:44+08:00",
+        "created_at_semantics": "upstream pull request creation time, not issue time or merge time",
+        "source_row": {
+          "path": "reports/upgrade/a5-pilot20-preparation-20260921-v4/private/history/a5-task-a2ecaa68e847d13a/source-row.json",
+          "sha256": "3952ba24fe83442d2d3cec699b87a5d905d7d585f15d44ddb64aca2654ca4178",
+          "canonical_sha256": "d87bf908fedc75b7ba746bbb0eab0958c9d554867b909829470b96b8dd92e4e1",
+          "access": "host_private_only"
+        },
+        "public_issue_sha256": "7757789a50241137ed7228f2ffefc2eb41894ac79ce25871635a53d05a3caf23",
+        "trimmed_issue_sha256": "879d2f4396253f9cb0d98d88fed8039bf332c93e72ee85c7b7a86d2ce0f06082",
+        "license_status": "dataset_card_unspecified; per_source_license_review_pending"
+      },
+      "public_task": {
+        "path": "reports/upgrade/a5-funded-build-preparation-20260921-v12/public/a5-build-a2ecaa68e847d13a.json",
+        "sha256": "28aba9939fb61c6a5f9f07049b1deaf7a90ddb41465c8e30ec6ee5cb3aa6378b",
+        "model_hash": "b3f6dc09ab1ba046077baff5b6c2c0a86157fd2f437e361ee22976d9a3dbe93b",
+        "access": "public_DTO_only"
+      },
+      "private_evaluation_spec": {
+        "path": "reports/upgrade/a5-funded-build-preparation-20260921-v12/private/a5-build-a2ecaa68e847d13a/evaluation-spec.json",
+        "sha256": "d2a7aed6ca8ddec27b93d5413a3b2a6a3b0b814325306fdd01d684b3349ccd0f",
+        "access": "host_private_only"
+      },
+      "private_repository_evaluation": {
+        "path": "reports/upgrade/a5-funded-build-preparation-20260921-v12/private/a5-build-a2ecaa68e847d13a/repository-evaluation.json",
+        "sha256": "c626c20092876458684b3e2a018b19afb1e0699e6b0b5ee98751d5b817d564e2",
+        "access": "host_private_only",
+        "kind": "source_test_material_not_ready_RepositorySpec"
+      },
+      "target_dedup": {
+        "against": "target_tasks",
+        "compared_target_count": 20,
+        "source_instance_id_overlap": false,
+        "repo_base_commit_overlap": false,
+        "public_issue_hash_overlap": false,
+        "trimmed_issue_overlap": false,
+        "source_predates_all_same_repo_targets": true,
+        "semantic_duplicate_review": "pending; exact_checks_do_not_prove_semantic_independence"
+      },
+      "field_boundary_ref": "a5_public_private_boundary_v1",
+      "build_state": "prepared_not_started",
+      "readiness": "awaiting_repo_grader_readiness",
+      "paid_build_allowed": false,
+      "max_build_attempts": 2,
+      "attempt_plan": [
+        {
+          "attempt_id": "a17b1e04d235d0147304bf54f0588205f0578897dbb99ed4b5f37bb919f9d7c9",
+          "attempt": 1,
+          "state": "planned_not_started",
+          "retry_of": null
+        },
+        {
+          "attempt_id": "488710f4cf52656934c87420c23ef056f902a4d79fb94c0f7032b8704ab284e8",
+          "attempt": 2,
+          "state": "planned_not_started",
+          "retry_of": "a17b1e04d235d0147304bf54f0588205f0578897dbb99ed4b5f37bb919f9d7c9"
+        }
+      ],
+      "evidence": {
+        "public_base_snapshot": null,
+        "environment_receipt": null,
+        "baseline_receipt": null,
+        "independent_grader_receipt": null,
+        "public_trajectory": null,
+        "public_validation": null,
+        "dependency_mapping": null,
+        "usage_receipt": null,
+        "validated_memory_record": null
+      },
+      "blockers": [
+        "24_task_initial_preflight_gate_not_passed",
+        "own_source_repo_environment_baseline_grader_preflight_missing",
+        "public_seed_license_and_semantic_review_pending",
+        "real_public_trajectory_and_independent_grader_receipts_missing",
+        "shared_model_price_ledger_fingerprint_receipt_gates_pending"
+      ]
+    },
+    {
+      "canonical_id": "pytest-dev__pytest-5227",
+      "agent_task_id": "a5-build-6673c7e7745db910",
+      "job_id": "36d2ac8acbff83f0f4de90c9d4a3f5471f1a9a3b4d61547fb7f27ac4562c2292",
+      "expected_repo": "pytest-dev/pytest",
+      "expected_base_commit": "2051e30b9b596e944524ccb787ed20f9f5be93e3",
+      "preflight_history_candidate": false,
+      "provenance": {
+        "dataset_ref": "source_dataset",
+        "dataset_instance_id": "pytest-dev__pytest-5227",
+        "source_url": "https://github.com/pytest-dev/pytest/pull/5227",
+        "historical_pr_created_at": "2019-05-08T04:27:24+08:00",
+        "created_at_semantics": "upstream pull request creation time, not issue time or merge time",
+        "source_row": {
+          "path": "reports/upgrade/a5-pilot20-preparation-20260921-v4/private/history/a5-task-6673c7e7745db910/source-row.json",
+          "sha256": "f56d52a33371b2dfd5fac8306de911aa70e9b047d2c7c9e867f5e969e64c0bab",
+          "canonical_sha256": "479286faeba9bf77d54da32f5d21e63a360dfe10e8009cc9897d9500b8dbb50b",
+          "access": "host_private_only"
+        },
+        "public_issue_sha256": "3a2ff514af781d2bbeeba733d6cc9ee99766a5c70718f731e0cd2ea4048ad26c",
+        "trimmed_issue_sha256": "a2958d6b8d16b05d0918c891a7f8e5e301c3ab1fe94e81b732d7ef8722becac0",
+        "license_status": "dataset_card_unspecified; per_source_license_review_pending"
+      },
+      "public_task": {
+        "path": "reports/upgrade/a5-funded-build-preparation-20260921-v12/public/a5-build-6673c7e7745db910.json",
+        "sha256": "13a1579d5b3542a7d15438f8ba13639dd713bec780deb12182c500d33b905906",
+        "model_hash": "216b057a980c52d5977e89a1a5f3018ee4b11ecbe7a68d0031eeac441034056b",
+        "access": "public_DTO_only"
+      },
+      "private_evaluation_spec": {
+        "path": "reports/upgrade/a5-funded-build-preparation-20260921-v12/private/a5-build-6673c7e7745db910/evaluation-spec.json",
+        "sha256": "a784882eae3ad0f7040573324d87b01401905df197fdefec324507a76aadeead",
+        "access": "host_private_only"
+      },
+      "private_repository_evaluation": {
+        "path": "reports/upgrade/a5-funded-build-preparation-20260921-v12/private/a5-build-6673c7e7745db910/repository-evaluation.json",
+        "sha256": "a9f7955b259d8904f4184e52dea7ba0c1ea25ee92bdab37132fb6c02270bbdab",
+        "access": "host_private_only",
+        "kind": "source_test_material_not_ready_RepositorySpec"
+      },
+      "target_dedup": {
+        "against": "target_tasks",
+        "compared_target_count": 20,
+        "source_instance_id_overlap": false,
+        "repo_base_commit_overlap": false,
+        "public_issue_hash_overlap": false,
+        "trimmed_issue_overlap": false,
+        "source_predates_all_same_repo_targets": true,
+        "semantic_duplicate_review": "pending; exact_checks_do_not_prove_semantic_independence"
+      },
+      "field_boundary_ref": "a5_public_private_boundary_v1",
+      "build_state": "prepared_not_started",
+      "readiness": "awaiting_repo_grader_readiness",
+      "paid_build_allowed": false,
+      "max_build_attempts": 2,
+      "attempt_plan": [
+        {
+          "attempt_id": "23fd7a3bf2c8be78bbc6799f0e929c7eb27ac937da54a8db0293175e1d123c71",
+          "attempt": 1,
+          "state": "planned_not_started",
+          "retry_of": null
+        },
+        {
+          "attempt_id": "22ea66f3633f157046b9063470197bc291c99ec19f945a47b2ddee5e13c6c6af",
+          "attempt": 2,
+          "state": "planned_not_started",
+          "retry_of": "23fd7a3bf2c8be78bbc6799f0e929c7eb27ac937da54a8db0293175e1d123c71"
+        }
+      ],
+      "evidence": {
+        "public_base_snapshot": null,
+        "environment_receipt": null,
+        "baseline_receipt": null,
+        "independent_grader_receipt": null,
+        "public_trajectory": null,
+        "public_validation": null,
+        "dependency_mapping": null,
+        "usage_receipt": null,
+        "validated_memory_record": null
+      },
+      "blockers": [
+        "24_task_initial_preflight_gate_not_passed",
+        "own_source_repo_environment_baseline_grader_preflight_missing",
+        "public_seed_license_and_semantic_review_pending",
+        "real_public_trajectory_and_independent_grader_receipts_missing",
+        "shared_model_price_ledger_fingerprint_receipt_gates_pending"
+      ]
+    },
+    {
+      "canonical_id": "pytest-dev__pytest-5413",
+      "agent_task_id": "a5-build-bd078c02fd25fef6",
+      "job_id": "e34ae45c582bc37985e846a8b5094875fd82d8a96edbdce8f25cafa88f54bf78",
+      "expected_repo": "pytest-dev/pytest",
+      "expected_base_commit": "450d2646233c670654744d3d24330b69895bb9d2",
+      "preflight_history_candidate": false,
+      "provenance": {
+        "dataset_ref": "source_dataset",
+        "dataset_instance_id": "pytest-dev__pytest-5413",
+        "source_url": "https://github.com/pytest-dev/pytest/pull/5413",
+        "historical_pr_created_at": "2019-06-06T23:21:20+08:00",
+        "created_at_semantics": "upstream pull request creation time, not issue time or merge time",
+        "source_row": {
+          "path": "reports/upgrade/a5-pilot20-preparation-20260921-v4/private/history/a5-task-bd078c02fd25fef6/source-row.json",
+          "sha256": "dd2fc741d1a6fba3b14113150eb095a0968e57c5ddcec83fafff459763bfdaed",
+          "canonical_sha256": "567f2797c36dff4248d79b17fbdb03bed2f022182015bcf1cd770fc855475d52",
+          "access": "host_private_only"
+        },
+        "public_issue_sha256": "d07de38ad8ef1399524db3d22cd5127e01ba3242e1c48cc37d5b397598d1b94d",
+        "trimmed_issue_sha256": "dd1737e683b6cde0e33b48f123a5ee0145c13520daacdc8221821ee8645553a9",
+        "license_status": "dataset_card_unspecified; per_source_license_review_pending"
+      },
+      "public_task": {
+        "path": "reports/upgrade/a5-funded-build-preparation-20260921-v12/public/a5-build-bd078c02fd25fef6.json",
+        "sha256": "746d023adf45108675ec3e878d8eca00c680fcb29d1a5526d1033122980b4ca3",
+        "model_hash": "5fd91d6877b12b721ed6de86a3016d6c9ec667db75aa90d3684bf43d3d81cee1",
+        "access": "public_DTO_only"
+      },
+      "private_evaluation_spec": {
+        "path": "reports/upgrade/a5-funded-build-preparation-20260921-v12/private/a5-build-bd078c02fd25fef6/evaluation-spec.json",
+        "sha256": "efc076576c3a91d4592349c51d67941f33209f1919c06af4bfe36aae94f6725e",
+        "access": "host_private_only"
+      },
+      "private_repository_evaluation": {
+        "path": "reports/upgrade/a5-funded-build-preparation-20260921-v12/private/a5-build-bd078c02fd25fef6/repository-evaluation.json",
+        "sha256": "594b6925d2f1fd778d660da2b2d9b3229e43e15236a555b2e4dba481f9b4b404",
+        "access": "host_private_only",
+        "kind": "source_test_material_not_ready_RepositorySpec"
+      },
+      "target_dedup": {
+        "against": "target_tasks",
+        "compared_target_count": 20,
+        "source_instance_id_overlap": false,
+        "repo_base_commit_overlap": false,
+        "public_issue_hash_overlap": false,
+        "trimmed_issue_overlap": false,
+        "source_predates_all_same_repo_targets": true,
+        "semantic_duplicate_review": "pending; exact_checks_do_not_prove_semantic_independence"
+      },
+      "field_boundary_ref": "a5_public_private_boundary_v1",
+      "build_state": "prepared_not_started",
+      "readiness": "awaiting_repo_grader_readiness",
+      "paid_build_allowed": false,
+      "max_build_attempts": 2,
+      "attempt_plan": [
+        {
+          "attempt_id": "6d2be4012a32607177c2e5ec7313ac65c25a0586a2b9a7a948b3955dd05dad89",
+          "attempt": 1,
+          "state": "planned_not_started",
+          "retry_of": null
+        },
+        {
+          "attempt_id": "3f5d28ee1ee206736986637ecbd9cdcfc9132410f4ac515474462084674ff8c1",
+          "attempt": 2,
+          "state": "planned_not_started",
+          "retry_of": "6d2be4012a32607177c2e5ec7313ac65c25a0586a2b9a7a948b3955dd05dad89"
+        }
+      ],
+      "evidence": {
+        "public_base_snapshot": null,
+        "environment_receipt": null,
+        "baseline_receipt": null,
+        "independent_grader_receipt": null,
+        "public_trajectory": null,
+        "public_validation": null,
+        "dependency_mapping": null,
+        "usage_receipt": null,
+        "validated_memory_record": null
+      },
+      "blockers": [
+        "24_task_initial_preflight_gate_not_passed",
+        "own_source_repo_environment_baseline_grader_preflight_missing",
+        "public_seed_license_and_semantic_review_pending",
+        "real_public_trajectory_and_independent_grader_receipts_missing",
+        "shared_model_price_ledger_fingerprint_receipt_gates_pending"
+      ]
+    },
+    {
+      "canonical_id": "pytest-dev__pytest-5495",
+      "agent_task_id": "a5-build-3812aa37501b5287",
+      "job_id": "344ebd6a27ce5878b8f536ab4d30af6751d7e0ecd820be256f1b669ac0c2b78f",
+      "expected_repo": "pytest-dev/pytest",
+      "expected_base_commit": "1aefb24b37c30fba8fd79a744829ca16e252f340",
+      "preflight_history_candidate": false,
+      "provenance": {
+        "dataset_ref": "source_dataset",
+        "dataset_instance_id": "pytest-dev__pytest-5495",
+        "source_url": "https://github.com/pytest-dev/pytest/pull/5495",
+        "historical_pr_created_at": "2019-06-26T07:41:16+08:00",
+        "created_at_semantics": "upstream pull request creation time, not issue time or merge time",
+        "source_row": {
+          "path": "reports/upgrade/a5-pilot20-preparation-20260921-v4/private/history/a5-task-3812aa37501b5287/source-row.json",
+          "sha256": "0c07081d461ae3f80e8a29cb0bb7f17ad546a230d47e374b523eef8418654e65",
+          "canonical_sha256": "dca9b25453b655b05f3f00187dac98f0ccb980785564ccfbcd416a1f47e309ae",
+          "access": "host_private_only"
+        },
+        "public_issue_sha256": "335421f7964c21193a8c352db84c8d1948fac7cb8f870bd2d6f857c91332f733",
+        "trimmed_issue_sha256": "173db8b7e68a6b33e7808bddcd4e75afee315b2168ed24875494ec9f73a2ae21",
+        "license_status": "dataset_card_unspecified; per_source_license_review_pending"
+      },
+      "public_task": {
+        "path": "reports/upgrade/a5-funded-build-preparation-20260921-v12/public/a5-build-3812aa37501b5287.json",
+        "sha256": "9a596619d97c9ac1935b7da0482e8a93e9a097cf8d9bca414d7765bf1e24b653",
+        "model_hash": "76289aeff891bfb9d0a91944a8af0e6c147ec964a9855f27629a2e0d64c8f0fa",
+        "access": "public_DTO_only"
+      },
+      "private_evaluation_spec": {
+        "path": "reports/upgrade/a5-funded-build-preparation-20260921-v12/private/a5-build-3812aa37501b5287/evaluation-spec.json",
+        "sha256": "96547d870aa25f2f10ad2e26e757b424921b500bd2cc64e51c5fcb30c79bb2a2",
+        "access": "host_private_only"
+      },
+      "private_repository_evaluation": {
+        "path": "reports/upgrade/a5-funded-build-preparation-20260921-v12/private/a5-build-3812aa37501b5287/repository-evaluation.json",
+        "sha256": "7d00867e0c1fc848b2b962ace1e4230b12492557a00437675088af72523d972e",
+        "access": "host_private_only",
+        "kind": "source_test_material_not_ready_RepositorySpec"
+      },
+      "target_dedup": {
+        "against": "target_tasks",
+        "compared_target_count": 20,
+        "source_instance_id_overlap": false,
+        "repo_base_commit_overlap": false,
+        "public_issue_hash_overlap": false,
+        "trimmed_issue_overlap": false,
+        "source_predates_all_same_repo_targets": true,
+        "semantic_duplicate_review": "pending; exact_checks_do_not_prove_semantic_independence"
+      },
+      "field_boundary_ref": "a5_public_private_boundary_v1",
+      "build_state": "prepared_not_started",
+      "readiness": "awaiting_repo_grader_readiness",
+      "paid_build_allowed": false,
+      "max_build_attempts": 2,
+      "attempt_plan": [
+        {
+          "attempt_id": "8f3c697e173ed5d14e2ea9d5408ec56041a0d94d38b36ebb0a47977524932af9",
+          "attempt": 1,
+          "state": "planned_not_started",
+          "retry_of": null
+        },
+        {
+          "attempt_id": "99cd2b9349af918e2277cbdd263733c076f7517ca18673780494173ac04d6b90",
+          "attempt": 2,
+          "state": "planned_not_started",
+          "retry_of": "8f3c697e173ed5d14e2ea9d5408ec56041a0d94d38b36ebb0a47977524932af9"
+        }
+      ],
+      "evidence": {
+        "public_base_snapshot": null,
+        "environment_receipt": null,
+        "baseline_receipt": null,
+        "independent_grader_receipt": null,
+        "public_trajectory": null,
+        "public_validation": null,
+        "dependency_mapping": null,
+        "usage_receipt": null,
+        "validated_memory_record": null
+      },
+      "blockers": [
+        "24_task_initial_preflight_gate_not_passed",
+        "own_source_repo_environment_baseline_grader_preflight_missing",
+        "public_seed_license_and_semantic_review_pending",
+        "real_public_trajectory_and_independent_grader_receipts_missing",
+        "shared_model_price_ledger_fingerprint_receipt_gates_pending"
+      ]
+    }
+  ],
+  "preflight_history_candidates": [
+    {
+      "canonical_id": "django__django-10914",
+      "agent_task_id": "a5-build-b117be26241cbe45",
+      "job_id": "d304208a1fbc56e9a731abc18dd2e6b1bee59353ff5c5ab900986b4998b86180",
+      "expected_repo": "django/django",
+      "expected_base_commit": "e7fd69d051eaa67cb17f172a39b57253e9cb831a",
+      "membership": "subset_of_memory_build_source_pool",
+      "readiness": "awaiting_repo_grader_readiness",
+      "evidence": null
+    },
+    {
+      "canonical_id": "sympy__sympy-11400",
+      "agent_task_id": "a5-build-5024683a49dc2bbe",
+      "job_id": "5f07ccfa1fd26f35b5531204be5953af0ac21cc39b071d77db3e6ed3edd507ed",
+      "expected_repo": "sympy/sympy",
+      "expected_base_commit": "8dcb12a6cf500e8738d6729ab954a261758f49ca",
+      "membership": "subset_of_memory_build_source_pool",
+      "readiness": "awaiting_repo_grader_readiness",
+      "evidence": null
+    },
+    {
+      "canonical_id": "scikit-learn__scikit-learn-10297",
+      "agent_task_id": "a5-build-28c10c92d52bbe54",
+      "job_id": "0c2e6a6c36cd4df2e3bbf4d705a4ed700a3f0a68611a5ea5942ec3f624605c6d",
+      "expected_repo": "scikit-learn/scikit-learn",
+      "expected_base_commit": "b90661d6a46aa3619d3eec94d5281f5888add501",
+      "membership": "subset_of_memory_build_source_pool",
+      "readiness": "awaiting_repo_grader_readiness",
+      "evidence": null
+    },
+    {
+      "canonical_id": "pytest-dev__pytest-5103",
+      "agent_task_id": "a5-build-47b71eeda51b255d",
+      "job_id": "6ee9edfe11721e41cfa838c17f5f3d9196eec597ba9dcf81d9159cafc7032a88",
+      "expected_repo": "pytest-dev/pytest",
+      "expected_base_commit": "10ca84ffc56c2dd2d9dc4bd71b7b898e083500cd",
+      "membership": "subset_of_memory_build_source_pool",
+      "readiness": "awaiting_repo_grader_readiness",
+      "evidence": null
+    }
+  ],
+  "remaining_memory_source_ids": [
+    "django__django-10924",
+    "django__django-11001",
+    "django__django-11019",
+    "django__django-11039",
+    "sympy__sympy-11870",
+    "sympy__sympy-11897",
+    "sympy__sympy-12171",
+    "sympy__sympy-12236",
+    "scikit-learn__scikit-learn-10508",
+    "scikit-learn__scikit-learn-10949",
+    "scikit-learn__scikit-learn-11040",
+    "scikit-learn__scikit-learn-11281",
+    "pytest-dev__pytest-5221",
+    "pytest-dev__pytest-5227",
+    "pytest-dev__pytest-5413",
+    "pytest-dev__pytest-5495"
+  ],
+  "set_relationships": {
+    "targets_disjoint_from_memory_sources": true,
+    "preflight_history_subset_of_memory_sources": true,
+    "preflight_history_is_entire_memory_pool": false,
+    "initial_preflight_equals": "20 target tasks + 4 preflight history candidates",
+    "initial_preflight_does_not_cover": "remaining 16 memory sources"
+  },
+  "field_boundary": {
+    "id": "a5_public_private_boundary_v1",
+    "public_input_allowlist": [
+      "PublicTask strict DTO at public_task.path",
+      "reviewed complete base at expected_repo/expected_base_commit",
+      "public issue/problem_statement from locked dataset public columns",
+      "reviewed public provenance"
+    ],
+    "host_private_only": [
+      "source-row.json",
+      "raw parquet",
+      "EvaluationSpec",
+      "gold patch",
+      "test_patch",
+      "hints_text",
+      "FAIL_TO_PASS",
+      "PASS_TO_PASS",
+      "hidden tests",
+      "independent grader results"
+    ],
+    "prohibited_memory_substitutes": [
+      "target gold patch",
+      "target test patch",
+      "target hidden tests",
+      "future pilot trajectories",
+      "invented procedure",
+      "private grader output disguised as public validation"
+    ],
+    "handoff_audience": "host_only_not_agent_context_or_memory_index",
+    "mounting_rule": "Only separately reviewed public DTO and source seed may reach agent; never mount handoff, preparation or build bundle roots.",
+    "promotion_required": [
+      "real source public observations/actions with run/operation/attempt identities and hashes",
+      "real public validation artifacts",
+      "separate independent grader receipt bound to same source/revision/candidate",
+      "dependency mapping and provenance review",
+      "full usage ledger including failed/unknown attempts",
+      "reviewed B1 raw/B2-B3 structured source correspondence",
+      "actual build/validation timestamps before memory freeze and pilot start"
+    ],
+    "private_grader_is_public_validation": false
+  },
+  "budget_and_ledger": {
+    "funding_contract_ref": "configs/a5/funding-cny-v1.json",
+    "preserve_existing_jobs_ref": "reports/upgrade/a5-funded-build-preparation-20260921-v12/build-jobs.json",
+    "preserve_existing_attempts_ref": "reports/upgrade/a5-funded-build-preparation-20260921-v12/build-attempt-plan.json",
+    "pilot_currency": "CNY",
+    "pilot_cap": "50.000",
+    "pilot_reference_token_ceiling": "46.080",
+    "memory_build_budget": "separate_user_authorized",
+    "memory_build_ledger": "separate_from_pilot; managed_by_harness_only",
+    "max_attempts_current_fixed_plan": 40,
+    "max_attempts_per_source": 2,
+    "broader_funding_attempt_cap_is_not_extra_jobs": true,
+    "target_validated_record_range": [
+      15,
+      25
+    ],
+    "attempts_are_not_validated_records": true,
+    "retain_every_failure_invalid_env_unknown_and_cost": true,
+    "unknown_usage": "keep_reserved_until_reconciled",
+    "runtime_reconciliation": "blocked_until_harness_replaces_obsolete_combined_50_build3.840_pilot46.080_plan"
+  },
+  "gate_order": [
+    {
+      "order": 1,
+      "id": "initial_24_preflight",
+      "owner": "coding-harness",
+      "task_ids": [
+        "django__django-13265",
+        "django__django-15781",
+        "django__django-13590",
+        "django__django-13448",
+        "sympy__sympy-20154",
+        "sympy__sympy-24152",
+        "sympy__sympy-20442",
+        "sympy__sympy-18532",
+        "scikit-learn__scikit-learn-25747",
+        "scikit-learn__scikit-learn-25500",
+        "scikit-learn__scikit-learn-25638",
+        "scikit-learn__scikit-learn-25570",
+        "pytest-dev__pytest-8365",
+        "pytest-dev__pytest-7432",
+        "pytest-dev__pytest-9359",
+        "pytest-dev__pytest-7220",
+        "sphinx-doc__sphinx-10451",
+        "sphinx-doc__sphinx-8721",
+        "sphinx-doc__sphinx-8595",
+        "sphinx-doc__sphinx-8713",
+        "django__django-10914",
+        "sympy__sympy-11400",
+        "scikit-learn__scikit-learn-10297",
+        "pytest-dev__pytest-5103"
+      ],
+      "mode": "read_only_offline_zero_model",
+      "source_template": "D:/crq/src/coding-harness/configs/a5/environment-preflight.template.json",
+      "observed_environment_rows": 0,
+      "status": "blocked",
+      "required_receipt_fields": [
+        "task_id",
+        "repo",
+        "base_revision",
+        "source_tree_hash",
+        "image_digest",
+        "python_version",
+        "pytest_version",
+        "test_collection_hash",
+        "collected_count",
+        "baseline_status",
+        "baseline_failed_nodeids",
+        "cleanup_verified",
+        "model_calls"
+      ],
+      "criteria": [
+        "24 distinct exact canonical IDs/repo/base bindings",
+        "own complete source tree, pinned environment and collection evidence for every task",
+        "baseline defect reproduced and independent grader contract verified",
+        "all failures/invalid_env retained; no denominator reduction",
+        "no shared Flask readiness inference; zero model calls"
+      ],
+      "completion_effect": "no_paid_execution_and_no_remaining_source_unlock"
+    },
+    {
+      "order": 2,
+      "id": "individual_memory_source_preflight",
+      "owner": "coding-harness",
+      "after": "initial_24_preflight",
+      "task_ids": [
+        "django__django-10914",
+        "django__django-10924",
+        "django__django-11001",
+        "django__django-11019",
+        "django__django-11039",
+        "sympy__sympy-11400",
+        "sympy__sympy-11870",
+        "sympy__sympy-11897",
+        "sympy__sympy-12171",
+        "sympy__sympy-12236",
+        "scikit-learn__scikit-learn-10297",
+        "scikit-learn__scikit-learn-10508",
+        "scikit-learn__scikit-learn-10949",
+        "scikit-learn__scikit-learn-11040",
+        "scikit-learn__scikit-learn-11281",
+        "pytest-dev__pytest-5103",
+        "pytest-dev__pytest-5221",
+        "pytest-dev__pytest-5227",
+        "pytest-dev__pytest-5413",
+        "pytest-dev__pytest-5495"
+      ],
+      "not_covered_by_initial_gate": [
+        "django__django-10924",
+        "django__django-11001",
+        "django__django-11019",
+        "django__django-11039",
+        "sympy__sympy-11870",
+        "sympy__sympy-11897",
+        "sympy__sympy-12171",
+        "sympy__sympy-12236",
+        "scikit-learn__scikit-learn-10508",
+        "scikit-learn__scikit-learn-10949",
+        "scikit-learn__scikit-learn-11040",
+        "scikit-learn__scikit-learn-11281",
+        "pytest-dev__pytest-5221",
+        "pytest-dev__pytest-5227",
+        "pytest-dev__pytest-5413",
+        "pytest-dev__pytest-5495"
+      ],
+      "status": "blocked",
+      "criteria": [
+        "each source own complete repo/environment/baseline/grader evidence",
+        "first 4 may reuse only their exact source-bound accepted receipts",
+        "remaining 16 must each obtain independent receipts after initial gate",
+        "source public/private, license and semantic review complete",
+        "unknown/missing/fail/invalid_env never ready"
+      ],
+      "completion_effect": "eligibility_only_for_that_source_not_for_pool"
+    },
+    {
+      "order": 3,
+      "id": "future_paid_build_eligibility",
+      "after": "individual_memory_source_preflight",
+      "status": "disabled_by_current_instruction",
+      "criteria": [
+        "initial_24_preflight passed",
+        "this source own preflight passed",
+        "harness adoption and budget conflict resolved",
+        "verified model/price, separate CNY accounting, dual source fingerprints, operation/attempt receipts bound",
+        "explicit subsequent execution instruction; this handoff never launches"
+      ],
+      "memory_acceptance_ref": "a5_public_private_boundary_v1"
+    },
+    {
+      "order": 4,
+      "id": "future_snapshot_then_pilot",
+      "status": "disabled_by_current_instruction",
+      "criteria": [
+        "accept only real public trajectories and independent grader receipts plus promotion review",
+        "freeze cold same-source B1/B2/B3 snapshot before any pilot task",
+        "all pilot runtime gates satisfied"
+      ],
+      "contract": "unchanged B0-B3/20x4x3"
+    }
+  ],
+  "gaps": {
+    "sphinx_history": "no_source_under_frozen_pre2020_rule; pool stays four repositories x five; do not fabricate/add sources",
+    "semantic_duplicate_and_license_review": "pending for memory sources; provenance is not runtime or license approval",
+    "runtime_evidence": "no per-source trajectory/environment/baseline/grader receipt imported",
+    "harness_adoption": "pending; no coding-harness files changed or coordination messages sent"
+  },
+  "conflicts": [
+    {
+      "id": "history_pool_scope",
+      "observed": "harness historical_pool/planned_history_build_jobs=4",
+      "resolution": "historical_pool is legacy name for 4 preflight history candidates; complete memory pool has 20 fixed jobs, max40 attempts",
+      "host_adoption_required": true
+    },
+    {
+      "id": "budget_scope",
+      "observed": "harness gate/ledger describes total50 build3.840 pilot46.080 reserve0.080",
+      "resolution": "pilot cap50/reference46.080; independent memory build accounting as existing agent funding contract; no runtime budget code changed",
+      "host_adoption_required": true
+    },
+    {
+      "id": "public_review_hash",
+      "observed": "d1fe518b697eb3a992db6ba24a4786c98c7c5f04766c09286e2502d1773ebd",
+      "expected": "d1fe518b3b697eb3a992db6ba24a4786c98c7c5f04766c09286e2502d1773ebd",
+      "resolution": "bind actual byte hash from configs/a5/pilot20-public-review.json; reject old hash, never patch evidence to match typo",
+      "host_adoption_required": true
+    },
+    {
+      "id": "planning_vs_runtime_freeze",
+      "observed": "inventory manifests and empty environment rows",
+      "resolution": "source IDs are fixed plan only; runnable_frozen=false; snapshot/fingerprint/ready claims remain blocked",
+      "host_adoption_required": true
+    }
+  ],
+  "input_bindings": [
+    {
+      "path": "D:/crq/src/coding-agent/configs/a5/pilot20-source-lock.json",
+      "sha256": "53f50508569127a2b3e88a10532fbd0049f40196e3076f8bfc4e314a295381a0"
+    },
+    {
+      "path": "D:/crq/src/coding-agent/configs/a5/pilot20-public-review.json",
+      "sha256": "d1fe518b3b697eb3a992db6ba24a4786c98c7c5f04766c09286e2502d1773ebd"
+    },
+    {
+      "path": "D:/crq/src/coding-agent/configs/a5/funding-cny-v1.json",
+      "sha256": "f07b94b631905dfb19eba78b453f780ec447c2ac634ef8daf701e33a1af1b7a3"
+    },
+    {
+      "path": "D:/crq/src/coding-agent/reports/upgrade/a5-pilot20-preparation-20260921-v4/artifact-manifest.json",
+      "sha256": "30944fe7fd8488c918cabbf2c83d47612689159139d1bcf23e4d2c8acc84511e"
+    },
+    {
+      "path": "D:/crq/src/coding-agent/reports/upgrade/a5-funded-build-preparation-20260921-v12/artifact-manifest.json",
+      "sha256": "ce9f9a8f489ce36972030157bfe07bc66598a163bc0cb57567ed19fd39e467e3"
+    },
+    {
+      "path": "D:/crq/src/coding-harness/docs/upgrade/A5-HARNESS-GATE.zh-CN.md",
+      "sha256": "2805d8a72d425779d3b4619f45479ec707e6bdb91d472e8c5c0b7b2cfae82c2b"
+    },
+    {
+      "path": "D:/crq/src/coding-harness/configs/a5/pilot20-harness-manifest.json",
+      "sha256": "ccc61adcc8db31ead6306329219882490fbf94041d369de028ec64c2be85e508"
+    },
+    {
+      "path": "D:/crq/src/coding-harness/configs/a5/environment-preflight.template.json",
+      "sha256": "7c6d6fc368bd952ee2b5d9352146a5ff15818fc9b6af655926ce72671202c666"
+    },
+    {
+      "path": "D:/crq/src/coding-harness/scripts/a5_preflight.py",
+      "sha256": "1f91b0a5689b36ecd1732a739a60d0ca66ef965fe6145420c16f1c46a087d12d"
+    }
+  ],
+  "consumer_files": {
+    "canonical_handoff": "configs/a5/canonical-handoff.json",
+    "conflict_report": "docs/upgrade/A5-CANONICAL-HANDOFF-RESOLUTION.md",
+    "offline_identity_audit": "reports/upgrade/a5-canonical-handoff-20260921/identity-audit.json",
+    "existing_build_bundle": "reports/upgrade/a5-funded-build-preparation-20260921-v12",
+    "existing_target_preparation": "reports/upgrade/a5-pilot20-preparation-20260921-v4"
+  },
+  "consumer_adoption_required": [
+    "compare 20 target IDs and repo/base mapping",
+    "treat legacy historical_pool only as four-item preflight subset",
+    "retain all20 memory sources and40 prepared attempts",
+    "consume corrected public_review_sha256 and independent budget scopes",
+    "preserve24 initial denominator and explicitly preflight remaining16 sources",
+    "record adoption in harness before claiming cross-repo consistency; no paid execution"
+  ]
+}

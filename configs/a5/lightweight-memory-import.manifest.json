@@ -1,0 +1,28 @@
+{
+  "schema": "a5.memory-import.v1",
+  "status": "awaiting_harness_snapshot",
+  "snapshot_id": "pending-harness-validated-lightweight",
+  "snapshot_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "freeze_mode": "cold_frozen",
+  "producer": {
+    "system": "coding-harness",
+    "contract_ref": "H4 PolicyPlugin / validated_lightweight snapshot",
+    "source_manifest_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "model_calls": 0
+  },
+  "expected_record_count": 20,
+  "expected_record_count_min": 15,
+  "expected_record_count_max": 25,
+  "actual_record_count": 0,
+  "records": [],
+  "import_policy": {
+    "revalidate_into_internal_status_validated": true,
+    "reject_without_public_trajectory": true,
+    "reject_without_independent_validation": true,
+    "reject_without_dependency_mapping": true,
+    "reject_unknown_or_failed_usage": true,
+    "reject_private_field_leakage": true,
+    "reject_target_overlap": true,
+    "failed_or_unknown_cost_is_retained": true
+  }
+}

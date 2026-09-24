@@ -1,0 +1,33 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+.env
+.env.*
+baseline/
+reports/upgrade/
+benchmarks/a5/pilot20-source-v1/private/
+traces/upgrade_*/
+traces/**/*.jsonl
+reports/**/*.jsonl
+.tmp/**/*.jsonl
+.pytest-run-final/**/*.jsonl
+# Small data files under 1MB in benchmarks/, configs/, and docs/ stay tracked.
+# Larger jsonl, if any appear there, must be ignored explicitly before commit.
+traces/workspaces/
+traces/graph_workspaces/
+reports/**/workspaces/
+reports/**/graph_workspaces/
+traces/memory/
+traces/.pytest_tmp/
+traces/.pytest_cache/
+.tmp/
+.pytest-run-final/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+/*.pdf

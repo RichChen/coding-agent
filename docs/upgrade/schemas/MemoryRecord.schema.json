@@ -1,0 +1,508 @@
+{
+  "$defs": {
+    "ArtifactRef": {
+      "additionalProperties": false,
+      "properties": {
+        "logical_id": {
+          "minLength": 1,
+          "title": "Logical Id",
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Sha256",
+          "type": "string"
+        },
+        "size_bytes": {
+          "minimum": 0,
+          "title": "Size Bytes",
+          "type": "integer"
+        },
+        "media_type": {
+          "default": "text/plain",
+          "title": "Media Type",
+          "type": "string"
+        },
+        "run_id": {
+          "minLength": 1,
+          "title": "Run Id",
+          "type": "string"
+        },
+        "relative_path": {
+          "title": "Relative Path",
+          "type": "string"
+        },
+        "sensitivity": {
+          "const": "public_observation",
+          "default": "public_observation",
+          "title": "Sensitivity",
+          "type": "string"
+        }
+      },
+      "required": [
+        "logical_id",
+        "sha256",
+        "size_bytes",
+        "run_id",
+        "relative_path"
+      ],
+      "title": "ArtifactRef",
+      "type": "object"
+    },
+    "BuildUsage": {
+      "additionalProperties": false,
+      "properties": {
+        "method": {
+          "enum": [
+            "rule",
+            "human-authored",
+            "llm"
+          ],
+          "title": "Method",
+          "type": "string"
+        },
+        "model": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Model"
+        },
+        "calls": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Calls",
+          "type": "integer"
+        },
+        "token_status": {
+          "default": "none",
+          "enum": [
+            "none",
+            "provider",
+            "estimated",
+            "unknown"
+          ],
+          "title": "Token Status",
+          "type": "string"
+        },
+        "input_tokens": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Input Tokens"
+        },
+        "output_tokens": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Output Tokens"
+        },
+        "cost": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Cost"
+        },
+        "currency": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Currency"
+        },
+        "wall_ms": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Wall Ms",
+          "type": "number"
+        }
+      },
+      "required": [
+        "method"
+      ],
+      "title": "BuildUsage",
+      "type": "object"
+    },
+    "Dependency": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "api_signature",
+            "package",
+            "file_hash"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "key": {
+          "minLength": 1,
+          "title": "Key",
+          "type": "string"
+        },
+        "expected": {
+          "minLength": 1,
+          "title": "Expected",
+          "type": "string"
+        },
+        "extractor_version": {
+          "default": "1",
+          "title": "Extractor Version",
+          "type": "string"
+        },
+        "evidence_ref": {
+          "minLength": 1,
+          "title": "Evidence Ref",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "key",
+        "expected",
+        "evidence_ref"
+      ],
+      "title": "Dependency",
+      "type": "object"
+    },
+    "SourceRef": {
+      "additionalProperties": false,
+      "properties": {
+        "task_id": {
+          "minLength": 1,
+          "title": "Task Id",
+          "type": "string"
+        },
+        "run_id": {
+          "minLength": 1,
+          "title": "Run Id",
+          "type": "string"
+        },
+        "repo_id": {
+          "minLength": 1,
+          "title": "Repo Id",
+          "type": "string"
+        },
+        "repo_revision": {
+          "minLength": 1,
+          "title": "Repo Revision",
+          "type": "string"
+        },
+        "protocol_mode": {
+          "enum": [
+            "realistic",
+            "diagnostic_oracle"
+          ],
+          "title": "Protocol Mode",
+          "type": "string"
+        },
+        "split": {
+          "enum": [
+            "memory_build",
+            "dev",
+            "heldout"
+          ],
+          "title": "Split",
+          "type": "string"
+        },
+        "occurred_at": {
+          "format": "date-time",
+          "title": "Occurred At",
+          "type": "string"
+        },
+        "artifact": {
+          "$ref": "#/$defs/ArtifactRef"
+        },
+        "duplicate_group": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Duplicate Group"
+        }
+      },
+      "required": [
+        "task_id",
+        "run_id",
+        "repo_id",
+        "repo_revision",
+        "protocol_mode",
+        "split",
+        "occurred_at",
+        "artifact"
+      ],
+      "title": "SourceRef",
+      "type": "object"
+    },
+    "ValidationEvidence": {
+      "additionalProperties": false,
+      "properties": {
+        "artifact": {
+          "$ref": "#/$defs/ArtifactRef"
+        },
+        "repo_id": {
+          "minLength": 1,
+          "title": "Repo Id",
+          "type": "string"
+        },
+        "repo_revision": {
+          "minLength": 1,
+          "title": "Repo Revision",
+          "type": "string"
+        },
+        "checked_at": {
+          "format": "date-time",
+          "title": "Checked At",
+          "type": "string"
+        },
+        "collected": {
+          "exclusiveMinimum": 0,
+          "title": "Collected",
+          "type": "integer"
+        },
+        "passed": {
+          "minimum": 0,
+          "title": "Passed",
+          "type": "integer"
+        },
+        "outcome": {
+          "enum": [
+            "pass",
+            "fail"
+          ],
+          "title": "Outcome",
+          "type": "string"
+        }
+      },
+      "required": [
+        "artifact",
+        "repo_id",
+        "repo_revision",
+        "checked_at",
+        "collected",
+        "passed",
+        "outcome"
+      ],
+      "title": "ValidationEvidence",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "default": "1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "memory_id": {
+      "minLength": 1,
+      "title": "Memory Id",
+      "type": "string"
+    },
+    "revision": {
+      "default": 1,
+      "minimum": 1,
+      "title": "Revision",
+      "type": "integer"
+    },
+    "supersedes": {
+      "anyOf": [
+        {
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Supersedes"
+    },
+    "kind": {
+      "enum": [
+        "episode",
+        "procedure",
+        "repo_profile"
+      ],
+      "title": "Kind",
+      "type": "string"
+    },
+    "status": {
+      "default": "candidate",
+      "enum": [
+        "candidate",
+        "validated",
+        "stale",
+        "conflicted",
+        "quarantined",
+        "retired"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "content_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Content Hash",
+      "type": "string"
+    },
+    "procedure": {
+      "maxLength": 20000,
+      "minLength": 1,
+      "title": "Procedure",
+      "type": "string"
+    },
+    "applicability": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Applicability",
+      "type": "array"
+    },
+    "verification_recipe": {
+      "minLength": 1,
+      "title": "Verification Recipe",
+      "type": "string"
+    },
+    "source_repo_id": {
+      "minLength": 1,
+      "title": "Source Repo Id",
+      "type": "string"
+    },
+    "sources": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/SourceRef"
+      },
+      "title": "Sources",
+      "type": "array"
+    },
+    "created_at": {
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    },
+    "build_usage": {
+      "$ref": "#/$defs/BuildUsage"
+    },
+    "dependencies": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/Dependency"
+      },
+      "title": "Dependencies",
+      "type": "array"
+    },
+    "dependency_mapping_complete": {
+      "default": false,
+      "title": "Dependency Mapping Complete",
+      "type": "boolean"
+    },
+    "validation": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/ValidationEvidence"
+      },
+      "title": "Validation",
+      "type": "array"
+    },
+    "last_validated_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Last Validated At"
+    },
+    "ttl_seconds": {
+      "anyOf": [
+        {
+          "exclusiveMinimum": 0,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Ttl Seconds"
+    },
+    "conflict_group": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Conflict Group"
+    },
+    "duplicate_group": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Duplicate Group"
+    }
+  },
+  "required": [
+    "memory_id",
+    "kind",
+    "content_hash",
+    "procedure",
+    "verification_recipe",
+    "source_repo_id",
+    "created_at",
+    "build_usage"
+  ],
+  "title": "MemoryRecord",
+  "type": "object"
+}
