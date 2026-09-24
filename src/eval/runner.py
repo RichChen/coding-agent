@@ -115,78 +115,103 @@ class EvalRunner:
         expected = task.get("expected", {})
         initial_files = task.get("initial_files", {})
 
-        agent: AgentLoop = self.agent_factory(config)
-        tracer = agent.tracer
+        agent: AgentLoop | None = None
+        try:
+            agent = self.agent_factory(config)
+            if getattr(agent, "execution_backend", None) is not None:
+                raise ValueError("Docker runs require the H3 independent evaluator; legacy host judges are not valid for container snapshots")
+            tracer = agent.tracer
 
-        # Set up workspace with initial files
-        workspace = agent.sandbox.workspace_root
-        fixture_dir = task.get("fixture_dir")
-        if fixture_dir:
-            self._copy_fixture_dir(workspace, fixture_dir)
-        self._write_initial_files(workspace, initial_files)
+            # Set up workspace with initial files
+            workspace = agent.sandbox.workspace_root
+            fixture_dir = task.get("fixture_dir")
+            if fixture_dir:
+                self._copy_fixture_dir(workspace, fixture_dir)
+            self._write_initial_files(workspace, initial_files)
 
-        if tracer:
-            tracer.open_run(task_id, config_name=config_name)
+            if tracer:
+                tracer.open_run(task_id, config_name=config_name)
 
-        start = time.monotonic()
-        result: AgentRunResult = await agent.run(description, task_id=task_id)
-        elapsed = (time.monotonic() - start) * 1000
+            start = time.monotonic()
+            result: AgentRunResult = await agent.run(description, task_id=task_id)
+            elapsed = (time.monotonic() - start) * 1000
 
-        if fixture_dir:
-            self._restore_protected_paths(workspace, fixture_dir, task)
+            if fixture_dir:
+                self._restore_protected_paths(workspace, fixture_dir, task)
 
-        # 判定：自定义 judge_fn 优先，否则按 expected.type 内置裁判
-        expected_check = False
-        expected_failures: list[str] = []
-        if judge_fn:
-            expected_check = judge_fn(task, result)
-        else:
-            expected_check, expected_failures = self._explain_expected(
-                workspace, result, expected
-            )
+            # 判定：自定义 judge_fn 优先，否则按 expected.type 内置裁判
+            expected_check = False
+            expected_failures: list[str] = []
+            if judge_fn:
+                expected_check = judge_fn(task, result)
+            else:
+                expected_check, expected_failures = self._explain_expected(
+                    workspace, result, expected
+                )
 
-        trace_file = ""
-        if tracer:
-            from src.tracing.models import TraceRun
-            trace = TraceRun(
+            trace_file = ""
+            if tracer:
+                from src.tracing.models import TraceRun
+                trace = TraceRun(
+                    task_id=task_id,
+                    config_name=config_name,
+                    steps=result.steps,
+                    success=result.success,
+                    final_answer=result.final_answer,
+                    failure_reason=result.failure_reason.value if result.failure_reason else None,
+                    total_elapsed_ms=elapsed,
+                    total_tokens=result.total_tokens,
+                    tool_failures=result.tool_failures,
+                    policy_blocks=result.policy_blocks,
+                    metadata={
+                        "expected_check": expected_check,
+                        "expected_failures": expected_failures,
+                        "plan": result.plan,
+                        "context_events": result.context_events,
+                        "summary": result.summary,
+                        "subagent_traces": result.subagent_traces,
+                    },
+                )
+                tracer.log_run(trace)
+                tracer.close()
+                trace_file = str(tracer.path) if tracer.path else ""
+
+            return TaskResult(
                 task_id=task_id,
-                config_name=config_name,
-                steps=result.steps,
                 success=result.success,
-                final_answer=result.final_answer,
-                failure_reason=result.failure_reason.value if result.failure_reason else None,
-                total_elapsed_ms=elapsed,
-                total_tokens=result.total_tokens,
+                failure_reason=result.failure_reason,
+                steps=len(result.steps),
+                elapsed_ms=elapsed,
+                tokens=result.total_tokens,
                 tool_failures=result.tool_failures,
                 policy_blocks=result.policy_blocks,
-                metadata={
-                    "expected_check": expected_check,
-                    "expected_failures": expected_failures,
-                    "plan": result.plan,
-                    "context_events": result.context_events,
-                    "subagent_traces": result.subagent_traces,
-                },
+                total_tool_invocations=result.total_tool_invocations,
+                final_answer=result.final_answer,
+                expected_check=expected_check,
+                expected_failures=expected_failures,
+                tags=task.get("tags", []),
+                trace_file=trace_file,
             )
-            tracer.log_run(trace)
-            tracer.close()
-            trace_file = str(tracer.path) if tracer.path else ""
+        finally:
+            # Lifecycle: release owned HTTP clients after success, error, or cancel.
+            # Borrowed/shared clients are left open (LLMClient.aclose respects ownership).
+            # Subagents share the parent llm and must not aclose it; only this finally runs
+            # after the parent task completes.
+            if agent is not None:
+                await self._release_agent_llm(agent)
 
-        return TaskResult(
-            task_id=task_id,
-            success=result.success,
-            failure_reason=result.failure_reason,
-            steps=len(result.steps),
-            elapsed_ms=elapsed,
-            tokens=result.total_tokens,
-            tool_failures=result.tool_failures,
-            policy_blocks=result.policy_blocks,
-            total_tool_invocations=result.total_tool_invocations,
-            final_answer=result.final_answer,
-            expected_check=expected_check,
-            expected_failures=expected_failures,
-            tags=task.get("tags", []),
-            trace_file=trace_file,
-        )
+    @staticmethod
+    async def _release_agent_llm(agent: AgentLoop) -> None:
+        llm = getattr(agent, "llm", None)
+        if llm is None:
+            return
+        aclose = getattr(llm, "aclose", None)
+        if not callable(aclose):
+            return
+        try:
+            await aclose()
+        except Exception:
+            logger.debug("error closing agent llm after eval task", exc_info=True)
 
     def _load_dataset(self) -> list[dict]:
         with open(self.dataset_path, encoding="utf-8") as f:
