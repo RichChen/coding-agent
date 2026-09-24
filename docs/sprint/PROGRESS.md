@@ -82,3 +82,17 @@
 - 单元测试 `tests/test_image_grader.py` 和 `tests/test_run_swe_task.py` 共 6 项通过。
 
 下一步：第 3 步，校准并扩大 dev 集。
+
+## 第二轮 第 3 步：校准并扩大 dev 集
+
+日期：2026-09-25。花费：0 CNY。
+
+20 道非 pilot 候选都做了空改动和 gold 两次打分。入选 12 道，写进 `configs/sprint/dev-tasks.yaml`。sympy 的裸测试名补上了测试文件前缀。`PASS_TO_PASS` 里像 `[100%]` 这种碎片被丢掉。gold 下仍失败的 P2P 记在 `p2p_excluded`。
+
+入选：django 10914、10924、11039；pytest 5103、5227；sympy 11400、11870、11897、12171；scikit-learn 10297、10949、11281。空改动时 F2P 都是 0，gold 时 F2P 和保留的 P2P 都通过。
+
+未入选：django 11001、11019 的空改动已经通过了部分 F2P。pytest 5221 的 gold 没有通过 F2P。pytest 5413、5495 没有写出收据。sympy 12236 的 gold 没有通过。
+
+重放第一轮编辑：5227 改了 `src/_pytest/logging.py` 和 changelog，新 grader 判定 **solved**，F2P 3/3，P2P 31/31。5221 改了 `src/_pytest/python.py`、changelog 和测试文件，F2P 0/2，P2P 0/170，没有解出。
+
+下一步：第 4 步，用新 grader 重打 11 条记忆源。

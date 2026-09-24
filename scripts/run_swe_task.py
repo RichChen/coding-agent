@@ -129,10 +129,26 @@ def read_tree(root: Path) -> dict[str, bytes]:
     return files
 
 
+def usable_nodeid(node: str) -> bool:
+    if not isinstance(node, str) or not node or node.startswith(("[", "-")):
+        return False
+    return "\n" not in node and "\x00" not in node
+
+
 def parse_id_list(value) -> list[str]:
     if isinstance(value, str):
         return list(json.loads(value))
     return list(value or [])
+
+
+def prefix_sympy_nodeids(nodes: list[str], test_paths) -> list[str]:
+    test_file = next((path for path in test_paths if "/tests/" in path and str(path).endswith(".py")), None)
+    if not test_file:
+        return list(nodes)
+    prefixed = []
+    for node in nodes:
+        prefixed.append(node if "::" in node or node.endswith(".py") else f"{test_file}::{node}")
+    return prefixed
 
 
 def django_nodeids(raw: list[str]) -> list[str]:
@@ -181,6 +197,14 @@ def grader_spec(task: dict, base: dict[str, bytes]) -> RepositorySpec:
         f2p = django_nodeids(f2p)
         p2p = django_nodeids(p2p)
     test_paths = tuple(binding.get("test_patch_paths") or [])
+    if family == "sympy":
+        f2p = prefix_sympy_nodeids(f2p, test_paths)
+        p2p = prefix_sympy_nodeids(p2p, test_paths)
+    f2p = [node for node in f2p if usable_nodeid(node)]
+    p2p = [node for node in p2p if usable_nodeid(node)]
+    excluded = set(task.get("p2p_excluded") or [])
+    if excluded:
+        p2p = [node for node in p2p if node not in excluded]
     editable = tuple(binding.get("gold_patch_paths") or [])
     baseline_root = ROOT / task["baseline"]
     overlay = {}
@@ -395,7 +419,7 @@ async def run_task(task: dict, profile: Path, output: Path, *, mock: bool) -> di
         f2p=f2p,
         p2p=list(spec.baseline_passed),
         django=task.get("family") == "django",
-        sympy=task.get("family") == "sympy",
+        sympy=False,
         timeout=float(task.get("grader_timeout_seconds", 300)),
     )
     # Drop nothing the grader needs, but do not copy this file into the workspace.
