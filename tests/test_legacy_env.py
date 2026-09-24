@@ -4,6 +4,7 @@ from reposkill_agent.memory.legacy_env import is_legacy_env_artifact, split_lega
 def test_legacy_env_noise_is_marked():
     samples = [
         "pip install six pluggy",
+        "pip show scikit-learn",
         "pip download numpy",
         "ModuleNotFoundError: No module named 'pluggy'",
         "No module named six",

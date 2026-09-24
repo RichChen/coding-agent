@@ -75,11 +75,11 @@ def render_card(card: MemoryCard, *, limit: int = RENDER_LIMIT) -> str:
             header,
             f"repo: {card.repo} @ {card.version[:12]}",
             f"source: {card.source_id}",
-            f"issue: {card.issue_summary}",
+            f"approach: {card.fix_approach[:400]}",
             f"files: {files}",
-            f"tests: {tests}",
-            f"pitfalls: {pitfalls}",
-            f"approach: {card.fix_approach}",
+            f"tests: {tests[:300]}",
+            f"pitfalls: {pitfalls[:240]}",
+            f"issue: {card.issue_summary[:180]}",
             f"deps: {', '.join(deps) or '(none)'}",
         )
     )

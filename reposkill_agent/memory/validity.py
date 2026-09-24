@@ -140,13 +140,23 @@ def check_card_dependencies(dependencies, target_root) -> ValidityResult:
             continue
         target = root / path
         if not target.is_file():
-            checks.append(
-                Check(
-                    dependency_key=dep.path,
-                    status="invalid",
-                    reason="dependency_path_missing:" + dep.path,
+            symbols = tuple(dep.symbols)
+            if symbols and _symbol_found_in_tree(root, symbols):
+                checks.append(
+                    Check(
+                        dependency_key=dep.path,
+                        status="unknown",
+                        reason="relocated:" + dep.path,
+                    )
                 )
-            )
+            else:
+                checks.append(
+                    Check(
+                        dependency_key=dep.path,
+                        status="invalid",
+                        reason="dependency_path_missing:" + dep.path,
+                    )
+                )
             continue
         symbols = tuple(dep.symbols)
         if not symbols:
@@ -169,3 +179,23 @@ def check_card_dependencies(dependencies, target_root) -> ValidityResult:
                 Check(dependency_key=dep.path, status="valid", reason="file_and_symbols_present")
             )
     return rollup(checks)
+
+
+def _symbol_found_in_tree(root, symbols: tuple[str, ...]) -> bool:
+    """True when a missing path's function or class name still exists somewhere."""
+    from pathlib import Path
+
+    needed = set(symbols)
+    tree = Path(root)
+    for path in tree.rglob("*.py"):
+        relative = path.relative_to(tree)
+        if any(part in {"__pycache__", "build", "dist"} or part.startswith(".") for part in relative.parts):
+            continue
+        try:
+            text = path.read_text(encoding="utf-8", errors="ignore")
+        except OSError:
+            continue
+        needed -= {name for name in list(needed) if name in text}
+        if not needed:
+            return True
+    return False

@@ -15,7 +15,7 @@ import re
 
 _LEGACY = re.compile(
     r"(?i)(?:"
-    r"\bpip3?\s+(?:install|download)\b"
+    r"\bpip3?\s+(?:install|download|show)\b"
     r"|no module named ['\"]?(?:six|pluggy|attr|py|more_itertools|numpy|mpmath|packaging|pytz|sqlparse)\b"
     r"|git:\s*not found"
     r"|\bfind\s+/"

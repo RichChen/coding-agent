@@ -7,7 +7,7 @@ import re
 from pathlib import Path
 
 from reposkill_agent.memory.cards import render_card, write_memory_cards
-from reposkill_agent.memory.event_extract import SourceExtraction, extract_source
+from reposkill_agent.memory.event_extract import SourceExtraction, _keep_command, extract_source
 from reposkill_agent.memory.legacy_env import is_legacy_env_artifact
 from reposkill_agent.memory.records import CardDependency, MemoryCard
 from reposkill_agent.memory.source_verification import load_source_verification
@@ -48,12 +48,39 @@ def _card(row: dict, status: str) -> MemoryCard:
     )
 
 
+def _shell_parts(command: str) -> list[str]:
+    parts, buf, quote = [], [], ""
+    index = 0
+    while index < len(command):
+        char = command[index]
+        if quote:
+            buf.append(char)
+            if char == quote:
+                quote = ""
+            index += 1
+            continue
+        if char in "\"'":
+            quote = char
+            buf.append(char)
+            index += 1
+            continue
+        if command.startswith("&&", index) or char in {";", "|"}:
+            parts.append("".join(buf).strip())
+            buf = []
+            index += 2 if command.startswith("&&", index) else 1
+            continue
+        buf.append(char)
+        index += 1
+    if buf:
+        parts.append("".join(buf).strip())
+    return [part for part in parts if part]
+
+
 def _test_commands(commands: tuple[str, ...]) -> tuple[str, ...]:
     kept = []
     for command in commands:
-        for part in re.split(r"\s*(?:&&|;)\s*", command):
-            part = part.strip()
-            if part and not is_legacy_env_artifact(part) and part not in kept:
+        for part in _shell_parts(command):
+            if _keep_command(part) and not is_legacy_env_artifact(part) and part not in kept:
                 kept.append(part[:180])
     return tuple(kept[:4])
 

@@ -77,3 +77,14 @@
 - 看过规则版之后不做 LLM 提炼。诊断句已经点到 `FILE_UPLOAD_PERMISSIONS`、`visit_Call`、`n_neighbors`、`fit_predict` 这类具体位置，费用 0。
 - 测试：`python -m pytest -q tests/test_memory_cards_v3.py tests/test_memory_cards.py tests/test_legacy_env.py`，8 passed。渲染不超过 1500 字节，目标题 ID 和 gold 片段没有进卡片。
 - 下一步：第 4 步，把 20 道目标题的 `source.tar.gz` 解压到仓库外，重跑 B1/B2/B3。
+
+## 第二轮 第 4 步：对着真实目标源码做 B3（2026-09-25）
+
+- 20 道目标题只解压了 `source.tar.gz` 到 `D:\crq\tmp\a5-targets\<id>\`，没有读 gold 或 test patch，没有进 git。
+- 改规则前：sklearn 四题的 B3 一张卡都注不进去。`sklearn-11281` 和 `sklearn-11040` 是因为旧路径不在（`mixture/base.py`、`neighbors/base.py`）。其余拒绝多是符号不在原文件里。
+- 加了规则：路径不存在，但关键函数或类名能在目标树里搜到，记为 `unknown` / `relocated`，不记 `invalid`。`unknown` 仍按现在的插件规则注入。
+- 改规则后：四道 sklearn 题都注入了 `sklearn-11281`（`fit_predict` 被挪走但仍能搜到）。`sklearn-11040` 的符号在目标树里搜不到，仍然 `invalid`。
+- sphinx 四题和 `sympy-20154` 改规则前后都是一条都选不到。
+- 另外收紧了测试命令切分：引号里的分号不再被切开，`pip show` 视为旧环境噪声。v3 快照已按这个重写。
+- 测试：`python -m pytest -q tests/test_relocated_dependency.py tests/test_memory_card_plugin.py tests/test_memory_cards_v3.py`，通过。
+- 下一步：第 5 步，看验证文件有没有更新。
