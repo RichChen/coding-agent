@@ -1,0 +1,42 @@
+# Paid A5 memory-source S1 smoke. Requires --allow-paid and explicit authorization.
+llm:
+  base_url: "https://api.deepseek.com/v1"
+  api_key: "${LLM_API_KEY}"
+  model: "${DEEPSEEK_MODEL:deepseek-flash}"
+  thinking: disabled
+  max_tokens: 12000
+  trust_env: false
+runtime:
+  # Moderately raised for explore-then-edit SWE repairs (was 20/6/32k; still below full deepseek.yaml).
+  max_steps: 35
+  step_timeout_seconds: 120
+  total_timeout_seconds: 1200
+  context:
+    strategy: masking
+    max_tokens: 96000
+    keep_recent_tool_results: 4
+    plugin: noop
+  budget:
+    max_model_calls: 24
+    max_tokens: 2592000
+    max_cost_usd: 1.50
+    price_table:
+      prompt_per_1k: 0.0003
+      completion_per_1k: 0.0012
+policy:
+  command:
+    execution_profile: docker_linux
+    docker_context: desktop-linux
+    docker_network: none
+    timeout_seconds: 60
+    env_whitelist: []
+    docker_memory_bytes: 1073741824
+    docker_workspace_bytes: 268435456
+    docker_tmpfs_bytes: 67108864
+  file_size_limit_bytes: 1048576
+  tool_output_max_chars: 12000
+tools:
+  enabled: [read_file, write_file, list_dir, edit_file, search_replace, run_command]
+tracing:
+  lifecycle_events: true
+  llm_stream_events: true

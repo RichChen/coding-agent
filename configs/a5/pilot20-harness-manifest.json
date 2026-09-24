@@ -1,0 +1,61 @@
+{
+  "schema": "a5.harness.manifest.v1",
+  "experiment_id": "a5-pilot-20-v1",
+  "source_dataset": {
+    "name": "princeton-nlp/SWE-bench_Lite",
+    "revision": "6ec7bb89b9342f664a54a6e0a6ea6501d3437cc2",
+    "source_lock_sha256": "53f50508569127a2b3e88a10532fbd0049f40196e3076f8bfc4e314a295381a0",
+    "public_review_sha256": "d1fe518b3b697eb3a992db6ba24a4786c98c7c5f04766c09286e2502d1773ebd"
+  },
+  "targets": [
+    "django__django-13265", "django__django-15781", "django__django-13590", "django__django-13448",
+    "sympy__sympy-20154", "sympy__sympy-24152", "sympy__sympy-20442", "sympy__sympy-18532",
+    "scikit-learn__scikit-learn-25747", "scikit-learn__scikit-learn-25500", "scikit-learn__scikit-learn-25638", "scikit-learn__scikit-learn-25570",
+    "pytest-dev__pytest-8365", "pytest-dev__pytest-7432", "pytest-dev__pytest-9359", "pytest-dev__pytest-7220",
+    "sphinx-doc__sphinx-10451", "sphinx-doc__sphinx-8721", "sphinx-doc__sphinx-8595", "sphinx-doc__sphinx-8713"
+  ],
+  "historical_pool": ["django__django-10914", "sympy__sympy-11400", "scikit-learn__scikit-learn-10297", "pytest-dev__pytest-5103"],
+  "historical_pool_semantics": "legacy_CLI_alias_of_preflight_history_subset_only; not_entire_memory_source_pool",
+  "preflight_history_subset": ["django__django-10914", "sympy__sympy-11400", "scikit-learn__scikit-learn-10297", "pytest-dev__pytest-5103"],
+  "memory_build_sources": [
+    "django__django-10914", "django__django-10924", "django__django-11001", "django__django-11019", "django__django-11039",
+    "sympy__sympy-11400", "sympy__sympy-11870", "sympy__sympy-11897", "sympy__sympy-12171", "sympy__sympy-12236",
+    "scikit-learn__scikit-learn-10297", "scikit-learn__scikit-learn-10508", "scikit-learn__scikit-learn-10949", "scikit-learn__scikit-learn-11040", "scikit-learn__scikit-learn-11281",
+    "pytest-dev__pytest-5103", "pytest-dev__pytest-5221", "pytest-dev__pytest-5227", "pytest-dev__pytest-5413", "pytest-dev__pytest-5495"
+  ],
+  "canonical_handoff": {
+    "path": "D:/crq/src/coding-agent/configs/a5/canonical-handoff.json",
+    "sha256": "d18d9fa78da00230c30d62c61abce168b91812871d3435e14702aad7a761774c"
+  },
+  "consumption_manifest": {
+    "path": "D:/crq/src/coding-agent/configs/a5/pilot20-harness-consumption-manifest.json",
+    "sha256": "33ab6922caf6909888d672a8d97df49f305ed4cdabb8c402dfca4bca88cb0180",
+    "mapping_fields": ["target_id_mapping", "memory_source_id_mapping", "preflight_history_id_mapping"]
+  },
+  "source_eligibility_policy": {
+    "applies_to_all_20_sources": true,
+    "requires_own_repo_environment_baseline_grader_preflight": true,
+    "subset_receipts_cannot_unlock_remaining16": true,
+    "this_handoff_allows_paid_execution": false
+  },
+  "source_transport": {
+    "live_transfer_limit_bytes": 8388608,
+    "live_transfer_limit_files": 2048,
+    "large_source_mode": "image_backed_base_plus_delta",
+    "complete_source_required": true,
+    "typed_tree_schema": "a5.typed-tree.v1",
+    "candidate_delta_schema": "a5.typed-tree.delta.v1",
+    "transport_evidence": "docs/upgrade/evidence/A5-harness-preflight-23-transport-smoke",
+    "typed_tree_evidence": "docs/upgrade/evidence/A5-harness-preflight-22-typed-tree",
+    "transport_ready_is_not_grader_ready": true
+  },
+  "budget_scope_status": "blocked_independent_build_budget_pending_runtime_alignment",
+  "variants": ["B0", "B1", "B2", "B3"],
+  "repeats": 3,
+  "seeds": [42, 43, 44],
+  "planned_task_runs": 240,
+  "planned_history_build_jobs": 20,
+  "planned_memory_build_attempts": 40,
+  "paid_execution": false,
+  "readiness": "blocked_until_all_environment_baselines_model_price_ledger_fingerprint_and_receipt_gates_pass"
+}

@@ -1,0 +1,30 @@
+# Explicit opt-in profile. Provision the pinned image before running.
+llm:
+  base_url: "${LLM_BASE_URL:https://api.deepseek.com/v1}"
+  api_key: "${LLM_API_KEY}"
+  model: "${LLM_MODEL:deepseek-v4-pro}"
+  trust_env: false
+runtime:
+  max_steps: 30
+  step_timeout_seconds: 60
+  total_timeout_seconds: 600
+  context:
+    strategy: masking
+    max_tokens: 12000
+    keep_recent_tool_results: 3
+    summary_max_calls: 1
+    plugin: noop
+  budget:
+    max_model_calls: 35
+    max_tokens: 100000
+policy:
+  command:
+    execution_profile: docker_linux
+    docker_context: desktop-linux
+    docker_network: none
+    timeout_seconds: 30
+    env_whitelist: []
+  file_size_limit_bytes: 1048576
+  tool_output_max_chars: 16000
+tools:
+  enabled: [read_file, write_file, list_dir, edit_file, search_replace, run_command]
