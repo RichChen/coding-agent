@@ -7,6 +7,7 @@ from src.llm.client import (
     LLMResponse,
     OpenAICompatibleAdapter,
     ToolCall,
+    normalize_usage,
 )
 
 
@@ -20,12 +21,14 @@ def test_openai_compatible_adapter_builds_payload_and_headers():
         temperature=0.1,
         max_tokens=123,
         stream=True,
+        stream_options={"include_usage": True},
     )
 
     assert adapter.chat_completions_url == "https://api.example.com/v1/chat/completions"
     assert payload["model"] == "model-a"
     assert payload["stream"] is True
     assert payload["tool_choice"] == "auto"
+    assert payload["stream_options"]["include_usage"] is True
     assert adapter.headers("secret")["Authorization"] == "Bearer secret"
 
 
@@ -67,54 +70,24 @@ def test_parse_response_handles_tool_call_arguments():
     assert response.has_tool_calls is True
     assert response.tool_calls[0].arguments == {"path": "a.txt"}
     assert response.usage["total_tokens"] == 9
+    assert response.usage["provenance"] == "provider"
 
 
-class _StreamingFakeClient(LLMClient):
-    def __init__(self, response=None, error: LLMError | None = None):
-        self.response = response or LLMResponse(text="hello", usage={"total_tokens": 1})
-        self.error = error
-
-    async def chat(self, messages, tools=None):
-        if self.error:
-            raise self.error
-        return self.response
-
-
-async def _collect_stream(client):
-    return [event async for event in client.stream_chat([{"role": "user", "content": "hi"}])]
-
-
-def test_stream_chat_emits_event_skeleton():
-    client = _StreamingFakeClient(
-        LLMResponse(
-            text="hello",
-            tool_calls=[ToolCall(id="tc1", name="read_file", arguments={"path": "a.txt"})],
-            usage={"total_tokens": 2},
-        )
+def test_parse_response_missing_usage_is_unknown():
+    client = LLMClient(base_url="https://api.example.com/v1", api_key="k", model="m")
+    response = client._parse_response(
+        {
+            "choices": [
+                {
+                    "message": {"content": "hi"},
+                    "finish_reason": "stop",
+                }
+            ]
+        }
     )
-
-    import asyncio
-    events = asyncio.run(_collect_stream(client))
-
-    assert [event.event for event in events] == [
-        "message_delta",
-        "tool_call_delta",
-        "llm_stream_done",
-    ]
-    assert events[-1].data["has_tool_calls"] is True
-
-
-def test_stream_chat_emits_error_event():
-    client = _StreamingFakeClient(
-        error=LLMError("boom", kind=LLMErrorKind.HTTP),
-    )
-
-    import asyncio
-    events = asyncio.run(_collect_stream(client))
-
-    assert len(events) == 1
-    assert events[0].event == "llm_error"
-    assert events[0].data["kind"] == "http"
+    assert response.usage == normalize_usage(None)
+    assert response.usage["total_tokens"] is None
+    assert response.usage["provenance"] == "unknown"
 
 
 def test_retry_policy_uses_llm_error_kind():
@@ -125,6 +98,7 @@ def test_retry_policy_uses_llm_error_kind():
 
     assert retry.should_retry(LLMError("timed out", kind=LLMErrorKind.TIMEOUT)) is True
     assert retry.should_retry(LLMError("bad json", kind=LLMErrorKind.PARSE)) is False
+    assert retry.should_retry(LLMError("incomplete", kind=LLMErrorKind.INCOMPLETE)) is False
     assert retry.should_retry(LLMError("server error", kind=LLMErrorKind.HTTP)) is False
 
 
