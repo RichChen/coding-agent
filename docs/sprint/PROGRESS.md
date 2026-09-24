@@ -72,3 +72,13 @@
 - 零模型验证：pytest-5103 的 `import pytest` 指向 `/workspace/src/pytest.py`；django-10914 的 `import django` 指向 `/workspace/django/__init__.py`。两题都做了 `search_replace` 再写 `changelog/sprint2-check.rst`，两处都出现在 delta 里。
 
 下一步：第 2 步，镜像内 grader。
+
+## 第二轮 第 2 步：镜像内 grader
+
+日期：2026-09-25。花费：0 CNY。
+
+- 新增 `src/eval/image_grader.py`。在 baseline 镜像里从 `/opt/repo` 复制仓库，写入模型 delta，再用 test patch 覆盖测试文件。只跑 F2P 和 P2P 的 nodeid。判定看收据里每条 nodeid，不看退出码。`solved` 是 F2P 全过且 P2P 没有失败。summary 会记下模型动过的测试文件和配置文件。
+- `run_swe_task.py` 的打分改走这条路径，不再把整棵树上传进容器。
+- 单元测试 `tests/test_image_grader.py` 和 `tests/test_run_swe_task.py` 共 6 项通过。
+
+下一步：第 3 步，校准并扩大 dev 集。

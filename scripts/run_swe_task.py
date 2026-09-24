@@ -21,6 +21,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from src.eval.grader import tree_hash
+from src.eval.image_grader import ImageGrader
 from src.eval.repo_grader import RepositoryGrader, RepositorySpec
 from src.execution.baseline_image_backend import BaselineImageBackend
 from src.execution.docker import MAX_FILES
@@ -343,16 +344,6 @@ async def run_task(task: dict, profile: Path, output: Path, *, mock: bool) -> di
     workspace = output / "workspace"
     workspace.mkdir()
     base = read_tree(ROOT / task["original"])
-    if len(base) > MAX_FILES:
-        summary = {
-            "task_id": task["id"],
-            "solved": False,
-            "status": "grader_unavailable",
-            "reason": f"base tree has {len(base)} files; grader cap is {MAX_FILES}",
-            "cost_cny": "0.000",
-        }
-        (output / "summary.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")
-        return summary
     spec = grader_spec(task, base)
     receipt = load_json(ROOT / task["receipt"])
     backend = BaselineImageBackend(
@@ -396,8 +387,17 @@ async def run_task(task: dict, profile: Path, output: Path, *, mock: bool) -> di
     snapshot_error = getattr(backend, "snapshot_error", None)
     if delta is not None:
         (output / "candidate-delta.json").write_text(json.dumps(delta, indent=2), encoding="utf-8")
-    candidate = apply_delta(base, delta)
-    evaluation = await _NodeidGrader(spec.expected_nodeids).evaluate(base, candidate, spec)
+    f2p = [node for node in spec.expected_nodeids if node not in spec.baseline_passed]
+    evaluation = await ImageGrader().evaluate(
+        image=receipt["baseline_image_digest"],
+        delta=delta,
+        test_overlay=spec.test_overlay,
+        f2p=f2p,
+        p2p=list(spec.baseline_passed),
+        django=task.get("family") == "django",
+        sympy=task.get("family") == "sympy",
+        timeout=float(task.get("grader_timeout_seconds", 300)),
+    )
     # Drop nothing the grader needs, but do not copy this file into the workspace.
     (output / "grader-result.json").write_text(
         json.dumps(evaluation, indent=2, default=str), encoding="utf-8"
@@ -416,7 +416,7 @@ async def run_task(task: dict, profile: Path, output: Path, *, mock: bool) -> di
     summary = {
         "task_id": task["id"],
         "variant": "B0",
-        "solved": False if lost else solved(evaluation),
+        "solved": False if lost else bool(evaluation.get("solved")),
         "status": "delta_lost" if lost else evaluation.get("status"),
         "grader_status": evaluation.get("status"),
         "changed_files": changed,
