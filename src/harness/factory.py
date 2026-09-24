@@ -62,7 +62,12 @@ def load_config(config_path: str | Path) -> dict:
     raise pydantic ValidationError with a clear field path.
     """
     config_path = Path(config_path)
-    dotenv_values = _load_dotenv_if_present(config_path.parent.parent / ".env")
+    dotenv_values = {}
+    for parent in config_path.resolve().parents:
+        found = _load_dotenv_if_present(parent / ".env")
+        if found:
+            dotenv_values = found
+            break
 
     with open(config_path, encoding="utf-8") as f:
         raw = f.read()
