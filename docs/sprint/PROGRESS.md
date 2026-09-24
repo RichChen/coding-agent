@@ -36,3 +36,11 @@
 - B0 不注入。B1/B2/B3 用同一批卡、同一个 `rank_cards`、同一个 `max_bytes`。B1 注入截断轨迹，B2/B3 注入记忆卡渲染。B3 用 `validity.check_card_dependencies` 和 `gate.validity_reasons`；`invalid` 不注入。
 - 测试：`python -m pytest -q tests/test_memory_card_plugin.py tests/test_memory_validity.py tests/test_memory_gate.py`，插件 5 passed，原有 validity/gate 仍通过。
 - 下一步：写第 5 步扩充方案和 `CHECKPOINT-1.md`，然后停下等审计。
+
+## 第 5 步方案与审计节点（2026-09-24）
+
+- 只写了方案，没有造新轨迹，没有调模型。费用记录：0。
+- `docs/sprint/CHECKPOINT-1.md` 含提交列表、两张渲染样例、20 道目标题的 B1/B2/B3 离线检索、新入口签名、扩充方案。
+- 离线检索：sphinx 四题和 `sympy-20154` 一条都选不到。B3 在没有目标仓库检出时，排上的卡都因路径不存在被拒绝。
+- 扩充若要做，13 条新源题、约 3.2–6.5 CNY，超过 3 元观察线，留给审计之后。
+- 下一步：停。等用户把 CHECKPOINT-1 交给审计者。
