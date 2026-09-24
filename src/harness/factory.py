@@ -13,14 +13,21 @@ from pathlib import Path
 import yaml
 
 from src.config.schema import HarnessConfig
+from src.execution.base import OutputQuotas
+from src.execution.local import LocalExecutionBackend
+from src.execution.docker import DockerExecutionBackend, DEFAULT_IMAGE
+from src.tools.container_files import ContainerFileTool
 from src.llm.client import LLMClient
 from src.policy.budget import Budget
+from src.policy.model_budget import ModelBudgetLedger
 from src.policy.rules import CommandPolicy
 from src.policy.sandbox import Sandbox
 from src.runtime.loop import AgentLoop
 from src.runtime.context import ContextPolicyConfig, build_context_hooks
+from src.runtime.summary import LLMSummaryProvider
 from src.runtime.planner import SimplePlanner
 from src.runtime.retry import RetryConfig
+from src.policy.dispatcher import ReadSearchDispatcher
 from src.tools.command import RunCommandTool
 from src.tools.edit import EditFileTool
 from src.tools.files import ListDirTool, ReadFileTool, WriteFileTool
@@ -76,10 +83,13 @@ def build_agent(
     *,
     tracer: TraceLogger | None = None,
     event_bus: EventBus | None = None,
+    plugin_registry=None,
+    execution_backend=None,
 ) -> AgentLoop:
     """Assemble an AgentLoop from a config dict and workspace.
 
     This is pure wiring — no side effects beyond object construction.
+    Optional execution_backend lets callers inject A5 image-backed backends.
     """
     llm_cfg = config["llm"]
     rt_cfg = config["runtime"]
@@ -93,6 +103,12 @@ def build_agent(
         model=llm_cfg["model"],
         temperature=llm_cfg.get("temperature", 0.0),
         max_tokens=llm_cfg.get("max_tokens", 4096),
+        max_tool_argument_bytes=tools_cfg.get("max_argument_bytes", 65536),
+        supports_streaming=llm_cfg.get("supports_streaming", True),
+        max_connections=llm_cfg.get("max_connections", 10),
+        max_keepalive_connections=llm_cfg.get("max_keepalive_connections", 5),
+        trust_env=llm_cfg.get("trust_env", True),
+        thinking=llm_cfg.get("thinking"),
     )
 
     sandbox = Sandbox(
@@ -101,27 +117,61 @@ def build_agent(
         deny_parent_traversal=policy_cfg.get("sandbox", {}).get("deny_parent_traversal", True),
     )
 
+    budget_cfg = rt_cfg.get("budget", {}) or {}
+    model_ledger = None
+    if any(
+        budget_cfg.get(k) is not None
+        for k in ("max_model_calls", "max_tokens", "max_cost_usd")
+    ):
+        model_ledger = ModelBudgetLedger(
+            max_model_calls=budget_cfg.get("max_model_calls"),
+            max_tokens=budget_cfg.get("max_tokens"),
+            max_cost_usd=budget_cfg.get("max_cost_usd"),
+            price_table=budget_cfg.get("price_table"),
+        )
+
     budget = Budget(
         max_steps=rt_cfg["max_steps"],
         total_timeout_seconds=rt_cfg["total_timeout_seconds"],
         step_timeout_seconds=rt_cfg["step_timeout_seconds"],
+        model_ledger=model_ledger,
     )
 
     retry = RetryConfig(
         max_retries=retry_cfg.get("max_retries", 2),
         backoff_base_seconds=retry_cfg.get("backoff_base_seconds", 1.0),
         backoff_factor=retry_cfg.get("backoff_factor", 2.0),
-        retry_on=retry_cfg.get("retry_on", ["timeout", "model_error"]),
+        retry_on=retry_cfg.get("retry_on", ["timeout", "model_error", "http", "network"]),
     )
 
     tools = ToolRegistry()
     enabled = tools_cfg.get("enabled", ["read_file", "write_file", "list_dir"])
+    cmd_cfg = policy_cfg.get("command", {})
+    exec_profile = cmd_cfg.get("execution_profile", "legacy_host")
+    docker_backend = None
+    if exec_profile == "docker_linux":
+        if set(enabled) - {"read_file", "write_file", "list_dir", "edit_file", "search_replace", "run_command"}:
+            raise ValueError("Docker profile rejects host-only/debug/subagent tools")
+        if execution_backend is not None:
+            docker_backend = execution_backend
+        else:
+            docker_backend = DockerExecutionBackend(
+                image=cmd_cfg.get("docker_image") or DEFAULT_IMAGE,
+                context=cmd_cfg.get("docker_context", "desktop-linux"),
+                cpus=cmd_cfg.get("docker_cpus", 1.0),
+                memory_bytes=cmd_cfg.get("docker_memory_bytes", 512*1024*1024),
+                pids_limit=cmd_cfg.get("docker_pids_limit", 128),
+                network=cmd_cfg.get("docker_network", "none"),
+                tmpfs_bytes=cmd_cfg.get("docker_tmpfs_bytes", 16*1024*1024),
+                workspace_bytes=cmd_cfg.get("docker_workspace_bytes", 64*1024*1024))
+    def file_tool(tool):
+        return ContainerFileTool(tool, docker_backend) if docker_backend else tool
     if "read_file" in enabled:
-        tools.register(ReadFileTool())
+        tools.register(file_tool(ReadFileTool()))
     if "write_file" in enabled:
-        tools.register(WriteFileTool())
+        tools.register(file_tool(WriteFileTool()))
     if "list_dir" in enabled:
-        tools.register(ListDirTool())
+        tools.register(file_tool(ListDirTool()))
     if "run_command" in enabled:
         cmd_cfg = policy_cfg.get("command", {})
         cmd_policy = CommandPolicy(
@@ -129,21 +179,45 @@ def build_agent(
             allowed_prefixes=cmd_cfg.get("allowed_prefixes", []),
             blocked_patterns=cmd_cfg.get("blocked_patterns", []),
         )
+        exec_profile = cmd_cfg.get("execution_profile", "legacy_host")
+        quotas = OutputQuotas(
+            memory_per_stream_bytes=cmd_cfg.get("memory_per_stream_bytes", 64 * 1024),
+            artifact_per_tool_bytes=cmd_cfg.get("artifact_per_tool_bytes", 1 * 1024 * 1024),
+            run_total_bytes=cmd_cfg.get("run_output_limit_bytes", 16 * 1024 * 1024),
+        )
+        backend = docker_backend or LocalExecutionBackend(profile=exec_profile)
         tools.register(
             RunCommandTool(
                 command_policy=cmd_policy,
                 timeout_seconds=cmd_cfg.get("timeout_seconds", 30),
                 env_whitelist=cmd_cfg.get("env_whitelist", []),
                 prefer_argv=cmd_cfg.get("prefer_argv", False),
+                execution_backend=backend,
+                output_quotas=quotas,
             )
         )
     if "search_replace" in enabled:
-        tools.register(SearchReplaceTool())
+        tools.register(file_tool(SearchReplaceTool()))
     if "edit_file" in enabled:
-        tools.register(EditFileTool())
+        tools.register(file_tool(EditFileTool()))
 
     subagent_cfg = rt_cfg.get("subagents", {})
     if subagent_cfg.get("enabled"):
+        # HP-03: controlled profiles must not silently omit child model cost.
+        # Without share_parent_budget, refuse enablement (no separate child ledger yet).
+        if not subagent_cfg.get("share_parent_budget"):
+            raise ValueError(
+                "runtime.subagents.enabled=true requires share_parent_budget=true "
+                "so child model calls share the parent ledger/deadline "
+                "(HP-03 does not implement a separate child budget). "
+                "Legacy independent Budget without shared ledger is no longer allowed "
+                "on controlled wiring — see docs/upgrade/evidence/HP-03/LEGACY-MIGRATION.md"
+            )
+        if model_ledger is None:
+            raise ValueError(
+                "share_parent_budget=true requires runtime.budget max_model_calls "
+                "and/or max_tokens (and price_table if max_cost_usd is set)"
+            )
         if "subagent_task" not in enabled:
             raise ValueError(
                 "runtime.subagents.enabled=true requires tools.enabled to include subagent_task"
@@ -161,6 +235,7 @@ def build_agent(
                 file_size_limit_bytes=policy_cfg.get("file_size_limit_bytes"),
                 tool_output_max_chars=policy_cfg.get("tool_output_max_chars"),
                 read_file_max_lines=policy_cfg.get("read_file_max_lines"),
+                model_ledger=model_ledger,
             )
         )
 
@@ -179,7 +254,20 @@ def build_agent(
     # Context policy: L0 limits are carried by ToolContext; L1 uses hooks.
     ctx_cfg = rt_cfg.get("context", {})
     context_policy = ContextPolicyConfig.from_runtime_config(ctx_cfg, policy_cfg)
-    hooks = build_context_hooks(context_policy)
+    dispatcher = None
+    if context_policy.dispatcher == "read_search":
+        if docker_backend is None:
+            raise ValueError("read_search dispatcher requires docker_linux execution profile")
+        dispatcher = ReadSearchDispatcher(
+            docker_backend,
+            max_calls=context_policy.dispatcher_max_calls,
+            max_file_bytes=policy_cfg.get("file_size_limit_bytes", 1_048_576),
+            max_output_bytes=policy_cfg.get("tool_output_max_chars", 16_000),
+        )
+    hooks = build_context_hooks(context_policy, plugin_registry=plugin_registry,
+                                dispatcher=dispatcher,
+                                summary_provider=(LLMSummaryProvider(llm)
+                                    if context_policy.summary_provider == 'llm' else None))
 
     runtime_mode = rt_cfg.get("mode", "react")
     planner = None
@@ -199,7 +287,7 @@ def build_agent(
         read_events_tool = ReadEventsTool(event_bus=event_bus)
         tools.register(read_events_tool)
 
-    return AgentLoop(
+    agent = AgentLoop(
         llm=llm,
         tools=tools,
         sandbox=sandbox,
@@ -216,4 +304,12 @@ def build_agent(
         runtime_mode=runtime_mode,
         planner=planner,
         use_llm_stream=tracing_cfg.get("llm_stream_events", False),
+        max_tool_argument_bytes=tools_cfg.get("max_argument_bytes", 65536),
+        model_ledger=model_ledger,
+        run_output_limit_bytes=policy_cfg.get("command", {}).get(
+            "run_output_limit_bytes", 16 * 1024 * 1024
+        ),
+        estimated_input_tokens=budget_cfg.get("estimated_input_tokens", 512),
     )
+    agent.execution_backend = docker_backend
+    return agent

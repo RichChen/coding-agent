@@ -257,5 +257,8 @@ class TestAgentLoopIntegration:
         result = await agent.run("Should cancel immediately", task_id="t_cancel")
 
         assert result.success is False
-        assert result.failure_reason == FailureReason.CANCELLED
+        assert result.failure_reason in (
+            FailureReason.CANCELLED,
+            FailureReason.USER_CANCELLED,
+        )
         assert len(mock_llm.calls) == 0

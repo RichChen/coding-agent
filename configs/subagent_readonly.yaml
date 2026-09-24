@@ -16,6 +16,10 @@ runtime:
     max_depth: 1
     readonly: true
     max_steps: 3
+    share_parent_budget: true
+  budget:
+    max_model_calls: 50
+    max_tokens: 200000
   context:
     micro_compact: false
     keep_recent_tool_results: 3
