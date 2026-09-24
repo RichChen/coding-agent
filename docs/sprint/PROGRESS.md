@@ -96,3 +96,11 @@
 重放第一轮编辑：5227 改了 `src/_pytest/logging.py` 和 changelog，新 grader 判定 **solved**，F2P 3/3，P2P 31/31。5221 改了 `src/_pytest/python.py`、changelog 和测试文件，F2P 0/2，P2P 0/170，没有解出。
 
 下一步：第 4 步，用新 grader 重打 11 条记忆源。
+
+## 第二轮 第 4 步：重打 11 条记忆源
+
+日期：2026-09-25。花费：0 CNY。
+
+`docs/sprint/memory-source-verification.json` 已用镜像 grader 重写。5 条 pass：django 10914、10924、11039，sklearn 10297、11281。5 条 fail：sympy 11400、12171，pytest 5103，sklearn 10949、11040。pytest 5221 因 gold 校准没通过，记为 `grader_unavailable`。请把这个文件转给 agent 侧。
+
+下一步：第 5 步，在 12 道 dev 题上重跑 B0。前 3 题先看 delta_lost 和装依赖。
