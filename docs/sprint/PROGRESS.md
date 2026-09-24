@@ -88,3 +88,9 @@
 - 另外收紧了测试命令切分：引号里的分号不再被切开，`pip show` 视为旧环境噪声。v3 快照已按这个重写。
 - 测试：`python -m pytest -q tests/test_relocated_dependency.py tests/test_memory_card_plugin.py tests/test_memory_cards_v3.py`，通过。
 - 下一步：第 5 步，看验证文件有没有更新。
+
+## 第二轮 第 5 步：源题验证（2026-09-25）
+
+- 再读了 `coding-harness/docs/sprint/memory-source-verification.json`。仍是 10 条 `grader_unavailable`、1 条 `partial`（`pytest-5103`），没有 `calibrated` 字段，也没有新的 pass/fail。
+- v3 卡片状态不用重写：`pytest-5103` 已是 `partial_attempt`，其余 `unverified`。等 harness 第二轮第 4 步把新 grader 结果写回同一个文件。
+- 已写 `docs/sprint/CHECKPOINT-2.md`。停下等审计。
