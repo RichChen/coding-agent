@@ -13,3 +13,10 @@
 - 11 条源记忆的仓库、短版本、源目录和轨迹字段已列入盘点。轨迹没有 `run_command` 参数，`failure_notes` 全空。
 - 这一步只加文档，没有相关测试可跑。
 - 下一步：第 2 步，读 harness 的 `memory-source-verification.json`；没有就先标 `unverified`。
+
+## 第 2 步：接入源题验证结果（2026-09-24）
+
+- `D:\crq\src\coding-harness\docs\sprint\memory-source-verification.json` 还不存在。11 条先全部按 `unverified` 处理，文件出现后同一函数会补上映射。
+- 新增 `reposkill_agent/memory/source_verification.py`：`pass`→`validated_fix`，`partial`→`partial_attempt`，`fail`→`failed_attempt`，其余（含 `grader_unavailable`、缺文件、未知 source）→`unverified`。
+- 测试：`python -m pytest -q tests/test_source_verification.py`，3 passed。
+- 下一步：第 3 步，用规则从 11 条轨迹和 `candidate-delta.json` 提炼记忆卡，不调模型。
