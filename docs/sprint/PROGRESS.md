@@ -62,3 +62,13 @@
 - `tests/test_run_swe_task.py` 3 项通过。
 
 下一步：第 1 步，agent 改跑 baseline 镜像，delta 收集全部改动。
+
+## 第二轮 第 1 步：baseline 镜像和完整 delta
+
+日期：2026-09-25。花费：0 CNY。
+
+- 新增 `BaselineImageBackend`。`start()` 把 `/opt/repo` 复制到 `/workspace`，并把生成的 `.so` 链回镜像。`export_delta()` 对比这两棵树，收集全部改动，不用 gold 白名单。超过 200 个文件或 4MB 报 `delta_too_large`。`close(snapshot=True)` 失败时写入 `snapshot_error`。
+- `run_swe_task.py` 改用这个 backend 和 receipt 的 `baseline_image_digest`。prompt 说明依赖已预装、没有网络、不要 pip install，并给出 pytest 或 django 的测试命令。
+- 零模型验证：pytest-5103 的 `import pytest` 指向 `/workspace/src/pytest.py`；django-10914 的 `import django` 指向 `/workspace/django/__init__.py`。两题都做了 `search_replace` 再写 `changelog/sprint2-check.rst`，两处都出现在 delta 里。
+
+下一步：第 2 步，镜像内 grader。

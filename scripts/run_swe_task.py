@@ -22,7 +22,7 @@ sys.path.insert(0, str(ROOT))
 
 from src.eval.grader import tree_hash
 from src.eval.repo_grader import RepositoryGrader, RepositorySpec
-from src.execution.a5_image_backend import A5ImageBackend
+from src.execution.baseline_image_backend import BaselineImageBackend
 from src.execution.docker import MAX_FILES
 from src.harness.factory import build_agent, load_config
 from src.llm.client import LLMClient, LLMResponse, LLMStreamEvent, StreamCapability
@@ -152,11 +152,17 @@ def public_issue(task: dict) -> str:
         raise ValueError("public task embeds private grader fields")
     repo = (public.get("repo_ref") or {}).get("repo_id", task.get("repo", ""))
     revision = (public.get("repo_ref") or {}).get("revision", "")
+    if task.get("family") == "django":
+        test_command = "python tests/runtests.py <module>"
+    else:
+        test_command = "python -m pytest <test path>"
     return (
         "You are repairing an open-source repository from a public issue only.\n"
         f"Repository: {repo}\nBase revision: {revision}\n"
-        "The source tree is mounted in the workspace. Inspect it, reproduce the bug, "
-        "edit the source, and stop when you believe the fix is in place.\n\n"
+        "The source tree is mounted in the workspace. Dependencies are already installed. "
+        "There is no network. Do not pip install. "
+        f"Run tests from the repository root with `{test_command}`.\n"
+        "Inspect the tree, reproduce the bug, edit the source, and stop when you believe the fix is in place.\n\n"
         f"Public issue:\n{issue}"
     )
 
@@ -348,12 +354,9 @@ async def run_task(task: dict, profile: Path, output: Path, *, mock: bool) -> di
         (output / "summary.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")
         return summary
     spec = grader_spec(task, base)
-    manifest = load_json(Path(task["transport_manifest"]))
     receipt = load_json(ROOT / task["receipt"])
-    backend = A5ImageBackend(
-        manifest=manifest,
-        editable_paths=list(spec.editable_paths),
-        image=receipt["transport_image_digest"],
+    backend = BaselineImageBackend(
+        image=receipt["baseline_image_digest"],
         context="desktop-linux",
         memory_bytes=1024**3,
         workspace_bytes=256 * 1024**2,
