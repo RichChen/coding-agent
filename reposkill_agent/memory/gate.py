@@ -41,6 +41,13 @@ class GateDecision(StrictModel):
     external_model_calls: int = 0
 
 
+def validity_reasons(validity: ValidityResult) -> tuple[str, ...]:
+    """Same labels select_memory records when a dependency check is not valid."""
+    if validity.status == "valid":
+        return ()
+    return ("validity_" + validity.status,)
+
+
 def select_memory(
     task: PublicTask,
     records: list[MemoryRecord],

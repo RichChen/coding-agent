@@ -106,3 +106,66 @@ def check_validity(record: MemoryRecord, facts: RepoFacts, now: datetime) -> Val
         else "valid"
     )
     return ValidityResult(status=status, checks=tuple(checks))
+
+
+def rollup(checks: list[Check]) -> ValidityResult:
+    status = (
+        "invalid"
+        if any(c.status == "invalid" for c in checks)
+        else "unknown"
+        if any(c.status == "unknown" for c in checks)
+        else "valid"
+    )
+    return ValidityResult(status=status, checks=tuple(checks))
+
+
+def check_card_dependencies(dependencies, target_root) -> ValidityResult:
+    """File existence and symbol presence for a memory card.
+
+    Missing files and missing symbols are invalid. A file with no recorded
+    symbols stays unknown. Uses the same Check / ValidityResult as check_validity.
+    """
+    from pathlib import Path
+
+    root = Path(target_root)
+    if not dependencies:
+        return rollup([Check(dependency_key="mapping", status="unknown", reason="no_dependencies")])
+    checks = []
+    for dep in dependencies:
+        path = Path(dep.path)
+        if path.is_absolute() or ".." in path.parts:
+            checks.append(
+                Check(dependency_key=dep.path, status="invalid", reason="unsafe_dependency_path")
+            )
+            continue
+        target = root / path
+        if not target.is_file():
+            checks.append(
+                Check(
+                    dependency_key=dep.path,
+                    status="invalid",
+                    reason="dependency_path_missing:" + dep.path,
+                )
+            )
+            continue
+        symbols = tuple(dep.symbols)
+        if not symbols:
+            checks.append(
+                Check(dependency_key=dep.path, status="unknown", reason="no_symbols:" + dep.path)
+            )
+            continue
+        text = target.read_text(encoding="utf-8", errors="ignore")
+        missing = [name for name in symbols if name not in text]
+        if missing:
+            checks.append(
+                Check(
+                    dependency_key=dep.path,
+                    status="invalid",
+                    reason="symbol_missing:" + ",".join(missing),
+                )
+            )
+        else:
+            checks.append(
+                Check(dependency_key=dep.path, status="valid", reason="file_and_symbols_present")
+            )
+    return rollup(checks)

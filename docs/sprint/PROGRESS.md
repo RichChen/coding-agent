@@ -28,3 +28,11 @@
 - 新快照 `benchmarks/a5/memory-cards-v2.jsonl`，11 张卡，125519 字节。验证文件仍缺失，11 张都是 `unverified`。渲染上限 1500 字节。
 - 测试：`python -m pytest -q tests/test_memory_cards.py tests/test_source_verification.py`，6 passed。目标题 ID 与 11 个源题不相交；目标题 gold/test patch 里长度 ≥ 80 的新增行没有出现在卡片渲染文本里。
 - 下一步：第 4 步，BM25 检索和 `MemoryCardPlugin`（B0–B3），旧入口保持不动。
+
+## 第 4 步：检索和变体（2026-09-24）
+
+- 新入口：`load_memory_cards(path) -> tuple[MemoryCard, ...]`（在 `memory/cards.py`）。`MemoryCardPlugin(variant, cards, repo, issue, target_root, max_bytes=4096, min_score=1.0)`，方法 `async decide(policy_input) -> dict`，返回 `schema_version`、`candidates`、`state`、`events`、`action_proposals`。旧的 `load_public_episodes` 和 `A5PublicMemoryPlugin` 没改。
+- 检索是自写 BM25，带停用词，再加上题目里的路径和符号与 `relevant_files` 的重合加分。低于 `min_score` 时一条都不选，事件状态为 `no_relevant_memory`。没有 `len(episodes) != 11` 这类断言。
+- B0 不注入。B1/B2/B3 用同一批卡、同一个 `rank_cards`、同一个 `max_bytes`。B1 注入截断轨迹，B2/B3 注入记忆卡渲染。B3 用 `validity.check_card_dependencies` 和 `gate.validity_reasons`；`invalid` 不注入。
+- 测试：`python -m pytest -q tests/test_memory_card_plugin.py tests/test_memory_validity.py tests/test_memory_gate.py`，插件 5 passed，原有 validity/gate 仍通过。
+- 下一步：写第 5 步扩充方案和 `CHECKPOINT-1.md`，然后停下等审计。
