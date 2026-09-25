@@ -128,3 +128,13 @@
 - B1 的原文前面加上同一条状态头部。
 - 测试：`python -m pytest -q tests/test_memory_cards.py tests/test_memory_card_plugin.py tests/test_memory_cards_v3.py`，12 passed。
 - 下一步：第 4 步，用 sprint2-b0 先做 interim v4。
+
+## 第三轮 第 4 步：interim v4（2026-09-25）
+
+- `docs/sprint/memory-source-runs.json` 还不存在。用 `runs/sprint2-b0` 的 12 次运行建了 interim。每道题只有一次运行，记为 `r1`。
+- 选轨迹不看卡片内容：解出的标 `validated_fix`，没解出的标 `failed_attempt`，来源都是 `source_task_swebench_tests`。新环境没有运行的，用旧记忆池：`sklearn-11040` 为 `failed_attempt`，`pytest-5221` 为 `unverified`（grader 不可用），来源是 `legacy_verification`。
+- `sympy-11400` 从 v3 的 `failed_attempt` 变成 `validated_fix`。`sklearn-10508` 在 sprint2-b0 和旧 11 条里都没有轨迹，没有编造卡片，manifest 里缺这一条。交接文件出现后再重建 final。
+- 构建脚本断言 15 个源题 id 与 `canonical-handoff.json` 的 `target_tasks` 不相交。运行里如果出现 pilot 目标题 id 会直接退出。这次没有。
+- 产出：`benchmarks/a5/memory-cards-v4.jsonl`、`memory-cards-v4.manifest.json`（status=interim，`memory_source_runs_sha256` 为 null）、`docs/sprint/MEMORY-PROTOCOL-V4.md`、`docs/sprint/V4-CARDS.md`。14 张卡。没有调模型。
+- 测试：`python -m pytest -q tests/test_memory_cards_v4.py tests/test_memory_cards.py tests/test_source_verification.py`，12 passed。
+- 下一步：第 5 步，对已有源题做 dev 留一法。

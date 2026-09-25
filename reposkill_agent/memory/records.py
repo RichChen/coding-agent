@@ -226,6 +226,9 @@ class MemoryCard(StrictModel):
     verification_status: VerificationStatus = "unverified"
     dependencies: tuple[CardDependency, ...] = ()
     distillation: Literal["rule", "llm_distilled"] = "rule"
+    label_origin: Literal["source_task_swebench_tests", "legacy_verification"] = "legacy_verification"
+    source_run: str = ""
+    layout: Literal["memory_pool", "sprint"] = "memory_pool"
     observations: tuple[str, ...] = ()
     actions: tuple[str, ...] = ()
     public_verification: str = ""
