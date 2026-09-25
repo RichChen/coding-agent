@@ -1,9 +1,10 @@
+import base64
 import json
 from pathlib import Path
 
 import pytest
 
-from reposkill_agent.memory.event_extract import extract_source
+from reposkill_agent.memory.event_extract import extract_source, locate_events
 
 SNAPSHOT = Path(
     "D:/crq/src/coding-harness/docs/upgrade/evidence/"
@@ -124,3 +125,86 @@ def test_real_extractions_exclude_target_gold():
     joined = "\n".join(blobs)
     for target, snippet in sentinels:
         assert snippet not in joined, target
+
+
+def _sprint_events(root: Path, events: list[dict]) -> None:
+    (root / "session" / "artifacts").mkdir(parents=True)
+    (root / "events.jsonl").write_text(
+        "\n".join(json.dumps(event) for event in events) + "\n", encoding="utf-8"
+    )
+
+
+def test_sprint_layout_decodes_base64_delta(tmp_path):
+    _sprint_events(
+        tmp_path,
+        [
+            {
+                "event_type": "tool.intent",
+                "payload": {"name": "read_file", "arguments": {"path": "pkg/a.py", "offset": 1, "limit": 4}},
+            },
+            {
+                "event_type": "tool.intent",
+                "payload": {"name": "run_command", "arguments": {"command": "python -m pytest tests/test_a.py -q"}},
+            },
+            {
+                "event_type": "tool.intent",
+                "payload": {
+                    "name": "search_replace",
+                    "arguments": {
+                        "path": "pkg/a.py",
+                        "search": "def visit_Call(self):\n    return node",
+                        "replace": "def visit_Call(self):\n    return self.scope(node)",
+                    },
+                },
+            },
+        ],
+    )
+    content = "class Rewriter:\n    def visit_Call(self):\n        return self.scope(node)\n"
+    (tmp_path / "candidate-delta.json").write_text(
+        json.dumps({"changed": {"pkg/a.py": base64.b64encode(content.encode()).decode()}}),
+        encoding="utf-8",
+    )
+    events, artifacts = locate_events(tmp_path)
+    assert events == tmp_path / "events.jsonl"
+    assert artifacts == tmp_path / "session" / "artifacts"
+    extracted = extract_source(tmp_path, "sprint-1")
+    assert extracted.reads[0].path == "pkg/a.py"
+    assert extracted.commands == ("python -m pytest tests/test_a.py -q",)
+    assert any("visit_Call" in name for name in extracted.changed_symbols)
+
+
+def test_bad_base64_is_recorded(tmp_path):
+    _sprint_events(tmp_path, [])
+    (tmp_path / "candidate-delta.json").write_text(
+        json.dumps({"changed": {"pkg/a.py": "not-valid-base64!!!"}}),
+        encoding="utf-8",
+    )
+    extracted = extract_source(tmp_path, "bad-b64", layout="sprint")
+    assert any(item.startswith("delta_base64_decode_failed") for item in extracted.skipped)
+
+
+def test_ambiguous_layout_is_an_error(tmp_path):
+    _write_run(tmp_path, [])
+    _sprint_events(tmp_path, [])
+    with pytest.raises(ValueError, match="ambiguous_event_layout"):
+        extract_source(tmp_path, "both")
+
+
+SPRINT2 = Path("D:/crq/src/coding-harness/runs/sprint2-b0")
+
+
+@pytest.mark.skipif(not (SPRINT2 / "django__django-11039" / "events.jsonl").is_file(), reason="sprint2-b0 not present")
+def test_real_sprint_11039_has_reads_commands_and_symbols():
+    extracted = extract_source(SPRINT2 / "django__django-11039", "django__django-11039", layout="sprint")
+    assert extracted.events_found
+    assert extracted.reads
+    assert extracted.commands
+    assert extracted.changed_symbols
+
+
+@pytest.mark.skipif(not (SPRINT2 / "sympy__sympy-11400" / "events.jsonl").is_file(), reason="sprint2-b0 not present")
+def test_real_sprint_11400_names_print_sinc():
+    extracted = extract_source(SPRINT2 / "sympy__sympy-11400", "sympy__sympy-11400", layout="sprint")
+    assert extracted.reads
+    assert extracted.commands
+    assert any("_print_sinc" in name for name in extracted.changed_symbols)

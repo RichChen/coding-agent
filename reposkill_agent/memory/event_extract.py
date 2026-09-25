@@ -7,6 +7,8 @@ Fields that cannot be read are skipped and the reason is kept on the result.
 from __future__ import annotations
 
 import ast
+import base64
+import binascii
 import json
 import re
 from pathlib import Path
@@ -46,11 +48,35 @@ class SourceExtraction(StrictModel):
     changed_symbols: tuple[str, ...] = ()
 
 
-def extract_source(source_dir: Path, source_id: str) -> SourceExtraction:
-    events_path = source_dir / "run" / "events.jsonl"
+def locate_events(source_dir: Path, layout: str | None = None) -> tuple[Path, Path]:
+    """Return events.jsonl and the artifacts directory for one run layout.
+
+    ``memory_pool`` keeps events under ``run/``. ``sprint`` keeps them beside
+    ``session/``. When layout is omitted, exactly one of those files must exist.
+    """
+    memory_events = source_dir / "run" / "events.jsonl"
+    sprint_events = source_dir / "events.jsonl"
+    if layout == "memory_pool":
+        return memory_events, memory_events.parent / "session" / "artifacts"
+    if layout == "sprint":
+        return sprint_events, source_dir / "session" / "artifacts"
+    if layout is not None:
+        raise ValueError("invalid_event_layout")
+    found = [path for path in (memory_events, sprint_events) if path.is_file()]
+    if len(found) > 1:
+        raise ValueError("ambiguous_event_layout")
+    if not found:
+        return memory_events, memory_events.parent / "session" / "artifacts"
+    events_path = found[0]
+    if events_path == sprint_events:
+        return sprint_events, source_dir / "session" / "artifacts"
+    return memory_events, memory_events.parent / "session" / "artifacts"
+
+
+def extract_source(source_dir: Path, source_id: str, layout: str | None = None) -> SourceExtraction:
+    events_path, artifacts = locate_events(source_dir, layout)
     if not events_path.is_file():
         return SourceExtraction(source_id=source_id, events_found=False, skipped=("events_jsonl_missing",))
-    artifacts = events_path.parent / "session" / "artifacts"
     skipped: list[str] = []
     reads: list[ReadSpan] = []
     searches: list[CodeSearch] = []
@@ -74,7 +100,8 @@ def extract_source(source_dir: Path, source_id: str) -> SourceExtraction:
         elif kind == "state.saved":
             _take_assistant(payload, artifacts, assistant, skipped)
     diagnosis, final = _diagnosis(assistant)
-    symbols = _changed_symbols(source_dir / "candidate-delta.json", edits)
+    symbols, symbol_skips = _changed_symbols(source_dir / "candidate-delta.json", edits)
+    skipped.extend(symbol_skips)
     return SourceExtraction(
         source_id=source_id,
         events_found=True,
@@ -189,13 +216,29 @@ def _diagnosis(assistant: list[str]) -> tuple[str, str]:
     return diagnosis, final
 
 
-def _changed_symbols(delta_path: Path, edits: list[tuple[str, str, str]]) -> list[str]:
+def _decode_changed(payload: object) -> tuple[str, str | None]:
+    if isinstance(payload, dict):
+        return str(payload.get("content") or ""), None
+    if isinstance(payload, str):
+        try:
+            raw = base64.b64decode(payload, validate=True)
+            return raw.decode("utf-8"), None
+        except (binascii.Error, UnicodeError, ValueError):
+            return "", "delta_base64_decode_failed"
+    return "", "delta_changed_unrecognized"
+
+
+def _changed_symbols(delta_path: Path, edits: list[tuple[str, str, str]]) -> tuple[list[str], list[str]]:
     changed: dict[str, str] = {}
+    skipped: list[str] = []
     if delta_path.is_file():
         delta = json.loads(delta_path.read_text(encoding="utf-8"))
         for name, payload in (delta.get("changed") or {}).items():
-            if isinstance(payload, dict):
-                changed[str(name).replace("\\", "/")] = str(payload.get("content") or "")
+            text, reason = _decode_changed(payload)
+            if reason:
+                skipped.append(reason + ":" + str(name))
+                continue
+            changed[str(name).replace("\\", "/")] = text
     found: list[str] = []
     by_path: dict[str, list[tuple[str, str]]] = {}
     for path, search, replace in edits:
@@ -206,7 +249,7 @@ def _changed_symbols(delta_path: Path, edits: list[tuple[str, str, str]]) -> lis
         for name in names:
             if name not in found:
                 found.append(name)
-    return found[:12]
+    return found[:12], skipped
 
 
 def _symbols_in_file(content: str, edits: list[tuple[str, str]]) -> list[str]:

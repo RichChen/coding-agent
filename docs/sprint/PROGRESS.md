@@ -102,3 +102,12 @@
 - `fail`→`failed_attempt`：sympy 11400、12171，pytest 5103（原先的 partial 被新 grader 改成 fail），sklearn 10949、11040。
 - `pytest-5221` 仍是 `grader_unavailable`（gold 校准没通过），卡片保持 `unverified`。
 - 测试：`python -m pytest -q tests/test_memory_cards_v3.py tests/test_source_verification.py`，6 passed。
+
+## 第三轮 第 1 步：提取器兼容 sprint 目录（2026-09-25）
+
+- 开工 tag：`mem3-start`（`3eac8d3`），同时提交了第二轮和第三轮计划书。
+- `extract_source` 增加 `layout`：`memory_pool` 读 `run/events.jsonl`，`sprint` 读运行目录根上的 `events.jsonl`。不传时只接受其中一种；两种都在就报 `ambiguous_event_layout`，都不在仍记 `events_jsonl_missing`。
+- `_changed_symbols` 同时接受 `{"content": ...}` 和 base64 字符串。解码失败记入 `skipped`，原因是 `delta_base64_decode_failed:<path>`。
+- 只读回归：`runs/sprint2-b0/django__django-11039` 提取出读取范围、测试命令和非空改动符号；`sympy__sympy-11400` 对上了 `_print_sinc`。仓库里只放了最小夹具，没有复制真实运行目录。
+- 测试：`python -m pytest -q tests/test_event_extract.py`，9 passed。
+- 下一步：第 2 步，丢掉只做 import 探测和 `py_compile` 的命令。
