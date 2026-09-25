@@ -252,17 +252,28 @@ async def prepare_repo_runtime(backend, archive_name="baseline.tar.gz"):
     # are never replaced or redirected.
     code = r'''import hashlib,json,pathlib,tarfile
 root=pathlib.Path('/opt/repo'); workspace=pathlib.Path('/workspace')
-archive=pathlib.Path('/opt/known-good.tar.gz')
-if not archive.exists(): archive=pathlib.Path('/opt/baseline.tar.gz')
-with tarfile.open(archive) as stream: source={m.name for m in stream}
+manifest=pathlib.Path('/opt/native-artifacts.json')
 linked=[]
-for p in root.rglob('*.so'):
-    rel=p.relative_to(root).as_posix()
-    if rel in source: continue  # Retain upstream binary fixtures byte-for-byte.
-    target=workspace/rel
-    if target.is_symlink() or target.read_bytes()!=p.read_bytes(): raise ValueError('generated native copy mismatch')
-    target.unlink(); target.symlink_to(p)
-    linked.append(dict(path=rel,image_path=str(p),sha256=hashlib.sha256(p.read_bytes()).hexdigest()))
+if manifest.exists():
+    for rel in json.loads(manifest.read_text()):
+        p=root/rel
+        if not p.is_file(): raise ValueError('native artifact missing: '+rel)
+        target=workspace/rel
+        if target.is_symlink() or target.read_bytes()!=p.read_bytes(): raise ValueError('generated native copy mismatch')
+        target.unlink(); target.symlink_to(p)
+        linked.append(dict(path=rel,image_path=str(p),sha256=hashlib.sha256(p.read_bytes()).hexdigest()))
+else:
+    archive=pathlib.Path('/opt/known-good.tar.gz')
+    if not archive.exists(): archive=pathlib.Path('/opt/baseline.tar.gz')
+    if not archive.exists(): raise ValueError('native artifact basis missing')
+    with tarfile.open(archive) as stream: source={m.name for m in stream}
+    for p in root.rglob('*.so'):
+        rel=p.relative_to(root).as_posix()
+        if rel in source: continue
+        target=workspace/rel
+        if target.is_symlink() or target.read_bytes()!=p.read_bytes(): raise ValueError('generated native copy mismatch')
+        target.unlink(); target.symlink_to(p)
+        linked.append(dict(path=rel,image_path=str(p),sha256=hashlib.sha256(p.read_bytes()).hexdigest()))
 pathlib.Path('/tmp/a5-native-links.json').write_text(json.dumps(linked))
 '''
     await backend._ok('exec', backend.name, '/usr/local/bin/python', '-I', '-S', '-c', code,

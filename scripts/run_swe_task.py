@@ -427,8 +427,23 @@ async def run_task(task: dict, profile: Path, output: Path, *, mock: bool, varia
     workspace.mkdir()
     spec = grader_spec(task)
     receipt = load_json(ROOT / task["receipt"])
+    image = receipt["baseline_image_digest"]
+    clean = None
+    if profile.stem == "b0-v2":
+        clean_path = ROOT / "docs" / "sprint" / "clean-images" / (task["id"] + ".json")
+        clean = load_json(clean_path)
+        if not clean.get("answer_isolation_pass"):
+            return _isolation_stop(task, variant, "clean image failed the filesystem scan")
+        image = clean["clean_image_digest"]
+        from scripts.build_clean_baseline import source_only_check
+        from src.eval.a5_image_tree import archive_manifest
+        archive = Path(receipt["source_attempt_ref"]).parent / "source.tar.gz"
+        manifest = archive_manifest(archive, task["repo"], receipt["base_revision"])
+        matched, _hash = source_only_check(image, manifest)
+        if not matched:
+            return _isolation_stop(task, variant, "opt/repo source-only hash mismatch")
     backend = BaselineImageBackend(
-        image=receipt["baseline_image_digest"],
+        image=image,
         context="desktop-linux",
         memory_bytes=1024**3,
         workspace_bytes=256 * 1024**2,
@@ -497,7 +512,7 @@ async def run_task(task: dict, profile: Path, output: Path, *, mock: bool, varia
         (output / "candidate-delta.json").write_text(json.dumps(delta, indent=2), encoding="utf-8")
     f2p = [node for node in spec.expected_nodeids if node not in spec.baseline_passed]
     evaluation = await ImageGrader().evaluate(
-        image=receipt["baseline_image_digest"],
+        image=image,
         delta=delta,
         test_overlay=spec.test_overlay,
         f2p=f2p,
@@ -536,6 +551,8 @@ async def run_task(task: dict, profile: Path, output: Path, *, mock: bool, varia
         "stop_reason": stats["stop_reason"],
         "snapshot_error": snapshot_error,
         "export_skipped_files": getattr(backend, "export_skipped_files", None),
+        "answer_isolation_pass": True if clean else None,
+        "clean_image_digest": image if clean else None,
         "memory": memory,
         "git": {
             "coding-harness": git_state(ROOT),
@@ -543,6 +560,21 @@ async def run_task(task: dict, profile: Path, output: Path, *, mock: bool, varia
         },
     }
     (output / "summary.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")
+    return summary
+
+
+def _isolation_stop(task: dict, variant: str, reason: str) -> dict:
+    summary = {
+        "task_id": task["id"],
+        "variant": variant,
+        "solved": False,
+        "status": "answer_isolation_failed",
+        "model_calls": 0,
+        "cost_cny": "0.000",
+        "answer_isolation_pass": False,
+        "stop_reason": reason,
+    }
+    print("ANSWER_ISOLATION_FAILED " + task["id"] + " " + reason, flush=True)
     return summary
 
 

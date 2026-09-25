@@ -14,16 +14,31 @@ LINK_NATIVE = r'''
 import hashlib, json, pathlib, tarfile
 root = pathlib.Path("/opt/repo")
 workspace = pathlib.Path("/workspace")
-archive = pathlib.Path("/opt/known-good.tar.gz")
-if not archive.exists():
-    archive = pathlib.Path("/opt/baseline.tar.gz")
+manifest = pathlib.Path("/opt/native-artifacts.json")
 linked = []
-if archive.exists():
+if manifest.exists():
+    listed = json.loads(manifest.read_text())
+    for rel in listed:
+        source = root / rel
+        target = workspace / rel
+        if not source.is_file():
+            raise ValueError("native artifact missing: " + rel)
+        if target.is_symlink() or target.read_bytes() != source.read_bytes():
+            raise ValueError("generated native copy mismatch")
+        target.unlink()
+        target.symlink_to(source)
+        linked.append({"path": rel, "image_path": str(source), "sha256": hashlib.sha256(source.read_bytes()).hexdigest()})
+else:
+    archive = pathlib.Path("/opt/known-good.tar.gz")
+    if not archive.exists():
+        archive = pathlib.Path("/opt/baseline.tar.gz")
+    if not archive.exists():
+        raise ValueError("native artifact basis missing")
     with tarfile.open(archive) as stream:
-        source = {member.name for member in stream}
+        source_names = {member.name for member in stream}
     for path in root.rglob("*.so"):
         rel = path.relative_to(root).as_posix()
-        if rel in source:
+        if rel in source_names:
             continue
         target = workspace / rel
         if target.is_symlink() or target.read_bytes() != path.read_bytes():

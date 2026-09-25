@@ -250,3 +250,31 @@ dev 集加入 sklearn-10508 和 sklearn-11040，共 14 题。两题的 gold 校�
 ## 第三轮 第 10 步：审计节点
 
 `docs/sprint/CHECKPOINT-3.md` 已写。本轮模型花费 16.173 CNY。停在这里等审计。
+
+CHECKPOINT-3 把 gold 没有通过的 pilot 题写成 6 道。PROGRESS 第 6 步的表是 7 道，以表为准。
+
+## 第四轮 R4-1：干净镜像
+
+日期：2026-09-25。花费：0 CNY。tag：`sprint4-start`。
+
+只读核对：`django-11039` 的 `staging/baseline.tar.gz` 含 `test_sqlmigrate_for_non_transactional_databases`，同路径的 original 不含。旧 Dockerfile 把这份归档解到 `/opt/repo`。
+
+clean image 从 original `source.tar.gz` 构建，不放入 test patch 或 gold patch。最终文件系统里没有这份构建用的归档。`/opt/native-artifacts.json` 列出构建生成的 `.so`；没有这份清单、也没有旧归档时，链接会报错。14 道 dev 题的 source-only hash 都和 original 一致。全文件系统扫描用的是 original 归档里不存在的新增行，14 道都没有命中。sklearn 五题各有 40 个 native artifact。
+
+## 第四轮 R4-2：答案隔离
+
+日期：2026-09-25。花费：0 CNY。
+
+`b0-v2` 只接受 `answer_isolation_pass` 为真的 clean image。开跑前再对 `/opt/repo` 做 source-only 比对，不一致就停，不调用模型。django-11039、sympy-11400、sklearn-10297 的空 delta 导出都是空的。
+
+## 第四轮 R4-3：零模型校准
+
+日期：2026-09-25。花费：0 CNY。
+
+14 道 dev 题都接受：空改动 F2P 没有通过，gold F2P 全部通过，两边的 nodeid 结果不同。sklearn 在复制 `/opt/repo` 之后可以 `import sklearn`。结果在 `docs/sprint/clean-calibration/`。
+
+## 第四轮 R4-4：B0 v2 重复
+
+日期：2026-09-25。
+
+预计花费：16 CNY。依据是第三轮 42 次实际 16.173 CNY。单次上限 1 CNY。本轮累计上限 20 CNY，开跑前若已用到 19 CNY 就停。
