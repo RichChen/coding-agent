@@ -94,3 +94,11 @@
 - 再读了 `coding-harness/docs/sprint/memory-source-verification.json`。仍是 10 条 `grader_unavailable`、1 条 `partial`（`pytest-5103`），没有 `calibrated` 字段，也没有新的 pass/fail。
 - v3 卡片状态不用重写：`pytest-5103` 已是 `partial_attempt`，其余 `unverified`。等 harness 第二轮第 4 步把新 grader 结果写回同一个文件。
 - 已写 `docs/sprint/CHECKPOINT-2.md`。停下等审计。
+
+## 第二轮 第 5 步补做：新 grader 结果已到（2026-09-25）
+
+- harness 已重写 `memory-source-verification.json`，11 条都带 `calibrated`。只改了 v3 卡片的 `verification_status`，正文没动，F2P/P2P 计数没有写进卡片。
+- `pass`→`validated_fix`：django 10914、10924、11039，sklearn 10297、11281。
+- `fail`→`failed_attempt`：sympy 11400、12171，pytest 5103（原先的 partial 被新 grader 改成 fail），sklearn 10949、11040。
+- `pytest-5221` 仍是 `grader_unavailable`（gold 校准没通过），卡片保持 `unverified`。
+- 测试：`python -m pytest -q tests/test_memory_cards_v3.py tests/test_source_verification.py`，6 passed。

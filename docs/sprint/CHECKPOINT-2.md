@@ -13,7 +13,7 @@ tag `mem2-start` 在 `c4ecbf0`。其后：
 
 ## 三张 v3 渲染
 
-django `django-10914`（unverified）：
+django `django-10914`（validated_fix）：
 
 ```
 approach: The issue asks to set the default FILE_UPLOAD_PERMISSIONS to 0o644. Changed no named function or class.
@@ -30,7 +30,7 @@ tests: python -c "import pytest; print(pytest.__version__, pytest.__file__)"
 pitfalls: (none)
 ```
 
-sklearn `sklearn-10949`（unverified）：
+sklearn `sklearn-10949`（failed_attempt）：
 
 ```
 approach: DataFrame has no .dtype (it has .dtypes), so warn_on_dtype never fires. Changed _get_dtype.
@@ -38,7 +38,7 @@ files: sklearn/utils/validation.py:1-120
 tests: python -c "import sklearn; print(sklearn.__file__)"; python -m py_compile sklearn/utils/validation.py
 ```
 
-完整原文由 `render_card` 生成，头部仍是 `status=unverified — use as navigation hints, not as the answer`。上面三张为了本页篇幅去掉了重复的 banner 和被截断的 issue 句。
+完整原文由 `render_card` 生成，头部带当前验证状态。上面三张为了本页篇幅去掉了 banner 和被截断的 issue 句。pytest-5221 仍是 unverified，sklearn-10949 现为 failed_attempt。
 
 ## 11 张卡的字段
 
@@ -82,5 +82,5 @@ B1/B2 排序相同。B1 常常只能注入第一条，因为原文更长。B3「
 
 ## 验证和花费
 
-- 状态：`partial_attempt` 1 张（pytest-5103），`unverified` 10 张。harness 验证文件还没被新 grader 更新。
+- 状态已按 harness 第二轮第 4 步重写：`validated_fix` 5 张（django 10914、10924、11039，sklearn 10297、11281），`failed_attempt` 5 张（sympy 11400、12171，pytest 5103，sklearn 10949、11040），`unverified` 1 张（pytest 5221，gold 校准没通过）。F2P/P2P 数字没有写进卡片。
 - LLM 提炼：没做。规则版已经能指出具体函数或设置，花费 0。
