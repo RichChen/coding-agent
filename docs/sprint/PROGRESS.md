@@ -179,3 +179,15 @@ mock 检查：`sleep 200` 在约 120 秒后返回超时文本，模型调用了 
 `verify_memory` 改为 `ImageGrader`，只给 gold 校准通过的记忆源打分。pytest-5221 的 gold F2P 是 0/2，记为 `grader_unavailable`，原因 `gold_fails_calibration`。`docs/sprint/memory-source-verification.json` 已按这次结果更新：5 条 pass（django 10914、10924、11039，sklearn 10297、11281），5 条 fail（sympy 11400、12171，pytest 5103，sklearn 10949、11040）。
 
 下一步：第 4 步，把 sklearn 10508 和 11040 加入 dev 集，mock 跑完 14 题后打 tag `b0-v1`。
+
+## 第三轮 第 4 步：14 题 dev 集和 b0-v1
+
+日期：2026-09-25。花费：0 CNY。
+
+dev 集加入 sklearn-10508 和 sklearn-11040，共 14 题。两题的 gold 校准都已通过。profile 是 `configs/sprint/b0-v1.yaml`，prompt 仍是 `prompts/swe_b0.md`。
+
+14 题 mock（不调用模型，只链接仓库并打分）都正常结束：`stop_reason=completed`，费用 0，没有改动，所以都未解出。sklearn 导出时跳过了 237–238 个编译产物，源码文件还在。
+
+本步提交后打 tag `b0-v1`。此后本轮不再改 B0 的 prompt、工具集、profile 和 grader 判定逻辑。
+
+下一步：第 5 步，14 题各重复 3 次，预计花费写在开跑之前。

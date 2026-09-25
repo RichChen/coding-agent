@@ -1,6 +1,6 @@
 schema: sprint.dev-tasks.v1
 variant: B0
-notes: Twelve tasks that passed empty-delta and gold-delta calibration.
+notes: Fourteen tasks that passed empty-delta and gold-delta calibration.
 tasks:
 - id: django__django-10914
   repo: django/django
@@ -175,4 +175,32 @@ tasks:
     empty_p2p: 43
     gold_f2p: 2
     gold_p2p: 43
+  p2p_excluded: []
+- id: scikit-learn__scikit-learn-10508
+  repo: scikit-learn/scikit-learn
+  family: scikit-learn
+  receipt: docs/upgrade/evidence/A5-harness-preflight-57-remaining16-baseline/tasks/scikit-learn__scikit-learn-10508/receipt.json
+  original: docs/upgrade/evidence/A5-harness-preflight-57-remaining16-baseline/tasks/scikit-learn__scikit-learn-10508/staging/original
+  baseline: docs/upgrade/evidence/A5-harness-preflight-57-remaining16-baseline/tasks/scikit-learn__scikit-learn-10508/staging/baseline
+  public_task: D:\crq\src\coding-agent\reports\upgrade\a5-funded-build-preparation-20260921-v12\public\a5-build-7714baee59012ad1.json
+  grader_timeout_seconds: 600
+  calibration:
+    empty_f2p: 0
+    empty_p2p: 18
+    gold_f2p: 2
+    gold_p2p: 18
+  p2p_excluded: []
+- id: scikit-learn__scikit-learn-11040
+  repo: scikit-learn/scikit-learn
+  family: scikit-learn
+  receipt: docs/upgrade/evidence/A5-harness-preflight-57-remaining16-baseline/tasks/scikit-learn__scikit-learn-11040/receipt.json
+  original: docs/upgrade/evidence/A5-harness-preflight-57-remaining16-baseline/tasks/scikit-learn__scikit-learn-11040/staging/original
+  baseline: docs/upgrade/evidence/A5-harness-preflight-57-remaining16-baseline/tasks/scikit-learn__scikit-learn-11040/staging/baseline
+  public_task: D:\crq\src\coding-agent\reports\upgrade\a5-funded-build-preparation-20260921-v12\public\a5-build-326320c7b35bcda4.json
+  grader_timeout_seconds: 600
+  calibration:
+    empty_f2p: 0
+    empty_p2p: 44
+    gold_f2p: 1
+    gold_p2p: 44
   p2p_excluded: []
