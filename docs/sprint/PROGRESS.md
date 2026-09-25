@@ -191,3 +191,15 @@ dev 集加入 sklearn-10508 和 sklearn-11040，共 14 题。两题的 gold 校�
 本步提交后打 tag `b0-v1`。此后本轮不再改 B0 的 prompt、工具集、profile 和 grader 判定逻辑。
 
 下一步：第 5 步，14 题各重复 3 次，预计花费写在开跑之前。
+
+## 第三轮 第 5 步：B0 v1 重复运行
+
+日期：2026-09-25。
+
+预计花费：16 CNY。依据是第二轮 12 题单次合计 4.390 CNY，平均约 0.37 CNY，42 次约 15.5 CNY，取 16。单次账本上限 1 CNY。
+
+实际花费：16.173 CNY。42 次都低于 1 CNY。本轮累计 16.173 CNY。
+
+解出 32/42。10 道题 3/3，2 道题 0/3（sympy-11870、sklearn-10949），2 道题混合（pytest-5103 1/3，sympy-12171 1/3）。表在 `docs/sprint/B0-V1-RESULTS.md`。抽查 django-10914 r1 和 sklearn-10297 r1，改的是源码和文档，不是测试。42 次的 `test_files_touched` 都是空的。交接文件是 `docs/sprint/memory-source-runs.json`。
+
+下一步：第 6 步，20 道 pilot 题零模型校准。
