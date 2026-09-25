@@ -220,6 +220,8 @@ class RunCommandTool(Tool):
         tool_status = self._map_status(result.status)
         success = tool_status == ToolStatus.SUCCEEDED
         observation = result.observation_text()
+        if result.status == ExecutionStatus.TIMED_OUT:
+            observation = f"命令在 {self.timeout_seconds} 秒后超时，输出已截断\n" + observation
         # Truncate body but always retain trailing status/truncation markers.
         if ctx.tool_output_max_chars is not None and len(observation) > ctx.tool_output_max_chars:
             marker = ""

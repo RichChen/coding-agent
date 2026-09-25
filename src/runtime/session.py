@@ -234,7 +234,10 @@ class RunSession:
                     attempt_id=op["attempt_id"], tool_call_id=op["tool_call_id"])
         # Only remove our redundant staging files AFTER the event/reference commits.
         for path in output_paths:
-            path.unlink(missing_ok=True)
+            try:
+                path.unlink(missing_ok=True)
+            except OSError:
+                pass
 
     def reconcile(self):
         for operation_id, op in list(self.state.operations.items()):

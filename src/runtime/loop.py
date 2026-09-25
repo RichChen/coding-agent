@@ -456,7 +456,7 @@ class AgentLoop:
                                   start_time=started, termination_kind="backend_unavailable")
             backend.unavailable_error = str(exc)[:1000]
         finally:
-            cleanup = asyncio.create_task(backend.close(snapshot=result is not None and backend.active))
+            cleanup = asyncio.create_task(self._close_backend(backend, result))
             try:
                 await asyncio.shield(cleanup)
             except asyncio.CancelledError:
@@ -998,7 +998,13 @@ class AgentLoop:
                             if de.kind.value == "cleanup_failed":
                                 tr.cleanup_state = "cleanup_failed"
                                 tr.cleanup_elapsed_s = getattr(de, "elapsed_s", None)
-                            batch_stop_kind = de.kind.value
+                            if de.kind.value == "tool_timeout":
+                                seconds = getattr(validated.tool, "timeout_seconds", None)
+                                note = f"命令在 {int(seconds)} 秒后超时，输出已截断\n" if seconds else "命令超时，输出已截断\n"
+                                if not (tr.output or "").startswith("命令在"):
+                                    tr.output = note + (tr.output or "")
+                            else:
+                                batch_stop_kind = de.kind.value
 
                         if self.session and previous is None:
                             self.session.record_result(op_safe, tr, self.run_output_meter.snapshot())
@@ -1012,7 +1018,7 @@ class AgentLoop:
                             batch_stop_kind = tr.error_kind or "cleanup_failed"
                         if tr.status == ToolStatus.CANCELLED or tr.error_kind == "user_cancelled":
                             batch_stop_kind = batch_stop_kind or "user_cancelled"
-                        if tr.status == ToolStatus.TIMED_OUT and tr.error_kind:
+                        if tr.status == ToolStatus.TIMED_OUT and tr.error_kind not in (None, "tool_timeout"):
                             batch_stop_kind = batch_stop_kind or tr.error_kind
 
                         if not tr.success:
@@ -1239,6 +1245,13 @@ class AgentLoop:
         finally:
             if self.event_bus:
                 self.event_bus.close()
+
+    @staticmethod
+    async def _close_backend(backend, result):
+        """Export the workspace first whenever the container is still reachable."""
+        if result is not None and not backend.active and not getattr(backend, "snapshot_error", None):
+            backend.snapshot_error = "container_gone_before_snapshot"
+        await backend.close(snapshot=result is not None and backend.active)
 
     @staticmethod
     def _serialize_args(tc: ToolCall) -> str:

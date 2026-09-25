@@ -155,3 +155,17 @@
 10949 的失败用例是 `test_check_dataframe_warns_on_dtype`，收集阶段没有报错。这三题的 gold 校准重做后都仍然通过（空 delta 的 F2P 为 0，gold 的 F2P 和保留的 P2P 全部通过）。
 
 下一步：第 2 步，查 sympy-11870 为什么在 `step_deadline` 时没有导出。
+
+## 第三轮 第 2 步：终止时也要导出
+
+日期：2026-09-25。花费：0 CNY。
+
+11870 的 `termination_kind` 是 `step_deadline`，`snapshot_error` 为空，磁盘上没有 `candidate-delta.json`。当时 profile 里命令超时和 step 超时都是 120 秒。慢命令触发 step deadline 后，`await_with_control` 取消正在执行的 `docker exec`。`DockerExecutionBackend.execute` 只要 `kind` 非空就调用 `close()`，容器被删掉，`active` 变成 false。外层循环随后只在 `backend.active` 时导出，所以导出没有发生，`snapshot_error` 也留空。容器是这次 `execute` 自己删的。
+
+修复：命令超时不再拆掉容器，也不再结束整次运行；工具结果里写明「命令在 N 秒后超时，输出已截断」，然后继续。运行结束时，容器还在就先导出再清理；容器已经不在，就把 `snapshot_error` 写成 `container_gone_before_snapshot`。新 profile 是 `configs/sprint/b0-v1.yaml`（命令超时仍是 120，step 超时 300，总超时 2400）。`b0.yaml` 没有改。
+
+mock 检查：`sleep 200` 在约 120 秒后返回超时文本，模型调用了 2 次，运行没有以 `step_deadline` 结束。
+
+11870 事件重放改了 `sympy/simplify/fu.py` 和 `sympy/simplify/trigsimp.py`。镜像评分 F2P 0/1，P2P 58/58，没有解出。缺的是导出，不是没改代码。
+
+下一步：第 3 步，修正 `stop_reason`，并让 `verify_memory` 走 `ImageGrader`。

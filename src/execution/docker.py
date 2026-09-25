@@ -351,17 +351,20 @@ class DockerExecutionBackend:
             if tasks:
                 await asyncio.wait(tasks, timeout=.2)
             cli_cleanup_error = None
+            prior_kind = kind
             try:
                 await _reap_cli(proc, tasks)
             except (Exception, asyncio.CancelledError) as exc:
-                kind = 'cleanup_failed'
+                if prior_kind not in ("tool_timeout", "user_cancelled"):
+                    kind = 'cleanup_failed'
                 cli_cleanup_error = exc
                 self.lifecycle.append(dict(event='cli_cleanup_error', error=repr(exc)))
-            if kind:
-                # Disconnect/drain the attach client BEFORE rm: a blocked attach
-                # pipe can otherwise delay the daemon's removal acknowledgement.
+            if kind and kind not in ("tool_timeout", "user_cancelled"):
+                # A command timeout or a parent deadline must leave the container
+                # up: the model needs the timeout result, and the loop exports
+                # the workspace before it destroys the session.
                 await self.close()
-            if cli_cleanup_error is not None:
+            if cli_cleanup_error is not None and kind not in ("tool_timeout", "user_cancelled"):
                 self.cleanup_ok = False
             if tasks:
                 for idx in (0,1):
@@ -370,7 +373,7 @@ class DockerExecutionBackend:
                         if idx == 0: out = t.result()
                         else: err = t.result()
             self._busy = False
-        if kind and not self.cleanup_ok:
+        if kind and not self.cleanup_ok and kind not in ("tool_timeout", "user_cancelled"):
             status, kind = ExecutionStatus.OUTCOME_UNKNOWN, "cleanup_failed"
         elif kind == "user_cancelled": status = ExecutionStatus.CANCELLED
         elif kind == "tool_timeout": status = ExecutionStatus.TIMED_OUT
