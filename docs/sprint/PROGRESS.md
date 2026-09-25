@@ -159,3 +159,11 @@
 
 - 已写 `docs/sprint/CHECKPOINT-3.md`。v4 是 interim，14 张卡。`memory-source-runs.json` 仍不存在，sha256 为 null，没有建成 final。
 - 花费 0。停下等审计。交接文件出现后再重建 final。
+
+## 第四轮：B2 只注入 validated_fix（2026-09-25）
+
+- 开工 tag：`mem4-start`（`3d9cccc`）。已读 harness `AUDIT-3-CORRECTION.zh-CN.md`。现有 v4 保持 `interim`，没有改成 `final`。
+- `MemoryCardPlugin` 在 B2 下只把 `verification_status == validated_fix` 的卡送进检索。`failed_attempt` 和 `unverified` 不注入。B0、B1、B3 的路径没改。
+- 测试：`python -m pytest -q tests/test_memory_card_plugin.py tests/test_memory_cards.py tests/test_memory_cards_v3.py tests/test_memory_cards_v4.py tests/test_source_verification.py tests/test_event_extract.py`，31 passed。
+- 现有 `memory-source-runs.json` 是 `profile_tag=b0-v1`，42 条，没有 `answer_isolation_pass=true`。按计划不重建 final，不跑 memory smoke，不调模型。
+- 已写 `docs/sprint/CHECKPOINT-4.md`。停下，等 `b0-v2` 且 42 条全部隔离通过的交接文件。

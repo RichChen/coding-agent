@@ -7,7 +7,15 @@ from reposkill_agent.memory.records import CardDependency, MemoryCard
 REPO = "demo/demo"
 
 
-def card(source_id: str, *, repo: str = REPO, summary: str, files: tuple[str, ...], symbol: str) -> MemoryCard:
+def card(
+    source_id: str,
+    *,
+    repo: str = REPO,
+    summary: str,
+    files: tuple[str, ...],
+    symbol: str,
+    verification_status: str = "validated_fix",
+) -> MemoryCard:
     return MemoryCard(
         repo=repo,
         version="abc123def456",
@@ -15,7 +23,7 @@ def card(source_id: str, *, repo: str = REPO, summary: str, files: tuple[str, ..
         issue_summary=summary,
         relevant_files=files,
         fix_approach=f"Edited {files[0]} to adjust {symbol}.",
-        verification_status="unverified",
+        verification_status=verification_status,
         dependencies=(CardDependency(path=files[0], symbols=(symbol,)),),
         observations=("looked around",),
         actions=(f"search_replace:{files[0]}",),
@@ -59,6 +67,19 @@ def test_b1_and_b2_select_the_same_sources(tmp_path):
     assert b1["candidates"][0]["text"] != b2["candidates"][0]["text"]
     assert "historical_issue" in b1["candidates"][0]["text"]
     assert b2["candidates"][0]["text"].startswith("[historical attempt")
+
+
+def test_b2_drops_failed_and_unverified(tmp_path):
+    cards = [
+        card("failed", summary="alpha widget parser fails on empty input", files=("pkg/alpha.py",), symbol="parse", verification_status="failed_attempt"),
+        card("raw", summary="alpha widget parser fails on empty input", files=("pkg/alpha.py",), symbol="parse", verification_status="unverified"),
+        card("ok", summary="alpha widget parser fails on empty input", files=("pkg/alpha.py",), symbol="parse", verification_status="validated_fix"),
+    ]
+    issue = "alpha widget parser fails when pkg/alpha.py sees empty input"
+    b2 = decide("B2", cards, issue, tmp_path)
+    b1 = decide("B1", cards, issue, tmp_path)
+    assert [item["id"] for item in b2["candidates"]] == ["ok"]
+    assert {item["id"] for item in b1["candidates"]} == {"failed", "raw", "ok"}
 
 
 def test_b3_rejects_deleted_symbol(tmp_path):

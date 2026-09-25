@@ -149,8 +149,11 @@ class MemoryCardPlugin:
                     }
                 ],
             }
+        pool = self.cards
+        if self.variant == "B2":
+            pool = tuple(card for card in self.cards if card.verification_status == "validated_fix")
         ranked = rank_cards(
-            self.cards, repo=self.repo, issue=self.issue, min_score=self.min_score
+            pool, repo=self.repo, issue=self.issue, min_score=self.min_score
         )
         candidates, decisions = [], []
         remaining = self.max_bytes
