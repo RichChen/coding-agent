@@ -234,3 +234,19 @@ dev 集加入 sklearn-10508 和 sklearn-11040，共 14 题。两题的 gold 校�
 零模型测试：B0 不产生候选；B2 在 django-10914 上过滤掉它自己的卡，注入的是 10924（877 字节）和 11039（1362 字节），都低于 4096。mock 全链路一次，费用 0，`context.prepared` 里能看到这两张卡，看不到 10914。
 
 下一步：第 8 步要等 v4 manifest 变成 final。先写第 9 步的扩充说明，再复查一次。
+
+## 第三轮 第 8 步：跳过
+
+日期：2026-09-25。花费：0 CNY。
+
+`memory-cards-v4.manifest.json` 的 `status` 是 `interim`，`build_inputs.memory_source_runs_sha256` 是 `null`。写完第 9 步的说明后再看了一次，仍是这样。没有跑 B2/B3，也没有自造卡片。
+
+## 第三轮 第 9 步：sphinx 扩充规则
+
+日期：2026-09-25。花费：0 CNY。
+
+规则写在 `docs/sprint/MEMORY-SOURCE-EXPANSION.md`。本地没有 sphinx baseline 镜像，本轮没有做那一道试跑。
+
+## 第三轮 第 10 步：审计节点
+
+`docs/sprint/CHECKPOINT-3.md` 已写。本轮模型花费 16.173 CNY。停在这里等审计。
