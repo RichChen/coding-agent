@@ -61,8 +61,22 @@ def load_memory_cards(path: Path) -> tuple[MemoryCard, ...]:
     return tuple(cards)
 
 
+def status_header(card: MemoryCard) -> str:
+    if card.verification_status == "failed_attempt":
+        return (
+            "[historical attempt on a different issue in this repo; status=failed_attempt"
+            " — 这是一次没有通过测试的尝试，只供定位参考]"
+        )
+    if card.verification_status == "unverified":
+        return (
+            "[historical attempt on a different issue in this repo; status=unverified"
+            " — 未验证]"
+        )
+    return BANNER.format(status=card.verification_status)
+
+
 def render_card(card: MemoryCard, *, limit: int = RENDER_LIMIT) -> str:
-    header = BANNER.format(status=card.verification_status)
+    header = status_header(card)
     files = ", ".join(card.relevant_files[:8]) or "(none)"
     tests = "; ".join(card.test_commands[:4]) or "(none)"
     pitfalls = "; ".join(card.env_pitfalls[:4]) or "(none)"
@@ -70,12 +84,17 @@ def render_card(card: MemoryCard, *, limit: int = RENDER_LIMIT) -> str:
     for dep in card.dependencies[:6]:
         symbols = ",".join(dep.symbols[:4])
         deps.append(dep.path + (f"[{symbols}]" if symbols else ""))
-    body = "\n".join(
+    lines = [
+        header,
+        f"repo: {card.repo} @ {card.version[:12]}",
+        f"source: {card.source_id}",
+    ]
+    if card.verification_status != "failed_attempt":
+        lines.append(f"approach: {card.fix_approach[:400]}")
+    elif card.failure_notes:
+        lines.append(f"failure: {card.failure_notes[0][:240]}")
+    lines.extend(
         (
-            header,
-            f"repo: {card.repo} @ {card.version[:12]}",
-            f"source: {card.source_id}",
-            f"approach: {card.fix_approach[:400]}",
             f"files: {files}",
             f"tests: {tests[:300]}",
             f"pitfalls: {pitfalls[:240]}",
@@ -83,6 +102,7 @@ def render_card(card: MemoryCard, *, limit: int = RENDER_LIMIT) -> str:
             f"deps: {', '.join(deps) or '(none)'}",
         )
     )
+    body = "\n".join(lines)
     encoded = body.encode("utf-8")
     if len(encoded) <= limit:
         return body
@@ -91,7 +111,7 @@ def render_card(card: MemoryCard, *, limit: int = RENDER_LIMIT) -> str:
 
 def raw_trajectory_text(card: MemoryCard) -> str:
     """B1 payload: truncated public trajectory, same shape as the old view."""
-    return json.dumps(
+    body = json.dumps(
         {
             "historical_issue": card.issue_summary[:500],
             "public_observations": [item[:240] for item in card.observations[:8]],
@@ -103,6 +123,7 @@ def raw_trajectory_text(card: MemoryCard) -> str:
         sort_keys=True,
         separators=(",", ":"),
     )
+    return status_header(card) + "\n" + body
 
 
 def _card_from_row(row: dict, status: str) -> MemoryCard:

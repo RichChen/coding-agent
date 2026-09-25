@@ -7,6 +7,7 @@ from reposkill_agent.memory.cards import (
     RENDER_LIMIT,
     build_memory_cards,
     load_memory_cards,
+    raw_trajectory_text,
     render_card,
     write_memory_cards,
 )
@@ -143,3 +144,30 @@ def test_real_cards_exclude_pilot_targets_and_gold():
                 if len(snippet) < 80:
                     continue
                 assert snippet not in blob, target
+
+
+def test_failed_attempt_render_omits_approach():
+    approach = "UNIQUE_APPROACH_SENTENCE changed the wrong helper."
+    failed = MemoryCard(
+        repo="demo/demo",
+        version="abc123def456",
+        source_id="demo-9",
+        issue_summary="The widget breaks.",
+        relevant_files=("pkg/a.py",),
+        test_commands=("python -m pytest tests/test_a.py",),
+        fix_approach=approach,
+        verification_status="failed_attempt",
+        failure_notes=("The edit landed in the wrong function.",),
+    )
+    text = render_card(failed)
+    assert "没有通过测试的尝试" in text
+    assert approach not in text
+    assert "wrong function" in text
+    assert "files: pkg/a.py" in text
+    raw = raw_trajectory_text(failed)
+    assert raw.startswith("[historical attempt")
+    assert "没有通过测试的尝试" in raw
+    unverified = failed.model_copy(update={"verification_status": "unverified"})
+    unverified_text = render_card(unverified)
+    assert "未验证" in unverified_text
+    assert approach in unverified_text

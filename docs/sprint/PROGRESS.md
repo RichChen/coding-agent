@@ -119,3 +119,12 @@
 - 按这个规则重算旧 11 条，真正跑过测试的只剩 django-10914 和 django-11039。`tests/test_memory_cards_v3.py` 的下限改成 2。v3 快照文件本步不重写。
 - 测试：`python -m pytest -q tests/test_event_extract.py tests/test_memory_cards_v3.py tests/test_legacy_env.py tests/test_memory_cards.py`，18 passed。
 - 下一步：第 3 步，失败尝试不再渲染 approach。
+
+## 第三轮 第 3 步：按验证状态渲染（2026-09-25）
+
+- `validated_fix` 仍完整渲染 approach、files、tests、pitfalls。
+- `failed_attempt` 不渲染 approach。头部写明这是一次没有通过测试的尝试，只供定位参考。有 `failure_notes` 时写一句失败原因。
+- `unverified` 仍渲染 approach，头部标明未验证。
+- B1 的原文前面加上同一条状态头部。
+- 测试：`python -m pytest -q tests/test_memory_cards.py tests/test_memory_card_plugin.py tests/test_memory_cards_v3.py`，12 passed。
+- 下一步：第 4 步，用 sprint2-b0 先做 interim v4。
