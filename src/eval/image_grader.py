@@ -7,6 +7,7 @@ import time
 from pathlib import Path
 
 from src.execution.base import ExecutionRequest, OutputQuotas
+from src.execution.baseline_image_backend import is_export_skipped
 from src.execution.docker import DockerExecutionBackend
 
 APPLY = r'''
@@ -68,6 +69,23 @@ def score_receipt(receipt: dict | None, f2p: list[str], p2p: list[str]) -> dict:
     }
 
 
+def receipt_diagnostics(receipt: dict | None) -> dict:
+    """Host-only grader notes. These must not be copied into the agent prompt."""
+    errors = []
+    for item in (receipt or {}).get("collection_errors") or []:
+        text = item if isinstance(item, str) else json.dumps(item, default=str)
+        errors.append(text[:2048])
+        if len(errors) >= 20:
+            break
+    collected = (receipt or {}).get("collected") or []
+    return {
+        "collected_count": len(collected) if isinstance(collected, list) else 0,
+        "collection_errors": errors,
+        "runner_error": (receipt or {}).get("runner_error"),
+        "exit_code": (receipt or {}).get("exit_code"),
+    }
+
+
 class ImageGrader:
     def __init__(self, *, context: str = "desktop-linux"):
         self.context = context
@@ -84,8 +102,12 @@ class ImageGrader:
             await backend.start({})
             await prepare_repo_runtime(backend)
             payload = {
-                "deleted": list((delta or {}).get("deleted") or []),
-                "changed": dict((delta or {}).get("changed") or {}),
+                "deleted": [name for name in ((delta or {}).get("deleted") or []) if not is_export_skipped(name)],
+                "changed": {
+                    name: encoded
+                    for name, encoded in ((delta or {}).get("changed") or {}).items()
+                    if not is_export_skipped(name)
+                },
                 "overlay": test_overlay or {},
             }
             await backend._ok(
@@ -111,6 +133,7 @@ class ImageGrader:
             )
             execution = await backend.execute(request)
             result["execution_status"] = execution.status.value
+            result["execution_stderr_tail"] = (execution.stderr.text_preview or "")[-4096:]
             raw = await backend._ok(
                 "exec", backend.name, "/usr/local/bin/python", "-I", "-S", "-c",
                 "from pathlib import Path; import sys; p=Path('/tmp/a5-pytest-receipt.json'); sys.stdout.buffer.write(p.read_bytes())",
@@ -118,6 +141,7 @@ class ImageGrader:
             )
             receipt = json.loads(raw)
             result.update(score_receipt(receipt, f2p, p2p))
+            result.update(receipt_diagnostics(receipt))
             result["receipt_complete"] = receipt.get("complete")
         except Exception as exc:
             result["reason"] = type(exc).__name__ + ": " + str(exc)[:500]

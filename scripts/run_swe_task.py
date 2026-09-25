@@ -455,6 +455,7 @@ async def run_task(task: dict, profile: Path, output: Path, *, mock: bool) -> di
         "cost_cny": str(ledger.cost_committed - before),
         "stop_reason": stats["stop_reason"],
         "snapshot_error": snapshot_error,
+        "export_skipped_files": getattr(backend, "export_skipped_files", None),
         "git": {
             "coding-harness": git_state(ROOT),
             "coding-agent": git_state(ROOT.parent / "coding-agent"),

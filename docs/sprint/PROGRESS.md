@@ -135,3 +135,23 @@
 `src/llm/client.py` 只接受 `thinking: disabled`。打开 thinking 会直接报错，因为没有把 reasoning 内容带回下一轮。没有为了对照去改这条链路，也没有花这 4–6 元。默认值保持关闭。
 
 下一步：审计节点，见 `docs/sprint/CHECKPOINT-2.md`。
+
+## 第三轮 第 1 步：sklearn 重打分
+
+日期：2026-09-25。花费：0 CNY。
+
+更正 CHECKPOINT-2 里「`.so` 进了 delta」的说法，也不采用计划书第 0 节「delta 里没有 `.so`」的判断。三份 `candidate-delta.json` 的 `changed` 确实各只有一个 `.py`（`ridge.py`、`validation.py`、`mixture/base.py`），但 `deleted` 里各有约 40 个 `.so`。原因是运行前把镜像里的扩展模块换成了指向 `/opt/repo` 的符号链接，导出时符号链接被跳过，原文件就被记成删除。评分器应用这份删除列表后，`sklearn.__check_build._check_build` 导入失败，收据 `collected_count=0`、`exit_code=4`，用例全部 missing。空 delta 对照可以收集测试并跑过 P2P，所以不是镜像本身坏了。只应用那个 `.py`、不删 `.so` 时，10297 的失败用例能通过。
+
+修复：导出和评分应用都跳过 `*.so`、`*.pyd`、`*.o`、`*.dylib` 和 `build/`，源码文件不跳过。summary 增加 `export_skipped_files`。`ImageGrader` 把 `collection_errors`、`runner_error`、`exit_code` 和 stderr 末尾 4KB 写入宿主机的 grader 结果。
+
+按修好后的规则重打分（不覆盖原来的 `grader-result.json`）：
+
+| 题 | 结果 | F2P | P2P |
+| --- | --- | --- | --- |
+| sklearn-10297 | 解出 | 1/1 | 28/28 |
+| sklearn-10949 | 模型失败 | 0/1 | 42/42 |
+| sklearn-11281 | 解出 | 2/2 | 43/43 |
+
+10949 的失败用例是 `test_check_dataframe_warns_on_dtype`，收集阶段没有报错。这三题的 gold 校准重做后都仍然通过（空 delta 的 F2P 为 0，gold 的 F2P 和保留的 P2P 全部通过）。
+
+下一步：第 2 步，查 sympy-11870 为什么在 `step_deadline` 时没有导出。

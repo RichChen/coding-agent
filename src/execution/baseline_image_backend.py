@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+from pathlib import PurePosixPath
 
 from src.execution.docker import DockerExecutionBackend
 
@@ -33,26 +34,44 @@ if archive.exists():
 pathlib.Path("/tmp/a5-native-links.json").write_text(json.dumps(linked))
 '''
 
+_SKIP_DIRS = frozenset({"__pycache__", ".pytest_cache", "build"})
+_SKIP_SUFFIXES = (".pyc", ".pyo", ".so", ".pyd", ".o", ".dylib")
+_SKIP_NAMES = frozenset({".coverage"})
+
+
+def is_export_skipped(relative: str) -> bool:
+    """Compiled artifacts and caches stay out of the delta. Source files do not."""
+    parts = PurePosixPath(relative).parts
+    name = parts[-1] if parts else relative
+    if any(part in _SKIP_DIRS or part.endswith(".egg-info") for part in parts):
+        return True
+    return name.endswith(_SKIP_SUFFIXES) or name in _SKIP_NAMES or name.endswith(".egg-info")
+
+
 EXPORT_DELTA = r'''
 import base64, json, pathlib, sys
 root = pathlib.Path("/opt/repo")
 work = pathlib.Path("/workspace")
-skip_dirs = {"__pycache__", ".pytest_cache"}
+skip_dirs = {"__pycache__", ".pytest_cache", "build"}
 skip_names = {".coverage"}
+skip_suffixes = (".pyc", ".pyo", ".so", ".pyd", ".o", ".dylib")
 
 def skipped(rel):
     if any(part in skip_dirs or part.endswith(".egg-info") for part in rel.parts):
         return True
-    return rel.name.endswith((".pyc", ".pyo")) or rel.name in skip_names or rel.name.endswith(".egg-info")
+    return rel.name.endswith(skip_suffixes) or rel.name in skip_names or rel.name.endswith(".egg-info")
 
 changed = {}
 seen = set()
+skipped_files = set()
 total = 0
 for path in work.rglob("*"):
-    if path.is_symlink() or not path.is_file():
+    if not path.is_file() and not path.is_symlink():
         continue
     rel = path.relative_to(work)
-    if skipped(rel):
+    if path.is_symlink() or skipped(rel):
+        if skipped(rel) or path.suffix in skip_suffixes:
+            skipped_files.add(rel.as_posix())
         continue
     key = rel.as_posix()
     seen.add(key)
@@ -67,15 +86,16 @@ for path in root.rglob("*"):
     if path.is_symlink() or not path.is_file():
         continue
     rel = path.relative_to(root)
-    if skipped(rel):
-        continue
     key = rel.as_posix()
+    if skipped(rel):
+        skipped_files.add(key)
+        continue
     if key not in seen:
         deleted.append(key)
 if len(changed) + len(deleted) > 200 or total > 4 * 1024 * 1024:
     sys.stderr.write("delta_too_large\n")
     raise SystemExit(2)
-json.dump({"changed": changed, "deleted": sorted(deleted)}, sys.stdout)
+json.dump({"changed": changed, "deleted": sorted(deleted), "skipped_files": len(skipped_files)}, sys.stdout)
 '''
 
 
@@ -84,6 +104,7 @@ class BaselineImageBackend(DockerExecutionBackend):
         super().__init__(**kwargs)
         self.candidate_delta = None
         self.snapshot_error = None
+        self.export_skipped_files = None
 
     @property
     def capabilities(self):
@@ -116,6 +137,7 @@ class BaselineImageBackend(DockerExecutionBackend):
         if count > DELTA_FILE_LIMIT:
             raise ValueError("delta_too_large")
         self.candidate_delta = delta
+        self.export_skipped_files = int(delta.get("skipped_files") or 0)
         return delta
 
     async def close(self, *, snapshot=False):

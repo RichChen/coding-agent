@@ -1,4 +1,4 @@
-from src.eval.image_grader import score_receipt, touched_kinds
+from src.eval.image_grader import receipt_diagnostics, score_receipt, touched_kinds
 
 
 def _receipt(nodes):
@@ -20,6 +20,20 @@ def test_score_uses_receipt_nodeids_not_a_count():
 def test_score_solved_when_f2p_and_p2p_pass():
     scored = score_receipt(_receipt([("a.py::t", "passed"), ("b.py::t", "passed")]), ["a.py::t"], ["b.py::t"])
     assert scored["solved"] is True
+
+
+def test_receipt_diagnostics_truncates_errors():
+    diag = receipt_diagnostics({
+        "collected": ["a", "b"],
+        "collection_errors": [{"detail": "x" * 3000}] + [{"detail": str(i)} for i in range(25)],
+        "runner_error": "boom",
+        "exit_code": 1,
+    })
+    assert diag["collected_count"] == 2
+    assert len(diag["collection_errors"]) == 20
+    assert len(diag["collection_errors"][0]) == 2048
+    assert diag["runner_error"] == "boom"
+    assert diag["exit_code"] == 1
 
 
 def test_touched_files_are_recorded():
