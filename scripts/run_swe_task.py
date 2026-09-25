@@ -242,7 +242,8 @@ def apply_delta(base: dict[str, bytes], delta: dict | None) -> dict[str, bytes]:
     for name in delta.get("deleted") or []:
         candidate.pop(name, None)
     for name, change in (delta.get("changed") or {}).items():
-        candidate[name] = base64.b64decode(change["content"])
+        encoded = change["content"] if isinstance(change, dict) else change
+        candidate[name] = base64.b64decode(encoded)
     return candidate
 
 
@@ -274,7 +275,7 @@ def _event_tool_name(event: dict) -> str:
     return str(payload.get("name") or payload.get("tool") or "")
 
 
-def summarize_events(events: list[dict], result_plain: dict | None, run_error: str | None) -> dict:
+def summarize_events(events: list[dict], result_plain: dict | None, run_error: str | None, artifacts_dir: Path | None = None) -> dict:
     """Count tool.intent events. Edit round is the model.started count before the first edit."""
     tool_calls = 0
     model_rounds = 0
@@ -294,25 +295,47 @@ def summarize_events(events: list[dict], result_plain: dict | None, run_error: s
         "tool_calls": tool_calls,
         "first_edit_step": first_edit,
         "saw_edit": saw_edit,
-        "stop_reason": _stop_reason(events, result_plain or {}, run_error),
+        "stop_reason": _stop_reason(events, result_plain or {}, run_error, artifacts_dir),
     }
 
 
-def _stop_reason(events: list[dict], result_plain: dict, run_error: str | None) -> str:
+def _named_reason(payload: dict | None) -> str | None:
+    if not payload:
+        return None
+    for key in ("termination_kind", "failure_reason", "stop_reason"):
+        value = payload.get(key)
+        if value and str(value).lower() not in {"none", "null"}:
+            return str(value)
+    if payload.get("success") is True:
+        return "completed"
+    return None
+
+
+def _deref_finished(payload: dict, artifacts_dir: Path | None) -> dict:
+    if set(payload) != {"artifact_ref"} or artifacts_dir is None:
+        return payload
+    ref = payload["artifact_ref"]
+    name = ref if isinstance(ref, str) else ref.get("sha256") or ref.get("path")
+    path = Path(artifacts_dir) / str(name)
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def _stop_reason(events: list[dict], result_plain: dict, run_error: str | None, artifacts_dir: Path | None = None) -> str:
     if run_error:
         return run_error
+    from_result = _named_reason(result_plain)
+    if from_result:
+        return from_result
     finished = None
     for event in events:
         if event.get("event_type") == "run.finished":
             finished = event.get("payload") or {}
-    source = finished if finished is not None else result_plain
-    reason = source.get("failure_reason") or source.get("stop_reason")
-    if reason and str(reason).lower() not in {"none", "null"}:
-        return str(reason)
-    if source:
-        raw = {key: source.get(key) for key in ("failure_reason", "stop_reason", "success", "termination_kind")}
-        return "unknown: " + json.dumps(raw, default=str)
-    return "unknown"
+    if isinstance(finished, dict):
+        try:
+            finished = _deref_finished(finished, artifacts_dir)
+        except (OSError, json.JSONDecodeError, TypeError):
+            finished = None
+    return _named_reason(finished) or "unknown"
 
 
 def delta_changes(delta: dict | None) -> list[str]:
@@ -436,7 +459,7 @@ async def run_task(task: dict, profile: Path, output: Path, *, mock: bool) -> di
         events = [json.loads(line) for line in events_path.read_text(encoding="utf-8").splitlines() if line.strip()]
     result_plain = plain(result) if result else {}
     attempts = result_plain.get("llm_attempts") or []
-    stats = summarize_events(events, result_plain, run_error)
+    stats = summarize_events(events, result_plain, run_error, output / "session" / "artifacts")
     changed = delta_changes(delta) or list(evaluation.get("changed_paths") or [])
     lost = delta_lost(stats, delta)
     if lost:
@@ -522,40 +545,58 @@ def _memory_task(source_id: str, manifest: dict) -> dict | None:
 
 
 async def verify_memory(manifest: dict, destination: Path) -> list[dict]:
+    """Score memory sources with ImageGrader. Uncalibrated baselines are not scored."""
+    from scripts.sprint2_calibrate import candidates, spec_ids
+    from scripts.sprint2_verify_memory import as_delta
+
     snapshot = ROOT / "docs/upgrade/evidence/A5-real240-77-harness-preflight/memory-snapshot.jsonl"
+    calibrated = {}
+    results_path = ROOT / "runs/sprint2-calibrate/results.jsonl"
+    if results_path.is_file():
+        for line in results_path.read_text(encoding="utf-8").splitlines():
+            if line.strip():
+                row = json.loads(line)
+                calibrated[row["id"]] = row
+    trees = candidates()
     rows = []
     for line in snapshot.read_text(encoding="utf-8").splitlines():
         if not line.strip():
             continue
         record = json.loads(line)
         source_id = record["source_id"]
-        task = _memory_task(source_id, manifest)
+        task_dir = trees.get(source_id)
+        calibration = calibrated.get(source_id)
+        if task_dir is None or calibration is None or not calibration.get("accepted"):
+            reason = "gold_fails_calibration" if calibration and not calibration.get("accepted") else "no_calibrated_baseline"
+            rows.append({"source_id": source_id, "status": "grader_unavailable", "reason": reason, "f2p_passed": 0, "f2p_total": 0, "p2p_passed": 0, "p2p_total": 0, "calibrated": False})
+            print(json.dumps(rows[-1]), flush=True)
+            continue
         delta_path = Path(record["source_dir"]) / "candidate-delta.json"
-        if task is None or not delta_path.is_file():
-            rows.append({"source_id": source_id, "status": "grader_unavailable", "f2p_passed": 0, "f2p_total": 0, "p2p_passed": 0, "p2p_total": 0})
-            continue
-        base = read_tree(ROOT / task["original"])
-        if len(base) > MAX_FILES:
-            rows.append({"source_id": source_id, "status": "grader_unavailable", "reason": "file_cap", "f2p_passed": 0, "f2p_total": 0, "p2p_passed": 0, "p2p_total": 0})
+        receipt, family, f2p, p2p, overlay = spec_ids(task_dir)
+        p2p = [node for node in p2p if node not in set(calibration.get("p2p_excluded") or [])]
+        if not delta_path.is_file():
+            rows.append({"source_id": source_id, "status": "grader_unavailable", "reason": "candidate delta missing", "f2p_passed": 0, "f2p_total": len(f2p), "p2p_passed": 0, "p2p_total": len(p2p), "calibrated": True})
             print(json.dumps(rows[-1]), flush=True)
             continue
-        try:
-            spec = grader_spec(task, base)
-            delta = load_json(delta_path)
-            evaluation = await _NodeidGrader(spec.expected_nodeids).evaluate(base, apply_delta(base, delta), spec)
-        except ValueError as exc:
-            rows.append({"source_id": source_id, "status": "grader_unavailable", "reason": str(exc)[:200], "f2p_passed": 0, "f2p_total": 0, "p2p_passed": 0, "p2p_total": 0})
-            print(json.dumps(rows[-1]), flush=True)
-            continue
-        counts = _score_cases(evaluation, spec)
-        status = evaluation.get("status")
-        if status == "pass" and solved(evaluation):
-            label = "pass"
-        elif status in ("partial", "fail"):
-            label = status
-        else:
+        result = await ImageGrader().evaluate(
+            image=receipt["baseline_image_digest"],
+            delta=as_delta(json.loads(delta_path.read_text(encoding="utf-8"))),
+            test_overlay=overlay, f2p=f2p, p2p=p2p, django=family == "django", sympy=False, timeout=600,
+        )
+        if result.get("reason") and not result.get("f2p_total"):
             label = "grader_unavailable"
-        rows.append({"source_id": source_id, "status": label, **counts})
+        elif result.get("solved"):
+            label = "pass"
+        elif result.get("f2p_passed"):
+            label = "partial"
+        else:
+            label = "fail"
+        rows.append({
+            "source_id": source_id, "status": label,
+            "f2p_passed": result.get("f2p_passed") or 0, "f2p_total": result.get("f2p_total") or 0,
+            "p2p_passed": result.get("p2p_passed") or 0, "p2p_total": result.get("p2p_total") or 0,
+            "reason": result.get("reason"), "calibrated": True,
+        })
         print(json.dumps(rows[-1]), flush=True)
     destination.parent.mkdir(parents=True, exist_ok=True)
     destination.write_text(json.dumps(rows, indent=2) + "\n", encoding="utf-8")

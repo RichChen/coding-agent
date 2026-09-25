@@ -1,4 +1,7 @@
-from scripts.run_swe_task import HOLDOUT, delta_lost, select_tasks, solved, summarize_events
+import base64
+import json
+
+from scripts.run_swe_task import HOLDOUT, apply_delta, delta_lost, select_tasks, solved, summarize_events
 
 
 def test_holdout_is_refused():
@@ -28,6 +31,24 @@ def test_summary_counts_tool_intent_and_edit_round():
     stats = summarize_events(events, {}, None)
     assert stats["tool_calls"] == 2
     assert stats["first_edit_step"] == 2
-    assert stats["stop_reason"].startswith("unknown:")
+    assert stats["stop_reason"] == "completed"
     assert delta_lost(stats, None) is True
     assert delta_lost(stats, {"changed": {"changelog/x.rst": {}}}) is False
+
+
+def test_stop_reason_reads_result_then_artifact(tmp_path):
+    payload = {"termination_kind": "step_deadline", "failure_reason": "step_deadline", "success": False}
+    digest = "ab" * 32
+    (tmp_path / digest).write_text(json.dumps(payload), encoding="utf-8")
+    events = [{"event_type": "run.finished", "payload": {"artifact_ref": digest}}]
+    assert summarize_events(events, {}, None, tmp_path)["stop_reason"] == "step_deadline"
+    assert summarize_events(events, {"termination_kind": "budget_exhausted"}, None, tmp_path)["stop_reason"] == "budget_exhausted"
+
+
+def test_apply_delta_accepts_both_content_shapes():
+    raw = base64.b64encode(b"print(1)\n").decode("ascii")
+    base = {"a.py": b"old"}
+    wrapped = apply_delta(base, {"changed": {"a.py": {"content": raw}}, "deleted": []})
+    direct = apply_delta(base, {"changed": {"a.py": raw}, "deleted": []})
+    assert wrapped["a.py"] == b"print(1)\n"
+    assert direct["a.py"] == b"print(1)\n"

@@ -169,3 +169,13 @@ mock 检查：`sleep 200` 在约 120 秒后返回超时文本，模型调用了 
 11870 事件重放改了 `sympy/simplify/fu.py` 和 `sympy/simplify/trigsimp.py`。镜像评分 F2P 0/1，P2P 58/58，没有解出。缺的是导出，不是没改代码。
 
 下一步：第 3 步，修正 `stop_reason`，并让 `verify_memory` 走 `ImageGrader`。
+
+## 第三轮 第 3 步：stop_reason 和记忆源验证
+
+日期：2026-09-25。花费：0 CNY。
+
+`_stop_reason` 先读内存里的 `termination_kind` 和 `failure_reason`。`run.finished` 如果只剩 `artifact_ref`，就到 `session/artifacts/` 把正文读出来。成功结束且没有失败原因时记为 `completed`，不再把 `unknown` 当成真实停止原因。`apply_delta` 同时接受 `{content: ...}` 和裸 base64 字符串。
+
+`verify_memory` 改为 `ImageGrader`，只给 gold 校准通过的记忆源打分。pytest-5221 的 gold F2P 是 0/2，记为 `grader_unavailable`，原因 `gold_fails_calibration`。`docs/sprint/memory-source-verification.json` 已按这次结果更新：5 条 pass（django 10914、10924、11039，sklearn 10297、11281），5 条 fail（sympy 11400、12171，pytest 5103，sklearn 10949、11040）。
+
+下一步：第 4 步，把 sklearn 10508 和 11040 加入 dev 集，mock 跑完 14 题后打 tag `b0-v1`。
