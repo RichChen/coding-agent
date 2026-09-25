@@ -278,3 +278,11 @@ clean image 从 original `source.tar.gz` 构建，不放入 test patch 或 gold 
 日期：2026-09-25。
 
 预计花费：16 CNY。依据是第三轮 42 次实际 16.173 CNY。单次上限 1 CNY。本轮累计上限 20 CNY，开跑前若已用到 19 CNY 就停。
+
+实际花费：14.712 CNY。42 次都低于 1 CNY。隔离检查 42 次都通过。解出 17/42。表在 `docs/sprint/B0-V2-RESULTS.md`。sklearn-11281 r2 的 `stop_reason` 是 `StoreError`，记录到的模型调用是 0，但账本记了 0.668 CNY。没有因为隔离失败停波。
+
+## 第四轮 R4-5：交接
+
+日期：2026-09-25。花费：0 CNY。
+
+新交接文件 `docs/sprint/memory-source-runs.json`，`profile_tag` 是 `b0-v2`。sha256 `89c33557b611fdb0578c050b54952a7c8a5b062e115db097f619b456ae84d073`。20 道 pilot 没有重建 clean image。审计节点是 `docs/sprint/CHECKPOINT-4.md`。
