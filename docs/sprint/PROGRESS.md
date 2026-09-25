@@ -154,3 +154,8 @@
 - 看完表没有改规则。表在 `docs/sprint/PILOT-SELECTION-V4.md`。
 - 没有调模型。
 - 下一步：第 7 步，写 CHECKPOINT-3，然后停下。
+
+## 第三轮 第 7 步：CHECKPOINT-3（2026-09-25）
+
+- 已写 `docs/sprint/CHECKPOINT-3.md`。v4 是 interim，14 张卡。`memory-source-runs.json` 仍不存在，sha256 为 null，没有建成 final。
+- 花费 0。停下等审计。交接文件出现后再重建 final。
