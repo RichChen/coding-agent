@@ -389,7 +389,37 @@ def select_tasks(manifest: dict, requested: list[str]) -> list[dict]:
     return tasks
 
 
-async def run_task(task: dict, profile: Path, output: Path, *, mock: bool) -> dict:
+def leave_one_out(cards, task_id: str):
+    """Drop cards mined from the task being solved. Those cards are the answer."""
+    kept, dropped = [], []
+    for card in cards:
+        if getattr(card, "source_id", None) == task_id:
+            dropped.append(card.source_id)
+        else:
+            kept.append(card)
+    return tuple(kept), dropped
+
+
+def memory_summary(variant: str, cards_path: Path, dropped: list[str], decision: dict) -> dict:
+    items = []
+    for event in decision.get("events") or []:
+        items.extend(event.get("items") or [])
+    return {
+        "variant": variant,
+        "cards_sha256": hashlib.sha256(cards_path.read_bytes()).hexdigest(),
+        "filtered_card_ids": dropped,
+        "injected": [
+            {"id": item["source_id"], "bytes": item["bytes"]}
+            for item in items if item.get("status") == "selected"
+        ],
+        "rejected": [
+            {"id": item["source_id"], "reason": item.get("reason")}
+            for item in items if item.get("status") == "rejected_invalid"
+        ],
+    }
+
+
+async def run_task(task: dict, profile: Path, output: Path, *, mock: bool, variant: str = "B0", cards_path: Path | None = None) -> dict:
     if task["id"] in HOLDOUT:
         raise SystemExit("hold-out task refused: " + task["id"])
     output.mkdir(parents=True, exist_ok=True)
@@ -410,7 +440,34 @@ async def run_task(task: dict, profile: Path, output: Path, *, mock: bool) -> di
     if mock:
         config["llm"]["api_key"] = config["llm"]["api_key"] or "mock"
     prompt = public_issue(task)
-    agent = build_agent(config, workspace, execution_backend=backend)
+    memory = None
+    registry = None
+    if cards_path is not None:
+        from src.policy.registry import PolicyPluginRegistry
+        from src.policy.reposkill import load_adapter, register_memory_cards, source_digest
+
+        agent_root = ROOT.parent / "coding-agent"
+        digest = source_digest(agent_root)
+        load_adapter(agent_root, digest)
+        from reposkill_agent.memory.card_plugin import MemoryCardPlugin
+        from reposkill_agent.memory.cards import load_memory_cards
+        loaded = load_memory_cards(cards_path)
+        cards, dropped = leave_one_out(loaded, task["id"])
+        public = load_json(Path(task["public_task"]))
+        target = ROOT / task["original"]
+        registry = PolicyPluginRegistry()
+        register_memory_cards(
+            registry, source_root=agent_root, approved_sha256=digest,
+            variant=variant, cards=cards, repo=task["repo"], issue=public.get("issue_text") or "",
+            target_root=target,
+        )
+        config["runtime"]["context"]["plugin"] = "memory-cards"
+        preview = MemoryCardPlugin(
+            variant=variant, cards=cards, repo=task["repo"], issue=public.get("issue_text") or "",
+            target_root=target,
+        )
+        memory = memory_summary(variant, cards_path, dropped, await preview.decide({}))
+    agent = build_agent(config, workspace, execution_backend=backend, plugin_registry=registry)
     if mock:
         agent.llm = _MockLLM()
     ledger = make_ledger(output / "cny-ledger.json")
@@ -466,7 +523,7 @@ async def run_task(task: dict, profile: Path, output: Path, *, mock: bool) -> di
         print(f"DELTA_LOST {task['id']}: edit tools ran but the collected delta is empty. snapshot_error={snapshot_error}", flush=True)
     summary = {
         "task_id": task["id"],
-        "variant": "B0",
+        "variant": variant,
         "solved": False if lost else bool(evaluation.get("solved")),
         "status": "delta_lost" if lost else evaluation.get("status"),
         "grader_status": evaluation.get("status"),
@@ -479,6 +536,7 @@ async def run_task(task: dict, profile: Path, output: Path, *, mock: bool) -> di
         "stop_reason": stats["stop_reason"],
         "snapshot_error": snapshot_error,
         "export_skipped_files": getattr(backend, "export_skipped_files", None),
+        "memory": memory,
         "git": {
             "coding-harness": git_state(ROOT),
             "coding-agent": git_state(ROOT.parent / "coding-agent"),
@@ -608,13 +666,14 @@ def main():
     parser.add_argument("--tasks", default="configs/sprint/dev-tasks.yaml")
     parser.add_argument("--task", action="append", default=[])
     parser.add_argument("--profile", default="configs/sprint/b0.yaml")
-    parser.add_argument("--variant", default="B0")
+    parser.add_argument("--variant", default="B0", choices=["B0", "B1", "B2", "B3"])
+    parser.add_argument("--cards", default=None)
     parser.add_argument("--output", default="runs/sprint")
     parser.add_argument("--mock", action="store_true", help="zero-model finish, still grades in Docker")
     parser.add_argument("--verify-memory", action="store_true")
     args = parser.parse_args()
-    if args.variant != "B0":
-        raise SystemExit("only B0 is supported in this sprint")
+    if args.variant != "B0" and not args.cards:
+        raise SystemExit("B1/B2/B3 require --cards")
     manifest = load_yaml(ROOT / args.tasks)
     if args.verify_memory:
         asyncio.run(verify_memory(manifest, ROOT / "docs/sprint/memory-source-verification.json"))
@@ -627,7 +686,13 @@ def main():
     async def _go():
         summaries = []
         for task in selected:
-            summaries.append(await run_task(task, ROOT / args.profile, out_root / task["id"], mock=args.mock))
+            cards = Path(args.cards) if args.cards else None
+            if cards is not None and not cards.is_absolute():
+                cards = ROOT / cards
+            summaries.append(await run_task(
+                task, ROOT / args.profile, out_root / task["id"],
+                mock=args.mock, variant=args.variant, cards_path=cards,
+            ))
         print(json.dumps(summaries, indent=2))
 
     asyncio.run(_go())

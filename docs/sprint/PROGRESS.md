@@ -222,3 +222,15 @@ dev 集加入 sklearn-10508 和 sklearn-11040，共 14 题。两题的 gold 校�
 清单在 `configs/sprint/pilot-tasks.yaml`。
 
 下一步：第 7 步，接入记忆卡片，并用 mock 跑通一条链路。
+
+## 第三轮 第 7 步：记忆卡片接入
+
+日期：2026-09-25。花费：0 CNY。
+
+`register_memory_cards` 按 coding-agent 当前构造函数加载 `MemoryCardPlugin`。`run_swe_task.py` 接受 `--variant B0|B1|B2|B3` 和 `--cards`。传给插件之前会去掉 `source_id` 等于当前题的卡片。summary 的 `memory` 字段记下 variant、卡片 sha256、被过滤的 id、注入的 id 和字节数、B3 拒绝项。
+
+卡片文件用的是 `benchmarks/a5/memory-cards-v3.jsonl`。v4 manifest 的 `status` 仍是 `interim`，`build_inputs.memory_source_runs_sha256` 是空的，所以没有换成 v4。
+
+零模型测试：B0 不产生候选；B2 在 django-10914 上过滤掉它自己的卡，注入的是 10924（877 字节）和 11039（1362 字节），都低于 4096。mock 全链路一次，费用 0，`context.prepared` 里能看到这两张卡，看不到 10914。
+
+下一步：第 8 步要等 v4 manifest 变成 final。先写第 9 步的扩充说明，再复查一次。

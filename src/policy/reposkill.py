@@ -105,3 +105,25 @@ def register_public_memory(registry: PolicyPluginRegistry, *, source_root, appro
                       implementation_sha256=approved_sha256, public_config=config, factory=factory,
                       verify_source=lambda: source_digest(source_root))
     return adapter
+
+
+def register_memory_cards(registry: PolicyPluginRegistry, *, source_root, approved_sha256,
+                          variant, cards, repo, issue, target_root, max_bytes=4096, min_score=1.0):
+    """Bind coding-agent memory cards. The caller removes the current task's card first."""
+    load_adapter(source_root, approved_sha256)
+    from reposkill_agent.memory.card_plugin import MemoryCardPlugin
+    if variant not in {"B0", "B1", "B2", "B3"}:
+        raise PluginBindingError("invalid memory variant")
+    config = json_data(dict(variant=variant, repo=repo, card_count=len(cards), max_bytes=max_bytes))
+
+    def factory(data):
+        return MemoryCardPlugin(
+            variant=data["variant"], cards=tuple(cards), repo=repo, issue=issue,
+            target_root=Path(target_root), max_bytes=max_bytes, min_score=min_score,
+        )
+
+    registry.register(
+        "memory-cards", name="reposkill-memory-card", wire_version="0.1",
+        implementation_sha256=approved_sha256, public_config=config, factory=factory,
+        verify_source=lambda: source_digest(source_root),
+    )
