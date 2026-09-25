@@ -92,7 +92,7 @@ def test_real_v3_cards_stay_inside_budget_and_exclude_targets():
         assert text.startswith("[historical attempt")
         if card.test_commands != (NONE_RUN,):
             with_tests += 1
-    assert with_tests >= 7
+    assert with_tests >= 2
     targets = json.loads(TARGETS.read_text(encoding="utf-8"))["targets"]
     blob = "\n".join(render_card(card) for card in cards)
     assert {card.source_id for card in cards}.isdisjoint(targets)

@@ -111,3 +111,11 @@
 - 只读回归：`runs/sprint2-b0/django__django-11039` 提取出读取范围、测试命令和非空改动符号；`sympy__sympy-11400` 对上了 `_print_sinc`。仓库里只放了最小夹具，没有复制真实运行目录。
 - 测试：`python -m pytest -q tests/test_event_extract.py`，9 passed。
 - 下一步：第 2 步，丢掉只做 import 探测和 `py_compile` 的命令。
+
+## 第三轮 第 2 步：只保留真正的测试命令（2026-09-25）
+
+- `command_skip_reason`：`pytest`、`python -m pytest`、`runtests.py` 保留。只 import 或只打印 `__file__` / `__version__` / `sys.path` 的 `python -c` 记为 `command_probe`。`py_compile`、`python -m pip`、`pip list`、`which`、`ls`，以及只做 `ast.parse(open(...))` 的语法检查，记为 `command_not_a_test`。调用了仓库代码的 `python -c`（例如打印 `FILE_UPLOAD_PERMISSIONS`）保留。
+- 丢掉的片段写进 `skipped`，带原因类别。`cd` 这类无关片段不记。
+- 按这个规则重算旧 11 条，真正跑过测试的只剩 django-10914 和 django-11039。`tests/test_memory_cards_v3.py` 的下限改成 2。v3 快照文件本步不重写。
+- 测试：`python -m pytest -q tests/test_event_extract.py tests/test_memory_cards_v3.py tests/test_legacy_env.py tests/test_memory_cards.py`，18 passed。
+- 下一步：第 3 步，失败尝试不再渲染 approach。

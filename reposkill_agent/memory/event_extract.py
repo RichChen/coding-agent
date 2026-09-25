@@ -164,15 +164,85 @@ def _take_tool(payload, artifacts, reads, searches, edited, commands, edits, ski
             edits.append((path, search, replace))
     elif name == "run_command":
         command = re.sub(r"\s+", " ", str(arguments.get("command") or "")).strip()
-        if command and _keep_command(command) and command[:180] not in commands:
-            commands.append(command[:180])
+        if not command:
+            return
+        kept: list[str] = []
+        for part in _shell_parts(command):
+            reason = command_skip_reason(part)
+            if reason is None:
+                if part[:180] not in commands and part not in kept:
+                    kept.append(part[:180])
+            elif reason != "command_unrelated":
+                skipped.append(reason + ":" + part[:80])
+        commands.extend(kept)
+
+
+def _shell_parts(command: str) -> list[str]:
+    parts: list[str] = []
+    buf: list[str] = []
+    quote = ""
+    index = 0
+    while index < len(command):
+        char = command[index]
+        if quote:
+            buf.append(char)
+            if char == quote:
+                quote = ""
+            index += 1
+            continue
+        if char in "\"'":
+            quote = char
+            buf.append(char)
+            index += 1
+            continue
+        if command.startswith("&&", index) or char in {";", "|"}:
+            parts.append("".join(buf).strip())
+            buf = []
+            index += 2 if command.startswith("&&", index) else 1
+            continue
+        buf.append(char)
+        index += 1
+    if buf:
+        parts.append("".join(buf).strip())
+    return [part for part in parts if part]
+
+
+def command_skip_reason(command: str) -> str | None:
+    """None keeps a fragment that runs tests or calls repository code."""
+    lowered = command.lower()
+    if "runtests.py" in lowered:
+        return None
+    if re.search(r"\bpython\s+-c\b", lowered):
+        return _python_c_reason(command)
+    if re.search(r"\bpython\s+-m\s+pytest\b", lowered) or re.search(r"(^|[^\w])pytest([^\w]|$)", lowered):
+        return None
+    if re.search(r"\bpython\s+-m\s+(py_compile|pip)\b", lowered):
+        return "command_not_a_test"
+    if re.search(r"(^|[^\w])(pip\s+list|which|ls)([^\w]|$)", lowered):
+        return "command_not_a_test"
+    if re.search(r"\bpython\s+-m\b", lowered):
+        return "command_not_a_test"
+    return "command_unrelated"
+
+
+def _python_c_reason(command: str) -> str | None:
+    match = re.search(r"""\bpython\s+-c\s+(?:"([^"]*)"|'([^']*)'|(\S+))""", command, re.I)
+    code = next(group for group in match.groups() if group) if match else command
+    probe = re.sub(r"(?:^|;)\s*(?:import\s+[^;]+|from\s+\S+\s+import\s+[^;]+)", "", code)
+    probe = re.sub(r"print\s*\([^;]*(?:__file__|__version__|sys\.path)[^;]*\)", "", probe)
+    if re.search(r"[A-Za-z_]", probe) is None:
+        return "command_probe"
+    syntax = re.sub(r"ast\.parse\s*\([^;]*\)", "", probe)
+    syntax = re.sub(r"open\s*\([^;]*\)(?:\.read\s*\(\s*\))?", "", syntax)
+    syntax = re.sub(r"print\s*\(\s*['\"]OK['\"]\s*\)", "", syntax)
+    syntax = re.sub(r"(?:^|;)\s*import\s+ast", "", syntax)
+    if re.search(r"[A-Za-z_]", syntax) is None:
+        return "command_not_a_test"
+    return None
 
 
 def _keep_command(command: str) -> bool:
-    lowered = command.lower()
-    if "runtests.py" in lowered or "python -c" in lowered or "python -m" in lowered:
-        return True
-    return bool(re.search(r"(^|[^\w])pytest([^\w]|$)", lowered))
+    return command_skip_reason(command) is None
 
 
 def _take_assistant(payload, artifacts, assistant, skipped) -> None:

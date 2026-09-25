@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pytest
 
-from reposkill_agent.memory.event_extract import extract_source, locate_events
+from reposkill_agent.memory.event_extract import command_skip_reason, extract_source, locate_events
 
 SNAPSHOT = Path(
     "D:/crq/src/coding-harness/docs/upgrade/evidence/"
@@ -67,7 +67,7 @@ def test_extracts_commands_reads_and_artifact_diagnosis(tmp_path):
     assert extracted.reads[0].path == "pkg/a.py"
     assert extracted.reads[0].start == 10
     assert extracted.reads[0].end == 14
-    assert extracted.commands == ("cd /workspace && python -m pytest tests/test_a.py -q",)
+    assert extracted.commands == ("python -m pytest tests/test_a.py -q",)
     assert any("visit_Call" in name for name in extracted.changed_symbols)
     assert "caused by" in extracted.diagnosis
     assert extracted.final_answer
@@ -181,6 +181,14 @@ def test_bad_base64_is_recorded(tmp_path):
     )
     extracted = extract_source(tmp_path, "bad-b64", layout="sprint")
     assert any(item.startswith("delta_base64_decode_failed") for item in extracted.skipped)
+
+
+def test_command_filter_drops_probes_and_keeps_runtests():
+    assert command_skip_reason('python -c "import pytest; print(pytest.__version__, pytest.__file__)"') == "command_probe"
+    assert command_skip_reason('python -c "import sklearn; print(sklearn.__file__)"') == "command_probe"
+    assert command_skip_reason("python -m py_compile sklearn/utils/validation.py") == "command_not_a_test"
+    assert command_skip_reason("python tests/runtests.py test_utils.tests.OverrideSettingsTests.test_override_file_upload_permissions") is None
+    assert command_skip_reason('python -c "from django.conf import settings; print(settings.FILE_UPLOAD_PERMISSIONS)"') is None
 
 
 def test_ambiguous_layout_is_an_error(tmp_path):
