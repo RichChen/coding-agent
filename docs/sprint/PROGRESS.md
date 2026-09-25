@@ -138,3 +138,11 @@
 - 产出：`benchmarks/a5/memory-cards-v4.jsonl`、`memory-cards-v4.manifest.json`（status=interim，`memory_source_runs_sha256` 为 null）、`docs/sprint/MEMORY-PROTOCOL-V4.md`、`docs/sprint/V4-CARDS.md`。14 张卡。没有调模型。
 - 测试：`python -m pytest -q tests/test_memory_cards_v4.py tests/test_memory_cards.py tests/test_source_verification.py`，12 passed。
 - 下一步：第 5 步，对已有源题做 dev 留一法。
+
+## 第三轮 第 5 步：dev 留一法（2026-09-25）
+
+- 对已有的 14 张卡各做一次留一法。issue 用卡片里的公开问题，目标树只用 receipt 旁的 `staging/original`。
+- 14 道都选到了同仓库的其他卡，分数都高于 1.0。没有选错仓库，也没有空选。B3 拒绝来自符号不在该题原始树里。
+- 不调整检索规则，也不改 `min_score`。表在 `docs/sprint/DEV-LOO-SELECTION.md`。
+- 这一步是离线选择，没有相关单测要改。没有调模型。
+- 下一步：第 6 步，只报告 20 道 pilot 的离线选择，看完不改规则。
