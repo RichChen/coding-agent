@@ -203,3 +203,22 @@ dev 集加入 sklearn-10508 和 sklearn-11040，共 14 题。两题的 gold 校�
 解出 32/42。10 道题 3/3，2 道题 0/3（sympy-11870、sklearn-10949），2 道题混合（pytest-5103 1/3，sympy-12171 1/3）。表在 `docs/sprint/B0-V1-RESULTS.md`。抽查 django-10914 r1 和 sklearn-10297 r1，改的是源码和文档，不是测试。42 次的 `test_files_touched` 都是空的。交接文件是 `docs/sprint/memory-source-runs.json`。
 
 下一步：第 6 步，20 道 pilot 题零模型校准。
+
+## 第三轮 第 6 步：pilot 零模型校准
+
+日期：2026-09-25。花费：0 CNY。没有在 pilot 题上调用模型。`HOLDOUT` 没有改。
+
+`scripts/calibrate_pilot_image_grader.py` 对 20 道 pilot 做了空改动和 gold 打分。镜像来自 `A5-pilot-grader-readiness-20260923-07`，源码包来自 `A5-harness-preflight-12-host-sources`。没有重建镜像。私有 patch 只通过 source-row 路径读取，没有写进 yaml。`runs/` 下的临时树被 gitignore。coding-agent 的 private 文件在本仓库之外。
+
+没有一道被接受为「空改动失败、gold 通过」：
+
+| 结果 | 题 |
+| --- | --- |
+| 镜像里没有 `/opt/repo`，无法用当前 grader | pytest 9359、8365、7220 |
+| 已知合同阻塞，没有打分 | django-13265 |
+| 空改动已经通过 F2P | sklearn 25747、25500；sphinx 8595、8721；sympy 20442、20154、24152；django 13448、13590 |
+| gold 没有通过 | pytest 7432；sklearn 25570、25638；sphinx 8713、10451；sympy 18532；django 15781 |
+
+清单在 `configs/sprint/pilot-tasks.yaml`。
+
+下一步：第 7 步，接入记忆卡片，并用 mock 跑通一条链路。
