@@ -12,7 +12,8 @@ import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-from scripts.preflight_a5_repo_baseline import dependency_profile, image_build  # noqa: E402
+from scripts.preflight_a5_repo_baseline import image_build  # noqa: E402
+from scripts.swebench_specs import fetch_requirements, install_commands, spec_row  # noqa: E402
 from src.eval.a5_image_tree import archive_manifest  # noqa: E402
 
 OUT = ROOT / "docs" / "sprint" / "clean-images"
@@ -52,14 +53,13 @@ def build_one(task: dict) -> dict:
     context = work / "context"
     context.mkdir(parents=True)
     shutil.copy2(archive, context / "source.tar.gz")
-    profile = dependency_profile(family, version)
-    if family == "pytest-dev":
-        install = (profile + " && python -m pip install --no-cache-dir setuptools-scm==6.4.2 "
-            f"&& SETUPTOOLS_SCM_PRETEND_VERSION={version}.0 python -m pip install --no-cache-dir --no-build-isolation --no-deps -e /workspace")
-    elif family == "scikit-learn":
-        install = profile + " && python -m pip install --no-cache-dir --no-build-isolation --no-deps -e /workspace"
-    else:
-        install = profile + " && python -m pip install --no-cache-dir --no-deps -e /workspace"
+    row = spec_row(task["repo"], version)
+    install = " && ".join(install_commands(row))
+    if row.get("packages") == "requirements.txt":
+        (context / "swebench-requirements.txt").write_text(
+            fetch_requirements(task["repo"], receipt["base_revision"], version),
+            encoding="utf-8",
+        )
     native = ""
     if family == "scikit-learn":
         native = ("RUN sed -i 's|http://deb.debian.org/debian-security|https://snapshot.debian.org/archive/debian-security/20240901T000000Z|g;"
@@ -68,10 +68,13 @@ def build_one(task: dict) -> dict:
                   "dpkg-query -W > /opt/grader-system-packages.txt\n")
     files = sorted(path for path, meta in manifest["entries"].items() if meta.get("kind") == "file")
     (context / "original-files.json").write_text(json.dumps(files), encoding="utf-8")
+    requirements_copy = ""
+    if (context / "swebench-requirements.txt").is_file():
+        requirements_copy = "COPY swebench-requirements.txt /tmp/swebench-requirements.txt\n"
     dockerfile = (
         f"FROM {receipt['transport_image_digest']}\n" + native +
         "COPY original-files.json /tmp/original-files.json\n"
-        "COPY source.tar.gz /tmp/source.tar.gz\n"
+        "COPY source.tar.gz /tmp/source.tar.gz\n" + requirements_copy +
         "RUN /usr/local/bin/python - <<'PY'\n"
         "import pathlib, tarfile\n"
         "import shutil\n"
@@ -139,9 +142,9 @@ def build_one(task: dict) -> dict:
     return row
 
 
-def docker_python(digest: str, code: str, stdin: bytes = b"") -> str:
+def docker_python(digest: str, code: str, stdin: bytes = b"", python_bin: str = "/usr/local/bin/python") -> str:
     argv = ["docker", "--context", "desktop-linux", "run", "--rm", "-i", "--network", "none", digest,
-            "/usr/local/bin/python", "-I", "-S", "-c", code]
+            python_bin, "-I", "-S", "-c", code]
     result = subprocess.run(argv, input=stdin, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=600)
     if result.returncode:
         raise RuntimeError(result.stderr.decode("utf-8", "replace")[-1000:])
@@ -188,7 +191,7 @@ def archive_text(archive: Path) -> str:
     return "\n".join(chunks)
 
 
-def filesystem_scan(digest: str, archive: Path, manifest: dict, test_patch: str, gold_patch: str):
+def filesystem_scan(digest: str, archive: Path, manifest: dict, test_patch: str, gold_patch: str, python_bin: str = "/usr/local/bin/python"):
     del manifest
     blob = archive_text(archive)
     needles = added_lines(test_patch, blob) + added_lines(gold_patch, blob)
@@ -231,7 +234,7 @@ for root in roots:
             continue
 print(json.dumps({"hits": sorted(set(hits))[:20]}))
 '''
-    raw = docker_python(digest, code, json.dumps(needles).encode())
+    raw = docker_python(digest, code, json.dumps(needles).encode(), python_bin=python_bin)
     parsed = json.loads(raw)
     parsed["needle_count"] = len(needles)
     parsed["pass"] = not parsed["hits"]
