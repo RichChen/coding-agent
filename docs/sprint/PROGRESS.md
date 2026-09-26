@@ -208,3 +208,8 @@
 - 14 道里 6 道能注入至少一张：django-10924、11039，sklearn-10508、10949、11040、11281。各仓库里最早的题，以及 sympy 四题、pytest 两题，没有更早的 validated_fix。
 - 表在 `docs/sprint/DEV-TIME-SELECTION.md`。没有调模型。
 - 下一步：第 5 步，写 CHECKPOINT-5 后停下。
+
+## 第五轮 第 5 步：CHECKPOINT-5（2026-09-26）
+
+- 已写 `docs/sprint/CHECKPOINT-5.md`。v5 仍是 interim，因为 `sprint5.memory-source-runs.v2` 还没有。
+- 花费 0。停下等审计。
