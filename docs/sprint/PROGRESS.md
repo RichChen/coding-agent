@@ -201,3 +201,10 @@
 - 合成样例在 `docs/sprint/A5-MAIN-SYNTHETIC-REPORT.md`。
 - 测试：`python -m pytest -q tests/test_analyze_a5_main.py`，3 passed。覆盖零效应、明显正效应和 infra_error。
 - 下一步：第 4 步，dev 按时间留一法，不改检索。
+
+## 第五轮 第 4 步：dev 按时间留一法（2026-09-26）
+
+- 用 interim v5。可注入条件是同仓库、created_at 更早、不是本题、validated_fix。BM25 和 min_score 没改。
+- 14 道里 6 道能注入至少一张：django-10924、11039，sklearn-10508、10949、11040、11281。各仓库里最早的题，以及 sympy 四题、pytest 两题，没有更早的 validated_fix。
+- 表在 `docs/sprint/DEV-TIME-SELECTION.md`。没有调模型。
+- 下一步：第 5 步，写 CHECKPOINT-5 后停下。
