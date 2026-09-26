@@ -334,3 +334,38 @@ Verified 里对不上 36 条运行。改用 `princeton-nlp/SWE-bench` 的 test s
 日期：2026-09-26。花费：0 CNY。
 
 没有开始。Docker 数据盘仍在 C 盘，空闲不足 150GB。等用户把磁盘镜像迁到 E 盘之后再构建或拉取。合格清单还不存在，所以第 7 步的零模型走查没有执行。
+
+## 第五轮 第 6 步：dev 题 B2 冒烟
+
+日期：2026-09-26。开工前估计 14 次大约 4.9 CNY，加上已经花掉的 0.478，合计大约 5.4 CNY。上限 10 CNY，累计到 9 CNY 就停。
+
+v5 的 manifest 是 interim，没有用。用的是 v4 final（`cards_sha256` 前缀 `d31af37b612ae38f`）。v4 没有 `created_at`，由交接文件在 harness 里补上之后再交给插件。14 道题都跑了一次 B2。过滤前都是 14 张。注入字节都低于 4096。当前题和更晚的卡片没有注入。这一步不和 B0 比较解出率。
+
+| 题 | 过滤后 | 实际注入 |
+| --- | --- | --- |
+| django-10914 | 0 | 无 |
+| django-10924 | 1 | django-10914 |
+| django-11039 | 2 | django-10924、django-10914 |
+| pytest-5103 | 0 | 无 |
+| pytest-5227 | 1 | 无（留下的不是 validated_fix） |
+| sympy-11400 | 0 | 无 |
+| sympy-11870 | 1 | 无 |
+| sympy-11897 | 2 | 无 |
+| sympy-12171 | 3 | 无 |
+| sklearn-10297 | 0 | 无 |
+| sklearn-10508 | 1 | sklearn-10297 |
+| sklearn-10949 | 2 | sklearn-10297 |
+| sklearn-11040 | 3 | sklearn-10297 |
+| sklearn-11281 | 4 | sklearn-11040 |
+
+sklearn-11281 的 `context.prepared` 里能看到 `scikit-learn__scikit-learn-11040`。10297 留在时间过滤之后，检索分数低于 1.0，没有注入。sklearn-10508 的 delta 没有收上来，状态是 `delta_lost`。冒烟花费 5.871 CNY。本轮合计 6.349 CNY。
+
+## 第五轮 第 7 步：主实验运行器
+
+日期：2026-09-26。花费：0 CNY。
+
+`scripts/run_a5_main.py` 先跑合格题的 B0 三次，写出交接文件后停下，再跑 B2。并行 3，总上限 150 CNY，单次仍是 1 CNY。题目池还没有合格清单，零模型走查没有执行。
+
+## 第五轮 第 8 步：停下等审计
+
+日期：2026-09-26。审计节点是 `docs/sprint/CHECKPOINT-5.md`。没有打 `a5-main-freeze`。
