@@ -90,17 +90,18 @@ class ImageGrader:
     def __init__(self, *, context: str = "desktop-linux"):
         self.context = context
 
-    async def evaluate(self, *, image: str, delta: dict | None, test_overlay: dict, f2p: list[str], p2p: list[str], django: bool = False, sympy: bool = False, timeout: float = 300) -> dict:
+    async def evaluate(self, *, image: str, delta: dict | None, test_overlay: dict, f2p: list[str], p2p: list[str], django: bool = False, sympy: bool = False, timeout: float = 300, repo_root: str = "/opt/repo", python_bin: str = "/usr/local/bin/python") -> dict:
         from scripts.preflight_a5_repo_baseline import prepare_repo_runtime, upload_runner
 
         backend = DockerExecutionBackend(
             image=image, context=self.context, memory_bytes=2 * 1024**3,
             workspace_bytes=512 * 1024**2, tmpfs_bytes=256 * 1024**2, network="none",
+            python_bin=python_bin,
         )
         result = {"status": "invalid_env", "solved": False, "reason": None}
         try:
             await backend.start({})
-            await prepare_repo_runtime(backend)
+            await prepare_repo_runtime(backend, repo_root=repo_root, python_bin=python_bin)
             payload = {
                 "deleted": [name for name in ((delta or {}).get("deleted") or []) if not is_export_skipped(name)],
                 "changed": {
@@ -111,13 +112,13 @@ class ImageGrader:
                 "overlay": test_overlay or {},
             }
             await backend._ok(
-                "exec", "-i", backend.name, "/usr/local/bin/python", "-I", "-S", "-c", APPLY,
+                "exec", "-i", backend.name, python_bin, "-I", "-S", "-c", APPLY,
                 data=json.dumps(payload).encode(), limit=64 * 1024, timeout=120,
             )
-            await upload_runner(backend, django=django)
+            await upload_runner(backend, django=django, python_bin=python_bin)
             nodeids = list(f2p) + list(p2p)
             request = ExecutionRequest(
-                argv=["/usr/local/bin/python", "-I", "-B", "/tmp/a5-runner.py"],
+                argv=[python_bin, "-I", "-B", "/tmp/a5-runner.py"],
                 stdin_bytes=json.dumps({
                     "args": nodeids, "labels": nodeids, "collect_only": False,
                     "sympy_native_helpers": sympy,
@@ -135,7 +136,7 @@ class ImageGrader:
             result["execution_status"] = execution.status.value
             result["execution_stderr_tail"] = (execution.stderr.text_preview or "")[-4096:]
             raw = await backend._ok(
-                "exec", backend.name, "/usr/local/bin/python", "-I", "-S", "-c",
+                "exec", backend.name, python_bin, "-I", "-S", "-c",
                 "from pathlib import Path; import sys; p=Path('/tmp/a5-pytest-receipt.json'); sys.stdout.buffer.write(p.read_bytes())",
                 limit=16 * 1024**2,
             )

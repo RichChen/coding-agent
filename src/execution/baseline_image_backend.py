@@ -33,7 +33,10 @@ else:
     if not archive.exists():
         archive = pathlib.Path("/opt/baseline.tar.gz")
     if not archive.exists():
-        raise ValueError("native artifact basis missing")
+        if any(root.rglob("*.so")):
+            raise ValueError("native artifact basis missing")
+        pathlib.Path("/tmp/a5-native-links.json").write_text("[]")
+        raise SystemExit(0)
     with tarfile.open(archive) as stream:
         source_names = {member.name for member in stream}
     for path in root.rglob("*.so"):
@@ -115,8 +118,10 @@ json.dump({"changed": changed, "deleted": sorted(deleted), "skipped_files": len(
 
 
 class BaselineImageBackend(DockerExecutionBackend):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+    def __init__(self, *, repo_root="/opt/repo", python_bin="/usr/local/bin/python", **kwargs):
+        super().__init__(python_bin=python_bin, **kwargs)
+        self.repo_root = repo_root
+        self.python_bin = python_bin
         self.candidate_delta = None
         self.snapshot_error = None
         self.export_skipped_files = None
@@ -130,8 +135,10 @@ class BaselineImageBackend(DockerExecutionBackend):
             raise ValueError("baseline backend seeds from the image only")
         try:
             await super().start({})
-            await self._ok("exec", self.name, "/bin/sh", "-c", COPY_REPO, limit=64 * 1024, timeout=180)
-            await self._ok("exec", self.name, "/usr/local/bin/python", "-I", "-S", "-c", LINK_NATIVE, limit=64 * 1024, timeout=120)
+            copy = COPY_REPO.replace("/opt/repo", self.repo_root)
+            link = LINK_NATIVE.replace('pathlib.Path("/opt/repo")', 'pathlib.Path(' + json.dumps(self.repo_root) + ')')
+            await self._ok("exec", self.name, "/bin/sh", "-c", copy, limit=64 * 1024, timeout=180)
+            await self._ok("exec", self.name, self.python_bin, "-I", "-S", "-c", link, limit=64 * 1024, timeout=120)
         except BaseException:
             await self.close()
             raise
@@ -139,7 +146,8 @@ class BaselineImageBackend(DockerExecutionBackend):
     async def export_delta(self):
         try:
             raw = await self._ok(
-                "exec", "-i", self.name, "/usr/local/bin/python", "-I", "-S", "-c", EXPORT_DELTA,
+                "exec", "-i", self.name, self.python_bin, "-I", "-S", "-c",
+                EXPORT_DELTA.replace('pathlib.Path("/opt/repo")', 'pathlib.Path(' + json.dumps(self.repo_root) + ')'),
                 data=b"{}", limit=DELTA_BYTE_LIMIT + 1024 * 1024, timeout=120,
             )
         except Exception as exc:

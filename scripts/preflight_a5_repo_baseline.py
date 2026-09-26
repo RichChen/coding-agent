@@ -231,27 +231,27 @@ def pytest_paths(family, version, f2p, patch_paths_list):
     raise ValueError("not a pytest repository")
 
 
-async def upload_runner(backend, django=False, legacy_observer=False):
+async def upload_runner(backend, django=False, legacy_observer=False, python_bin="/usr/local/bin/python"):
     if legacy_observer:
         runner = (ROOT / 'scripts/a5_pytest_observer.py').read_bytes()
         code = "import sys;open('/tmp/a5-runner.py','wb').write(sys.stdin.buffer.read())"
-        await backend._ok("exec", "-i", backend.name, "/usr/local/bin/python", "-I", "-S", "-c", code,
+        await backend._ok("exec", "-i", backend.name, python_bin, "-I", "-S", "-c", code,
                           data=runner, limit=256 * 1024)
         return
     code = "import sys;open('/tmp/a5-runner.py','wb').write(sys.stdin.buffer.read())"
-    await backend._ok("exec", "-i", backend.name, "/usr/local/bin/python", "-I", "-S", "-c", code,
+    await backend._ok("exec", "-i", backend.name, python_bin, "-I", "-S", "-c", code,
                       data=(ROOT / 'scripts/a5_django_observer.py').read_bytes() if django else PYTEST_OBSERVER.encode(), limit=256 * 1024)
 
 
-async def prepare_repo_runtime(backend, archive_name="baseline.tar.gz"):
+async def prepare_repo_runtime(backend, archive_name="baseline.tar.gz", repo_root="/opt/repo", python_bin="/usr/local/bin/python"):
     """Restore the image-backed source below the deliberately masked workspace."""
     await backend._ok("exec", backend.name, "/bin/sh", "-c",
-        "umask 000 && cp -R /opt/repo/. /workspace/", limit=64 * 1024, timeout=120)
+        f"umask 000 && cp -R {repo_root}/. /workspace/", limit=64 * 1024, timeout=180)
     # Native extensions must load from the immutable image: Docker tmpfs may
     # enforce noexec. Only build-generated .so files are linked; source members
     # are never replaced or redirected.
     code = r'''import hashlib,json,pathlib,tarfile
-root=pathlib.Path('/opt/repo'); workspace=pathlib.Path('/workspace')
+root=pathlib.Path('__REPO_ROOT__'); workspace=pathlib.Path('/workspace')
 manifest=pathlib.Path('/opt/native-artifacts.json')
 linked=[]
 if manifest.exists():
@@ -265,7 +265,10 @@ if manifest.exists():
 else:
     archive=pathlib.Path('/opt/known-good.tar.gz')
     if not archive.exists(): archive=pathlib.Path('/opt/baseline.tar.gz')
-    if not archive.exists(): raise ValueError('native artifact basis missing')
+    if not archive.exists():
+        if any(root.rglob('*.so')): raise ValueError('native artifact basis missing')
+        pathlib.Path('/tmp/a5-native-links.json').write_text('[]')
+        raise SystemExit(0)
     with tarfile.open(archive) as stream: source={m.name for m in stream}
     for p in root.rglob('*.so'):
         rel=p.relative_to(root).as_posix()
@@ -276,7 +279,8 @@ else:
         linked.append(dict(path=rel,image_path=str(p),sha256=hashlib.sha256(p.read_bytes()).hexdigest()))
 pathlib.Path('/tmp/a5-native-links.json').write_text(json.dumps(linked))
 '''
-    await backend._ok('exec', backend.name, '/usr/local/bin/python', '-I', '-S', '-c', code,
+    code = code.replace("__REPO_ROOT__", repo_root)
+    await backend._ok('exec', backend.name, python_bin, '-I', '-S', '-c', code,
                       limit=64*1024, timeout=120)
 
 

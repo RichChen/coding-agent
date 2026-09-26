@@ -113,7 +113,8 @@ class DockerExecutionBackend:
 
     def __init__(self, *, image=DEFAULT_IMAGE, context="desktop-linux", cpus=1.0,
                  memory_bytes=512*1024*1024, pids_limit=128, network="none",
-                 tmpfs_bytes=16*1024*1024, workspace_bytes=64*1024*1024, docker_bin="docker"):
+                 tmpfs_bytes=16*1024*1024, workspace_bytes=64*1024*1024, docker_bin="docker",
+                 python_bin="/usr/local/bin/python"):
         if not image_is_pinned(image):
             raise ValueError("Docker image must be pinned by sha256 digest")
         if isinstance(cpus, bool) or not isinstance(cpus, (int, float)) or not math.isfinite(cpus) or cpus <= 0:
@@ -123,6 +124,7 @@ class DockerExecutionBackend:
         if network not in ("none", "bridge"):
             raise ValueError("network must be none or bridge; no domain allowlist is implied")
         self.image, self.context, self.docker_bin = image, context, docker_bin
+        self.python_bin = python_bin
         self.cpus, self.memory_bytes, self.pids_limit = cpus, memory_bytes, pids_limit
         self.network, self.tmpfs_bytes, self.workspace_bytes = network, tmpfs_bytes, workspace_bytes
         self.name = "h3-" + uuid.uuid4().hex
@@ -202,7 +204,7 @@ class DockerExecutionBackend:
             "--log-driver", "none", "--workdir", "/workspace",
             "--tmpfs", f"/workspace:rw,nosuid,nodev,size={self.workspace_bytes},mode=1777",
             "--tmpfs", f"/tmp:rw,noexec,nosuid,nodev,size={self.tmpfs_bytes},mode=1777",
-            "--entrypoint", "/usr/local/bin/python", self.image, "-I", "-S", "-c",
+            "--entrypoint", self.python_bin, self.image, "-I", "-S", "-c",
             "import time; time.sleep(604800)"]
 
     async def start(self, files=None):
@@ -233,7 +235,7 @@ class DockerExecutionBackend:
             self.active = True
             self.lifecycle.append(dict(event="created", container=self.name, image_id=inspect["Image"]))
             payload = json.dumps({n: base64.b64encode(d).decode() for n, d in files.items()}).encode()
-            await self._ok("exec", "-i", self.name, "/usr/local/bin/python", "-I", "-S", "-c", IMPORT_CODE, data=payload)
+            await self._ok("exec", "-i", self.name, self.python_bin, "-I", "-S", "-c", IMPORT_CODE, data=payload)
         except BaseException:
             await self.close()
             raise
@@ -244,7 +246,7 @@ class DockerExecutionBackend:
         started = time.monotonic()
         if snapshot and self.active:
             try:
-                data = await self._ok("exec", self.name, "/usr/local/bin/python", "-I", "-S", "-c", EXPORT_CODE)
+                data = await self._ok("exec", self.name, self.python_bin, "-I", "-S", "-c", EXPORT_CODE)
                 self.snapshot = validate_files({n: base64.b64decode(d, validate=True) for n, d in json.loads(data).items()})
             except (Exception, asyncio.CancelledError) as exc:
                 self.snapshot_error = type(exc).__name__
