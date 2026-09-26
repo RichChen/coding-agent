@@ -419,7 +419,22 @@ def memory_summary(variant: str, cards_path: Path, dropped: list[str], decision:
     }
 
 
-async def run_task(task: dict, profile: Path, output: Path, *, mock: bool, variant: str = "B0", cards_path: Path | None = None) -> dict:
+def resolve_image(task: dict, receipt: dict, *, legacy_image: bool, mock: bool):
+    """Every real run uses a clean image. A legacy image is mock-only."""
+    if legacy_image:
+        if not mock:
+            raise SystemExit("legacy images cannot call the model")
+        return receipt["baseline_image_digest"], None
+    clean_path = ROOT / "docs" / "sprint" / "clean-images" / (task["id"] + ".json")
+    if not clean_path.is_file():
+        raise SystemExit("clean image required: " + task["id"])
+    clean = load_json(clean_path)
+    if not clean.get("answer_isolation_pass"):
+        return clean.get("clean_image_digest"), clean
+    return clean["clean_image_digest"], clean
+
+
+async def run_task(task: dict, profile: Path, output: Path, *, mock: bool, variant: str = "B0", cards_path: Path | None = None, legacy_image: bool = False) -> dict:
     if task["id"] in HOLDOUT:
         raise SystemExit("hold-out task refused: " + task["id"])
     output.mkdir(parents=True, exist_ok=True)
@@ -427,14 +442,10 @@ async def run_task(task: dict, profile: Path, output: Path, *, mock: bool, varia
     workspace.mkdir()
     spec = grader_spec(task)
     receipt = load_json(ROOT / task["receipt"])
-    image = receipt["baseline_image_digest"]
-    clean = None
-    if profile.stem == "b0-v2":
-        clean_path = ROOT / "docs" / "sprint" / "clean-images" / (task["id"] + ".json")
-        clean = load_json(clean_path)
-        if not clean.get("answer_isolation_pass"):
-            return _isolation_stop(task, variant, "clean image failed the filesystem scan")
-        image = clean["clean_image_digest"]
+    image, clean = resolve_image(task, receipt, legacy_image=legacy_image, mock=mock)
+    if clean is not None and not clean.get("answer_isolation_pass"):
+        return _isolation_stop(task, variant, "clean image failed the filesystem scan")
+    if clean is not None:
         from scripts.build_clean_baseline import source_only_check
         from src.eval.a5_image_tree import archive_manifest
         archive = Path(receipt["source_attempt_ref"]).parent / "source.tar.gz"
@@ -487,6 +498,7 @@ async def run_task(task: dict, profile: Path, output: Path, *, mock: bool, varia
         agent.llm = _MockLLM()
     ledger = make_ledger(output / "cny-ledger.json")
     before = ledger.cost_committed
+    calls_before = ledger.calls_started
     agent.retry.cny_ledger = ledger
     expected = compatibility(
         workspace=workspace,
@@ -511,7 +523,11 @@ async def run_task(task: dict, profile: Path, output: Path, *, mock: bool, varia
     if delta is not None:
         (output / "candidate-delta.json").write_text(json.dumps(delta, indent=2), encoding="utf-8")
     f2p = [node for node in spec.expected_nodeids if node not in spec.baseline_passed]
-    evaluation = await ImageGrader().evaluate(
+    infra = run_error == "StoreError"
+    if infra:
+        evaluation = {"status": "infra_error", "solved": False}
+    else:
+        evaluation = await ImageGrader().evaluate(
         image=image,
         delta=delta,
         test_overlay=spec.test_overlay,
@@ -533,18 +549,19 @@ async def run_task(task: dict, profile: Path, output: Path, *, mock: bool, varia
     attempts = result_plain.get("llm_attempts") or []
     stats = summarize_events(events, result_plain, run_error, output / "session" / "artifacts")
     changed = delta_changes(delta) or list(evaluation.get("changed_paths") or [])
-    lost = delta_lost(stats, delta)
+    lost = False if infra else delta_lost(stats, delta)
     if lost:
         print(f"DELTA_LOST {task['id']}: edit tools ran but the collected delta is empty. snapshot_error={snapshot_error}", flush=True)
+    model_calls = len(attempts) if attempts else max(0, ledger.calls_started - calls_before)
     summary = {
         "task_id": task["id"],
         "variant": variant,
-        "solved": False if lost else bool(evaluation.get("solved")),
-        "status": "delta_lost" if lost else evaluation.get("status"),
+        "solved": False if lost or infra else bool(evaluation.get("solved")),
+        "status": "infra_error" if infra else ("delta_lost" if lost else evaluation.get("status")),
         "grader_status": evaluation.get("status"),
         "changed_files": changed,
         "first_edit_step": stats["first_edit_step"],
-        "model_calls": len(attempts),
+        "model_calls": model_calls,
         "tool_calls": stats["tool_calls"],
         "peak_context": _peak_context(result_plain, events),
         "cost_cny": str(ledger.cost_committed - before),
@@ -702,6 +719,7 @@ def main():
     parser.add_argument("--cards", default=None)
     parser.add_argument("--output", default="runs/sprint")
     parser.add_argument("--mock", action="store_true", help="zero-model finish, still grades in Docker")
+    parser.add_argument("--legacy-image", action="store_true", help="mock-only: use the old baseline image")
     parser.add_argument("--verify-memory", action="store_true")
     args = parser.parse_args()
     if args.variant != "B0" and not args.cards:
@@ -724,6 +742,7 @@ def main():
             summaries.append(await run_task(
                 task, ROOT / args.profile, out_root / task["id"],
                 mock=args.mock, variant=args.variant, cards_path=cards,
+                legacy_image=args.legacy_image,
             ))
         print(json.dumps(summaries, indent=2))
 

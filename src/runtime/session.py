@@ -123,7 +123,7 @@ class RunSession:
             raise StoreError("session timeout must be positive")
         store = EventStore(directory, create=True, run_id=uuid.uuid4().hex, task_id=task_id)
         try:
-            artifacts = ArtifactStore(directory / "artifacts", store.run_id)
+            artifacts = ArtifactStore(directory / "artifacts", store.run_id, limit_bytes=64 * 1024 * 1024)
             manifest = dict(expected, started_at=utc_now(),
                             expires_at=(datetime.now(timezone.utc) + timedelta(seconds=timeout_seconds)).isoformat(),
                             quotas=dict(event_payload_bytes=store.max_event_bytes,

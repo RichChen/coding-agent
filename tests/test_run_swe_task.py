@@ -1,7 +1,7 @@
 import base64
 import json
 
-from scripts.run_swe_task import HOLDOUT, apply_delta, delta_lost, select_tasks, solved, summarize_events
+from scripts.run_swe_task import HOLDOUT, apply_delta, delta_lost, resolve_image, select_tasks, solved, summarize_events
 
 
 def test_holdout_is_refused():
@@ -43,6 +43,23 @@ def test_stop_reason_reads_result_then_artifact(tmp_path):
     events = [{"event_type": "run.finished", "payload": {"artifact_ref": digest}}]
     assert summarize_events(events, {}, None, tmp_path)["stop_reason"] == "step_deadline"
     assert summarize_events(events, {"termination_kind": "budget_exhausted"}, None, tmp_path)["stop_reason"] == "budget_exhausted"
+
+
+def test_any_profile_requires_a_clean_image():
+    task = {"id": "not-a-real-task"}
+    receipt = {"baseline_image_digest": "old-image"}
+    try:
+        resolve_image(task, receipt, legacy_image=False, mock=False)
+    except SystemExit as exc:
+        assert "clean image required" in str(exc)
+    else:
+        raise AssertionError("a real run without a clean image was accepted")
+    try:
+        resolve_image(task, receipt, legacy_image=True, mock=False)
+    except SystemExit as exc:
+        assert "legacy" in str(exc)
+    else:
+        raise AssertionError("a legacy image was allowed to call the model")
 
 
 def test_apply_delta_accepts_both_content_shapes():

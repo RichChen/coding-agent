@@ -286,3 +286,19 @@ clean image 从 original `source.tar.gz` 构建，不放入 test patch 或 gold 
 日期：2026-09-25。花费：0 CNY。
 
 新交接文件 `docs/sprint/memory-source-runs.json`，`profile_tag` 是 `b0-v2`。sha256 `89c33557b611fdb0578c050b54952a7c8a5b062e115db097f619b456ae84d073`。20 道 pilot 没有重建 clean image。审计节点是 `docs/sprint/CHECKPOINT-4.md`。
+
+## 第五轮 第 0 步：强制干净镜像，并查清 StoreError
+
+日期：2026-09-26。tag：`sprint5-start`。
+
+真实运行不再看 profile 名。没有 clean image 就拒绝。`--legacy-image` 只能和 `--mock` 一起用。
+
+sklearn-11281 r2 的 `events.sqlite3` 还在，最后一条是第 40 次调用之后的 `state.saved`。工件目录 155 个文件、14857689 字节，16MB 配额还剩大约 1.9MB，下一次保存触发了 `artifact disk quota exceeded`。不是 ACL，也不是宿主机磁盘满。旧目录保留为 `r2-storeerror`。会话工件上限改为 64MB。`StoreError` 的 summary 现在记 `infra_error`，模型调用数和花费从账本读取，汇总时不进分母。
+
+未跟踪的 `pelican-bicycle.html` 已删除。交接 sha256 的算法写在 `docs/sprint/HANDOFF-CONVENTIONS.md`。
+
+## 第五轮 第 1 步：Docker 磁盘在 C 盘
+
+日期：2026-09-26。花费：0 CNY。
+
+Docker 数据盘是 `C:\Users\Administrator\AppData\Local\Docker\wsl\disk\docker_data.vhdx`。C 盘空闲约 68GB，不到 150GB。没有迁移，也没有删除镜像。请把 Docker Desktop 的 Disk image location 手动迁到 E 盘（E 盘空闲约 815GB）。等待期间继续第 2 步和第 4 步。
