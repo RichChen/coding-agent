@@ -44,7 +44,6 @@ HOLDOUT = {
     "sphinx-doc__sphinx-8595",
     "sphinx-doc__sphinx-8713",
     "sphinx-doc__sphinx-10451",
-    "sphinx-doc__sphinx-8721",
     "sympy__sympy-20442",
     "sympy__sympy-20154",
     "sympy__sympy-24152",
@@ -389,6 +388,42 @@ def select_tasks(manifest: dict, requested: list[str]) -> list[dict]:
     return tasks
 
 
+def dated_cards(path: Path) -> Path:
+    """Fill created_at from the handoff when the card file does not have it."""
+    rows = [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
+    if rows and all(row.get("created_at") for row in rows):
+        return path
+    dates = {}
+    handoff_path = ROOT / "docs" / "sprint" / "memory-source-runs.json"
+    if handoff_path.is_file():
+        for run in load_json(handoff_path).get("runs") or []:
+            dates.setdefault(run.get("source_id"), run.get("created_at"))
+    kept = []
+    for row in rows:
+        created = row.get("created_at") or dates.get(row.get("source_id"))
+        if not created:
+            continue
+        row["created_at"] = created
+        kept.append(row)
+    out = ROOT / "runs" / "sprint5-cards" / (path.stem + "-dated.jsonl")
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text("".join(json.dumps(row, ensure_ascii=False) + "\n" for row in kept), encoding="utf-8")
+    return out
+
+
+def temporal_filter(cards, *, task_id: str, repo: str, created_at: str, dates: dict):
+    """Keep same-repo cards whose source task was created earlier. Drop the current task."""
+    kept, dropped = [], []
+    for card in cards:
+        source = getattr(card, "source_id", None)
+        meta = dates.get(source) or {}
+        if source == task_id or meta.get("repo") != repo or not meta.get("created_at") or meta["created_at"] >= created_at:
+            dropped.append(source)
+        else:
+            kept.append(card)
+    return tuple(kept), dropped
+
+
 def leave_one_out(cards, task_id: str):
     """Drop cards mined from the task being solved. Those cards are the answer."""
     kept, dropped = [], []
@@ -407,6 +442,8 @@ def memory_summary(variant: str, cards_path: Path, dropped: list[str], decision:
     return {
         "variant": variant,
         "cards_sha256": hashlib.sha256(cards_path.read_bytes()).hexdigest(),
+        "cards_before": None,
+        "cards_after": None,
         "filtered_card_ids": dropped,
         "injected": [
             {"id": item["source_id"], "bytes": item["bytes"]}
@@ -477,8 +514,20 @@ async def run_task(task: dict, profile: Path, output: Path, *, mock: bool, varia
         load_adapter(agent_root, digest)
         from reposkill_agent.memory.card_plugin import MemoryCardPlugin
         from reposkill_agent.memory.cards import load_memory_cards
+        cards_path = dated_cards(cards_path)
         loaded = load_memory_cards(cards_path)
-        cards, dropped = leave_one_out(loaded, task["id"])
+        dates = {}
+        handoff_path = ROOT / "docs" / "sprint" / "memory-source-runs.json"
+        if handoff_path.is_file():
+            for run in load_json(handoff_path).get("runs") or []:
+                dates.setdefault(run["source_id"], {"repo": run.get("repo"), "created_at": run.get("created_at")})
+        created_at = (dates.get(task["id"]) or {}).get("created_at") or task.get("created_at")
+        if variant == "B0" or not created_at:
+            cards, dropped = leave_one_out(loaded, task["id"])
+        else:
+            cards, dropped = temporal_filter(
+                loaded, task_id=task["id"], repo=task["repo"], created_at=created_at, dates=dates,
+            )
         public = load_json(Path(task["public_task"]))
         target = ROOT / task["original"]
         registry = PolicyPluginRegistry()
@@ -493,6 +542,8 @@ async def run_task(task: dict, profile: Path, output: Path, *, mock: bool, varia
             target_root=target,
         )
         memory = memory_summary(variant, cards_path, dropped, await preview.decide({}))
+        memory["cards_before"] = len(loaded)
+        memory["cards_after"] = len(cards)
     agent = build_agent(config, workspace, execution_backend=backend, plugin_registry=registry)
     if mock:
         agent.llm = _MockLLM()

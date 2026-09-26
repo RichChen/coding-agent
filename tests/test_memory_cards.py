@@ -6,7 +6,7 @@ from src.policy.reposkill import load_adapter, source_digest
 from scripts.run_swe_task import leave_one_out
 
 AGENT = Path(r"D:\crq\src\coding-agent")
-CARDS = AGENT / "benchmarks/a5/memory-cards-v3.jsonl"
+CARDS = AGENT / "benchmarks/a5/memory-cards-v5.jsonl"
 TASK = "django__django-10914"
 
 
