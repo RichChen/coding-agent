@@ -1,15 +1,20 @@
 """Write the B0 v2 table and the memory-source handoff. No model calls."""
-import hashlib
 import json
 from collections import defaultdict
 from decimal import Decimal
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+import sys
+sys.path.insert(0, str(ROOT))
 groups = defaultdict(list)
 isolation_fail = 0
 for summary_path in sorted((ROOT / "runs/sprint4-b0-v2").glob("*/*/summary.json")):
+    if summary_path.parent.name not in {"r1", "r2", "r3"}:
+        continue
     summary = json.loads(summary_path.read_text(encoding="utf-8"))
+    if summary.get("status") == "infra_error":
+        continue
     grader = json.loads((summary_path.parent / "grader-result.json").read_text(encoding="utf-8"))
     if summary.get("answer_isolation_pass") is not True:
         isolation_fail += 1
@@ -88,5 +93,6 @@ document = {
 raw = json.dumps(document, indent=2) + "\n"
 path = ROOT / "docs/sprint/memory-source-runs.json"
 path.write_text(raw, encoding="utf-8")
+from scripts.handoff_sha import handoff_sha256
 print(solved_runs, len(handoff), spent, isolation_fail)
-print(hashlib.sha256(raw.encode()).hexdigest())
+print(handoff_sha256(path))

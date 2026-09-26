@@ -13,10 +13,12 @@ profile 是 `b0-v2`。镜像是 clean image。v1 是测试可见条件下的历�
 | scikit-learn-10508 | 0/3 | 3/3 | 0.093 | completed, completed, completed |
 | scikit-learn-10949 | 0/3 | 0/3 | 0.170 | completed, completed, completed |
 | scikit-learn-11040 | 2/3 | 3/3 | 0.176 | completed, completed, completed |
-| scikit-learn-11281 | 1/3 | 3/3 | 0.563 | max_model_calls, StoreError, completed |
+| scikit-learn-11281 | 2/3 | 3/3 | 0.499 | max_model_calls, completed, completed |
 | sympy-11400 | 0/3 | 3/3 | 0.257 | completed, completed, completed |
 | sympy-11870 | 0/3 | 0/3 | 0.639 | max_model_calls, max_model_calls, max_model_calls |
 | sympy-11897 | 0/3 | 3/3 | 0.616 | max_model_calls, max_model_calls, max_model_calls |
 | sympy-12171 | 0/3 | 1/3 | 0.322 | max_model_calls, completed, completed |
 
-解出 17/42。花费 14.712 CNY。隔离失败 0 次。
+解出 18/42。花费 14.522 CNY。隔离失败 0 次。
+
+sklearn-11281 原来的 r2 是 `StoreError`，目录留在 `r2-storeerror`，不进这个表。重跑的 r2 解出，花费 0.478 CNY，隔离通过。11281 从 1/3 变成 2/3。
