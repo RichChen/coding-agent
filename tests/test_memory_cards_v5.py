@@ -1,4 +1,5 @@
 import json
+import sys
 from pathlib import Path
 
 import pytest
@@ -44,6 +45,27 @@ def test_naive_created_at_is_rejected():
 
 
 @pytest.mark.skipif(not CARDS.is_file(), reason="v5 cards are built in the sprint step")
+def test_generic_builder_matches_v5_bytes(tmp_path):
+    import subprocess
+
+    out = tmp_path / "cards.jsonl"
+    completed = subprocess.run(
+        [
+            sys.executable,
+            "scripts/build_memory_cards.py",
+            "--handoff",
+            str(HANDOFF),
+            "--out",
+            str(out),
+        ],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    assert completed.returncode == 0, completed.stderr
+    assert out.read_bytes().replace(b"\r\n", b"\n") == CARDS.read_bytes().replace(b"\r\n", b"\n")
+
+
 def test_v5_cards_have_repo_and_created_at_and_do_not_render_created_at():
     from reposkill_agent.memory.cards import load_memory_cards
 

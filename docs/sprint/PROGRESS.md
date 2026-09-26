@@ -186,3 +186,10 @@
 - 产出 `benchmarks/a5/memory-cards-v5.jsonl` 和 manifest，`status=interim`，`memory_source_runs_sha256` 为 null。
 - 测试：`python -m pytest -q tests/test_memory_cards_v5.py tests/test_memory_cards.py tests/test_memory_card_plugin.py tests/test_memory_cards_v4.py`，20 passed。
 - 下一步：第 2 步，通用构建脚本，输出要和这份 v5 逐字节一致。
+
+## 第五轮 第 2 步：通用卡片构建（2026-09-26）
+
+- `scripts/build_memory_cards.py --handoff --out` 从交接文件里的 source id 建卡，不再写死 15 道题。规则仍是最小 solved repeat，否则最小失败 repeat。每条运行必须 `answer_isolation_pass`。缺 `repo` 或 `created_at` 就失败。
+- 用现有 dev 交接文件跑出来的 jsonl，和 interim v5 逐字节一致（LF 归一化后）。构建时也检查了目标题 id、gold/test patch 长行和隐藏 nodeid 没有进卡片。
+- 测试：`python -m pytest -q tests/test_memory_cards_v5.py`，5 passed。
+- 下一步：第 3 步，按设计文档第 6 节写分析脚本，只用合成数据。
