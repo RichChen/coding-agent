@@ -40,8 +40,9 @@ V4_SOURCE_IDS = (
     "scikit-learn__scikit-learn-10508",
 )
 
-HANDOFF_SCHEMA = "sprint3.memory-source-runs.v1"
+HANDOFF_SCHEMA = "sprint4.memory-source-runs.v1"
 MANIFEST_SCHEMA = "memory-cards.v4.manifest"
+FINAL_PROFILE = "b0-v2"
 
 
 class PilotTargetInSources(RuntimeError):
@@ -59,14 +60,33 @@ def assert_sources_disjoint(source_ids: tuple[str, ...], targets: set[str]) -> N
         raise PilotTargetInSources(overlap)
 
 
-def load_handoff_runs(path: Path) -> list[dict]:
+def load_handoff(path: Path) -> dict:
     data = json.loads(path.read_text(encoding="utf-8"))
     if data.get("schema") != HANDOFF_SCHEMA:
         raise ValueError("unexpected_memory_source_runs_schema")
+    if data.get("profile_tag") != FINAL_PROFILE:
+        raise ValueError("unexpected_profile_tag")
     runs = data.get("runs") or []
     if not isinstance(runs, list):
         raise ValueError("memory_source_runs_not_a_list")
-    return runs
+    return data
+
+
+def load_handoff_runs(path: Path) -> list[dict]:
+    return load_handoff(path)["runs"]
+
+
+def assert_clean_runs(runs: list[dict], targets: set[str]) -> None:
+    leaked = sorted({run["source_id"] for run in runs if run["source_id"] in targets})
+    if leaked:
+        raise PilotTargetInSources(leaked)
+    bad = [
+        run["source_id"]
+        for run in runs
+        if run.get("answer_isolation_pass") is not True or not run.get("clean_image_digest")
+    ]
+    if bad:
+        raise ValueError("isolation_or_digest_missing")
 
 
 def interim_runs(sprint_root: Path) -> list[dict]:
@@ -186,6 +206,7 @@ def build_memory_cards_v4(
     verification_path: Path,
     runs: list[dict],
     path_base: Path | None = None,
+    allow_legacy: bool = True,
 ) -> tuple[tuple[MemoryCard, ...], list[str], list[str]]:
     targets = target_ids(canonical_path)
     assert_sources_disjoint(V4_SOURCE_IDS, targets)
@@ -202,7 +223,15 @@ def build_memory_cards_v4(
         run = chosen[source_id]
         if run is not None:
             run_dir = Path(run["run_dir"])
-            status = "validated_fix" if run.get("solved") else "failed_attempt"
+            if "answer_isolation_pass" in run:
+                isolated = run.get("answer_isolation_pass") is True
+            else:
+                isolated = allow_legacy
+            grader = run.get("grader_status")
+            passed = bool(run.get("solved")) and grader in {None, "", "pass"}
+            if bool(run.get("solved")) and "answer_isolation_pass" in run and not isolated:
+                raise ValueError("solved_run_without_isolation:" + source_id)
+            status = "validated_fix" if passed and isolated else "failed_attempt"
             cards.append(
                 _card_from_run(
                     source_id,
@@ -216,6 +245,9 @@ def build_memory_cards_v4(
                     source_run=f"r{int(run['repeat'])} {run_dir}",
                 )
             )
+            continue
+        if not allow_legacy:
+            missing.append(source_id)
             continue
         row = legacy.get(source_id)
         if row is None:
@@ -231,7 +263,7 @@ def build_memory_cards_v4(
                 issue=issue or str(trajectory.get("issue_summary") or source_id),
                 run_dir=source_dir,
                 layout="memory_pool",
-                status=labels[source_id],
+                status="unverified" if labels[source_id] == "validated_fix" else labels[source_id],
                 origin="legacy_verification",
                 source_run=f"legacy {source_dir}",
                 legacy_trajectory=trajectory,

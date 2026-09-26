@@ -22,10 +22,10 @@ def original_root(source_id: str) -> Path | None:
 def main() -> None:
     cards = load_memory_cards(CARDS)
     lines = [
-        "# dev 留一法选择（v4 interim）",
+        "# dev 留一法选择（v4 final）",
         "",
         "每道源题只在其余卡片上检索。目标树是 harness receipt 旁的 `staging/original`。",
-        "没有改检索规则。`scikit-learn-10508` 还没有卡片。",
+        "B2 只注入 `validated_fix`。没有改检索规则。`pytest-5221` 不在这批卡里。失败卡被 B2 滤掉之后，有的题会变成 `no_relevant_memory`。这是过滤结果，不是调分。",
         "",
     ]
     for card in cards:

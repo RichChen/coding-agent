@@ -167,3 +167,13 @@
 - 测试：`python -m pytest -q tests/test_memory_card_plugin.py tests/test_memory_cards.py tests/test_memory_cards_v3.py tests/test_memory_cards_v4.py tests/test_source_verification.py tests/test_event_extract.py`，31 passed。
 - 现有 `memory-source-runs.json` 是 `profile_tag=b0-v1`，42 条，没有 `answer_isolation_pass=true`。按计划不重建 final，不跑 memory smoke，不调模型。
 - 已写 `docs/sprint/CHECKPOINT-4.md`。停下，等 `b0-v2` 且 42 条全部隔离通过的交接文件。
+
+## 第四轮续：b0-v2 交接已到，重建 final（2026-09-26）
+
+- `memory-source-runs.json` 现在是 `sprint4.memory-source-runs.v1`、`profile_tag=b0-v2`、42 条，`answer_isolation_pass` 全是 true。LF 校验和 `89c33557b611fdb0578c050b54952a7c8a5b062e115db097f619b456ae84d073`，与 harness CHECKPOINT-4 和 PROGRESS 一致。工作副本是 CRLF，字节哈希不同，manifest 用的是 harness 记录的 LF 哈希。
+- 14 道题的 clean image digest 与 `docs/sprint/clean-images/` 一致，`source_only_match` 都是 true，`image_source_only_hash` 等于 `original_tree_hash`，`native_artifacts` 是清单。源题和 20 道 pilot 不相交。
+- 重建了 final：14 张卡，7 张 `validated_fix`（django 10914 r1、10924 r2、11039 r1，sklearn 10297 r1、11040 r1、11281 r3，pytest 5227 r1）。其余 7 张是最小 repeat 的失败运行。`pytest-5221` 不在这批运行里，没有用旧轨迹补。
+- 选中的运行里，django-11039 r1 和 pytest-5227 r1 的 `test_files_touched` 非空。按固定规则仍用它们，没有手改卡片。
+- 卡片渲染不含 20 道目标题 id，也不含 gold/test patch 里长度 ≥ 80 的新增行。
+- 按 B2 只注入 `validated_fix` 重出了 `DEV-LOO-SELECTION.md`。没有改检索规则，没有跑 memory smoke，没有调模型。
+- 测试：`python -m pytest -q tests/test_memory_cards_v4.py tests/test_memory_card_plugin.py`，12 passed。

@@ -23,3 +23,9 @@ tag `mem4-start` 在 `3d9cccc`。B2 过滤在其后的提交里。
 这批轨迹是测试可见条件下的历史证据。`benchmarks/a5/memory-cards-v4.manifest.json` 仍是 `status=interim`。
 
 留一法表没有用这批 interim 卡重跑。等隔离通过的 `b0-v2` 交接文件到了，再重建 final，并按新的 B2 规则重出留一法。
+
+## 2026-09-26：交接已到
+
+上面的停止条件已经满足。`memory-source-runs.json` 是 `b0-v2`，42 条全部 `answer_isolation_pass=true`。LF sha256 `89c33557b611fdb0578c050b54952a7c8a5b062e115db097f619b456ae84d073`。
+
+已重建 `benchmarks/a5/memory-cards-v4.jsonl`。manifest `status=final`，`cards_sha256=d31af37b612ae38f12eb40bcdba05b0de8ad7ab1c6e2622a440b9347ceaf2017`，`memory_source_runs_sha256` 等于上面的交接哈希。7 张 `validated_fix`，7 张 `failed_attempt`。没有 `pytest-5221`。没有跑 memory smoke，没有调模型。

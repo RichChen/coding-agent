@@ -44,6 +44,18 @@ def test_select_smallest_failed_repeat_when_none_solved():
     assert ignored == []
 
 
+def test_b0_v1_schema_is_not_a_final_handoff(tmp_path):
+    path = tmp_path / "handoff.json"
+    path.write_text(
+        json.dumps({"schema": "sprint3.memory-source-runs.v1", "profile_tag": "b0-v1", "runs": []}),
+        encoding="utf-8",
+    )
+    with pytest.raises(ValueError, match="unexpected_memory_source_runs_schema"):
+        from reposkill_agent.memory.cards_v4 import load_handoff
+
+        load_handoff(path)
+
+
 def test_pilot_target_id_stops_the_build():
     runs = [{"source_id": "django__django-13265", "repeat": 1, "solved": True}]
     with pytest.raises(PilotTargetInSources):
