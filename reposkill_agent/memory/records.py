@@ -3,9 +3,10 @@
 from __future__ import annotations
 
 import re
+from datetime import datetime
 from typing import Literal
 
-from pydantic import AwareDatetime, Field, model_validator
+from pydantic import AwareDatetime, Field, field_validator, model_validator
 
 from reposkill_agent.protocol.public import (
     ArtifactRef,
@@ -216,7 +217,17 @@ class MemoryCard(StrictModel):
     """
 
     repo: str = Field(min_length=1)
+    created_at: str = Field(min_length=1)
     version: str = Field(min_length=7)
+
+    @field_validator("created_at")
+    @classmethod
+    def created_at_is_aware_iso(cls, value: str) -> str:
+        text = value[:-1] + "+00:00" if value.endswith("Z") else value
+        parsed = datetime.fromisoformat(text)
+        if parsed.tzinfo is None:
+            raise ValueError("created_at_naive")
+        return value
     source_id: str = Field(min_length=1)
     issue_summary: str = Field(min_length=1)
     relevant_files: tuple[str, ...] = ()

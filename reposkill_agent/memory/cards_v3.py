@@ -36,6 +36,7 @@ def _card(row: dict, status: str) -> MemoryCard:
     symbols = extracted.changed_symbols
     return MemoryCard(
         repo=row["bindings"]["repo"],
+        created_at="1970-01-01T00:00:00+00:00",
         version=row["bindings"]["base_revision"],
         source_id=row["source_id"],
         issue_summary=_compact(str(trajectory.get("issue_summary") or "issue")),

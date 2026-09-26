@@ -18,6 +18,7 @@ def card(
 ) -> MemoryCard:
     return MemoryCard(
         repo=repo,
+        created_at="2020-01-01T00:00:00+00:00",
         version="abc123def456",
         source_id=source_id,
         issue_summary=summary,

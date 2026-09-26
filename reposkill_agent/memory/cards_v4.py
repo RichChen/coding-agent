@@ -162,6 +162,7 @@ def _card_from_run(
     source_id: str,
     *,
     repo: str,
+    created_at: str,
     version: str,
     issue: str,
     run_dir: Path,
@@ -179,6 +180,7 @@ def _card_from_run(
     notes = tuple(str(item) for item in trajectory.get("failure_notes") or ())
     return MemoryCard(
         repo=repo,
+        created_at=created_at,
         version=version,
         source_id=source_id,
         issue_summary=issue or source_id,
@@ -236,6 +238,8 @@ def build_memory_cards_v4(
                 _card_from_run(
                     source_id,
                     repo=entry["expected_repo"],
+                    created_at=(entry.get("provenance") or {}).get("historical_pr_created_at")
+                    or "1970-01-01T00:00:00+00:00",
                     version=entry["expected_base_commit"],
                     issue=issue,
                     run_dir=run_dir,
@@ -259,6 +263,7 @@ def build_memory_cards_v4(
             _card_from_run(
                 source_id,
                 repo=row["bindings"]["repo"],
+                created_at="1970-01-01T00:00:00+00:00",
                 version=row["bindings"]["base_revision"],
                 issue=issue or str(trajectory.get("issue_summary") or source_id),
                 run_dir=source_dir,

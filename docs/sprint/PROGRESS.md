@@ -177,3 +177,12 @@
 - 卡片渲染不含 20 道目标题 id，也不含 gold/test patch 里长度 ≥ 80 的新增行。
 - 按 B2 只注入 `validated_fix` 重出了 `DEV-LOO-SELECTION.md`。没有改检索规则，没有跑 memory smoke，没有调模型。
 - 测试：`python -m pytest -q tests/test_memory_cards_v4.py tests/test_memory_card_plugin.py`，12 passed。
+
+## 第五轮 第 1 步：卡片加上 repo 和 created_at（2026-09-26）
+
+- 开工 tag：`mem5-start`（`b96c4d8`）。`HANDOFF-CONVENTIONS.md` 还不存在，sha256 按 UTF-8 + LF 计算。`sprint5.memory-source-runs.v2` 也不存在。
+- `MemoryCard.created_at` 必须是带时区的 ISO 8601。v2 交接文件里缺 `repo` 或 `created_at` 时构建直接失败，不填默认值。
+- interim v5 用现有 `b0-v2` 运行，时间取自 canonical handoff 里的公开 `historical_pr_created_at`。缺这个字段也会失败。14 张卡，状态和 v4 选中的 repeat 相同。`created_at` 不写进渲染正文。
+- 产出 `benchmarks/a5/memory-cards-v5.jsonl` 和 manifest，`status=interim`，`memory_source_runs_sha256` 为 null。
+- 测试：`python -m pytest -q tests/test_memory_cards_v5.py tests/test_memory_cards.py tests/test_memory_card_plugin.py tests/test_memory_cards_v4.py`，20 passed。
+- 下一步：第 2 步，通用构建脚本，输出要和这份 v5 逐字节一致。

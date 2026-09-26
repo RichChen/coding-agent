@@ -150,6 +150,7 @@ def test_failed_attempt_render_omits_approach():
     approach = "UNIQUE_APPROACH_SENTENCE changed the wrong helper."
     failed = MemoryCard(
         repo="demo/demo",
+        created_at="2020-01-01T00:00:00+00:00",
         version="abc123def456",
         source_id="demo-9",
         issue_summary="The widget breaks.",

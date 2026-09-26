@@ -142,6 +142,7 @@ def _card_from_row(row: dict, status: str) -> MemoryCard:
     dependencies = _dependencies(changed, issue)
     return MemoryCard(
         repo=row["bindings"]["repo"],
+        created_at="1970-01-01T00:00:00+00:00",
         version=row["bindings"]["base_revision"],
         source_id=row["source_id"],
         issue_summary=issue,
