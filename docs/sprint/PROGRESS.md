@@ -193,3 +193,11 @@
 - 用现有 dev 交接文件跑出来的 jsonl，和 interim v5 逐字节一致（LF 归一化后）。构建时也检查了目标题 id、gold/test patch 长行和隐藏 nodeid 没有进卡片。
 - 测试：`python -m pytest -q tests/test_memory_cards_v5.py`，5 passed。
 - 下一步：第 3 步，按设计文档第 6 节写分析脚本，只用合成数据。
+
+## 第五轮 第 3 步：预先写好的分析脚本（2026-09-26）
+
+- `scripts/analyze_a5_main.py` 按设计文档第 6 节：d_t 是两组 k/3 之差；主要分析是平均 d_t、10000 次双侧符号翻转（种子 20260926）和按题 bootstrap 95% 区间。次要分析只保留 B2 至少注入 1 张卡的题，并按仓库列出。infra_error 不计入；某一组有效运行少于 2 次的题从主要分析剔除。
+- 置信区间含 0 时结论是“没有检出大于 X 个百分点的效应”，X 用设计文档里的 2.8 × 0.35 / √N。没有接触任何 R6 运行。
+- 合成样例在 `docs/sprint/A5-MAIN-SYNTHETIC-REPORT.md`。
+- 测试：`python -m pytest -q tests/test_analyze_a5_main.py`，3 passed。覆盖零效应、明显正效应和 infra_error。
+- 下一步：第 4 步，dev 按时间留一法，不改检索。
