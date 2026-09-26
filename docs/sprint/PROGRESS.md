@@ -297,8 +297,40 @@ sklearn-11281 r2 的 `events.sqlite3` 还在，最后一条是第 40 次调用�
 
 未跟踪的 `pelican-bicycle.html` 已删除。交接 sha256 的算法写在 `docs/sprint/HANDOFF-CONVENTIONS.md`。
 
+重跑已经完成。新的 r2 解出，33 次调用，`stop_reason` 是 `completed`，隔离通过，花费 0.478 CNY。11281 从 1/3 变成 2/3。42 次合计 18/42，14.522 CNY。旧证据留在 `runs/sprint4-b0-v2/scikit-learn__scikit-learn-11281/r2-storeerror`。这 0.478 CNY 算进第五轮，不另加在 14.522 上。
+
 ## 第五轮 第 1 步：Docker 磁盘在 C 盘
 
 日期：2026-09-26。花费：0 CNY。
 
-Docker 数据盘是 `C:\Users\Administrator\AppData\Local\Docker\wsl\disk\docker_data.vhdx`。C 盘空闲约 68GB，不到 150GB。没有迁移，也没有删除镜像。请把 Docker Desktop 的 Disk image location 手动迁到 E 盘（E 盘空闲约 815GB）。等待期间继续第 2 步和第 4 步。
+Docker 数据盘是 `C:\Users\Administrator\AppData\Local\Docker\wsl\disk\docker_data.vhdx`。C 盘空闲约 68GB，不到 150GB。没有迁移，也没有删除镜像。请把 Docker Desktop 的 Disk image location 手动迁到 E 盘（E 盘空闲约 815GB）。等待期间继续第 2 步和第 4 步。第 5 步的 60 个镜像在磁盘迁走之前不开工。
+
+## 第五轮 第 2 步：官方镜像试用
+
+日期：2026-09-26。花费：0 CNY。
+
+试用题是 django-10914、sympy-11400、scikit-learn-10297。镜像名是 `swebench/sweb.eval.x86_64.<id 里的 __ 换成 _1776_>:latest`。`docker manifest inspect` 超时，`docker pull` 可以完成。django 大约 385 秒，sklearn 大约 260 秒。Hub 慢，但没有被完全挡住。
+
+仓库在 `/testbed`，Python 在 `/opt/miniconda3/envs/testbed/bin/python`。三道题的全文件系统扫描都是 0 命中：django 2 条特征行，sympy 9 条，sklearn 12 条。
+
+零模型校准：django 空改动 F2P 0/1，gold 1/1，通过。sympy 空改动 0/2，gold 仍是 0/2，收据文件没有生成。sklearn 在链接 `.so` 时因没有 native artifact 依据报错，按规则没有跳过。三道没有全部通过，所以题目池不用官方镜像。
+
+决定：用 `build_clean_baseline.py` 自建。版本安装改为读取 SWE-bench v4.0.4 的 `MAP_REPO_VERSION_TO_SPECS_PY`（当前安装的 swebench 5.0.2 已经去掉这个文件，缓存放在 `runs/sprint5-specs/python.py`）。`main-targets.yaml` 的 `image_source` 是 `swebench-specs-v4.0.4`。没有拉取其余 57 个官方镜像，也没有删除已经拉下来的 3 个。
+
+## 第五轮 第 3 步：题目池
+
+日期：2026-09-26。花费：0 CNY。
+
+按设计文档第 3 节，从 SWE-bench Verified test split 的 5 个仓库里排除 14 道 dev 题，按 `created_at` 等间隔各取最多 12 道，共 60 道。题目 id 列表 sha256：`d4caaa48c5735b2bf1a302855bbf94a2cdb5ab0397dff152d5d839440a4b22dd`。私有字段在 `runs/sprint5-main-private/`，不提交。选定之后没有因为环境以外的原因换题。`sphinx-doc__sphinx-8721` 被抽进题目池，已从 `HOLDOUT` 里拿掉，其余 pilot 仍然拒绝。
+
+## 第五轮 第 4 步：记忆源 created_at
+
+日期：2026-09-26。花费：0 CNY。
+
+Verified 里对不上 36 条运行。改用 `princeton-nlp/SWE-bench` 的 test split 之后，42 条都有 `repo` 和 `created_at`。交接文件升级为 `sprint5.memory-source-runs.v2`。换行符归一后的 sha256：`984826707e8f69ad9b900134bd244c6056f2d8860f3036a3606bfc60b4bcb450`。11281 重跑刚写完时、还没加这两个字段之前的 sha256 是 `31de0c2a727519786703d454825cbcd95440adc846d22cf868f0c3702a41f9a4`。第四轮检查点里的 `89c33557b611fdb0578c050b54952a7c8a5b062e115db097f619b456ae84d073` 是重跑之前的文件。
+
+## 第五轮 第 5 步：题目池环境
+
+日期：2026-09-26。花费：0 CNY。
+
+没有开始。Docker 数据盘仍在 C 盘，空闲不足 150GB。等用户把磁盘镜像迁到 E 盘之后再构建或拉取。合格清单还不存在，所以第 7 步的零模型走查没有执行。
