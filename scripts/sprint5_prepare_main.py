@@ -123,11 +123,15 @@ def build_image(task: dict, archive: Path, manifest: dict) -> dict:
             encoding="utf-8",
         )
     install = " && ".join(install_commands(spec))
-    native = (
-        "RUN sed -i 's|http://deb.debian.org/debian-security|https://snapshot.debian.org/archive/debian-security/20240901T000000Z|g;"
-        "s|http://deb.debian.org/debian|https://snapshot.debian.org/archive/debian/20240901T000000Z|g' /etc/apt/sources.list && "
-        "apt-get -o Acquire::Check-Valid-Until=false update && apt-get install -y --no-install-recommends build-essential"
-    )
+    if str(spec.get("python")) in {"3.5", "3.6"}:
+        apt = (
+            "sed -i '/security/d' /etc/apt/sources.list && "
+            "sed -i 's|deb.debian.org|archive.debian.org|g' /etc/apt/sources.list && "
+            "apt-get -o Acquire::Check-Valid-Until=false update"
+        )
+    else:
+        apt = "apt-get update"
+    native = "RUN " + apt + " && apt-get install -y --no-install-recommends build-essential"
     if family == "scikit-learn":
         native += " && dpkg-query -W > /opt/grader-system-packages.txt"
     native += "\n"
