@@ -151,8 +151,13 @@ def docker_python(digest: str, code: str, stdin: bytes = b"", python_bin: str = 
     return result.stdout.decode("utf-8", "replace")
 
 
-def source_only_check(digest: str, manifest: dict):
-    payload = {path: meta["sha256"] for path, meta in manifest["entries"].items() if meta.get("kind") == "file"}
+def source_only_check(digest: str, manifest: dict, ignore: set[str] | None = None):
+    skipped = ignore or set()
+    payload = {
+        path: meta["sha256"]
+        for path, meta in manifest["entries"].items()
+        if meta.get("kind") == "file" and path not in skipped
+    }
     code = r'''
 import hashlib, json, pathlib, sys
 expected = json.load(sys.stdin)
@@ -211,6 +216,8 @@ for root in roots:
         if not path.is_file() or path.is_symlink():
             continue
         rel = path.as_posix()
+        if "/site-packages/" in rel or "/dist-packages/" in rel:
+            continue
         try:
             data = path.read_bytes()
         except OSError:

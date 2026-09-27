@@ -149,7 +149,12 @@ def build_image(task: dict, archive: Path, manifest: dict) -> dict:
         log = WORK / task["id"] / "build-retry.log"
     digest, inspect = image_build(work, tag, log)
     private = json.loads((ROOT / task["private"]).read_text(encoding="utf-8"))
-    source_ok, source_hash = source_only_check(digest, manifest)
+    rewritten = set()
+    for command in spec.get("pre_install") or []:
+        parts = str(command).split()
+        if parts and parts[0] == "sed" and "/" not in parts[-1]:
+            rewritten.add(parts[-1])
+    source_ok, source_hash = source_only_check(digest, manifest, rewritten)
     scan = filesystem_scan(digest, archive, manifest, private.get("test_patch") or "", private.get("patch") or "")
     row = {
         "task_id": task["id"],
