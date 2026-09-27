@@ -123,6 +123,8 @@ def build_image(task: dict, archive: Path, manifest: dict) -> dict:
             encoding="utf-8",
         )
     install = " && ".join(install_commands(spec))
+    if family == "sphinx-doc":
+        install += " && python -m pip install --no-cache-dir roman"
     if str(spec.get("python")) in {"3.5", "3.6"}:
         apt = (
             "sed -i '/security/d' /etc/apt/sources.list && "
