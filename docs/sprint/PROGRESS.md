@@ -333,7 +333,7 @@ Verified 里对不上 36 条运行。改用 `princeton-nlp/SWE-bench` 的 test s
 
 日期：2026-09-26。花费：0 CNY。
 
-没有开始。Docker 数据盘仍在 C 盘，空闲不足 150GB。等用户把磁盘镜像迁到 E 盘之后再构建或拉取。合格清单还不存在，所以第 7 步的零模型走查没有执行。
+当时没有开始。2026-09-27 用户迁移之后，C 盘的 `docker_data.vhdx` 已经不在，引擎锁着的是 `E:\Docker\wsl\DockerDesktopWSL\disk\docker_data.vhdx`。C 盘空闲约 120GB，E 盘空闲约 688GB。题目池环境从这时开始准备。sympy-23950 隔离通过，零模型校准合格。
 
 ## 第五轮 第 6 步：dev 题 B2 冒烟
 

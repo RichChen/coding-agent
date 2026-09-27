@@ -45,7 +45,7 @@ def spec_row(repo: str, version: str) -> dict:
 
 def install_commands(row: dict) -> list[str]:
     """Shell commands that install the official spec. requirements.txt is a separate file."""
-    commands = []
+    commands = ["python -m pip install --no-cache-dir pytest"]
     packages = row.get("packages")
     if isinstance(packages, str) and packages not in ("", "requirements.txt", "environment.yml"):
         commands.append("python -m pip install --no-cache-dir " + packages)
