@@ -187,6 +187,8 @@ def nodeids(task: dict, private: dict, test_paths: list[str]) -> tuple[list[str]
     if family == "sympy":
         baseline = WORK / task["id"] / "staging" / "baseline"
         f2p, p2p = prefix_sympy_nodeids(f2p, test_paths, baseline), prefix_sympy_nodeids(p2p, test_paths, baseline)
+    f2p = [node for node in f2p if node.count("[") == node.count("]") and node.count("(") == node.count(")")]
+    p2p = [node for node in p2p if node.count("[") == node.count("]") and node.count("(") == node.count(")")]
     return f2p, p2p
 
 
