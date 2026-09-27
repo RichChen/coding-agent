@@ -168,12 +168,22 @@ def build_image(task: dict, archive: Path, manifest: dict) -> dict:
     return row
 
 
+def django_test_lines(nodes: list[str]) -> list[str]:
+    kept = []
+    for node in nodes:
+        line = node.splitlines()[0].strip()
+        name = line.split(" (", 1)[0]
+        if " (" in line and line.endswith(")") and name.replace("_", "").isalnum():
+            kept.append(line)
+    return kept
+
+
 def nodeids(task: dict, private: dict, test_paths: list[str]) -> tuple[list[str], list[str]]:
     family = FAMILY[task["repo"]]
     f2p = [node for node in parse_id_list(private.get("FAIL_TO_PASS")) if usable_nodeid(node)]
     p2p = [node for node in parse_id_list(private.get("PASS_TO_PASS")) if usable_nodeid(node)]
     if family == "django":
-        f2p, p2p = django_nodeids(f2p), django_nodeids(p2p)
+        f2p, p2p = django_nodeids(django_test_lines(f2p)), django_nodeids(django_test_lines(p2p))
     if family == "sympy":
         f2p, p2p = prefix_sympy_nodeids(f2p, test_paths), prefix_sympy_nodeids(p2p, test_paths)
     return f2p, p2p
