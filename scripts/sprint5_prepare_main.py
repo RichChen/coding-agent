@@ -125,6 +125,18 @@ def build_image(task: dict, archive: Path, manifest: dict) -> dict:
     install = " && ".join(install_commands(spec))
     if family == "sphinx-doc":
         install += " && python -m pip install --no-cache-dir roman"
+    if family == "pytest-dev":
+        install = install.replace("python -m pip install --no-cache-dir pytest && ", "", 1)
+        pretend = str(task["version"])
+        if pretend.count(".") < 2:
+            pretend += ".0"
+        install = install.replace(
+            "python -m pip install -e .",
+            "SETUPTOOLS_SCM_PRETEND_VERSION=" + pretend
+            + " SETUPTOOLS_SCM_PRETEND_VERSION_FOR_PYTEST=" + pretend
+            + " python -m pip install --no-cache-dir -e .",
+            1,
+        )
     if str(spec.get("python")) in {"3.5", "3.6"}:
         apt = (
             "sed -i '/security/d' /etc/apt/sources.list && "
