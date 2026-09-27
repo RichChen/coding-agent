@@ -123,20 +123,23 @@ def build_image(task: dict, archive: Path, manifest: dict) -> dict:
             encoding="utf-8",
         )
     install = " && ".join(install_commands(spec))
-    native = ""
+    native = (
+        "RUN sed -i 's|http://deb.debian.org/debian-security|https://snapshot.debian.org/archive/debian-security/20240901T000000Z|g;"
+        "s|http://deb.debian.org/debian|https://snapshot.debian.org/archive/debian/20240901T000000Z|g' /etc/apt/sources.list && "
+        "apt-get -o Acquire::Check-Valid-Until=false update && apt-get install -y --no-install-recommends build-essential"
+    )
     if family == "scikit-learn":
-        native = (
-            "RUN sed -i 's|http://deb.debian.org/debian-security|https://snapshot.debian.org/archive/debian-security/20240901T000000Z|g;"
-            "s|http://deb.debian.org/debian|https://snapshot.debian.org/archive/debian/20240901T000000Z|g' /etc/apt/sources.list && "
-            "apt-get -o Acquire::Check-Valid-Until=false update && apt-get install -y --no-install-recommends build-essential && "
-            "dpkg-query -W > /opt/grader-system-packages.txt\n"
-        )
+        native += " && dpkg-query -W > /opt/grader-system-packages.txt"
+    native += "\n"
     text = dockerfile(task, base, install, native, requirements)
     (work / "Dockerfile").write_bytes(text.encode("utf-8"))
     tag = "coding-harness-a5-clean:" + task["id"].replace("__", "-")
     log = WORK / task["id"] / "build.log"
-    if log.exists():
-        log.unlink()
+    try:
+        if log.exists():
+            log.unlink()
+    except PermissionError:
+        log = WORK / task["id"] / "build-retry.log"
     digest, inspect = image_build(work, tag, log)
     private = json.loads((ROOT / task["private"]).read_text(encoding="utf-8"))
     source_ok, source_hash = source_only_check(digest, manifest)

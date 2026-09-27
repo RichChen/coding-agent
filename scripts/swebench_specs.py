@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import importlib.util
+import posixpath
 import sysconfig
 import urllib.request
 from pathlib import Path
@@ -65,14 +66,35 @@ def install_commands(row: dict) -> list[str]:
     return commands
 
 
+def _fetch_text(repo: str, commit: str, relative: str) -> str:
+    url = "https://raw.githubusercontent.com/" + repo + "/" + commit + "/" + relative
+    with urllib.request.urlopen(url, timeout=60) as response:
+        return response.read().decode("utf-8")
+
+
+def _flatten_requirements(repo: str, commit: str, relative: str, text: str, seen: set[str]) -> str:
+    base = posixpath.dirname(relative)
+    lines = []
+    for line in text.splitlines():
+        stripped = line.strip()
+        if stripped.startswith("-r ") or stripped.startswith("--requirement "):
+            child = posixpath.normpath(posixpath.join(base, stripped.split(None, 1)[1]))
+            if child in seen:
+                continue
+            seen.add(child)
+            lines.append(_flatten_requirements(repo, commit, child, _fetch_text(repo, commit, child), seen))
+        else:
+            lines.append(line)
+    return "\n".join(lines)
+
+
 def fetch_requirements(repo: str, commit: str, version: str) -> str:
     _specs, paths = load_maps()
     relatives = paths.get(repo) or ["requirements.txt"]
     chunks = []
+    seen = set(relatives)
     for relative in relatives:
-        url = "https://raw.githubusercontent.com/" + repo + "/" + commit + "/" + relative
-        with urllib.request.urlopen(url, timeout=60) as response:
-            chunks.append(response.read().decode("utf-8"))
-    if not chunks:
+        chunks.append(_flatten_requirements(repo, commit, relative, _fetch_text(repo, commit, relative), seen))
+    if not any(chunk.strip() for chunk in chunks):
         raise ValueError("no requirements for " + repo + " " + version)
     return "\n".join(chunks) + "\n"
