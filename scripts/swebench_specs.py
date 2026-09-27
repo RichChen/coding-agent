@@ -44,17 +44,35 @@ def spec_row(repo: str, version: str) -> dict:
     return row
 
 
+def _cython_token(row: dict) -> str | None:
+    """Bare 'cython' on today's PyPI is Cython 3, which cannot compile the 0.2x trees."""
+    packages = row.get("packages") or ""
+    if isinstance(packages, str):
+        for part in packages.replace("'", " ").split():
+            if part.startswith("cython=="):
+                return part
+    if str(row.get("python") or "") in {"3.5", "3.6"}:
+        return "cython==0.29.37"
+    return None
+
+
+def _with_cython_pin(token: str, pin: str | None) -> str:
+    return pin if token == "cython" and pin else token
+
+
 def install_commands(row: dict) -> list[str]:
     """Shell commands that install the official spec. requirements.txt is a separate file."""
+    pin = _cython_token(row)
     commands = ["python -m pip install --no-cache-dir pytest"]
     packages = row.get("packages")
     if isinstance(packages, str) and packages not in ("", "requirements.txt", "environment.yml"):
-        commands.append("python -m pip install --no-cache-dir " + packages)
+        pinned = " ".join(_with_cython_pin(part, pin) for part in packages.split())
+        commands.append("python -m pip install --no-cache-dir " + pinned)
     elif packages == "requirements.txt":
         commands.append("python -m pip install --no-cache-dir -r /tmp/swebench-requirements.txt")
     elif packages == "environment.yml":
         raise ValueError("SWE-bench spec uses environment.yml; this builder only installs with pip")
-    pip_packages = row.get("pip_packages") or []
+    pip_packages = [_with_cython_pin(part, pin) for part in (row.get("pip_packages") or [])]
     if pip_packages:
         commands.append("python -m pip install --no-cache-dir " + " ".join(pip_packages))
     for command in row.get("pre_install") or []:
