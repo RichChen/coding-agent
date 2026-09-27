@@ -185,7 +185,8 @@ def nodeids(task: dict, private: dict, test_paths: list[str]) -> tuple[list[str]
     if family == "django":
         f2p, p2p = django_nodeids(django_test_lines(f2p)), django_nodeids(django_test_lines(p2p))
     if family == "sympy":
-        f2p, p2p = prefix_sympy_nodeids(f2p, test_paths), prefix_sympy_nodeids(p2p, test_paths)
+        baseline = WORK / task["id"] / "staging" / "baseline"
+        f2p, p2p = prefix_sympy_nodeids(f2p, test_paths, baseline), prefix_sympy_nodeids(p2p, test_paths, baseline)
     return f2p, p2p
 
 

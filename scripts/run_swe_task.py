@@ -141,13 +141,31 @@ def parse_id_list(value) -> list[str]:
     return list(value or [])
 
 
-def prefix_sympy_nodeids(nodes: list[str], test_paths) -> list[str]:
-    test_file = next((path for path in test_paths if "/tests/" in path and str(path).endswith(".py")), None)
-    if not test_file:
+def prefix_sympy_nodeids(nodes: list[str], test_paths, root=None) -> list[str]:
+    files = [path for path in test_paths if "/tests/" in path.replace("\\", "/") and str(path).endswith(".py")]
+    if not files:
         return list(nodes)
+    locations: dict[str, list[str]] = {}
+    if root is not None:
+        root = Path(root)
+        for relative in files:
+            file = root / relative
+            if not file.is_file():
+                continue
+            text = file.read_text(encoding="utf-8", errors="replace")
+            for node in nodes:
+                if "::" in node or node.endswith(".py"):
+                    continue
+                if f"def {node}(" in text:
+                    locations.setdefault(node, []).append(relative)
     prefixed = []
     for node in nodes:
-        prefixed.append(node if "::" in node or node.endswith(".py") else f"{test_file}::{node}")
+        if "::" in node or node.endswith(".py"):
+            prefixed.append(node)
+        elif locations.get(node):
+            prefixed.extend(f"{relative}::{node}" for relative in locations[node])
+        elif root is None:
+            prefixed.append(f"{files[0]}::{node}")
     return prefixed
 
 
