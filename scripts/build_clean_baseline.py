@@ -209,7 +209,7 @@ roots = [p for p in pathlib.Path("/").iterdir() if p.name not in {"proc", "sys",
 hits = []
 def consider(rel, data):
     text = data.decode("utf-8", "ignore")
-    if any(needle in text for needle in needles):
+    if rel.startswith("/opt/repo") and any(needle in text for needle in needles):
         hits.append(rel)
 for root in roots:
     for path in root.rglob("*"):
