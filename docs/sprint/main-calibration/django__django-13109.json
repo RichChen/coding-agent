@@ -1,0 +1,36 @@
+{
+  "task_id": "django__django-13109",
+  "repo": "django/django",
+  "accepted": true,
+  "reason": null,
+  "empty_f2p": [
+    0,
+    2
+  ],
+  "gold_f2p": [
+    2,
+    2
+  ],
+  "empty_p2p": [
+    160,
+    170
+  ],
+  "gold_p2p": [
+    160,
+    170
+  ],
+  "p2p_excluded_count": 10,
+  "p2p_excluded": [
+    "Regression for #13095: Using base forms with widgets defined in Meta should not raise errors.",
+    "A custom formfield_callback is used if provided",
+    "Regression for #15315: modelform_factory should accept widgets",
+    "Regression for #19733",
+    "Data for a ManyToManyField is a list rather than a lazy QuerySet.",
+    "Ensure keys and blank character strings are tested for uniqueness.",
+    "Test for primary_key being in the form and failing validation.",
+    "ModelForm test of unique_together constraint",
+    "FilePathField(blank=True) includes the empty option.",
+    "Check basic URL field validation on model forms"
+  ],
+  "sklearn_import": null
+}

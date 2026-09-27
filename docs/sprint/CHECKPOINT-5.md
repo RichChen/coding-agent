@@ -1,6 +1,6 @@
 # 第五轮审计节点
 
-日期：2026-09-26。本轮模型花费 6.349 CNY，上限 10 CNY。到这里停下，等审计。没有打 `a5-main-freeze`，也没有进入 R6。
+日期：2026-09-26 写初稿，2026-09-27 补上第 5 步结果。本轮模型花费仍是 6.349 CNY，上限 10 CNY。没有打 `a5-main-freeze`，也没有进入 R6。
 
 ## 第 0 步
 
@@ -18,7 +18,21 @@ sklearn-11281 原来的 r2 是工件配额超出（16MB），不是 ACL，也不
 
 ## 磁盘
 
-Docker 数据盘仍在 `C:\Users\Administrator\AppData\Local\Docker\wsl\disk\docker_data.vhdx`。检查时 C 盘空闲约 68GB，不到 150GB。没有迁移，也没有删除镜像。请手动把 Docker Desktop 的 Disk image location 迁到 E 盘（当时 E 盘空闲约 815GB）。第 5 步因此没有开始：题目池 60 道都还没有镜像，合格 0 道，没有按环境剔除的题。
+2026-09-26 检查时数据盘还在 C 盘，空闲约 68GB，第 5 步因此停过。2026-09-27 迁移已经生效：C 盘的 `docker_data.vhdx` 不在了，引擎锁着 `E:\Docker\wsl\DockerDesktopWSL\disk\docker_data.vhdx`。当时 C 盘空闲约 120GB，E 盘约 688GB。没有删除 b0 镜像。
+
+## 第 5 步
+
+60 道都做了自建镜像、文件系统扫描和零模型校准。合格 56 道。没有因为难度或环境以外的原因换题。
+
+| 仓库 | 合格 | 剔除 |
+| --- | --- | --- |
+| django/django | 11/12 | django-7530：空改动时 F2P 已经通过 |
+| sympy/sympy | 12/12 | 无 |
+| scikit-learn/scikit-learn | 10/12 | 25232、25973：官方 pin `numpy==1.19.2` 没有 Python 3.9 wheel，源码也不能用 Cython 3.0.10 编译 |
+| sphinx-doc/sphinx | 11/12 | sphinx-8721：空改动时 F2P 已经通过 |
+| pytest-dev/pytest | 12/12 | 无 |
+
+明细在 `docs/sprint/MAIN-CALIBRATION.md` 和 `docs/sprint/main-calibration/`。
 
 ## 题目池
 
@@ -32,6 +46,6 @@ v5 manifest 不是 final，用的是 v4 final，`created_at` 由交接文件补�
 
 ## R6 估计
 
-60 题 × B0/B2 × 3 次 = 360 次。按 b0-v2 平均约 0.35 CNY，大约 125 CNY，上限 150 CNY。每次 4–6 分钟的话，串行 24–36 小时，可以 2–3 个并行。运行器是 `scripts/run_a5_main.py`。合格清单还不存在，B0 → 交接 → B2 的零模型走查没有执行。
+按设计仍是约 360 次、约 125 CNY、上限 150 CNY、串行 24–36 小时。合格题现在是 56 道，若只跑合格题则是 56×2×3 = 336 次。运行器是 `scripts/run_a5_main.py`。它调用的 `run_task` 还要求 dev 题的 `receipt`、`public_task` 和 `family`，题目池 yaml 没有这些字段，所以 B0 → 交接 → B2 的零模型走查没有执行。没有进入 R6。
 
 本轮花费：重跑 0.478 CNY，冒烟 5.871 CNY，合计 6.349 CNY。

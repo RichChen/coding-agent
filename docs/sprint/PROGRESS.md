@@ -333,7 +333,7 @@ Verified 里对不上 36 条运行。改用 `princeton-nlp/SWE-bench` 的 test s
 
 日期：2026-09-26。花费：0 CNY。
 
-当时没有开始。2026-09-27 用户迁移之后，C 盘的 `docker_data.vhdx` 已经不在，引擎锁着的是 `E:\Docker\wsl\DockerDesktopWSL\disk\docker_data.vhdx`。C 盘空闲约 120GB，E 盘空闲约 688GB。题目池环境从这时开始准备。sympy-23950 隔离通过，零模型校准合格。
+2026-09-27 用户把 Docker 数据盘迁到 E 盘之后，60 道都做了镜像和零模型校准。合格 56 道，明细在 `docs/sprint/MAIN-CALIBRATION.md`。环境剔除 4 道，没有换题：django-7530 的 F2P 在空改动下已经通过；sklearn-25232 和 sklearn-25973 的官方 pin `numpy==1.19.2` 没有 Python 3.9 的 wheel，源码也无法用 Cython 3.0.10 编译；sphinx-8721 的 F2P 在空改动下已经通过。
 
 ## 第五轮 第 6 步：dev 题 B2 冒烟
 
@@ -364,8 +364,20 @@ sklearn-11281 的 `context.prepared` 里能看到 `scikit-learn__scikit-learn-11
 
 日期：2026-09-26。花费：0 CNY。
 
-`scripts/run_a5_main.py` 先跑合格题的 B0 三次，写出交接文件后停下，再跑 B2。并行 3，总上限 150 CNY，单次仍是 1 CNY。题目池还没有合格清单，零模型走查没有执行。
+`scripts/run_a5_main.py` 先跑合格题的 B0 三次，写出交接文件后停下，再跑 B2。并行 3，总上限 150 CNY，单次仍是 1 CNY。合格题已经有 56 道，但运行器调用的 `run_task` 仍要求 dev 题上的 `receipt`、`public_task` 和 `family`，题目池 yaml 里没有这些字段。零模型走查因此没有执行，也没有调用模型。
 
 ## 第五轮 第 8 步：停下等审计
 
 日期：2026-09-26。审计节点是 `docs/sprint/CHECKPOINT-5.md`。没有打 `a5-main-freeze`。
+
+第五轮第 5 步已处理 10 道。明细在 `docs/sprint/MAIN-CALIBRATION.md`。
+
+第五轮第 5 步已处理 20 道。明细在 `docs/sprint/MAIN-CALIBRATION.md`。
+
+第五轮第 5 步已处理 30 道。明细在 `docs/sprint/MAIN-CALIBRATION.md`。
+
+第五轮第 5 步已处理 40 道。明细在 `docs/sprint/MAIN-CALIBRATION.md`。
+
+第五轮第 5 步已处理 50 道。明细在 `docs/sprint/MAIN-CALIBRATION.md`。
+
+第五轮第 5 步已处理 60 道。明细在 `docs/sprint/MAIN-CALIBRATION.md`。
