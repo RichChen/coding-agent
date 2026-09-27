@@ -235,7 +235,12 @@ async def calibrate(task: dict, clean: dict, archive: Path, manifest: dict, priv
         reason = "answer_isolation_failed"
         accepted = False
     elif not empty_fails or not gold_ok:
-        reason = empty.get("reason") or gold_result.get("reason") or "calibration_failed"
+        if not empty_fails and gold_ok:
+            reason = "empty_f2p_did_not_fail"
+        elif empty_fails and not gold_ok:
+            reason = gold_result.get("reason") or "gold_f2p_incomplete"
+        else:
+            reason = empty.get("reason") or gold_result.get("reason") or "calibration_failed"
         accepted = False
     elif not changed:
         reason = "delta_has_no_effect"

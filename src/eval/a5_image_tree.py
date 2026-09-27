@@ -157,6 +157,7 @@ def extract(archive_path, manifest, destination, *, verify_modes=True):
             (root / name).mkdir()
     with tarfile.open(str(archive_path), 'r:gz') as archive:
         prefix = manifest['repo'].split('/')[1] + '-' + manifest['base_revision'] + '/'
+        copied_links = []
         for name, meta in entries.items():
             p = root / name
             if meta['kind'] == 'file':
@@ -164,11 +165,29 @@ def extract(archive_path, manifest, destination, *, verify_modes=True):
                     stream.write(archive.extractfile(prefix + name).read())
                 p.chmod(meta['mode'])
             elif meta['kind'] == 'symlink':
-                p.symlink_to(meta['target'])
+                try:
+                    p.symlink_to(meta['target'])
+                except OSError as exc:
+                    if getattr(exc, 'winerror', None) not in (5, 1314):
+                        raise
+                    resolved = posixpath.normpath(posixpath.join(str(PurePosixPath(name).parent), meta['target']))
+                    target = entries.get(resolved) or {}
+                    if target.get('kind') != 'file':
+                        raise
+                    data = archive.extractfile(prefix + resolved).read()
+                    if sha(data) != target['sha256']:
+                        raise ValueError('symlink target hash mismatch')
+                    p.write_bytes(data)
+                    copied_links.append(name)
     for name, meta in entries.items():
         if meta['kind'] == 'dir':
             (root / name).chmod(meta['mode'])
     actual = disk_entries(root)
+    for name in copied_links:
+        resolved = posixpath.normpath(posixpath.join(str(PurePosixPath(name).parent), entries[name]['target']))
+        if actual.get(name, {}).get('sha256') != entries[resolved]['sha256']:
+            raise ValueError('materialized symlink mismatch')
+        actual[name] = dict(entries[name])
     if not verify_modes:
         actual = {name: {key: value for key, value in meta.items() if key != 'mode'} for name, meta in actual.items()}
         expected = {name: {key: value for key, value in meta.items() if key != 'mode'} for name, meta in entries.items()}
