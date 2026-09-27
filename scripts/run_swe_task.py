@@ -156,7 +156,8 @@ def django_nodeids(raw: list[str]) -> list[str]:
     for node in raw:
         if " (" in node and node.endswith(")"):
             name, rest = node.split(" ", 1)
-            converted.append(rest.strip("()") + "." + name)
+            module = rest.strip("()")
+            converted.append(module if module.endswith("." + name) else module + "." + name)
         else:
             converted.append(node)
     return converted
