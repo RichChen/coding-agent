@@ -80,7 +80,7 @@ def dockerfile(task: dict, base: str, install: str, native: str, requirements: b
         "        if not name:\n"
         "            continue\n"
         "        member.name = name\n"
-        "        archive.extract(member, root)\n"
+        "        archive.extract(member, str(root))\n"
         "pathlib.Path('/tmp/source.tar.gz').unlink()\n"
         "PY\n"
         "WORKDIR /workspace\n"
