@@ -151,6 +151,8 @@ def build_image(task: dict, archive: Path, manifest: dict) -> dict:
     )
     if family == "scikit-learn":
         native += " && dpkg-query -W > /opt/grader-system-packages.txt"
+    if family == "sphinx-doc":
+        native += " git"
     native += "\n"
     text = dockerfile(task, base, install, native, requirements)
     (work / "Dockerfile").write_bytes(text.encode("utf-8"))
@@ -206,9 +208,20 @@ def nodeids(task: dict, private: dict, test_paths: list[str]) -> tuple[list[str]
     if family == "sympy":
         baseline = WORK / task["id"] / "staging" / "baseline"
         f2p, p2p = prefix_sympy_nodeids(f2p, test_paths, baseline), prefix_sympy_nodeids(p2p, test_paths, baseline)
-    f2p = [node for node in f2p if node.count("[") == node.count("]") and node.count("(") == node.count(")")]
-    p2p = [node for node in p2p if node.count("[") == node.count("]") and node.count("(") == node.count(")")]
-    return f2p, p2p
+    baseline = WORK / task["id"] / "staging" / "baseline"
+
+    def addressable(node: str) -> bool:
+        if node.count("[") != node.count("]") or node.count("(") != node.count(")"):
+            return False
+        bracket = node.find("[")
+        if bracket != -1 and "::" in node[bracket:]:
+            return False
+        if family in {"django", "sympy"}:
+            return True
+        file = node.split("::", 1)[0]
+        return not file.endswith(".py") or (baseline / file).is_file()
+
+    return [node for node in f2p if addressable(node)], [node for node in p2p if addressable(node)]
 
 
 def overlay_and_gold(task: dict, archive: Path, manifest: dict, private: dict) -> tuple[dict, dict, list[str]]:
