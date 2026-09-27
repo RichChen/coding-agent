@@ -131,7 +131,10 @@ def build_image(task: dict, archive: Path, manifest: dict) -> dict:
         )
     else:
         apt = "apt-get update"
-    native = "RUN " + apt + " && apt-get install -y --no-install-recommends build-essential"
+    native = (
+        "RUN " + apt + " && apt-get install -y --no-install-recommends"
+        " build-essential libffi-dev pkg-config zlib1g-dev libjpeg-dev libmemcached-dev"
+    )
     if family == "scikit-learn":
         native += " && dpkg-query -W > /opt/grader-system-packages.txt"
     native += "\n"
@@ -315,7 +318,7 @@ async def one(task: dict) -> dict:
                 "task_id": task["id"],
                 "repo": task["repo"],
                 "accepted": False,
-                "reason": type(exc).__name__ + ": " + str(exc)[:300],
+                "reason": type(exc).__name__ + ": " + str(exc)[-400:],
                 "empty_f2p": [0, 0],
                 "gold_f2p": [0, 0],
                 "empty_p2p": [0, 0],
