@@ -1,9 +1,13 @@
 from scripts import sprint6_canary
 
+ISSUE_SHA = "a" * 64
+
 
 def _good(monkeypatch):
     monkeypatch.setattr(sprint6_canary, "calibration_ids", lambda task_id: {"f2p": 2, "p2p": 10})
+    monkeypatch.setattr(sprint6_canary, "recorded_issue_sha", lambda task_id: ISSUE_SHA)
     summary = {"mock": False, "profile": "b0-v2", "answer_isolation_pass": True, "status": "fail",
+               "issue_sha256": ISSUE_SHA, "prompt_sha256": "b" * 64,
                "grader_ids": {"f2p": 2, "p2p": 9, "missing": 0, "reason": None},
                "harness_tool_errors": 0, "cost_cny": "0.120", "docker_retries": []}
     ledger = {"currency": "CNY", "cost_committed": "0.120"}
@@ -23,6 +27,16 @@ def test_harness_tool_errors_fail_the_canary(monkeypatch):
     assert sprint6_canary.check_summary("t", summary, ledger, excluded=1) == ["harness_tool_errors is None"]
 
 
+def test_issue_sha_must_match_main_issues(monkeypatch):
+    summary, ledger = _good(monkeypatch)
+    summary["issue_sha256"] = "c" * 64
+    assert sprint6_canary.check_summary("t", summary, ledger, excluded=1)[0].startswith("issue_sha256")
+    del summary["issue_sha256"]
+    del summary["prompt_sha256"]
+    problems = sprint6_canary.check_summary("t", summary, ledger, excluded=1)
+    assert problems[0].startswith("issue_sha256") and problems[1] == "no prompt_sha256"
+
+
 def test_docker_infra_error_fails_the_canary(monkeypatch):
     summary, ledger = _good(monkeypatch)
     summary.update(status="infra_error", infra_reason="candidate snapshot failed: DockerUnavailable")
@@ -37,9 +51,7 @@ def test_ids_and_ledger_are_checked(monkeypatch):
     assert "ledger cost" in sprint6_canary.check_summary("t", summary, {"currency": "CNY", "cost_committed": "0.1"}, excluded=1)[0]
 
 
-def test_select_takes_the_lower_median_per_python(monkeypatch):
-    versions = {"a": "python:3.6.15-slim-buster", "b": "python:3.6.15-slim-buster", "c": "python:3.6.15-slim-buster",
-                "d": "python:3.6.15-slim-buster", "e": "python:3.11-slim-bookworm"}
-    monkeypatch.setattr(sprint6_canary, "clean_record", lambda task_id: {"base_image": versions[task_id]})
-    tasks = [{"id": key, "created_at": "2020-01-0" + str(i)} for i, key in enumerate("dcbae", start=1)]
-    assert sprint6_canary.select(tasks) == {"3.11": "e", "3.6": "c"}
+def test_select_takes_the_lower_median_per_repo():
+    repos = {"a": "x/x", "b": "x/x", "c": "x/x", "d": "x/x", "e": "y/y"}
+    tasks = [{"id": key, "repo": repos[key], "created_at": "2020-01-0" + str(i)} for i, key in enumerate("dcbae", start=1)]
+    assert sprint6_canary.select(tasks) == {"x/x": "c", "y/y": "e"}

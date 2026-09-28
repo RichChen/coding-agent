@@ -695,6 +695,10 @@ async def run_task(task: dict, profile: Path, output: Path, *, mock: bool, varia
     if mock:
         config["llm"]["api_key"] = config["llm"]["api_key"] or "mock"
     prompt = public_issue(task)
+    fingerprints = {
+        "issue_sha256": hashlib.sha256(issue_text(load_json(Path(task["public_task"]))).encode("utf-8")).hexdigest(),
+        "prompt_sha256": hashlib.sha256(prompt.encode("utf-8")).hexdigest(),
+    }
     memory = None
     registry = None
     if cards_path is not None:
@@ -808,6 +812,7 @@ async def run_task(task: dict, profile: Path, output: Path, *, mock: bool, varia
         "mock": mock,
         "profile": profile.stem,
         "model": model,
+        **fingerprints,
         "solved": False if lost or infra else bool(evaluation.get("solved")),
         "status": "infra_error" if infra else ("delta_lost" if lost else evaluation.get("status")),
         "grader_status": evaluation.get("status"),
