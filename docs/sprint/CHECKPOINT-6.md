@@ -276,3 +276,129 @@ django-14434 r3 的 `delta_lost` 也是这个 bug 造成的。它唯一一次 `s
 4. **预算。** 按目前的速度，B0 会超过 80 元的软上限。重跑那 22 次还会再增加大约 12.5 元。
 
 停在这里等审计。没有修改任何运行时代码，没有看 B2，也没有开始 B2。coding-agent 侧继续等 `main-b0-runs.json`。
+
+### 修订 2 执行记录：G1–G7、canary 与全量 B0（停止）
+
+**结论：G1–G7 全部完成。预检 56/56，工具冒烟 56/56。4 道 canary 全部通过。全量 B0 在 django-16527 r2 触发"grader 报 missing"停止条件。** 这次 missing 是候选改动自己造成的：agent 编辑后的 `django/contrib/admin/views/main.py` 有 `IndentationError`，测试模块导入失败，7 个 id 一个都没收集到。grader 和编辑工具都工作正常。
+
+停止时的状态：
+
+- 共 38 份 summary，其中 36 个正式槽位、2 个已退役的 infra 槽位；
+- `harness_tool_errors` 合计 0；Docker 重试 4 次，全部在第一次重试后成功；
+- 花费 24.055 元；
+- 没有生成 `main-b0-runs.json`，没有看 B2，也没有开始 B2。
+
+#### G1–G7 提交与对已完成运行的影响
+
+| 项 | 提交 |
+| --- | --- |
+| 6B-FIX 文档入库 | `37c5bde` |
+| G1 容器代码兼容 3.6，加 py_compile 测试 | `ef32056` |
+| G2 预检加工具冒烟 | `074a076` |
+| G3 Docker 控制重试与 infra_error 归类 | `e4b919a` |
+| G4 `harness_tool_errors`、停止条件与 canary 检查 | `040a7a8` |
+| G5 `PARALLEL=3`，110 / 220 元 | `d002f27` |
+| G6 作废 25 次运行（脚本） | `53600b9` |
+| G7 冻结修订 2，tag `a5-main-freeze-r2` | `2f28232` |
+
+以上改动都在修订 2 的第一次运行之前提交。修订 2 之前的 25 次运行按 G6 全部作废，移到了 `runs/a5-main-void/r1-tool-py36/`。所以这些提交不影响任何有效运行。全量测试 377 passed、199 skipped；G1 的 3.6 编译测试和 3.6 工具执行测试这一轮都实际跑过，没有被跳过。
+
+本轮没有用到"核对口径可以自行修正"的授权，没有任何核对口径改动。
+
+#### 需要审计确认的实现选择
+
+以下几处是我对 6B-FIX 文字的理解，已经写进冻结修订 2：
+
+1. **G3 里的"exec 启动"**：我理解为经过 `_ok` 的 exec，包括启动时的导入/复制/链接、快照，以及 grader 的 APPLY、上传 runner、读 receipt。agent 工具命令本身的 `docker exec` 不重试，因为命令可能已经执行了一部分，不能安全重放。这类失败如果把容器关掉了，就没有候选快照，记 `infra_error`，不会按空补丁评分。本轮两次 infra_error 都属于这种情况，见下文。
+2. **"候选快照失败一律 infra_error"**：`snapshot_error` 非空一律按这一条处理，包括 `container_gone_before_snapshot`、`delta_too_large`，以及因为 OOM（exit 137）容器被关闭的情况。其中 `delta_too_large` 和 OOM 可能是 agent 自己造成的，本轮都没有出现。
+3. **不重试的失败**：容器里 harness 脚本自己报 traceback，以及 `delta_too_large`。这两种是程序结果，不是 Docker 控制错误。
+4. **`harness_tool_errors` 的口径**：只统计 harness 提供程序的工具；最后一个异常是实现类异常；参数符合 schema。详见冻结修订 2。这个口径在作废的 25 次运行上算出 109 次，和人工统计一致。
+
+#### 预检（G2）
+
+56/56 通过，工具冒烟 56/56。按镜像 Python 分：3.6 15/15，3.8 2/2，3.9 38/38，3.11 1/1。容器里实际的版本分别是 3.6.15、3.8.20、3.9.25、3.11.16。报告在 `runs/a5-main-logs/preflight.json`，日志在 `preflight-r2.log`。
+
+#### canary
+
+每个镜像 Python 版本各一道，按 `created_at` 取下中位，跑在 `2f28232` 上，并发 3。检查脚本是 `scripts/sprint6_canary.py check`，结果在 `runs/a5-main-logs/canary-check.json`。
+
+| Python | 题 | 结果 | 模型调用 | 花费 | harness_tool_errors | Docker 重试 |
+| --- | --- | --- | --- | --- | --- | --- |
+| 3.6 | sklearn-14053 | 未解出 | 40 | 0.875 | 0 | 0 |
+| 3.8 | django-13964 | 未解出 | 32 | 0.494 | 0 | 0 |
+| 3.9 | pytest-7490 | 未解出 | 40 | 0.627 | 0 | 0 |
+| 3.11 | django-16527 | 未解出 | 40 | 0.589 | 0 | 0 |
+
+4/4 通过全部检查项：
+
+- `mock: false`、`profile: b0-v2`、`answer_isolation_pass: true`；
+- grader id 和校准一致，没有 `missing`，没有 grader reason；
+- 花费等于 CNY 账本；
+- 没有 infra_error；
+- `harness_tool_errors == 0`。
+
+`read_file`、`list_dir`、`search_code` 的调用全部成功。另外记一个观察：4 道 canary 都没有调用编辑工具。按规则，没有据此做任何调整。
+
+#### 全量 B0 停在哪里
+
+`run_a5_main.py --phase b0` 从 22:29 开始，到 23:16 退出，续用了 4 个 canary r1。新启动 32 次运行后，django-16527 r2 的 grader 报告 7 个 id 全部 `missing`。runner 停止开新运行，等在跑的运行结束后退出，报告显示 `started: 32`、`not_started: 132`，日志在 `runs/a5-main-logs/b0-r2.log`。
+
+django-16527 r2 的排查结果：
+
+- 候选改动只改了 `django/contrib/admin/views/main.py`，第 267–277 行把一段 `if v is None: … else: p[k] = v` 在 `return` 之后又插了一遍，第 273 行报 `IndentationError: unexpected indent`。
+- grader 的 runner 导入 `tests/admin_views/test_templatetags.py` 时失败，所以一个测试都没收集到，receipt 里的 `runner_error` 记下了完整 traceback，`receipt_complete` 为 false。
+- 编辑工具没有问题：用原始文件按顺序重放这次运行的 4 次 `search_replace`，得到的文件和导出的候选文件逐字节相同。错误完全来自模型写的替换文本。
+- 同一道题的 r1（canary）和 r3 都正常收集到了 7 个 id。
+
+按冻结规则，"grader 报 missing"是停止条件，不区分原因，所以停在这里。
+
+#### infra_error、Docker 重试、delta_lost
+
+| 运行 | 情况 | 处理 |
+| --- | --- | --- |
+| django-12276 r1（第一次） | 一次 `read_file` 的 `docker exec` 回收超时（`cleanup_failed`），容器被关闭，没有候选快照 | `infra_error`，退役为 `r1.infra1`，重跑 |
+| django-15973 r2（第一次） | 一次 `search_code` 出现同样的情况 | `infra_error`，退役为 `r2.infra1`，重跑 |
+
+infra_error 共 2 次，没有达到 ≥3 的停止线。两次都没有送 grader，没有按空补丁评分。
+
+Docker 控制重试共 4 次，每次都在第一次重试（等 2 秒）后成功：
+
+| 时间 | 运行 | 阶段 | 操作 | 错误 |
+| --- | --- | --- | --- | --- |
+| 22:33:51 | django-11211 r2 | grader | rm | `TimeoutError` |
+| 22:45:21 | django-13109 r1 | run | snapshot | `ConnectionResetError` |
+| 22:50:12 | django-13512 r1 | run | snapshot | `ConnectionResetError` |
+| 23:07:28 | django-15499 r3 | run | rm | `TimeoutError` |
+
+13109 r1 和 13512 r1 这两次快照错误，在修订 2 之前会被当成空补丁评分；现在重试后拿到了正常的候选改动。
+
+`delta_lost` 共 3 次（django-12276 r1、13109 r3、14434 r1），都是模型调用 `search_replace` 时 `search` 和 `replace` 完全相同，文件内容没有变化，差异为空是正确的。这是原有的分类规则，不是停止条件。
+
+#### 6a 要求的统计（截至停止）
+
+| 项 | 值 |
+| --- | --- |
+| 有效 B0 运行 | 36（canary 4 次 + 全量 32 次）；另有 2 个 infra 槽位已退役 |
+| 解出 | 0/36：django 0/33，pytest 0/1，sklearn 0/1，sympy 0/1 |
+| 每题 k/3（跑满 3 次的 11 道 django 题） | 0/3：11 道 |
+| 有改动的运行 | 16/36；F2P 通过数都没有超过空补丁基线；P2P 全部保持通过，只有 16527 r2 是 0/6 |
+| infra_error | 2 次，都已重跑 |
+| Docker 控制重试 | 4 次，时间见上表 |
+| `harness_tool_errors` 合计 | 0 |
+| 花费 | 24.055 元，平均每次 0.633 元 |
+| 平均模型调用 | 38.0 |
+| 停止原因 | `max_model_calls` 25，`completed` 11，`candidate_snapshot_failed` 2；总时限超时 0；grader 超时 0 |
+| `main-b0-runs.json` sha | 没有生成 |
+
+#### 需要审计决定
+
+1. **候选改动自己破坏了测试收集时，missing 是否还算停止条件。** 这次 grader 和工具都没有问题，是模型写出了不能导入的代码。建议的规则是：如果 receipt 的 `runner_error` 或收集错误的 traceback 指向本次候选改动里的文件，就把这次运行记为普通失败（solved=false），不停止；其他 missing 照常停止。这是运行时规则的改动，我没有实施。django-16527 r2 的去留也请一并决定：是按普通失败保留，还是另作处理。
+2. **预算。** 目前平均每次 0.633 元，168 次加上重跑大约 107 元，很接近 110 元的软上限，可能在 B0 的最后几次运行时触发停止。
+3. **0 解出。** 36 次都没有解出，其中 33 次是 django。本轮检查过的几处都没有发现 harness 的问题：
+   - 工具冒烟 56/56 通过，`harness_tool_errors` 为 0；
+   - grader 确实加载了候选改动（16527 r2 的导入失败就是证据）；
+   - 有改动的运行里，P2P 都保持通过。
+
+   按规则，我没有因为这个结果调整题目、profile 或卡片。
+
+停在这里等审计。没有看 B2，也没有开始 B2。coding-agent 侧继续等 `main-b0-runs.json`。

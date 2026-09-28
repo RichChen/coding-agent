@@ -423,3 +423,5 @@ P5：删除 `pelican-bicycle.html`。用 v5 final 卡片在 3 道题上跑 mock 
 审计确认口径后：F3 56 道 mock 核对一致（`a3cdc3a`）；F4 移动 sphinx-8593 的失败槽位；F5 调整 infra_error 停止线（`653ebbb`）；F6 冻结修订 1，tag `a5-main-freeze-r1` → `fb26dbd`。sphinx-8593 canary 通过（0.467 CNY）。
 
 全量 B0 新跑 22 次后，django-14434 r2 的 grader 超时，触发停止。排查发现，Python 低于 3.9 的镜像里 agent 的结构化工具全部报错（`Path.is_relative_to`），影响 17 道题、已完成 25 次中的 22 次。另有 2 次快照、1 次 grader 因 Docker 控制通道出错。累计花费 13.682 CNY。记录在 `docs/sprint/CHECKPOINT-6.md`，停下等审计。
+
+6B-FIX：G1–G7 完成（`ef32056`…`2f28232`，tag `a5-main-freeze-r2`）。预检 56/56，工具冒烟 56/56。修订 2 之前的 25 次运行移到 `runs/a5-main-void/r1-tool-py36/`。4 道 canary 通过（2.585 CNY）。全量 B0 在 django-16527 r2 触发 grader missing 停止：候选改动有 IndentationError，测试导入失败；grader 和工具正常。36 次有效运行、0 解出、2 次 infra 已重跑、4 次 Docker 重试、harness_tool_errors 0、花费 24.055 CNY。记录在 `docs/sprint/CHECKPOINT-6.md`，停下等审计。
