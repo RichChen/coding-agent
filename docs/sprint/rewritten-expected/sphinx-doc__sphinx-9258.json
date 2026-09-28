@@ -1,0 +1,26 @@
+{
+  "schema": "sprint6.rewritten-expected.v1",
+  "task_id": "sphinx-doc__sphinx-9258",
+  "clean_image_digest": "coding-harness-a5-clean@sha256:7b6269d9b5a7903dce9f387aae69d90440563d7bd86f858959116499437f5aa4",
+  "files": {
+    "setup.py": {
+      "commands": [
+        "sed -i 's/Jinja2>=2.3/Jinja2<3.0/' setup.py",
+        "sed -i 's/sphinxcontrib-applehelp/sphinxcontrib-applehelp<=1.0.7/' setup.py",
+        "sed -i 's/sphinxcontrib-devhelp/sphinxcontrib-devhelp<=1.0.5/' setup.py",
+        "sed -i 's/sphinxcontrib-qthelp/sphinxcontrib-qthelp<=1.0.6/' setup.py",
+        "sed -i 's/alabaster>=0.7,<0.8/alabaster>=0.7,<0.7.12/' setup.py",
+        "sed -i \"s/'packaging',/'packaging', 'markupsafe<=2.0.1',/\" setup.py"
+      ],
+      "original_sha256": "b7aa7e58d10ada18b28ad06190172986e74a9604a8dddfb336d43c60dd41ca02",
+      "expected_sha256": "4533f9b25786928081b4c623cd09c997a6a765d5fef8330ccbf4046135100bf1"
+    },
+    "tox.ini": {
+      "commands": [
+        "sed -i 's/pytest/pytest -rA/' tox.ini"
+      ],
+      "original_sha256": "8b1f6d75171522f0480f143f8e97c509553512f0981ad0bba27c256b17978b53",
+      "expected_sha256": "c3980803ccb5dd4151013c467c4d63e918d83982a1054b3410a9e73c244ba600"
+    }
+  }
+}

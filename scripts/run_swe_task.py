@@ -547,25 +547,34 @@ def resolve_image(task: dict, receipt: dict, *, legacy_image: bool, mock: bool):
     return clean["clean_image_digest"], clean
 
 
+def prerun_check(task: dict, *, mock: bool, legacy_image: bool = False):
+    """Every check before the first model call. Returns (grader spec, image, clean record, failure reason or None)."""
+    spec = grader_spec(task)
+    receipt = load_json(ROOT / task["receipt"])
+    image, clean = resolve_image(task, receipt, legacy_image=legacy_image, mock=mock)
+    if clean is not None and not clean.get("answer_isolation_pass"):
+        return spec, image, clean, "clean image failed the filesystem scan"
+    if clean is not None:
+        from scripts.build_clean_baseline import source_only_check
+        from scripts.rewritten_sources import overrides_for
+        from src.eval.a5_image_tree import archive_manifest
+        archive = Path(receipt["source_attempt_ref"]).parent / "source.tar.gz"
+        manifest = archive_manifest(archive, task["repo"], receipt["base_revision"])
+        matched, _hash = source_only_check(image, manifest, overrides_for(task, manifest))
+        if not matched:
+            return spec, image, clean, "opt/repo source-only hash mismatch"
+    return spec, image, clean, None
+
+
 async def run_task(task: dict, profile: Path, output: Path, *, mock: bool, variant: str = "B0", cards_path: Path | None = None, legacy_image: bool = False) -> dict:
     if task["id"] in HOLDOUT:
         raise SystemExit("hold-out task refused: " + task["id"])
     output.mkdir(parents=True, exist_ok=True)
     workspace = output / "workspace"
     workspace.mkdir()
-    spec = grader_spec(task)
-    receipt = load_json(ROOT / task["receipt"])
-    image, clean = resolve_image(task, receipt, legacy_image=legacy_image, mock=mock)
-    if clean is not None and not clean.get("answer_isolation_pass"):
-        return _isolation_stop(task, variant, "clean image failed the filesystem scan", mock=mock, profile=profile, output=output)
-    if clean is not None:
-        from scripts.build_clean_baseline import source_only_check
-        from src.eval.a5_image_tree import archive_manifest
-        archive = Path(receipt["source_attempt_ref"]).parent / "source.tar.gz"
-        manifest = archive_manifest(archive, task["repo"], receipt["base_revision"])
-        matched, _hash = source_only_check(image, manifest)
-        if not matched:
-            return _isolation_stop(task, variant, "opt/repo source-only hash mismatch", mock=mock, profile=profile, output=output)
+    spec, image, clean, failure = prerun_check(task, mock=mock, legacy_image=legacy_image)
+    if failure:
+        return _isolation_stop(task, variant, failure, mock=mock, profile=profile, output=output)
     backend = BaselineImageBackend(
         image=image,
         context="desktop-linux",

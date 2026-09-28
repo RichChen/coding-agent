@@ -1,0 +1,28 @@
+{
+  "schema": "sprint6.rewritten-expected.v1",
+  "task_id": "sphinx-doc__sphinx-8593",
+  "clean_image_digest": "coding-harness-a5-clean@sha256:4ffe3a0ea709dab04851f5af021bd3832416deef976a7fa148074e894e62cd2d",
+  "files": {
+    "setup.py": {
+      "commands": [
+        "sed -i 's/Jinja2>=2.3/Jinja2<3.0/' setup.py",
+        "sed -i 's/sphinxcontrib-applehelp/sphinxcontrib-applehelp<=1.0.7/' setup.py",
+        "sed -i 's/sphinxcontrib-devhelp/sphinxcontrib-devhelp<=1.0.5/' setup.py",
+        "sed -i 's/sphinxcontrib-qthelp/sphinxcontrib-qthelp<=1.0.6/' setup.py",
+        "sed -i 's/alabaster>=0.7,<0.8/alabaster>=0.7,<0.7.12/' setup.py",
+        "sed -i \"s/'packaging',/'packaging', 'markupsafe<=2.0.1',/\" setup.py",
+        "sed -i 's/sphinxcontrib-htmlhelp/sphinxcontrib-htmlhelp<=2.0.4/' setup.py",
+        "sed -i 's/sphinxcontrib-serializinghtml/sphinxcontrib-serializinghtml<=1.1.9/' setup.py"
+      ],
+      "original_sha256": "405f72902a7781362504cf53d6d34a266a232f046b5f95ba2f3e8d07cfc8656d",
+      "expected_sha256": "dfaf0d4db02c48e4dcdc2d56779245c4196614a0d371f65572a9db4e1d8f993a"
+    },
+    "tox.ini": {
+      "commands": [
+        "sed -i 's/pytest/pytest -rA/' tox.ini"
+      ],
+      "original_sha256": "f7b15f4e599bddbc6aada7fafd8e6bc218eea596c32744fd726a3534ddce41e2",
+      "expected_sha256": "603120646e1be82dc5ca166e8d8c1a4039adfb09e5953a2e48c7e90d237ae6a7"
+    }
+  }
+}

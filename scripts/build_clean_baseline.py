@@ -151,13 +151,17 @@ def docker_python(digest: str, code: str, stdin: bytes = b"", python_bin: str = 
     return result.stdout.decode("utf-8", "replace")
 
 
-def source_only_check(digest: str, manifest: dict, ignore: set[str] | None = None):
-    skipped = ignore or set()
+def source_only_check(digest: str, manifest: dict, overrides: dict[str, str] | None = None):
+    """Every archive file must be in /opt/repo. Files in overrides must have the override sha instead."""
     payload = {
         path: meta["sha256"]
         for path, meta in manifest["entries"].items()
-        if meta.get("kind") == "file" and path not in skipped
+        if meta.get("kind") == "file"
     }
+    unknown = sorted(set(overrides or {}) - set(payload))
+    if unknown:
+        raise ValueError("override for a file not in the archive: " + ", ".join(unknown))
+    payload.update(overrides or {})
     code = r'''
 import hashlib, json, pathlib, sys
 expected = json.load(sys.stdin)

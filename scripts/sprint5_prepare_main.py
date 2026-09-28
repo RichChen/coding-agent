@@ -18,6 +18,7 @@ sys.path.insert(0, str(ROOT))
 from scripts.build_clean_baseline import filesystem_scan, source_only_check  # noqa: E402
 from scripts.calibrate_clean_image import counts, sklearn_import  # noqa: E402
 from scripts.preflight_a5_repo_baseline import image_build, patch_paths  # noqa: E402
+from scripts.rewritten_sources import EXPECTED, overrides_for, sed_rewrites, write_expected  # noqa: E402
 from scripts.run_swe_task import django_nodeids, parse_id_list, prefix_sympy_nodeids, usable_nodeid  # noqa: E402
 from scripts.swebench_specs import fetch_requirements, install_commands, spec_row  # noqa: E402
 from src.eval.a5_image_tree import archive_manifest  # noqa: E402
@@ -166,12 +167,9 @@ def build_image(task: dict, archive: Path, manifest: dict) -> dict:
         log = WORK / task["id"] / "build-retry.log"
     digest, inspect = image_build(work, tag, log)
     private = json.loads((ROOT / task["private"]).read_text(encoding="utf-8"))
-    rewritten = set()
-    for command in spec.get("pre_install") or []:
-        parts = str(command).split()
-        if parts and parts[0] == "sed" and "/" not in parts[-1]:
-            rewritten.add(parts[-1])
-    source_ok, source_hash = source_only_check(digest, manifest, rewritten)
+    if sed_rewrites(spec) and not (EXPECTED / (task["id"] + ".json")).is_file():
+        write_expected(task, spec, digest, archive)
+    source_ok, source_hash = source_only_check(digest, manifest, overrides_for(task, manifest))
     scan = filesystem_scan(
         digest, archive, manifest, private.get("test_patch") or "", private.get("patch") or "",
         base_image=base,
