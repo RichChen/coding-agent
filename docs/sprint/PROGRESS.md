@@ -417,3 +417,5 @@ P5：删除 `pelican-bicycle.html`。用 v5 final 卡片在 3 道题上跑 mock 
 日期：2026-09-28。花费：0 CNY。依据 `docs/sprint/HARNESS-SPRINT-6A-FIX.zh-CN.md`。
 
 被 `pre_install` sed 改写的文件改为按重放后的期望 sha 比对，构建和运行使用同一份 override（提交 `a3b4450`）。12 道受影响的题里 11 道离线核对通过。sphinx-9258 的 `setup.py` 不一致：它的规格里有两条以 `grep -q` 开头的守卫 sed 命令，现有解析规则识别不到。把这两条也重放后，结果和镜像一致。按 F1 第 5 项停下，F2–F6 没有做。记录在 `docs/sprint/CHECKPOINT-6.md`。
+
+审计批准 guarded_sed 规则后：F1 12/12 通过（`53c072a`），只有 sphinx-9258 的记录改变。F2 预检（`43ee604`）按原口径是 53/56：sphinx 8120、9673、10323 在校准时排除过 1–2 条 P2P，运行时条数少了这几条。扣除排除条数后是 56/56。按规定停下等审计确认口径，F3–F6 没有做。花费 0 CNY。

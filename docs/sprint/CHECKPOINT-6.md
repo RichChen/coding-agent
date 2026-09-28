@@ -138,3 +138,50 @@ F1 第 1 项要求解析规则和现在一致，而修好 9258 必须改这条�
 sphinx-8593 的失败槽位还在 `runs/a5-main/` 里，F4 的移动没有执行。
 
 停在这里等审计。没有开始 B0，没有看 B2，也没有开始 B2。coding-agent 侧继续等 `main-b0-runs.json`。
+
+### 修订 1 执行记录（续）：F1 完成，F2 预检停止
+
+审计批准了 guarded_sed 规则。**结论：F1 12/12 通过。F2 预检按原口径是 53/56，按规定停下；三道不一致的题都是校准时就排除过 P2P 的题，修正口径后是 56/56。** F3–F6、sphinx-8593 补跑和全量 B0 都没有做。本轮真实花费 0，累计 0.687 元。
+
+#### F1（提交 `53c072a`）
+
+- `rewrite_target` 按审计给的规则判断：
+  - `plain_sed`：单独一条 `sed … <文件>`。
+  - `guarded_sed`：按 `&&`、`||` 拆开后，每段都是 `sed -i … <文件>` 或 `grep -q … <文件>`，至少有一段是 sed，并且都指向同一个不含 `/` 的文件。
+  - 其他命令都不算改写。
+- 有一处比原规则收紧了：`plain_sed` 现在要求整条命令只有一段。原规则只看第一个词和最后一个词，会把 `sed … && pip install -e .` 误算成对 `.` 的改写，这正是审计要求不识别的形式。56 道题的规格里没有这种命令，所以这处收紧不影响任何题。
+- 记录里每个文件新增 `rules`，与 `commands` 一一对应；读取记录时也会核对。
+- 新增测试：guarded 命令能被识别；以下 8 种形式都不被识别：
+  - 混入 `pip install` 或 `python -m pip`；
+  - 两段指向不同文件；
+  - 只有 grep；
+  - 路径带 `/`；
+  - `grep` 不带 `-q`；
+  - `apt-get`。
+
+离线核对 12/12 通过。sphinx-9258 的 `setup.py` 现在有 8 条命令（6 条 plain_sed、2 条 guarded_sed），期望 sha 是 `27bcaf655c0321c29b0c30ce9c740c8551c63a67cefd9a89436c05361cf5255a`，和镜像一致。另外 11 份记录去掉新增的 `rules` 字段后，和旧版逐字段相同。56 道题的规格里，没有被识别为改写的命令只剩 sphinx-10614 的 `apt-get update && apt-get install -y graphviz`。
+
+#### F2（提交 `43ee604`）
+
+`--preflight` 对每道题依次执行：`materialize_runner_task`（grader id 与校准核对、生成 public task），`prerun_check`（解析镜像、`answer_isolation_pass`、带 override 的 source-only 比对），比较 grader id 条数和校准 JSON，最后执行 `public_issue`。结果写到 `runs/a5-main-logs/preflight.json`。另外按 F3 的要求加了 `--out-root`，只能和 `--mock` 同时使用，使用时不写交接文件。
+
+第一次预检拿运行时条数直接和校准 JSON 的 `nodeids.*.used` 比，结果 53/56（保存在 `runs/a5-main-logs/preflight.used-count.json`）：
+
+| 题 | 运行时 F2P/P2P | 校准 used | `p2p_excluded` | 校准 empty_p2p |
+| --- | --- | --- | --- | --- |
+| sphinx-8120 | 1/43 | 1/44 | `test_intl.py::test_text_docfields` | 43/44 |
+| sphinx-9673 | 1/23 | 1/24 | `test_ext_autodoc_configs.py::test_autodoc_typehints_description` | 23/24 |
+| sphinx-10323 | 1/38 | 1/40 | `test_directive_code.py::test_literal_include_linenos`、`test_linenothreshold` | 38/40 |
+
+这不是运行时的错误。56 道题里只有这三道带 `p2p_excluded`，被排除的 P2P 在空改动和 gold 下都失败，校准时就决定排除。`materialize_runner_task` 把它们交给 runner，`grader_spec` 在运行时去掉，所以运行时条数正好等于 `used` 减去排除条数。是我写的预检口径没有考虑排除。
+
+修正后的口径：运行时 P2P 条数等于 `used` 减去 `p2p_excluded` 条数，并且每个被排除的 id 都必须在选中的 P2P 列表里。按这个口径重跑是 56/56，所有题的 `answer_isolation_pass` 都为 true，source-only 比对全部通过。
+
+#### 需要审计决定
+
+1. **预检口径。** 请确认 F2 的"核对 grader id 和校准 JSON"采用扣除 `p2p_excluded` 后的条数。确认后，56/56 这个结果可以直接用，不需要重跑。
+2. **F3 的核对口径也会碰到同一件事。** F3 要求"P2P 的通过数和总数等于校准里的 empty_p2p"。这三道题运行时的总数比 `empty_p2p` 少掉排除的条数，而被排除的 P2P 正好是空改动下失败的那几条。建议 F3 对这三道题按"通过数 = empty_p2p 通过数，总数 = empty_p2p 总数减排除条数"核对，其他 53 道照原口径。
+
+前两次 canary 运行（django-13964、sklearn-13142）没有 `p2p_excluded`，两种口径的结果相同。
+
+停在这里等审计。没有做 F3–F6，没有补跑 sphinx-8593，没有开始 B0，也没有看或开始 B2。coding-agent 侧继续等 `main-b0-runs.json`。
