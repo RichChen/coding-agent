@@ -16,6 +16,7 @@ sys.path.insert(0, str(ROOT))
 from scripts.handoff_sha import handoff_sha256  # noqa: E402
 from scripts.preflight_a5_repo_baseline import patch_paths  # noqa: E402
 from scripts.run_swe_task import prerun_check, public_issue, run_task, tool_smoke  # noqa: E402
+from scripts.select_main_targets import PUBLIC_ROOT  # noqa: E402
 from scripts.sprint5_prepare_main import FAMILY, nodeid_selection  # noqa: E402
 
 TOTAL_CAP = Decimal("220")
@@ -235,12 +236,7 @@ def materialize_runner_task(task: dict) -> dict:
     }
     receipt_path = folder / "receipt.json"
     receipt_path.write_text(json.dumps(receipt, indent=2) + "\n", encoding="utf-8")
-    public = {
-        "issue_text": private.get("problem_statement") or ("Public issue for " + task["id"]),
-        "repo_ref": {"repo_id": task["repo"], "revision": task["base_commit"]},
-    }
-    public_path = folder / "public-task.json"
-    public_path.write_text(json.dumps(public, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    public_path = PUBLIC_ROOT / (task["id"] + ".json")
     staging = ROOT / "runs" / "sprint5-main-images" / task["id"] / "staging"
     prepared = dict(task)
     prepared["family"] = FAMILY[task["repo"]]
