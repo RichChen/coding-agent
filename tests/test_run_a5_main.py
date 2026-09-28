@@ -124,9 +124,27 @@ def test_handoff_reads_only_the_numbered_slot(tmp_path):
     assert [(run["repeat"], run["status"]) for run in runs] == [(1, "pass")]
 
 
-def test_too_many_infra_errors_halt_new_runs(tmp_path):
-    _summary(tmp_path, "b0", status="infra_error", **REAL)
-    assert "infra_error 1 of 1" in halt_reason(tmp_path, "b0")
+def _slots(root, statuses):
+    for index, status in enumerate(statuses):
+        path = root / ("task-" + str(index)) / "b0" / "r1" / "summary.json"
+        path.parent.mkdir(parents=True)
+        path.write_text(json.dumps({"task_id": "task-" + str(index), "status": status, "cost_cny": "0", **REAL}), encoding="utf-8")
+
+
+def test_two_infra_errors_never_halt(tmp_path):
+    _slots(tmp_path, ["infra_error", "infra_error"])
+    assert halt_reason(tmp_path, "b0") is None
+
+
+def test_three_infra_errors_halt_only_above_ten_percent(tmp_path):
+    _slots(tmp_path, ["infra_error"] * 3)
+    assert "infra_error 3 of 3" in halt_reason(tmp_path, "b0")
+    at_ten = tmp_path / "at-ten"
+    _slots(at_ten, ["infra_error"] * 3 + ["fail"] * 27)
+    assert halt_reason(at_ten, "b0") is None
+    above = tmp_path / "above"
+    _slots(above, ["infra_error"] * 3 + ["fail"] * 26)
+    assert "infra_error 3 of 29" in halt_reason(above, "b0")
 
 
 def test_isolation_missing_ids_and_grader_crash_halt(tmp_path):
@@ -158,6 +176,7 @@ def test_b0_soft_cap_halts(tmp_path):
 def test_halt_stops_new_runs_but_writes_a_report(tmp_path, monkeypatch):
     _summary(tmp_path, "b0", slot="r1", status="infra_error", **REAL)
     monkeypatch.setattr(run_a5_main, "MAX_INFRA_RERUNS", 0)
+    monkeypatch.setattr(run_a5_main, "INFRA_STOP_MIN", 1)
     _no_runs(monkeypatch)
     report = asyncio.run(run_phase([TASK], "b0", cards=None, mock=False, repeats=2, out_root=tmp_path))
     assert report["halt_reason"].startswith("infra_error")

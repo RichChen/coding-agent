@@ -22,6 +22,7 @@ PHASE_CAP = {"b0": Decimal("80"), "b2": TOTAL_CAP}
 PARALLEL = 4
 MAX_INFRA_RERUNS = 2
 INFRA_STOP_RATIO = Decimal("0.10")
+INFRA_STOP_MIN = 3
 PROFILE = ROOT / "configs/sprint/b0-v2.yaml"
 
 
@@ -100,7 +101,7 @@ def halt_reason(out_root: Path, phase: str) -> str | None:
     """Stop conditions checked before every new run. In-flight runs still finish."""
     rows = phase_summaries(out_root, phase)
     infra = sum(1 for row in rows if row.get("status") == "infra_error")
-    if rows and Decimal(infra) > INFRA_STOP_RATIO * len(rows):
+    if infra >= INFRA_STOP_MIN and Decimal(infra) > INFRA_STOP_RATIO * len(rows):
         return "infra_error " + str(infra) + " of " + str(len(rows)) + " completed runs"
     for row in rows:
         if row.get("answer_isolation_pass") is False or row.get("status") == "answer_isolation_failed":
