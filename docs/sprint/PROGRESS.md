@@ -213,3 +213,10 @@
 
 - 已写 `docs/sprint/CHECKPOINT-5.md`。v5 仍是 interim，因为 `sprint5.memory-source-runs.v2` 还没有。
 - 花费 0。停下等审计。
+
+## 第五轮补：v2 交接文件重建 final（2026-09-28）
+
+- `memory-source-runs.json` 已是 `sprint5.memory-source-runs.v2`，42 条都有 `repo`、`created_at` 和 `answer_isolation_pass`。
+- 用它重建了 v5 final。manifest `status=final`，`memory_source_runs_sha256=984826707e8f69ad9b900134bd244c6056f2d8860f3036a3606bfc60b4bcb450`，`cards_sha256=40d22ef838af7172ba8e72b09954107ea055d65501e11219c71ae2e0a88c015c`。哈希按 `HANDOFF-CONVENTIONS.md` 的 LF 规则。
+- `cards.py`、`cards_v3.py`、`cards_v4.py` 里的 `1970-01-01` 默认值改成缺 `created_at` 就报 `created_at_missing`。
+- 测试：`python -m pytest -q tests/test_memory_cards.py tests/test_memory_cards_v3.py tests/test_memory_cards_v4.py tests/test_memory_cards_v5.py tests/test_memory_card_plugin.py`，27 passed。没有调模型。

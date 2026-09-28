@@ -37,6 +37,15 @@ tag `mem5-start` 在 `b96c4d8`。其后：
 
 表在 `docs/sprint/DEV-TIME-SELECTION.md`。14 道里 6 道会注入至少一张更早的 `validated_fix`。sympy 四题和 pytest 两题目前没有可注入的卡，因为同仓库里没有更早的已验证修复。
 
+## 2026-09-28：v2 交接文件已到
+
+`memory-source-runs.json` 已升级为 `sprint5.memory-source-runs.v2`。v5 已重建为 final。
+
+- cards_sha256：`40d22ef838af7172ba8e72b09954107ea055d65501e11219c71ae2e0a88c015c`
+- memory_source_runs_sha256：`984826707e8f69ad9b900134bd244c6056f2d8860f3036a3606bfc60b4bcb450`
+- `created_at` 来自交接文件本身，例如 django-10914 是 `2019-01-30T13:13:20Z`
+- `cards.py`、`cards_v3.py`、`cards_v4.py` 不再用 `1970-01-01` 填时间，缺字段直接报错
+
 ## 花费
 
 0。

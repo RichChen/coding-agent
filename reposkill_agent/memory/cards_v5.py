@@ -27,7 +27,7 @@ class HandoffFieldMissing(ValueError):
 
 def published_sha256(path: Path) -> str:
     """UTF-8 bytes with LF newlines. Matches the harness handoff convention."""
-    return hashlib.sha256(path.read_bytes().replace(b"\r\n", b"\n")).hexdigest()
+    return hashlib.sha256(path.read_bytes().replace(b"\r\n", b"\n").replace(b"\r", b"\n")).hexdigest()
 
 
 def load_handoff_document(path: Path) -> dict:

@@ -28,7 +28,7 @@ def _when(value: str) -> datetime:
 def main() -> None:
     cards = load_memory_cards(CARDS)
     lines = [
-        "# dev 按时间留一法（v5 interim）",
+        "# dev 按时间留一法（v5 final）",
         "",
         "可注入的卡必须同仓库、created_at 更早、不是本题，并且是 validated_fix。",
         "检索仍是原来的 BM25，min_score 仍是 1.0。没有改规则。",
