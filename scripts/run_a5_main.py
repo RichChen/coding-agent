@@ -105,6 +105,8 @@ def halt_reason(out_root: Path, phase: str) -> str | None:
     if infra >= INFRA_STOP_MIN and Decimal(infra) > INFRA_STOP_RATIO * len(rows):
         return "infra_error " + str(infra) + " of " + str(len(rows)) + " completed runs"
     for row in rows:
+        if (row.get("harness_tool_errors") or 0) > 0:
+            return "harness tool errors: " + str(row.get("task_id")) + " " + str(row["harness_tool_errors"])
         if row.get("answer_isolation_pass") is False or row.get("status") == "answer_isolation_failed":
             return "answer isolation failed: " + str(row.get("task_id")) + " " + str(row.get("stop_reason"))
         if row.get("status") == "infra_error":

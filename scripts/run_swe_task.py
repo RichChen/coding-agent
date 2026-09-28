@@ -26,6 +26,7 @@ sys.path.insert(0, str(ROOT))
 from src.eval.grader import tree_hash
 from src.eval.image_grader import ImageGrader
 from src.eval.repo_grader import RepositoryGrader, RepositorySpec
+from src.eval.tool_errors import harness_tool_errors, tool_schemas
 from src.execution.baseline_image_backend import BaselineImageBackend
 from src.execution.docker import MAX_FILES
 from src.harness.factory import build_agent, load_config
@@ -768,6 +769,7 @@ async def run_task(task: dict, profile: Path, output: Path, *, mock: bool, varia
     result_plain = plain(result) if result else {}
     attempts = result_plain.get("llm_attempts") or []
     stats = summarize_events(events, result_plain, run_error, output / "session" / "artifacts")
+    tool_errors = harness_tool_errors(events, tool_schemas())
     changed = delta_changes(delta) or list(evaluation.get("changed_paths") or [])
     lost = False if infra else delta_lost(stats, delta)
     if lost:
@@ -797,6 +799,8 @@ async def run_task(task: dict, profile: Path, output: Path, *, mock: bool, varia
         "first_edit_step": stats["first_edit_step"],
         "model_calls": model_calls,
         "tool_calls": stats["tool_calls"],
+        "harness_tool_errors": len(tool_errors),
+        "harness_tool_error_details": tool_errors[:20],
         "peak_context": _peak_context(result_plain, events),
         "cost_cny": str(ledger.cost_committed - before),
         "stop_reason": stats["stop_reason"],

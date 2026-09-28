@@ -131,6 +131,23 @@ def _slots(root, statuses):
         path.write_text(json.dumps({"task_id": "task-" + str(index), "status": status, "cost_cny": "0", **REAL}), encoding="utf-8")
 
 
+def test_any_harness_tool_error_halts(tmp_path):
+    _slots(tmp_path, ["fail", "pass"])
+    assert halt_reason(tmp_path, "b0") is None
+    path = tmp_path / "task-1" / "b0" / "r1" / "summary.json"
+    row = json.loads(path.read_text(encoding="utf-8"))
+    path.write_text(json.dumps({**row, "harness_tool_errors": 1}), encoding="utf-8")
+    assert halt_reason(tmp_path, "b0") == "harness tool errors: task-1 1"
+
+
+def test_harness_tool_errors_halt_even_on_an_infra_row(tmp_path):
+    _slots(tmp_path, ["fail"])
+    path = tmp_path / "task-0" / "b0" / "r1" / "summary.json"
+    row = json.loads(path.read_text(encoding="utf-8"))
+    path.write_text(json.dumps({**row, "status": "infra_error", "harness_tool_errors": 2}), encoding="utf-8")
+    assert halt_reason(tmp_path, "b0").startswith("harness tool errors")
+
+
 def test_two_infra_errors_never_halt(tmp_path):
     _slots(tmp_path, ["infra_error", "infra_error"])
     assert halt_reason(tmp_path, "b0") is None
