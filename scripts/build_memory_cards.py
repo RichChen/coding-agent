@@ -12,11 +12,9 @@ from reposkill_agent.memory.cards import render_card
 from reposkill_agent.memory.cards_v5 import (
     HandoffFieldMissing,
     PilotTargetInSources,
-    build_cards_from_handoff,
+    build_cards_from_handoffs,
     cards_jsonl,
-    load_handoff_document,
     manifest_for,
-    published_sha256,
 )
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -52,12 +50,12 @@ def assert_no_private_answers(cards) -> None:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--handoff", type=Path, required=True)
+    parser.add_argument("--handoff", type=Path, action="append", required=True)
     parser.add_argument("--out", type=Path, required=True)
     parser.add_argument("--manifest", type=Path)
     args = parser.parse_args()
     try:
-        cards, status = build_cards_from_handoff(
+        cards, status, handoffs = build_cards_from_handoffs(
             args.handoff, canonical_path=CANONICAL, path_base=ROOT
         )
         assert_no_private_answers(cards)
@@ -69,14 +67,14 @@ def main() -> int:
     args.out.write_bytes(payload)
     if args.manifest:
         commit = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
-        document = load_handoff_document(args.handoff)
         manifest = manifest_for(
             cards,
             payload,
             status=status,
             commit=commit,
-            handoff_sha=published_sha256(args.handoff),
-            handoff_schema=document["schema"],
+            handoff_sha=handoffs[0]["sha256"],
+            handoff_schema=handoffs[0]["schema"],
+            handoffs=handoffs,
         )
         args.manifest.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
     print(f"status={status} cards={len(cards)} bytes={len(payload)}")
