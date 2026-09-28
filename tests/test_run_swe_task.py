@@ -1,7 +1,20 @@
 import base64
 import json
 
-from scripts.run_swe_task import HOLDOUT, apply_delta, delta_lost, resolve_image, select_tasks, solved, summarize_events, temporal_filter
+import pytest
+
+from scripts.run_swe_task import (
+    HOLDOUT,
+    apply_delta,
+    dated_cards,
+    delta_lost,
+    resolve_image,
+    select_tasks,
+    solved,
+    summarize_events,
+    target_created_at,
+    temporal_filter,
+)
 
 
 def test_holdout_is_refused():
@@ -45,20 +58,84 @@ def test_stop_reason_reads_result_then_artifact(tmp_path):
     assert summarize_events(events, {"termination_kind": "budget_exhausted"}, None, tmp_path)["stop_reason"] == "budget_exhausted"
 
 
+class Card:
+    def __init__(self, source_id, repo="django/django", created_at=None):
+        self.source_id = source_id
+        self.repo = repo
+        self.created_at = created_at
+
+
 def test_later_cards_are_filtered():
-    class Card:
-        def __init__(self, source_id):
-            self.source_id = source_id
-    dates = {
-        "early": {"repo": "django/django", "created_at": "2018-01-01T00:00:00Z"},
-        "later": {"repo": "django/django", "created_at": "2020-01-01T00:00:00Z"},
-        "other": {"repo": "sympy/sympy", "created_at": "2017-01-01T00:00:00Z"},
-        "self": {"repo": "django/django", "created_at": "2019-01-01T00:00:00Z"},
-    }
-    cards = [Card("early"), Card("later"), Card("other"), Card("self")]
-    kept, dropped = temporal_filter(cards, task_id="self", repo="django/django", created_at="2019-01-01T00:00:00Z", dates=dates)
+    cards = [
+        Card("early", created_at="2018-01-01T00:00:00Z"),
+        Card("later", created_at="2020-01-01T00:00:00Z"),
+        Card("other", repo="sympy/sympy", created_at="2017-01-01T00:00:00Z"),
+        Card("self", created_at="2019-01-01T00:00:00Z"),
+    ]
+    kept, dropped = temporal_filter(cards, task_id="self", repo="django/django", created_at="2019-01-01T00:00:00Z", dates={})
     assert [card.source_id for card in kept] == ["early"]
     assert "later" in dropped
+
+
+def test_pool_cards_outside_the_dev_handoff_are_filtered_by_their_own_date():
+    dev = {"dev-early": {"repo": "django/django", "created_at": "2018-01-01T00:00:00Z"}}
+    cards = [
+        Card("dev-early", created_at="2018-01-01T00:00:00Z"),
+        Card("pool-early", created_at="2018-06-01T00:00:00Z"),
+        Card("pool-later", created_at="2019-06-01T00:00:00Z"),
+    ]
+    kept, dropped = temporal_filter(cards, task_id="target", repo="django/django", created_at="2019-01-01T00:00:00Z", dates=dev)
+    assert [card.source_id for card in kept] == ["dev-early", "pool-early"]
+    assert dropped == ["pool-later"]
+
+
+def test_dates_compare_as_instants_across_offsets():
+    # The target is 23:10Z on Dec 31. A plain string compare gets both cards wrong.
+    cards = [
+        Card("earlier", created_at="2019-01-01T08:00:00+09:30"),
+        Card("later", created_at="2018-12-31T23:30:00Z"),
+    ]
+    kept, dropped = temporal_filter(cards, task_id="target", repo="django/django", created_at="2019-01-01T07:10:00+08:00", dates={})
+    assert [card.source_id for card in kept] == ["earlier"]
+    assert dropped == ["later"]
+
+
+def test_missing_or_bad_dates_are_errors():
+    with pytest.raises(ValueError, match="missing"):
+        temporal_filter([Card("undated")], task_id="t", repo="django/django", created_at="2019-01-01T00:00:00Z", dates={})
+    with pytest.raises(ValueError, match="parsed"):
+        temporal_filter([Card("bad", created_at="yesterday")], task_id="t", repo="django/django", created_at="2019-01-01T00:00:00Z", dates={})
+    with pytest.raises(ValueError, match="timezone"):
+        temporal_filter([Card("naive", created_at="2018-01-01T00:00:00")], task_id="t", repo="django/django", created_at="2019-01-01T00:00:00Z", dates={})
+
+
+def test_card_date_must_agree_with_the_handoff():
+    dates = {"a": {"repo": "django/django", "created_at": "2018-01-02T00:00:00Z"}}
+    with pytest.raises(ValueError, match="disagrees"):
+        temporal_filter([Card("a", created_at="2018-01-01T00:00:00Z")], task_id="t", repo="django/django", created_at="2019-01-01T00:00:00Z", dates=dates)
+    same = {"a": {"repo": "django/django", "created_at": "2018-01-01T08:00:00+08:00"}}
+    kept, _ = temporal_filter([Card("a", created_at="2018-01-01T00:00:00Z")], task_id="t", repo="django/django", created_at="2019-01-01T00:00:00Z", dates=same)
+    assert len(kept) == 1
+
+
+def test_b2_target_date_comes_from_main_targets_or_dev_handoff(tmp_path):
+    targets = tmp_path / "main-targets.yaml"
+    targets.write_text("tasks:\n- id: pool-task\n  created_at: '2020-01-01T00:00:00Z'\n", encoding="utf-8")
+    dev = {"dev-task": {"repo": "django/django", "created_at": "2019-01-01T00:00:00Z"}}
+    assert target_created_at("pool-task", dev, targets) == "2020-01-01T00:00:00Z"
+    assert target_created_at("dev-task", dev, targets) == "2019-01-01T00:00:00Z"
+    with pytest.raises(SystemExit, match="created_at"):
+        target_created_at("unknown-task", dev, targets)
+
+
+def test_undated_card_rows_are_errors(tmp_path, monkeypatch):
+    from scripts import run_swe_task
+
+    monkeypatch.setattr(run_swe_task, "handoff_dates", lambda: {"dated": {"repo": "django/django", "created_at": "2018-01-01T00:00:00Z"}})
+    cards = tmp_path / "cards.jsonl"
+    cards.write_text(json.dumps({"source_id": "dated"}) + "\n" + json.dumps({"source_id": "pool-undated"}) + "\n", encoding="utf-8")
+    with pytest.raises(ValueError, match="pool-undated"):
+        dated_cards(cards)
 
 
 def test_any_profile_requires_a_clean_image():

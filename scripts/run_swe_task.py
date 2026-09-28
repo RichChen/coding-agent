@@ -13,6 +13,7 @@ import hashlib
 import json
 import subprocess
 import sys
+from datetime import datetime
 from decimal import Decimal
 from pathlib import Path
 
@@ -407,36 +408,85 @@ def select_tasks(manifest: dict, requested: list[str]) -> list[dict]:
     return tasks
 
 
+DEV_HANDOFF = ROOT / "docs" / "sprint" / "memory-source-runs.json"
+MAIN_TARGETS = ROOT / "configs" / "sprint" / "main-targets.yaml"
+
+
+def parse_created_at(value, what: str) -> datetime:
+    if not isinstance(value, str) or not value.strip():
+        raise ValueError("created_at missing: " + what)
+    try:
+        parsed = datetime.fromisoformat(value.strip().replace("Z", "+00:00"))
+    except ValueError as exc:
+        raise ValueError("created_at cannot be parsed for " + what + ": " + value) from exc
+    if parsed.tzinfo is None:
+        raise ValueError("created_at has no timezone for " + what + ": " + value)
+    return parsed
+
+
+def handoff_dates(path: Path = DEV_HANDOFF) -> dict:
+    dates = {}
+    if path.is_file():
+        for run in load_json(path).get("runs") or []:
+            dates.setdefault(run["source_id"], {"repo": run.get("repo"), "created_at": run.get("created_at")})
+    return dates
+
+
+def target_created_at(task_id: str, dev_dates: dict, targets_path: Path = MAIN_TARGETS) -> str:
+    """Pool targets take their date from main-targets.yaml. Dev targets take it from the dev handoff."""
+    pool = {}
+    if targets_path.is_file():
+        pool = {row["id"]: row.get("created_at") for row in load_yaml(targets_path).get("tasks") or []}
+    if task_id in pool:
+        value = pool[task_id]
+    else:
+        value = (dev_dates.get(task_id) or {}).get("created_at")
+    if not value:
+        raise SystemExit("B2 needs the target created_at and none was found: " + task_id)
+    parse_created_at(value, task_id)
+    return value
+
+
 def dated_cards(path: Path) -> Path:
-    """Fill created_at from the handoff when the card file does not have it."""
+    """Fill created_at from the handoff when the card file does not have it. An undated card is an error."""
     rows = [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
     if rows and all(row.get("created_at") for row in rows):
         return path
-    dates = {}
-    handoff_path = ROOT / "docs" / "sprint" / "memory-source-runs.json"
-    if handoff_path.is_file():
-        for run in load_json(handoff_path).get("runs") or []:
-            dates.setdefault(run.get("source_id"), run.get("created_at"))
-    kept = []
+    dates = {source: meta.get("created_at") for source, meta in handoff_dates().items()}
+    missing = []
     for row in rows:
         created = row.get("created_at") or dates.get(row.get("source_id"))
         if not created:
+            missing.append(str(row.get("source_id")))
             continue
         row["created_at"] = created
-        kept.append(row)
+    if missing:
+        raise ValueError("memory cards without created_at: " + ", ".join(missing))
     out = ROOT / "runs" / "sprint5-cards" / (path.stem + "-dated.jsonl")
     out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text("".join(json.dumps(row, ensure_ascii=False) + "\n" for row in kept), encoding="utf-8")
+    out.write_text("".join(json.dumps(row, ensure_ascii=False) + "\n" for row in rows), encoding="utf-8")
     return out
 
 
 def temporal_filter(cards, *, task_id: str, repo: str, created_at: str, dates: dict):
-    """Keep same-repo cards whose source task was created earlier. Drop the current task."""
+    """Keep same-repo cards whose source task was created earlier. Drop the current task.
+
+    Repo and date come from the card. A handoff row for the same source must agree with it.
+    """
+    target = parse_created_at(created_at, task_id)
     kept, dropped = [], []
     for card in cards:
         source = getattr(card, "source_id", None)
+        card_repo = getattr(card, "repo", None)
+        if not card_repo:
+            raise ValueError("memory card has no repo: " + str(source))
+        card_date = parse_created_at(getattr(card, "created_at", None), str(source))
         meta = dates.get(source) or {}
-        if source == task_id or meta.get("repo") != repo or not meta.get("created_at") or meta["created_at"] >= created_at:
+        if meta.get("repo") and meta["repo"] != card_repo:
+            raise ValueError("card repo disagrees with the handoff for " + str(source))
+        if meta.get("created_at") and parse_created_at(meta["created_at"], str(source)) != card_date:
+            raise ValueError("card created_at disagrees with the handoff for " + str(source))
+        if source == task_id or card_repo != repo or card_date >= target:
             dropped.append(source)
         else:
             kept.append(card)
@@ -535,15 +585,11 @@ async def run_task(task: dict, profile: Path, output: Path, *, mock: bool, varia
         from reposkill_agent.memory.cards import load_memory_cards
         cards_path = dated_cards(cards_path)
         loaded = load_memory_cards(cards_path)
-        dates = {}
-        handoff_path = ROOT / "docs" / "sprint" / "memory-source-runs.json"
-        if handoff_path.is_file():
-            for run in load_json(handoff_path).get("runs") or []:
-                dates.setdefault(run["source_id"], {"repo": run.get("repo"), "created_at": run.get("created_at")})
-        created_at = (dates.get(task["id"]) or {}).get("created_at") or task.get("created_at")
-        if variant == "B0" or not created_at:
+        dates = handoff_dates()
+        if variant == "B0":
             cards, dropped = leave_one_out(loaded, task["id"])
         else:
+            created_at = target_created_at(task["id"], dates)
             cards, dropped = temporal_filter(
                 loaded, task_id=task["id"], repo=task["repo"], created_at=created_at, dates=dates,
             )
