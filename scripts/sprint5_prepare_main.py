@@ -1,6 +1,7 @@
 """Build and calibrate main-pool images. No model calls."""
 from __future__ import annotations
 
+import ast
 import asyncio
 import base64
 import json
@@ -8,7 +9,7 @@ import shutil
 import sys
 import tarfile
 import urllib.request
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 
 import yaml
 
@@ -192,14 +193,98 @@ def build_image(task: dict, archive: Path, manifest: dict) -> dict:
     return row
 
 
+def is_django_test_line(line: str) -> bool:
+    name = line.split(" (", 1)[0]
+    return " (" in line and line.endswith(")") and name.replace("_", "").isalnum()
+
+
 def django_test_lines(nodes: list[str]) -> list[str]:
     kept = []
     for node in nodes:
         line = node.splitlines()[0].strip()
-        name = line.split(" (", 1)[0]
-        if " (" in line and line.endswith(")") and name.replace("_", "").isalnum():
+        if is_django_test_line(line):
             kept.append(line)
     return kept
+
+
+def django_test_module(relative: str) -> str | None:
+    """tests/a/b.py is module a.b, because runtests.py puts tests/ on sys.path."""
+    path = PurePosixPath(relative)
+    if path.suffix != ".py" or len(path.parts) < 2 or path.parts[0] != "tests":
+        return None
+    parts = list(path.with_suffix("").parts[1:])
+    if parts[-1] == "__init__":
+        parts.pop()
+    return ".".join(parts) or None
+
+
+def django_module_file(root: Path, nodeid: str) -> tuple[str, str] | None:
+    """Find the file that defines module.Class.method under tests/."""
+    parts = nodeid.split(".")
+    for end in range(len(parts) - 2, 0, -1):
+        base = PurePosixPath("tests", *parts[:end])
+        for candidate in (base.with_suffix(".py"), base / "__init__.py"):
+            if (root / candidate).is_file():
+                return candidate.as_posix(), ".".join(parts[:end])
+    return None
+
+
+def docstring_index(root: Path, files: dict[str, str]) -> dict[str, list[str]]:
+    """Map the first docstring line of each test method to module.Class.method.
+
+    The first line is taken the way unittest's shortDescription() takes it, which is
+    what the SWE-bench Django log parser records for a test with a docstring.
+    """
+    index: dict[str, list[str]] = {}
+    for relative, module in sorted(files.items()):
+        tree = ast.parse((root / relative).read_bytes(), filename=relative)
+        for cls in tree.body:
+            if not isinstance(cls, ast.ClassDef):
+                continue
+            for method in cls.body:
+                if not isinstance(method, (ast.FunctionDef, ast.AsyncFunctionDef)) or not method.name.startswith("test"):
+                    continue
+                doc = ast.get_docstring(method, clean=False)
+                first = doc.strip().split("\n")[0].strip() if doc else ""
+                if first:
+                    index.setdefault(first, []).append(module + "." + cls.name + "." + method.name)
+    return index
+
+
+def django_selection(raw: dict[str, list[str]], root: Path, test_paths: list[str]) -> tuple[dict, list[dict], list[dict]]:
+    """Convert Django ids and map docstring ids back to test methods. A docstring must match exactly one method."""
+    lines = {side: [node.splitlines()[0].strip() for node in nodes] for side, nodes in raw.items()}
+    files: dict[str, str] = {}
+    for relative in test_paths:
+        module = django_test_module(relative)
+        if module and (root / relative).is_file():
+            files[relative] = module
+    for side_lines in lines.values():
+        for nodeid in django_nodeids([line for line in side_lines if is_django_test_line(line)]):
+            found = django_module_file(root, nodeid)
+            if found:
+                files.setdefault(found[0], found[1])
+    index = docstring_index(root, files)
+    selected: dict[str, list[str]] = {}
+    dropped: list[dict] = []
+    mapping: list[dict] = []
+    for side, nodes in raw.items():
+        out: list[str] = []
+        for node, line in zip(nodes, lines[side]):
+            if is_django_test_line(line):
+                converted = django_nodeids([line])[0]
+            else:
+                targets = index.get(line) or []
+                if len(targets) != 1:
+                    reason = "docstring_ambiguous" if targets else "docstring_unmatched"
+                    dropped.append({"side": side, "nodeid": node, "reason": reason, "candidates": targets})
+                    continue
+                converted = targets[0]
+                mapping.append({"side": side, "docstring": node, "nodeid": converted})
+            if converted not in out:
+                out.append(converted)
+        selected[side] = out
+    return selected, dropped, mapping
 
 
 def nodeid_selection(task: dict, private: dict, test_paths: list[str]) -> tuple[list[str], list[str], dict]:
@@ -209,6 +294,7 @@ def nodeid_selection(task: dict, private: dict, test_paths: list[str]) -> tuple[
         "p2p": [node for node in parse_id_list(private.get("PASS_TO_PASS"))],
     }
     dropped: list[dict] = []
+    mapping: list[dict] = []
     kept = {}
     for side, nodes in raw.items():
         accepted = []
@@ -219,13 +305,8 @@ def nodeid_selection(task: dict, private: dict, test_paths: list[str]) -> tuple[
                 accepted.append(node)
         kept[side] = accepted
     if family == "django":
-        for side in ("f2p", "p2p"):
-            matched = django_test_lines(kept[side])
-            matched_set = set(matched)
-            for node in kept[side]:
-                if node not in matched_set and node.splitlines()[0].strip() not in matched_set:
-                    dropped.append({"side": side, "nodeid": node, "reason": "not_a_django_test_id"})
-            kept[side] = django_nodeids(matched)
+        kept, django_dropped, mapping = django_selection(kept, WORK / task["id"] / "staging" / "baseline", test_paths)
+        dropped.extend(django_dropped)
     if family == "sympy":
         baseline = WORK / task["id"] / "staging" / "baseline"
         for side in ("f2p", "p2p"):
@@ -265,6 +346,9 @@ def nodeid_selection(task: dict, private: dict, test_paths: list[str]) -> tuple[
         "dropped_reasons": reasons,
         "dropped": dropped,
     }
+    if family == "django":
+        report["mapped"] = {side: sum(1 for item in mapping if item["side"] == side) for side in ("f2p", "p2p")}
+        report["mapping"] = mapping
     return f2p, p2p, report
 
 
@@ -272,6 +356,8 @@ def grade_verdict(row: dict) -> tuple[bool, str | None]:
     """Recompute acceptance from stored counts after an isolation flag changes."""
     if row.get("sklearn_import") is False:
         return False, "sklearn_import_failed"
+    if any(item.get("side") == "f2p" for item in (row.get("nodeids") or {}).get("dropped") or []):
+        return False, "f2p_unaddressable"
     empty = row.get("empty_f2p") or [0, 0]
     gold = row.get("gold_f2p") or [0, 0]
     empty_fails = empty[1] > 0 and empty[0] < empty[1]
@@ -351,6 +437,9 @@ async def calibrate(task: dict, clean: dict, archive: Path, manifest: dict, priv
     elif not changed:
         reason = "delta_has_no_effect"
         accepted = False
+    if clean.get("answer_isolation_pass") and any(item["side"] == "f2p" for item in nodeid_report["dropped"]):
+        reason = "f2p_unaddressable"
+        accepted = False
     row = {
         "task_id": task["id"],
         "repo": task["repo"],
@@ -391,7 +480,60 @@ def write_summary() -> None:
         bad = [row["task_id"].split("__", 1)[-1] + "：" + str(row.get("reason")) for row in group if not row.get("accepted")]
         lines.append("| " + repo + " | " + str(ok) + "/" + str(len(group)) + " | " + ("；".join(bad) or "无") + " |")
     lines.append("")
+    lines.extend(django_mapping_lines([row for row in rows if row.get("repo") == "django/django"]))
+    lines.extend(excused_scan_lines([row["task_id"] for row in accepted]))
     (ROOT / "docs" / "sprint" / "MAIN-CALIBRATION.md").write_text("\n".join(lines), encoding="utf-8")
+
+
+def django_mapping_lines(rows: list[dict]) -> list[str]:
+    lines = [
+        "## Django 测试 id",
+        "",
+        "SWE-bench 把带 docstring 的测试记成 docstring 第一行。校准时在应用了测试补丁的源码树上用 `ast` 找到唯一匹配的测试方法，映射成 `module.Class.method`。零个或多个匹配算定位失败；F2P 定位失败的题排除（`f2p_unaddressable`），P2P 定位失败的丢弃。",
+        "",
+        "| 题 | F2P 原始/使用/映射 | P2P 原始/使用/映射 | 丢弃 |",
+        "| --- | --- | --- | --- |",
+    ]
+    for row in rows:
+        report = row.get("nodeids") or {}
+        mapped = report.get("mapped") or {}
+        dropped = []
+        for side in ("f2p", "p2p"):
+            for reason, count in ((report.get("dropped_reasons") or {}).get(side) or {}).items():
+                dropped.append(side.upper() + " " + reason + " " + str(count))
+        cells = []
+        for side in ("f2p", "p2p"):
+            counts = report.get(side) or {}
+            cells.append(str(counts.get("original")) + "/" + str(counts.get("used")) + "/" + str(mapped.get(side, 0)))
+        lines.append("| " + row["task_id"].split("__", 1)[-1] + " | " + " | ".join(cells) + " | " + ("；".join(dropped) or "无") + " |")
+    return lines + [""]
+
+
+EXCUSE_REASON = {
+    "base_image_same": "基础镜像里同一路径、同一 sha256，是 Python 自带文件，不是构建时写入的",
+    "install_record_same": "sha256 与 pip RECORD 记录一致，是未改动的第三方依赖文件",
+}
+
+
+def excused_scan_lines(task_ids: list[str]) -> list[str]:
+    rows = []
+    for task_id in task_ids:
+        path = CLEAN / (task_id + ".json")
+        if not path.is_file():
+            continue
+        scan = json.loads(path.read_text(encoding="utf-8")).get("filesystem_scan") or {}
+        for rule in ("base_image_same", "install_record_same"):
+            for hit in scan.get(rule) or []:
+                rows.append("| " + task_id + " | `" + hit + "` | " + EXCUSE_REASON[rule] + " |")
+    lines = [
+        "## 扫描排除的文件",
+        "",
+        "合格题的全文件系统扫描里，下列命中按规则排除。`/opt/repo` 下和目标项目顶层包目录下的命中不适用这两条排除。",
+        "",
+    ]
+    if not rows:
+        return lines + ["无。", ""]
+    return lines + ["| 题 | 文件 | 排除理由 |", "| --- | --- | --- |"] + rows + [""]
 
 
 def record_progress(done: int) -> None:
@@ -405,9 +547,9 @@ def record_progress(done: int) -> None:
     path.write_text(text.rstrip() + "\n\n" + marker + "。明细在 `docs/sprint/MAIN-CALIBRATION.md`。\n", encoding="utf-8")
 
 
-async def one(task: dict) -> dict:
+async def one(task: dict, *, force: bool = False) -> dict:
     destination = CAL / (task["id"] + ".json")
-    if destination.is_file():
+    if destination.is_file() and not force:
         return json.loads(destination.read_text(encoding="utf-8"))
     last = None
     for _attempt in (1, 2):
@@ -500,12 +642,15 @@ async def main() -> None:
             write_summary()
             record_progress(index)
         return
+    force = "--recalibrate" in sys.argv
+    if force:
+        sys.argv.remove("--recalibrate")
     if len(sys.argv) > 1:
         wanted = set(sys.argv[1:])
         tasks = [task for task in tasks if task["id"] in wanted]
     done = 0
     for task in tasks:
-        await one(task)
+        await one(task, force=force)
         done += 1
         write_summary()
         record_progress(done)

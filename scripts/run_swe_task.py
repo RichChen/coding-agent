@@ -91,6 +91,7 @@ PYTHON_PATHS = {
     "django": (".",),
     "pytest-dev": ("src",),
     "scikit-learn": (".",),
+    "sphinx-doc": (".",),
     "sympy": (".",),
 }
 
@@ -211,17 +212,22 @@ def grader_spec(task: dict, base: dict[str, bytes] | None = None) -> RepositoryS
     if private.get("instance_id") != task["id"]:
         raise ValueError("private source row does not match the task id")
     family = task["family"]
-    f2p = parse_id_list(private.get("FAIL_TO_PASS"))
-    p2p = parse_id_list(private.get("PASS_TO_PASS"))
-    if family == "django":
-        f2p = django_nodeids(f2p)
-        p2p = django_nodeids(p2p)
     test_paths = tuple(binding.get("test_patch_paths") or [])
-    if family == "sympy":
-        f2p = prefix_sympy_nodeids(f2p, test_paths)
-        p2p = prefix_sympy_nodeids(p2p, test_paths)
-    f2p = [node for node in f2p if usable_nodeid(node)]
-    p2p = [node for node in p2p if usable_nodeid(node)]
+    selected = task.get("grader_nodeids")
+    if selected is not None:
+        f2p = list(selected["f2p"])
+        p2p = list(selected["p2p"])
+    else:
+        f2p = parse_id_list(private.get("FAIL_TO_PASS"))
+        p2p = parse_id_list(private.get("PASS_TO_PASS"))
+        if family == "django":
+            f2p = django_nodeids(f2p)
+            p2p = django_nodeids(p2p)
+        if family == "sympy":
+            f2p = prefix_sympy_nodeids(f2p, test_paths)
+            p2p = prefix_sympy_nodeids(p2p, test_paths)
+        f2p = [node for node in f2p if usable_nodeid(node)]
+        p2p = [node for node in p2p if usable_nodeid(node)]
     excluded = set(task.get("p2p_excluded") or [])
     if excluded:
         p2p = [node for node in p2p if node not in excluded]

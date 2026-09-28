@@ -12,18 +12,15 @@
     1
   ],
   "empty_p2p": [
-    75,
+    76,
     76
   ],
   "gold_p2p": [
-    75,
+    76,
     76
   ],
-  "p2p_excluded_count": 1,
-  "p2p_excluded": [
-    "A m2m can be followed through another m2m."
-  ],
-  "sklearn_import": null,
+  "p2p_excluded_count": 0,
+  "p2p_excluded": [],
   "nodeids": {
     "f2p": {
       "original": 1,
@@ -31,20 +28,24 @@
     },
     "p2p": {
       "original": 76,
-      "used": 75
+      "used": 76
     },
     "dropped_reasons": {
       "f2p": {},
-      "p2p": {
-        "not_a_django_test_id": 1
-      }
+      "p2p": {}
     },
-    "dropped": [
+    "dropped": [],
+    "mapped": {
+      "f2p": 0,
+      "p2p": 1
+    },
+    "mapping": [
       {
         "side": "p2p",
-        "nodeid": "A m2m can be followed through another m2m.",
-        "reason": "not_a_django_test_id"
+        "docstring": "A m2m can be followed through another m2m.",
+        "nodeid": "prefetch_related.tests.PrefetchRelatedTests.test_m2m_then_m2m"
       }
     ]
-  }
+  },
+  "sklearn_import": null
 }

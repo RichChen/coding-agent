@@ -12,71 +12,15 @@
     1
   ],
   "empty_p2p": [
-    79,
-    133
+    128,
+    128
   ],
   "gold_p2p": [
-    79,
-    133
+    128,
+    128
   ],
-  "p2p_excluded_count": 54,
-  "p2p_excluded": [
-    "effective_default() should be used for DateField, DateTimeField, and",
-    "Tests adding fields to models",
-    "binary fields get a sane default (#22851.Tests",
-    "Tests adding fields to models with a default that is not directly",
-    "Adding a field and removing it removes all deferred sql referring to it.",
-    "Tests adding fields to models with a temporary default",
-    "Tests adding fields to models with a temporary default where",
-    "#23987 - effective_default() should be used as the field default when",
-    "Regression test for #23009.",
-    "Tests index addition and removal",
-    "Tests simple altering of fields",
-    "Converting an implicit PK to BigAutoField(primary_key=True) should keep",
-    "Converting an implicit PK to SmallAutoField(primary_key=True) should",
-    "#24307 - Should skip an alter statement on databases with",
-    "No queries are performed when changing field attributes that don't",
-    "Tests altering of FKs",
-    "#25492 - Altering a foreign key's structure and data in the same",
-    "#24163 - Tests altering of ForeignKey to OneToOneField",
-    "Should be able to convert an implicit \"id\" field to an explicit \"id\"",
-    "Should be able to rename an IntegerField(primary_key=True) to",
-    "#23609 - Tests handling of default values when altering from NULL to NOT NULL.",
-    "Changing a field type shouldn't affect the not null status.",
-    "#24163 - Tests altering of OneToOneField to ForeignKey",
-    "Changing the primary key field name of a model with a self-referential",
-    "Should be able to rename an SmallIntegerField(primary_key=True) to",
-    "#25002 - Test conversion of text field to date field.",
-    "#25002 - Test conversion of text field to datetime field.",
-    "#25002 - Test conversion of text field to time field.",
-    "#24447 - Tests adding a FK constraint for an existing column",
-    "Tests creating/deleting CHECK constraints",
-    "Ensures transaction is correctly closed when an error occurs",
-    "Tests creating models with index_together already defined",
-    "Tries creating a model's table, and then deleting it.",
-    "Tries creating a model's table, and then deleting it when it has a",
-    "Tests renaming of the table",
-    "Creating tables out of FK order, then repointing, works",
-    "The db_constraint parameter is respected",
-    "Creating a FK to a proxy model creates database constraints.",
-    "Regression test for #21497.",
-    "Tests removing and adding index_together constraints on a model.",
-    "Tests removing and adding index_together constraints that include",
-    "Tests creation/altering of indexes",
-    "Table names are stripped of their namespace/schema before being used to",
-    "When a primary key that's pointed to by a ForeignKey with",
-    "Indexes defined with ordering (ASC/DESC) defined on column",
-    "Tests altering of the primary key",
-    "Foreign keys without database level constraint don't prevent the field",
-    "Foreign keys without database level constraint don't prevent the table",
-    "#23065 - Constraint names must be quoted if they contain capital letters.",
-    "Changing db_index to False doesn't remove indexes from Meta.indexes.",
-    "Renaming a field shouldn't affect the not null status.",
-    "Tests removing and adding unique constraints to a single column.",
-    "Tests removing and adding unique_together constraints on a model.",
-    "Tests removing and adding unique_together constraints that include"
-  ],
-  "sklearn_import": null,
+  "p2p_excluded_count": 0,
+  "p2p_excluded": [],
   "nodeids": {
     "f2p": {
       "original": 1,
@@ -84,285 +28,313 @@
     },
     "p2p": {
       "original": 133,
-      "used": 79
+      "used": 128
     },
     "dropped_reasons": {
       "f2p": {},
       "p2p": {
-        "not_a_django_test_id": 54
+        "docstring_ambiguous": 5
       }
     },
     "dropped": [
       {
         "side": "p2p",
-        "nodeid": "effective_default() should be used for DateField, DateTimeField, and",
-        "reason": "not_a_django_test_id"
-      },
-      {
-        "side": "p2p",
-        "nodeid": "Tests adding fields to models",
-        "reason": "not_a_django_test_id"
-      },
-      {
-        "side": "p2p",
-        "nodeid": "Tests binary fields get a sane default (#22851)",
-        "reason": "not_a_django_test_id"
-      },
-      {
-        "side": "p2p",
-        "nodeid": "Tests adding fields to models with a default that is not directly",
-        "reason": "not_a_django_test_id"
-      },
-      {
-        "side": "p2p",
-        "nodeid": "Adding a field and removing it removes all deferred sql referring to it.",
-        "reason": "not_a_django_test_id"
-      },
-      {
-        "side": "p2p",
-        "nodeid": "Tests adding fields to models with a temporary default",
-        "reason": "not_a_django_test_id"
-      },
-      {
-        "side": "p2p",
-        "nodeid": "Tests adding fields to models with a temporary default where",
-        "reason": "not_a_django_test_id"
-      },
-      {
-        "side": "p2p",
-        "nodeid": "#23987 - effective_default() should be used as the field default when",
-        "reason": "not_a_django_test_id"
-      },
-      {
-        "side": "p2p",
-        "nodeid": "Regression test for #23009.",
-        "reason": "not_a_django_test_id"
-      },
-      {
-        "side": "p2p",
-        "nodeid": "Tests index addition and removal",
-        "reason": "not_a_django_test_id"
-      },
-      {
-        "side": "p2p",
         "nodeid": "Tests simple altering of fields",
-        "reason": "not_a_django_test_id"
-      },
-      {
-        "side": "p2p",
-        "nodeid": "Converting an implicit PK to BigAutoField(primary_key=True) should keep",
-        "reason": "not_a_django_test_id"
-      },
-      {
-        "side": "p2p",
-        "nodeid": "Converting an implicit PK to SmallAutoField(primary_key=True) should",
-        "reason": "not_a_django_test_id"
+        "reason": "docstring_ambiguous",
+        "candidates": [
+          "schema.tests.SchemaTests.test_alter",
+          "schema.tests.SchemaTests.test_rename"
+        ]
       },
       {
         "side": "p2p",
         "nodeid": "#24307 - Should skip an alter statement on databases with",
-        "reason": "not_a_django_test_id"
-      },
-      {
-        "side": "p2p",
-        "nodeid": "No queries are performed when changing field attributes that don't",
-        "reason": "not_a_django_test_id"
-      },
-      {
-        "side": "p2p",
-        "nodeid": "Tests altering of FKs",
-        "reason": "not_a_django_test_id"
-      },
-      {
-        "side": "p2p",
-        "nodeid": "#25492 - Altering a foreign key's structure and data in the same",
-        "reason": "not_a_django_test_id"
-      },
-      {
-        "side": "p2p",
-        "nodeid": "#24163 - Tests altering of ForeignKey to OneToOneField",
-        "reason": "not_a_django_test_id"
-      },
-      {
-        "side": "p2p",
-        "nodeid": "Should be able to convert an implicit \"id\" field to an explicit \"id\"",
-        "reason": "not_a_django_test_id"
+        "reason": "docstring_ambiguous",
+        "candidates": [
+          "schema.tests.SchemaTests.test_alter_charfield_to_null",
+          "schema.tests.SchemaTests.test_alter_textfield_to_null"
+        ]
       },
       {
         "side": "p2p",
         "nodeid": "Should be able to rename an IntegerField(primary_key=True) to",
-        "reason": "not_a_django_test_id"
-      },
-      {
-        "side": "p2p",
-        "nodeid": "#23609 - Tests handling of default values when altering from NULL to NOT NULL.",
-        "reason": "not_a_django_test_id"
+        "reason": "docstring_ambiguous",
+        "candidates": [
+          "schema.tests.SchemaTests.test_alter_int_pk_to_autofield_pk",
+          "schema.tests.SchemaTests.test_alter_int_pk_to_bigautofield_pk",
+          "schema.tests.SchemaTests.test_alter_int_pk_to_int_unique"
+        ]
       },
       {
         "side": "p2p",
         "nodeid": "Changing a field type shouldn't affect the not null status.",
-        "reason": "not_a_django_test_id"
-      },
-      {
-        "side": "p2p",
-        "nodeid": "#24163 - Tests altering of OneToOneField to ForeignKey",
-        "reason": "not_a_django_test_id"
-      },
-      {
-        "side": "p2p",
-        "nodeid": "Changing the primary key field name of a model with a self-referential",
-        "reason": "not_a_django_test_id"
-      },
-      {
-        "side": "p2p",
-        "nodeid": "Should be able to rename an SmallIntegerField(primary_key=True) to",
-        "reason": "not_a_django_test_id"
-      },
-      {
-        "side": "p2p",
-        "nodeid": "#25002 - Test conversion of text field to date field.",
-        "reason": "not_a_django_test_id"
-      },
-      {
-        "side": "p2p",
-        "nodeid": "#25002 - Test conversion of text field to datetime field.",
-        "reason": "not_a_django_test_id"
-      },
-      {
-        "side": "p2p",
-        "nodeid": "#25002 - Test conversion of text field to time field.",
-        "reason": "not_a_django_test_id"
-      },
-      {
-        "side": "p2p",
-        "nodeid": "#24447 - Tests adding a FK constraint for an existing column",
-        "reason": "not_a_django_test_id"
-      },
-      {
-        "side": "p2p",
-        "nodeid": "Tests creating/deleting CHECK constraints",
-        "reason": "not_a_django_test_id"
-      },
-      {
-        "side": "p2p",
-        "nodeid": "Ensures transaction is correctly closed when an error occurs",
-        "reason": "not_a_django_test_id"
-      },
-      {
-        "side": "p2p",
-        "nodeid": "Tests creating models with index_together already defined",
-        "reason": "not_a_django_test_id"
-      },
-      {
-        "side": "p2p",
-        "nodeid": "Tries creating a model's table, and then deleting it.",
-        "reason": "not_a_django_test_id"
-      },
-      {
-        "side": "p2p",
-        "nodeid": "Tries creating a model's table, and then deleting it when it has a",
-        "reason": "not_a_django_test_id"
-      },
-      {
-        "side": "p2p",
-        "nodeid": "Tests renaming of the table",
-        "reason": "not_a_django_test_id"
-      },
-      {
-        "side": "p2p",
-        "nodeid": "Creating tables out of FK order, then repointing, works",
-        "reason": "not_a_django_test_id"
-      },
-      {
-        "side": "p2p",
-        "nodeid": "The db_constraint parameter is respected",
-        "reason": "not_a_django_test_id"
-      },
-      {
-        "side": "p2p",
-        "nodeid": "Creating a FK to a proxy model creates database constraints.",
-        "reason": "not_a_django_test_id"
-      },
-      {
-        "side": "p2p",
-        "nodeid": "Regression test for #21497.",
-        "reason": "not_a_django_test_id"
-      },
-      {
-        "side": "p2p",
-        "nodeid": "Tests removing and adding index_together constraints on a model.",
-        "reason": "not_a_django_test_id"
-      },
-      {
-        "side": "p2p",
-        "nodeid": "Tests removing and adding index_together constraints that include",
-        "reason": "not_a_django_test_id"
-      },
-      {
-        "side": "p2p",
-        "nodeid": "Tests creation/altering of indexes",
-        "reason": "not_a_django_test_id"
-      },
-      {
-        "side": "p2p",
-        "nodeid": "Table names are stripped of their namespace/schema before being used to",
-        "reason": "not_a_django_test_id"
-      },
-      {
-        "side": "p2p",
-        "nodeid": "When a primary key that's pointed to by a ForeignKey with",
-        "reason": "not_a_django_test_id"
-      },
-      {
-        "side": "p2p",
-        "nodeid": "Indexes defined with ordering (ASC/DESC) defined on column",
-        "reason": "not_a_django_test_id"
-      },
-      {
-        "side": "p2p",
-        "nodeid": "Tests altering of the primary key",
-        "reason": "not_a_django_test_id"
-      },
-      {
-        "side": "p2p",
-        "nodeid": "Foreign keys without database level constraint don't prevent the field",
-        "reason": "not_a_django_test_id"
-      },
-      {
-        "side": "p2p",
-        "nodeid": "Foreign keys without database level constraint don't prevent the table",
-        "reason": "not_a_django_test_id"
-      },
-      {
-        "side": "p2p",
-        "nodeid": "#23065 - Constraint names must be quoted if they contain capital letters.",
-        "reason": "not_a_django_test_id"
-      },
-      {
-        "side": "p2p",
-        "nodeid": "Changing db_index to False doesn't remove indexes from Meta.indexes.",
-        "reason": "not_a_django_test_id"
-      },
-      {
-        "side": "p2p",
-        "nodeid": "Renaming a field shouldn't affect the not null status.",
-        "reason": "not_a_django_test_id"
-      },
-      {
-        "side": "p2p",
-        "nodeid": "Tests removing and adding unique constraints to a single column.",
-        "reason": "not_a_django_test_id"
-      },
-      {
-        "side": "p2p",
-        "nodeid": "Tests removing and adding unique_together constraints on a model.",
-        "reason": "not_a_django_test_id"
+        "reason": "docstring_ambiguous",
+        "candidates": [
+          "schema.tests.SchemaTests.test_alter_textual_field_keep_null_status",
+          "schema.tests.SchemaTests.test_alter_numeric_field_keep_null_status"
+        ]
       },
       {
         "side": "p2p",
         "nodeid": "Tests removing and adding unique_together constraints that include",
-        "reason": "not_a_django_test_id"
+        "reason": "docstring_ambiguous",
+        "candidates": [
+          "schema.tests.SchemaTests.test_unique_together_with_fk",
+          "schema.tests.SchemaTests.test_unique_together_with_fk_with_existing_index"
+        ]
+      }
+    ],
+    "mapped": {
+      "f2p": 0,
+      "p2p": 49
+    },
+    "mapping": [
+      {
+        "side": "p2p",
+        "docstring": "effective_default() should be used for DateField, DateTimeField, and",
+        "nodeid": "schema.tests.SchemaTests.test_add_datefield_and_datetimefield_use_effective_default"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Tests adding fields to models",
+        "nodeid": "schema.tests.SchemaTests.test_add_field"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Tests binary fields get a sane default (#22851)",
+        "nodeid": "schema.tests.SchemaTests.test_add_field_binary"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Tests adding fields to models with a default that is not directly",
+        "nodeid": "schema.tests.SchemaTests.test_add_field_default_transform"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Adding a field and removing it removes all deferred sql referring to it.",
+        "nodeid": "schema.tests.SchemaTests.test_add_field_remove_field"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Tests adding fields to models with a temporary default",
+        "nodeid": "schema.tests.SchemaTests.test_add_field_temp_default"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Tests adding fields to models with a temporary default where",
+        "nodeid": "schema.tests.SchemaTests.test_add_field_temp_default_boolean"
+      },
+      {
+        "side": "p2p",
+        "docstring": "#23987 - effective_default() should be used as the field default when",
+        "nodeid": "schema.tests.SchemaTests.test_add_field_use_effective_default"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Regression test for #23009.",
+        "nodeid": "schema.tests.SchemaTests.test_add_foreign_key_long_names"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Tests index addition and removal",
+        "nodeid": "schema.tests.SchemaTests.test_add_remove_index"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Converting an implicit PK to BigAutoField(primary_key=True) should keep",
+        "nodeid": "schema.tests.SchemaTests.test_alter_autofield_pk_to_bigautofield_pk_sequence_owner"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Converting an implicit PK to SmallAutoField(primary_key=True) should",
+        "nodeid": "schema.tests.SchemaTests.test_alter_autofield_pk_to_smallautofield_pk_sequence_owner"
+      },
+      {
+        "side": "p2p",
+        "docstring": "No queries are performed when changing field attributes that don't",
+        "nodeid": "schema.tests.SchemaTests.test_alter_field_fk_attributes_noop"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Tests altering of FKs",
+        "nodeid": "schema.tests.SchemaTests.test_alter_fk"
+      },
+      {
+        "side": "p2p",
+        "docstring": "#25492 - Altering a foreign key's structure and data in the same",
+        "nodeid": "schema.tests.SchemaTests.test_alter_fk_checks_deferred_constraints"
+      },
+      {
+        "side": "p2p",
+        "docstring": "#24163 - Tests altering of ForeignKey to OneToOneField",
+        "nodeid": "schema.tests.SchemaTests.test_alter_fk_to_o2o"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Should be able to convert an implicit \"id\" field to an explicit \"id\"",
+        "nodeid": "schema.tests.SchemaTests.test_alter_implicit_id_to_explicit"
+      },
+      {
+        "side": "p2p",
+        "docstring": "#23609 - Tests handling of default values when altering from NULL to NOT NULL.",
+        "nodeid": "schema.tests.SchemaTests.test_alter_null_to_not_null"
+      },
+      {
+        "side": "p2p",
+        "docstring": "#24163 - Tests altering of OneToOneField to ForeignKey",
+        "nodeid": "schema.tests.SchemaTests.test_alter_o2o_to_fk"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Changing the primary key field name of a model with a self-referential",
+        "nodeid": "schema.tests.SchemaTests.test_alter_pk_with_self_referential_field"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Should be able to rename an SmallIntegerField(primary_key=True) to",
+        "nodeid": "schema.tests.SchemaTests.test_alter_smallint_pk_to_smallautofield_pk"
+      },
+      {
+        "side": "p2p",
+        "docstring": "#25002 - Test conversion of text field to date field.",
+        "nodeid": "schema.tests.SchemaTests.test_alter_text_field_to_date_field"
+      },
+      {
+        "side": "p2p",
+        "docstring": "#25002 - Test conversion of text field to datetime field.",
+        "nodeid": "schema.tests.SchemaTests.test_alter_text_field_to_datetime_field"
+      },
+      {
+        "side": "p2p",
+        "docstring": "#25002 - Test conversion of text field to time field.",
+        "nodeid": "schema.tests.SchemaTests.test_alter_text_field_to_time_field"
+      },
+      {
+        "side": "p2p",
+        "docstring": "#24447 - Tests adding a FK constraint for an existing column",
+        "nodeid": "schema.tests.SchemaTests.test_alter_to_fk"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Tests creating/deleting CHECK constraints",
+        "nodeid": "schema.tests.SchemaTests.test_check_constraints"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Ensures transaction is correctly closed when an error occurs",
+        "nodeid": "schema.tests.SchemaTests.test_context_manager_exit"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Tests creating models with index_together already defined",
+        "nodeid": "schema.tests.SchemaTests.test_create_index_together"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Tries creating a model's table, and then deleting it.",
+        "nodeid": "schema.tests.SchemaTests.test_creation_deletion"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Tries creating a model's table, and then deleting it when it has a",
+        "nodeid": "schema.tests.SchemaTests.test_creation_deletion_reserved_names"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Tests renaming of the table",
+        "nodeid": "schema.tests.SchemaTests.test_db_table"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Creating tables out of FK order, then repointing, works",
+        "nodeid": "schema.tests.SchemaTests.test_fk"
+      },
+      {
+        "side": "p2p",
+        "docstring": "The db_constraint parameter is respected",
+        "nodeid": "schema.tests.SchemaTests.test_fk_db_constraint"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Creating a FK to a proxy model creates database constraints.",
+        "nodeid": "schema.tests.SchemaTests.test_fk_to_proxy"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Regression test for #21497.",
+        "nodeid": "schema.tests.SchemaTests.test_foreign_key_index_long_names_regression"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Tests removing and adding index_together constraints on a model.",
+        "nodeid": "schema.tests.SchemaTests.test_index_together"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Tests removing and adding index_together constraints that include",
+        "nodeid": "schema.tests.SchemaTests.test_index_together_with_fk"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Tests creation/altering of indexes",
+        "nodeid": "schema.tests.SchemaTests.test_indexes"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Table names are stripped of their namespace/schema before being used to",
+        "nodeid": "schema.tests.SchemaTests.test_namespaced_db_table_create_index_name"
+      },
+      {
+        "side": "p2p",
+        "docstring": "When a primary key that's pointed to by a ForeignKey with",
+        "nodeid": "schema.tests.SchemaTests.test_no_db_constraint_added_during_primary_key_change"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Indexes defined with ordering (ASC/DESC) defined on column",
+        "nodeid": "schema.tests.SchemaTests.test_order_index"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Tests altering of the primary key",
+        "nodeid": "schema.tests.SchemaTests.test_primary_key"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Foreign keys without database level constraint don't prevent the field",
+        "nodeid": "schema.tests.SchemaTests.test_referenced_field_without_constraint_rename_inside_atomic_block"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Foreign keys without database level constraint don't prevent the table",
+        "nodeid": "schema.tests.SchemaTests.test_referenced_table_without_constraint_rename_inside_atomic_block"
+      },
+      {
+        "side": "p2p",
+        "docstring": "#23065 - Constraint names must be quoted if they contain capital letters.",
+        "nodeid": "schema.tests.SchemaTests.test_remove_constraints_capital_letters"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Changing db_index to False doesn't remove indexes from Meta.indexes.",
+        "nodeid": "schema.tests.SchemaTests.test_remove_db_index_doesnt_remove_custom_indexes"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Renaming a field shouldn't affect the not null status.",
+        "nodeid": "schema.tests.SchemaTests.test_rename_keep_null_status"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Tests removing and adding unique constraints to a single column.",
+        "nodeid": "schema.tests.SchemaTests.test_unique"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Tests removing and adding unique_together constraints on a model.",
+        "nodeid": "schema.tests.SchemaTests.test_unique_together"
       }
     ]
-  }
+  },
+  "sklearn_import": null
 }

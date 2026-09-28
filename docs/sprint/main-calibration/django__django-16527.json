@@ -12,16 +12,15 @@
     1
   ],
   "empty_p2p": [
-    3,
-    3
+    6,
+    6
   ],
   "gold_p2p": [
-    3,
-    3
+    6,
+    6
   ],
   "p2p_excluded_count": 0,
   "p2p_excluded": [],
-  "sklearn_import": null,
   "nodeids": {
     "f2p": {
       "original": 1,
@@ -29,30 +28,34 @@
     },
     "p2p": {
       "original": 6,
-      "used": 3
+      "used": 6
     },
     "dropped_reasons": {
       "f2p": {},
-      "p2p": {
-        "not_a_django_test_id": 3
-      }
+      "p2p": {}
     },
-    "dropped": [
+    "dropped": [],
+    "mapped": {
+      "f2p": 0,
+      "p2p": 3
+    },
+    "mapping": [
       {
         "side": "p2p",
-        "nodeid": "admin_modify template tags follow the standard search pattern",
-        "reason": "not_a_django_test_id"
+        "docstring": "admin_modify template tags follow the standard search pattern",
+        "nodeid": "admin_views.test_templatetags.AdminTemplateTagsTest.test_override_change_form_template_tags"
       },
       {
         "side": "p2p",
-        "nodeid": "admin_list template tags follow the standard search pattern",
-        "reason": "not_a_django_test_id"
+        "docstring": "admin_list template tags follow the standard search pattern",
+        "nodeid": "admin_views.test_templatetags.AdminTemplateTagsTest.test_override_change_list_template_tags"
       },
       {
         "side": "p2p",
-        "nodeid": "submit_row template tag should pass whole context.",
-        "reason": "not_a_django_test_id"
+        "docstring": "submit_row template tag should pass whole context.",
+        "nodeid": "admin_views.test_templatetags.AdminTemplateTagsTest.test_submit_row"
       }
     ]
-  }
+  },
+  "sklearn_import": null
 }

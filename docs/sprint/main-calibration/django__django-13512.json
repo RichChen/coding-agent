@@ -12,18 +12,15 @@
     3
   ],
   "empty_p2p": [
-    31,
+    32,
     32
   ],
   "gold_p2p": [
-    31,
+    32,
     32
   ],
-  "p2p_excluded_count": 1,
-  "p2p_excluded": [
-    "The widget can be overridden with an attribute."
-  ],
-  "sklearn_import": null,
+  "p2p_excluded_count": 0,
+  "p2p_excluded": [],
   "nodeids": {
     "f2p": {
       "original": 3,
@@ -31,20 +28,24 @@
     },
     "p2p": {
       "original": 32,
-      "used": 31
+      "used": 32
     },
     "dropped_reasons": {
       "f2p": {},
-      "p2p": {
-        "not_a_django_test_id": 1
-      }
+      "p2p": {}
     },
-    "dropped": [
+    "dropped": [],
+    "mapped": {
+      "f2p": 0,
+      "p2p": 1
+    },
+    "mapping": [
       {
         "side": "p2p",
-        "nodeid": "The widget can be overridden with an attribute.",
-        "reason": "not_a_django_test_id"
+        "docstring": "The widget can be overridden with an attribute.",
+        "nodeid": "forms_tests.field_tests.test_jsonfield.JSONFieldTest.test_custom_widget_attribute"
       }
     ]
-  }
+  },
+  "sklearn_import": null
 }

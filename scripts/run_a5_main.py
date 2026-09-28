@@ -15,7 +15,7 @@ sys.path.insert(0, str(ROOT))
 from scripts.handoff_sha import handoff_sha256  # noqa: E402
 from scripts.preflight_a5_repo_baseline import patch_paths  # noqa: E402
 from scripts.run_swe_task import run_task  # noqa: E402
-from scripts.sprint5_prepare_main import FAMILY  # noqa: E402
+from scripts.sprint5_prepare_main import FAMILY, nodeid_selection  # noqa: E402
 
 TOTAL_CAP = Decimal("150")
 PARALLEL = 3
@@ -118,9 +118,16 @@ def materialize_runner_task(task: dict) -> dict:
     private = json.loads(private_path.read_text(encoding="utf-8"))
     clean = json.loads((ROOT / "docs" / "sprint" / "clean-images" / (task["id"] + ".json")).read_text(encoding="utf-8"))
     calibration_path = ROOT / "docs" / "sprint" / "main-calibration" / (task["id"] + ".json")
-    excluded = []
-    if calibration_path.is_file():
-        excluded = json.loads(calibration_path.read_text(encoding="utf-8")).get("p2p_excluded") or []
+    calibration = json.loads(calibration_path.read_text(encoding="utf-8"))
+    excluded = calibration.get("p2p_excluded") or []
+    f2p, p2p, report = nodeid_selection(task, private, patch_paths(private.get("test_patch") or ""))
+    recorded = calibration.get("nodeids") or {}
+    for side in ("f2p", "p2p"):
+        if report[side] != recorded.get(side):
+            raise SystemExit(
+                "grader ids for " + task["id"] + " differ from calibration on " + side
+                + ": " + json.dumps(report[side]) + " vs " + json.dumps(recorded.get(side))
+            )
     folder = ROOT / "runs" / "sprint5-main-runner" / task["id"]
     folder.mkdir(parents=True, exist_ok=True)
     archive = ROOT / "runs" / "sprint5-main-images" / task["id"] / "source.tar.gz"
@@ -151,6 +158,7 @@ def materialize_runner_task(task: dict) -> dict:
     prepared["baseline"] = (staging / "baseline").relative_to(ROOT).as_posix()
     prepared["grader_timeout_seconds"] = 600
     prepared["p2p_excluded"] = excluded
+    prepared["grader_nodeids"] = {"f2p": f2p, "p2p": p2p}
     return prepared
 
 

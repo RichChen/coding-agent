@@ -12,16 +12,15 @@
     1
   ],
   "empty_p2p": [
-    15,
-    15
+    35,
+    35
   ],
   "gold_p2p": [
-    15,
-    15
+    35,
+    35
   ],
   "p2p_excluded_count": 0,
   "p2p_excluded": [],
-  "sklearn_import": null,
   "nodeids": {
     "f2p": {
       "original": 1,
@@ -29,115 +28,119 @@
     },
     "p2p": {
       "original": 35,
-      "used": 15
+      "used": 35
     },
     "dropped_reasons": {
       "f2p": {},
-      "p2p": {
-        "not_a_django_test_id": 20
-      }
+      "p2p": {}
     },
-    "dropped": [
+    "dropped": [],
+    "mapped": {
+      "f2p": 0,
+      "p2p": 20
+    },
+    "mapping": [
       {
         "side": "p2p",
-        "nodeid": "AlterField should optimize into AddField.",
-        "reason": "not_a_django_test_id"
+        "docstring": "AlterField should optimize into AddField.",
+        "nodeid": "migrations.test_optimizer.OptimizerTests.test_add_field_alter_field"
       },
       {
         "side": "p2p",
-        "nodeid": "RemoveField should cancel AddField",
-        "reason": "not_a_django_test_id"
+        "docstring": "RemoveField should cancel AddField",
+        "nodeid": "migrations.test_optimizer.OptimizerTests.test_add_field_delete_field"
       },
       {
         "side": "p2p",
-        "nodeid": "RenameField should optimize into AddField",
-        "reason": "not_a_django_test_id"
+        "docstring": "RenameField should optimize into AddField",
+        "nodeid": "migrations.test_optimizer.OptimizerTests.test_add_field_rename_field"
       },
       {
         "side": "p2p",
-        "nodeid": "RemoveField should absorb AlterField",
-        "reason": "not_a_django_test_id"
+        "docstring": "RemoveField should absorb AlterField",
+        "nodeid": "migrations.test_optimizer.OptimizerTests.test_alter_field_delete_field"
       },
       {
         "side": "p2p",
-        "nodeid": "RenameField should optimize to the other side of AlterField,",
-        "reason": "not_a_django_test_id"
+        "docstring": "RenameField should optimize to the other side of AlterField,",
+        "nodeid": "migrations.test_optimizer.OptimizerTests.test_alter_field_rename_field"
       },
       {
         "side": "p2p",
-        "nodeid": "CreateModel and DeleteModel should collapse into nothing.",
-        "reason": "not_a_django_test_id"
+        "docstring": "CreateModel and DeleteModel should collapse into nothing.",
+        "nodeid": "migrations.test_optimizer.OptimizerTests.test_create_delete_model"
       },
       {
         "side": "p2p",
-        "nodeid": "AddField should optimize into CreateModel.",
-        "reason": "not_a_django_test_id"
+        "docstring": "AddField should optimize into CreateModel.",
+        "nodeid": "migrations.test_optimizer.OptimizerTests.test_create_model_add_field"
       },
       {
         "side": "p2p",
-        "nodeid": "AddField should NOT optimize into CreateModel if it's an M2M using a",
-        "reason": "not_a_django_test_id"
+        "docstring": "AddField should NOT optimize into CreateModel if it's an M2M using a",
+        "nodeid": "migrations.test_optimizer.OptimizerTests.test_create_model_add_field_not_through_m2m_through"
       },
       {
         "side": "p2p",
-        "nodeid": "AlterField should optimize into CreateModel.",
-        "reason": "not_a_django_test_id"
+        "docstring": "AlterField should optimize into CreateModel.",
+        "nodeid": "migrations.test_optimizer.OptimizerTests.test_create_model_alter_field"
       },
       {
         "side": "p2p",
-        "nodeid": "CreateModel order remains unchanged if the later AddField operation",
-        "reason": "not_a_django_test_id"
+        "docstring": "CreateModel order remains unchanged if the later AddField operation",
+        "nodeid": "migrations.test_optimizer.OptimizerTests.test_create_model_no_reordering_for_unrelated_fk"
       },
       {
         "side": "p2p",
-        "nodeid": "A CreateModel that inherits from another isn't reordered to avoid",
-        "reason": "not_a_django_test_id"
+        "docstring": "A CreateModel that inherits from another isn't reordered to avoid",
+        "nodeid": "migrations.test_optimizer.OptimizerTests.test_create_model_no_reordering_of_inherited_model"
       },
       {
         "side": "p2p",
-        "nodeid": "RemoveField should optimize into CreateModel.",
-        "reason": "not_a_django_test_id"
+        "docstring": "RemoveField should optimize into CreateModel.",
+        "nodeid": "migrations.test_optimizer.OptimizerTests.test_create_model_remove_field"
       },
       {
         "side": "p2p",
-        "nodeid": "RenameField should optimize into CreateModel.",
-        "reason": "not_a_django_test_id"
+        "docstring": "RenameField should optimize into CreateModel.",
+        "nodeid": "migrations.test_optimizer.OptimizerTests.test_create_model_rename_field"
       },
       {
         "side": "p2p",
-        "nodeid": "AddField optimizes into CreateModel if it's a FK to a model that's",
-        "reason": "not_a_django_test_id"
+        "docstring": "AddField optimizes into CreateModel if it's a FK to a model that's",
+        "nodeid": "migrations.test_optimizer.OptimizerTests.test_create_model_reordering"
       },
       {
         "side": "p2p",
-        "nodeid": "CreateModel reordering behavior doesn't result in an infinite loop if",
-        "reason": "not_a_django_test_id"
+        "docstring": "CreateModel reordering behavior doesn't result in an infinite loop if",
+        "nodeid": "migrations.test_optimizer.OptimizerTests.test_create_model_reordering_circular_fk"
       },
       {
         "side": "p2p",
-        "nodeid": "CreateModel should absorb RenameModels.",
-        "reason": "not_a_django_test_id"
+        "docstring": "CreateModel should absorb RenameModels.",
+        "nodeid": "migrations.test_optimizer.OptimizerTests.test_create_rename_model"
       },
       {
         "side": "p2p",
-        "nodeid": "We should be able to optimize away create/delete through a create or",
-        "reason": "not_a_django_test_id"
+        "docstring": "We should be able to optimize away create/delete through a create or",
+        "nodeid": "migrations.test_optimizer.OptimizerTests.test_optimize_through_create"
       },
       {
         "side": "p2p",
-        "nodeid": "field-level through checking is working. This should manage to collapse",
-        "reason": "not_a_django_test_id"
+        "docstring": "field-level through checking is working. This should manage to collapse",
+        "nodeid": "migrations.test_optimizer.OptimizerTests.test_optimize_through_fields"
       },
       {
         "side": "p2p",
-        "nodeid": "RenameModels should absorb themselves.",
-        "reason": "not_a_django_test_id"
+        "docstring": "RenameModels should absorb themselves.",
+        "nodeid": "migrations.test_optimizer.OptimizerTests.test_rename_model_self"
       },
       {
         "side": "p2p",
-        "nodeid": "The optimizer does nothing on a single operation,",
-        "reason": "not_a_django_test_id"
+        "docstring": "The optimizer does nothing on a single operation,",
+        "nodeid": "migrations.test_optimizer.OptimizerTests.test_single"
       }
     ]
-  }
+  },
+  "sklearn_import": null
 }
