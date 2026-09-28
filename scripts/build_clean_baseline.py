@@ -196,28 +196,113 @@ def archive_text(archive: Path) -> str:
     return "\n".join(chunks)
 
 
-def filesystem_scan(digest: str, archive: Path, manifest: dict, test_patch: str, gold_patch: str, python_bin: str = "/usr/local/bin/python"):
+def exclude_base_image_matches(found: list[dict], base_hashes: dict[str, str | None]) -> tuple[list[dict], list[str]]:
+    """Drop a needle hit when the same path in the base image has the same bytes."""
+    hits = []
+    same = []
+    for item in found:
+        path = item["path"]
+        if base_hashes.get(path) and base_hashes.get(path) == item["sha256"]:
+            same.append(path)
+        else:
+            hits.append(item)
+    return hits, sorted(set(same))
+
+
+def exclude_recorded_installs(found: list[dict], recorded_hashes: set[str]) -> tuple[list[str], list[str]]:
+    """Drop a hit whose bytes are exactly a file pip recorded at install time."""
+    hits = []
+    same = []
+    for item in found:
+        if item["sha256"] in recorded_hashes:
+            same.append(item["path"])
+        else:
+            hits.append(item["path"])
+    return sorted(set(hits)), sorted(set(same))
+
+
+def _base_image_hashes(base_image: str, paths: list[str], python_bin: str) -> dict[str, str | None]:
+    code = r'''
+import hashlib, json, pathlib, sys, tarfile, zipfile
+found = {}
+for rel in json.load(sys.stdin):
+    digest = None
+    if "!" in rel:
+        outer, inner = rel.split("!", 1)
+        path = pathlib.Path(outer)
+        try:
+            if outer.endswith((".tar", ".tar.gz", ".tgz")) and path.is_file():
+                with tarfile.open(path) as packed:
+                    extracted = packed.extractfile(inner)
+                    if extracted:
+                        digest = hashlib.sha256(extracted.read()).hexdigest()
+            elif outer.endswith(".zip") and path.is_file():
+                with zipfile.ZipFile(path) as packed:
+                    digest = hashlib.sha256(packed.read(inner)).hexdigest()
+        except Exception:
+            digest = None
+    else:
+        path = pathlib.Path(rel)
+        if path.is_file() and not path.is_symlink():
+            digest = hashlib.sha256(path.read_bytes()).hexdigest()
+    found[rel] = digest
+print(json.dumps(found))
+'''
+    raw = docker_python(base_image, code, json.dumps(paths).encode(), python_bin=python_bin)
+    return json.loads(raw)
+
+
+def _recorded_install_hashes(digest: str, python_bin: str) -> set[str]:
+    code = r'''
+import base64, json, pathlib
+hashes = []
+for record in pathlib.Path("/").rglob("RECORD"):
+    if ".dist-info" not in record.as_posix():
+        continue
+    try:
+        text = record.read_text(encoding="utf-8", errors="replace")
+    except OSError:
+        continue
+    for line in text.splitlines():
+        parts = line.split(",")
+        if len(parts) < 2 or not parts[1].startswith("sha256="):
+            continue
+        token = parts[1][len("sha256="):]
+        try:
+            raw = base64.urlsafe_b64decode(token + "=" * (-len(token) % 4))
+        except Exception:
+            continue
+        hashes.append(raw.hex())
+print(json.dumps(hashes))
+'''
+    raw = docker_python(digest, code, b"[]", python_bin=python_bin)
+    return set(json.loads(raw))
+
+
+def filesystem_scan(digest: str, archive: Path, manifest: dict, test_patch: str, gold_patch: str, python_bin: str = "/usr/local/bin/python", base_image: str | None = None):
     del manifest
     blob = archive_text(archive)
     needles = added_lines(test_patch, blob) + added_lines(gold_patch, blob)
     if not needles:
-        return {"needle_count": 0, "hits": ["no-unique-needle"], "pass": False}
+        return {"needle_count": 0, "hits": ["no-unique-needle"], "pass": False, "base_image_same": []}
     code = r'''
-import json, pathlib, sys, tarfile, zipfile
+import hashlib, json, pathlib, sys, tarfile, zipfile
 needles = json.load(sys.stdin)
 roots = [p for p in pathlib.Path("/").iterdir() if p.name not in {"proc", "sys", "dev"}]
 hits = []
+seen = set()
 def consider(rel, data):
+    if rel in seen:
+        return
     text = data.decode("utf-8", "ignore")
-    if rel.startswith("/opt/repo") and any(needle in text for needle in needles):
-        hits.append(rel)
+    if any(needle in text for needle in needles):
+        seen.add(rel)
+        hits.append({"path": rel, "sha256": hashlib.sha256(data).hexdigest()})
 for root in roots:
     for path in root.rglob("*"):
         if not path.is_file() or path.is_symlink():
             continue
         rel = path.as_posix()
-        if "/site-packages/" in rel or "/dist-packages/" in rel:
-            continue
         try:
             data = path.read_bytes()
         except OSError:
@@ -239,13 +324,32 @@ for root in roots:
                         consider(rel + "!" + member, packed.read(member))
         except Exception:
             continue
-print(json.dumps({"hits": sorted(set(hits))[:20]}))
+print(json.dumps({"found": hits}))
 '''
     raw = docker_python(digest, code, json.dumps(needles).encode(), python_bin=python_bin)
-    parsed = json.loads(raw)
-    parsed["needle_count"] = len(needles)
-    parsed["pass"] = not parsed["hits"]
-    return parsed
+    found = json.loads(raw).get("found") or []
+    same: list[str] = []
+    install_same: list[str] = []
+    if base_image and found:
+        base_hashes = _base_image_hashes(base_image, [item["path"] for item in found], python_bin)
+        remaining, same = exclude_base_image_matches(found, base_hashes)
+    else:
+        remaining = list(found)
+    if remaining:
+        recorded = _recorded_install_hashes(digest, python_bin)
+        hits, install_same = exclude_recorded_installs(remaining, recorded)
+    else:
+        hits = []
+    return {
+        "needle_count": len(needles),
+        "hits": hits[:20],
+        "hit_count": len(hits),
+        "base_image_same": same[:20],
+        "base_image_same_count": len(same),
+        "install_record_same": install_same[:20],
+        "install_record_same_count": len(install_same),
+        "pass": not hits,
+    }
 
 
 def main():
