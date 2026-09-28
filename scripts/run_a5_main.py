@@ -148,7 +148,7 @@ def halt_reason(out_root: Path, phase: str, canaries=frozenset()) -> str | None:
         if row.get("status") == "infra_error":
             continue
         ids = row.get("grader_ids") or {}
-        if ids.get("missing"):
+        if ids.get("missing") and not row.get("grader_candidate_error"):
             return "grader reported missing ids: " + str(row.get("task_id"))
         if ids.get("reason") or row.get("grader_status") == "invalid_env":
             return "grader crashed: " + str(row.get("task_id")) + " " + str(ids.get("reason"))

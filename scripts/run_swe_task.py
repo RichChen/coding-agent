@@ -23,6 +23,7 @@ import yaml
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
+from src.eval.candidate_error import grader_candidate_error
 from src.eval.grader import tree_hash
 from src.eval.image_grader import ImageGrader
 from src.eval.repo_grader import RepositoryGrader, RepositorySpec
@@ -806,6 +807,8 @@ async def run_task(task: dict, profile: Path, output: Path, *, mock: bool, varia
     if final_model != requested_model:
         model["changed_to"] = final_model
     cases = evaluation.get("cases") or []
+    missing = sum(1 for case in cases if case.get("outcome") == "missing")
+    candidate_error = grader_candidate_error(evaluation, delta_changes(delta)) if missing and not infra else None
     summary = {
         "task_id": task["id"],
         "variant": variant,
@@ -819,9 +822,10 @@ async def run_task(task: dict, profile: Path, output: Path, *, mock: bool, varia
         "grader_ids": {
             "f2p": len(f2p),
             "p2p": len(spec.baseline_passed),
-            "missing": sum(1 for case in cases if case.get("outcome") == "missing"),
+            "missing": missing,
             "reason": evaluation.get("reason"),
         },
+        "grader_candidate_error": candidate_error,
         "changed_files": changed,
         "first_edit_step": stats["first_edit_step"],
         "model_calls": model_calls,

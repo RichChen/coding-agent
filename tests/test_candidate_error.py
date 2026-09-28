@@ -1,0 +1,87 @@
+import json
+
+from scripts.run_a5_main import halt_reason
+from src.eval.candidate_error import grader_candidate_error, innermost_project_frame
+from src.eval.image_grader import receipt_diagnostics
+
+DJANGO_RUNNER_ERROR = """Traceback (most recent call last):
+  File "/tmp/a5-runner.py", line 92, in <module>
+    runpy.run_path('tests/runtests.py', run_name='__main__')
+  File "<frozen runpy>", line 291, in run_path
+  File "tests/runtests.py", line 770, in <module>
+    failures = django_tests(
+  File "/workspace/django/test/runner.py", line 1031, in run_tests
+    suite = self.build_suite(test_labels)
+  File "/usr/local/lib/python3.11/unittest/loader.py", line 162, in loadTestsFromName
+    module = __import__(module_name)
+  File "/workspace/tests/admin_views/test_templatetags.py", line 4, in <module>
+    from django.contrib.admin.templatetags.admin_list import date_hierarchy
+  File "/workspace/django/contrib/admin/templatetags/admin_list.py", line 11, in <module>
+    from django.contrib.admin.views.main import (
+  File "/workspace/django/contrib/admin/views/main.py", line 273
+    if v is None:
+IndentationError: unexpected indent
+"""
+
+PYTEST_COLLECTION = """ImportError while importing test module '/workspace/testing/test_foo.py'.
+Traceback:
+/usr/local/lib/python3.9/importlib/__init__.py:127: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+testing/test_foo.py:4: in <module>
+    from _pytest.foo import bar
+E     File "/workspace/src/_pytest/foo.py", line 12
+E       def bar(:
+E               ^
+E   SyntaxError: invalid syntax
+"""
+
+
+def _evaluation(**fields):
+    base = {"status": "fail", "runner_error": None, "collection_errors": [], "collection_error_tails": []}
+    base.update(fields)
+    return base
+
+
+def _summary(root, task_id, **fields):
+    path = root / task_id / "b0" / "r1" / "summary.json"
+    path.parent.mkdir(parents=True)
+    row = {"task_id": task_id, "variant": "B0", "solved": False, "status": "fail", "cost_cny": "0",
+           "grader_ids": {"f2p": 1, "p2p": 6, "missing": 7, "reason": None}}
+    row.update(fields)
+    path.write_text(json.dumps(row), encoding="utf-8")
+
+
+def test_innermost_project_frame_skips_runner_stdlib_and_frozen_frames():
+    assert innermost_project_frame(DJANGO_RUNNER_ERROR) == "django/contrib/admin/views/main.py"
+    assert innermost_project_frame(PYTEST_COLLECTION) == "src/_pytest/foo.py"
+    assert innermost_project_frame('File "/tmp/a5-runner.py", line 1\nFile "<frozen runpy>", line 2') is None
+
+
+def test_candidate_indentation_error_is_an_ordinary_failure(tmp_path):
+    error = grader_candidate_error(_evaluation(runner_error=DJANGO_RUNNER_ERROR), ["django/contrib/admin/views/main.py"])
+    assert error == {"source": "runner_error", "file": "django/contrib/admin/views/main.py"}
+    _summary(tmp_path, "django__django-16527", grader_candidate_error=error)
+    assert halt_reason(tmp_path, "b0") is None
+
+
+def test_empty_candidate_with_missing_ids_still_stops(tmp_path):
+    assert grader_candidate_error(_evaluation(runner_error=DJANGO_RUNNER_ERROR), []) is None
+    _summary(tmp_path, "django__django-16527", grader_candidate_error=None)
+    assert halt_reason(tmp_path, "b0") == "grader reported missing ids: django__django-16527"
+
+
+def test_error_in_a_file_the_candidate_did_not_change_still_stops():
+    assert grader_candidate_error(_evaluation(runner_error=DJANGO_RUNNER_ERROR), ["django/contrib/admin/options.py"]) is None
+
+
+def test_pytest_collection_traceback_counts():
+    evaluation = _evaluation(collection_error_tails=[PYTEST_COLLECTION])
+    assert grader_candidate_error(evaluation, ["src/_pytest/foo.py"]) == {"source": "collection_errors[0]", "file": "src/_pytest/foo.py"}
+
+
+def test_receipt_diagnostics_keep_the_end_of_a_long_traceback():
+    detail = "x" * 5000 + PYTEST_COLLECTION
+    diagnostics = receipt_diagnostics({"collection_errors": [{"nodeid": "testing/test_foo.py", "detail": detail}]})
+    assert len(diagnostics["collection_errors"][0]) == 2048
+    assert diagnostics["collection_error_tails"][0].endswith("SyntaxError: invalid syntax\n")
+    assert grader_candidate_error(_evaluation(**diagnostics), ["src/_pytest/foo.py"])["file"] == "src/_pytest/foo.py"

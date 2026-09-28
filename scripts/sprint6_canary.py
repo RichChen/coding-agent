@@ -41,7 +41,7 @@ def check_summary(task_id: str, summary: dict, ledger: dict | None, excluded: in
     ids = summary.get("grader_ids") or {}
     if {"f2p": ids.get("f2p"), "p2p": ids.get("p2p")} != expected:
         problems.append("grader ids " + json.dumps(ids) + " differ from calibration " + json.dumps(expected))
-    if ids.get("missing"):
+    if ids.get("missing") and not summary.get("grader_candidate_error"):
         problems.append("grader reported missing ids")
     if ids.get("reason"):
         problems.append("grader reason: " + str(ids["reason"])[:200])

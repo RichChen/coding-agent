@@ -72,15 +72,19 @@ def score_receipt(receipt: dict | None, f2p: list[str], p2p: list[str]) -> dict:
 def receipt_diagnostics(receipt: dict | None) -> dict:
     """Host-only grader notes. These must not be copied into the agent prompt."""
     errors = []
+    tails = []
     for item in (receipt or {}).get("collection_errors") or []:
         text = item if isinstance(item, str) else json.dumps(item, default=str)
         errors.append(text[:2048])
+        detail = item.get("detail") if isinstance(item, dict) else item
+        tails.append(str(detail or "")[-2048:])
         if len(errors) >= 20:
             break
     collected = (receipt or {}).get("collected") or []
     return {
         "collected_count": len(collected) if isinstance(collected, list) else 0,
         "collection_errors": errors,
+        "collection_error_tails": tails,
         "runner_error": (receipt or {}).get("runner_error"),
         "exit_code": (receipt or {}).get("exit_code"),
     }
