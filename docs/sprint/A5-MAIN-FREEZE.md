@@ -191,3 +191,108 @@ B0 从空的 `runs/a5-main/` 重新开始。这一轮没有生成过 `docs/sprin
 - 第 1 步原有各项；
 - `harness_tool_errors == 0`；
 - 没有 infra_error（因此也没有 Docker 控制类 infra_error）。
+
+## 修订 3
+
+tag `a5-main-freeze-r3` 指向加入本节的提交。`a5-main-freeze`、`a5-main-freeze-r1`、`a5-main-freeze-r2` 保留不动。依据是 `docs/sprint/HARNESS-SPRINT-6C-FIX.zh-CN.md`（CHECKPOINT-6a 的审计结论）。
+
+### 原因
+
+修订 2 下的 36 次正式运行 0 解出。根因是 pool 题的 user prompt 里没有 issue 文本，只有 `Public issue for <id>` 占位（38 个字符）：
+
+- `select_main_targets.py` 只把 `instance_id`、`FAIL_TO_PASS`、`PASS_TO_PASS`、`patch`、`test_patch` 存进私有文件，没有保存 `problem_statement`；
+- `materialize_runner_task` 用 `private.get("problem_statement") or ("Public issue for " + id)` 静默回退。
+
+作废的 38 个运行目录里，记录下来的 user prompt 全部是占位文本（infra 槽位也是）。dev 14 题的 public task 由另一条路径生成，带有完整 issue，不受影响。
+
+### 改动与提交
+
+| 项 | 内容 | 提交 |
+| --- | --- | --- |
+| H1 | 从 `princeton-nlp/SWE-bench_Verified` test（Hub revision `c104f840cc67f8b6eec6f759ebc8b2693d585d4a`，文件 `data/test-00000-of-00001.parquet`）读取 60 道题的 `problem_statement`，原样保存（不 strip，不拼 `hints_text`，与 dev 相同）到 `runs/sprint5-main-public/<id>.json`（`issue_text`、`issue_sha256`、`repo_ref`），并写 `docs/sprint/main-issues.json`。脚本 `scripts/sprint6_restore_issues.py` 先按原规则重新选题，60 个 id 与顺序和 `main-targets.yaml` 一致、id 列表 sha 仍是 `d4caaa48…`、repo 与 base_commit 一致，才写文件。`select_main_targets.py` 以后选题时同时写 public 文件；本轮没有重选。`materialize_runner_task` 改为直接用 public 文件，不再从私有文件拼 issue | `6a21da4` |
+| H2 | 去掉静默回退，改为报错，改动位置见下表；新增 `tests/test_no_silent_fallback.py` | `2dddb2b` |
+| H3 | 预检对每道合格题渲染完整 user prompt，检查：原样包含 `issue_text`、issue sha 与 `main-issues.json` 一致、长度大于 0、不含私有字段内容。另外渲染 dev 14 题的 prompt，要求与 `runs/sprint4-b0-v2/<id>/r1/events.jsonl` 里记录的 user prompt 逐字节一致；不一致时 `--preflight` 失败 | `b0d25be` |
+| H4 | summary 增加 `issue_sha256`、`prompt_sha256`。canary 改为每个 repo 一道，检查项增加"`issue_sha256` 等于 `main-issues.json`"和"有 `prompt_sha256`" | `f1b1f8c` |
+| H5 | 故障警报（规则见下） | `dc61377` |
+| H6 | 候选改动导致的 missing 记普通失败（规则见下） | `1133112` |
+| H7 | 作废修订 3 之前的 38 个运行目录（规则见下），脚本 `scripts/sprint6_void_r2.py` | `7d768b9` |
+| H8 | B0 软上限 120 元，`TOTAL_CAP` 230 元，`PARALLEL` 仍为 3 | `60fd926` |
+
+### H2 改为报错的位置
+
+| 文件 | 原来的回退 | 现在 |
+| --- | --- | --- |
+| `scripts/run_a5_main.py` `materialize_runner_task` | `private.get("problem_statement") or ("Public issue for " + id)` | 读 `runs/sprint5-main-public/<id>.json`；文件缺失、`issue_text` 为空、sha 与 `main-issues.json` 不一致、`repo_ref` 与目标不一致都报错（`checked_public`） |
+| 同上 | `private.get("test_patch") or ""`、`private.get("patch") or ""`（grader id 选择与 receipt 的 patch 路径） | 为空就报错 |
+| `scripts/run_swe_task.py` `public_issue` | `public.get("issue_text") or ""` | `issue_text()`：为空、只有空白或以 `Public issue for ` 开头都报错 |
+| 同上 | `repo_ref.get("repo_id", task.get("repo", ""))`、`repo_ref.get("revision", "")` | `repo_ref` 缺 `repo_id` 或 `revision` 就报错 |
+| 同上 | family 不是 django 就用 pytest 命令 | 按 family 查表（django、pytest-dev、scikit-learn、sphinx-doc、sympy），查不到就报错 |
+| `scripts/run_swe_task.py` `run_task`（卡片插件） | 两处 `public.get("issue_text") or ""` | `issue_text(public)` |
+| `scripts/run_swe_task.py` `grader_spec` | `binding.get("test_patch_paths") or []`、`binding.get("gold_patch_paths") or []` | 为空就报错 |
+| `scripts/run_swe_task.py` `grader_spec`、`run_task` | `task.get("grader_timeout_seconds", 300)` | 必须给出（pool 与 dev 都是 600） |
+
+检查过、没有改的 `or` 默认值：`api_key or "mock"/"smoke"`（只在 mock 和工具冒烟里用，不调模型）、`result.output or ""`（工具冒烟的输出）、`_named_reason(...) or "unknown"`（停止原因的显示）、`base_url or ""`（模型身份记录）、`_memory_task` 里的 `.get(..., "")`（dev 记忆源核验，不在 A5-main 路径上）、`p2p_excluded or []`（合法地可以为空）。
+
+### main-issues.json
+
+`docs/sprint/main-issues.json` 的 sha256（`handoff_sha256`，LF）是 `114f6367a0f14e274a2f4af5368661a21533b436ae9e50ee073e6a530310c0ba`。它记录数据集名称、split、Hub revision、parquet 文件 sha256、60 个 id 的列表 sha，以及每道题的 `issue_sha256` 和字符数。
+
+- 60 道题 issue 字符数：最小 190，中位 1448，最大 22778。
+- 56 道合格题：最小 190，中位 1498.5，最大 22778。
+- dev 14 题里有 2 道也在 Verified 中（django-10914、sklearn-10297），它们的 dev `issue_text` 与数据集 `problem_statement` 逐字节相同，说明"原样保存"与 dev 的做法一致。
+
+### 作废规则
+
+**修订 3 之前的全部 B0 运行，不论结果。** `runs/a5-main/` 下的 38 个运行目录（36 个正式槽位、2 个 infra 槽位 `django-12276/b0/r1.infra1`、`django-15973/b0/r2.infra1`）和 `b0-report.json` 已移到 `runs/a5-main-void/r2-no-issue/`，只移动，不删除；那里的 `README.md` 和 `void-runs.json` 逐个列出。已经花掉的 24.055 元记为作废成本，不计入实验，也不计入 `TOTAL_CAP`（只统计 `runs/a5-main/`）。B0 从空的 `runs/a5-main/` 重新开始。
+
+### 故障警报（预注册）
+
+全量 B0 中（不含 5 道 canary 的 r1），完成的正式运行（不含 `r<k>.infra<n>` 退役槽位和 `infra_error`）达到 30 次时，如果解出数为 0，就停止启动新运行，等待审计。实现在 `run_a5_main.fault_alarm`，每次运行结束后与其他停止条件一起检查。
+
+这一条只用来发现 harness 故障，不改变实验设计。触发后只允许排查 harness，不允许因此调整题目、profile 或卡片。
+
+### 候选改动导致的 missing
+
+- grader receipt 的 `runner_error`，以及收集阶段每条 traceback 的末尾（新字段 `collection_error_tails`，每条保留最后 2048 个字符；原有 `collection_errors` 不变）：取其中最内层属于项目的栈帧（`/workspace/` 下或相对路径的文件；跳过标准库、site-packages、`/tmp/a5-runner.py` 和 frozen 模块）。
+- 如果这个文件在本次候选改动修改过的文件里，就把这次运行记为普通失败（`solved=false`），summary 记录 `grader_candidate_error`（来源和文件），不停止。
+- 其他 missing 照常停止。候选改动为空时，这条规则永远不适用。
+- canary 检查里的"grader reported missing ids"按同一规则放行。
+- 用修订 2 停止时的 django-16527 r2 核对：候选在 `django/contrib/admin/views/main.py` 里引入了 `IndentationError`，按这条规则判为候选错误；如果把候选改动当成空的，则仍然停止。
+
+### 运行参数（修订 3）
+
+| 参数 | 值 |
+|------|----|
+| `PARALLEL` | 3（B0 与 B2 相同） |
+| `TOTAL_CAP` | 230 元，只统计 `runs/a5-main/` 下的花费 |
+| B0 软上限 | 120 元 |
+| `MAX_INFRA_RERUNS` | 2 |
+| infra_error 停止线 | 满 3 次且超过已完成运行的 10% |
+| 其他停止条件 | 任何运行 `harness_tool_errors > 0`；非候选错误的 missing；grader 崩溃；隔离失败；模型变化；故障警报 |
+| Docker 控制重试 | 3 次，间隔 2、5、10 秒 |
+
+冻结输入（`main-targets.yaml`、`main-accepted-ids.txt`、`b0-v2.yaml`、`memory-source-runs.json`）的 sha 与上表相同；clean image 记录和校准记录自 `a5-main-freeze-r2` 以来没有改动。
+
+### 预检结果
+
+`run_a5_main.py --preflight`（`runs/a5-main-logs/preflight.json`）：56/56 通过；工具冒烟 56/56；prompt 检查 56/56；dev prompt 14/14 逐字节一致。
+
+| 镜像 Python | 通过 / 总数 | 工具冒烟 |
+| --- | --- | --- |
+| 3.6 | 15 / 15 | 15 / 15 |
+| 3.8 | 2 / 2 | 2 / 2 |
+| 3.9 | 38 / 38 | 38 / 38 |
+| 3.11 | 1 / 1 | 1 / 1 |
+
+私有内容检查的口径：gold patch、test patch、F2P/P2P 原始列表都不能出现在整个 prompt 里；单个 F2P/P2P id 不能出现在 prompt 的模板部分（去掉末尾原样 issue 后的部分）。有 3 道题的单个 id 出现在数据集自带的公开 issue 里，只记录，不算泄露：sympy-15599（`test_Mod`）、pytest-5262 和 pytest-7521（P2P id `[100%]`）。
+
+### canary 选题
+
+每个 repo 各一道，按 `created_at` 排序取下中位：django-13964、pytest-7205、scikit-learn-13142、sphinx-8593、sympy-16766。每道跑一次真实的 B0 r1。检查项包括：
+
+- 第 1 步原有各项；
+- `harness_tool_errors == 0`；
+- 没有 infra_error；
+- `issue_sha256` 等于 `main-issues.json`，并且有 `prompt_sha256`。
+
+全套测试：412 passed，199 skipped。
