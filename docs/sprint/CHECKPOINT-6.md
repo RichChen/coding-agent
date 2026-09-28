@@ -199,3 +199,80 @@ sphinx-8593 的失败槽位还在 `runs/a5-main/` 里，F4 的移动没有执行
 - **F4**：sphinx-8593 的失败槽位和旧的 `b0-report.json` 已移到 `runs/a5-main-halted/`。
 - **F5**：infra_error 次数 ≥ 3 并且超过已完成运行的 10% 才停止（`653ebbb`）。F3 的 mock 跑在这次改动之前，没有出现 infra_error，所以不受影响。
 - **F6**：冻结修订写在 `A5-MAIN-FREEZE.md` 的"修订 1"一节，tag `a5-main-freeze-r1`。
+
+### 修订 1 之后：sphinx-8593 canary 与全量 B0（停止）
+
+**结论：全量 B0 在第 22 次新运行后触发"grader 崩溃"停止条件（django-14434 r2）。排查时发现了一个更严重的运行时 bug：在 Python 低于 3.9 的镜像里，agent 的结构化工具全部报错。这影响 56 道题中的 17 道，也影响已完成的 25 次运行中的 22 次。** 累计花费 13.682 元。没有生成 `main-b0-runs.json`，没有开始 B2，coding-agent 暂时不要构建 v6 卡片。
+
+#### sphinx-8593 canary
+
+跑在 `fb26dbd`（`a5-main-freeze-r1`）上：
+- `mock: false`，`profile: b0-v2`，模型是 `deepseek-flash` @ `api.deepseek.com`；
+- `answer_isolation_pass: true`，grader id 为 F2P 2、P2P 1，和校准一致（没有排除项），没有 `missing`；
+- 花费 0.467 元，记入了账本，没有 infra_error；
+- 结果是未解出，模型调用 35 次。
+
+第 1 步列出的检查项全部通过，于是进入第 2 步。
+
+#### 全量 B0 停在哪里
+
+`run_a5_main.py --phase b0` 从 20:53 开始，新完成 22 次运行后，django-14434 r2 的 grader 返回 `invalid_env`，reason 是 `TimeoutError: `。runner 停止开新运行，等在跑的运行结束后退出，报告显示 `started: 22`，`not_started: 143`。已跑的题是 django 的 11211、11749、12276、13109、13512、13964、14434 各 3 次，以及 15022 的 2 次。
+
+#### 运行时问题 1：Python 低于 3.9 的镜像里工具全部失败（主要问题）
+
+容器内的工具脚本用了 `Path.is_relative_to`，这个方法是 Python 3.9 才加入的。涉及的文件是 `src/tools/container_files.py` 第 17 行和 `src/tools/search.py` 第 23、54 行。在 3.8 和 3.6 的镜像里，以下工具每次调用都报 `AttributeError: 'PosixPath' object has no attribute 'is_relative_to'`：`read_file`、`list_dir`、`search_code`、`search_replace`、`edit_file`。agent 只能改用 `run_command`，用 sed 或 python 来查看和修改文件。
+
+| 镜像 | 合格题数 | 题 |
+| --- | --- | --- |
+| `python:3.8-slim-bookworm` | 2 | django 13964、14434 |
+| `python:3.6.15-slim-buster` | 15 | django 11211、11749、12276、13109、13512，sklearn 全部 10 道 |
+| `python:3.9` / `3.11` | 39 | 其余（这些镜像里工具正常） |
+
+已完成的 25 次运行中，跑在低于 3.9 镜像上的 22 次，每一次都有这类失败：
+- 共 109 次工具调用失败：`search_code` 46、`read_file` 24、`list_dir` 22、`search_replace` 12、`edit_file` 5；
+- 两次 canary 也在其中：django-13964 r1 失败 5 次，sklearn-13142 r1 失败 4 次；
+- 跑在 3.9 镜像上的 django-15022 两次和 sphinx-8593 一次，没有出现这类失败。
+
+这个问题之前没有被发现，有两个原因：mock 运行不调用工具，所以 F3 测不到；第 1 步的 canary 检查项里没有"工具是否报错"这一项。
+
+django-14434 r3 的 `delta_lost` 也是这个 bug 造成的。它唯一一次 `search_replace` 调用失败了，改动从来没有写进去；并不是改动写进去之后丢失了。
+
+#### 运行时问题 2：并发 4 时 Docker 控制通道出错
+
+22 次新运行中有 3 次，出错点在 Docker 控制调用上，不是模型或测试本身的问题：
+
+| 时间 | 运行 | 现象 | 当前归类 |
+| --- | --- | --- | --- |
+| 21:04:57 | django-12276 r1 | 候选改动快照失败：`DockerUnavailable … ConnectionResetError` | `delta_lost`（改动丢失，按空改动评测） |
+| 21:10:20 | django-13109 r1 | 同上 | `delta_lost` |
+| 21:20:44 | django-14434 r2 | grader 启动后 12 秒报 `TimeoutError`，发生在测试执行之前（`execution_status` 为空） | `invalid_env`，触发停止 |
+
+同一道题的另外两次运行 grader 都正常（14434 r3 的测试只用了 1.5 秒），说明问题不在题目本身。按现在的规则，只有 `StoreError` 才算 infra_error，这 3 次都不会被重跑。前两次还会作为"未解出"进入实验数据。
+
+#### 花费
+
+新运行平均每次 0.569 元，25 次平均 0.547 元，平均模型调用 37.6 次，其中 17 次用满了 40 次调用。按这个速度，168 次 B0 大约需要 92–96 元，会在第 140 次左右碰到 80 元的 B0 软上限。工具失败可能推高了调用次数，但 3.9 镜像上的三次也花了 0.47–0.81 元。
+
+#### 6a 要求的统计（截至停止）
+
+| 项 | 值 |
+| --- | --- |
+| 有效 B0 运行 | 25（canary 3 次 + 全量 22 次），其中 22 次受工具 bug 影响 |
+| 解出 | 2/25：django 1/23（13964 r2），sklearn 1/1（13142 r1），sphinx 0/1 |
+| 每题 k/3（跑满 3 次的 7 道题） | 0/3：6 道；1/3：1 道（django-13964）；2/3、3/3：0 道 |
+| infra_error | 0，没有重跑（上面 3 次 Docker 控制错误没有被归为 infra_error） |
+| 花费 | 13.682 元 |
+| 平均模型调用 | 37.6 |
+| 停止原因 | `max_model_calls` 17，`completed` 6，`candidate_snapshot_failed` 2；总时限超时 0；grader 超时 1 |
+| `main-b0-runs.json` sha | 没有生成 |
+
+报告在 `runs/a5-main/b0-report.json`，日志在 `runs/a5-main-logs/b0-full.log`。
+
+#### 需要审计决定
+
+1. **工具 bug 怎么修。** 把容器内脚本里的 `is_relative_to` 换成 3.6 也能用的写法，比如 `os.path.commonpath`，或者 `relative_to` 加 `try`。修完之后，在 3.6 和 3.8 的镜像里各跑一次零花费的工具冒烟测试。这是运行时改动，需要单独提交并再做一次冻结修订。
+2. **受影响的 22 次运行怎么处理。** 其中包括 django-13964 r1 和 sklearn-13142 r1 两次 canary。它们都有模型调用，按 F4 规则不能移出；但这 22 次都是在工具残缺的状态下测出来的，和修复后的运行不可比。需要审计决定是作废后重跑（约 12.5 元），还是用别的办法处理。
+3. **Docker 控制错误的归类。** 建议把 `snapshot_error` 以 `DockerUnavailable` 开头的运行，以及 grader 在测试执行之前就报的超时，归为 infra_error，走现有的重跑规则。另外可以考虑为 Docker 控制调用加重试。是否需要降低 `PARALLEL` 也请一并决定；按冻结规则，B0 和 B2 的 `PARALLEL` 必须相同。
+4. **预算。** 按目前的速度，B0 会超过 80 元的软上限。重跑那 22 次还会再增加大约 12.5 元。
+
+停在这里等审计。没有修改任何运行时代码，没有看 B2，也没有开始 B2。coding-agent 侧继续等 `main-b0-runs.json`。

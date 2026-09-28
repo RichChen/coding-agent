@@ -419,3 +419,7 @@ P5：删除 `pelican-bicycle.html`。用 v5 final 卡片在 3 道题上跑 mock 
 被 `pre_install` sed 改写的文件改为按重放后的期望 sha 比对，构建和运行使用同一份 override（提交 `a3b4450`）。12 道受影响的题里 11 道离线核对通过。sphinx-9258 的 `setup.py` 不一致：它的规格里有两条以 `grep -q` 开头的守卫 sed 命令，现有解析规则识别不到。把这两条也重放后，结果和镜像一致。按 F1 第 5 项停下，F2–F6 没有做。记录在 `docs/sprint/CHECKPOINT-6.md`。
 
 审计批准 guarded_sed 规则后：F1 12/12 通过（`53c072a`），只有 sphinx-9258 的记录改变。F2 预检（`43ee604`）按原口径是 53/56：sphinx 8120、9673、10323 在校准时排除过 1–2 条 P2P，运行时条数少了这几条。扣除排除条数后是 56/56。按规定停下等审计确认口径，F3–F6 没有做。花费 0 CNY。
+
+审计确认口径后：F3 56 道 mock 核对一致（`a3cdc3a`）；F4 移动 sphinx-8593 的失败槽位；F5 调整 infra_error 停止线（`653ebbb`）；F6 冻结修订 1，tag `a5-main-freeze-r1` → `fb26dbd`。sphinx-8593 canary 通过（0.467 CNY）。
+
+全量 B0 新跑 22 次后，django-14434 r2 的 grader 超时，触发停止。排查发现，Python 低于 3.9 的镜像里 agent 的结构化工具全部报错（`Path.is_relative_to`），影响 17 道题、已完成 25 次中的 22 次。另有 2 次快照、1 次 grader 因 Docker 控制通道出错。累计花费 13.682 CNY。记录在 `docs/sprint/CHECKPOINT-6.md`，停下等审计。
