@@ -46,6 +46,26 @@ tag `mem5-start` 在 `b96c4d8`。其后：
 - `created_at` 来自交接文件本身，例如 django-10914 是 `2019-01-30T13:13:20Z`
 - `cards.py`、`cards_v3.py`、`cards_v4.py` 不再用 `1970-01-01` 填时间，缺字段直接报错
 
+## 补记：A1–A4（2026-09-28）
+
+A1 已提交，harness 可以读 v5 final。
+
+- `9ed5f67`：缺 `created_at` 直接报错，不再默认 `1970-01-01`。
+- `d9bdf84`：v5 final。`benchmarks/a5/memory-cards-v5.jsonl` 与 `memory-cards-v5.manifest.json`。
+
+A2 核对过当前文件：
+
+- `build_inputs.memory_source_runs_sha256` 等于 harness `docs/sprint/memory-source-runs.json` 按 UTF-8 + LF 算出的 `984826707e8f69ad9b900134bd244c6056f2d8860f3036a3606bfc60b4bcb450`。
+- `cards_sha256` 由 jsonl 重算，是 `40d22ef838af7172ba8e72b09954107ea055d65501e11219c71ae2e0a88c015c`。
+- 恰好 7 张 `validated_fix`：django-10914（r1）、django-10924（r2）、django-11039（r1）、sklearn-10297（r1）、sklearn-11040（r1）、sklearn-11281（r2）、pytest-5227（r1）。11281 的 r2 是编号最小的解出运行（r1 未解出，r2 和 r3 解出）。
+- 14 张卡都有 `repo`，`created_at` 都是带 `Z` 的 UTC 时间。
+
+A3：`scripts/build_memory_cards.py` 可以重复传入 `--handoff`。`scope` 为 `mock` 或 `step7-mock` 的交接会被拒绝。同一个 `source_id` 出现在两份交接里会报错。没有解出时取 r1 作为 `failed_attempt`。manifest 的 `build_inputs.handoffs` 记下每一份的 schema 和 published sha。测试用两份合成交接（dev 格式和 `sprint6.main-b0-runs.v1`），没有读 harness 的 `main-b0-runs.json`。
+
+A4：`scripts/analyze_a5_main.py` 可以读 `runs/a5-main/<task>/<b0|b2>/r<k>/summary.json`，也可以读 `main-b0-runs.json`。summary 或交接标成 mock 时拒绝。某一组不足 3 次时写进「不满 3 次」，不补运行。测试只用临时目录。
+
+全量测试：`python -m pytest -q`，319 passed，1 skipped。花费 0。停下等审计。
+
 ## 花费
 
 0。

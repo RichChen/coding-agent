@@ -220,3 +220,11 @@
 - 用它重建了 v5 final。manifest `status=final`，`memory_source_runs_sha256=984826707e8f69ad9b900134bd244c6056f2d8860f3036a3606bfc60b4bcb450`，`cards_sha256=40d22ef838af7172ba8e72b09954107ea055d65501e11219c71ae2e0a88c015c`。哈希按 `HANDOFF-CONVENTIONS.md` 的 LF 规则。
 - `cards.py`、`cards_v3.py`、`cards_v4.py` 里的 `1970-01-01` 默认值改成缺 `created_at` 就报 `created_at_missing`。
 - 测试：`python -m pytest -q tests/test_memory_cards.py tests/test_memory_cards_v3.py tests/test_memory_cards_v4.py tests/test_memory_cards_v5.py tests/test_memory_card_plugin.py`，27 passed。没有调模型。
+
+## 第五轮补：A1–A4（2026-09-28）
+
+- A1：`9ed5f67` 缺 `created_at` 报错；`d9bdf84` 提交 v5 final。harness 侧可以改用这份 final。
+- A2：manifest 的交接 sha 与卡片 sha 已对上。7 张 `validated_fix`，sklearn-11281 来自 r2。每张卡都有 `repo` 和 UTC `Z` 时间。
+- A3：构建脚本接受多份 `--handoff`，拒绝 mock scope 和跨文件重复的 `source_id`，manifest 记录每份 sha。
+- A4：分析脚本能读 a5-main 目录和 `main-b0-runs.json`，拒绝 mock，不足 3 次的组只列出、不补齐。
+- 全量测试 319 passed，1 skipped。花费 0。补记写在 CHECKPOINT-5，停下等审计。
