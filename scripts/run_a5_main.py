@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from scripts.handoff_sha import handoff_sha256  # noqa: E402
 from scripts.preflight_a5_repo_baseline import patch_paths  # noqa: E402
-from scripts.run_swe_task import run_task  # noqa: E402
+from scripts.run_swe_task import prerun_check, public_issue, run_task  # noqa: E402
 from scripts.sprint5_prepare_main import FAMILY, nodeid_selection  # noqa: E402
 
 TOTAL_CAP = Decimal("150")
@@ -250,6 +250,52 @@ def materialize_runner_task(task: dict) -> dict:
     return prepared
 
 
+def calibration_ids(task_id: str) -> dict:
+    path = ROOT / "docs" / "sprint" / "main-calibration" / (task_id + ".json")
+    nodeids = json.loads(path.read_text(encoding="utf-8")).get("nodeids") or {}
+    return {side: (nodeids.get(side) or {}).get("used") for side in ("f2p", "p2p")}
+
+
+def preflight(tasks, destination: Path | None = None) -> dict:
+    """Every check a run makes before its first model call, on every task. No model calls."""
+    rows = []
+    for task in tasks:
+        row = {"task_id": task["id"]}
+        try:
+            prepared = materialize_runner_task(task)
+            spec, image, clean, failure = prerun_check(prepared, mock=False)
+            f2p = [node for node in spec.expected_nodeids if node not in spec.baseline_passed]
+            counts = {"f2p": len(f2p), "p2p": len(spec.baseline_passed)}
+            recorded = calibration_ids(task["id"])
+            excluded = list(prepared.get("p2p_excluded") or [])
+            stray = [node for node in excluded if node not in prepared["grader_nodeids"]["p2p"]]
+            expected = {"f2p": recorded["f2p"], "p2p": None if recorded["p2p"] is None else recorded["p2p"] - len(excluded)}
+            if failure is None and stray:
+                failure = "p2p_excluded ids not in the selected p2p: " + json.dumps(stray[:3])
+            if failure is None and counts != expected:
+                failure = "grader ids " + json.dumps(counts) + " differ from calibration " + json.dumps(expected)
+            public_issue(prepared)
+            row.update(
+                image=image,
+                answer_isolation_pass=bool(clean and clean.get("answer_isolation_pass")),
+                grader_ids=counts,
+                calibration_ids=recorded,
+                p2p_excluded=len(excluded),
+                public_task=_display_path(Path(prepared["public_task"])),
+                failure=failure,
+            )
+        except (Exception, SystemExit) as exc:
+            row["failure"] = type(exc).__name__ + ": " + str(exc)[:300]
+        row["pass"] = row.get("failure") is None
+        rows.append(row)
+        print(task["id"], "pass" if row["pass"] else row["failure"], flush=True)
+    report = {"passed": sum(1 for row in rows if row["pass"]), "total": len(rows), "tasks": rows}
+    destination = destination or ROOT / "runs" / "a5-main-logs" / "preflight.json"
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    destination.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+    return report
+
+
 def write_b0_handoff(*, mock: bool = False, out_root: Path | None = None, destination: Path | None = None, tasks=None):
     out_root = out_root or out_root_for(mock)
     runs = []
@@ -295,14 +341,20 @@ def _display_path(path: Path) -> str:
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--phase", choices=["b0", "b2"], required=True)
+    parser.add_argument("--phase", choices=["b0", "b2"])
     parser.add_argument("--cards", default=None)
     parser.add_argument("--mock", action="store_true")
     parser.add_argument("--repeats", type=int, default=3)
     parser.add_argument("--task", action="append", default=[])
+    parser.add_argument("--preflight", action="store_true", help="run every pre-run check on the pool, no model calls")
+    parser.add_argument("--out-root", default=None, help="output root for a mock run")
     args = parser.parse_args()
+    if not args.preflight and not args.phase:
+        raise SystemExit("--phase is required unless --preflight is given")
     if args.phase == "b2" and not args.cards:
         raise SystemExit("B2 requires --cards")
+    if args.out_root and not args.mock:
+        raise SystemExit("--out-root is only allowed with --mock")
     tasks = accepted_tasks(load_targets())
     if args.task:
         wanted = set(args.task)
@@ -312,13 +364,25 @@ def main():
             raise SystemExit("not an accepted task: " + ", ".join(sorted(missing)))
     if not tasks:
         raise SystemExit("no accepted main-pool tasks")
+    if args.preflight:
+        checked = preflight(tasks)
+        print("preflight", checked["passed"], "of", checked["total"], "passed", flush=True)
+        if checked["passed"] != checked["total"]:
+            raise SystemExit("preflight failed")
+        return
     cards = Path(args.cards) if args.cards else None
     if cards is not None and not cards.is_absolute():
         cards = ROOT / cards
-    report = asyncio.run(run_phase(tasks, args.phase, cards=cards, mock=args.mock, repeats=args.repeats))
+    out_root = Path(args.out_root) if args.out_root else None
+    if out_root is not None and not out_root.is_absolute():
+        out_root = ROOT / out_root
+    report = asyncio.run(run_phase(tasks, args.phase, cards=cards, mock=args.mock, repeats=args.repeats, out_root=out_root))
     print(json.dumps(report, indent=2), flush=True)
     if report["halt_reason"]:
         raise SystemExit("stopped: " + report["halt_reason"])
+    if out_root is not None:
+        print("Custom --out-root: no handoff written.", flush=True)
+        return
     if args.phase == "b0" and not args.task:
         write_b0_handoff(mock=args.mock)
         print("B0 finished. Stop for card building.", flush=True)

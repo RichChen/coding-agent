@@ -165,6 +165,74 @@ def test_halt_stops_new_runs_but_writes_a_report(tmp_path, monkeypatch):
     assert (tmp_path / "b0-report.json").is_file()
 
 
+class _Spec:
+    expected_nodeids = ("a", "b", "c")
+    baseline_passed = ("b", "c")
+
+
+def _fake_preflight(monkeypatch, *, failure=None, recorded=None, crash=False, excluded=(), selected_p2p=("b", "c")):
+    def prerun(task, *, mock):
+        assert mock is False
+        if crash:
+            raise SystemExit("grader ids differ from calibration")
+        return _Spec(), "image@sha256:1", {"answer_isolation_pass": True}, failure
+
+    def materialize(task):
+        nodeids = {"f2p": ["a"], "p2p": list(selected_p2p)}
+        return {**task, "public_task": "public.json", "grader_nodeids": nodeids, "p2p_excluded": list(excluded)}
+
+    monkeypatch.setattr(run_a5_main, "materialize_runner_task", materialize)
+    monkeypatch.setattr(run_a5_main, "prerun_check", prerun)
+    monkeypatch.setattr(run_a5_main, "public_issue", lambda task: "issue")
+    monkeypatch.setattr(run_a5_main, "calibration_ids", lambda task_id: recorded or {"f2p": 1, "p2p": 2})
+
+
+def test_preflight_passes_and_writes_a_report(tmp_path, monkeypatch):
+    _fake_preflight(monkeypatch)
+    report = run_a5_main.preflight([TASK], destination=tmp_path / "preflight.json")
+    assert (report["passed"], report["total"]) == (1, 1)
+    row = report["tasks"][0]
+    assert row["grader_ids"] == {"f2p": 1, "p2p": 2} and row["answer_isolation_pass"] is True
+    assert json.loads((tmp_path / "preflight.json").read_text(encoding="utf-8"))["passed"] == 1
+
+
+def test_preflight_reports_a_source_only_failure(tmp_path, monkeypatch):
+    _fake_preflight(monkeypatch, failure="opt/repo source-only hash mismatch")
+    report = run_a5_main.preflight([TASK], destination=tmp_path / "preflight.json")
+    assert report["passed"] == 0 and "source-only" in report["tasks"][0]["failure"]
+
+
+def test_preflight_compares_grader_ids_with_calibration(tmp_path, monkeypatch):
+    _fake_preflight(monkeypatch, recorded={"f2p": 1, "p2p": 3})
+    report = run_a5_main.preflight([TASK], destination=tmp_path / "preflight.json")
+    assert report["passed"] == 0 and "differ from calibration" in report["tasks"][0]["failure"]
+
+
+def test_preflight_subtracts_calibrated_p2p_exclusions(tmp_path, monkeypatch):
+    _fake_preflight(monkeypatch, recorded={"f2p": 1, "p2p": 3}, excluded=["d"], selected_p2p=("b", "c", "d"))
+    report = run_a5_main.preflight([TASK], destination=tmp_path / "preflight.json")
+    assert report["passed"] == 1 and report["tasks"][0]["p2p_excluded"] == 1
+
+
+def test_preflight_refuses_an_exclusion_outside_the_selection(tmp_path, monkeypatch):
+    _fake_preflight(monkeypatch, recorded={"f2p": 1, "p2p": 3}, excluded=["zzz"])
+    report = run_a5_main.preflight([TASK], destination=tmp_path / "preflight.json")
+    assert report["passed"] == 0 and "not in the selected p2p" in report["tasks"][0]["failure"]
+
+
+def test_preflight_records_a_crash_and_keeps_going(tmp_path, monkeypatch):
+    _fake_preflight(monkeypatch, crash=True)
+    report = run_a5_main.preflight([TASK, {**TASK, "id": "other"}], destination=tmp_path / "preflight.json")
+    assert (report["passed"], report["total"]) == (0, 2)
+    assert report["tasks"][0]["failure"].startswith("SystemExit")
+
+
+def test_out_root_requires_mock(monkeypatch):
+    monkeypatch.setattr("sys.argv", ["run_a5_main.py", "--phase", "b0", "--out-root", "runs/x"])
+    with pytest.raises(SystemExit, match="only allowed with --mock"):
+        run_a5_main.main()
+
+
 def test_real_handoff_refuses_a_mock_summary(tmp_path):
     _summary(tmp_path, "b0", mock=True, profile="b0-v2")
     destination = tmp_path / "main-b0-runs.json"
