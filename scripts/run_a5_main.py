@@ -16,7 +16,7 @@ sys.path.insert(0, str(ROOT))
 from scripts.handoff_sha import handoff_sha256  # noqa: E402
 from scripts.preflight_a5_repo_baseline import patch_paths  # noqa: E402
 from scripts.run_swe_task import prerun_check, public_issue, run_task, tool_smoke  # noqa: E402
-from scripts.select_main_targets import PUBLIC_ROOT  # noqa: E402
+from scripts.select_main_targets import ISSUES, PUBLIC_ROOT, issue_sha256  # noqa: E402
 from scripts.sprint5_prepare_main import FAMILY, nodeid_selection  # noqa: E402
 
 TOTAL_CAP = Decimal("220")
@@ -200,6 +200,26 @@ async def run_phase(tasks, phase: str, *, cards: Path | None, mock: bool, repeat
     return report
 
 
+def checked_public(task: dict) -> Path:
+    """runs/sprint5-main-public/<id>.json, verified against docs/sprint/main-issues.json."""
+    path = PUBLIC_ROOT / (task["id"] + ".json")
+    if not path.is_file():
+        raise SystemExit("public file missing for " + task["id"] + ": " + _display_path(path))
+    public = json.loads(path.read_text(encoding="utf-8"))
+    text = public.get("issue_text")
+    if not isinstance(text, str) or not text.strip():
+        raise SystemExit("public file for " + task["id"] + " has no issue_text")
+    expected = (json.loads(ISSUES.read_text(encoding="utf-8"))["tasks"].get(task["id"]) or {}).get("issue_sha256")
+    if expected is None:
+        raise SystemExit(task["id"] + " is not in docs/sprint/main-issues.json")
+    if issue_sha256(text) != expected or public.get("issue_sha256") != expected:
+        raise SystemExit("issue sha for " + task["id"] + " differs from docs/sprint/main-issues.json")
+    ref = public.get("repo_ref") or {}
+    if ref.get("repo_id") != task["repo"] or ref.get("revision") != task["base_commit"]:
+        raise SystemExit("repo_ref for " + task["id"] + " differs from the target")
+    return path
+
+
 def materialize_runner_task(task: dict) -> dict:
     """Give a pool task the receipt and public issue run_task already expects.
 
@@ -209,11 +229,14 @@ def materialize_runner_task(task: dict) -> dict:
         return task
     private_path = ROOT / task["private"]
     private = json.loads(private_path.read_text(encoding="utf-8"))
+    if not private.get("test_patch") or not private.get("patch"):
+        raise SystemExit("private file for " + task["id"] + " has no test_patch or patch")
+    public_path = checked_public(task)
     clean = json.loads((ROOT / "docs" / "sprint" / "clean-images" / (task["id"] + ".json")).read_text(encoding="utf-8"))
     calibration_path = ROOT / "docs" / "sprint" / "main-calibration" / (task["id"] + ".json")
     calibration = json.loads(calibration_path.read_text(encoding="utf-8"))
     excluded = calibration.get("p2p_excluded") or []
-    f2p, p2p, report = nodeid_selection(task, private, patch_paths(private.get("test_patch") or ""))
+    f2p, p2p, report = nodeid_selection(task, private, patch_paths(private["test_patch"]))
     recorded = calibration.get("nodeids") or {}
     for side in ("f2p", "p2p"):
         if report[side] != recorded.get(side):
@@ -230,13 +253,12 @@ def materialize_runner_task(task: dict) -> dict:
         "source_attempt_ref": archive.as_posix(),
         "private_source_binding": {
             "path": private_path.as_posix(),
-            "test_patch_paths": patch_paths(private.get("test_patch") or ""),
-            "gold_patch_paths": patch_paths(private.get("patch") or ""),
+            "test_patch_paths": patch_paths(private["test_patch"]),
+            "gold_patch_paths": patch_paths(private["patch"]),
         },
     }
     receipt_path = folder / "receipt.json"
     receipt_path.write_text(json.dumps(receipt, indent=2) + "\n", encoding="utf-8")
-    public_path = PUBLIC_ROOT / (task["id"] + ".json")
     staging = ROOT / "runs" / "sprint5-main-images" / task["id"] / "staging"
     prepared = dict(task)
     prepared["family"] = FAMILY[task["repo"]]

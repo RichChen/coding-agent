@@ -185,17 +185,37 @@ def django_nodeids(raw: list[str]) -> list[str]:
     return converted
 
 
+TEST_COMMANDS = {
+    "django": "python tests/runtests.py <module>",
+    "pytest-dev": "python -m pytest <test path>",
+    "scikit-learn": "python -m pytest <test path>",
+    "sphinx-doc": "python -m pytest <test path>",
+    "sympy": "python -m pytest <test path>",
+}
+
+
+def issue_text(public: dict) -> str:
+    issue = public.get("issue_text")
+    if not isinstance(issue, str) or not issue.strip():
+        raise ValueError("public task has no issue_text")
+    if issue.startswith("Public issue for "):
+        raise ValueError("public task issue_text is a placeholder")
+    return issue
+
+
 def public_issue(task: dict) -> str:
     public = load_json(Path(task["public_task"]))
-    issue = public.get("issue_text") or ""
     if public.get("gold_patch") or public.get("test_patch") or public.get("FAIL_TO_PASS"):
         raise ValueError("public task embeds private grader fields")
-    repo = (public.get("repo_ref") or {}).get("repo_id", task.get("repo", ""))
-    revision = (public.get("repo_ref") or {}).get("revision", "")
-    if task.get("family") == "django":
-        test_command = "python tests/runtests.py <module>"
-    else:
-        test_command = "python -m pytest <test path>"
+    issue = issue_text(public)
+    ref = public.get("repo_ref")
+    if not isinstance(ref, dict) or not ref.get("repo_id") or not ref.get("revision"):
+        raise ValueError("public task has no repo_ref.repo_id and revision")
+    repo = ref["repo_id"]
+    revision = ref["revision"]
+    if task.get("family") not in TEST_COMMANDS:
+        raise ValueError("no test command for family " + repr(task.get("family")))
+    test_command = TEST_COMMANDS[task["family"]]
     return (
         "You are repairing an open-source repository from a public issue only.\n"
         f"Repository: {repo}\nBase revision: {revision}\n"
@@ -214,7 +234,9 @@ def grader_spec(task: dict, base: dict[str, bytes] | None = None) -> RepositoryS
     if private.get("instance_id") != task["id"]:
         raise ValueError("private source row does not match the task id")
     family = task["family"]
-    test_paths = tuple(binding.get("test_patch_paths") or [])
+    if not binding.get("test_patch_paths") or not binding.get("gold_patch_paths"):
+        raise ValueError("receipt has no test_patch_paths or gold_patch_paths")
+    test_paths = tuple(binding["test_patch_paths"])
     selected = task.get("grader_nodeids")
     if selected is not None:
         f2p = list(selected["f2p"])
@@ -233,7 +255,7 @@ def grader_spec(task: dict, base: dict[str, bytes] | None = None) -> RepositoryS
     excluded = set(task.get("p2p_excluded") or [])
     if excluded:
         p2p = [node for node in p2p if node not in excluded]
-    editable = tuple(binding.get("gold_patch_paths") or [])
+    editable = tuple(binding["gold_patch_paths"])
     baseline_root = ROOT / task["baseline"]
     original_root = ROOT / task["original"]
     overlay = {}
@@ -258,7 +280,7 @@ def grader_spec(task: dict, base: dict[str, bytes] | None = None) -> RepositoryS
         expected_nodeids=tuple(f2p + p2p),
         test_overlay=overlay,
         baseline_passed=tuple(p2p),
-        timeout_seconds=float(task.get("grader_timeout_seconds", 300)),
+        timeout_seconds=float(task["grader_timeout_seconds"]),
     )
 
 
@@ -699,12 +721,12 @@ async def run_task(task: dict, profile: Path, output: Path, *, mock: bool, varia
         registry = PolicyPluginRegistry()
         register_memory_cards(
             registry, source_root=agent_root, approved_sha256=digest,
-            variant=variant, cards=cards, repo=task["repo"], issue=public.get("issue_text") or "",
+            variant=variant, cards=cards, repo=task["repo"], issue=issue_text(public),
             target_root=target,
         )
         config["runtime"]["context"]["plugin"] = "memory-cards"
         preview = MemoryCardPlugin(
-            variant=variant, cards=cards, repo=task["repo"], issue=public.get("issue_text") or "",
+            variant=variant, cards=cards, repo=task["repo"], issue=issue_text(public),
             target_root=target,
         )
         memory = memory_summary(variant, cards_path, dropped, await preview.decide({}))
@@ -754,7 +776,7 @@ async def run_task(task: dict, profile: Path, output: Path, *, mock: bool, varia
             p2p=list(spec.baseline_passed),
             django=task.get("family") == "django",
             sympy=False,
-            timeout=float(task.get("grader_timeout_seconds", 300)),
+            timeout=float(task["grader_timeout_seconds"]),
         )
         infra_reason = grader_infra_reason(evaluation)
         infra = infra_reason is not None
