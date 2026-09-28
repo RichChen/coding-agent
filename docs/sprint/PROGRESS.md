@@ -401,3 +401,13 @@ P4：`/opt/repo` 和目标项目包目录下的命中不再适用两条扫描排
 P5：删除 `pelican-bicycle.html`。用 v5 final 卡片在 3 道题上跑 mock B2，过滤和注入记录正常。
 
 补记在 `docs/sprint/CHECKPOINT-5.md`。没有打 `a5-main-freeze`。
+
+## 第六轮：冻结与 B0 canary
+
+日期：2026-09-28。花费：0.687 CNY。依据 `docs/sprint/HARNESS-SPRINT-6.zh-CN.md`。
+
+第 0 步：infra_error 槽位移到 `r<k>.infra<n>` 后重跑，每个槽位最多 2 次；`PARALLEL` 为 4；summary 记录模型名和 base_url host。冻结记录在 `docs/sprint/A5-MAIN-FREEZE.md`，harness tag `a5-main-freeze` → `02c8671`。
+
+第 1 步：canary 用 django-13964、sklearn-13142、sphinx-8593。前两道检查全部通过（sklearn 解出）。sphinx-8593 在调用模型之前 answer isolation 就失败了：构建镜像时排除了 `pre_install` 用 `sed` 改写的 `setup.py`、`tox.ini`，运行时的比对没有排除。同样的问题会影响 11 道 sphinx 和 pytest-8399。第 2 步没有开始。
+
+记录在 `docs/sprint/CHECKPOINT-6.md` 的 6a 部分，停下等审计。
