@@ -377,6 +377,46 @@ def test_preflight_cli_fails_when_a_dev_prompt_differs(monkeypatch):
         run_a5_main.main()
 
 
+def _formal_runs(root, count, *, solved_at=None):
+    for index in range(count):
+        task_id, repeat = "t" + str(index // 3), "r" + str(index % 3 + 1)
+        path = root / task_id / "b0" / repeat / "summary.json"
+        path.parent.mkdir(parents=True)
+        row = {"task_id": task_id, "variant": "B0", "solved": index == solved_at, "status": "pass" if index == solved_at else "fail", "cost_cny": "0"}
+        path.write_text(json.dumps(row), encoding="utf-8")
+
+
+def test_fault_alarm_after_thirty_formal_b0_runs_with_none_solved(tmp_path):
+    _formal_runs(tmp_path, 29)
+    assert halt_reason(tmp_path, "b0") is None
+    path = tmp_path / "t9" / "b0" / "r3" / "summary.json"
+    path.parent.mkdir(parents=True)
+    path.write_text(json.dumps({"task_id": "t9", "solved": False, "status": "delta_lost", "cost_cny": "0"}), encoding="utf-8")
+    assert halt_reason(tmp_path, "b0").startswith("fault alarm: 30 formal B0 runs")
+    assert run_a5_main.fault_alarm(tmp_path, "b2", frozenset()) is None
+
+
+def test_fault_alarm_ignores_canary_r1_and_retired_infra_slots(tmp_path):
+    _formal_runs(tmp_path, 30)
+    assert halt_reason(tmp_path, "b0", frozenset({"t0"})) is None
+    retired = tmp_path / "t0" / "b0" / "r1.infra1" / "summary.json"
+    retired.parent.mkdir(parents=True)
+    retired.write_text(json.dumps({"task_id": "t0", "solved": False, "status": "infra_error", "cost_cny": "0"}), encoding="utf-8")
+    assert run_a5_main.fault_alarm(tmp_path, "b0", frozenset({"t0"})) is None
+
+
+def test_fault_alarm_does_not_fire_once_a_run_is_solved(tmp_path):
+    _formal_runs(tmp_path, 45, solved_at=40)
+    assert halt_reason(tmp_path, "b0") is None
+
+
+def test_run_phase_stops_on_the_fault_alarm(tmp_path, monkeypatch):
+    _formal_runs(tmp_path, 30)
+    _no_runs(monkeypatch)
+    report = asyncio.run(run_phase([TASK], "b0", cards=None, mock=True, repeats=1, out_root=tmp_path, canaries=frozenset()))
+    assert report["halt_reason"].startswith("fault alarm") and report["started"] == 0
+
+
 def test_out_root_requires_mock(monkeypatch):
     monkeypatch.setattr("sys.argv", ["run_a5_main.py", "--phase", "b0", "--out-root", "runs/x"])
     with pytest.raises(SystemExit, match="only allowed with --mock"):

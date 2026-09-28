@@ -54,4 +54,4 @@ def test_ids_and_ledger_are_checked(monkeypatch):
 def test_select_takes_the_lower_median_per_repo():
     repos = {"a": "x/x", "b": "x/x", "c": "x/x", "d": "x/x", "e": "y/y"}
     tasks = [{"id": key, "repo": repos[key], "created_at": "2020-01-0" + str(i)} for i, key in enumerate("dcbae", start=1)]
-    assert sprint6_canary.select(tasks) == {"x/x": "c", "y/y": "e"}
+    assert sprint6_canary.canary_ids(tasks) == {"x/x": "c", "y/y": "e"}

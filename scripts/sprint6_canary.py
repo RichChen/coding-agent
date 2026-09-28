@@ -16,19 +16,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from scripts.run_a5_main import (ISSUES, PROFILE, PUBLIC_ROOT, accepted_tasks, calibration_ids,  # noqa: E402
-                                 load_targets, out_root_for)
-
-
-def select(tasks) -> dict:
-    """Map repo to the lower-median task by created_at."""
-    groups = {}
-    for task in tasks:
-        groups.setdefault(task["repo"], []).append(task)
-    chosen = {}
-    for repo, rows in sorted(groups.items()):
-        rows = sorted(rows, key=lambda row: str(row["created_at"]))
-        chosen[repo] = rows[(len(rows) - 1) // 2]["id"]
-    return chosen
+                                 canary_ids, load_targets, out_root_for)
 
 
 def recorded_issue_sha(task_id: str):
@@ -105,7 +93,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("command", choices=["select", "check"])
     args = parser.parse_args()
-    chosen = select(accepted_tasks(load_targets()))
+    chosen = canary_ids(accepted_tasks(load_targets()))
     if args.command == "select":
         print(json.dumps(chosen, indent=2))
         return

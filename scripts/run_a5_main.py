@@ -28,6 +28,7 @@ MAX_INFRA_RERUNS = 2
 INFRA_STOP_RATIO = Decimal("0.10")
 INFRA_STOP_MIN = 3
 PROFILE = ROOT / "configs/sprint/b0-v2.yaml"
+FAULT_ALARM_RUNS = 30
 
 
 def out_root_for(mock: bool) -> Path:
@@ -101,8 +102,40 @@ def phase_summaries(out_root: Path, phase: str) -> list[dict]:
     return rows
 
 
-def halt_reason(out_root: Path, phase: str) -> str | None:
+def canary_ids(tasks) -> dict:
+    """Map repo to the lower-median task by created_at; its B0 r1 is the canary."""
+    groups = {}
+    for task in tasks:
+        groups.setdefault(task["repo"], []).append(task)
+    chosen = {}
+    for repo, rows in sorted(groups.items()):
+        rows = sorted(rows, key=lambda row: str(row["created_at"]))
+        chosen[repo] = rows[(len(rows) - 1) // 2]["id"]
+    return chosen
+
+
+def fault_alarm(out_root: Path, phase: str, canaries) -> str | None:
+    """Pre-registered: FAULT_ALARM_RUNS formal B0 runs, canary r1 slots excluded, with none solved."""
+    if phase != "b0" or not out_root.exists():
+        return None
+    formal = []
+    for path in sorted(out_root.glob("*/b0/r*/summary.json")):
+        slot = path.parent.name
+        if "." in slot or (slot == "r1" and path.parent.parent.parent.name in canaries):
+            continue
+        row = json.loads(path.read_text(encoding="utf-8"))
+        if row.get("status") != "infra_error":
+            formal.append(row)
+    if len(formal) >= FAULT_ALARM_RUNS and not any(row.get("solved") for row in formal):
+        return "fault alarm: " + str(len(formal)) + " formal B0 runs, none solved; audit the harness"
+    return None
+
+
+def halt_reason(out_root: Path, phase: str, canaries=frozenset()) -> str | None:
     """Stop conditions checked before every new run. In-flight runs still finish."""
+    alarm = fault_alarm(out_root, phase, canaries)
+    if alarm:
+        return alarm
     rows = phase_summaries(out_root, phase)
     infra = sum(1 for row in rows if row.get("status") == "infra_error")
     if infra >= INFRA_STOP_MIN and Decimal(infra) > INFRA_STOP_RATIO * len(rows):
@@ -134,8 +167,10 @@ def halt_reason(out_root: Path, phase: str) -> str | None:
     return None
 
 
-async def run_phase(tasks, phase: str, *, cards: Path | None, mock: bool, repeats: int, out_root: Path | None = None):
+async def run_phase(tasks, phase: str, *, cards: Path | None, mock: bool, repeats: int, out_root: Path | None = None, canaries=None):
     out_root = out_root or out_root_for(mock)
+    if canaries is None:
+        canaries = frozenset(canary_ids(accepted_tasks(load_targets())).values())
     profile = PROFILE
     variant = "B0" if phase == "b0" else "B2"
     pending = []
@@ -162,7 +197,7 @@ async def run_phase(tasks, phase: str, *, cards: Path | None, mock: bool, repeat
             pending.append((task, output))
     if refused:
         raise SystemExit("existing summaries do not belong to this phase; not overwriting:\n" + "\n".join(refused))
-    state = {"halt": halt_reason(out_root, phase)}
+    state = {"halt": halt_reason(out_root, phase, canaries)}
     semaphore = asyncio.Semaphore(PARALLEL)
 
     async def one(task, output):
@@ -178,7 +213,7 @@ async def run_phase(tasks, phase: str, *, cards: Path | None, mock: bool, repeat
                 except (Exception, SystemExit) as exc:
                     state["halt"] = state["halt"] or ("run crashed: " + task["id"] + " " + type(exc).__name__ + ": " + str(exc)[:300])
                     return None
-                state["halt"] = state["halt"] or halt_reason(out_root, phase)
+                state["halt"] = state["halt"] or halt_reason(out_root, phase, canaries)
                 if summary.get("status") != "infra_error":
                     return summary
                 if state["halt"] or not retire_infra(output):
