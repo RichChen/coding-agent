@@ -385,3 +385,19 @@ sklearn-11281 的 `context.prepared` 里能看到 `scikit-learn__scikit-learn-11
 第五轮第 5 步已处理 50 道。明细在 `docs/sprint/MAIN-CALIBRATION.md`。
 
 第五轮第 5 步已处理 60 道。明细在 `docs/sprint/MAIN-CALIBRATION.md`。
+
+## 第五轮补丁：P1–P5
+
+日期：2026-09-28。花费：0 CNY，只用 mock。依据 `docs/sprint/HARNESS-SPRINT-5-PATCH.zh-CN.md`。
+
+P1：step 7 的 mock 输出移到 `runs/a5-main-mock-step7/`，交接文件改名为 `main-b0-runs.step7-mock.json`。`run_a5_main.py` 的 mock 和正式运行分开目录和交接文件，续跑时 summary 必须和当前模式、`b0-v2`、phase 一致，否则退出、不覆盖。
+
+P2：时间过滤读卡片自己的 repo 和 `created_at`，按带时区的时刻比较，和 dev 交接文件交叉核对。B2 拿不到目标日期、卡片缺日期都报错。
+
+P3：django docstring 测试 id 用 `ast` 映射回测试方法，12 道 django 重新校准。F2P 16 → 18 条，P2P 695 → 898 条，13 条有歧义的 P2P 丢弃。没有题被排除，合格仍是 56。R6 运行时改为使用校准的同一份 id，56 道核对一致。
+
+P4：`/opt/repo` 和目标项目包目录下的命中不再适用两条扫描排除。56 份 receipt 离线重判，6 个排除文件都不受影响，结论不变。
+
+P5：删除 `pelican-bicycle.html`。用 v5 final 卡片在 3 道题上跑 mock B2，过滤和注入记录正常。
+
+补记在 `docs/sprint/CHECKPOINT-5.md`。没有打 `a5-main-freeze`。
