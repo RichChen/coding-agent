@@ -64,6 +64,8 @@ def test_run_llm_ablation_mock_cli(tmp_path: Path):
             "--limit",
             "1",
             "--mock-llm",
+            "--output",
+            str(tmp_path / "llm"),
         ],
         cwd=ROOT,
         capture_output=True,

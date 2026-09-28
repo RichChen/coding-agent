@@ -3,6 +3,7 @@ import json
 import pytest
 
 from scripts.analyze_a5_main import (
+    _rate,
     detection_floor_points,
     load_a5_main_tree,
     load_main_b0_handoff,
@@ -136,3 +137,17 @@ def test_main_b0_handoff_rejects_mock(tmp_path):
         encoding="utf-8",
     )
     assert load_main_b0_handoff(path)["schema"] == "sprint6.main-b0-runs.v1"
+
+
+def test_two_valid_solves_count_as_a_full_rate():
+    rows = _pair("short", "demo/demo", [True, True], [True, True])
+    rows.append(_row("short", "demo/demo", "B0", 3, False, status="infra_error"))
+    rows.append(_row("short", "demo/demo", "B2", 3, False, status="infra_error"))
+    solved, n_valid, rate = _rate([row for row in rows if row["variant"] == "B0"])
+    assert (solved, n_valid, rate) == (2, 2, 1.0)
+    eligible, excluded = prepare(rows)
+    assert excluded == []
+    assert eligible[0]["d"] == 0.0
+    report = render_report(rows)
+    assert "除以有效运行数" in report
+    assert "除以 3" not in report

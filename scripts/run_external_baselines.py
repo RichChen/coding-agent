@@ -98,6 +98,12 @@ def main() -> None:
         action="store_true",
         help="Use MockModelClient for vanilla_deepseek (offline).",
     )
+    parser.add_argument(
+        "--output",
+        type=Path,
+        default=None,
+        help="Directory for this run. Tests should pass a temporary directory.",
+    )
     args = parser.parse_args()
 
     tasks_path = (ROOT / args.tasks).resolve()
@@ -105,7 +111,7 @@ def main() -> None:
     tasks = catalog.tasks[: args.limit] if args.limit else catalog.tasks
 
     run_id = datetime.now(UTC).strftime("%Y%m%d_%H%M%S")
-    run_dir = ROOT / "reports" / "external_baselines" / run_id
+    run_dir = args.output or (ROOT / "reports" / "external_baselines" / run_id)
     run_dir.mkdir(parents=True, exist_ok=True)
 
     kwargs: dict = {}

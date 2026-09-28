@@ -55,7 +55,7 @@ def main() -> int:
     parser.add_argument("--manifest", type=Path)
     args = parser.parse_args()
     try:
-        cards, status, handoffs = build_cards_from_handoffs(
+        cards, status, handoffs, omitted = build_cards_from_handoffs(
             args.handoff, canonical_path=CANONICAL, path_base=ROOT
         )
         assert_no_private_answers(cards)
@@ -75,6 +75,7 @@ def main() -> int:
             handoff_sha=handoffs[0]["sha256"],
             handoff_schema=handoffs[0]["schema"],
             handoffs=handoffs,
+            omitted_infra_only=list(omitted),
         )
         args.manifest.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
     print(f"status={status} cards={len(cards)} bytes={len(payload)}")

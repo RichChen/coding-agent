@@ -64,7 +64,8 @@ def _injected_count(row: dict) -> int:
 def _rate(rows: list[dict]) -> tuple[int, int, float]:
     counted = [row for row in rows if row.get("status") != "infra_error"]
     solved = sum(1 for row in counted if row.get("solved"))
-    return solved, len(counted), solved / 3.0
+    n_valid = len(counted)
+    return solved, n_valid, (solved / n_valid if n_valid else 0.0)
 
 
 def prepare(rows: list[dict]) -> tuple[list[dict], list[str]]:
@@ -88,7 +89,9 @@ def prepare(rows: list[dict]) -> tuple[list[dict], list[str]]:
                 "task_id": task_id,
                 "repo": repo,
                 "b0_k": b0_k,
+                "b0_n": b0_n,
                 "b2_k": b2_k,
+                "b2_n": b2_n,
                 "d": b2_rate - b0_rate,
                 "injected": injected,
                 "b0_rows": [row for row in groups["B0"] if row.get("status") != "infra_error"],
@@ -159,7 +162,8 @@ def render_report(rows: list[dict]) -> str:
     lines = [
         "# A5-main 分析",
         "",
-        "解出率是非 infra_error 运行里的解出次数除以 3。有效运行少于 2 次的题不进入主要分析。",
+        "解出率是非 infra_error 运行里的解出次数除以有效运行数。",
+        "有效运行少于 2 次的题不进入主要分析。",
         f"置换检验和 bootstrap 各 {PERMUTATIONS} 次，种子 {SEED}。",
         "",
         "## 逐题",
@@ -168,9 +172,15 @@ def render_report(rows: list[dict]) -> str:
         "|---|---|---|---|---|---|",
     ]
     for task in eligible:
-        lines.append(
-            f"| {task['task_id']} | {task['repo']} | {task['b0_k']}/3 | {task['b2_k']}/3 | {task['d']:.3f} | {task['injected']} |"
-        )
+        cells = [
+            task["task_id"],
+            task["repo"],
+            f"{task['b0_k']}/{task['b0_n']}",
+            f"{task['b2_k']}/{task['b2_n']}",
+            f"{task['d']:.3f}",
+            str(task["injected"]),
+        ]
+        lines.append("| " + " | ".join(cells) + " |")
     lines.extend(["", "## 剔除", ""])
     lines.append("、".join(excluded) if excluded else "无")
     lines.extend(["", "## 不满 3 次", ""])

@@ -11,7 +11,6 @@ from reposkill_agent.memory.cards_v4 import (
     _card_from_run,
     _issue_text,
     _pool_index,
-    select_runs,
     target_ids,
 )
 from reposkill_agent.memory.records import MemoryCard
@@ -101,12 +100,27 @@ def assert_unique_source_ids(documents: list[dict]) -> None:
             seen[source_id] = index
 
 
+def _is_infra(run: dict) -> bool:
+    return run.get("status") == "infra_error" or run.get("grader_status") == "infra_error"
+
+
+def choose_card_run(runs: list[dict]) -> dict | None:
+    """Smallest solved repeat, else the smallest non-infra repeat. All-infra yields no card."""
+    solved = [run for run in runs if run.get("solved")]
+    if solved:
+        return min(solved, key=lambda run: int(run["repeat"]))
+    usable = [run for run in runs if not _is_infra(run)]
+    if not usable:
+        return None
+    return min(usable, key=lambda run: int(run["repeat"]))
+
+
 def build_cards_from_handoffs(
     handoff_paths: list[Path],
     *,
     canonical_path: Path,
     path_base: Path,
-) -> tuple[tuple[MemoryCard, ...], str, list[dict]]:
+) -> tuple[tuple[MemoryCard, ...], str, list[dict], tuple[str, ...]]:
     documents = [load_handoff_document(path) for path in handoff_paths]
     assert_unique_source_ids(documents)
     pool = _pool_index(canonical_path)
@@ -116,14 +130,16 @@ def build_cards_from_handoffs(
         runs.extend(runs_with_identity(data, pool))
     assert_isolated(runs, targets)
     source_ids = tuple(dict.fromkeys(run["source_id"] for run in runs))
-    chosen, _ignored = select_runs(runs, source_ids, targets)
+    by_source: dict[str, list[dict]] = {source_id: [] for source_id in source_ids}
+    for run in runs:
+        by_source[run["source_id"]].append(run)
     cards = []
+    omitted: list[str] = []
     for source_id in source_ids:
-        run = chosen[source_id]
+        run = choose_card_run(by_source[source_id])
         if run is None:
-            raise ValueError("run_not_selected:" + source_id)
-        if not run.get("solved") and int(run["repeat"]) != 1:
-            raise ValueError("failed_attempt_requires_r1:" + source_id)
+            omitted.append(source_id)
+            continue
         entry = pool.get(source_id) or {}
         version = str(run.get("base_commit") or entry.get("expected_base_commit") or "")
         issue = str(run.get("issue_text") or "") or _issue_text(entry, path_base)
@@ -154,7 +170,7 @@ def build_cards_from_handoffs(
         {"schema": data.get("schema"), "sha256": published_sha256(path)}
         for data, path in zip(documents, handoff_paths, strict=True)
     ]
-    return tuple(cards), status_name, handoffs
+    return tuple(cards), status_name, handoffs, tuple(omitted)
 
 
 def build_cards_from_handoff(
@@ -163,7 +179,7 @@ def build_cards_from_handoff(
     canonical_path: Path,
     path_base: Path,
 ) -> tuple[tuple[MemoryCard, ...], str]:
-    cards, status_name, _handoffs = build_cards_from_handoffs(
+    cards, status_name, _handoffs, _omitted = build_cards_from_handoffs(
         [handoff_path], canonical_path=canonical_path, path_base=path_base
     )
     return cards, status_name
@@ -185,6 +201,7 @@ def manifest_for(
     handoff_sha: str | None,
     handoff_schema: str,
     handoffs: list[dict] | None = None,
+    omitted_infra_only: list[str] | None = None,
 ) -> dict:
     if handoffs is None and handoff_sha:
         handoffs = [{"schema": handoff_schema, "sha256": handoff_sha}]
@@ -211,4 +228,5 @@ def manifest_for(
             "interim_handoff_sha256": None if status == "final" else handoff_sha,
             "handoffs": recorded,
         },
+        "omitted_infra_only": omitted_infra_only or [],
     }

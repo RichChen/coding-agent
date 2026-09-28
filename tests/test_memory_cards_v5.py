@@ -129,10 +129,11 @@ def test_two_handoffs_build_and_mock_or_duplicate_ids_are_rejected(tmp_path):
     pool_path = tmp_path / "pool.json"
     dev_path.write_text(json.dumps(dev), encoding="utf-8")
     pool_path.write_text(json.dumps(pool), encoding="utf-8")
-    cards, status, handoffs = build_cards_from_handoffs(
+    cards, status, handoffs, omitted = build_cards_from_handoffs(
         [dev_path, pool_path], canonical_path=CANONICAL, path_base=Path(".")
     )
     assert status == "final"
+    assert omitted == ()
     assert [card.source_id for card in cards] == ["django__django-90001", "django__django-90002"]
     assert [item["sha256"] for item in handoffs] == [
         published_sha256(dev_path),
@@ -149,3 +150,42 @@ def test_two_handoffs_build_and_mock_or_duplicate_ids_are_rejected(tmp_path):
     )
     with pytest.raises(ValueError, match="duplicate_source_id"):
         build_cards_from_handoffs([dev_path, dup], canonical_path=CANONICAL, path_base=Path("."))
+
+
+def test_unsolved_cards_skip_infra_and_all_infra_is_omitted(tmp_path):
+    from reposkill_agent.memory.cards_v5 import build_cards_from_handoffs, manifest_for
+
+    failed_run = tmp_path / "failed"
+    _events(failed_run)
+    infra_only = _handoff_run("django__django-90004", failed_run, solved=False, repeat=1)
+    infra_only["status"] = "infra_error"
+    infra_only["grader_status"] = "infra_error"
+    earlier_infra = _handoff_run("django__django-90003", failed_run, solved=False, repeat=1)
+    earlier_infra["status"] = "infra_error"
+    earlier_infra["grader_status"] = "infra_error"
+    later_fail = _handoff_run("django__django-90003", failed_run, solved=False, repeat=2)
+    document = {
+        "schema": "sprint5.memory-source-runs.v2",
+        "scope": "dev",
+        "runs": [earlier_infra, later_fail, infra_only],
+    }
+    path = tmp_path / "handoff.json"
+    path.write_text(json.dumps(document), encoding="utf-8")
+    cards, _status, handoffs, omitted = build_cards_from_handoffs(
+        [path], canonical_path=CANONICAL, path_base=Path(".")
+    )
+    assert omitted == ("django__django-90004",)
+    assert [card.source_id for card in cards] == ["django__django-90003"]
+    assert cards[0].verification_status == "failed_attempt"
+    assert cards[0].source_run.startswith("r2 ")
+    manifest = manifest_for(
+        cards,
+        b"{}",
+        status="final",
+        commit="test",
+        handoff_sha=handoffs[0]["sha256"],
+        handoff_schema=handoffs[0]["schema"],
+        handoffs=handoffs,
+        omitted_infra_only=list(omitted),
+    )
+    assert manifest["omitted_infra_only"] == ["django__django-90004"]

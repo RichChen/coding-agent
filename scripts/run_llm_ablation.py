@@ -97,6 +97,12 @@ def main() -> None:
         default=None,
         help="Comma-separated tags; keep tasks that contain all listed tags.",
     )
+    parser.add_argument(
+        "--output",
+        type=Path,
+        default=ROOT / "reports" / "llm",
+        help="Directory for ablation reports. Tests should pass a temporary directory.",
+    )
     args = parser.parse_args()
 
     if args.mock_llm:
@@ -116,7 +122,7 @@ def main() -> None:
     if args.limit is not None:
         catalog = TaskCatalog(tasks=full_catalog.tasks[: args.limit])
     runner = LLMAblationRunner(
-        output_root=ROOT / "reports" / "llm",
+        output_root=args.output,
         model_client=model_client,
         seed=args.seed,
         seed_memory=args.seed_memory,

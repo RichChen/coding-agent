@@ -89,6 +89,8 @@ def test_run_external_baselines_cli_skip(tmp_path: Path):
             "swe_agent",
             "--limit",
             "1",
+            "--output",
+            str(tmp_path / "baselines"),
         ],
         cwd=ROOT,
         capture_output=True,
