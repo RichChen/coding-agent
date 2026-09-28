@@ -228,3 +228,10 @@
 - A3：构建脚本接受多份 `--handoff`，拒绝 mock scope 和跨文件重复的 `source_id`，manifest 记录每份 sha。
 - A4：分析脚本能读 a5-main 目录和 `main-b0-runs.json`，拒绝 mock，不足 3 次的组只列出、不补齐。
 - 全量测试 319 passed，1 skipped。花费 0。补记写在 CHECKPOINT-5，停下等审计。
+
+## 第六轮 第 0 步：冻结前修正（2026-09-28）
+
+- 解出率改为解出次数除以有效运行数。没有解出的题取编号最小的非 `infra_error` 运行；全部是 `infra_error` 则不出卡，并记入 manifest。
+- mock 测试改为写临时目录，并清掉上次留在仓库里的 `reports/` 和 `traces/graph_summary.json`。
+- tag `a5-main-freeze` 指向 `a22e4ca0a3994012c167a3e02e06498731c24a18`。全量测试 321 passed，1 skipped。花费 0。
+- 下一步：等 harness 的 CHECKPOINT-6a，再做第 1 步。
