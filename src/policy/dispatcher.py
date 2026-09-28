@@ -21,7 +21,8 @@ def safe(raw):
     rel=pathlib.PurePosixPath(raw)
     if rel.is_absolute() or '..' in rel.parts or any(p.startswith('.') for p in rel.parts): raise ValueError('path denied')
     p=(root/rel).resolve()
-    if not p.is_relative_to(root): raise ValueError('path denied')
+    try: p.relative_to(root)
+    except ValueError: raise ValueError('path denied') from None
     return p
 def read_file(raw):
     p=safe(raw)

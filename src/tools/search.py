@@ -20,8 +20,10 @@ glob = req.get("glob") or ""
 cap = max(1, min(int(req.get("max_results") or 50), 200))
 root = pathlib.Path("/workspace")
 target = (root / rel).resolve()
-if not target.is_relative_to(root):
-    raise SystemExit("path denied")
+try:
+    target.relative_to(root)
+except ValueError:
+    raise SystemExit("path denied") from None
 if shutil.which("rg"):
     cmd = ["rg", "-n", "--no-heading", "--color", "never"]
     if glob:
@@ -32,7 +34,7 @@ else:
     if glob:
         cmd += ["--include", glob]
     cmd += ["-e", pattern, str(target)]
-proc = subprocess.run(cmd, cwd=root, capture_output=True, text=True)
+proc = subprocess.run(cmd, cwd=str(root), stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
 lines = [ln for ln in proc.stdout.splitlines() if ln]
 shown = lines[:cap]
 sys.stdout.write("\n".join(shown))

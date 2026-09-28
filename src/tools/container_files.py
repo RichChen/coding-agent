@@ -14,7 +14,8 @@ req=json.load(sys.stdin); p=req['params']; root=pathlib.Path('/workspace')
 raw=p['path']; rel=pathlib.PurePosixPath(raw)
 if rel.is_absolute() or '..' in rel.parts or chr(92) in raw: raise ValueError('path denied')
 path=(root/rel).resolve()
-if not path.is_relative_to(root): raise ValueError('path denied')
+try: path.relative_to(root)
+except ValueError: raise ValueError('path denied') from None
 limit=req['file_limit']; name=req['name']
 if name=='list_dir':
     entries=sorted(path.iterdir())
