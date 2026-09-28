@@ -566,6 +566,29 @@ def prerun_check(task: dict, *, mock: bool, legacy_image: bool = False):
     return spec, image, clean, None
 
 
+def run_infra_reason(run_error, backend, delta, snapshot_error):
+    """Why the agent phase cannot be graded, or None. Such a run is infra_error; it is never graded as an empty patch."""
+    if run_error == "StoreError":
+        return "StoreError"
+    unavailable = getattr(backend, "unavailable_error", None)
+    if unavailable:
+        return "container start failed: " + str(unavailable)[:300]
+    if snapshot_error:
+        return "candidate snapshot failed: " + str(snapshot_error)[:300]
+    if delta is None:
+        return "candidate snapshot missing"
+    if getattr(backend, "cleanup_ok", None) is False:
+        return "container cleanup failed"
+    return None
+
+
+def grader_infra_reason(evaluation: dict):
+    """A grader that failed before the tests started is infra_error. A timeout after they started is a normal failure."""
+    if evaluation.get("execution_status") is None and evaluation.get("reason"):
+        return "grader failed before test execution: " + str(evaluation["reason"])[:300]
+    return None
+
+
 def clean_backend(image: str) -> BaselineImageBackend:
     return BaselineImageBackend(
         image=image,
@@ -717,20 +740,23 @@ async def run_task(task: dict, profile: Path, output: Path, *, mock: bool, varia
     if delta is not None:
         (output / "candidate-delta.json").write_text(json.dumps(delta, indent=2), encoding="utf-8")
     f2p = [node for node in spec.expected_nodeids if node not in spec.baseline_passed]
-    infra = run_error == "StoreError"
+    infra_reason = run_infra_reason(run_error, backend, delta, snapshot_error)
+    infra = infra_reason is not None
     if infra:
         evaluation = {"status": "infra_error", "solved": False}
     else:
         evaluation = await ImageGrader().evaluate(
-        image=image,
-        delta=delta,
-        test_overlay=spec.test_overlay,
-        f2p=f2p,
-        p2p=list(spec.baseline_passed),
-        django=task.get("family") == "django",
-        sympy=False,
-        timeout=float(task.get("grader_timeout_seconds", 300)),
-    )
+            image=image,
+            delta=delta,
+            test_overlay=spec.test_overlay,
+            f2p=f2p,
+            p2p=list(spec.baseline_passed),
+            django=task.get("family") == "django",
+            sympy=False,
+            timeout=float(task.get("grader_timeout_seconds", 300)),
+        )
+        infra_reason = grader_infra_reason(evaluation)
+        infra = infra_reason is not None
     # Drop nothing the grader needs, but do not copy this file into the workspace.
     (output / "grader-result.json").write_text(
         json.dumps(evaluation, indent=2, default=str), encoding="utf-8"
@@ -774,6 +800,10 @@ async def run_task(task: dict, profile: Path, output: Path, *, mock: bool, varia
         "peak_context": _peak_context(result_plain, events),
         "cost_cny": str(ledger.cost_committed - before),
         "stop_reason": stats["stop_reason"],
+        "run_error": run_error,
+        "infra_reason": infra_reason,
+        "docker_retries": [dict(stage="run", **row) for row in backend.docker_retries]
+                          + [dict(stage="grader", **row) for row in evaluation.get("docker_retries") or []],
         "snapshot_error": snapshot_error,
         "export_skipped_files": getattr(backend, "export_skipped_files", None),
         "answer_isolation_pass": True if clean else None,

@@ -137,8 +137,8 @@ class BaselineImageBackend(DockerExecutionBackend):
             await super().start({})
             copy = COPY_REPO.replace("/opt/repo", self.repo_root)
             link = LINK_NATIVE.replace('pathlib.Path("/opt/repo")', 'pathlib.Path(' + json.dumps(self.repo_root) + ')')
-            await self._ok("exec", self.name, "/bin/sh", "-c", copy, limit=64 * 1024, timeout=180)
-            await self._ok("exec", self.name, self.python_bin, "-I", "-S", "-c", link, limit=64 * 1024, timeout=120)
+            await self._ok("exec", self.name, "/bin/sh", "-c", copy, limit=64 * 1024, timeout=180, op="exec copy_repo")
+            await self._ok("exec", self.name, self.python_bin, "-I", "-S", "-c", link, limit=64 * 1024, timeout=120, op="exec link_native")
         except BaseException:
             await self.close()
             raise
@@ -148,7 +148,7 @@ class BaselineImageBackend(DockerExecutionBackend):
             raw = await self._ok(
                 "exec", "-i", self.name, self.python_bin, "-I", "-S", "-c",
                 EXPORT_DELTA.replace('pathlib.Path("/opt/repo")', 'pathlib.Path(' + json.dumps(self.repo_root) + ')'),
-                data=b"{}", limit=DELTA_BYTE_LIMIT + 1024 * 1024, timeout=120,
+                data=b"{}", limit=DELTA_BYTE_LIMIT + 1024 * 1024, timeout=120, op="snapshot",
             )
         except Exception as exc:
             text = str(exc)

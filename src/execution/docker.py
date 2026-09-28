@@ -28,6 +28,20 @@ class DockerUnavailable(RuntimeError):
     pass
 
 
+RETRY_WAITS = (2, 5, 10)
+_sleep = asyncio.sleep
+
+
+def is_transient(exc) -> bool:
+    """A Docker CLI/daemon failure worth retrying. A harness script that fails inside the container is not."""
+    if isinstance(exc, (ConnectionResetError, TimeoutError)):
+        return True
+    if not isinstance(exc, DockerUnavailable):
+        return False
+    text = str(exc)
+    return not any(marker in text for marker in ("Traceback (most recent call last)", "delta_too_large", "output quota exceeded"))
+
+
 async def _reap_cli(proc, tasks):
     """Kill, drain, then wait: wait alone can deadlock on paused asyncio pipes."""
     for task in tasks:
@@ -140,6 +154,7 @@ class DockerExecutionBackend:
         self.cleanup_elapsed_s = 0.0
         self._meter = RunOutputMeter()
         self.seed_files = None
+        self.docker_retries = []
 
     @property
     def capabilities(self):
@@ -189,11 +204,38 @@ class DockerExecutionBackend:
                     spawn.add_done_callback(lambda t: t.result().kill() if not t.cancelled() and t.exception() is None else None)
             await _reap_cli(proc, tasks)
 
-    async def _ok(self, *args, **kwargs):
-        code, out, err = await self._control(*args, **kwargs)
-        if code:
-            raise DockerUnavailable(f"Docker {args[0]} failed: {err.decode('utf-8','replace')[-500:]}")
-        return out
+    async def _ok(self, *args, op=None, **kwargs):
+        async def once():
+            code, out, err = await self._control(*args, **kwargs)
+            if code:
+                raise DockerUnavailable(f"Docker {args[0]} failed: {err.decode('utf-8','replace')[-500:]}")
+            return out
+        return await self._retrying(op or args[0], once, recreate=args[0] == "create")
+
+    async def _retrying(self, op, attempt, *, recreate=False):
+        """Retry transient Docker control failures after RETRY_WAITS seconds. Every retry is recorded."""
+        last = None
+        for index in range(len(RETRY_WAITS) + 1):
+            if index:
+                await _sleep(RETRY_WAITS[index - 1])
+                if recreate:
+                    try:
+                        await self._control("rm", "-f", self.name, timeout=10)
+                    except (DockerUnavailable, OSError, TimeoutError):
+                        pass
+            try:
+                return await attempt()
+            except (DockerUnavailable, ConnectionResetError, TimeoutError) as exc:
+                if not is_transient(exc):
+                    raise
+                last = exc
+                if index < len(RETRY_WAITS):
+                    self.docker_retries.append(dict(
+                        op=op, retry=index + 1, wait_s=RETRY_WAITS[index],
+                        error=(type(exc).__name__ + ": " + str(exc))[:300],
+                        at=time.strftime("%Y-%m-%dT%H:%M:%S%z")))
+        raise DockerUnavailable(
+            f"Docker {op} failed after {len(RETRY_WAITS)} retries: {type(last).__name__}: {str(last)[:300]}") from last
 
     def create_args(self):
         return ["create", "--pull=never", "--name", self.name, "--label", "coding-harness.h3=true",
@@ -246,14 +288,14 @@ class DockerExecutionBackend:
         started = time.monotonic()
         if snapshot and self.active:
             try:
-                data = await self._ok("exec", self.name, self.python_bin, "-I", "-S", "-c", EXPORT_CODE)
+                data = await self._ok("exec", self.name, self.python_bin, "-I", "-S", "-c", EXPORT_CODE, op="snapshot")
                 self.snapshot = validate_files({n: base64.b64decode(d, validate=True) for n, d in json.loads(data).items()})
             except (Exception, asyncio.CancelledError) as exc:
                 self.snapshot_error = type(exc).__name__
         try:
             if self._owned:
                 # rm acknowledgement plus daemon listing is the cleanup proof, not CLI exit alone.
-                await self._control("rm", "-f", self.name, timeout=5)
+                await self._retrying("rm", lambda: self._control("rm", "-f", self.name, timeout=5))
                 left = await self._ok("ps", "-aq", "--filter", f"name=^/{self.name}$", timeout=3, limit=4096)
                 self.cleanup_ok = not left.strip()
             else:

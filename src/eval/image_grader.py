@@ -148,6 +148,7 @@ class ImageGrader:
             result["reason"] = type(exc).__name__ + ": " + str(exc)[:500]
         finally:
             await backend.close()
+            result["docker_retries"] = list(backend.docker_retries)
         changed = list(((delta or {}).get("changed") or {}).keys()) + list((delta or {}).get("deleted") or [])
         result.update(touched_kinds(changed))
         return result
