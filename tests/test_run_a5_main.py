@@ -189,12 +189,21 @@ class _Spec:
     baseline_passed = ("b", "c")
 
 
-def _fake_preflight(monkeypatch, *, failure=None, recorded=None, crash=False, excluded=(), selected_p2p=("b", "c")):
+def _fake_preflight(monkeypatch, *, failure=None, recorded=None, crash=False, excluded=(), selected_p2p=("b", "c"), smoke_ok=True):
+    smoked = []
+
     def prerun(task, *, mock):
         assert mock is False
         if crash:
             raise SystemExit("grader ids differ from calibration")
-        return _Spec(), "image@sha256:1", {"answer_isolation_pass": True}, failure
+        return _Spec(), "image@sha256:1", {"answer_isolation_pass": True, "base_image": "python:3.6.15-slim-buster"}, failure
+
+    async def smoke(image, profile):
+        smoked.append(image)
+        call = {"tool": "read_file", "ok": smoke_ok, "exception": None if smoke_ok else "AttributeError", "error_kind": None}
+        return {"passed": smoke_ok, "error": None, "calls": [call]}
+
+    monkeypatch.setattr(run_a5_main, "tool_smoke", smoke)
 
     def materialize(task):
         nodeids = {"f2p": ["a"], "p2p": list(selected_p2p)}
@@ -204,6 +213,28 @@ def _fake_preflight(monkeypatch, *, failure=None, recorded=None, crash=False, ex
     monkeypatch.setattr(run_a5_main, "prerun_check", prerun)
     monkeypatch.setattr(run_a5_main, "public_issue", lambda task: "issue")
     monkeypatch.setattr(run_a5_main, "calibration_ids", lambda task_id: recorded or {"f2p": 1, "p2p": 2})
+    return smoked
+
+
+def test_preflight_runs_the_tool_smoke_and_groups_by_python(tmp_path, monkeypatch):
+    smoked = _fake_preflight(monkeypatch)
+    report = run_a5_main.preflight([TASK], destination=tmp_path / "preflight.json")
+    assert smoked == ["image@sha256:1"]
+    assert report["tool_smoke_passed"] == 1
+    assert report["by_python"] == {"3.6": {"passed": 1, "total": 1, "tool_smoke_passed": 1}}
+
+
+def test_preflight_fails_a_task_whose_tool_smoke_fails(tmp_path, monkeypatch):
+    _fake_preflight(monkeypatch, smoke_ok=False)
+    report = run_a5_main.preflight([TASK], destination=tmp_path / "preflight.json")
+    assert report["passed"] == 0 and report["tool_smoke_passed"] == 0
+    assert report["tasks"][0]["failure"] == "tool smoke failed: read_file:AttributeError"
+
+
+def test_preflight_skips_the_smoke_when_an_earlier_check_fails(tmp_path, monkeypatch):
+    smoked = _fake_preflight(monkeypatch, failure="opt/repo source-only hash mismatch")
+    run_a5_main.preflight([TASK], destination=tmp_path / "preflight.json")
+    assert smoked == []
 
 
 def test_preflight_passes_and_writes_a_report(tmp_path, monkeypatch):

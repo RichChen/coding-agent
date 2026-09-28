@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import asyncio
 import json
+import re
 import sys
 from decimal import Decimal
 from pathlib import Path
@@ -14,7 +15,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from scripts.handoff_sha import handoff_sha256  # noqa: E402
 from scripts.preflight_a5_repo_baseline import patch_paths  # noqa: E402
-from scripts.run_swe_task import prerun_check, public_issue, run_task  # noqa: E402
+from scripts.run_swe_task import prerun_check, public_issue, run_task, tool_smoke  # noqa: E402
 from scripts.sprint5_prepare_main import FAMILY, nodeid_selection  # noqa: E402
 
 TOTAL_CAP = Decimal("150")
@@ -257,6 +258,12 @@ def calibration_ids(task_id: str) -> dict:
     return {side: (nodeids.get(side) or {}).get("used") for side in ("f2p", "p2p")}
 
 
+def image_python(clean: dict | None):
+    """Major.minor of the clean image's base, e.g. python:3.6.15-slim-buster -> 3.6."""
+    match = re.match(r"python:(\d+)\.(\d+)", (clean or {}).get("base_image") or "")
+    return f"{match.group(1)}.{match.group(2)}" if match else None
+
+
 def preflight(tasks, destination: Path | None = None) -> dict:
     """Every check a run makes before its first model call, on every task. No model calls."""
     rows = []
@@ -278,6 +285,7 @@ def preflight(tasks, destination: Path | None = None) -> dict:
             public_issue(prepared)
             row.update(
                 image=image,
+                python=image_python(clean),
                 answer_isolation_pass=bool(clean and clean.get("answer_isolation_pass")),
                 grader_ids=counts,
                 calibration_ids=recorded,
@@ -285,12 +293,30 @@ def preflight(tasks, destination: Path | None = None) -> dict:
                 public_task=_display_path(Path(prepared["public_task"])),
                 failure=failure,
             )
+            if failure is None:
+                smoke = asyncio.run(tool_smoke(image, PROFILE))
+                row["tool_smoke"] = smoke
+                if not smoke["passed"]:
+                    bad = [c["tool"] + ":" + str(c["exception"] or c["error_kind"]) for c in smoke["calls"] if not c["ok"]]
+                    row["failure"] = "tool smoke failed: " + (smoke["error"] or ", ".join(bad) or "incomplete")
         except (Exception, SystemExit) as exc:
             row["failure"] = type(exc).__name__ + ": " + str(exc)[:300]
         row["pass"] = row.get("failure") is None
         rows.append(row)
         print(task["id"], "pass" if row["pass"] else row["failure"], flush=True)
-    report = {"passed": sum(1 for row in rows if row["pass"]), "total": len(rows), "tasks": rows}
+    by_python = {}
+    for row in rows:
+        bucket = by_python.setdefault(row.get("python") or "unknown", {"passed": 0, "total": 0, "tool_smoke_passed": 0})
+        bucket["total"] += 1
+        bucket["passed"] += int(row["pass"])
+        bucket["tool_smoke_passed"] += int(bool((row.get("tool_smoke") or {}).get("passed")))
+    report = {
+        "passed": sum(1 for row in rows if row["pass"]),
+        "total": len(rows),
+        "tool_smoke_passed": sum(1 for row in rows if (row.get("tool_smoke") or {}).get("passed")),
+        "by_python": dict(sorted(by_python.items())),
+        "tasks": rows,
+    }
     destination = destination or ROOT / "runs" / "a5-main-logs" / "preflight.json"
     destination.parent.mkdir(parents=True, exist_ok=True)
     destination.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")

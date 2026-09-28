@@ -566,6 +566,74 @@ def prerun_check(task: dict, *, mock: bool, legacy_image: bool = False):
     return spec, image, clean, None
 
 
+def clean_backend(image: str) -> BaselineImageBackend:
+    return BaselineImageBackend(
+        image=image,
+        context="desktop-linux",
+        memory_bytes=1024**3,
+        workspace_bytes=256 * 1024**2,
+        tmpfs_bytes=64 * 1024**2,
+        network="none",
+    )
+
+
+SMOKE_FILE = "harness_smoke_tmp.txt"
+
+
+async def tool_smoke(image: str, profile: Path) -> dict:
+    """Call every agent tool once in the clean image. No model call. Nothing is exported or graded."""
+    import tempfile
+    from src.eval.tool_errors import traceback_exception
+    from src.tools.base import ToolContext
+
+    backend = clean_backend(image)
+    config = load_config(profile)
+    config["llm"]["api_key"] = config["llm"]["api_key"] or "smoke"
+    calls = []
+    record = {"calls": calls, "passed": False, "error": None, "python": None}
+    with tempfile.TemporaryDirectory() as tmp:
+        agent = build_agent(config, Path(tmp), execution_backend=backend)
+
+        async def call(name, params):
+            ctx = ToolContext(workspace_root=Path(tmp), sandbox=agent.sandbox,
+                              file_size_limit_bytes=agent.file_size_limit_bytes,
+                              tool_output_max_chars=agent.tool_output_max_chars,
+                              read_file_max_lines=agent.read_file_max_lines,
+                              call_id=f"smoke-{len(calls)}")
+            result = await agent.tools.get(name).execute(dict(params), ctx)
+            exc = traceback_exception(result.output or "")
+            calls.append({"tool": name, "params": params, "success": result.success,
+                          "error_kind": result.error_kind, "exception": exc,
+                          "ok": bool(result.success) and exc is None})
+            return result.output or ""
+
+        try:
+            await backend.start({})
+            listing = await call("list_dir", {"path": "."})
+            files = [line[4:] for line in listing.splitlines() if line.startswith("[F] ")]
+            known = "setup.py" if "setup.py" in files else (files[0] if files else None)
+            if known is None:
+                raise ValueError("repository root lists no files")
+            await call("read_file", {"path": known, "limit": 20})
+            await call("search_code", {"pattern": "import", "path": known, "max_results": 3})
+            version = await call("run_command", {"command": f"printf 'alpha\\nbeta\\n' > {SMOKE_FILE} && /usr/local/bin/python -V"})
+            record["python"] = next((line.split()[1] for line in version.splitlines() if line.startswith("Python ")), None)
+            await call("search_replace", {"path": SMOKE_FILE, "search": "alpha", "replace": "gamma"})
+            await call("edit_file", {"path": SMOKE_FILE, "old_string": "beta", "new_string": "delta"})
+            final = await call("read_file", {"path": SMOKE_FILE})
+            record["edits_applied"] = "gamma" in final and "delta" in final
+        except Exception as exc:
+            record["error"] = type(exc).__name__ + ": " + str(exc)[:300]
+        finally:
+            await backend.close()
+    record["cleanup_ok"] = backend.cleanup_ok
+    names = {c["tool"] for c in calls}
+    required = {"read_file", "list_dir", "search_code", "search_replace", "edit_file", "run_command"}
+    record["passed"] = (record["error"] is None and required <= names and all(c["ok"] for c in calls)
+                        and record.get("edits_applied") is True and backend.cleanup_ok is True)
+    return record
+
+
 async def run_task(task: dict, profile: Path, output: Path, *, mock: bool, variant: str = "B0", cards_path: Path | None = None, legacy_image: bool = False) -> dict:
     if task["id"] in HOLDOUT:
         raise SystemExit("hold-out task refused: " + task["id"])
@@ -575,14 +643,7 @@ async def run_task(task: dict, profile: Path, output: Path, *, mock: bool, varia
     spec, image, clean, failure = prerun_check(task, mock=mock, legacy_image=legacy_image)
     if failure:
         return _isolation_stop(task, variant, failure, mock=mock, profile=profile, output=output)
-    backend = BaselineImageBackend(
-        image=image,
-        context="desktop-linux",
-        memory_bytes=1024**3,
-        workspace_bytes=256 * 1024**2,
-        tmpfs_bytes=64 * 1024**2,
-        network="none",
-    )
+    backend = clean_backend(image)
     config = load_config(profile)
     # CNY ledger is the only budget that stops a run. Do not set max_cost_usd here.
     if mock:
