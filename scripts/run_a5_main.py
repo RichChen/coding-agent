@@ -3,8 +3,10 @@ from __future__ import annotations
 
 import argparse
 import asyncio
+import hashlib
 import json
 import re
+import statistics
 import sys
 from decimal import Decimal
 from pathlib import Path
@@ -15,7 +17,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from scripts.handoff_sha import handoff_sha256  # noqa: E402
 from scripts.preflight_a5_repo_baseline import patch_paths  # noqa: E402
-from scripts.run_swe_task import prerun_check, public_issue, run_task, tool_smoke  # noqa: E402
+from scripts.run_swe_task import parse_id_list, prerun_check, public_issue, run_task, tool_smoke  # noqa: E402
 from scripts.select_main_targets import ISSUES, PUBLIC_ROOT, issue_sha256  # noqa: E402
 from scripts.sprint5_prepare_main import FAMILY, nodeid_selection  # noqa: E402
 
@@ -284,6 +286,70 @@ def image_python(clean: dict | None):
     return f"{match.group(1)}.{match.group(2)}" if match else None
 
 
+def prompt_check(task: dict, prepared: dict) -> dict:
+    """Render the user prompt and check it carries the verbatim issue and nothing private."""
+    prompt = public_issue(prepared)
+    issue = json.loads(Path(prepared["public_task"]).read_text(encoding="utf-8"))["issue_text"]
+    expected = json.loads(ISSUES.read_text(encoding="utf-8"))["tasks"][task["id"]]["issue_sha256"]
+    private = json.loads((ROOT / task["private"]).read_text(encoding="utf-8"))
+    verbatim = prompt.endswith("Public issue:\n" + issue)
+    template = prompt[: len(prompt) - len(issue)] if verbatim else prompt
+    fields = [name for name in ("patch", "test_patch", "FAIL_TO_PASS", "PASS_TO_PASS") if private.get(name) and private[name] in prompt]
+    ids = parse_id_list(private["FAIL_TO_PASS"]) + parse_id_list(private["PASS_TO_PASS"])
+    ids += list(prepared["grader_nodeids"]["f2p"]) + list(prepared["grader_nodeids"]["p2p"])
+    leaked = sorted({node for node in ids if node and node in template})
+    row = {
+        "issue_chars": len(issue),
+        "issue_sha256": issue_sha256(issue),
+        "prompt_chars": len(prompt),
+        "prompt_sha256": hashlib.sha256(prompt.encode("utf-8")).hexdigest(),
+        "issue_verbatim": verbatim,
+        "issue_sha_matches": issue_sha256(issue) == expected,
+        "private_fields_in_prompt": fields,
+        "private_ids_in_template": leaked[:10],
+        "ids_in_public_issue": sorted({node for node in ids if node and node in issue})[:10],
+    }
+    problems = [name for name, bad in (
+        ("empty prompt", not prompt or not issue),
+        ("issue not verbatim", not verbatim),
+        ("issue sha differs from main-issues.json", not row["issue_sha_matches"]),
+        ("private field in prompt", bool(fields)),
+        ("private id in prompt template", bool(leaked)),
+    ) if bad]
+    row["failure"] = "; ".join(problems) or None
+    return row
+
+
+def recorded_user_prompt(events: Path) -> str:
+    for line in events.read_text(encoding="utf-8").splitlines():
+        event = json.loads(line) if line.strip() else {}
+        if event.get("event_type") == "state.saved":
+            for message in event["payload"]["messages"]:
+                if message.get("role") == "user":
+                    return message["content"]
+    raise SystemExit("no user prompt recorded in " + _display_path(events))
+
+
+def dev_prompt_check() -> dict:
+    """The dev prompts render byte-identical to the ones the sprint-4 B0 runs sent."""
+    rows = []
+    dev = yaml.safe_load((ROOT / "configs/sprint/dev-tasks.yaml").read_text(encoding="utf-8"))["tasks"]
+    for task in dev:
+        row = {"task_id": task["id"]}
+        try:
+            rendered = public_issue(task).encode("utf-8")
+            recorded = recorded_user_prompt(ROOT / "runs" / "sprint4-b0-v2" / task["id"] / "r1" / "events.jsonl").encode("utf-8")
+            row.update(
+                identical=rendered == recorded,
+                rendered_sha256=hashlib.sha256(rendered).hexdigest(),
+                recorded_sha256=hashlib.sha256(recorded).hexdigest(),
+            )
+        except (Exception, SystemExit) as exc:
+            row.update(identical=False, error=type(exc).__name__ + ": " + str(exc)[:300])
+        rows.append(row)
+    return {"identical": sum(1 for row in rows if row["identical"]), "total": len(rows), "tasks": rows}
+
+
 def preflight(tasks, destination: Path | None = None) -> dict:
     """Every check a run makes before its first model call, on every task. No model calls."""
     rows = []
@@ -302,7 +368,9 @@ def preflight(tasks, destination: Path | None = None) -> dict:
                 failure = "p2p_excluded ids not in the selected p2p: " + json.dumps(stray[:3])
             if failure is None and counts != expected:
                 failure = "grader ids " + json.dumps(counts) + " differ from calibration " + json.dumps(expected)
-            public_issue(prepared)
+            row["prompt"] = prompt_check(task, prepared)
+            if failure is None and row["prompt"]["failure"]:
+                failure = "prompt check failed: " + row["prompt"]["failure"]
             row.update(
                 image=image,
                 python=image_python(clean),
@@ -330,11 +398,15 @@ def preflight(tasks, destination: Path | None = None) -> dict:
         bucket["total"] += 1
         bucket["passed"] += int(row["pass"])
         bucket["tool_smoke_passed"] += int(bool((row.get("tool_smoke") or {}).get("passed")))
+    chars = [row["prompt"]["issue_chars"] for row in rows if row.get("prompt")]
     report = {
         "passed": sum(1 for row in rows if row["pass"]),
         "total": len(rows),
         "tool_smoke_passed": sum(1 for row in rows if (row.get("tool_smoke") or {}).get("passed")),
+        "prompt_passed": sum(1 for row in rows if row.get("prompt") and row["prompt"]["failure"] is None),
+        "issue_chars": {"min": min(chars), "median": statistics.median(chars), "max": max(chars)} if chars else None,
         "by_python": dict(sorted(by_python.items())),
+        "dev_prompts": dev_prompt_check(),
         "tasks": rows,
     }
     destination = destination or ROOT / "runs" / "a5-main-logs" / "preflight.json"
@@ -413,8 +485,10 @@ def main():
         raise SystemExit("no accepted main-pool tasks")
     if args.preflight:
         checked = preflight(tasks)
-        print("preflight", checked["passed"], "of", checked["total"], "passed", flush=True)
-        if checked["passed"] != checked["total"]:
+        dev = checked["dev_prompts"]
+        print("preflight", checked["passed"], "of", checked["total"], "passed;",
+              "dev prompts", dev["identical"], "of", dev["total"], "identical", flush=True)
+        if checked["passed"] != checked["total"] or dev["identical"] != dev["total"]:
             raise SystemExit("preflight failed")
         return
     cards = Path(args.cards) if args.cards else None

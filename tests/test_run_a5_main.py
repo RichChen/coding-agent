@@ -224,8 +224,10 @@ class _Spec:
     baseline_passed = ("b", "c")
 
 
-def _fake_preflight(monkeypatch, *, failure=None, recorded=None, crash=False, excluded=(), selected_p2p=("b", "c"), smoke_ok=True):
+def _fake_preflight(monkeypatch, *, failure=None, recorded=None, crash=False, excluded=(), selected_p2p=("b", "c"), smoke_ok=True, prompt_failure=None):
     smoked = []
+    monkeypatch.setattr(run_a5_main, "prompt_check", lambda task, prepared: {"issue_chars": 5, "failure": prompt_failure})
+    monkeypatch.setattr(run_a5_main, "dev_prompt_check", lambda: {"identical": 14, "total": 14, "tasks": []})
 
     def prerun(task, *, mock):
         assert mock is False
@@ -310,6 +312,69 @@ def test_preflight_records_a_crash_and_keeps_going(tmp_path, monkeypatch):
     report = run_a5_main.preflight([TASK, {**TASK, "id": "other"}], destination=tmp_path / "preflight.json")
     assert (report["passed"], report["total"]) == (0, 2)
     assert report["tasks"][0]["failure"].startswith("SystemExit")
+
+
+def test_preflight_fails_a_task_whose_prompt_check_fails(tmp_path, monkeypatch):
+    smoked = _fake_preflight(monkeypatch, prompt_failure="issue not verbatim")
+    report = run_a5_main.preflight([TASK], destination=tmp_path / "preflight.json")
+    assert report["passed"] == 0 and report["prompt_passed"] == 0
+    assert "issue not verbatim" in report["tasks"][0]["failure"]
+    assert smoked == []
+
+
+def _prompt_files(tmp_path, monkeypatch, issue, private):
+    public_root = tmp_path / "public"
+    public_root.mkdir()
+    (public_root / (TASK["id"] + ".json")).write_text(json.dumps({"issue_text": issue}), encoding="utf-8")
+    issues = tmp_path / "main-issues.json"
+    issues.write_text(json.dumps({"tasks": {TASK["id"]: {"issue_sha256": run_a5_main.issue_sha256(issue)}}}), encoding="utf-8")
+    private_path = tmp_path / "private.json"
+    private_path.write_text(json.dumps(private), encoding="utf-8")
+    monkeypatch.setattr(run_a5_main, "ISSUES", issues)
+    task = {**TASK, "private": str(private_path)}
+    prepared = {**task, "public_task": str(public_root / (TASK["id"] + ".json")), "grader_nodeids": {"f2p": ["t::a"], "p2p": ["t::b"]}}
+    return task, prepared
+
+
+PRIVATE = {"patch": "GOLD", "test_patch": "TESTS", "FAIL_TO_PASS": '["t::a"]', "PASS_TO_PASS": '["t::b"]'}
+
+
+def test_prompt_check_passes_a_verbatim_issue(tmp_path, monkeypatch):
+    issue = "Crash in t::b when x\n"
+    task, prepared = _prompt_files(tmp_path, monkeypatch, issue, PRIVATE)
+    monkeypatch.setattr(run_a5_main, "public_issue", lambda p: "Header\nPublic issue:\n" + issue)
+    row = run_a5_main.prompt_check(task, prepared)
+    assert row["failure"] is None and row["issue_chars"] == len(issue)
+    assert row["ids_in_public_issue"] == ["t::b"]
+
+
+def test_prompt_check_fails_on_private_content_or_placeholder(tmp_path, monkeypatch):
+    task, prepared = _prompt_files(tmp_path, monkeypatch, "real issue", PRIVATE)
+    monkeypatch.setattr(run_a5_main, "public_issue", lambda p: "Run t::a\nPublic issue:\nreal issue GOLD")
+    row = run_a5_main.prompt_check(task, prepared)
+    assert "issue not verbatim" in row["failure"] and "private field in prompt" in row["failure"]
+    monkeypatch.setattr(run_a5_main, "public_issue", lambda p: "Run t::a\nPublic issue:\nreal issue")
+    assert "private id in prompt template" in run_a5_main.prompt_check(task, prepared)["failure"]
+
+
+def test_recorded_user_prompt_reads_the_first_user_message(tmp_path):
+    events = tmp_path / "events.jsonl"
+    rows = [
+        {"event_type": "run.started", "payload": {}},
+        {"event_type": "state.saved", "payload": {"messages": [{"role": "system", "content": "S"}, {"role": "user", "content": "U\r\n"}]}},
+        {"event_type": "state.saved", "payload": {"messages": [{"role": "user", "content": "later"}]}},
+    ]
+    events.write_text("\n".join(json.dumps(row) for row in rows) + "\n", encoding="utf-8")
+    assert run_a5_main.recorded_user_prompt(events) == "U\r\n"
+
+
+def test_preflight_cli_fails_when_a_dev_prompt_differs(monkeypatch):
+    monkeypatch.setattr(run_a5_main, "preflight", lambda tasks: {"passed": 1, "total": 1, "dev_prompts": {"identical": 13, "total": 14}})
+    monkeypatch.setattr(run_a5_main, "accepted_tasks", lambda tasks: [TASK])
+    monkeypatch.setattr(run_a5_main, "load_targets", lambda: [TASK])
+    monkeypatch.setattr("sys.argv", ["run_a5_main.py", "--preflight"])
+    with pytest.raises(SystemExit, match="preflight failed"):
+        run_a5_main.main()
 
 
 def test_out_root_requires_mock(monkeypatch):
