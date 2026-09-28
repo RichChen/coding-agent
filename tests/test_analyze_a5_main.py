@@ -1,4 +1,16 @@
-from scripts.analyze_a5_main import detection_floor_points, prepare, render_report
+import json
+
+import pytest
+
+from scripts.analyze_a5_main import (
+    detection_floor_points,
+    load_a5_main_tree,
+    load_main_b0_handoff,
+    prepare,
+    render_report,
+    short_groups,
+)
+
 
 def _row(task, repo, variant, repeat, solved, status="pass", injected=0, cost=0.1, calls=2, edit=3):
     return {
@@ -82,3 +94,45 @@ def test_infra_error_is_dropped_and_short_groups_are_listed():
     report = render_report(rows)
     assert "broken" in report
     assert "9" not in report.split("## 花费")[1]
+
+
+def test_directory_layout_rejects_mock_and_lists_short_groups(tmp_path):
+    root = tmp_path / "a5-main" / "django__django-90001"
+    for variant, repeats in (("b0", (1, 2)), ("b2", (1, 2, 3))):
+        for repeat in repeats:
+            run = root / variant / f"r{repeat}"
+            run.mkdir(parents=True)
+            summary = {
+                "task_id": "django__django-90001",
+                "solved": False,
+                "status": "pass",
+                "cost_cny": "0.100",
+                "model_calls": 1,
+                "first_edit_step": 2,
+                "memory": None,
+            }
+            (run / "summary.json").write_text(json.dumps(summary), encoding="utf-8")
+    rows = load_a5_main_tree(tmp_path / "a5-main")
+    assert len(rows) == 5
+    assert rows[0]["variant"] == "B0"
+    assert rows[0]["repo"] == "django/django"
+    assert short_groups(rows) == ["django__django-90001 B0 2/3"]
+    assert "django__django-90001 B0 2/3" in render_report(rows)
+    (root / "b2" / "r3" / "summary.json").write_text(json.dumps({"mock": True}), encoding="utf-8")
+    with pytest.raises(ValueError, match="mock_input"):
+        load_a5_main_tree(tmp_path / "a5-main")
+
+
+def test_main_b0_handoff_rejects_mock(tmp_path):
+    path = tmp_path / "main-b0-runs.json"
+    path.write_text(
+        json.dumps({"schema": "sprint6.main-b0-runs.v1", "scope": "step7-mock", "runs": []}),
+        encoding="utf-8",
+    )
+    with pytest.raises(ValueError, match="mock_input"):
+        load_main_b0_handoff(path)
+    path.write_text(
+        json.dumps({"schema": "sprint6.main-b0-runs.v1", "scope": "pool", "runs": []}),
+        encoding="utf-8",
+    )
+    assert load_main_b0_handoff(path)["schema"] == "sprint6.main-b0-runs.v1"

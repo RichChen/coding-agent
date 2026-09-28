@@ -135,8 +135,24 @@ def _metric(rows: list[dict], key: str) -> float | None:
     return _mean(values)
 
 
+def short_groups(rows: list[dict]) -> list[str]:
+    """List B0 or B2 groups that are not three runs. Do not invent the missing ones."""
+    counts: dict[str, dict[str, int]] = defaultdict(lambda: defaultdict(int))
+    for row in rows:
+        if row.get("variant") in {"B0", "B2"}:
+            counts[str(row.get("task_id"))][row["variant"]] += 1
+    notes = []
+    for task_id, groups in sorted(counts.items()):
+        for variant in ("B0", "B2"):
+            count = groups.get(variant, 0)
+            if count != 3:
+                notes.append(f"{task_id} {variant} {count}/3")
+    return notes
+
+
 def render_report(rows: list[dict]) -> str:
     eligible, excluded = prepare(rows)
+    incomplete = short_groups(rows)
     primary = _stats(eligible)
     secondary_tasks = [task for task in eligible if task["injected"]]
     secondary = _stats(secondary_tasks)
@@ -157,6 +173,8 @@ def render_report(rows: list[dict]) -> str:
         )
     lines.extend(["", "## 剔除", ""])
     lines.append("、".join(excluded) if excluded else "无")
+    lines.extend(["", "## 不满 3 次", ""])
+    lines.append("、".join(incomplete) if incomplete else "无")
     lines.extend(
         [
             "",
@@ -213,12 +231,91 @@ def load_rows(path: Path) -> list[dict]:
     return rows
 
 
+def _reject_mock(payload: dict, label: str) -> None:
+    scope = str(payload.get("scope") or "")
+    if scope in {"mock", "step7-mock"} or payload.get("mock") is True:
+        raise ValueError("mock_input:" + label)
+
+
+def _repo_from_task(task_id: str) -> str:
+    if "__" not in task_id:
+        return ""
+    owner, rest = task_id.split("__", 1)
+    name = rest.rsplit("-", 1)[0]
+    return f"{owner}/{name}"
+
+
+def _number(value: object) -> object:
+    if isinstance(value, str):
+        try:
+            return float(value)
+        except ValueError:
+            return value
+    return value
+
+
+def load_a5_main_tree(root: Path) -> list[dict]:
+    """Read runs/a5-main/<task>/<b0|b2>/r<k>/summary.json. Do not fill missing repeats."""
+    if not root.is_dir():
+        raise ValueError("a5_main_root_missing")
+    rows = []
+    for task_dir in sorted(path for path in root.iterdir() if path.is_dir()):
+        for dirname, variant in (("b0", "B0"), ("b2", "B2")):
+            variant_dir = task_dir / dirname
+            if not variant_dir.is_dir():
+                continue
+            for run_dir in sorted(path for path in variant_dir.glob("r*") if path.is_dir()):
+                summary_path = run_dir / "summary.json"
+                if not summary_path.is_file():
+                    continue
+                summary = json.loads(summary_path.read_text(encoding="utf-8"))
+                _reject_mock(summary, summary_path.name)
+                task_id = str(summary.get("task_id") or task_dir.name)
+                rows.append(
+                    {
+                        "task_id": task_id,
+                        "repo": summary.get("repo") or _repo_from_task(task_id),
+                        "variant": summary.get("variant") or variant,
+                        "repeat": summary.get("repeat") or int(run_dir.name[1:]),
+                        "solved": summary.get("solved"),
+                        "status": summary.get("status"),
+                        "cost_cny": _number(summary.get("cost_cny")),
+                        "model_calls": summary.get("model_calls"),
+                        "first_edit_step": summary.get("first_edit_step"),
+                        "memory": summary.get("memory") or {},
+                    }
+                )
+    return rows
+
+
+def load_main_b0_handoff(path: Path) -> dict:
+    data = json.loads(path.read_text(encoding="utf-8"))
+    _reject_mock(data, path.name)
+    if data.get("schema") != "sprint6.main-b0-runs.v1":
+        raise ValueError("unexpected_main_b0_schema")
+    return data
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--runs", type=Path, required=True)
+    parser.add_argument("--runs", type=Path)
+    parser.add_argument("--root", type=Path)
+    parser.add_argument("--b0-handoff", type=Path)
     parser.add_argument("--out", type=Path, required=True)
     args = parser.parse_args()
-    report = render_report(load_rows(args.runs))
+    if args.runs is None and args.root is None:
+        print("STOP need --runs or --root")
+        return 2
+    try:
+        rows = load_rows(args.runs) if args.runs else []
+        if args.root:
+            rows.extend(load_a5_main_tree(args.root))
+        if args.b0_handoff:
+            load_main_b0_handoff(args.b0_handoff)
+    except ValueError as exc:
+        print("STOP", exc)
+        return 2
+    report = render_report(rows)
     args.out.parent.mkdir(parents=True, exist_ok=True)
     args.out.write_text(report, encoding="utf-8")
     print(args.out)
