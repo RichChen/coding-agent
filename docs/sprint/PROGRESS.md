@@ -335,6 +335,8 @@ Verified 里对不上 36 条运行。改用 `princeton-nlp/SWE-bench` 的 test s
 
 2026-09-27 用户把 Docker 数据盘迁到 E 盘之后，60 道都做了镜像和零模型校准。合格 56 道，明细在 `docs/sprint/MAIN-CALIBRATION.md`。环境剔除 4 道，没有换题：django-7530 的 F2P 在空改动下已经通过；sklearn-25232 和 sklearn-25973 的官方 pin `numpy==1.19.2` 没有 Python 3.9 的 wheel，源码也无法用 Cython 3.0.10 编译；sphinx-8721 的 F2P 在空改动下已经通过。
 
+2026-09-28 恢复全文件系统扫描。误报只排除两类：和基础镜像同一路径且 sha256 相同的文件，以及和 pip `RECORD` 中 sha256 相同的文件。有镜像的 58 道全部重扫通过，合格数仍是 56。sklearn-25232 和 25973 没有镜像。每道校准 JSON 的 `nodeids` 记录原始条数、实际条数和丢弃原因。django-7530 重跑后仍是 `empty_f2p_did_not_fail`（空改动和 gold 都是 F2P 1/1、P2P 59/59），没有换题。
+
 ## 第五轮 第 6 步：dev 题 B2 冒烟
 
 日期：2026-09-26。开工前估计 14 次大约 4.9 CNY，加上已经花掉的 0.478，合计大约 5.4 CNY。上限 10 CNY，累计到 9 CNY 就停。
@@ -364,7 +366,9 @@ sklearn-11281 的 `context.prepared` 里能看到 `scikit-learn__scikit-learn-11
 
 日期：2026-09-26。花费：0 CNY。
 
-`scripts/run_a5_main.py` 先跑合格题的 B0 三次，写出交接文件后停下，再跑 B2。并行 3，总上限 150 CNY，单次仍是 1 CNY。合格题已经有 56 道，但运行器调用的 `run_task` 仍要求 dev 题上的 `receipt`、`public_task` 和 `family`，题目池 yaml 里没有这些字段。零模型走查因此没有执行，也没有调用模型。
+`scripts/run_a5_main.py` 先跑合格题的 B0 三次，写出交接文件后停下，再跑 B2。并行 3，总上限 150 CNY，单次仍是 1 CNY。题目池 yaml 没有 `receipt`、`public_task` 和 `family`，走查前在 `runs/` 里补上，再调用原来的 `run_task`。
+
+2026-09-28 用 mock 走完 django-16527、sympy-11618、sklearn-14053 的 B0 → 交接 → B2，各 1 次重复，费用 0。交接文件 `docs/sprint/main-b0-runs.json` 的 `scope` 是 `step7-mock`，不是 R6 交接。sklearn-14053 注入了 10297（771 字节）和 11040（871 字节）。django-16527 过滤后剩 3 张卡，插件给出 `no_relevant_memory`。sympy-11618 过滤后剩的 1 张不是 validated_fix。没有调用真实模型。
 
 ## 第五轮 第 8 步：停下等审计
 

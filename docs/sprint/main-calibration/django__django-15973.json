@@ -21,5 +21,493 @@
   ],
   "p2p_excluded_count": 0,
   "p2p_excluded": [],
-  "sklearn_import": null
+  "sklearn_import": null,
+  "nodeids": {
+    "f2p": {
+      "original": 1,
+      "used": 1
+    },
+    "p2p": {
+      "original": 157,
+      "used": 63
+    },
+    "dropped_reasons": {
+      "f2p": {},
+      "p2p": {
+        "not_a_django_test_id": 94
+      }
+    },
+    "dropped": [
+      {
+        "side": "p2p",
+        "nodeid": "Added fields will be created before using them in index_together.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Fields are altered after deleting some index_together.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Empty index_together shouldn't generate a migration.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "index_together doesn't generate a migration if no changes have been",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "index_together triggers on ordering changes.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Removed fields will be removed after updating index_together.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Fields are renamed before updating index_together.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Setting order_with_respect_to when adding the FK too does",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "#23405 - Adding a NOT NULL and blank `CharField` or `TextField`",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Test change detection of new constraints.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Tests autodetection of new fields.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Added fields will be created before using them in unique_together.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "#22030 - Adding a field with a default should work.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Test change detection of new indexes.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "#22435 - Adding a ManyToManyField should not prompt for a default.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Setting order_with_respect_to when adding the whole model",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Removing a base field takes place before adding a new inherited model",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "#23405 - Adding a NOT NULL and non-blank `CharField` or `TextField`",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Tests unique_together detection.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Tests detection for adding db_table in model's options.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Tests detection for changing db_table in model's options'.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Alter_db_table doesn't generate a migration if no changes have been made.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Tests detection for removing db_table in model's options.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Tests when model and db_table changes, autodetector must create two",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Fields are altered after deleting some unique_together.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "#23609 - Tests autodetection of nullable to non-nullable alterations.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "ForeignKeys are altered _before_ the model they used to",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Changing the model managers adds a new operation.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Changing a model's options should make a change.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Changing a proxy model's options should also make a change.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Tests auto-naming of migrations for graph matching.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Bases of other models come first.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "#23315 - The dependency resolver knows to put all CreateModel",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "#23322 - The dependency resolver knows to explicitly resolve",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Having a circular ForeignKey dependency automatically",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "#23938 - Changing a concrete field into a ManyToManyField",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Test creation of new model with constraints already defined.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Test creation of new model with indexes already defined.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Adding a m2m with a through model and the models that use it should be",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Two instances which deconstruct to the same value aren't considered a",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Tests custom naming of migrations for graph matching.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Field instances are handled correctly by nested deconstruction.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "#22951 -- Uninstantiated classes with deconstruct are correctly returned",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Nested deconstruction descends into dict values.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Nested deconstruction descends into lists.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Nested deconstruction descends into tuples.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Empty unique_together shouldn't generate a migration.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "A dependency to an app with no migrations uses __first__.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Having a ForeignKey automatically adds a dependency.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "#23100 - ForeignKeys correctly depend on other apps' models.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Removing an FK and the model it targets in the same change must remove",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Tests when model changes but db_table stays as-is, autodetector must not",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "A dependency to an app with existing migrations uses the",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "A model with a m2m field that specifies a \"through\" model cannot be",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "#23938 - Changing a ManyToManyField into a concrete field",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Removing a ManyToManyField and the \"through\" model in the same change",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Removing a model that contains a ManyToManyField and the \"through\" model",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Inheriting models doesn't move *_ptr fields into AddField operations.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Nested deconstruction is applied recursively to the args/kwargs of",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Tests autodetection of new models.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "If two models with a ForeignKey from one to the other are removed at the",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Tests deletion of old models.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Test change detection of reordering of fields in indexes.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "A relation used as the primary key is kept as part of CreateModel.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "The autodetector correctly deals with proxy models.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Bases of proxies come first.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "#23415 - The autodetector must correctly deal with custom FK on proxy",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "FK dependencies still work on proxy models.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Removing order_with_respect_to when removing the FK too does",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Test change detection of removed constraints.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Tests autodetection of removed fields.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Removed fields will be removed after updating unique_together.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Test change detection of removed indexes.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Tests autodetection of renamed fields.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Fields are renamed before updating unique_together.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "RenameField is used if a field is renamed and db_column equal to the",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Tests autodetection of renamed models that are used in M2M relations as",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Tests autodetection of renamed models.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Model name is case-insensitive. Changing case doesn't lead to any",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "The migration to rename a model pointed to by a foreign key in another",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "#24537 - The order of fields in a model does not influence",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Tests autodetection of renamed models while simultaneously renaming one",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "#22300 - Adding an FK in the same \"spot\" as a deleted CharField should",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "A migration with a FK between two models of the same app does",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "#22275 - A migration with circular FK dependency does not try",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "A migration with a FK between two models of the same app",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Setting order_with_respect_to adds a field.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Swappable models get their CreateModel first.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Trim does not remove dependencies but does remove unwanted apps.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "unique_together doesn't generate a migration if no",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "unique_together also triggers on ordering changes.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Tests unique_together and field removal detection & ordering",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "The autodetector correctly deals with managed models.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "#23415 - The autodetector must correctly deal with custom FK on",
+        "reason": "not_a_django_test_id"
+      }
+    ]
+  }
 }

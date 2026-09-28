@@ -25,5 +25,38 @@
     "An unknown command raises CommandError",
     "Exception raised in a command should raise CommandError with"
   ],
-  "sklearn_import": null
+  "sklearn_import": null,
+  "nodeids": {
+    "f2p": {
+      "original": 1,
+      "used": 1
+    },
+    "p2p": {
+      "original": 34,
+      "used": 31
+    },
+    "dropped_reasons": {
+      "f2p": {},
+      "p2p": {
+        "not_a_django_test_id": 3
+      }
+    },
+    "dropped": [
+      {
+        "side": "p2p",
+        "nodeid": "BaseCommand.create_parser() passes kwargs to CommandParser.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "An unknown command raises CommandError",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Exception raised in a command should raise CommandError with",
+        "reason": "not_a_django_test_id"
+      }
+    ]
+  }
 }

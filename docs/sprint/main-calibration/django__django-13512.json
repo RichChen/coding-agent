@@ -23,5 +23,28 @@
   "p2p_excluded": [
     "The widget can be overridden with an attribute."
   ],
-  "sklearn_import": null
+  "sklearn_import": null,
+  "nodeids": {
+    "f2p": {
+      "original": 3,
+      "used": 3
+    },
+    "p2p": {
+      "original": 32,
+      "used": 31
+    },
+    "dropped_reasons": {
+      "f2p": {},
+      "p2p": {
+        "not_a_django_test_id": 1
+      }
+    },
+    "dropped": [
+      {
+        "side": "p2p",
+        "nodeid": "The widget can be overridden with an attribute.",
+        "reason": "not_a_django_test_id"
+      }
+    ]
+  }
 }

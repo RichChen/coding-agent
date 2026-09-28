@@ -21,5 +21,38 @@
   ],
   "p2p_excluded_count": 0,
   "p2p_excluded": [],
-  "sklearn_import": null
+  "sklearn_import": null,
+  "nodeids": {
+    "f2p": {
+      "original": 1,
+      "used": 1
+    },
+    "p2p": {
+      "original": 63,
+      "used": 60
+    },
+    "dropped_reasons": {
+      "f2p": {},
+      "p2p": {
+        "unbalanced_brackets": 3
+      }
+    },
+    "dropped": [
+      {
+        "side": "p2p",
+        "nodeid": "testing/test_unittest.py::test_setup_inheritance_skipping[test_setup_skip.py-1",
+        "reason": "unbalanced_brackets"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "testing/test_unittest.py::test_setup_inheritance_skipping[test_setup_skip_class.py-1",
+        "reason": "unbalanced_brackets"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "testing/test_unittest.py::test_setup_inheritance_skipping[test_setup_skip_module.py-1",
+        "reason": "unbalanced_brackets"
+      }
+    ]
+  }
 }

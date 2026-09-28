@@ -23,5 +23,28 @@
   "p2p_excluded": [
     "A m2m can be followed through another m2m."
   ],
-  "sklearn_import": null
+  "sklearn_import": null,
+  "nodeids": {
+    "f2p": {
+      "original": 1,
+      "used": 1
+    },
+    "p2p": {
+      "original": 76,
+      "used": 75
+    },
+    "dropped_reasons": {
+      "f2p": {},
+      "p2p": {
+        "not_a_django_test_id": 1
+      }
+    },
+    "dropped": [
+      {
+        "side": "p2p",
+        "nodeid": "A m2m can be followed through another m2m.",
+        "reason": "not_a_django_test_id"
+      }
+    ]
+  }
 }

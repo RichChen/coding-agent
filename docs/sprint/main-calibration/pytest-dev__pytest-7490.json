@@ -21,5 +21,48 @@
   ],
   "p2p_excluded_count": 0,
   "p2p_excluded": [],
-  "sklearn_import": null
+  "sklearn_import": null,
+  "nodeids": {
+    "f2p": {
+      "original": 2,
+      "used": 2
+    },
+    "p2p": {
+      "original": 78,
+      "used": 73
+    },
+    "dropped_reasons": {
+      "f2p": {},
+      "p2p": {
+        "unbalanced_brackets": 5
+      }
+    },
+    "dropped": [
+      {
+        "side": "p2p",
+        "nodeid": "testing/test_skipping.py::TestXFail::test_xfail_raises[TypeError-TypeError-*1",
+        "reason": "unbalanced_brackets"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "testing/test_skipping.py::TestXFail::test_xfail_raises[(AttributeError,",
+        "reason": "unbalanced_brackets"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "testing/test_skipping.py::TestXFail::test_xfail_raises[TypeError-IndexError-*1",
+        "reason": "unbalanced_brackets"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "testing/test_skipping.py::TestSkipif::test_skipif_reporting[\"hasattr(sys,",
+        "reason": "unbalanced_brackets"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "testing/test_skipping.py::TestSkipif::test_skipif_reporting[True,",
+        "reason": "unbalanced_brackets"
+      }
+    ]
+  }
 }

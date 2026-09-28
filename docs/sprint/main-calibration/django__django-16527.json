@@ -21,5 +21,38 @@
   ],
   "p2p_excluded_count": 0,
   "p2p_excluded": [],
-  "sklearn_import": null
+  "sklearn_import": null,
+  "nodeids": {
+    "f2p": {
+      "original": 1,
+      "used": 1
+    },
+    "p2p": {
+      "original": 6,
+      "used": 3
+    },
+    "dropped_reasons": {
+      "f2p": {},
+      "p2p": {
+        "not_a_django_test_id": 3
+      }
+    },
+    "dropped": [
+      {
+        "side": "p2p",
+        "nodeid": "admin_modify template tags follow the standard search pattern",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "admin_list template tags follow the standard search pattern",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "submit_row template tag should pass whole context.",
+        "reason": "not_a_django_test_id"
+      }
+    ]
+  }
 }

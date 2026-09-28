@@ -20,5 +20,59 @@
     0
   ],
   "p2p_excluded_count": 0,
-  "sklearn_import": null
+  "sklearn_import": null,
+  "nodeids": {
+    "f2p": {
+      "original": 1,
+      "used": 1
+    },
+    "p2p": {
+      "original": 214,
+      "used": 207
+    },
+    "dropped_reasons": {
+      "f2p": {},
+      "p2p": {
+        "unbalanced_brackets": 7
+      }
+    },
+    "dropped": [
+      {
+        "side": "p2p",
+        "nodeid": "sklearn/impute/tests/test_impute.py::test_iterative_imputer_catch_min_max_error[100-0-min_value",
+        "reason": "unbalanced_brackets"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "sklearn/impute/tests/test_impute.py::test_iterative_imputer_catch_min_max_error[inf--inf-min_value",
+        "reason": "unbalanced_brackets"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "sklearn/impute/tests/test_impute.py::test_iterative_imputer_catch_min_max_error[min_value2-max_value2-_value'",
+        "reason": "unbalanced_brackets"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "sklearn/impute/tests/test_impute.py::test_missing_indicator_error[X_fit0-X_trans0-params0-have",
+        "reason": "unbalanced_brackets"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "sklearn/impute/tests/test_impute.py::test_missing_indicator_error[X_fit1-X_trans1-params1-MissingIndicator",
+        "reason": "unbalanced_brackets"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "sklearn/impute/tests/test_impute.py::test_inconsistent_dtype_X_missing_values[NaN-nan-Input",
+        "reason": "unbalanced_brackets"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "sklearn/impute/tests/test_impute.py::test_inconsistent_dtype_X_missing_values[-1--1-types",
+        "reason": "unbalanced_brackets"
+      }
+    ]
+  },
+  "nodeids_note": "\u955c\u50cf\u6ca1\u6709\u5efa\u6210\uff0c\u6761\u6570\u662f\u8fc7\u6ee4\u7ed3\u679c\uff0c\u6ca1\u6709\u9001\u8fdb grader"
 }

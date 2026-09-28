@@ -32,5 +32,73 @@
     "FilePathField(blank=True) includes the empty option.",
     "Check basic URL field validation on model forms"
   ],
-  "sklearn_import": null
+  "sklearn_import": null,
+  "nodeids": {
+    "f2p": {
+      "original": 2,
+      "used": 2
+    },
+    "p2p": {
+      "original": 170,
+      "used": 160
+    },
+    "dropped_reasons": {
+      "f2p": {},
+      "p2p": {
+        "not_a_django_test_id": 10
+      }
+    },
+    "dropped": [
+      {
+        "side": "p2p",
+        "nodeid": "Regression for #13095: Using base forms with widgets defined in Meta should not raise errors.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "A custom formfield_callback is used if provided",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Regression for #15315: modelform_factory should accept widgets",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Regression for #19733",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Data for a ManyToManyField is a list rather than a lazy QuerySet.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Ensure keys and blank character strings are tested for uniqueness.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Test for primary_key being in the form and failing validation.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "ModelForm test of unique_together constraint",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "FilePathField(blank=True) includes the empty option.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Check basic URL field validation on model forms",
+        "reason": "not_a_django_test_id"
+      }
+    ]
+  }
 }

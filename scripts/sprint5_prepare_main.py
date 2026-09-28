@@ -171,7 +171,10 @@ def build_image(task: dict, archive: Path, manifest: dict) -> dict:
         if parts and parts[0] == "sed" and "/" not in parts[-1]:
             rewritten.add(parts[-1])
     source_ok, source_hash = source_only_check(digest, manifest, rewritten)
-    scan = filesystem_scan(digest, archive, manifest, private.get("test_patch") or "", private.get("patch") or "")
+    scan = filesystem_scan(
+        digest, archive, manifest, private.get("test_patch") or "", private.get("patch") or "",
+        base_image=base,
+    )
     row = {
         "task_id": task["id"],
         "clean_image_digest": digest,
@@ -199,29 +202,87 @@ def django_test_lines(nodes: list[str]) -> list[str]:
     return kept
 
 
-def nodeids(task: dict, private: dict, test_paths: list[str]) -> tuple[list[str], list[str]]:
+def nodeid_selection(task: dict, private: dict, test_paths: list[str]) -> tuple[list[str], list[str], dict]:
     family = FAMILY[task["repo"]]
-    f2p = [node for node in parse_id_list(private.get("FAIL_TO_PASS")) if usable_nodeid(node)]
-    p2p = [node for node in parse_id_list(private.get("PASS_TO_PASS")) if usable_nodeid(node)]
+    raw = {
+        "f2p": [node for node in parse_id_list(private.get("FAIL_TO_PASS"))],
+        "p2p": [node for node in parse_id_list(private.get("PASS_TO_PASS"))],
+    }
+    dropped: list[dict] = []
+    kept = {}
+    for side, nodes in raw.items():
+        accepted = []
+        for node in nodes:
+            if not usable_nodeid(node):
+                dropped.append({"side": side, "nodeid": node, "reason": "unusable_nodeid"})
+            else:
+                accepted.append(node)
+        kept[side] = accepted
     if family == "django":
-        f2p, p2p = django_nodeids(django_test_lines(f2p)), django_nodeids(django_test_lines(p2p))
+        for side in ("f2p", "p2p"):
+            matched = django_test_lines(kept[side])
+            matched_set = set(matched)
+            for node in kept[side]:
+                if node not in matched_set and node.splitlines()[0].strip() not in matched_set:
+                    dropped.append({"side": side, "nodeid": node, "reason": "not_a_django_test_id"})
+            kept[side] = django_nodeids(matched)
     if family == "sympy":
         baseline = WORK / task["id"] / "staging" / "baseline"
-        f2p, p2p = prefix_sympy_nodeids(f2p, test_paths, baseline), prefix_sympy_nodeids(p2p, test_paths, baseline)
+        for side in ("f2p", "p2p"):
+            located = prefix_sympy_nodeids(kept[side], test_paths, baseline)
+            located_names = {node.split("::")[-1] for node in located}
+            for node in kept[side]:
+                if "::" not in node and not node.endswith(".py") and node not in located_names:
+                    dropped.append({"side": side, "nodeid": node, "reason": "not_in_touched_test_file"})
+            kept[side] = located
     baseline = WORK / task["id"] / "staging" / "baseline"
 
-    def addressable(node: str) -> bool:
+    def addressable(side: str, node: str) -> bool:
         if node.count("[") != node.count("]") or node.count("(") != node.count(")"):
+            dropped.append({"side": side, "nodeid": node, "reason": "unbalanced_brackets"})
             return False
         bracket = node.find("[")
         if bracket != -1 and "::" in node[bracket:]:
+            dropped.append({"side": side, "nodeid": node, "reason": "parameter_contains_node_separator"})
             return False
         if family in {"django", "sympy"}:
             return True
         file = node.split("::", 1)[0]
-        return not file.endswith(".py") or (baseline / file).is_file()
+        if file.endswith(".py") and not (baseline / file).is_file():
+            dropped.append({"side": side, "nodeid": node, "reason": "test_file_missing"})
+            return False
+        return True
 
-    return [node for node in f2p if addressable(node)], [node for node in p2p if addressable(node)]
+    f2p = [node for node in kept["f2p"] if addressable("f2p", node)]
+    p2p = [node for node in kept["p2p"] if addressable("p2p", node)]
+    reasons = {"f2p": {}, "p2p": {}}
+    for item in dropped:
+        bucket = reasons[item["side"]]
+        bucket[item["reason"]] = bucket.get(item["reason"], 0) + 1
+    report = {
+        "f2p": {"original": len(raw["f2p"]), "used": len(f2p)},
+        "p2p": {"original": len(raw["p2p"]), "used": len(p2p)},
+        "dropped_reasons": reasons,
+        "dropped": dropped,
+    }
+    return f2p, p2p, report
+
+
+def grade_verdict(row: dict) -> tuple[bool, str | None]:
+    """Recompute acceptance from stored counts after an isolation flag changes."""
+    if row.get("sklearn_import") is False:
+        return False, "sklearn_import_failed"
+    empty = row.get("empty_f2p") or [0, 0]
+    gold = row.get("gold_f2p") or [0, 0]
+    empty_fails = empty[1] > 0 and empty[0] < empty[1]
+    gold_ok = gold[1] > 0 and gold[0] == gold[1]
+    if empty_fails and gold_ok:
+        return True, None
+    if not empty_fails and gold_ok:
+        return False, "empty_f2p_did_not_fail"
+    if empty_fails and not gold_ok:
+        return False, "gold_f2p_incomplete"
+    return False, "calibration_failed"
 
 
 def overlay_and_gold(task: dict, archive: Path, manifest: dict, private: dict) -> tuple[dict, dict, list[str]]:
@@ -259,7 +320,7 @@ def overlay_and_gold(task: dict, archive: Path, manifest: dict, private: dict) -
 async def calibrate(task: dict, clean: dict, archive: Path, manifest: dict, private: dict) -> dict:
     family = FAMILY[task["repo"]]
     overlay, gold, test_paths = overlay_and_gold(task, archive, manifest, private)
-    f2p, p2p = nodeids(task, private, test_paths)
+    f2p, p2p, nodeid_report = nodeid_selection(task, private, test_paths)
     image = clean["clean_image_digest"]
     grader = ImageGrader()
     kwargs = dict(
@@ -301,6 +362,7 @@ async def calibrate(task: dict, clean: dict, archive: Path, manifest: dict, priv
         "gold_p2p": [gold_counts["p2p_passed"], gold_counts["p2p_total"]],
         "p2p_excluded_count": len(excluded),
         "p2p_excluded": excluded,
+        "nodeids": nodeid_report,
         "sklearn_import": sklearn_import(image) if family == "scikit-learn" else None,
     }
     if family == "scikit-learn" and not row["sklearn_import"]:
@@ -382,8 +444,62 @@ async def one(task: dict) -> dict:
     return last
 
 
+def rescan(task: dict) -> dict:
+    clean_path = CLEAN / (task["id"] + ".json")
+    if not clean_path.is_file():
+        raise RuntimeError("clean image record missing: " + task["id"])
+    clean = json.loads(clean_path.read_text(encoding="utf-8"))
+    archive = WORK / task["id"] / "source.tar.gz"
+    download_archive(task, archive)
+    manifest = archive_manifest(archive, task["repo"], task["base_commit"])
+    private = json.loads((ROOT / task["private"]).read_text(encoding="utf-8"))
+    scan = filesystem_scan(
+        clean["clean_image_digest"], archive, manifest,
+        private.get("test_patch") or "", private.get("patch") or "",
+        base_image=clean.get("base_image"),
+    )
+    clean["filesystem_scan"] = scan
+    clean["answer_isolation_pass"] = bool(clean.get("source_only_match") and scan.get("pass"))
+    clean_path.write_text(json.dumps(clean, indent=2) + "\n", encoding="utf-8")
+    _overlay, _gold, test_paths = overlay_and_gold(task, archive, manifest, private)
+    _f2p, _p2p, report = nodeid_selection(task, private, test_paths)
+    destination = CAL / (task["id"] + ".json")
+    if destination.is_file():
+        row = json.loads(destination.read_text(encoding="utf-8"))
+        row["nodeids"] = report
+        if not clean["answer_isolation_pass"]:
+            row["accepted"] = False
+            row["reason"] = "answer_isolation_failed"
+        elif row.get("reason") == "answer_isolation_failed":
+            row["accepted"], row["reason"] = grade_verdict(row)
+        destination.write_text(json.dumps(row, indent=2) + "\n", encoding="utf-8")
+    print(json.dumps({
+        "task_id": task["id"],
+        "scan_pass": scan.get("pass"),
+        "hits": scan.get("hit_count"),
+        "base_same": scan.get("base_image_same_count"),
+        "install_same": scan.get("install_record_same_count"),
+        "f2p": report["f2p"],
+        "p2p": report["p2p"],
+    }), flush=True)
+    return clean
+
+
 async def main() -> None:
     tasks = yaml.safe_load((ROOT / "configs/sprint/main-targets.yaml").read_text(encoding="utf-8"))["tasks"]
+    if "--rescan" in sys.argv:
+        sys.argv.remove("--rescan")
+        if len(sys.argv) > 1:
+            wanted = set(sys.argv[1:])
+            tasks = [task for task in tasks if task["id"] in wanted]
+        for index, task in enumerate(tasks, start=1):
+            try:
+                rescan(task)
+            except RuntimeError as exc:
+                print(json.dumps({"task_id": task["id"], "error": str(exc)}), flush=True)
+            write_summary()
+            record_progress(index)
+        return
     if len(sys.argv) > 1:
         wanted = set(sys.argv[1:])
         tasks = [task for task in tasks if task["id"] in wanted]

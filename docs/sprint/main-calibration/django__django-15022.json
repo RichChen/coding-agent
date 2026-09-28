@@ -21,5 +21,165 @@
   ],
   "p2p_excluded_count": 0,
   "p2p_excluded": [],
-  "sklearn_import": null
+  "sklearn_import": null,
+  "nodeids": {
+    "f2p": {
+      "original": 3,
+      "used": 1
+    },
+    "p2p": {
+      "original": 56,
+      "used": 30
+    },
+    "dropped_reasons": {
+      "f2p": {
+        "not_a_django_test_id": 2
+      },
+      "p2p": {
+        "not_a_django_test_id": 26
+      }
+    },
+    "dropped": [
+      {
+        "side": "f2p",
+        "nodeid": "All rows containing each of the searched words are returned, where each",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "f2p",
+        "nodeid": "Searches over multi-valued relationships return rows from related",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "{% get_admin_log %} works if the user model's primary key isn't named",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "{% get_admin_log %} works without specifying a user.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "list_editable edits use a filtered queryset to limit memory usage.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Regression test for #13196: output of functions should be  localized",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "The primary key is used in the ordering of the changelist's results to",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Regression tests for #14206: dynamic list_display support.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Regression tests for #16257: dynamic list_display_links support.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Regression tests for ticket #17646: dynamic list_filter support.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Simultaneous edits of list_editable fields on the changelist by",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Regression test for #13902: When using a ManyToMany in list_filter,",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "When using a ManyToMany in search_fields at the second level behind a",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Regressions tests for #15819: If a field listed in list_filters is a",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Regressions tests for #15819: If a field listed in search_fields",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "When using a ManyToMany in list_filter at the second level behind a",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "If a ManyToManyField is in list_filter but isn't in any lookup params,",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "#15185 -- Allow no links from the 'change list' view grid.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "When ModelAdmin.has_add_permission() returns False, the object-tools",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Regression tests for #12893: Pagination in admins changelist doesn't",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Regression tests for ticket #15653: ensure the number of pages",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Regression test for #14312: list_editable with pagination",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Regression tests for #11791: Inclusion tag result_list generates a",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Regression test for #14982: EMPTY_CHANGELIST_VALUE should be honored",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Inclusion tag result_list generates a table when with default",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Empty value display can be set in ModelAdmin or individual fields.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Empty value display can be set on AdminSite.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Regression test for #10348: ChangeList.get_queryset() shouldn't",
+        "reason": "not_a_django_test_id"
+      }
+    ]
+  }
 }

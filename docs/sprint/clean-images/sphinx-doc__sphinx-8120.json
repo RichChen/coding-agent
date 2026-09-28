@@ -6,8 +6,16 @@
   "image_source_only_hash": "09e5d31aabefbc95e1cd6f8ed5bd8d1e276a2230ebe6b6403dab114f4a701ba5",
   "source_only_match": true,
   "filesystem_scan": {
-    "hits": [],
     "needle_count": 11,
+    "hits": [],
+    "hit_count": 0,
+    "base_image_same": [],
+    "base_image_same_count": 0,
+    "install_record_same": [
+      "/usr/local/lib/python3.9/site-packages/babel/messages/mofile.py",
+      "/usr/local/lib/python3.9/site-packages/babel/messages/pofile.py"
+    ],
+    "install_record_same_count": 2,
     "pass": true
   },
   "answer_isolation_pass": true,

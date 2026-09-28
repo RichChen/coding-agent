@@ -25,5 +25,38 @@
     "#21962 - adding html escape flag to ErrorDict",
     "#5749 - `field_name` may be used as a key in _html_output()."
   ],
-  "sklearn_import": null
+  "sklearn_import": null,
+  "nodeids": {
+    "f2p": {
+      "original": 2,
+      "used": 2
+    },
+    "p2p": {
+      "original": 117,
+      "used": 114
+    },
+    "dropped_reasons": {
+      "f2p": {},
+      "p2p": {
+        "not_a_django_test_id": 3
+      }
+    },
+    "dropped": [
+      {
+        "side": "p2p",
+        "nodeid": "BoundField without any choices (subwidgets) evaluates to True.",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "#21962 - adding html escape flag to ErrorDict",
+        "reason": "not_a_django_test_id"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "#5749 - `field_name` may be used as a key in _html_output().",
+        "reason": "not_a_django_test_id"
+      }
+    ]
+  }
 }

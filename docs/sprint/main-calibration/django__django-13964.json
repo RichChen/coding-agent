@@ -23,5 +23,28 @@
   "p2p_excluded": [
     "Model.save() invalidates stale ForeignKey relations after a primary key"
   ],
-  "sklearn_import": null
+  "sklearn_import": null,
+  "nodeids": {
+    "f2p": {
+      "original": 1,
+      "used": 1
+    },
+    "p2p": {
+      "original": 36,
+      "used": 35
+    },
+    "dropped_reasons": {
+      "f2p": {},
+      "p2p": {
+        "not_a_django_test_id": 1
+      }
+    },
+    "dropped": [
+      {
+        "side": "p2p",
+        "nodeid": "Model.save() invalidates stale ForeignKey relations after a primary key",
+        "reason": "not_a_django_test_id"
+      }
+    ]
+  }
 }
