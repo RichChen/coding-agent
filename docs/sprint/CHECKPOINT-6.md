@@ -402,3 +402,179 @@ Docker 控制重试共 4 次，每次都在第一次重试（等 2 秒）后成�
    按规则，我没有因为这个结果调整题目、profile 或卡片。
 
 停在这里等审计。没有看 B2，也没有开始 B2。coding-agent 侧继续等 `main-b0-runs.json`。
+
+### 修订 3 执行记录：H1–H9、canary 与全量 B0（完成）
+
+**结论：H1–H9 全部完成。预检 56/56，其中 prompt 内容检查 56/56，dev prompt 14/14 逐字节一致。5 道 canary 全部通过。全量 B0 跑完，没有触发任何停止条件，故障警报也没有触发。总解出率 115/168 = 68.5%，高于 10% 的 B2 启动阈值。** 已生成 `docs/sprint/main-b0-runs.json`。按指示停在这里：没有看 B2，也没有开始 B2。
+
+#### 每个 repo 的解出率
+
+| repo | 解出 / 运行 | 解出率 |
+| --- | --- | --- |
+| django | 24 / 33 | 72.7% |
+| pytest | 29 / 36 | 80.6% |
+| scikit-learn | 26 / 30 | 86.7% |
+| sphinx | 20 / 33 | 60.6% |
+| sympy | 16 / 36 | 44.4% |
+| **合计** | **115 / 168** | **68.5%** |
+
+预注册的"低于 B2 启动阈值"条件（总解出率低于 10%）不成立。不含 5 次 canary 时是 110/163。
+
+#### H1–H9 提交与对已完成运行的影响
+
+| 项 | 提交 |
+| --- | --- |
+| 6C-FIX 文档入库 | `047df42` |
+| H1 补齐 issue 文本，materialize 改读 public 文件 | `6a21da4` |
+| H2 静默回退改为报错，加测试 | `2dddb2b` |
+| H3 预检检查 prompt 内容和 dev prompt 一致性 | `b0d25be` |
+| H4 summary 加 `issue_sha256`/`prompt_sha256`，canary 按 repo 选并检查 issue sha | `f1b1f8c` |
+| H5 故障警报 | `dc61377` |
+| H6 候选改动导致的 missing 记普通失败 | `1133112` |
+| H7 作废 38 个运行目录（脚本） | `7d768b9` |
+| H8 120 / 230 元 | `60fd926` |
+| H9 冻结修订 3，tag `a5-main-freeze-r3` | `1707d23` |
+
+以上改动都在修订 3 的第一次运行之前提交。修订 3 之前的 38 个运行目录按 H7 全部作废，所以这些提交不影响任何有效运行。H7 的移动结果：
+
+- 36 个正式槽位、2 个 infra 槽位和 `b0-report.json` 移到了 `runs/a5-main-void/r2-no-issue/`，那里有 README 和 `void-runs.json`；
+- 38 个目录记录的 user prompt 全部是 `Public issue for <id>` 占位；
+- 作废成本 24.055 元，不计入实验。
+
+全量测试 412 passed、199 skipped。
+
+**H2 改为报错的位置**（冻结修订 3 里有同样的表）：
+
+- `run_a5_main.materialize_runner_task`：
+  - 原来的 issue 占位回退，改为读 public 文件；文件缺失、`issue_text` 为空、sha 与 `main-issues.json` 不一致、`repo_ref` 与目标不一致都报错；
+  - 私有文件的 `test_patch`、`patch` 为空时报错。
+- `run_swe_task.public_issue`：
+  - `issue_text` 为空、只有空白或以 `Public issue for ` 开头时报错；
+  - `repo_ref` 缺 `repo_id` 或 `revision` 时报错；
+  - 测试命令按 family 查表，查不到就报错。原来是"不是 django 就用 pytest 命令"。
+- `run_swe_task.run_task` 卡片插件里的两处 issue 回退，改用同一个严格的 `issue_text()`。
+- `run_swe_task.grader_spec`：`test_patch_paths`、`gold_patch_paths` 为空时报错；`grader_timeout_seconds` 不再默认 300，必须给出。
+
+检查过但保留的 `or` 默认值都不在 prompt、任务或 grader 输入上，清单见冻结修订 3。
+
+#### 预检（H3）
+
+`runs/a5-main-logs/preflight.json` 的结果：
+
+- 56/56 通过；
+- 工具冒烟 56/56；
+- prompt 检查 56/56，每道题都原样包含 issue，issue sha 与 `main-issues.json` 一致，不含私有字段；
+- dev prompt 14/14 与 `runs/sprint4-b0-v2/<id>/r1/events.jsonl` 记录的 user prompt 逐字节一致。
+
+56 道合格题的 issue 字符数：最小 190，中位 1498.5，最大 22778。
+
+#### canary
+
+每个 repo 各一道，按 `created_at` 取下中位，跑在 `1707d23` 上，并发 3，共花费 1.733 元。结果在 `runs/a5-main-logs/canary-check.json`。
+
+| repo | 题 | 结果 | 模型调用 | 花费 | harness_tool_errors | Docker 重试 |
+| --- | --- | --- | --- | --- | --- | --- |
+| django | django-13964 | 解出 | 37 | 0.483 | 0 | 1 |
+| pytest | pytest-7205 | 解出 | 37 | 0.529 | 0 | 2 |
+| scikit-learn | sklearn-13142 | 解出 | 7 | 0.066 | 0 | 1 |
+| sphinx | sphinx-8593 | 解出 | 35 | 0.457 | 0 | 1 |
+| sympy | sympy-16766 | 解出 | 21 | 0.198 | 0 | 0 |
+
+5/5 通过全部检查项：
+
+- 原有各项；
+- `harness_tool_errors == 0`；
+- 没有 infra_error；
+- `issue_sha256` 等于 `main-issues.json`，并且有 `prompt_sha256`。
+
+Docker 重试都在第一次重试后成功。
+
+每道 canary issue 的前 200 个字符（原样，`\r\n` 是数据集原文里的换行）：
+
+- django-13964（`d0a164326a7b…`）：`Saving parent object after setting on child leads to data loss for parents with non-numeric primary key.\nDescription\n\t \n\t\t(last modified by Charlie DeTar)\n\t \nGiven a model with a foreign key relation `
+- pytest-7205（`088371cacf19…`）：`BytesWarning when using --setup-show with bytes parameter\nWith Python 3.8.2, pytest 5.4.1 (or latest master; stacktraces are from there) and this file:\r\n\r\n```python\r\nimport pytest\r\n\r\n@pytest.mark.para`
+- sklearn-13142（`09d29f40006e…`）：`GaussianMixture predict and fit_predict disagree when n_init>1\n#### Description\r\nWhen `n_init` is specified in GaussianMixture, the results of fit_predict(X) and predict(X) are often different.  The ``
+- sphinx-8593（`d7a0b222ecda…`）：`autodoc: `:meta public:` does not effect to variables\n**Describe the bug**\r\nautodoc: `:meta public:` does not effect to variables.\r\n\r\n**To Reproduce**\r\n\r\n```\r\n# example.py\r\n_foo = None  #: :meta publi`
+- sympy-16766（`c71bac3070c6…`）：`PythonCodePrinter doesn't support Indexed \nI use `lambdify()` to generate some functions and save the code for further use. But the generated code for `Indexed` operation has some warnings which can b`
+
+#### 全量 B0
+
+`run_a5_main.py --phase b0` 从 01:35 跑到 04:41，续用了 5 个 canary r1。报告如下：
+
+- `started: 163`、`not_started: 0`、`halt_reason: null`；
+- 花费 55.774 元，低于 120 元的 B0 软上限；
+- `main-b0-runs.json` sha（`handoff_sha256`）为 `5c42a406c35a94c80dc7163a061e7383a66609b6c28ebaf7bd0c2fa19f92eb9e`。
+
+统计脚本是 `scripts/sprint6_b0_stats.py`，输出在 `runs/a5-main-logs/b0-stats.json`。
+
+| 项 | 值 |
+| --- | --- |
+| 有效 B0 运行 | 168（56 题 × 3，全部跑满）；另有 2 个 infra 槽位已退役 |
+| 解出 | 115/168 = 68.5%（各 repo 见上表） |
+| 每题 k/3 | 3/3：34 道；2/3：4 道；1/3：5 道；0/3：13 道 |
+| status | pass 115，fail 35，partial 14，delta_lost 4 |
+| 停止原因 | `completed` 121，`max_model_calls` 46，`model_parse_error` 1 |
+| infra_error | 2 次，都已重跑 |
+| Docker 控制重试 | 72 次，全部在第一次重试后成功：rm 31，snapshot 30，start 5，create 3，exec 2，ps 1；run 阶段 53 次，grader 阶段 19 次 |
+| `harness_tool_errors` 合计 | 0 |
+| grader 报 missing | 0 次；`grader_candidate_error` 0 次；grader reason 0 次 |
+| issue sha 与 `main-issues.json` 不一致 | 0 次 |
+| 模型 | 全部是 `deepseek-flash` @ `api.deepseek.com`，没有变化 |
+| 花费 | 55.774 元，平均每次 0.328 元 |
+| 平均模型调用 | 23.6 |
+| 有改动的运行 | 159/168 |
+
+各档题目：
+
+- 0/3 的 13 道：
+  - django-13512、15973；
+  - pytest-5840、7324；
+  - sklearn-12973；
+  - sphinx-10614、7590、9461；
+  - sympy-13091、14248、15599、20428、21596。
+- 1/3 的 5 道：django-15022，sphinx-8120、9258，sympy-19040、23950。
+- 2/3 的 4 道：django-13964，pytest-7490，sklearn-10908，sympy-11618。
+
+**infra_error：**
+
+| 运行 | 情况 |
+| --- | --- |
+| sklearn-14710 r1（第一次） | `container cleanup failed`，退役为 `r1.infra1`，重跑 |
+| sympy-14248 r2（第一次） | `candidate snapshot failed: container_gone_before_snapshot`，退役为 `r2.infra1`，重跑 |
+
+共 2 次，没有达到"满 3 次且超过 10%"的停止线。
+
+**delta_lost 4 次：** django-13964 r2、django-15022 r2、sphinx-8120 r2、pytest-5840 r3。这 4 次都用满了 40 次模型调用，`snapshot_error` 为空。这是原有的分类规则，不是停止条件。我没有逐次核对它们是不是像修订 2 那样属于 `search == replace` 的空编辑。
+
+**单次运行的 CNY 硬上限：** 日志里有一行 `LLM call failed: CNY hard cap would be exceeded`。它来自 sympy-15599 r3：
+
+- 这次运行累计花了 0.937 元，下一次调用的预留会超过账本里每次运行 1.000 元的硬上限，于是调用被拒绝，运行结束；
+- 随后按正常流程送 grader，结果是 fail；
+- summary 的 `stop_reason` 记成了 `model_parse_error`。这个标签不准确，但它属于运行时的分类，我没有改，只在这里记录。
+
+这个每次运行的上限是冻结前就有的设置，不是本轮新加的，也不是停止条件。
+
+#### 核对口径
+
+本轮没有用到"核对口径可以自行修正"的授权，没有任何核对口径改动。
+
+#### 需要审计确认的实现选择
+
+以下几处是我对 6C-FIX 文字的理解，已经写进冻结修订 3：
+
+1. **H3 的"不含私有字段内容"：**
+   - gold patch、test patch、F2P/P2P 原始列表都不能出现在整个 prompt 里；
+   - 单个 F2P/P2P id 不能出现在 prompt 的模板部分（去掉末尾原样 issue 后的部分）；
+   - 有 3 道题的单个 id 本来就出现在数据集的公开 issue 里：sympy-15599 的 `test_Mod`，pytest-5262 和 pytest-7521 的 `[100%]`。这 3 处只记录，不算泄露。
+2. **H6 需要新增一个 grader 诊断字段：**
+   - 原来的 `collection_errors` 是 JSON 字符串，而且只保留前 2048 个字符，最内层的栈帧可能被截掉；
+   - 所以新增了只在宿主机上保存的 `collection_error_tails`（每条 traceback 保留最后 2048 个字符），原有字段不变，也不影响评分；
+   - canary 检查里的"grader reported missing ids"也按 H6 同样放行；
+   - 本轮没有出现任何 missing，所以这条规则没有实际用上。
+3. **H5 的"正式运行"：** 不含 `r<k>.infra<n>` 退役槽位和 `infra_error`，包括 delta_lost。全量 B0 的前几批运行里就已经有解出，警报没有触发。
+4. **H1 的数据集版本：**
+   - 当前环境里没有安装 HF `datasets`，所以用 `huggingface_hub` 下载了固定 revision `c104f840…` 的 parquet，读取后按原规则重新选题；
+   - 60 个 id、顺序、repo 和 base_commit 全部一致，才写文件；
+   - dev 14 题里只有 2 道在 Verified 中，它们的 dev issue 与数据集逐字节相同；另外 12 道不在 Verified 里，但 H3 的 dev prompt 检查 14/14 一致。
+
+B0 已经完成，结果文件已经交接给 coding-agent 侧（`main-b0-runs.json`）。按指示没有看 B2，也没有开始 B2，停在这里等审计。
