@@ -54,10 +54,10 @@ def test_b0_and_b2_share_one_parallel_setting():
     assert run_a5_main.PARALLEL == 3
 
 
-def test_budget_caps_revision_2():
-    from decimal import Decimal
-    assert run_a5_main.PHASE_CAP == {"b0": Decimal("110"), "b2": Decimal("220")}
-    assert run_a5_main.TOTAL_CAP == Decimal("220")
+def test_budget_caps_revision_3():
+    assert run_a5_main.PHASE_CAP == {"b0": Decimal("120"), "b2": Decimal("230")}
+    assert run_a5_main.TOTAL_CAP == Decimal("230")
+    assert run_a5_main.PARALLEL == 3
 
 
 def test_spend_counts_only_the_formal_root(tmp_path):
@@ -201,7 +201,7 @@ def test_model_name_change_halts(tmp_path):
 
 
 def test_b0_soft_cap_halts(tmp_path):
-    _summary(tmp_path, "b0", cost_cny="109.99", **REAL)
+    _summary(tmp_path, "b0", cost_cny="119.99", **REAL)
     assert halt_reason(tmp_path, "b0") is None
     _summary(tmp_path, "b0", slot="r2", cost_cny="0.01", **REAL)
     assert "cap" in halt_reason(tmp_path, "b0")

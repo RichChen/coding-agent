@@ -21,8 +21,8 @@ from scripts.run_swe_task import parse_id_list, prerun_check, public_issue, run_
 from scripts.select_main_targets import ISSUES, PUBLIC_ROOT, issue_sha256  # noqa: E402
 from scripts.sprint5_prepare_main import FAMILY, nodeid_selection  # noqa: E402
 
-TOTAL_CAP = Decimal("220")
-PHASE_CAP = {"b0": Decimal("110"), "b2": TOTAL_CAP}
+TOTAL_CAP = Decimal("230")
+PHASE_CAP = {"b0": Decimal("120"), "b2": TOTAL_CAP}
 PARALLEL = 3
 MAX_INFRA_RERUNS = 2
 INFRA_STOP_RATIO = Decimal("0.10")
