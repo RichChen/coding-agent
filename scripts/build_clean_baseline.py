@@ -6,7 +6,7 @@ import json
 import shutil
 import subprocess
 import sys
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 
 import yaml
 
@@ -196,25 +196,47 @@ def archive_text(archive: Path) -> str:
     return "\n".join(chunks)
 
 
-def exclude_base_image_matches(found: list[dict], base_hashes: dict[str, str | None]) -> tuple[list[dict], list[str]]:
+def repo_packages(manifest: dict) -> set[str]:
+    """Top-level package names of the target project: directories with __init__.py at the root or under src/."""
+    names = set()
+    for path in manifest.get("entries") or {}:
+        parts = PurePosixPath(path).parts
+        if len(parts) == 2 and parts[1] == "__init__.py":
+            names.add(parts[0])
+        elif len(parts) == 3 and parts[0] == "src" and parts[2] == "__init__.py":
+            names.add(parts[1])
+    return names
+
+
+def exclusion_guarded(path: str, packages: set[str]) -> bool:
+    """A hit in /opt/repo or inside a target-project package directory is never excused."""
+    for piece in path.split("!"):
+        if piece == "/opt/repo" or piece.startswith("/opt/repo/"):
+            return True
+        if any(part in packages for part in PurePosixPath(piece).parts[:-1]):
+            return True
+    return False
+
+
+def exclude_base_image_matches(found: list[dict], base_hashes: dict[str, str | None], packages: set[str] = frozenset()) -> tuple[list[dict], list[str]]:
     """Drop a needle hit when the same path in the base image has the same bytes."""
     hits = []
     same = []
     for item in found:
         path = item["path"]
-        if base_hashes.get(path) and base_hashes.get(path) == item["sha256"]:
+        if not exclusion_guarded(path, packages) and base_hashes.get(path) and base_hashes.get(path) == item["sha256"]:
             same.append(path)
         else:
             hits.append(item)
     return hits, sorted(set(same))
 
 
-def exclude_recorded_installs(found: list[dict], recorded_hashes: set[str]) -> tuple[list[str], list[str]]:
+def exclude_recorded_installs(found: list[dict], recorded_hashes: set[str], packages: set[str] = frozenset()) -> tuple[list[str], list[str]]:
     """Drop a hit whose bytes are exactly a file pip recorded at install time."""
     hits = []
     same = []
     for item in found:
-        if item["sha256"] in recorded_hashes:
+        if not exclusion_guarded(item["path"], packages) and item["sha256"] in recorded_hashes:
             same.append(item["path"])
         else:
             hits.append(item["path"])
@@ -280,7 +302,7 @@ print(json.dumps(hashes))
 
 
 def filesystem_scan(digest: str, archive: Path, manifest: dict, test_patch: str, gold_patch: str, python_bin: str = "/usr/local/bin/python", base_image: str | None = None):
-    del manifest
+    packages = repo_packages(manifest)
     blob = archive_text(archive)
     needles = added_lines(test_patch, blob) + added_lines(gold_patch, blob)
     if not needles:
@@ -332,12 +354,12 @@ print(json.dumps({"found": hits}))
     install_same: list[str] = []
     if base_image and found:
         base_hashes = _base_image_hashes(base_image, [item["path"] for item in found], python_bin)
-        remaining, same = exclude_base_image_matches(found, base_hashes)
+        remaining, same = exclude_base_image_matches(found, base_hashes, packages)
     else:
         remaining = list(found)
     if remaining:
         recorded = _recorded_install_hashes(digest, python_bin)
-        hits, install_same = exclude_recorded_installs(remaining, recorded)
+        hits, install_same = exclude_recorded_installs(remaining, recorded, packages)
     else:
         hits = []
     return {
