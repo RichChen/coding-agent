@@ -87,3 +87,107 @@ django-13964 r1 和 sklearn-13142 r1 继续有效。它们跑在 `02c8671` 上�
   - 被排除的 id 都没有进入 grader。
 
 冻结输入的 sha 没有变化，本修订没有改 clean image、校准记录、profile 和 `src/eval`。全量测试 343 passed、199 skipped。
+
+## 修订 2
+
+tag `a5-main-freeze-r2` 指向加入本节的提交。`a5-main-freeze` 和 `a5-main-freeze-r1` 保留不动。依据是 `docs/sprint/HARNESS-SPRINT-6B-FIX.zh-CN.md`（CHECKPOINT-6a 的审计结论）。
+
+### 原因
+
+第一次全量 B0 停止后发现了三类问题：
+
+- 容器里的文件工具和 search_code 用了 `Path.is_relative_to`（3.9 才有）和 `subprocess.run(capture_output=, text=)`（3.7 才有）。在 3.6 和 3.8 的镜像里（17 道题），这些工具每次调用都失败。
+- 并发下的 Docker 控制错误没有重试：两次候选快照因为 `ConnectionResetError` 失败，被当成空补丁评分（`delta_lost`）。
+- 一次 grader 在测试开始之前超时，被记为 `invalid_env`。
+
+### 改动与提交
+
+| 项 | 内容 | 提交 |
+| --- | --- | --- |
+| G1 | 容器内代码兼容 Python 3.6：`is_relative_to` 改成 `relative_to` 加 `try/except ValueError`（越界照样拒绝），`capture_output/text` 改成 `stdout/stderr=PIPE, universal_newlines=True`。改了 `FILE_CODE`、`SEARCH_CODE` 和 B2 dispatcher 的 `RPC`。新测试会自动收集 A5-main 路径上所有送进容器执行的 Python 代码（22 段，包括工具、后端、grader、runner、source-only 比对和重放），做两件事：一是静态扫描 3.7+ 的 API 和语法，二是在 `python:3.6.15-slim-buster` 里对每段跑 `py_compile`，同时在 3.6 里实际执行文件工具和 search_code，确认符号链接逃逸仍然被拒绝。本轮已实跑通过。 | `ef32056` |
+| G2 | `--preflight` 加工具冒烟，零模型调用。每道题先按真实运行的方式启动 clean image（`clean_backend`，和 `run_task` 共用），然后用固定参数依次调用 `list_dir`、`read_file`（仓库根目录的 `setup.py`，没有就取第一个文件）、`search_code`、`run_command`（在 /workspace 建临时文件并打印 Python 版本）、`search_replace`、`edit_file`，最后用 `read_file` 确认两处编辑生效。容器关闭时不导出，也不评分。判失败的情况有两种：`success=False`，或输出里有 Python traceback。 | `074a076` |
+| G3 | Docker 控制调用遇到 `DockerUnavailable`、`ConnectionResetError` 或 `TimeoutError` 时，间隔 2、5、10 秒重试 3 次，每次重试都记进 summary 的 `docker_retries`（阶段、操作、第几次、等待、错误、时间）。重试后仍失败的运行记 `infra_error`，走原来的重跑规则，细则见下文。 | `e4b919a` |
+| G4 | summary 加 `harness_tool_errors`，任何运行大于 0 就停止启动新运行。`scripts/sprint6_canary.py` 负责 canary 的选题和检查。 | `040a7a8` |
+| G5 | `PARALLEL=3`（B0 与 B2 相同），B0 软上限 110 元，`TOTAL_CAP` 220 元 | `d002f27` |
+| G6 | 作废 25 次运行，见下文 | `53600b9`（脚本；文件只移动） |
+
+### G3 细则
+
+- **重试的调用**：凡是经过 `DockerExecutionBackend._ok` 的调用，包括：
+  - `info`、`image inspect`、`create`、`start`、`inspect`；
+  - 启动时的 exec（导入文件、复制仓库、链接 native 产物）；
+  - 候选快照（`export_delta`）；
+  - grader 的启动、APPLY、上传 runner、读取 receipt；
+  - 容器销毁（`rm -f` 和 `ps` 确认）。
+- `create` 重试之前，先 `rm -f` 同名容器，避免第一次其实已经建成导致名字冲突。
+- **不重试的失败**：
+  - 容器里 harness 脚本自己报 traceback，以及 `delta_too_large`。这两种是程序结果，不是 Docker 控制错误，重试也不会变。
+  - agent 工具命令本身的 `docker exec`（`execute()`）。命令可能已经执行了一部分，不能安全地重放。如果这类失败把容器关掉了，候选快照就不存在，按下一条记 `infra_error`，不会按空补丁评分。
+- **agent 阶段记 `infra_error`、不送 grader 的情况**：
+  - StoreError；
+  - 容器启动失败；
+  - 候选快照失败（`snapshot_error` 非空，包括 `container_gone_before_snapshot`）；
+  - 没有候选快照；
+  - 容器销毁失败。
+- **grader 阶段**：
+  - `execution_status` 为 None，也就是在测试执行之前就失败或超时，记 `infra_error`；
+  - 测试开始以后超时，仍是普通失败；
+  - 测试结束以后读 receipt 失败，仍按 grader 崩溃停止。
+- summary 新增 `run_error`、`infra_reason`、`docker_retries`。
+
+### harness_tool_errors 的口径
+
+只统计程序由 harness 提供的工具：`read_file`、`list_dir`、`write_file`、`edit_file`、`search_replace`、`search_code`。计数条件：
+
+- 输出里的 Python traceback 最后一个异常是实现类异常，即 `AttributeError`、`ImportError`、`ModuleNotFoundError`、`SyntaxError`、`IndentationError`、`TabError`、`NameError`、`UnboundLocalError`、`TypeError` 之一；
+- 并且该次调用的参数符合工具 schema（按 `tool.intent` 配对）。
+
+以下情况不计入：`run_command` 的输出（那是 agent 自己的命令）、"file not found"/"path denied"/"search string not found" 这类 `ValueError`/`OSError`，以及参数不合 schema 时的异常。用作废的 25 次运行校验：这个口径算出 109 次，和人工统计的 `is_relative_to` 失败次数一次不差；agent 命令里的 12 个 traceback 都没有计入。
+
+### 作废规则与 25 次运行
+
+**修订 2 之前的全部 B0 运行，不论结果。** `runs/a5-main/` 下的 25 次运行和 `b0-report.json` 已整个移到 `runs/a5-main-void/r1-tool-py36/`，只移动、不删除，那里的 `README.md` 和 `void-runs.json` 列出每次运行的镜像 Python、`harness_tool_errors`、solved、status 和花费。
+
+- 这 25 次运行是：
+  - django 11211、11749、12276、13109、13512、13964、14434 各 r1–r3；
+  - django-15022 r1–r2；
+  - sklearn-13142 r1；
+  - sphinx-8593 r1。
+- 合计 `harness_tool_errors` 109，解出 2 次（django-13964 r2、sklearn-13142 r1），花费 13.682 元。这部分花费不计入 `TOTAL_CAP`。
+- 修订 1 里"继续有效"的 canary（django-13964 r1、sklearn-13142 r1）也在其中，同样作废。
+- 修订 1 的 F4 移到 `runs/a5-main-halted/` 的零花费槽位不受影响。
+
+B0 从空的 `runs/a5-main/` 重新开始。这一轮没有生成过 `docs/sprint/main-b0-runs.json`。
+
+### 运行参数（修订 2）
+
+| 参数 | 值 |
+|------|----|
+| `PARALLEL` | 3（B0 与 B2 相同） |
+| `TOTAL_CAP` | 220 元，只统计 `runs/a5-main/` 下的花费，作废运行不计 |
+| B0 软上限 | 110 元 |
+| `MAX_INFRA_RERUNS` | 2 |
+| infra_error 停止线 | ≥ 3 并且超过已完成运行的 10% |
+| 新停止条件 | 任何运行 `harness_tool_errors > 0` |
+| Docker 控制重试 | 3 次，间隔 2、5、10 秒 |
+
+### 预检结果
+
+`run_a5_main.py --preflight`（`runs/a5-main-logs/preflight.json`）：56/56 通过，其中工具冒烟 56/56。
+
+| 镜像 Python | 通过 / 总数 | 工具冒烟 | 容器里实际的版本 |
+| --- | --- | --- | --- |
+| 3.6 | 15 / 15 | 15 / 15 | 3.6.15 |
+| 3.8 | 2 / 2 | 2 / 2 | 3.8.20 |
+| 3.9 | 38 / 38 | 38 / 38 | 3.9.25 |
+| 3.11 | 1 / 1 | 1 / 1 | 3.11.16 |
+
+所有冒烟容器都确认已清理。冻结输入的 sha、clean image、校准记录、`rewritten-expected`（tree 仍是 `dab524dfff1c46344e1a3ec524b66048739c140e`）和 profile 都没有变化。
+
+### canary 选题
+
+每个镜像 Python 版本各一道，按 `created_at` 排序取下中位：3.6 取 sklearn-14053，3.8 取 django-13964，3.9 取 pytest-7490，3.11 取 django-16527。检查项包括：
+
+- 第 1 步原有各项；
+- `harness_tool_errors == 0`；
+- 没有 infra_error（因此也没有 Docker 控制类 infra_error）。
