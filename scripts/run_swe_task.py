@@ -16,6 +16,7 @@ import sys
 from datetime import datetime
 from decimal import Decimal
 from pathlib import Path
+from urllib.parse import urlparse
 
 import yaml
 
@@ -556,7 +557,7 @@ async def run_task(task: dict, profile: Path, output: Path, *, mock: bool, varia
     receipt = load_json(ROOT / task["receipt"])
     image, clean = resolve_image(task, receipt, legacy_image=legacy_image, mock=mock)
     if clean is not None and not clean.get("answer_isolation_pass"):
-        return _isolation_stop(task, variant, "clean image failed the filesystem scan", mock=mock, profile=profile)
+        return _isolation_stop(task, variant, "clean image failed the filesystem scan", mock=mock, profile=profile, output=output)
     if clean is not None:
         from scripts.build_clean_baseline import source_only_check
         from src.eval.a5_image_tree import archive_manifest
@@ -564,7 +565,7 @@ async def run_task(task: dict, profile: Path, output: Path, *, mock: bool, varia
         manifest = archive_manifest(archive, task["repo"], receipt["base_revision"])
         matched, _hash = source_only_check(image, manifest)
         if not matched:
-            return _isolation_stop(task, variant, "opt/repo source-only hash mismatch", mock=mock, profile=profile)
+            return _isolation_stop(task, variant, "opt/repo source-only hash mismatch", mock=mock, profile=profile, output=output)
     backend = BaselineImageBackend(
         image=image,
         context="desktop-linux",
@@ -618,6 +619,7 @@ async def run_task(task: dict, profile: Path, output: Path, *, mock: bool, varia
     agent = build_agent(config, workspace, execution_backend=backend, plugin_registry=registry)
     if mock:
         agent.llm = _MockLLM()
+    requested_model = model_identity(agent.llm)
     ledger = make_ledger(output / "cny-ledger.json")
     before = ledger.cost_committed
     calls_before = ledger.calls_started
@@ -675,14 +677,26 @@ async def run_task(task: dict, profile: Path, output: Path, *, mock: bool, varia
     if lost:
         print(f"DELTA_LOST {task['id']}: edit tools ran but the collected delta is empty. snapshot_error={snapshot_error}", flush=True)
     model_calls = len(attempts) if attempts else max(0, ledger.calls_started - calls_before)
+    model = dict(requested_model)
+    final_model = model_identity(agent.llm)
+    if final_model != requested_model:
+        model["changed_to"] = final_model
+    cases = evaluation.get("cases") or []
     summary = {
         "task_id": task["id"],
         "variant": variant,
         "mock": mock,
         "profile": profile.stem,
+        "model": model,
         "solved": False if lost or infra else bool(evaluation.get("solved")),
         "status": "infra_error" if infra else ("delta_lost" if lost else evaluation.get("status")),
         "grader_status": evaluation.get("status"),
+        "grader_ids": {
+            "f2p": len(f2p),
+            "p2p": len(spec.baseline_passed),
+            "missing": sum(1 for case in cases if case.get("outcome") == "missing"),
+            "reason": evaluation.get("reason"),
+        },
         "changed_files": changed,
         "first_edit_step": stats["first_edit_step"],
         "model_calls": model_calls,
@@ -704,7 +718,13 @@ async def run_task(task: dict, profile: Path, output: Path, *, mock: bool, varia
     return summary
 
 
-def _isolation_stop(task: dict, variant: str, reason: str, *, mock: bool, profile: Path) -> dict:
+def model_identity(llm) -> dict:
+    """Requested model name and base_url host. The key is never read here."""
+    base_url = getattr(llm, "base_url", None) or ""
+    return {"name": getattr(llm, "model", None), "base_url_host": urlparse(base_url).hostname if base_url else None}
+
+
+def _isolation_stop(task: dict, variant: str, reason: str, *, mock: bool, profile: Path, output: Path) -> dict:
     summary = {
         "task_id": task["id"],
         "variant": variant,
@@ -718,6 +738,7 @@ def _isolation_stop(task: dict, variant: str, reason: str, *, mock: bool, profil
         "stop_reason": reason,
     }
     print("ANSWER_ISOLATION_FAILED " + task["id"] + " " + reason, flush=True)
+    (output / "summary.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")
     return summary
 
 

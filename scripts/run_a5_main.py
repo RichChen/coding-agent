@@ -18,7 +18,10 @@ from scripts.run_swe_task import run_task  # noqa: E402
 from scripts.sprint5_prepare_main import FAMILY, nodeid_selection  # noqa: E402
 
 TOTAL_CAP = Decimal("150")
-PARALLEL = 3
+PHASE_CAP = {"b0": Decimal("80"), "b2": TOTAL_CAP}
+PARALLEL = 4
+MAX_INFRA_RERUNS = 2
+INFRA_STOP_RATIO = Decimal("0.10")
 PROFILE = ROOT / "configs/sprint/b0-v2.yaml"
 
 
@@ -70,41 +73,126 @@ def spent(root: Path) -> Decimal:
     return total
 
 
+def infra_attempts(output: Path) -> int:
+    return sum(1 for path in output.parent.glob(output.name + ".infra*") if path.is_dir())
+
+
+def retire_infra(output: Path) -> bool:
+    """Move an infra_error run to r<k>.infra<n> so the slot can run again. False once the reruns are used up."""
+    used = infra_attempts(output)
+    if used >= MAX_INFRA_RERUNS:
+        return False
+    output.rename(output.with_name(output.name + ".infra" + str(used + 1)))
+    return True
+
+
+def phase_summaries(out_root: Path, phase: str) -> list[dict]:
+    """Every attempt of a phase, including retired infra_error runs."""
+    rows = []
+    if not out_root.exists():
+        return rows
+    for path in sorted(out_root.glob("*/" + phase + "/r*/summary.json")):
+        rows.append(json.loads(path.read_text(encoding="utf-8")))
+    return rows
+
+
+def halt_reason(out_root: Path, phase: str) -> str | None:
+    """Stop conditions checked before every new run. In-flight runs still finish."""
+    rows = phase_summaries(out_root, phase)
+    infra = sum(1 for row in rows if row.get("status") == "infra_error")
+    if rows and Decimal(infra) > INFRA_STOP_RATIO * len(rows):
+        return "infra_error " + str(infra) + " of " + str(len(rows)) + " completed runs"
+    for row in rows:
+        if row.get("answer_isolation_pass") is False or row.get("status") == "answer_isolation_failed":
+            return "answer isolation failed: " + str(row.get("task_id")) + " " + str(row.get("stop_reason"))
+        if row.get("status") == "infra_error":
+            continue
+        ids = row.get("grader_ids") or {}
+        if ids.get("missing"):
+            return "grader reported missing ids: " + str(row.get("task_id"))
+        if ids.get("reason") or row.get("grader_status") == "invalid_env":
+            return "grader crashed: " + str(row.get("task_id")) + " " + str(ids.get("reason"))
+    names = set()
+    for row in phase_summaries(out_root, "b0") + (phase_summaries(out_root, "b2") if phase != "b0" else []):
+        model = row.get("model") or {}
+        if model.get("changed_to"):
+            return "model changed during a run: " + str(row.get("task_id"))
+        if model.get("name"):
+            names.add(model["name"])
+    if len(names) > 1:
+        return "model name changed between runs: " + ", ".join(sorted(names))
+    cost = spent(out_root)
+    if cost >= PHASE_CAP[phase]:
+        return "spend " + str(cost) + " CNY reached the " + phase + " cap " + str(PHASE_CAP[phase])
+    return None
+
+
 async def run_phase(tasks, phase: str, *, cards: Path | None, mock: bool, repeats: int, out_root: Path | None = None):
     out_root = out_root or out_root_for(mock)
     profile = PROFILE
     variant = "B0" if phase == "b0" else "B2"
     pending = []
     refused = []
+    kept_infra = []
     for task in tasks:
         for repeat in range(1, repeats + 1):
             output = out_root / task["id"] / phase / ("r" + str(repeat))
             summary_path = output / "summary.json"
             if summary_path.is_file():
-                problem = resumable(json.loads(summary_path.read_text(encoding="utf-8")), phase=phase, mock=mock)
+                summary = json.loads(summary_path.read_text(encoding="utf-8"))
+                problem = resumable(summary, phase=phase, mock=mock)
                 if problem:
                     refused.append(str(summary_path) + ": " + problem)
+                    continue
+                if summary.get("status") != "infra_error":
+                    continue
+                if not retire_infra(output):
+                    kept_infra.append(_display_path(output))
+                    continue
+            elif output.exists():
+                refused.append(str(output) + ": directory has no summary.json (an interrupted run)")
                 continue
             pending.append((task, output))
     if refused:
         raise SystemExit("existing summaries do not belong to this phase; not overwriting:\n" + "\n".join(refused))
-    if spent(out_root) >= TOTAL_CAP:
-        raise SystemExit("CNY total cap reached before this phase")
+    state = {"halt": halt_reason(out_root, phase)}
     semaphore = asyncio.Semaphore(PARALLEL)
 
     async def one(task, output):
-        if spent(out_root) >= TOTAL_CAP:
-            return None
         async with semaphore:
-            if spent(out_root) >= TOTAL_CAP:
-                return None
-            output.mkdir(parents=True, exist_ok=True)
-            return await run_task(
-                materialize_runner_task(task), profile, output, mock=mock, variant=variant, cards_path=cards,
-            )
+            while True:
+                if state["halt"]:
+                    return None
+                output.mkdir(parents=True, exist_ok=True)
+                try:
+                    summary = await run_task(
+                        materialize_runner_task(task), profile, output, mock=mock, variant=variant, cards_path=cards,
+                    )
+                except (Exception, SystemExit) as exc:
+                    state["halt"] = state["halt"] or ("run crashed: " + task["id"] + " " + type(exc).__name__ + ": " + str(exc)[:300])
+                    return None
+                state["halt"] = state["halt"] or halt_reason(out_root, phase)
+                if summary.get("status") != "infra_error":
+                    return summary
+                if state["halt"] or not retire_infra(output):
+                    kept_infra.append(_display_path(output))
+                    return summary
 
     results = await asyncio.gather(*(one(task, output) for task, output in pending))
-    return [item for item in results if item is not None]
+    report = {
+        "phase": phase,
+        "mock": mock,
+        "parallel": PARALLEL,
+        "halt_reason": state["halt"],
+        "started": sum(1 for item in results if item is not None),
+        "not_started": sum(1 for item in results if item is None),
+        "infra_kept": sorted(set(kept_infra)),
+        "infra_retired": sorted(_display_path(path) for path in out_root.glob("*/" + phase + "/r*.infra*")),
+        "spent_cny": str(spent(out_root)),
+    }
+    out_root.mkdir(parents=True, exist_ok=True)
+    (out_root / (phase + "-report.json")).write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+    return report
 
 
 def materialize_runner_task(task: dict) -> dict:
@@ -227,8 +315,11 @@ def main():
     cards = Path(args.cards) if args.cards else None
     if cards is not None and not cards.is_absolute():
         cards = ROOT / cards
-    asyncio.run(run_phase(tasks, args.phase, cards=cards, mock=args.mock, repeats=args.repeats))
-    if args.phase == "b0":
+    report = asyncio.run(run_phase(tasks, args.phase, cards=cards, mock=args.mock, repeats=args.repeats))
+    print(json.dumps(report, indent=2), flush=True)
+    if report["halt_reason"]:
+        raise SystemExit("stopped: " + report["halt_reason"])
+    if args.phase == "b0" and not args.task:
         write_b0_handoff(mock=args.mock)
         print("B0 finished. Stop for card building.", flush=True)
 
