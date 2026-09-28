@@ -14,12 +14,25 @@
         "sed -i 's/sphinxcontrib-htmlhelp/sphinxcontrib-htmlhelp<=2.0.4/' setup.py",
         "sed -i 's/sphinxcontrib-serializinghtml/sphinxcontrib-serializinghtml<=1.1.9/' setup.py"
       ],
+      "rules": [
+        "plain_sed",
+        "plain_sed",
+        "plain_sed",
+        "plain_sed",
+        "plain_sed",
+        "plain_sed",
+        "plain_sed",
+        "plain_sed"
+      ],
       "original_sha256": "405f72902a7781362504cf53d6d34a266a232f046b5f95ba2f3e8d07cfc8656d",
       "expected_sha256": "dfaf0d4db02c48e4dcdc2d56779245c4196614a0d371f65572a9db4e1d8f993a"
     },
     "tox.ini": {
       "commands": [
         "sed -i 's/pytest/pytest -rA/' tox.ini"
+      ],
+      "rules": [
+        "plain_sed"
       ],
       "original_sha256": "f7b15f4e599bddbc6aada7fafd8e6bc218eea596c32744fd726a3534ddce41e2",
       "expected_sha256": "603120646e1be82dc5ca166e8d8c1a4039adfb09e5953a2e48c7e90d237ae6a7"

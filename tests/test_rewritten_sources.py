@@ -7,7 +7,7 @@ import pytest
 
 import scripts.build_clean_baseline as clean_baseline
 from scripts.build_clean_baseline import source_only_check
-from scripts.rewritten_sources import load_overrides, sed_rewrites
+from scripts.rewritten_sources import load_overrides, rewrite_target, sed_rewrites
 
 SPEC = {"pre_install": [
     "sed -i 's/pytest/pytest -rA/' tox.ini",
@@ -59,6 +59,35 @@ def test_sed_rewrites_groups_commands_per_file_in_order():
     }
 
 
+GUARDED = (
+    "grep -q 'sphinxcontrib-htmlhelp>=2.0.0' setup.py && "
+    "sed -i 's/sphinxcontrib-htmlhelp>=2.0.0/sphinxcontrib-htmlhelp>=2.0.0,<=2.0.4/' setup.py || "
+    "sed -i 's/sphinxcontrib-htmlhelp/sphinxcontrib-htmlhelp<=2.0.4/' setup.py"
+)
+
+
+def test_guarded_sed_is_a_rewrite():
+    assert rewrite_target(GUARDED) == ("setup.py", "guarded_sed")
+    assert rewrite_target("sed -i 's/a/b/' setup.py") == ("setup.py", "plain_sed")
+    spec = {"pre_install": [SPEC["pre_install"][1], GUARDED]}
+    assert sed_rewrites(spec) == {"setup.py": [SPEC["pre_install"][1], GUARDED]}
+
+
+@pytest.mark.parametrize("command", [
+    "sed -i 's/a/b/' setup.py && pip install -e .",
+    "sed -i 's/a/b/' setup.py && python -m pip install tox",
+    "grep -q a setup.py && sed -i 's/a/b/' setup.cfg",
+    "sed -i 's/a/b/' setup.py || sed -i 's/a/b/' tox.ini",
+    "grep -q a setup.py && grep -q b setup.py",
+    "grep -q a pkg/setup.py && sed -i 's/a/b/' pkg/setup.py",
+    "grep a setup.py && sed -i 's/a/b/' setup.py",
+    "apt-get update && apt-get install -y graphviz",
+])
+def test_mixed_or_other_commands_are_not_rewrites(command):
+    assert rewrite_target(command) is None
+    assert sed_rewrites({"pre_install": [command]}) == {}
+
+
 def test_override_file_with_expected_content_passes(repo):
     ok, value = source_only_check("image", manifest(), {"setup.py": sha(REWRITTEN)})
     assert ok and value == "tree"
@@ -88,8 +117,11 @@ def test_override_for_unknown_file_is_refused(repo):
 
 def record(tmp_path, **changes):
     files = {
-        "setup.py": {"commands": SPEC["pre_install"][1:3], "original_sha256": sha(ORIGINAL), "expected_sha256": sha(REWRITTEN)},
-        "tox.ini": {"commands": SPEC["pre_install"][:1], "original_sha256": None, "expected_sha256": "t"},
+        "setup.py": {
+            "commands": SPEC["pre_install"][1:3], "rules": ["plain_sed", "plain_sed"],
+            "original_sha256": sha(ORIGINAL), "expected_sha256": sha(REWRITTEN),
+        },
+        "tox.ini": {"commands": SPEC["pre_install"][:1], "rules": ["plain_sed"], "original_sha256": None, "expected_sha256": "t"},
     }
     for name, item in changes.items():
         files[name].update(item)
@@ -105,6 +137,12 @@ def test_load_overrides_reads_the_record(tmp_path):
 def test_load_overrides_refuses_other_commands(tmp_path):
     folder = record(tmp_path, **{"setup.py": {"commands": SPEC["pre_install"][1:2]}})
     with pytest.raises(SystemExit, match="commands"):
+        load_overrides("task", SPEC, manifest(), folder=folder)
+
+
+def test_load_overrides_refuses_other_rules(tmp_path):
+    folder = record(tmp_path, **{"setup.py": {"rules": ["plain_sed", "guarded_sed"]}})
+    with pytest.raises(SystemExit, match="rules"):
         load_overrides("task", SPEC, manifest(), folder=folder)
 
 

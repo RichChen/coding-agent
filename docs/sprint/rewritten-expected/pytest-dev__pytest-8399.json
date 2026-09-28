@@ -7,6 +7,9 @@
       "commands": [
         "sed -i 's/>=>=/>=/' setup.cfg"
       ],
+      "rules": [
+        "plain_sed"
+      ],
       "original_sha256": "0ce27f2d4498b3bb6676c423f3b7f1001150d6c961f0a6ad61b8e6413456ad4b",
       "expected_sha256": "0ce27f2d4498b3bb6676c423f3b7f1001150d6c961f0a6ad61b8e6413456ad4b"
     }

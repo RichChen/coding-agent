@@ -7,6 +7,7 @@ from __future__ import annotations
 import base64
 import hashlib
 import json
+import re
 import subprocess
 import tarfile
 from pathlib import Path
@@ -32,13 +33,41 @@ print(json.dumps(out))
 '''
 
 
+def rewrite_target(command: str) -> tuple[str, str] | None:
+    """(file, rule) when a pre_install command only rewrites one top-level repo file, else None.
+
+    plain_sed: a single `sed ... <file>`.
+    guarded_sed: `&&`/`||` segments that are each `sed -i ... <file>` or `grep -q ... <file>`, all on the same file.
+    Anything else is not a rewrite, so a repo file it changes still fails the comparison.
+    """
+    segments = [segment.split() for segment in re.split(r"\s+(?:&&|\|\|)\s+", str(command).strip())]
+    if len(segments) == 1:
+        words = segments[0]
+        if words and words[0] == "sed" and "/" not in words[-1]:
+            return words[-1], "plain_sed"
+        return None
+    targets = set()
+    has_sed = False
+    for words in segments:
+        if len(words) < 3 or words[:2] not in (["sed", "-i"], ["grep", "-q"]):
+            return None
+        has_sed = has_sed or words[0] == "sed"
+        targets.add(words[-1])
+    if not has_sed or len(targets) != 1:
+        return None
+    target = targets.pop()
+    if "/" in target:
+        return None
+    return target, "guarded_sed"
+
+
 def sed_rewrites(spec: dict) -> dict[str, list[str]]:
-    """File -> the sed commands that rewrite it, in pre_install order."""
+    """File -> the commands that rewrite it, in pre_install order."""
     rewrites: dict[str, list[str]] = {}
     for command in spec.get("pre_install") or []:
-        parts = str(command).split()
-        if parts and parts[0] == "sed" and "/" not in parts[-1]:
-            rewrites.setdefault(parts[-1], []).append(str(command))
+        found = rewrite_target(command)
+        if found:
+            rewrites.setdefault(found[0], []).append(str(command))
     return rewrites
 
 
@@ -81,6 +110,7 @@ def write_expected(task: dict, spec: dict, digest: str, archive: Path) -> Path |
         "files": {
             name: {
                 "commands": rewrites[name],
+                "rules": [rewrite_target(command)[1] for command in rewrites[name]],
                 "original_sha256": hashlib.sha256(originals[name]).hexdigest(),
                 "expected_sha256": expected[name],
             }
@@ -109,6 +139,8 @@ def load_overrides(task_id: str, spec: dict, manifest: dict, folder: Path | None
     for name, item in files.items():
         if item.get("commands") != rewrites[name]:
             raise SystemExit("rewritten-expected commands for " + task_id + " " + name + " differ from pre_install")
+        if item.get("rules") != [rewrite_target(command)[1] for command in rewrites[name]]:
+            raise SystemExit("rewritten-expected rules for " + task_id + " " + name + " differ from pre_install")
         original = (manifest["entries"].get(name) or {}).get("sha256")
         if item.get("original_sha256") != original:
             raise SystemExit("rewritten-expected original sha for " + task_id + " " + name + " differs from the archive")
