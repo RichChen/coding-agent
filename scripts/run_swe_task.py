@@ -500,7 +500,7 @@ async def run_task(task: dict, profile: Path, output: Path, *, mock: bool, varia
     receipt = load_json(ROOT / task["receipt"])
     image, clean = resolve_image(task, receipt, legacy_image=legacy_image, mock=mock)
     if clean is not None and not clean.get("answer_isolation_pass"):
-        return _isolation_stop(task, variant, "clean image failed the filesystem scan")
+        return _isolation_stop(task, variant, "clean image failed the filesystem scan", mock=mock, profile=profile)
     if clean is not None:
         from scripts.build_clean_baseline import source_only_check
         from src.eval.a5_image_tree import archive_manifest
@@ -508,7 +508,7 @@ async def run_task(task: dict, profile: Path, output: Path, *, mock: bool, varia
         manifest = archive_manifest(archive, task["repo"], receipt["base_revision"])
         matched, _hash = source_only_check(image, manifest)
         if not matched:
-            return _isolation_stop(task, variant, "opt/repo source-only hash mismatch")
+            return _isolation_stop(task, variant, "opt/repo source-only hash mismatch", mock=mock, profile=profile)
     backend = BaselineImageBackend(
         image=image,
         context="desktop-linux",
@@ -626,6 +626,8 @@ async def run_task(task: dict, profile: Path, output: Path, *, mock: bool, varia
     summary = {
         "task_id": task["id"],
         "variant": variant,
+        "mock": mock,
+        "profile": profile.stem,
         "solved": False if lost or infra else bool(evaluation.get("solved")),
         "status": "infra_error" if infra else ("delta_lost" if lost else evaluation.get("status")),
         "grader_status": evaluation.get("status"),
@@ -650,10 +652,12 @@ async def run_task(task: dict, profile: Path, output: Path, *, mock: bool, varia
     return summary
 
 
-def _isolation_stop(task: dict, variant: str, reason: str) -> dict:
+def _isolation_stop(task: dict, variant: str, reason: str, *, mock: bool, profile: Path) -> dict:
     summary = {
         "task_id": task["id"],
         "variant": variant,
+        "mock": mock,
+        "profile": profile.stem,
         "solved": False,
         "status": "answer_isolation_failed",
         "model_calls": 0,

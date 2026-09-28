@@ -19,6 +19,28 @@ from scripts.sprint5_prepare_main import FAMILY  # noqa: E402
 
 TOTAL_CAP = Decimal("150")
 PARALLEL = 3
+PROFILE = ROOT / "configs/sprint/b0-v2.yaml"
+
+
+def out_root_for(mock: bool) -> Path:
+    return ROOT / "runs" / ("a5-main-mock" if mock else "a5-main")
+
+
+def handoff_path_for(mock: bool) -> Path:
+    return ROOT / "docs" / "sprint" / ("main-b0-runs.mock.json" if mock else "main-b0-runs.json")
+
+
+def resumable(summary: dict, *, phase: str, mock: bool) -> str | None:
+    """Return why an existing summary cannot count for this phase, or None."""
+    if "mock" not in summary or "profile" not in summary:
+        return "summary has no mock/profile field"
+    if bool(summary["mock"]) != mock:
+        return "summary is a mock run" if summary["mock"] else "summary is a real run"
+    if summary["profile"] != PROFILE.stem:
+        return "profile is " + str(summary["profile"])
+    if summary.get("variant") != phase.upper():
+        return "variant is " + str(summary.get("variant"))
+    return None
 
 
 def load_targets():
@@ -48,17 +70,24 @@ def spent(root: Path) -> Decimal:
     return total
 
 
-async def run_phase(tasks, phase: str, *, cards: Path | None, mock: bool, repeats: int):
-    out_root = ROOT / "runs" / "a5-main"
-    profile = ROOT / "configs/sprint/b0-v2.yaml"
+async def run_phase(tasks, phase: str, *, cards: Path | None, mock: bool, repeats: int, out_root: Path | None = None):
+    out_root = out_root or out_root_for(mock)
+    profile = PROFILE
     variant = "B0" if phase == "b0" else "B2"
     pending = []
+    refused = []
     for task in tasks:
         for repeat in range(1, repeats + 1):
             output = out_root / task["id"] / phase / ("r" + str(repeat))
-            if (output / "summary.json").is_file():
+            summary_path = output / "summary.json"
+            if summary_path.is_file():
+                problem = resumable(json.loads(summary_path.read_text(encoding="utf-8")), phase=phase, mock=mock)
+                if problem:
+                    refused.append(str(summary_path) + ": " + problem)
                 continue
             pending.append((task, output))
+    if refused:
+        raise SystemExit("existing summaries do not belong to this phase; not overwriting:\n" + "\n".join(refused))
     if spent(out_root) >= TOTAL_CAP:
         raise SystemExit("CNY total cap reached before this phase")
     semaphore = asyncio.Semaphore(PARALLEL)
@@ -125,15 +154,18 @@ def materialize_runner_task(task: dict) -> dict:
     return prepared
 
 
-def write_b0_handoff(*, mock: bool = False):
-    out_root = ROOT / "runs" / "a5-main"
+def write_b0_handoff(*, mock: bool = False, out_root: Path | None = None, destination: Path | None = None, tasks=None):
+    out_root = out_root or out_root_for(mock)
     runs = []
-    for task in accepted_tasks(load_targets()):
+    for task in tasks if tasks is not None else accepted_tasks(load_targets()):
         for repeat in (1, 2, 3):
             summary_path = out_root / task["id"] / "b0" / ("r" + str(repeat)) / "summary.json"
             if not summary_path.is_file():
                 continue
             summary = json.loads(summary_path.read_text(encoding="utf-8"))
+            problem = resumable(summary, phase="b0", mock=mock)
+            if problem:
+                raise SystemExit("refusing to hand off " + str(summary_path) + ": " + problem)
             runs.append({
                 "source_id": task["id"],
                 "repo": task["repo"],
@@ -142,20 +174,27 @@ def write_b0_handoff(*, mock: bool = False):
                 "solved": summary.get("solved"),
                 "status": summary.get("status"),
                 "cost_cny": summary.get("cost_cny"),
-                "summary": str(summary_path.relative_to(ROOT)).replace("\\", "/"),
+                "summary": _display_path(summary_path),
             })
-    destination = ROOT / "docs" / "sprint" / "main-b0-runs.json"
+    destination = destination or handoff_path_for(mock)
     payload = {
         "schema": "sprint6.main-b0-runs.v1",
         "profile_tag": "b0-v2",
         "runs": runs,
     }
     if mock:
-        payload["scope"] = "step7-mock"
-        payload["note"] = "Zero-model walk of three accepted tasks. This is not the R6 handoff."
+        payload["scope"] = "mock"
+        payload["note"] = "Zero-model mock runs. This is not the R6 handoff."
     destination.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
     print(handoff_sha256(destination), flush=True)
     return destination
+
+
+def _display_path(path: Path) -> str:
+    try:
+        return path.relative_to(ROOT).as_posix()
+    except ValueError:
+        return path.as_posix()
 
 
 def main():
