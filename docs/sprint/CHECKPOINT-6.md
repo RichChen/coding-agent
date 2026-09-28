@@ -185,3 +185,17 @@ sphinx-8593 的失败槽位还在 `runs/a5-main/` 里，F4 的移动没有执行
 前两次 canary 运行（django-13964、sklearn-13142）没有 `p2p_excluded`，两种口径的结果相同。
 
 停在这里等审计。没有做 F3–F6，没有补跑 sphinx-8593，没有开始 B0，也没有看或开始 B2。coding-agent 侧继续等 `main-b0-runs.json`。
+
+### 修订 1 执行记录（续二）：F3–F6
+
+审计批准了两个口径修正，并授权我在核对差异能被已提交的校准记录完全解释、且不涉及运行时行为时，自己修正口径后继续。
+
+- **F3**：56 道 mock B0 r1，花费 0，没有停止，报告在 `runs/a5-main-logs/mock-e2e-check.json`。按原口径是 54/56，差异属于授权范围，修正口径后是 56/56。
+  - 原口径：F2P 全部失败，并且等于 `empty_f2p`。
+  - 差异：django-13512 是 1/3，sympy-14248 是 1/12。运行时结果和 `empty_f2p` 完全相同，只是不满足"全部失败"。
+  - 新口径：F2P 的通过数和总数等于 `empty_f2p`，通过数小于总数，并且 `solved` 为 false。
+  - 依据的记录字段：校准 JSON 的 `empty_f2p` 和 `accepted`。合格规则 `acceptance` 只要求空改动下 F2P 不全部通过。
+  - 三道有 `p2p_excluded` 的题按审计批准的口径核对通过：43/43、23/23、38/38，被排除的 id 都没有进入 grader 用例。全池没有 `missing`。
+- **F4**：sphinx-8593 的失败槽位和旧的 `b0-report.json` 已移到 `runs/a5-main-halted/`。
+- **F5**：infra_error 次数 ≥ 3 并且超过已完成运行的 10% 才停止（`653ebbb`）。F3 的 mock 跑在这次改动之前，没有出现 infra_error，所以不受影响。
+- **F6**：冻结修订写在 `A5-MAIN-FREEZE.md` 的"修订 1"一节，tag `a5-main-freeze-r1`。

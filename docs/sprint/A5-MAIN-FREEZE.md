@@ -30,3 +30,60 @@ sha 用 `scripts/handoff_sha.py` 的 `handoff_sha256` 算：先把换行统一�
 | infra_error 停止线 | 超过已完成运行的 10% |
 
 Docker Desktop：8 核，7.7 GiB 内存。
+
+## 修订 1
+
+tag `a5-main-freeze-r1` 指向加入本节的提交。原 tag `a5-main-freeze` 保留不动。依据是 `docs/sprint/HARNESS-SPRINT-6A-FIX.zh-CN.md` 和 CHECKPOINT-6 的两次审计结论。
+
+### 原因
+
+canary 里 sphinx-8593 在运行前比对失败。构建镜像时，`pre_install` 用 sed 改写的文件不参与 source-only 比对；运行时却参与了，而且没有排除。12 道题会因此在运行前失败（11 道 sphinx 和 pytest-8399）。镜像本身没有问题，也不是泄漏。
+
+### 改动与提交
+
+| 项 | 内容 | 提交 |
+| --- | --- | --- |
+| F1 | 被改写的文件按"在 clean image 的 /tmp tmpfs 里断网重放 sed 后的期望 sha"比对，不再有跳过不比的文件；构建和运行都通过 `overrides_for` 读同一份 `docs/sprint/rewritten-expected/<task>.json` | `a3b4450`、`53c072a` |
+| F2 | `run_a5_main.py --preflight`：56 道题执行全部运行前检查，不调用模型 | `43ee604` |
+| F3 | `--out-root`（只能和 `--mock` 一起用）和全池 mock 核对脚本 `scripts/sprint6_mock_e2e_check.py` | `43ee604`、`a3cdc3a` |
+| F4 | 移动 sphinx-8593 的失败槽位，见下文 | 只移动文件，没有提交 |
+| F5 | infra_error 次数 ≥ 3 **并且**超过已完成运行的 10% 时才停止 | `653ebbb` |
+
+`docs/sprint/rewritten-expected/` 在本修订中的 git tree 是 `dab524dfff1c46344e1a3ec524b66048739c140e`。
+
+### 改写命令的解析规则
+
+- **guarded_sed**（审计批准新增）：一条命令按 `&&`、`||` 拆开后，每一段都是 `sed -i … <文件>` 或 `grep -q … <文件>`，至少有一段是 sed，并且都指向同一个不含 `/` 的文件。这时整条命令原文算作这个文件的改写命令，重放时整条交给 `/bin/sh` 执行，顺序和规格一致。
+- **plain_sed 的收紧**：原来的"以 sed 开头、最后一个词不含 `/`"规则保留，但现在要求整条命令只有一段。否则 `sed … && pip install -e .` 会被误算成对 `.` 的改写。
+- 其他命令都不算改写，比对时也不为它们放宽。
+- 记录里每条命令都标明匹配的规则（`plain_sed` 或 `guarded_sed`）。
+- 这次规则修改只影响 sphinx-9258：它的 `setup.py` 多了 2 条 guarded_sed 命令，期望 sha 是 `27bcaf655c0321c29b0c30ce9c740c8551c63a67cefd9a89436c05361cf5255a`。另外 11 份记录只新增了 `rules` 字段，其他内容不变。plain_sed 的收紧不影响 56 道题中的任何一道。
+
+### 核对口径修正
+
+1. **F2（审计批准）**：运行时 P2P 条数等于校准 `nodeids.p2p.used` 减去 `p2p_excluded` 条数，并且每个被排除的 id 都必须在选中的 P2P 列表里。涉及 sphinx-8120、9673、10323。
+2. **F3（审计批准）**：有 `p2p_excluded` 的三道题，P2P 通过数等于 `empty_p2p` 的通过数，总数等于 `empty_p2p` 的总数减去排除条数；同时确认被排除的 id 没有出现在 grader 的用例里。
+3. **F3（按第二次审计的授权自行修正）**：原口径要求"F2P 全部失败，并且等于 empty_f2p"。django-13512（1/3）和 sympy-14248（1/12）在空改动下各有 1 条 F2P 通过，运行时的结果和 `empty_f2p` 完全相同。校准的合格规则（`sprint5_prepare_main.py` 的 `acceptance`）只要求空改动下 F2P 不全部通过。新口径：F2P 的通过数和总数等于 `empty_f2p`，通过数小于总数，summary 的 `solved` 为 false。依据的记录字段是校准 JSON 的 `empty_f2p` 和 `accepted`。
+
+三处都只改核对口径，不改任何运行时行为。
+
+### F4 规则
+
+模型调用为 0、花费为 0、因为 harness 运行前检查的 bug 而失败的运行，不算实验数据，可以移出后重跑这个槽位。**有模型调用的运行一律不适用这条规则。**
+
+按这条规则，`runs/a5-main/sphinx-doc__sphinx-8593/b0/r1/` 已整个移到 `runs/a5-main-halted/sphinx-doc__sphinx-8593/b0/r1/`，`runs/a5-main/b0-report.json` 移到 `runs/a5-main-halted/b0-report.json`。
+
+### 已完成的 canary
+
+django-13964 r1 和 sklearn-13142 r1 继续有效。它们跑在 `02c8671` 上，`pre_install` 不改写源码文件，override 为空，新旧比对规则的结果相同。它们也没有 `p2p_excluded`，两种 id 口径的结果一致。
+
+### F2、F3 结果
+
+- F2 预检：56/56 通过。所有题 `answer_isolation_pass` 为 true，带 override 的 source-only 比对全部通过，grader id 按修正后的口径和校准一致，public task 全部生成。
+- F3 mock 端到端：56 道 mock B0 r1 写在 `runs/a5-main-mock-e2e/`，花费 0，没有停止。
+  - 没有 answer isolation 失败，没有 infra_error，grader 没有崩溃，没有 `missing`。
+  - 按修正后的口径 56/56 一致：F2P 等于 `empty_f2p`（54 道 0 通过，2 道部分通过）。
+  - P2P 全部通过，并且等于 `empty_p2p`（三道有排除的题是 43/43、23/23、38/38）。
+  - 被排除的 id 都没有进入 grader。
+
+冻结输入的 sha 没有变化，本修订没有改 clean image、校准记录、profile 和 `src/eval`。全量测试 343 passed、199 skipped。
