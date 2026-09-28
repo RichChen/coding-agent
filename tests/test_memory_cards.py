@@ -77,6 +77,7 @@ def _fixture_snapshot(tmp_path: Path) -> Path:
             {
                 "source_id": "example__example-1",
                 "source_dir": str(source),
+                "created_at": "2020-01-01T00:00:00+00:00",
                 "bindings": {
                     "repo": "example/example",
                     "base_revision": "abc123def456",
@@ -118,8 +119,39 @@ def test_round_trip(tmp_path):
 
 
 @pytest.mark.skipif(not SNAPSHOT.is_file(), reason="harness snapshot not on this machine")
-def test_real_cards_exclude_pilot_targets_and_gold():
-    cards = build_memory_cards(SNAPSHOT, VERIFICATION)
+def _snapshot_with_created_at(tmp_path: Path) -> Path:
+    pool = {
+        item["canonical_id"]: item
+        for item in json.loads(Path("configs/a5/canonical-handoff.json").read_text(encoding="utf-8"))[
+            "memory_build_source_pool"
+        ]
+    }
+    lines = []
+    for line in SNAPSHOT.read_text(encoding="utf-8").splitlines():
+        if not line.strip():
+            continue
+        row = json.loads(line)
+        created_at = (pool[row["source_id"]].get("provenance") or {}).get("historical_pr_created_at")
+        if not created_at:
+            raise AssertionError(row["source_id"])
+        row["created_at"] = created_at
+        lines.append(json.dumps(row))
+    path = tmp_path / "snap.jsonl"
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    return path
+
+
+def test_missing_created_at_is_an_error(tmp_path):
+    snapshot = _fixture_snapshot(tmp_path)
+    row = json.loads(snapshot.read_text(encoding="utf-8"))
+    row.pop("created_at")
+    snapshot.write_text(json.dumps(row) + "\n", encoding="utf-8")
+    with pytest.raises(ValueError, match="created_at_missing"):
+        build_memory_cards(snapshot, tmp_path / "missing.json")
+
+
+def test_real_cards_exclude_pilot_targets_and_gold(tmp_path):
+    cards = build_memory_cards(_snapshot_with_created_at(tmp_path), VERIFICATION)
     assert len(cards) == 11
     blob = "\n".join(render_card(card) + "\n" + card.issue_summary for card in cards)
     targets = json.loads(TARGETS.read_text(encoding="utf-8"))["targets"]

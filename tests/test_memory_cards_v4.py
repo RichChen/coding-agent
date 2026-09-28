@@ -107,6 +107,7 @@ def _write_legacy(root: Path, source_id: str) -> Path:
             {
                 "source_id": source_id,
                 "source_dir": str(run),
+                "created_at": "2020-01-01T00:00:00+00:00",
                 "bindings": {"repo": "demo/demo", "base_revision": "abc123def456"},
             }
         )
@@ -142,3 +143,30 @@ def test_missing_sprint_run_uses_legacy_label(tmp_path):
     assert cards[0].verification_status == "unverified"
     assert cards[0].label_origin == "legacy_verification"
     assert cards[0].layout == "memory_pool"
+
+
+def test_legacy_row_without_created_at_is_an_error(tmp_path):
+    source_id = "pytest-dev__pytest-5221"
+    canonical = tmp_path / "canonical.json"
+    _write_canonical(canonical, ["django__django-13265"], [source_id])
+    snapshot = _write_legacy(tmp_path, source_id)
+    row = json.loads(snapshot.read_text(encoding="utf-8"))
+    row.pop("created_at")
+    snapshot.write_text(json.dumps(row) + "\n", encoding="utf-8")
+    verification = tmp_path / "verify.json"
+    verification.write_text(json.dumps({"results": [{"source_id": source_id, "status": "grader_unavailable"}]}), encoding="utf-8")
+    import reposkill_agent.memory.cards_v4 as cards_v4
+
+    saved = cards_v4.V4_SOURCE_IDS
+    cards_v4.V4_SOURCE_IDS = (source_id,)
+    try:
+        with pytest.raises(ValueError, match="created_at_missing"):
+            build_memory_cards_v4(
+                canonical_path=canonical,
+                snapshot_path=snapshot,
+                verification_path=verification,
+                runs=[],
+                path_base=tmp_path,
+            )
+    finally:
+        cards_v4.V4_SOURCE_IDS = saved

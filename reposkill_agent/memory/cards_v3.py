@@ -27,6 +27,13 @@ def build_memory_cards_v3(snapshot_path: Path, verification_path: Path) -> tuple
     return tuple(_card(row, labels[row["source_id"]]) for row in rows)
 
 
+def _require_created_at(row: dict) -> str:
+    created_at = row.get("created_at")
+    if not isinstance(created_at, str) or not created_at.strip():
+        raise ValueError("created_at_missing:" + str(row.get("source_id") or ""))
+    return created_at
+
+
 def _card(row: dict, status: str) -> MemoryCard:
     source = Path(row["source_dir"])
     trajectory = json.loads((source / "public-trajectory.json").read_text(encoding="utf-8"))
@@ -36,7 +43,7 @@ def _card(row: dict, status: str) -> MemoryCard:
     symbols = extracted.changed_symbols
     return MemoryCard(
         repo=row["bindings"]["repo"],
-        created_at="1970-01-01T00:00:00+00:00",
+        created_at=_require_created_at(row),
         version=row["bindings"]["base_revision"],
         source_id=row["source_id"],
         issue_summary=_compact(str(trajectory.get("issue_summary") or "issue")),

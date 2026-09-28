@@ -44,7 +44,7 @@ def test_v3_fields_and_render_budget(tmp_path):
     )
     snapshot = tmp_path / "snap.jsonl"
     snapshot.write_text(
-        json.dumps({"source_id": "example__example-1", "source_dir": str(source), "bindings": {"repo": "example/example", "base_revision": "abc123def456"}})
+        json.dumps({"source_id": "example__example-1", "source_dir": str(source), "created_at": "2020-01-01T00:00:00+00:00", "bindings": {"repo": "example/example", "base_revision": "abc123def456"}})
         + "\n",
         encoding="utf-8",
     )
@@ -72,7 +72,7 @@ def test_missing_test_command_is_explicit(tmp_path):
     )
     snapshot = tmp_path / "snap.jsonl"
     snapshot.write_text(
-        json.dumps({"source_id": "example__example-2", "source_dir": str(source), "bindings": {"repo": "example/example", "base_revision": "abc123def456"}})
+        json.dumps({"source_id": "example__example-2", "source_dir": str(source), "created_at": "2020-01-01T00:00:00+00:00", "bindings": {"repo": "example/example", "base_revision": "abc123def456"}})
         + "\n",
         encoding="utf-8",
     )
@@ -81,8 +81,42 @@ def test_missing_test_command_is_explicit(tmp_path):
 
 
 @pytest.mark.skipif(not SNAPSHOT.is_file(), reason="harness snapshot not on this machine")
-def test_real_v3_cards_stay_inside_budget_and_exclude_targets():
-    cards = build_memory_cards_v3(SNAPSHOT, VERIFICATION)
+def test_v3_missing_created_at_is_an_error(tmp_path):
+    source = tmp_path / "src"
+    source.mkdir()
+    (source / "run" / "session" / "artifacts").mkdir(parents=True)
+    (source / "run" / "events.jsonl").write_text("", encoding="utf-8")
+    (source / "public-trajectory.json").write_text(
+        json.dumps({"issue_summary": "A bug.", "public_evidence": [], "actions": [], "public_verification": "", "failure_notes": []}),
+        encoding="utf-8",
+    )
+    snapshot = tmp_path / "snap.jsonl"
+    snapshot.write_text(
+        json.dumps({"source_id": "example__example-3", "source_dir": str(source), "bindings": {"repo": "example/example", "base_revision": "abc123def456"}})
+        + "\n",
+        encoding="utf-8",
+    )
+    with pytest.raises(ValueError, match="created_at_missing"):
+        build_memory_cards_v3(snapshot, tmp_path / "missing.json")
+
+
+def test_real_v3_cards_stay_inside_budget_and_exclude_targets(tmp_path):
+    pool = {
+        item["canonical_id"]: item
+        for item in json.loads(Path("configs/a5/canonical-handoff.json").read_text(encoding="utf-8"))["memory_build_source_pool"]
+    }
+    lines = []
+    for line in SNAPSHOT.read_text(encoding="utf-8").splitlines():
+        if not line.strip():
+            continue
+        row = json.loads(line)
+        created_at = (pool[row["source_id"]].get("provenance") or {}).get("historical_pr_created_at")
+        assert created_at, row["source_id"]
+        row["created_at"] = created_at
+        lines.append(json.dumps(row))
+    snapshot = tmp_path / "snap.jsonl"
+    snapshot.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    cards = build_memory_cards_v3(snapshot, VERIFICATION)
     assert len(cards) == 11
     with_tests = 0
     for card in cards:

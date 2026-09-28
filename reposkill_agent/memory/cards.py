@@ -126,6 +126,13 @@ def raw_trajectory_text(card: MemoryCard) -> str:
     return status_header(card) + "\n" + body
 
 
+def _require_created_at(row: dict) -> str:
+    created_at = row.get("created_at")
+    if not isinstance(created_at, str) or not created_at.strip():
+        raise ValueError("created_at_missing:" + str(row.get("source_id") or ""))
+    return created_at
+
+
 def _card_from_row(row: dict, status: str) -> MemoryCard:
     source = Path(row["source_dir"])
     trajectory = json.loads((source / "public-trajectory.json").read_text(encoding="utf-8"))
@@ -142,7 +149,7 @@ def _card_from_row(row: dict, status: str) -> MemoryCard:
     dependencies = _dependencies(changed, issue)
     return MemoryCard(
         repo=row["bindings"]["repo"],
-        created_at="1970-01-01T00:00:00+00:00",
+        created_at=_require_created_at(row),
         version=row["bindings"]["base_revision"],
         source_id=row["source_id"],
         issue_summary=issue,

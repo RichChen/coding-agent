@@ -158,6 +158,13 @@ def _legacy_rows(snapshot_path: Path) -> dict[str, dict]:
     return rows
 
 
+def _require_created_at(row: dict, source_id: str) -> str:
+    created_at = row.get("created_at") or (row.get("provenance") or {}).get("historical_pr_created_at")
+    if not isinstance(created_at, str) or not created_at.strip():
+        raise ValueError("created_at_missing:" + source_id)
+    return created_at
+
+
 def _card_from_run(
     source_id: str,
     *,
@@ -238,8 +245,7 @@ def build_memory_cards_v4(
                 _card_from_run(
                     source_id,
                     repo=entry["expected_repo"],
-                    created_at=(entry.get("provenance") or {}).get("historical_pr_created_at")
-                    or "1970-01-01T00:00:00+00:00",
+                    created_at=_require_created_at(entry, source_id),
                     version=entry["expected_base_commit"],
                     issue=issue,
                     run_dir=run_dir,
@@ -263,7 +269,7 @@ def build_memory_cards_v4(
             _card_from_run(
                 source_id,
                 repo=row["bindings"]["repo"],
-                created_at="1970-01-01T00:00:00+00:00",
+                created_at=_require_created_at(row, source_id),
                 version=row["bindings"]["base_revision"],
                 issue=issue or str(trajectory.get("issue_summary") or source_id),
                 run_dir=source_dir,
