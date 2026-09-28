@@ -80,3 +80,61 @@ step 7 和 P5 的 mock 运行没有发现这个问题，因为它们用的题里
 报告在 `runs/a5-main/b0-report.json`，canary 日志在 `runs/a5-main-logs/canary.log`。
 
 停在这里等审计，没有开始第 2 步，没有看 B2，也没有开始 B2。
+
+### 修订 1 执行记录（F1 第 5 项停止）
+
+依据 `docs/sprint/HARNESS-SPRINT-6A-FIX.zh-CN.md`。**结论：F1 第 5 项的离线核对在 sphinx-9258 上失败，按规定停下，没有回退到做法 1。** F2–F6 都没有做，sphinx-8593 的补跑和全量 B0 也没有开始。本轮真实花费 0，累计仍是 0.687 元。
+
+#### F1 已完成的部分（提交 `a3b4450`）
+
+- `scripts/rewritten_sources.py`：
+  - `sed_rewrites` 返回"文件 → 按顺序作用于它的 sed 命令"，解析规则和原来一致：命令以 `sed` 开头，最后一个词是不带 `/` 的文件名。
+  - `replay` 在 clean image 里用 `--network none --read-only --tmpfs /tmp` 起临时容器，把压缩包里的原文件写进 `/tmp/rewrite`，再用 `/bin/sh -c` 按顺序执行这些命令（构建时也是用 sh 执行的），然后取 sha256。
+  - `load_overrides` 读 `docs/sprint/rewritten-expected/<task>.json`。如果记录里的文件集合、命令原文或原文件 sha 和当前规格、压缩包不一致，就拒绝。
+- `source_only_check` 的 `ignore` 参数换成 `overrides`，不再有跳过不比的文件。override 里出现压缩包中不存在的文件时报错。
+- 构建路径（`sprint5_prepare_main.py`）和运行路径都通过 `overrides_for` 取同一份 override。运行路径的检查抽成了 `prerun_check`，`run_task` 调用它，F2 预检也准备调用它。
+- 测试在 `tests/test_rewritten_sources.py`，共 11 个，覆盖三种情况：override 文件内容正确时通过；被改动时失败；不在 override 里的文件被改动时失败。另外测了记录不一致时拒绝。全量测试 325 passed、199 skipped。
+
+#### F1 第 5 项：12 道受影响题的离线核对
+
+脚本是 `scripts/sprint6_rewritten_expected.py`，记录写在 `docs/sprint/rewritten-expected/`。
+
+| 题 | override 文件 | 被 sed 改变的文件 | 核对 |
+| --- | --- | --- | --- |
+| sphinx 7440、7590、7910、8120、8459、8593、9461、9673 | `setup.py`、`tox.ini` | 2 | 通过 |
+| sphinx-9258 | `setup.py`、`tox.ini` | 2 | **`setup.py` 不一致** |
+| sphinx 10323、10614 | `tox.ini` | 1 | 通过 |
+| pytest-8399 | `setup.cfg` | 0（这个版本的文件里没有 `>=>=`，sed 没有改动） | 通过 |
+
+11/12 通过，其中 sphinx-8593 的比对结果是原 tree hash `35681e93…`。
+
+#### sphinx-9258 为什么不一致
+
+镜像是正确的，问题出在解析规则上。sphinx 4.1 的规格里有两条命令带 `grep` 守卫：
+
+```text
+grep -q 'sphinxcontrib-htmlhelp>=2.0.0' setup.py && sed -i 's/sphinxcontrib-htmlhelp>=2.0.0/sphinxcontrib-htmlhelp>=2.0.0,<=2.0.4/' setup.py || sed -i 's/sphinxcontrib-htmlhelp/sphinxcontrib-htmlhelp<=2.0.4/' setup.py
+grep -q 'sphinxcontrib-serializinghtml>=1.1.5' setup.py && sed -i 's/sphinxcontrib-serializinghtml>=1.1.5/sphinxcontrib-serializinghtml>=1.1.5,<=1.1.9/' setup.py || sed -i 's/sphinxcontrib-serializinghtml/sphinxcontrib-serializinghtml<=1.1.9/' setup.py
+```
+
+它们的第一个词是 `grep`，所以现有规则不把它们算作改写命令，重放时就少了这两处锁定。构建时的 Dockerfile（`runs/sprint5-main-images/sphinx-doc__sphinx-9258/context/Dockerfile`）执行过这两条命令，镜像里的 `setup.py` 多出 `sphinxcontrib-htmlhelp<=2.0.4` 和 `sphinxcontrib-serializinghtml<=1.1.9`，和规格一致。
+
+验证：把 `setup.py` 相关的 8 条命令（6 条普通 sed 加这 2 条）按原顺序重放，得到 `27bcaf655c0321c29b0c30ce9c740c8551c63a67cefd9a89436c05361cf5255a`，和镜像里的文件完全一致。`tox.ini` 的期望 sha 本来就对得上。
+
+旧的构建检查没有发现这个问题，是因为 `setup.py` 整个被跳过了。
+
+在 56 道题的规格里，现有规则没有覆盖到的 `pre_install` 命令只有三条：上面两条（只出现在 sphinx-9258），以及 sphinx-10614 的 `apt-get update && apt-get install -y graphviz`（不碰仓库文件）。
+
+提交的 `sphinx-doc__sphinx-9258.json` 是按现有规则生成的，只有 6 条 `setup.py` 命令，期望 sha 是 `4533f9b2…`。按这份记录，运行时会对 9258 报 `opt/repo source-only hash mismatch` 并停下，不会跳过比对；`prerun_check` 实测也是这样。
+
+#### 需要审计决定
+
+F1 第 1 项要求解析规则和现在一致，而修好 9258 必须改这条规则，所以需要审计批准。建议：一条命令按 `&&`、`||` 拆开后，如果每一段都是 `sed -i … <文件>` 或 `grep -q … <文件>`，并且都指向同一个不带 `/` 的文件，就把整条命令原文算作这个文件的改写命令，重放时整条交给 sh 执行。按这条规则，9258 的 `setup.py` 会有 8 条命令，期望 sha 就是上面验证过的 `27bcaf65…`；其他 11 道题的记录不变。
+
+#### 对已完成运行的影响
+
+两次有效 canary（django-13964 r1、sklearn-13142 r1）跑在 `02c8671` 上。它们的 `pre_install` 不改写源码文件，override 为空，新旧比对规则的结果相同，不受影响。
+
+sphinx-8593 的失败槽位还在 `runs/a5-main/` 里，F4 的移动没有执行。
+
+停在这里等审计。没有开始 B0，没有看 B2，也没有开始 B2。coding-agent 侧继续等 `main-b0-runs.json`。
