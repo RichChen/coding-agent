@@ -18,9 +18,9 @@ from scripts.preflight_a5_repo_baseline import patch_paths  # noqa: E402
 from scripts.run_swe_task import prerun_check, public_issue, run_task, tool_smoke  # noqa: E402
 from scripts.sprint5_prepare_main import FAMILY, nodeid_selection  # noqa: E402
 
-TOTAL_CAP = Decimal("150")
-PHASE_CAP = {"b0": Decimal("80"), "b2": TOTAL_CAP}
-PARALLEL = 4
+TOTAL_CAP = Decimal("220")
+PHASE_CAP = {"b0": Decimal("110"), "b2": TOTAL_CAP}
+PARALLEL = 3
 MAX_INFRA_RERUNS = 2
 INFRA_STOP_RATIO = Decimal("0.10")
 INFRA_STOP_MIN = 3

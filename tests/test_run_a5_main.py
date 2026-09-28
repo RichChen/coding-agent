@@ -51,7 +51,23 @@ def test_mock_and_real_runs_use_separate_roots():
 
 
 def test_b0_and_b2_share_one_parallel_setting():
-    assert run_a5_main.PARALLEL == 4
+    assert run_a5_main.PARALLEL == 3
+
+
+def test_budget_caps_revision_2():
+    from decimal import Decimal
+    assert run_a5_main.PHASE_CAP == {"b0": Decimal("110"), "b2": Decimal("220")}
+    assert run_a5_main.TOTAL_CAP == Decimal("220")
+
+
+def test_spend_counts_only_the_formal_root(tmp_path):
+    formal = tmp_path / "a5-main"
+    void = tmp_path / "a5-main-void" / "r1-tool-py36"
+    for root, cost in ((formal, "1.5"), (void, "13.682")):
+        path = root / "t" / "b0" / "r1" / "summary.json"
+        path.parent.mkdir(parents=True)
+        path.write_text(json.dumps({"cost_cny": cost}), encoding="utf-8")
+    assert str(run_a5_main.spent(formal)) == "1.5"
 
 
 def test_resume_requires_matching_mock_profile_and_variant():
@@ -185,7 +201,9 @@ def test_model_name_change_halts(tmp_path):
 
 
 def test_b0_soft_cap_halts(tmp_path):
-    _summary(tmp_path, "b0", cost_cny="80.0", **REAL)
+    _summary(tmp_path, "b0", cost_cny="109.99", **REAL)
+    assert halt_reason(tmp_path, "b0") is None
+    _summary(tmp_path, "b0", slot="r2", cost_cny="0.01", **REAL)
     assert "cap" in halt_reason(tmp_path, "b0")
     assert halt_reason(tmp_path, "b2") is None
 
