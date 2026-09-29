@@ -624,12 +624,13 @@ def test_card_manifest_check_refuses_a_changed_handoff(tmp_path):
 def _events(run_dir, injected, *, reason="memory_card"):
     run_dir.mkdir(parents=True, exist_ok=True)
     lines = [
-        {"type": "run.started", "payload": {}},
-        {"type": "context.prepared", "payload": {"stats": {"plugin": {"actually_injected": [
+        {"event_type": "run.started", "payload": {}},
+        {"event_type": "context.prepared", "payload": {"stats": {"plugin": {"actually_injected": [
             {"id": card, "reason": reason, "bytes": 10} for card in injected]}}}},
-        {"type": "context.prepared", "payload": {"stats": {"plugin": {"actually_injected": [
+        {"event_type": "context.prepared", "payload": {"stats": {"plugin": {"actually_injected": [
             {"proposal_id": "p", "tool": "read_file", "bytes": 5}]}}}},
-        {"type": "run.finished", "payload": {"context_events": [{"plugin": {"actually_injected": [{"id": "not-counted", "reason": "memory_card"}]}}]}},
+        {"event_type": "run.finished", "payload": {"context_events": [{"plugin": {"actually_injected": [{"id": "not-counted", "reason": "memory_card"}]}}]}},
+        {"type": "context.prepared", "payload": {"stats": {"plugin": {"actually_injected": [{"id": "wrong-key", "reason": "memory_card"}]}}}},
     ]
     (run_dir / "events.jsonl").write_text("".join(json.dumps(line) + "\n" for line in lines), encoding="utf-8")
 
@@ -637,6 +638,9 @@ def _events(run_dir, injected, *, reason="memory_card"):
 def test_actual_injection_reads_memory_cards_from_context_prepared_only(tmp_path):
     _events(tmp_path / "run", ["b", "a"])
     assert run_a5_main.actual_injection(tmp_path / "run") == ["a", "b"]
+    recorded = sorted((run_a5_main.ROOT / "runs" / "a5-main-mock-step7").glob("scikit-learn__scikit-learn-14053/b2/r1"))
+    if recorded:
+        assert run_a5_main.actual_injection(recorded[0]) == ["scikit-learn__scikit-learn-10297", "scikit-learn__scikit-learn-11040"]
     _events(tmp_path / "other", ["a"], reason="something_else")
     assert run_a5_main.actual_injection(tmp_path / "other") == []
     assert run_a5_main.actual_injection(tmp_path / "none") is None

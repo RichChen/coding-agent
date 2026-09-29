@@ -149,7 +149,7 @@ def actual_injection(run_dir: Path) -> list[str] | None:
             if '"context.prepared"' not in line:
                 continue
             event = json.loads(line)
-            if event.get("type") != "context.prepared":
+            if event.get("event_type") != "context.prepared":
                 continue
             plugin = ((event.get("payload") or {}).get("stats") or {}).get("plugin") or {}
             ids.update(item["id"] for item in plugin.get("actually_injected") or [] if item.get("reason") == "memory_card")
