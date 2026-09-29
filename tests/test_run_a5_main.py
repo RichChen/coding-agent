@@ -479,6 +479,76 @@ def test_run_phase_stops_on_the_fault_alarm(tmp_path, monkeypatch):
     assert report["halt_reason"].startswith("fault alarm") and report["started"] == 0
 
 
+DRIFT_TASKS = [{"id": "t" + str(i), "repo": "x/x", "created_at": "2020"} for i in range(5)]
+
+
+def test_drift_queue_is_reproducible_and_complete():
+    queue = run_a5_main.slot_queue(DRIFT_TASKS, "b2", 3, with_b0_drift=True)
+    keys = [(task["id"], phase, repeat) for task, phase, repeat in queue]
+    again = [(task["id"], phase, repeat) for task, phase, repeat in run_a5_main.slot_queue(list(reversed(DRIFT_TASKS)), "b2", 3, with_b0_drift=True)]
+    assert keys == again
+    assert sorted(keys) == sorted([(t["id"], "b2", r) for t in DRIFT_TASKS for r in (1, 2, 3)] + [(t["id"], "b0", 4) for t in DRIFT_TASKS])
+    assert keys != sorted(keys)
+    assert [(t["id"], "b2", r) for t in DRIFT_TASKS for r in (1, 2, 3)] == [
+        (task["id"], phase, repeat) for task, phase, repeat in run_a5_main.slot_queue(DRIFT_TASKS, "b2", 3)]
+    with pytest.raises(SystemExit):
+        run_a5_main.slot_queue(DRIFT_TASKS, "b0", 3, with_b0_drift=True)
+
+
+def _drift_runner(monkeypatch, infra_once=()):
+    calls = []
+
+    async def fake(task, profile, output, **kwargs):
+        phase = output.parent.name
+        calls.append((task["id"], phase, output.name, kwargs["variant"], kwargs["cards_path"]))
+        status = "infra_error" if (task["id"], output.name) in infra_once and not list(output.parent.glob(output.name + ".infra*")) else "pass"
+        row = {"task_id": task["id"], "variant": kwargs["variant"], "status": status, "solved": status == "pass", "cost_cny": "0.1", **REAL}
+        (output / "summary.json").write_text(json.dumps(row), encoding="utf-8")
+        return row
+
+    monkeypatch.setattr(run_a5_main, "run_task", fake)
+    monkeypatch.setattr(run_a5_main, "materialize_runner_task", lambda task: task)
+    return calls
+
+
+def test_drift_arm_runs_b0_r4_as_b0_without_cards_in_queue_order(tmp_path, monkeypatch):
+    calls = _drift_runner(monkeypatch)
+    cards = tmp_path / "cards.jsonl"
+    report = asyncio.run(run_phase(DRIFT_TASKS, "b2", cards=cards, mock=False, repeats=3, out_root=tmp_path,
+                                   canaries=frozenset(), with_b0_drift=True))
+    assert report["halt_reason"] is None and report["started_by_slot_phase"] == {"b2": 15, "b0": 5}
+    expected = [(t["id"], phase, "r" + str(r)) for t, phase, r in run_a5_main.slot_queue(DRIFT_TASKS, "b2", 3, with_b0_drift=True)]
+    assert [call[:3] for call in calls] == expected
+    for task_id, phase, slot, variant, used_cards in calls:
+        assert (variant, used_cards) == (("B0", None) if phase == "b0" else ("B2", cards))
+        assert slot == "r4" if phase == "b0" else slot in ("r1", "r2", "r3")
+
+
+def test_drift_slots_resume_and_rerun_infra(tmp_path, monkeypatch):
+    calls = _drift_runner(monkeypatch, infra_once={("t0", "r4")})
+    asyncio.run(run_phase(DRIFT_TASKS, "b2", cards=None, mock=False, repeats=3, out_root=tmp_path, canaries=frozenset(), with_b0_drift=True))
+    assert (tmp_path / "t0" / "b0" / "r4.infra1" / "summary.json").is_file()
+    assert json.loads((tmp_path / "t0" / "b0" / "r4" / "summary.json").read_text())["status"] == "pass"
+    calls.clear()
+    report = asyncio.run(run_phase(DRIFT_TASKS, "b2", cards=None, mock=False, repeats=3, out_root=tmp_path, canaries=frozenset(), with_b0_drift=True))
+    assert calls == [] and report["started"] == 0
+
+
+def test_drift_slots_are_under_the_same_stop_conditions(tmp_path, monkeypatch):
+    _summary(tmp_path, "b0", slot="r4", harness_tool_errors=2, **REAL)
+    assert halt_reason(tmp_path, "b2") is None
+    assert halt_reason(tmp_path, "b2", extra_phases=("b0",)).startswith("harness tool errors")
+    _no_runs(monkeypatch)
+    report = asyncio.run(run_phase([TASK], "b2", cards=None, mock=False, repeats=1, out_root=tmp_path, canaries=frozenset(), with_b0_drift=True))
+    assert report["halt_reason"].startswith("harness tool errors") and report["started"] == 0
+
+
+def test_with_b0_drift_requires_b2(monkeypatch):
+    monkeypatch.setattr("sys.argv", ["run_a5_main.py", "--phase", "b0", "--with-b0-drift"])
+    with pytest.raises(SystemExit, match="only allowed with --phase b2"):
+        run_a5_main.main()
+
+
 def test_out_root_requires_mock(monkeypatch):
     monkeypatch.setattr("sys.argv", ["run_a5_main.py", "--phase", "b0", "--out-root", "runs/x"])
     with pytest.raises(SystemExit, match="only allowed with --mock"):

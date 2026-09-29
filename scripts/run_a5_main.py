@@ -5,6 +5,7 @@ import argparse
 import asyncio
 import hashlib
 import json
+import random
 import re
 import statistics
 import sys
@@ -134,27 +135,18 @@ def fault_alarm(out_root: Path, phase: str, canaries) -> str | None:
     return None
 
 
-def halt_reason(out_root: Path, phase: str, canaries=frozenset()) -> str | None:
-    """Stop conditions checked before every new run. In-flight runs still finish."""
+def halt_reason(out_root: Path, phase: str, canaries=frozenset(), extra_phases=()) -> str | None:
+    """Stop conditions checked before every new run. In-flight runs still finish.
+
+    extra_phases get the same per-run checks (the b0/r4 drift slots during B2); the spend cap is the phase's.
+    """
     alarm = fault_alarm(out_root, phase, canaries)
     if alarm:
         return alarm
-    rows = phase_summaries(out_root, phase)
-    infra = sum(1 for row in rows if row.get("status") == "infra_error")
-    if infra >= INFRA_STOP_MIN and Decimal(infra) > INFRA_STOP_RATIO * len(rows):
-        return "infra_error " + str(infra) + " of " + str(len(rows)) + " completed runs"
-    for row in rows:
-        if (row.get("harness_tool_errors") or 0) > 0:
-            return "harness tool errors: " + str(row.get("task_id")) + " " + str(row["harness_tool_errors"])
-        if row.get("answer_isolation_pass") is False or row.get("status") == "answer_isolation_failed":
-            return "answer isolation failed: " + str(row.get("task_id")) + " " + str(row.get("stop_reason"))
-        if row.get("status") == "infra_error":
-            continue
-        ids = row.get("grader_ids") or {}
-        if ids.get("missing") and not row.get("grader_candidate_error"):
-            return "grader reported missing ids: " + str(row.get("task_id"))
-        if ids.get("reason") or row.get("grader_status") == "invalid_env":
-            return "grader crashed: " + str(row.get("task_id")) + " " + str(ids.get("reason"))
+    for checked in (phase, *extra_phases):
+        reason = run_checks(phase_summaries(out_root, checked))
+        if reason:
+            return reason
     names = set()
     for row in phase_summaries(out_root, "b0") + (phase_summaries(out_root, "b2") if phase != "b0" else []):
         model = row.get("model") or {}
@@ -170,40 +162,75 @@ def halt_reason(out_root: Path, phase: str, canaries=frozenset()) -> str | None:
     return None
 
 
-async def run_phase(tasks, phase: str, *, cards: Path | None, mock: bool, repeats: int, out_root: Path | None = None, canaries=None):
+def run_checks(rows: list[dict]) -> str | None:
+    infra = sum(1 for row in rows if row.get("status") == "infra_error")
+    if infra >= INFRA_STOP_MIN and Decimal(infra) > INFRA_STOP_RATIO * len(rows):
+        return "infra_error " + str(infra) + " of " + str(len(rows)) + " completed runs"
+    for row in rows:
+        if (row.get("harness_tool_errors") or 0) > 0:
+            return "harness tool errors: " + str(row.get("task_id")) + " " + str(row["harness_tool_errors"])
+        if row.get("answer_isolation_pass") is False or row.get("status") == "answer_isolation_failed":
+            return "answer isolation failed: " + str(row.get("task_id")) + " " + str(row.get("stop_reason"))
+        if row.get("status") == "infra_error":
+            continue
+        ids = row.get("grader_ids") or {}
+        if ids.get("missing") and not row.get("grader_candidate_error"):
+            return "grader reported missing ids: " + str(row.get("task_id"))
+        if ids.get("reason") or row.get("grader_status") == "invalid_env":
+            return "grader crashed: " + str(row.get("task_id")) + " " + str(ids.get("reason"))
+    return None
+
+
+def slot_queue(tasks, phase: str, repeats: int, *, with_b0_drift: bool = False) -> list[tuple[dict, str, int]]:
+    """(task, slot phase, repeat) in run order. With the drift arm, B2 slots and b0/r4 slots share one queue,
+    shuffled with DRIFT_SEED after a canonical sort so the order does not depend on the input order."""
+    slots = [(task, phase, repeat) for task in tasks for repeat in range(1, repeats + 1)]
+    if not with_b0_drift:
+        return slots
+    if phase != "b2":
+        raise SystemExit("the b0 drift arm only runs with phase b2")
+    slots += [(task, "b0", DRIFT_REPEAT) for task in tasks]
+    slots.sort(key=lambda slot: (slot[0]["id"], slot[1], slot[2]))
+    random.Random(DRIFT_SEED).shuffle(slots)
+    return slots
+
+
+async def run_phase(tasks, phase: str, *, cards: Path | None, mock: bool, repeats: int, out_root: Path | None = None,
+                    canaries=None, with_b0_drift: bool = False):
     out_root = out_root or out_root_for(mock)
     if canaries is None:
         canaries = frozenset(canary_ids(accepted_tasks(load_targets())).values())
     profile = PROFILE
-    variant = "B0" if phase == "b0" else "B2"
+    extra = ("b0",) if with_b0_drift else ()
     pending = []
     refused = []
     kept_infra = []
-    for task in tasks:
-        for repeat in range(1, repeats + 1):
-            output = out_root / task["id"] / phase / ("r" + str(repeat))
-            summary_path = output / "summary.json"
-            if summary_path.is_file():
-                summary = json.loads(summary_path.read_text(encoding="utf-8"))
-                problem = resumable(summary, phase=phase, mock=mock)
-                if problem:
-                    refused.append(str(summary_path) + ": " + problem)
-                    continue
-                if summary.get("status") != "infra_error":
-                    continue
-                if not retire_infra(output):
-                    kept_infra.append(_display_path(output))
-                    continue
-            elif output.exists():
-                refused.append(str(output) + ": directory has no summary.json (an interrupted run)")
+    for task, slot_phase, repeat in slot_queue(tasks, phase, repeats, with_b0_drift=with_b0_drift):
+        output = out_root / task["id"] / slot_phase / ("r" + str(repeat))
+        summary_path = output / "summary.json"
+        if summary_path.is_file():
+            summary = json.loads(summary_path.read_text(encoding="utf-8"))
+            problem = resumable(summary, phase=slot_phase, mock=mock)
+            if problem:
+                refused.append(str(summary_path) + ": " + problem)
                 continue
-            pending.append((task, output))
+            if summary.get("status") != "infra_error":
+                continue
+            if not retire_infra(output):
+                kept_infra.append(_display_path(output))
+                continue
+        elif output.exists():
+            refused.append(str(output) + ": directory has no summary.json (an interrupted run)")
+            continue
+        pending.append((task, output, slot_phase))
     if refused:
         raise SystemExit("existing summaries do not belong to this phase; not overwriting:\n" + "\n".join(refused))
-    state = {"halt": halt_reason(out_root, phase, canaries)}
+    state = {"halt": halt_reason(out_root, phase, canaries, extra)}
     semaphore = asyncio.Semaphore(PARALLEL)
 
-    async def one(task, output):
+    async def one(task, output, slot_phase):
+        variant = "B0" if slot_phase == "b0" else "B2"
+        slot_cards = cards if slot_phase == "b2" else None
         async with semaphore:
             while True:
                 if state["halt"]:
@@ -211,28 +238,32 @@ async def run_phase(tasks, phase: str, *, cards: Path | None, mock: bool, repeat
                 output.mkdir(parents=True, exist_ok=True)
                 try:
                     summary = await run_task(
-                        materialize_runner_task(task), profile, output, mock=mock, variant=variant, cards_path=cards,
+                        materialize_runner_task(task), profile, output, mock=mock, variant=variant, cards_path=slot_cards,
                     )
                 except (Exception, SystemExit) as exc:
                     state["halt"] = state["halt"] or ("run crashed: " + task["id"] + " " + type(exc).__name__ + ": " + str(exc)[:300])
                     return None
-                state["halt"] = state["halt"] or halt_reason(out_root, phase, canaries)
+                state["halt"] = state["halt"] or halt_reason(out_root, phase, canaries, extra)
                 if summary.get("status") != "infra_error":
                     return summary
                 if state["halt"] or not retire_infra(output):
                     kept_infra.append(_display_path(output))
                     return summary
 
-    results = await asyncio.gather(*(one(task, output) for task, output in pending))
+    results = await asyncio.gather(*(one(*item) for item in pending))
+    retired = [path for slot_phase in (phase, *extra) for path in out_root.glob("*/" + slot_phase + "/r*.infra*")]
     report = {
         "phase": phase,
+        "with_b0_drift": with_b0_drift,
         "mock": mock,
         "parallel": PARALLEL,
         "halt_reason": state["halt"],
         "started": sum(1 for item in results if item is not None),
         "not_started": sum(1 for item in results if item is None),
+        "started_by_slot_phase": {slot_phase: sum(1 for item, (_, _, p) in zip(results, pending) if item is not None and p == slot_phase)
+                                  for slot_phase in (phase, *extra)},
         "infra_kept": sorted(set(kept_infra)),
-        "infra_retired": sorted(_display_path(path) for path in out_root.glob("*/" + phase + "/r*.infra*")),
+        "infra_retired": sorted(_display_path(path) for path in retired),
         "spent_cny": str(spent(out_root)),
     }
     out_root.mkdir(parents=True, exist_ok=True)
@@ -521,6 +552,7 @@ def main():
     parser.add_argument("--task", action="append", default=[])
     parser.add_argument("--preflight", action="store_true", help="run every pre-run check on the pool, no model calls")
     parser.add_argument("--out-root", default=None, help="output root for a mock run")
+    parser.add_argument("--with-b0-drift", action="store_true", help="B2 only: also run b0/r4 for every task in one shuffled queue")
     parser.add_argument("--handoff", action="store_true", help="rewrite the B0 handoff from existing r1-r3 summaries, no runs")
     args = parser.parse_args()
     if args.handoff:
@@ -528,6 +560,8 @@ def main():
         return
     if not args.preflight and not args.phase:
         raise SystemExit("--phase is required unless --preflight is given")
+    if args.with_b0_drift and args.phase != "b2":
+        raise SystemExit("--with-b0-drift is only allowed with --phase b2")
     if args.phase == "b2" and not args.cards:
         raise SystemExit("B2 requires --cards")
     if args.out_root and not args.mock:
@@ -555,7 +589,8 @@ def main():
     out_root = Path(args.out_root) if args.out_root else None
     if out_root is not None and not out_root.is_absolute():
         out_root = ROOT / out_root
-    report = asyncio.run(run_phase(tasks, args.phase, cards=cards, mock=args.mock, repeats=args.repeats, out_root=out_root))
+    report = asyncio.run(run_phase(tasks, args.phase, cards=cards, mock=args.mock, repeats=args.repeats, out_root=out_root,
+                                   with_b0_drift=args.with_b0_drift))
     print(json.dumps(report, indent=2), flush=True)
     if report["halt_reason"]:
         raise SystemExit("stopped: " + report["halt_reason"])
