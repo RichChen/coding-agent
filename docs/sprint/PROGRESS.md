@@ -435,3 +435,9 @@ P5：删除 `pelican-bicycle.html`。用 v5 final 卡片在 3 道题上跑 mock 
 审计新规则 missing_regrade（`d99e1f6`，冻结修订 4 补记 2 `2be58e7`）：grader 报 missing 且 H6 不适用时，同一镜像以空改动重评，无 missing 且与校准一致就记为普通失败。B0 的 168 次没有 missing，不受影响。django-13964 B2 r3 重评一致，记为普通失败，没有重跑。续跑新启动 32 次后，sphinx-7590 B2 r3 触发"grader crashed"停止：候选的 `_parse_udl_suffix` 遇到 `current_char == 'EOF'` 时死循环，测试超时，grader 读不到结果文件，报成 `DockerUnavailable`。零花费诊断显示空改动 10 秒正常、候选重评再次超时。截至停止 B2 139/168、r4 46/56，注入 139/139 一致；本段花费 64.935 CNY，总额 120.709 CNY。全套测试 441 passed。停下等审计。
 
 审计批准 execution_timeout 扩展（`5a7ac96`、`6dadad2`，冻结修订 4 补记 3 `7a9986f`，不打新 tag）：grader 报 reason 且测试执行超时时，同一镜像以空改动重评，一致就记为普通失败，F2P/P2P 全部算失败。已完成运行里只有 sphinx-7590 B2 r3 适用，重评 F2P 0/1、P2P 24/24 与校准一致，记为普通失败，没有重跑；B0 的 168 次没有 grader reason，不受影响。续跑剩下的 39 个槽位全部完成，没有触发停止：B2 168/168、`b0/r4` 56/56，注入 168/168 一致，全量检查三项为 0，新增 1 次 infra（sphinx-9461 B2 r2，已重跑）。第 C 段花费 76.030 CNY（B2 57.790，r4 18.240），总额 131.804 CNY。全套测试 444 passed。记录在 `docs/sprint/CHECKPOINT-6.md`，没有计算 B2 与 B0 的差异，已通知 coding-agent 可以开始分析。
+
+## 第七轮 第 1 步：运行清单
+
+日期：2026-09-29。花费：0 CNY，没有调用模型。依据 \docs/sprint/HARNESS-SPRINT-7-CLOSEOUT.zh-CN.md\。
+
+新增只读脚本 \scripts/sprint7_inventory.py\，从磁盘复算后写 \docs/sprint/A5-MAIN-INVENTORY.md\。6 个输入文件的 sha 和 v6 \cards_sha256\ 都与冻结记录一致。有效槽位 B0 r1–r3 168、B2 r1–r3 168、B0 r4 56；infra 退役 2/3/2。作废目录 25 个（13.682 CNY）和 38 个（24.055 CNY）。uns/a5-main/\ 有效实验 131.804 CNY，第 6 轮合计 169.541 CNY；加上 PROGRESS 记录的第 1–5 轮 43.422 CNY，项目模型花费 212.963 CNY。隔离失败 0，harness_tool_errors 0，注入 168/168，全量检查三项 0。
