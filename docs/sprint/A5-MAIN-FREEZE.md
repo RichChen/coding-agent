@@ -296,3 +296,38 @@ tag `a5-main-freeze-r3` 指向加入本节的提交。`a5-main-freeze`、`a5-mai
 - `issue_sha256` 等于 `main-issues.json`，并且有 `prompt_sha256`。
 
 全套测试：412 passed，199 skipped。
+
+## 修订 4
+
+tag `a5-main-freeze-r4` 指向加入本节的提交。`a5-main-freeze`、`-r1`、`-r2`、`-r3` 保留不动。依据是 `docs/sprint/HARNESS-SPRINT-6D.zh-CN.md` 第 A 段。本修订没有调用模型，也没有改动任何运行结果。
+
+### 改动与提交
+
+| 项 | 内容 | 提交 |
+| --- | --- | --- |
+| D1 | 交接文件 v2（schema `sprint6.main-b0-runs.v2`），命令 `run_a5_main.py --handoff` | `614ebce` |
+| D2 | 4 次 delta_lost 的描述性归类，脚本 `scripts/sprint6_delta_lost.py`；分类规则不变，结果写在 CHECKPOINT-6 | `1c6498b` |
+| D3 | 漂移对照臂 `--phase b2 --with-b0-drift` | `9d1a438` |
+
+### 交接文件 v2
+
+- `docs/sprint/main-b0-runs.json` 的 sha（`handoff_sha256`，LF）：`fe0f47b8df67730a0335d7109631dc09bc4d6b5d19a601acfec0963f5dcb1f8c`。
+- 旧文件改名为 `docs/sprint/main-b0-runs.v1.json` 保留，sha `5c42a406c35a94c80dc7163a061e7383a66609b6c28ebaf7bd0c2fa19f92eb9e`。
+- 只读 `b0/r1..r3` 的 `summary.json` 和 `grader-result.json`，不读 `r4` 和 `r<k>.infra<n>`。
+- 每次运行在 v1 字段之外新增：`answer_isolation_pass`（summary）、`base_commit`（`main-targets.yaml`）、`grader_status`（`grader-result.json`）、`run_dir`（相对仓库根）、`public_task`（`runs/sprint5-main-public/<id>.json`）、`issue_sha256`。
+- 生成时检查：`grader-result.json` 和 public 文件必须存在，summary 的 `issue_sha256` 必须等于 `main-issues.json`，否则报错、不写文件。
+- 168 次运行的 v1 字段与 v1 文件逐项相同；`answer_isolation_pass` 168 次全部为 true；`grader_status` pass 115、fail 39、partial 14（delta_lost 的 4 次，grader 结果是 fail）。
+
+### 漂移对照臂（预注册）
+
+- 只能和 `--phase b2` 一起用。队列是 168 个 B2 槽位（56 题 × r1..r3）加 56 个 `b0/r4` 槽位，先按 (题目 id, 阶段, 重复号) 排序，再用 `random.Random(20260929).shuffle` 打乱，与输入顺序无关。`PARALLEL` 仍为 3；信号量先到先得，所以启动顺序就是队列顺序。
+- 56 道合格题的完整队列：224 个槽位，按 `<id>/<阶段>/r<k>` 每行一个、LF 结尾拼起来的 sha256 是 `db6809a12869b301e01662b3f404d3bd3351fef24036a78885f77cd0f941b911`；前三个是 `sphinx-doc__sphinx-8459/b0/r4`、`sphinx-doc__sphinx-7440/b2/r3`、`sympy__sympy-21596/b2/r3`。
+- `b0/r4` 用与 r1–r3 相同的 profile（`b0-v2`）和 B0 变体，不带卡片，输出在 `runs/a5-main/<id>/b0/r4`。
+- `b0/r4` 不进入交接文件，不参与卡片构建，也不参与主要分析。
+- 续跑、infra 重跑（退役为 `r4.infra<n>`，最多 2 次）和停止条件对 r4 同样适用：harness 工具错误、隔离失败、非候选错误的 missing、grader 崩溃、infra_error 停止线分别对 b2 和 b0 各自的运行检查；模型名称检查覆盖 b0 与 b2 全部运行。
+- 花费计入 `runs/a5-main/` 总额，按 `TOTAL_CAP` 230 元停止；B0 软上限 120 元只用于 `--phase b0`。
+- 新增测试：队列可复现且完整；r4 按 B0、不带卡片、按队列顺序启动；r4 续跑与 infra 重跑；r4 触发停止条件；`--with-b0-drift` 只能配 b2；交接文件不含 r4。
+
+冻结输入（`main-targets.yaml`、`main-accepted-ids.txt`、`b0-v2.yaml`、`memory-source-runs.json`、`main-issues.json`）没有改动，运行参数与修订 3 相同。
+
+全套测试：420 passed，199 skipped。
