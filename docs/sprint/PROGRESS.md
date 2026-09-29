@@ -258,3 +258,8 @@
 
 - 按 `A5-FINAL-REPORT-OUTLINE.zh-CN.md` 写成 `docs/A5-FINAL-REPORT.zh-CN.md`。数字来自 RESULTS、harness CHECKPOINT-6、清单、案例数据和冻结记录。
 - 主结论仍是：没有检出大于 13.1 个百分点的效应。没有改分析脚本和卡片。花费 0。没有调用模型。
+
+## 第七轮 第 2 步：CHECKPOINT（2026-09-29）
+
+- 最终报告在 `docs/A5-FINAL-REPORT.zh-CN.md`，提交 `007e006`。清单 sha、案例核对行和「RESULTS 未改」写在 `docs/sprint/CHECKPOINT-7.md`。
+- 测试：`python -m pytest -q`，326 passed，1 skipped。花费 0。停下等审计。
