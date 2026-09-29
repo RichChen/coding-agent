@@ -9,11 +9,13 @@ import argparse
 import json
 import math
 import random
+import re
 import sys
 from collections import defaultdict
 from pathlib import Path
 
 SEED = 20260926
+_REPEAT_DIR = re.compile(r"r[0-9]+$")
 PERMUTATIONS = 10000
 DETECTION_Z = 2.8
 DETECTION_SD = 0.35
@@ -239,20 +241,30 @@ def b0_bin(solved_count: int) -> str:
     return "1-2/3"
 
 
+def _predicted_count(item: dict) -> int:
+    injected = item.get("injected")
+    if isinstance(injected, list):
+        return len(injected)
+    if isinstance(injected, int):
+        return injected
+    cards = item.get("cards", item.get("card_ids"))
+    if isinstance(cards, list):
+        return len(cards)
+    return int(item.get("predicted_cards") or 0)
+
+
 def load_predicted_injection(path: Path) -> dict[str, int]:
     data = json.loads(path.read_text(encoding="utf-8"))
     _reject_mock(data, path.name)
-    tasks = data.get("tasks")
-    if not isinstance(tasks, list):
+    rows = data.get("tasks")
+    if not isinstance(rows, list):
+        rows = data.get("runs")
+    if not isinstance(rows, list):
         raise ValueError("predicted_injection_not_a_list")
     counts = {}
-    for item in tasks:
-        task_id = str(item.get("task_id") or "")
-        cards = item.get("cards", item.get("card_ids"))
-        if isinstance(cards, list):
-            counts[task_id] = len(cards)
-        else:
-            counts[task_id] = int(item.get("predicted_cards") or 0)
+    for item in rows:
+        task_id = str(item.get("task_id") or item.get("id") or "")
+        counts[task_id] = _predicted_count(item)
     return counts
 
 
@@ -441,6 +453,8 @@ def load_a5_main_tree(root: Path) -> list[dict]:
             if not variant_dir.is_dir():
                 continue
             for run_dir in sorted(path for path in variant_dir.glob("r*") if path.is_dir()):
+                if _REPEAT_DIR.fullmatch(run_dir.name) is None:
+                    continue
                 summary_path = run_dir / "summary.json"
                 if not summary_path.is_file():
                     continue

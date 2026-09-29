@@ -39,3 +39,11 @@ F2P/P2P id 检查：轨迹字段命中 0，公开 issue 里命中 0。检查只�
 预注册追加项在 `docs/sprint/A5-MAIN-PREREG-ADDENDUM.zh-CN.md`，和 `scripts/analyze_a5_main.py` 一起提交。主要分析仍只用 r1–r3，分母仍是有效运行数。次要分析改为预测注入至少 1 张卡，实际注入只做核对。漂移、r4 敏感性和按 B0 档位都标成描述性，不做检验。
 
 花费 0。没有调用模型，没有改 coding-harness。停下等审计。第 2 步等 harness 写完 CHECKPOINT-6。
+
+## 第 2 步：预注册分析（2026-09-29）
+
+报告在 `docs/sprint/A5-MAIN-RESULTS.zh-CN.md`。56 题都进入主要分析，预测注入和实际注入的 51 题一致。漂移区间包含 0，主结论没有加时间漂移。
+
+主结论：没有检出大于 13.1 个百分点的效应
+
+分析规则没有改。读取时跳过了 `r*.infra*` 退役目录，并按预测文件里的 `runs` 计注入张数。花费 0。没有调用模型，没有改 coding-harness。停下等审计。

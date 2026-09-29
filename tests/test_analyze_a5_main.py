@@ -7,6 +7,7 @@ from scripts.analyze_a5_main import (
     detection_floor_points,
     load_a5_main_tree,
     load_main_b0_handoff,
+    load_predicted_injection,
     prepare,
     render_report,
     short_groups,
@@ -180,3 +181,44 @@ def test_predicted_injection_is_checked_against_actual():
     assert "预测注入和实际注入不一致" in mismatched
     assert "只在预测里：skip" in mismatched
     assert "只在实际里：keep" in mismatched
+
+
+def test_retired_infra_slots_are_not_repeats(tmp_path):
+    root = tmp_path / "a5-main" / "django__django-90001"
+    for name in ("r1", "r2", "r3", "r1.infra1"):
+        run = root / "b0" / name
+        run.mkdir(parents=True)
+        (run / "summary.json").write_text(
+            json.dumps({"task_id": "django__django-90001", "solved": False, "status": "pass"}),
+            encoding="utf-8",
+        )
+        run = root / "b2" / name
+        run.mkdir(parents=True)
+        (run / "summary.json").write_text(
+            json.dumps(
+                {
+                    "task_id": "django__django-90001",
+                    "solved": True,
+                    "status": "infra_error" if "infra" in name else "pass",
+                }
+            ),
+            encoding="utf-8",
+        )
+    rows = load_a5_main_tree(tmp_path / "a5-main")
+    assert len(rows) == 6
+    assert short_groups(rows) == []
+
+
+def test_predicted_file_uses_run_entries(tmp_path):
+    path = tmp_path / "predicted.json"
+    path.write_text(
+        json.dumps(
+            {
+                "schema": "sprint6.b2-predicted-injection.v1",
+                "tasks": 1,
+                "runs": [{"id": "django__django-90001", "injected": [{}, {}]}],
+            }
+        ),
+        encoding="utf-8",
+    )
+    assert load_predicted_injection(path) == {"django__django-90001": 2}

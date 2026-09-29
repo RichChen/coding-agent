@@ -241,3 +241,9 @@
 - 用 dev 交接和 `main-b0-runs.json` v2 建成 70 张 v6 final。`cards_sha256=3416eb9d8f6119081330fb3b0a2d612b8fde4678d6ec1c73a7fc681cedfcfc70`。pool sha 是 `fe0f47b8df67730a0335d7109631dc09bc4d6b5d19a601acfec0963f5dcb1f8c`。
 - F2P/P2P id 命中 0。来源题测试命令里的 4 处 id 已换成 `[hidden-test]`。
 - 分析预注册追加项写进 `A5-MAIN-PREREG-ADDENDUM.zh-CN.md`。花费 0。停下等审计。
+
+## 第六轮 第 2 步：预注册分析（2026-09-29）
+
+- 用 `analyze_a5_main.py` 读了 harness 的 `runs/a5-main/` 和预测注入表，写成 `docs/sprint/A5-MAIN-RESULTS.zh-CN.md`。
+- 主结论：没有检出大于 13.1 个百分点的效应。56 题全部进入主要分析，51 题预测注入与实际注入一致。
+- 分析规则没有改。花费 0。停下等审计。
