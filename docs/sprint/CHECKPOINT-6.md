@@ -642,3 +642,131 @@ B0 已经完成，结果文件已经交接给 coding-agent 侧（`main-b0-runs.j
 2. **花费上限：** 混合队列里 r4 的花费和 B2 一起计入 `runs/a5-main/` 总额，按 `TOTAL_CAP` 230 元停止，不再单独套用 B0 的 120 元软上限。
 
 按第 A 段的要求，停在这里，通知 coding-agent：交接文件 v2 已就绪，可以构建 v6 卡片。没有开始 B2，也没有做第 C 段。
+
+### 6D 第 C 段执行记录：D5–D8（B2 停止）
+
+**结论：B2 在 django-13964 的 B2 r3 触发了原有停止条件"grader reported missing ids"，停在这里等审计。** 已完成 B2 115/168 次、`b0/r4` 38/56 次，未启动的有 71 个槽位（B2 53 个，r4 18 个）。实际注入与预测注入 115/115 一致。本段累计花费 54.208 元（B2 41.947 元，r4 12.261 元），`runs/a5-main/` 总额 109.982 元，低于 `TOTAL_CAP` 230 元。
+
+按 D8 要求：没有计算 B2 相对 B0 的差异，没有下结论，本节也不报告 B2 或 r4 的解出率。
+
+#### 提交与对已完成运行的影响
+
+| 提交 | 内容 | 对已完成运行的影响 |
+| --- | --- | --- |
+| `068380e` | B2 故障警报（审计纠正第 2 条，新增停止条件） | 无。第一次 B2 运行之前提交 |
+| `f97284c` | D5 v6 manifest 核对 | 无 |
+| `89ef367` | D6 预测注入表和脚本 | 无 |
+| `8008223` | D7 注入一致性停止条件，要求预测表已提交 | 无 |
+| `399132a` | D7 核对修正：事件类型字段是 `event_type`，不是 `type`（mock 检查中发现） | 无。真实 B2 开跑之前 |
+| `5c0c6b5` | 冻结修订 4 补记 | 无 |
+| `505d730` | D8 统计脚本 `scripts/sprint6_b2_stats.py`（只读） | 无 |
+| `a75303a` | D7 核对修正：读取存成 session 附件的 `context.prepared` 负载（见下） | 不改变任何运行结果。它导致了 B2 的第一次停止（误停），修正后重新核对已完成的 25 次 B2，全部一致，然后续跑 |
+
+两处 D7 修正都只改核对代码，属于"纯核对口径差异可以自行修正"的授权范围，没有改动运行时行为。
+
+#### D5 v6 核对
+
+`memory-cards-v6.manifest.json` 的三项都一致，B2 每次启动时都会重新检查：
+
+- `status: final`；
+- `build_inputs.handoffs` 包含 dev 交接文件（`98482670…`）和 `main-b0-runs.json` v2（`fe0f47b8…`），与当前文件一致；
+- `cards_sha256` 复算为 `3416eb9d8f6119081330fb3b0a2d612b8fde4678d6ec1c73a7fc681cedfcfc70`，70 张卡（`validated_fix` 50 张，`failed_attempt` 20 张）。
+
+#### D6 预测注入表
+
+`docs/sprint/b2-predicted-injection.json`，sha（LF）为 `5d858eb4f3ab368fc655b310168e2c77de311ddfee4f77c0928e4d08ba79e3e5`，在第一次 B2 运行之前以 `89ef367` 提交。
+
+- 51/56 道题会注入至少 1 张卡，高于 10 道的停止线；共 148 张次，注入的题平均 3236.2 字节。
+- 不注入的 5 道：sympy-11618、sympy-13757、sympy-14248、sklearn-9288、sphinx-7440，插件结论都是 `no_relevant_memory`。
+
+**gold 行重叠（描述统计）：**
+
+- 做法：对每道注入卡片的题，统计目标题 gold patch 的新增行（去掉首尾空白、跳过空行）里，有多少行与注入卡片文本中的某一行完全相同。另外单列长度不少于 10 个字符的行。
+- 结果：51 道注入卡片的题都是 0 行，不论是全部行还是长度不少于 10 个字符的行。
+- 抽查卡片文本：卡片写的是修法说明、文件和行号范围、测试命令和 issue 摘要，不含代码行，所以和 gold 新增行没有逐行重叠。
+- 这个统计只按行做完全匹配，没有检查卡片的说明文字在语义上是否透露了修法。
+
+#### D7 运行情况
+
+命令：`run_a5_main.py --phase b2 --with-b0-drift --cards <coding-agent>/benchmarks/a5/memory-cards-v6.jsonl`。队列、种子、并发与冻结修订 4 一致。
+
+**第一次停止（误停，已修正）：** 第一次运行在 13:25 前后停在 sklearn-14710 的 B2 r2，理由是实际注入为空、预测是 4 张卡。
+
+- 这次运行注入了 4 张卡，第 0 步的 `context.prepared` 负载有 17390 字节，事件库把它存成了 `session/artifacts/<sha>`，`events.jsonl` 里只留下 `artifact_ref`。
+- D7 检查只读了内联的负载，所以误判为空。
+- 附件的 sha 与引用一致，内容显示第 0 步实际注入了 sklearn 9288、14053、14496、12585 共 4 张卡，id 和字节数与预测相同，没有被拒绝，也没有插件错误。
+- `a75303a` 改为读取附件并校验 sha，附件缺失或 sha 不符时仍然停止。修正后重新核对已完成的 25 次 B2，全部一致，然后续跑。日志在 `runs/a5-main-logs/b2-full-stop1.log`。
+
+**第二次停止（本次）：** 续跑新启动 118 次运行（B2 90 次、r4 28 次）后，django-13964 的 B2 r3 报告 37 个 id 全部 `missing`。runner 停止开新运行，等在跑的运行结束后退出。日志在 `runs/a5-main-logs/b2-full.log`。
+
+- 这是 r3 槽位的第二次尝试：第一次是 `container cleanup failed`，已退役为 `r3.infra1`。
+- 候选改了 `django/db/models/fields/related_descriptors.py`，以及 `tests/many_to_one/models.py`、`tests/many_to_one/tests.py`（两个测试文件都会被测试补丁覆盖）。
+- 候选删掉了 `ForwardManyToOneDescriptor.__set__` 里给外键字段赋值的 `else` 分支，还给 `ForeignKeyDeferredAttribute` 加了一个 `__get__`（旁边留着两行 `# TEMP_REVERT` 注释）。
+- grader 正常执行测试。`ManyToOneTests.setUpClass` 在 `setUpTestData` 的第一个 `save()` 就报 `ValueError: Cannot force an update in save() with no primary key.`，整个测试类 0 个测试运行，所以 1 个 F2P 和 36 个 P2P 都是 missing。
+- H6 规则只读 grader 的 `runner_error` 和 `collection_error_tails`。这次两者都为空：37 个 id 都收集到了，错误发生在执行阶段的 `setUpClass`，只出现在 `execution_stderr_tail` 里。所以 `grader_candidate_error` 为空，按原规则停止。
+- 即使对 `execution_stderr_tail` 也按 H6 取最内层的项目栈帧，结果是 `/workspace/django/db/models/base.py`，候选没有改这个文件，同样不会放行。
+- 我的判断：这是候选改动引起的失败，不是 harness 或 grader 的故障。但现行规则不覆盖这种情况：错误发生在执行阶段，出现在未修改的文件里，根因在候选改过的文件里。怎么处理需要审计决定。
+
+**完成情况：**
+
+| 项 | B2 | `b0/r4` |
+| --- | --- | --- |
+| 应跑槽位 | 168 | 56 |
+| 已完成（不含 infra） | 115 | 38 |
+| 未启动 | 53 | 18 |
+| 3 次都跑完的题 | 16 | — |
+| infra_error（都已退役重跑） | 2：django-13964 r3（容器清理失败）、pytest-5631 r1（快照前容器消失） | 2：sklearn-12585 r4（Docker 控制输出超限）、sphinx-7910 r4（快照前容器消失） |
+| Docker 控制重试 | 21 次 | 9 次 |
+| `harness_tool_errors` | 0 | 0 |
+| grader 报 missing | 1 次（django-13964 r3，本次停止） | 0 |
+| `grader_candidate_error` | 0 | 0 |
+| 隔离失败 | 0 | 0 |
+| 停止原因 | `completed` 79，`max_model_calls` 35，`model_parse_error` 1 | `completed` 27，`max_model_calls` 11 |
+| 花费 | 41.947 元，平均每次 0.359 元 | 12.261 元，平均每次 0.307 元 |
+| 平均模型调用 | 24.8 | 23.5 |
+
+- infra_error 共 4 次，B2 和 r4 分开计算，都没有达到"满 3 次且超过 10%"的停止线。
+- 模型全部是 `deepseek-flash` @ `api.deepseek.com`，profile 全部是 `b0-v2`；B2 的变体全部是 B2，r4 全部是 B0。
+- 故障警报：B2 正式运行已超过 30 次，其中有解出，没有触发。
+- B2 的 1 次 `model_parse_error` 是 sklearn-9288 r2：累计花了 0.923 元，下一次调用会超过单次 1 元的硬上限，被拒绝后记成了这个标签。情况和 B0 的 sympy-15599 r3 相同，不是停止条件。
+
+#### 预测注入与实际注入的一致性
+
+- 已完成的 115 次 B2 全部核对，115 次一致，0 次不一致。核对的是事件日志里实际注入的卡片 id 集合，包括存成附件的负载。
+- 每张实际注入卡片的字节数和 sha256 都与预测表一致。
+- summary 里记录的预览注入（id 和字节数）也都与预测表一致。
+- 每张卡在每次运行中只注入一次，没有日志不可读的运行。
+
+#### 注入统计（已完成的 115 次 B2）
+
+- 注入至少 1 张卡的题：51 道，就是预测会注入的全部 51 道，每道至少跑了 1 次。
+- 注入至少 1 张卡的运行：105 次；其余 10 次属于预测不注入的 5 道题。
+- 注入的运行平均 2.93 张卡、3308.7 字节。
+
+#### 全量检查
+
+对 115 次 B2 实际注入的每张卡，按卡片自己的 `repo`、`created_at` 与 `main-targets.yaml` 里目标题的 repo、`created_at` 核对：
+
+- 没有晚于或等于目标题日期的卡；
+- 没有目标题自己的卡；
+- 没有跨 repo 的卡。
+
+预测表对 56 道题做同样的检查，结果也是 0。
+
+#### 测试
+
+全套测试 435 passed，199 skipped。
+
+#### 需要审计决定
+
+1. **django-13964 B2 r3 如何处理。** 可选的做法：
+   - 按现行规则把它记作 grader 停止，维持现状；
+   - 扩展 H6：也读 `execution_stderr_tail`，并把判据放宽到"任意一个项目栈帧落在候选改过的文件里"。这一次栈帧里有 `tests/many_to_one/tests.py`，候选改过它，但 grader 用的是测试补丁覆盖后的版本，所以按这个判据放行也不严谨；
+   - 或者另定口径。
+
+   这属于规则改动，我没有做。
+2. **B2 续跑。** 审计决定后，用同一条命令续跑。已完成的 115 次 B2 和 38 次 r4 会被跳过，并重新核对注入。
+
+没有看 B2 相对 B0 的结果，也没有计算差异。停在这里等审计。
+
+**通知 coding-agent：** B2 已停止，D8 报告就绪。现有数据是 B2 115/168、`b0/r4` 38/56，不完整；运行目录在 `runs/a5-main/`，统计在 `runs/a5-main-logs/b2-stats.json`，预测注入表是 `docs/sprint/b2-predicted-injection.json`（`5d858eb4…`）。可以开始分析的准备工作；是否等 B2 续跑完成再做完整分析，由审计决定。
