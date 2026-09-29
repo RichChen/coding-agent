@@ -384,3 +384,24 @@ tag `a5-main-freeze-r4` 指向加入本节的提交。`a5-main-freeze`、`-r1`�
 **对 django-13964 B2 r3 的执行结果：** 空改动重评没有 missing，F2P 0/1、P2P 36/36，与校准（`empty_f2p` [0, 1]，`empty_p2p` [36, 36]，没有排除项）一致，镜像与原运行相同。按第 2 条记为普通失败；原 summary 另存为 `summary.pre-regrade.json`，这个槽位不重跑。
 
 全套测试：441 passed，199 skipped。
+
+### 修订 4 补记 3（B2 第二次续跑前，不打新 tag）
+
+依据：审计批准 sphinx-7590 B2 r3 停止后提出的扩展。这次候选改动让 `_parse_udl_suffix` 陷入死循环，测试执行超过 600 秒超时，没有写出 receipt，grader 读 receipt 失败后报 `DockerUnavailable`，状态 `invalid_env`。零花费诊断显示空改动重评 10.1 秒完成且与校准一致，候选改动重评再次超时，所以这是候选改动的执行失败，不是 grader 或镜像故障。
+
+| 项 | 内容 | 提交 |
+| --- | --- | --- |
+| 超时触发空改动重评 | `classify_timeout`、`run_task` 触发、`run_checks` 放行 | `5a7ac96` |
+| 离线重评脚本支持超时情形 | `scripts/sprint6_missing_regrade.py` | `6dadad2` |
+
+**规则：**
+
+1. 触发条件：grader 报了 reason，并且 `execution_status == "timed_out"`（测试已经开始执行后超时）。测试开始前就失败的情况仍按 infra 处理（`grader_infra_reason` 不变），不走这条规则；有 missing 的运行仍走补记 2 的规则。
+2. 触发后用同一个镜像、同一套测试覆盖和同一组 F2P/P2P 以空改动再评一次，不花钱。结果写到 `grader-regrade-empty.json`，summary 的 `timeout_regrade` 记录计数、期望值和是否一致。
+3. 空改动重评没有 missing、没有 reason，并且 F2P、P2P 与校准一致（口径同补记 2）时，这次运行按普通失败处理：F2P/P2P 全部算失败，`solved=false`，`status="fail"`，`grader_candidate_error="execution_timeout"`；`grader_status` 和 `grader_ids.reason` 保留原值作为证据。不停止。
+4. 空改动重评不一致、有 missing、有 reason，或者没有校准记录，按原规则停止（"grader crashed"）。
+5. 规则对 B2 和 `b0/r4` 同样适用。已完成的运行中只有 sphinx-7590 B2 r3 有 grader reason；B0 的 168 次运行（r1..r3）、已完成的 `b0/r4` 和其余 B2 运行都没有 grader reason，这条规则对它们没有影响。
+
+**对 sphinx-7590 B2 r3 的执行结果：** 空改动重评没有 missing，没有 reason，F2P 0/1、P2P 24/24，与校准期望（F2P [0, 1]，P2P [24, 24]）一致，镜像 `coding-harness-a5-clean@sha256:830eab6e…` 与原运行相同。按第 3 条记为普通失败；原 summary 另存为 `summary.pre-regrade.json`，这个槽位不重跑。
+
+全套测试：444 passed，199 skipped。
