@@ -769,4 +769,99 @@ B0 已经完成，结果文件已经交接给 coding-agent 侧（`main-b0-runs.j
 
 没有看 B2 相对 B0 的结果，也没有计算差异。停在这里等审计。
 
-**通知 coding-agent：** B2 已停止，D8 报告就绪。现有数据是 B2 115/168、`b0/r4` 38/56，不完整；运行目录在 `runs/a5-main/`，统计在 `runs/a5-main-logs/b2-stats.json`，预测注入表是 `docs/sprint/b2-predicted-injection.json`（`5d858eb4…`）。可以开始分析的准备工作；是否等 B2 续跑完成再做完整分析，由审计决定。
+**通知 coding-agent（第一次停止时）：** B2 已停止，D8 报告就绪。现有数据是 B2 115/168、`b0/r4` 38/56，不完整；运行目录在 `runs/a5-main/`，统计在 `runs/a5-main-logs/b2-stats.json`，预测注入表是 `docs/sprint/b2-predicted-injection.json`（`5d858eb4…`）。可以开始分析的准备工作；是否等 B2 续跑完成再做完整分析，由审计决定。
+
+### 6D 第 C 段执行记录（续）：missing_regrade 规则与续跑（再次停止）
+
+**结论：续跑在 sphinx-7590 的 B2 r3 触发原有停止条件"grader crashed"，停在这里等审计。** 原因是候选改动里的死循环让测试执行超时（详见下文），不是 Docker 或 harness 的故障，但现行规则没有对应的放行条件。
+
+- 已完成 B2 139/168 次、`b0/r4` 46/56 次；未启动 39 个槽位（B2 29 个，r4 10 个）。
+- 实际注入与预测 139/139 一致。
+- 本段累计花费 64.935 元（B2 49.578 元，r4 15.357 元），`runs/a5-main/` 总额 120.709 元，低于 `TOTAL_CAP` 230 元。
+- 仍然没有计算 B2 相对 B0 的差异，不报告解出率。
+
+#### missing_regrade 规则（审计新规则）
+
+| 提交 | 内容 | 对已完成运行的影响 |
+| --- | --- | --- |
+| `d99e1f6` | 规则本体：grader 报 missing 且 H6 不适用时，同一镜像以空改动重评；无 missing 且与校准一致就记为普通失败（`grader_candidate_error="execution"`），否则停止。另外 `solved` 在有 missing 时一律为 false | 只影响有 missing 的运行。B0 的 168 次（r1..r3）没有 missing，不受影响；当时已完成的 38 次 r4 也没有 missing；B2 只有 django-13964 r3 一次 |
+| `abad9dc` | `scripts/sprint6_missing_regrade.py`：对已完成的运行零花费执行这条规则 | 只用于 django-13964 B2 r3 |
+| `2be58e7` | 冻结修订 4 补记 2 | 无 |
+| `d8337f7` | `scripts/sprint6_grader_diagnostic.py`：零花费诊断脚本（见下） | 无，只在运行目录里写诊断文件 |
+
+- **确认 B0 不受影响：** `runs/a5-main/*/b0/r1..r3` 的 168 份 summary，`grader_ids.missing` 全部为 0。
+- **比较口径：** F2P 期望值是校准的 `empty_f2p`。P2P 总数是校准总数减去 `p2p_excluded` 条数，通过数是校准通过数：3 道有排除项的 sphinx 题在校准时，被排除的测试在空改动下都失败了，所以排除后通过数不变。
+- **新增测试（`tests/test_candidate_error.py`）：**
+  - 执行阶段 missing，空改动重评正常：判为普通失败，B2 和 r4 都不停止；
+  - 空改动重评也有 missing：停止；
+  - 重评与校准不一致、重评出错、没有校准记录：都停止；
+  - H6 仍然优先。
+
+**django-13964 B2 r3 的空改动重评：** 没有 missing，F2P 0/1、P2P 36/36，与校准（`empty_f2p` [0, 1]，`empty_p2p` [36, 36]，没有排除项）一致，镜像与原运行相同（`sha256:5c408063…`）。
+
+- 按第 2 条记为普通失败，`grader_candidate_error="execution"`，summary 里写入 `missing_regrade`；
+- 原 summary 保留为 `summary.pre-regrade.json`，重评结果在 `grader-regrade-empty.json`；
+- 这个槽位没有重跑。
+
+#### 续跑与停止
+
+用同一条命令续跑，已完成的 153 个槽位跳过，并重新核对注入。新启动 32 次（B2 24 次、r4 8 次）后，sphinx-7590 的 B2 r3 的 grader 返回 `invalid_env`，reason 是 `DockerUnavailable: Docker exec failed after 3 retries`，runner 按"grader crashed"停止。第二次停止时的日志保留在 `runs/a5-main-logs/b2-full-stop2.log`，本次日志在 `runs/a5-main-logs/b2-full.log`。
+
+**经过：**
+
+1. 这次评测的测试执行在 600 秒上限处超时（`execution_status: timed_out`），容器里没有生成 `/tmp/a5-pytest-receipt.json`。
+2. grader 接着用 `docker exec` 读这个文件，容器里抛出 FileNotFoundError；这个失败被当作 Docker exec 错误重试 3 次，最后以 `DockerUnavailable` 结束，grader 状态记为 `invalid_env`。
+3. grader missing 为 0，所以新的 missing_regrade 规则不适用；不是 infra_error，所以也不会重跑。
+
+**零花费诊断**（`scripts/sprint6_grader_diagnostic.py`，结果在运行目录的 `diagnostic-grader-rerun.json`，没有改 summary）：
+
+| 评测 | 用时 | 结果 |
+| --- | --- | --- |
+| 同一镜像，空改动 | 10.1 秒 | 正常结束；无 missing，F2P 0/1、P2P 24/24，与校准一致 |
+| 同一镜像，候选改动原样重评 | 620.4 秒 | 再次超时，同样的 `invalid_env` 和 reason |
+
+**根因：** 候选在 `sphinx/domains/cpp.py` 里新增了 `_parse_udl_suffix`，用 `while self.current_char.isalnum() or self.current_char == '_'` 读后缀。sphinx 的 `BaseParser.current_char` 读到字符串末尾时返回字符串 `'EOF'`，而 `'EOF'.isalnum()` 为真，所以后缀一直延伸到输入结尾时，这个循环永远不会结束。候选还在仓库根目录新建了 `test_udl_tmp.py`，但 grader 只运行指定的测试 id，与超时无关。
+
+**我的判断：** 这是候选改动造成的、可以复现的死循环，不是 grader 或 Docker 的故障。grader 把"测试超时后没有结果文件"报成了 Docker 不可用，这个标签不准确，但我没有改，因为它属于运行时行为。
+
+**完成情况（截至本次停止）：**
+
+| 项 | B2 | `b0/r4` |
+| --- | --- | --- |
+| 应跑槽位 | 168 | 56 |
+| 已完成（不含 infra） | 139（含 sphinx-7590 r3 这次 `invalid_env`） | 46 |
+| 未启动 | 29 | 10 |
+| 3 次都跑完的题 | 30 | — |
+| infra_error（都已退役重跑） | 2（与上次相同） | 2（与上次相同） |
+| Docker 控制重试 | 28 次（包括 sphinx-7590 r3 读结果文件的 3 次） | 10 次 |
+| `harness_tool_errors` | 0 | 0 |
+| grader 报 missing | 1 次（django-13964 r3，已按新规则记为普通失败） | 0 |
+| grader reason | 1 次（sphinx-7590 r3，本次停止） | 0 |
+| 隔离失败 | 0 | 0 |
+| 停止原因 | `completed` 96，`max_model_calls` 42，`model_parse_error` 1 | `completed` 31，`max_model_calls` 15 |
+| 花费 | 49.578 元，平均每次 0.352 元 | 15.357 元，平均每次 0.320 元 |
+| 平均模型调用 | 24.5 | 23.8 |
+
+- 模型、profile、变体与上次相同，没有变化。
+- 故障警报没有触发。
+- infra_error 没有达到停止线。
+
+#### 预测注入与实际注入的一致性
+
+- 已完成的 139 次 B2：139 次一致，0 次不一致；每张卡的字节数和 sha 与预测相同；summary 的预览注入也一致；没有日志不可读的运行。
+- 注入统计：51 道题、126 次运行注入了至少 1 张卡；注入的运行平均 2.87 张卡、3236.2 字节。
+- 全量检查：没有晚于目标题的卡、没有目标题自己的卡、没有跨 repo 的卡。
+- gold 行重叠与上次相同，是 0，按预测表统计。
+
+#### 测试
+
+全套测试 441 passed，199 skipped。
+
+#### 需要审计决定
+
+1. **sphinx-7590 B2 r3 如何处理。** 情况和 django-13964 类似：候选让测试无法正常跑完，空改动在同一镜像上正常，且与校准一致。不同之处是这次表现为执行超时后 grader 报 reason，不是 missing，所以不在 missing_regrade 规则的范围内。
+   - 一种做法是把规则扩展到"grader reason 且执行超时"：空改动重评正常就记为普通失败，F2P/P2P 全部算失败。
+   - 这需要审计批准，我没有做。
+2. **B2 续跑。** 审计决定后用同一条命令续跑，已完成的 139 次 B2 和 46 次 r4 会跳过，并重新核对注入。
+
+**通知 coding-agent：** B2 再次停止，D8 报告已更新。现有数据是 B2 139/168、`b0/r4` 46/56，仍不完整；统计在 `runs/a5-main-logs/b2-stats.json`。是否等 B2 跑完再做完整分析，由审计决定。
