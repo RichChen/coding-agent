@@ -1,5 +1,4 @@
 import json
-import sys
 from pathlib import Path
 
 import pytest
@@ -30,6 +29,31 @@ def test_v2_handoff_missing_repo_fails():
         runs_with_identity(data, {})
 
 
+def test_source_hidden_ids_are_scrubbed_from_commands(tmp_path):
+    from reposkill_agent.memory.records import MemoryCard
+    from scripts.build_memory_cards import hidden_id_hit_counts, scrub_hidden_ids
+
+    node = "tests/test_hidden.py::TestHidden::test_secret_behavior_case"
+    root = tmp_path / "harness"
+    private = root / "runs" / "sprint5-main-private" / "demo-1.json"
+    private.parent.mkdir(parents=True)
+    private.write_text(json.dumps({"FAIL_TO_PASS": [node], "PASS_TO_PASS": []}), encoding="utf-8")
+    card = MemoryCard(
+        repo="demo/demo",
+        created_at="2020-01-02T00:00:00Z",
+        version="abc123def456",
+        source_id="demo-1",
+        issue_summary="A public bug.",
+        fix_approach="Changed parse.",
+        test_commands=(f"pytest {node}",),
+        source_run="r1 " + str(tmp_path / "missing-run"),
+    )
+    assert hidden_id_hit_counts((card,), [root])[0] == 1
+    cleaned = scrub_hidden_ids((card,), [root])
+    assert node not in cleaned[0].test_commands[0]
+    assert hidden_id_hit_counts(cleaned, [root])[0] == 0
+
+
 def test_naive_created_at_is_rejected():
     from reposkill_agent.memory.records import MemoryCard
 
@@ -45,25 +69,14 @@ def test_naive_created_at_is_rejected():
 
 
 @pytest.mark.skipif(not CARDS.is_file(), reason="v5 cards are built in the sprint step")
-def test_generic_builder_matches_v5_bytes(tmp_path):
-    import subprocess
+def test_generic_builder_matches_v5_bytes():
+    from reposkill_agent.memory.cards_v5 import build_cards_from_handoff, cards_jsonl
 
-    out = tmp_path / "cards.jsonl"
-    completed = subprocess.run(
-        [
-            sys.executable,
-            "scripts/build_memory_cards.py",
-            "--handoff",
-            str(HANDOFF),
-            "--out",
-            str(out),
-        ],
-        check=False,
-        capture_output=True,
-        text=True,
+    cards, _status = build_cards_from_handoff(
+        HANDOFF, canonical_path=CANONICAL, path_base=Path(".")
     )
-    assert completed.returncode == 0, completed.stderr
-    assert out.read_bytes().replace(b"\r\n", b"\n") == CARDS.read_bytes().replace(b"\r\n", b"\n")
+    payload = cards_jsonl(cards)
+    assert payload.replace(b"\r\n", b"\n") == CARDS.read_bytes().replace(b"\r\n", b"\n")
 
 
 def test_v5_cards_have_repo_and_created_at_and_do_not_render_created_at():
@@ -122,11 +135,20 @@ def test_two_handoffs_build_and_mock_or_duplicate_ids_are_rejected(tmp_path):
         "scope": "dev",
         "runs": [_handoff_run("django__django-90001", dev_run, solved=True)],
     }
+    import hashlib
+
+    issue = "A public bug report."
+    digest = hashlib.sha256(issue.encode("utf-8")).hexdigest()
+    public = tmp_path / "runs" / "sprint5-main-public" / "django__django-90002.json"
+    public.parent.mkdir(parents=True)
+    public.write_text(json.dumps({"issue_text": issue}), encoding="utf-8")
     pool_body = _handoff_run("django__django-90002", pool_run, solved=True)
-    pool_body.pop("run_dir")
-    pool = {"schema": "sprint6.main-b0-runs.v1", "scope": "pool", "runs": [pool_body]}
+    pool_body["public_task"] = "runs/sprint5-main-public/django__django-90002.json"
+    pool_body["issue_sha256"] = digest
+    pool = {"schema": "sprint6.main-b0-runs.v2", "scope": "pool", "runs": [pool_body]}
     dev_path = tmp_path / "dev.json"
-    pool_path = tmp_path / "pool.json"
+    pool_path = tmp_path / "docs" / "sprint" / "pool.json"
+    pool_path.parent.mkdir(parents=True)
     dev_path.write_text(json.dumps(dev), encoding="utf-8")
     pool_path.write_text(json.dumps(pool), encoding="utf-8")
     cards, status, handoffs, omitted = build_cards_from_handoffs(
@@ -144,12 +166,30 @@ def test_two_handoffs_build_and_mock_or_duplicate_ids_are_rejected(tmp_path):
     with pytest.raises(ValueError, match="mock_handoff_rejected"):
         build_cards_from_handoffs([dev_path, mock], canonical_path=CANONICAL, path_base=Path("."))
     dup = tmp_path / "dup.json"
-    dup.write_text(
-        json.dumps({**pool, "runs": [_handoff_run("django__django-90001", pool_run, solved=True)]}),
-        encoding="utf-8",
-    )
+    dup_run = _handoff_run("django__django-90001", pool_run, solved=True)
+    dup_run["public_task"] = pool_body["public_task"]
+    dup_run["issue_sha256"] = digest
+    dup.write_text(json.dumps({**pool, "runs": [dup_run]}), encoding="utf-8")
     with pytest.raises(ValueError, match="duplicate_source_id"):
         build_cards_from_handoffs([dev_path, dup], canonical_path=CANONICAL, path_base=Path("."))
+    from reposkill_agent.memory.cards_v5 import load_handoff_document
+
+    old = tmp_path / "v1.json"
+    old.write_text(
+        json.dumps({"schema": "sprint6.main-b0-runs.v1", "runs": [pool_body]}),
+        encoding="utf-8",
+    )
+    with pytest.raises(ValueError, match="pool_v1_rejected"):
+        load_handoff_document(old)
+    broken = tmp_path / "docs" / "sprint" / "bad.json"
+    bad_run = dict(pool_body)
+    bad_run["issue_sha256"] = "0" * 64
+    broken.write_text(
+        json.dumps({"schema": "sprint6.main-b0-runs.v2", "runs": [bad_run]}),
+        encoding="utf-8",
+    )
+    with pytest.raises(ValueError, match="issue_sha_mismatch"):
+        build_cards_from_handoffs([broken], canonical_path=CANONICAL, path_base=Path("."))
 
 
 def test_unsolved_cards_skip_infra_and_all_infra_is_omitted(tmp_path):

@@ -101,10 +101,32 @@ def prepare(rows: list[dict]) -> tuple[list[dict], list[str]]:
     return eligible, excluded
 
 
+def _sample_sd(values: list[float]) -> float:
+    if len(values) < 2:
+        return 0.0
+    mean = _mean(values)
+    variance = sum((value - mean) ** 2 for value in values) / (len(values) - 1)
+    return math.sqrt(variance)
+
+
+def data_floor_points(values: list[float]) -> float:
+    if not values:
+        return 0.0
+    return 100.0 * DETECTION_Z * _sample_sd(values) / math.sqrt(len(values))
+
+
 def _stats(tasks: list[dict]) -> dict:
     values = [task["d"] for task in tasks]
     if not values:
-        return {"n": 0, "mean": 0.0, "p": 1.0, "low": 0.0, "high": 0.0, "floor": 0.0}
+        return {
+            "n": 0,
+            "mean": 0.0,
+            "p": 1.0,
+            "low": 0.0,
+            "high": 0.0,
+            "floor": 0.0,
+            "data_floor": 0.0,
+        }
     low, high = bootstrap_ci(values)
     return {
         "n": len(values),
@@ -113,6 +135,7 @@ def _stats(tasks: list[dict]) -> dict:
         "low": low,
         "high": high,
         "floor": detection_floor_points(len(values)),
+        "data_floor": data_floor_points(values),
     }
 
 
@@ -153,12 +176,104 @@ def short_groups(rows: list[dict]) -> list[str]:
     return notes
 
 
-def render_report(rows: list[dict]) -> str:
-    eligible, excluded = prepare(rows)
-    incomplete = short_groups(rows)
+def _repeat(row: dict) -> int | None:
+    try:
+        return int(row.get("repeat"))
+    except (TypeError, ValueError):
+        return None
+
+
+def primary_rows(rows: list[dict]) -> list[dict]:
+    """Main analysis uses r1–r3 only. r4 is the drift arm."""
+    return [row for row in rows if _repeat(row) in {1, 2, 3}]
+
+
+def drift_diffs(rows: list[dict]) -> list[float]:
+    grouped: dict[str, list[dict]] = defaultdict(list)
+    for row in rows:
+        if row.get("variant") == "B0":
+            grouped[str(row.get("task_id"))].append(row)
+    diffs = []
+    for _task_id, group in sorted(grouped.items()):
+        early = [
+            row for row in group if _repeat(row) in {1, 2, 3} and row.get("status") != "infra_error"
+        ]
+        later = [row for row in group if _repeat(row) == 4 and row.get("status") != "infra_error"]
+        if not early or len(later) != 1:
+            continue
+        early_rate = sum(1 for row in early if row.get("solved")) / len(early)
+        diffs.append(float(bool(later[0].get("solved"))) - early_rate)
+    return diffs
+
+
+def sensitivity_diffs(rows: list[dict]) -> list[float]:
+    """B2 solved/3 minus the r4 0/1 result. Descriptive only."""
+    grouped: dict[str, dict[str, list]] = defaultdict(lambda: defaultdict(list))
+    for row in rows:
+        if row.get("variant") in {"B0", "B2"}:
+            grouped[str(row.get("task_id"))][row["variant"]].append(row)
+    values = []
+    for _task_id, groups in sorted(grouped.items()):
+        later = [
+            row
+            for row in groups.get("B0", [])
+            if _repeat(row) == 4 and row.get("status") != "infra_error"
+        ]
+        b2 = [
+            row
+            for row in groups.get("B2", [])
+            if _repeat(row) in {1, 2, 3} and row.get("status") != "infra_error"
+        ]
+        if len(later) != 1 or not b2:
+            continue
+        solved = sum(1 for row in b2 if row.get("solved"))
+        values.append(solved / 3.0 - float(bool(later[0].get("solved"))))
+    return values
+
+
+def b0_bin(solved_count: int) -> str:
+    if solved_count <= 0:
+        return "0/3"
+    if solved_count >= 3:
+        return "3/3"
+    return "1-2/3"
+
+
+def load_predicted_injection(path: Path) -> dict[str, int]:
+    data = json.loads(path.read_text(encoding="utf-8"))
+    _reject_mock(data, path.name)
+    tasks = data.get("tasks")
+    if not isinstance(tasks, list):
+        raise ValueError("predicted_injection_not_a_list")
+    counts = {}
+    for item in tasks:
+        task_id = str(item.get("task_id") or "")
+        cards = item.get("cards", item.get("card_ids"))
+        if isinstance(cards, list):
+            counts[task_id] = len(cards)
+        else:
+            counts[task_id] = int(item.get("predicted_cards") or 0)
+    return counts
+
+
+def render_report(rows: list[dict], predicted: dict[str, int] | None = None) -> str:
+    main_rows = primary_rows(rows)
+    eligible, excluded = prepare(main_rows)
+    incomplete = short_groups(main_rows)
     primary = _stats(eligible)
-    secondary_tasks = [task for task in eligible if task["injected"]]
+    actual_tasks = [task for task in eligible if task["injected"]]
+    if predicted is None:
+        secondary_tasks = actual_tasks
+    else:
+        secondary_tasks = [task for task in eligible if predicted.get(task["task_id"], 0) >= 1]
     secondary = _stats(secondary_tasks)
+    actual = _stats(actual_tasks)
+    drift = drift_diffs(rows)
+    drift_stats = None
+    if drift:
+        low, high = bootstrap_ci(drift)
+        drift_stats = {"n": len(drift), "mean": _mean(drift), "low": low, "high": high}
+    drifted = bool(drift_stats and (drift_stats["low"] > 0.0 or drift_stats["high"] < 0.0))
     lines = [
         "# A5-main 分析",
         "",
@@ -194,11 +309,18 @@ def render_report(rows: list[dict]) -> str:
             f"- 平均 d_t：{primary['mean']:.4f}",
             f"- 双侧符号翻转 p：{primary['p']:.4f}",
             f"- 95% 区间：{primary['low']:.4f} 到 {primary['high']:.4f}",
-            f"- 结论：{_conclusion(primary)}",
+            f"- 设计检测下限：{primary['floor']:.1f} 个百分点（2.8×0.35/√N）",
+            f"- 本次数据检测下限：{primary['data_floor']:.1f} 个百分点（2.8×s/√N）",
+            f"- 结论：{_conclusion(primary)}" + ("。存在时间漂移" if drifted else ""),
             "",
             "## 次要分析",
             "",
-            f"- 注入了至少 1 张卡的题数：{secondary['n']}",
+            (
+                "分组依据是处理前预测会注入至少 1 张卡的题。实际注入只用来核对。"
+                if predicted is not None
+                else "没有提供预测注入表，这一节暂时按实际注入至少 1 张卡分组。"
+            ),
+            f"- 题数：{secondary['n']}",
             f"- 平均 d_t：{secondary['mean']:.4f}",
             f"- 双侧符号翻转 p：{secondary['p']:.4f}",
             f"- 95% 区间：{secondary['low']:.4f} 到 {secondary['high']:.4f}",
@@ -215,6 +337,50 @@ def render_report(rows: list[dict]) -> str:
         lines.append("无")
     for repo, tasks in sorted(by_repo.items()):
         lines.append(f"- {repo}：{len(tasks)} 题，平均 d_t {_mean([task['d'] for task in tasks]):.4f}")
+    lines.extend(["", "### 实际注入核对", ""])
+    if predicted is None:
+        lines.append("没有预测表，不比较。")
+    else:
+        predicted_ids = {task["task_id"] for task in secondary_tasks}
+        actual_ids = {task["task_id"] for task in actual_tasks}
+        if predicted_ids == actual_ids:
+            lines.append("预测注入和实际注入的题一致。")
+        else:
+            lines.append("预测注入和实际注入不一致。")
+            lines.append("只在预测里：" + ("、".join(sorted(predicted_ids - actual_ids)) or "无"))
+            lines.append("只在实际里：" + ("、".join(sorted(actual_ids - predicted_ids)) or "无"))
+    lines.append(f"- 实际注入至少 1 张卡的题数：{actual['n']}")
+    lines.append(f"- 平均 d_t：{actual['mean']:.4f}")
+    lines.extend(["", "## 漂移检查（描述性，非预注册）", ""])
+    if drift_stats is None:
+        lines.append("没有成对的 B0 r4。")
+    else:
+        lines.append(f"- 题数：{drift_stats['n']}")
+        lines.append(f"- 平均差（r4 减 r1–r3）：{drift_stats['mean']:.4f}")
+        low = drift_stats["low"]
+        high = drift_stats["high"]
+        lines.append(f"- 95% 区间：{low:.4f} 到 {high:.4f}")
+        lines.append("不做显著性检验。")
+    sensitive = sensitivity_diffs(rows)
+    lines.extend(["", "### 用 r4 作同期 B0（描述性，非预注册）", ""])
+    if not sensitive:
+        lines.append("没有同时具备 B2 和 B0 r4 的题。")
+    else:
+        lines.append(f"- 题数：{len(sensitive)}")
+        lines.append(f"- 平均（B2 的 k/3 减 r4）：{_mean(sensitive):.4f}")
+        lines.append("不做显著性检验。")
+    lines.extend(["", "## 按 B0 档位（描述性，非预注册）", ""])
+    lines.append("按 B0 结果分组会受回归均值影响，不可作为效应证据。")
+    bins: dict[str, list[dict]] = defaultdict(list)
+    for task in eligible:
+        bins[b0_bin(task["b0_k"])].append(task)
+    for name in ("0/3", "1-2/3", "3/3"):
+        group = bins.get(name) or []
+        if not group:
+            lines.append(f"- {name}：0 题")
+            continue
+        mean = _mean([task["d"] for task in group])
+        lines.append(f"- {name}：{len(group)} 题，平均 d_t {mean:.4f}")
     lines.extend(["", "## 花费和过程", ""])
 
     def side(name: str, key: str) -> str:
@@ -301,7 +467,9 @@ def load_a5_main_tree(root: Path) -> list[dict]:
 def load_main_b0_handoff(path: Path) -> dict:
     data = json.loads(path.read_text(encoding="utf-8"))
     _reject_mock(data, path.name)
-    if data.get("schema") != "sprint6.main-b0-runs.v1":
+    if data.get("schema") == "sprint6.main-b0-runs.v1":
+        raise ValueError("pool_v1_rejected")
+    if data.get("schema") != "sprint6.main-b0-runs.v2":
         raise ValueError("unexpected_main_b0_schema")
     return data
 
@@ -311,6 +479,7 @@ def main() -> int:
     parser.add_argument("--runs", type=Path)
     parser.add_argument("--root", type=Path)
     parser.add_argument("--b0-handoff", type=Path)
+    parser.add_argument("--predicted", type=Path)
     parser.add_argument("--out", type=Path, required=True)
     args = parser.parse_args()
     if args.runs is None and args.root is None:
@@ -322,10 +491,11 @@ def main() -> int:
             rows.extend(load_a5_main_tree(args.root))
         if args.b0_handoff:
             load_main_b0_handoff(args.b0_handoff)
+        predicted = load_predicted_injection(args.predicted) if args.predicted else None
     except ValueError as exc:
         print("STOP", exc)
         return 2
-    report = render_report(rows)
+    report = render_report(rows, predicted)
     args.out.parent.mkdir(parents=True, exist_ok=True)
     args.out.write_text(report, encoding="utf-8")
     print(args.out)

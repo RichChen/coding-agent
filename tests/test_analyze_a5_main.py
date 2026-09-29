@@ -136,7 +136,13 @@ def test_main_b0_handoff_rejects_mock(tmp_path):
         json.dumps({"schema": "sprint6.main-b0-runs.v1", "scope": "pool", "runs": []}),
         encoding="utf-8",
     )
-    assert load_main_b0_handoff(path)["schema"] == "sprint6.main-b0-runs.v1"
+    with pytest.raises(ValueError, match="pool_v1_rejected"):
+        load_main_b0_handoff(path)
+    path.write_text(
+        json.dumps({"schema": "sprint6.main-b0-runs.v2", "scope": "pool", "runs": []}),
+        encoding="utf-8",
+    )
+    assert load_main_b0_handoff(path)["schema"] == "sprint6.main-b0-runs.v2"
 
 
 def test_two_valid_solves_count_as_a_full_rate():
@@ -150,4 +156,27 @@ def test_two_valid_solves_count_as_a_full_rate():
     assert eligible[0]["d"] == 0.0
     report = render_report(rows)
     assert "除以有效运行数" in report
-    assert "除以 3" not in report
+    assert "除以 3" not in report.split("## 漂移检查")[0]
+
+
+def test_primary_ignores_r4_and_reports_drift_and_bins():
+    rows = _pair("t", "demo/demo", [False, False, False], [False, False, False])
+    rows.append(_row("t", "demo/demo", "B0", 4, True))
+    report = render_report(rows)
+    assert "平均 d_t：0.0000" in report.split("## 次要分析")[0]
+    assert "存在时间漂移" in report
+    assert "平均差（r4 减 r1–r3）：1.0000" in report
+    assert "平均（B2 的 k/3 减 r4）：-1.0000" in report
+    assert "按 B0 结果分组会受回归均值影响，不可作为效应证据" in report
+    assert "本次数据检测下限" in report
+
+
+def test_predicted_injection_is_checked_against_actual():
+    rows = _pair("keep", "demo/demo", [False, False, False], [True, True, True], injected=1)
+    rows.extend(_pair("skip", "demo/demo", [False, False, False], [False, False, False]))
+    matched = render_report(rows, {"keep": 1, "skip": 0})
+    assert "预测注入和实际注入的题一致" in matched
+    mismatched = render_report(rows, {"keep": 0, "skip": 2})
+    assert "预测注入和实际注入不一致" in mismatched
+    assert "只在预测里：skip" in mismatched
+    assert "只在实际里：keep" in mismatched

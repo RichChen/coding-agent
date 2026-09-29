@@ -17,7 +17,8 @@ from reposkill_agent.memory.records import MemoryCard
 
 V2_SCHEMA = "sprint5.memory-source-runs.v2"
 V1_SCHEMA = "sprint4.memory-source-runs.v1"
-POOL_SCHEMA = "sprint6.main-b0-runs.v1"
+POOL_V1_SCHEMA = "sprint6.main-b0-runs.v1"
+POOL_SCHEMA = "sprint6.main-b0-runs.v2"
 MANIFEST_SCHEMA = "memory-cards.v5.manifest"
 MOCK_SCOPES = {"mock", "step7-mock"}
 
@@ -36,13 +37,29 @@ def load_handoff_document(path: Path) -> dict:
     data = json.loads(path.read_text(encoding="utf-8"))
     if str(data.get("scope") or "") in MOCK_SCOPES:
         raise ValueError("mock_handoff_rejected")
+    if data.get("schema") == POOL_V1_SCHEMA:
+        raise ValueError("pool_v1_rejected")
     if data.get("schema") not in {V1_SCHEMA, V2_SCHEMA, POOL_SCHEMA}:
         raise ValueError("unexpected_memory_source_runs_schema")
     runs = data.get("runs")
     if not isinstance(runs, list) or not runs:
         raise ValueError("memory_source_runs_not_a_list")
     if data.get("schema") == POOL_SCHEMA:
-        required = ("source_id", "repo", "created_at", "repeat", "solved", "status", "summary")
+        required = (
+            "source_id",
+            "repo",
+            "created_at",
+            "repeat",
+            "solved",
+            "status",
+            "summary",
+            "answer_isolation_pass",
+            "base_commit",
+            "grader_status",
+            "run_dir",
+            "public_task",
+            "issue_sha256",
+        )
         for run in runs:
             missing = [key for key in required if run.get(key) in (None, "")]
             if missing:
@@ -53,7 +70,7 @@ def load_handoff_document(path: Path) -> dict:
 def runs_with_identity(data: dict, pool: dict[str, dict]) -> list[dict]:
     """v2 runs must already carry repo and created_at. v1 is interim and looks them up."""
     enriched = []
-    interim = data.get("schema") != V2_SCHEMA
+    interim = data.get("schema") == V1_SCHEMA
     for run in data["runs"]:
         source_id = str(run.get("source_id") or "")
         repo = run.get("repo")
@@ -115,6 +132,32 @@ def choose_card_run(runs: list[dict]) -> dict | None:
     return min(usable, key=lambda run: int(run["repeat"]))
 
 
+def _handoff_root(handoff_path: Path) -> Path:
+    return handoff_path.resolve().parents[2]
+
+
+def _resolve_handoff_path(handoff_path: Path, raw: str) -> Path:
+    path = Path(raw)
+    if path.is_absolute():
+        return path
+    return _handoff_root(handoff_path) / raw
+
+
+def _public_issue(run: dict) -> str:
+    raw = run.get("public_task")
+    if not raw:
+        return ""
+    path = _resolve_handoff_path(Path(run["_handoff_path"]), str(raw))
+    if "sprint5-main-public" not in path.as_posix():
+        raise ValueError("public_task_not_allowed:" + str(run.get("source_id") or ""))
+    data = json.loads(path.read_text(encoding="utf-8"))
+    text = str(data.get("issue_text") or "")
+    digest = hashlib.sha256(text.encode("utf-8")).hexdigest()
+    if not text or digest != run.get("issue_sha256"):
+        raise ValueError("issue_sha_mismatch:" + str(run.get("source_id") or ""))
+    return text
+
+
 def build_cards_from_handoffs(
     handoff_paths: list[Path],
     *,
@@ -126,8 +169,9 @@ def build_cards_from_handoffs(
     pool = _pool_index(canonical_path)
     targets = target_ids(canonical_path)
     runs: list[dict] = []
-    for data in documents:
-        runs.extend(runs_with_identity(data, pool))
+    for data, path in zip(documents, handoff_paths, strict=True):
+        for run in runs_with_identity(data, pool):
+            runs.append({**run, "_handoff_path": str(path)})
     assert_isolated(runs, targets)
     source_ids = tuple(dict.fromkeys(run["source_id"] for run in runs))
     by_source: dict[str, list[dict]] = {source_id: [] for source_id in source_ids}
@@ -142,14 +186,23 @@ def build_cards_from_handoffs(
             continue
         entry = pool.get(source_id) or {}
         version = str(run.get("base_commit") or entry.get("expected_base_commit") or "")
-        issue = str(run.get("issue_text") or "") or _issue_text(entry, path_base)
+        issue = _public_issue(run) or str(run.get("issue_text") or "")
+        issue = issue or _issue_text(entry, path_base)
         if len(version) < 7 or not issue:
             raise HandoffFieldMissing("issue_or_version_missing:" + source_id)
         grader = run.get("grader_status") or run.get("status")
         isolated = run.get("answer_isolation_pass") is True
         passed = bool(run.get("solved")) and grader == "pass" and isolated
         status = "validated_fix" if passed else "failed_attempt"
-        run_dir_text = str(run["run_dir"]) if run.get("run_dir") else str(_run_dir(run))
+        if run.get("run_dir"):
+            original = str(run["run_dir"])
+            run_dir = _resolve_handoff_path(Path(run["_handoff_path"]), original)
+            run_dir_text = original if Path(original).is_absolute() else str(run_dir)
+        else:
+            run_dir = _run_dir(run)
+            if not run_dir.is_absolute():
+                run_dir = _resolve_handoff_path(Path(run["_handoff_path"]), str(run_dir))
+            run_dir_text = str(run_dir)
         cards.append(
             _card_from_run(
                 source_id,
