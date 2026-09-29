@@ -235,3 +235,9 @@
 - mock 测试改为写临时目录，并清掉上次留在仓库里的 `reports/` 和 `traces/graph_summary.json`。
 - tag `a5-main-freeze` 指向 `a22e4ca0a3994012c167a3e02e06498731c24a18`。全量测试 321 passed，1 skipped。花费 0。
 - 下一步：等 harness 的 CHECKPOINT-6a，再做第 1 步。
+
+## 第六轮 第 1 步：v6 final（2026-09-29）
+
+- 用 dev 交接和 `main-b0-runs.json` v2 建成 70 张 v6 final。`cards_sha256=3416eb9d8f6119081330fb3b0a2d612b8fde4678d6ec1c73a7fc681cedfcfc70`。pool sha 是 `fe0f47b8df67730a0335d7109631dc09bc4d6b5d19a601acfec0963f5dcb1f8c`。
+- F2P/P2P id 命中 0。来源题测试命令里的 4 处 id 已换成 `[hidden-test]`。
+- 分析预注册追加项写进 `A5-MAIN-PREREG-ADDENDUM.zh-CN.md`。花费 0。停下等审计。
