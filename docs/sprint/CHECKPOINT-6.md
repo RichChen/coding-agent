@@ -578,3 +578,67 @@ Docker 重试都在第一次重试后成功。
    - dev 14 题里只有 2 道在 Verified 中，它们的 dev issue 与数据集逐字节相同；另外 12 道不在 Verified 里，但 H3 的 dev prompt 检查 14/14 一致。
 
 B0 已经完成，结果文件已经交接给 coding-agent 侧（`main-b0-runs.json`）。按指示没有看 B2，也没有开始 B2，停在这里等审计。
+
+### 6D 第 A 段执行记录：D1–D4（完成）
+
+**交接文件 v2 已就绪。** 新交接文件是 `docs/sprint/main-b0-runs.json`（schema `sprint6.main-b0-runs.v2`），sha（`handoff_sha256`，LF）为：
+
+`fe0f47b8df67730a0335d7109631dc09bc4d6b5d19a601acfec0963f5dcb1f8c`
+
+旧文件保留为 `docs/sprint/main-b0-runs.v1.json`（sha `5c42a406c35a94c80dc7163a061e7383a66609b6c28ebaf7bd0c2fa19f92eb9e`）。冻结修订 4 已写入 `A5-MAIN-FREEZE.md`，tag `a5-main-freeze-r4` → `074219c`。
+
+本段没有调用真实模型，花费 0 元；没有看 B2，也没有开始 B2。
+
+#### 提交与对已完成运行的影响
+
+| 项 | 提交 | 对已完成运行的影响 |
+| --- | --- | --- |
+| D1 交接文件 v2（`run_a5_main.py --handoff`） | `614ebce` | 无。只读取已有的 r1..r3 summary 和 grader 结果，重新写交接文件；168 次运行的 v1 字段与 v1 文件逐项相同 |
+| D2 delta_lost 归类脚本 `scripts/sprint6_delta_lost.py` | `1c6498b` | 无。只读事件日志，分类规则不变 |
+| D3 漂移对照臂 `--with-b0-drift` | `9d1a438` | 无。只影响以后的 `--phase b2`；`halt_reason` 拆出 `run_checks`，`--phase b0` 的检查项和顺序不变 |
+| D4 冻结修订 4 | `074219c` | 无 |
+
+#### D1 交接文件 v2
+
+- 每次运行新增 `answer_isolation_pass`、`base_commit`、`grader_status`、`run_dir`、`public_task`、`issue_sha256`。
+- 168 次运行：`answer_isolation_pass` 全部为 true；`grader_status` pass 115、fail 39、partial 14；`issue_sha256` 全部等于 `main-issues.json`。
+- 只读 `b0/r1..r3`，不读 `r4` 和 `.infra<n>`；有测试确认 r4 和 infra 槽位不会进入交接文件。
+
+#### D2 4 次 delta_lost 的归类（只做描述）
+
+做法：用 `runs/sprint5-main-images/<id>/staging/original` 里的原始文件，按顺序重放每次运行的编辑调用，得到被编辑文件的状态序列（O 表示与原始文件相同，A、B 表示不同的改动版本）；再检查 `run_command` 里有没有写入 workspace 的命令。
+
+| 运行 | 分类 | 编辑次数 | 文件状态序列 |
+| --- | --- | --- | --- |
+| django-13964 r2 | agent 自己撤回了改动 | 16 | O→A→O，重复 8 次 |
+| django-15022 r2 | agent 自己撤回了改动 | 16 | O→A→O，之后 O→B→O 重复 7 次 |
+| sphinx-8120 r2 | agent 自己撤回了改动 | 10 | O→A→O，重复 5 次 |
+| pytest-5840 r3 | `search == replace` 的空编辑 | 3 | 3 次编辑的 search 与 replace 都相同，文件一直是 O |
+
+合计：撤回 3 次，空编辑 1 次，其他 0 次。4 次运行的共同点：
+
+- 每次编辑工具都返回"文件已更新"；
+- 最终文件与原始文件逐字节相同，所以 delta 为空；
+- 没有通过 `run_command` 写入 workspace 的命令；
+- 都用满了 40 次模型调用（`stop_reason` 为 `max_model_calls`）。
+
+三次撤回的运行都是 agent 改完文件、跑测试或检查后，再用编辑工具把改动改回原样，然后又改一遍，如此循环，直到用完调用次数，停下时恰好处在撤回之后的状态。这只是描述，delta_lost 的分类规则没有改。
+
+#### D3 漂移对照臂
+
+- `--phase b2 --with-b0-drift`：168 个 B2 槽位加 56 个 `b0/r4` 槽位，先按规范顺序排序，再用种子 20260929 打乱，`PARALLEL` 仍为 3。
+- 56 道合格题的完整队列共 224 个槽位，队列指纹 `db6809a1…`（完整值和计算方法见冻结修订 4）。
+- r4 用同一个 profile 和 B0 变体，不带卡片；不进入交接文件，不参与卡片构建和主要分析。
+- 续跑、infra 重跑和停止条件对 r4 同样适用；花费按 `TOTAL_CAP` 230 元停止。
+- 新增 5 个测试，并沿用 D1 的"交接文件不含 r4"测试。
+
+#### 测试
+
+全套测试 420 passed，199 skipped（修订 3 时是 412 passed；新增 D1 的 3 个测试和 D3 的 5 个测试）。
+
+#### 需要审计确认的实现选择
+
+1. **r4 的停止条件：** infra_error 停止线（满 3 次且超过 10%）对 b2 和 b0 分别计算，不合并；其余逐次运行的检查（harness 工具错误、隔离、missing、grader 崩溃）对两个阶段的全部运行都做。故障警报只针对 `--phase b0`，B2 阶段不检查。
+2. **花费上限：** 混合队列里 r4 的花费和 B2 一起计入 `runs/a5-main/` 总额，按 `TOTAL_CAP` 230 元停止，不再单独套用 B0 的 120 元软上限。
+
+按第 A 段的要求，停在这里，通知 coding-agent：交接文件 v2 已就绪，可以构建 v6 卡片。没有开始 B2，也没有做第 C 段。
