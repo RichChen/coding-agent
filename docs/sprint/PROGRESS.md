@@ -438,6 +438,6 @@ P5：删除 `pelican-bicycle.html`。用 v5 final 卡片在 3 道题上跑 mock 
 
 ## 第七轮 第 1 步：运行清单
 
-日期：2026-09-29。花费：0 CNY，没有调用模型。依据 \docs/sprint/HARNESS-SPRINT-7-CLOSEOUT.zh-CN.md\。
+日期：2026-09-29。花费：0 CNY，没有调用模型。依据 `docs/sprint/HARNESS-SPRINT-7-CLOSEOUT.zh-CN.md`。
 
-新增只读脚本 \scripts/sprint7_inventory.py\，从磁盘复算后写 \docs/sprint/A5-MAIN-INVENTORY.md\。6 个输入文件的 sha 和 v6 \cards_sha256\ 都与冻结记录一致。有效槽位 B0 r1–r3 168、B2 r1–r3 168、B0 r4 56；infra 退役 2/3/2。作废目录 25 个（13.682 CNY）和 38 个（24.055 CNY）。uns/a5-main/\ 有效实验 131.804 CNY，第 6 轮合计 169.541 CNY；加上 PROGRESS 记录的第 1–5 轮 43.422 CNY，项目模型花费 212.963 CNY。隔离失败 0，harness_tool_errors 0，注入 168/168，全量检查三项 0。
+新增只读脚本 `scripts/sprint7_inventory.py`，从磁盘复算后写 `docs/sprint/A5-MAIN-INVENTORY.md`。6 个输入文件的 sha 和 v6 `cards_sha256` 都与冻结记录一致。有效槽位 B0 r1–r3 168、B2 r1–r3 168、B0 r4 56；infra 退役 2/3/2。作废目录 25 个（13.682 CNY）和 38 个（24.055 CNY）。`runs/a5-main/` 有效实验 131.804 CNY，第 6 轮合计 169.541 CNY；加上 PROGRESS 记录的第 1–5 轮 43.422 CNY，项目模型花费 212.963 CNY。隔离失败 0，harness_tool_errors 0，注入 168/168，全量检查三项 0。
