@@ -405,3 +405,13 @@ tag `a5-main-freeze-r4` 指向加入本节的提交。`a5-main-freeze`、`-r1`�
 **对 sphinx-7590 B2 r3 的执行结果：** 空改动重评没有 missing，没有 reason，F2P 0/1、P2P 24/24，与校准期望（F2P [0, 1]，P2P [24, 24]）一致，镜像 `coding-harness-a5-clean@sha256:830eab6e…` 与原运行相同。按第 3 条记为普通失败；原 summary 另存为 `summary.pre-regrade.json`，这个槽位不重跑。
 
 全套测试：444 passed，199 skipped。
+
+## 收口
+
+日期：2026-09-29。
+
+- 实验运行已经结束：B0 r1–r3 168/168、B2 r1–r3 168/168、B0 r4 56/56。此后不再接受对 runner、grader、镜像或校准的改动，也不再重跑任何槽位。
+- 主要分析和次要分析以 coding-agent 的 `docs/sprint/A5-MAIN-RESULTS.zh-CN.md` 为准；最终叙述以 `coding-agent/docs/A5-FINAL-REPORT.zh-CN.md` 为准（agent 侧收尾后才会有）。
+- 案例数据以本仓库 `docs/sprint/A5-CASE-DATA.md` 为准。
+- 运行清单（tag、输入 sha、槽位计数、花费、检查摘要）以本仓库 `docs/sprint/A5-MAIN-INVENTORY.md` 为准。
+- 不打新的 freeze tag。如果审计要求，再打 `a5-main-closeout`。

@@ -445,3 +445,6 @@ P5：删除 `pelican-bicycle.html`。用 v5 final 卡片在 3 道题上跑 mock 
 ## 第七轮 第 2 步：核对案例数据
 
 日期：2026-09-29。花费：0 CNY。用本仓库 `.venv` 复跑 `.tmp/case_mem.py table` 和 `follow`（gold 只在内存里取 `+++ b/` 路径，输出只有计数和路径）。结果与 `docs/sprint/A5-CASE-DATA.md` 第 1、2 节一致：注入卡片的题 51 道，其中卡片文件与 gold 文件有重合 9 道、没有重合 42 道；平均 d_t 为 −0.074、+0.016，未注入 5 道 −0.200；9 道重合表逐行相同；153 次注入运行里 5 次打开卡片独有文件，0 次最终改在这类文件上。第 3 节 17 道 d_t ≠ 0 的题也一致。文首加了核对行，没有改数据。
+## 第七轮 第 3 步：冻结收口
+
+日期：2026-09-29。花费：0 CNY。在 `docs/sprint/A5-MAIN-FREEZE.md` 末尾追加「收口」一节：实验运行结束，不再接受 runner / grader / 镜像 / 校准改动；分析以 coding-agent 的 `A5-MAIN-RESULTS.zh-CN.md` 为准，最终叙述以 `A5-FINAL-REPORT.zh-CN.md` 为准，案例数据以 `A5-CASE-DATA.md` 为准，清单以 `A5-MAIN-INVENTORY.md` 为准。前面的修订正文没有改。没有打新 tag。
