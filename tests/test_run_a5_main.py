@@ -439,12 +439,12 @@ def test_preflight_cli_fails_when_a_dev_prompt_differs(monkeypatch):
         run_a5_main.main()
 
 
-def _formal_runs(root, count, *, solved_at=None):
+def _formal_runs(root, count, *, solved_at=None, phase="b0"):
     for index in range(count):
         task_id, repeat = "t" + str(index // 3), "r" + str(index % 3 + 1)
-        path = root / task_id / "b0" / repeat / "summary.json"
+        path = root / task_id / phase / repeat / "summary.json"
         path.parent.mkdir(parents=True)
-        row = {"task_id": task_id, "variant": "B0", "solved": index == solved_at, "status": "pass" if index == solved_at else "fail", "cost_cny": "0"}
+        row = {"task_id": task_id, "variant": phase.upper(), "solved": index == solved_at, "status": "pass" if index == solved_at else "fail", "cost_cny": "0"}
         path.write_text(json.dumps(row), encoding="utf-8")
 
 
@@ -470,6 +470,29 @@ def test_fault_alarm_ignores_canary_r1_and_retired_infra_slots(tmp_path):
 def test_fault_alarm_does_not_fire_once_a_run_is_solved(tmp_path):
     _formal_runs(tmp_path, 45, solved_at=40)
     assert halt_reason(tmp_path, "b0") is None
+
+
+def test_fault_alarm_covers_b2_but_not_the_drift_slots_or_infra(tmp_path):
+    _formal_runs(tmp_path, 29, phase="b2")
+    for index in range(10):
+        path = tmp_path / ("t" + str(index)) / "b0" / "r4" / "summary.json"
+        path.parent.mkdir(parents=True)
+        path.write_text(json.dumps({"task_id": "t" + str(index), "variant": "B0", "solved": False, "status": "fail", "cost_cny": "0"}), encoding="utf-8")
+    retired = tmp_path / "t0" / "b2" / "r1.infra1" / "summary.json"
+    retired.parent.mkdir(parents=True)
+    retired.write_text(json.dumps({"task_id": "t0", "solved": False, "status": "infra_error", "cost_cny": "0"}), encoding="utf-8")
+    infra = tmp_path / "t9" / "b2" / "r3" / "summary.json"
+    infra.parent.mkdir(parents=True)
+    infra.write_text(json.dumps({"task_id": "t9", "solved": False, "status": "infra_error", "cost_cny": "0"}), encoding="utf-8")
+    assert run_a5_main.fault_alarm(tmp_path, "b2", frozenset()) is None
+    assert halt_reason(tmp_path, "b2", extra_phases=("b0",)) is None
+    infra.write_text(json.dumps({"task_id": "t9", "solved": False, "status": "delta_lost", "cost_cny": "0"}), encoding="utf-8")
+    assert halt_reason(tmp_path, "b2", extra_phases=("b0",)).startswith("fault alarm: 30 formal B2 runs")
+
+
+def test_fault_alarm_on_b2_does_not_fire_once_a_b2_run_is_solved(tmp_path):
+    _formal_runs(tmp_path, 45, solved_at=40, phase="b2")
+    assert run_a5_main.fault_alarm(tmp_path, "b2", frozenset()) is None
 
 
 def test_run_phase_stops_on_the_fault_alarm(tmp_path, monkeypatch):

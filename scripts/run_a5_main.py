@@ -119,19 +119,22 @@ def canary_ids(tasks) -> dict:
 
 
 def fault_alarm(out_root: Path, phase: str, canaries) -> str | None:
-    """Pre-registered: FAULT_ALARM_RUNS formal B0 runs, canary r1 slots excluded, with none solved."""
-    if phase != "b0" or not out_root.exists():
+    """Pre-registered: FAULT_ALARM_RUNS formal runs of the phase with none solved.
+
+    B0 excludes the canary r1 slots. B2 counts only b2 slots, so the b0/r4 drift slots never count.
+    """
+    if phase not in ("b0", "b2") or not out_root.exists():
         return None
     formal = []
-    for path in sorted(out_root.glob("*/b0/r*/summary.json")):
+    for path in sorted(out_root.glob("*/" + phase + "/r*/summary.json")):
         slot = path.parent.name
-        if "." in slot or (slot == "r1" and path.parent.parent.parent.name in canaries):
+        if "." in slot or (phase == "b0" and slot == "r1" and path.parent.parent.parent.name in canaries):
             continue
         row = json.loads(path.read_text(encoding="utf-8"))
         if row.get("status") != "infra_error":
             formal.append(row)
     if len(formal) >= FAULT_ALARM_RUNS and not any(row.get("solved") for row in formal):
-        return "fault alarm: " + str(len(formal)) + " formal B0 runs, none solved; audit the harness"
+        return ("fault alarm: " + str(len(formal)) + " formal " + phase.upper() + " runs, none solved; audit the harness")
     return None
 
 
