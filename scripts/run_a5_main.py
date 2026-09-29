@@ -138,12 +138,15 @@ def fault_alarm(out_root: Path, phase: str, canaries) -> str | None:
     return None
 
 
-def actual_injection(run_dir: Path) -> list[str] | None:
-    """Card ids the host actually put into the model view, from context.prepared events. None without events."""
+def context_payloads(run_dir: Path) -> list[dict] | None:
+    """Payloads of context.prepared events. Large payloads are stored as session artifacts and read back.
+
+    None when there is no event log, or an artifact is missing or does not match its sha256.
+    """
     events = run_dir / "events.jsonl"
     if not events.is_file():
         return None
-    ids = set()
+    payloads = []
     with events.open(encoding="utf-8") as handle:
         for line in handle:
             if '"context.prepared"' not in line:
@@ -151,9 +154,37 @@ def actual_injection(run_dir: Path) -> list[str] | None:
             event = json.loads(line)
             if event.get("event_type") != "context.prepared":
                 continue
-            plugin = ((event.get("payload") or {}).get("stats") or {}).get("plugin") or {}
-            ids.update(item["id"] for item in plugin.get("actually_injected") or [] if item.get("reason") == "memory_card")
-    return sorted(ids)
+            payload = event.get("payload") or {}
+            ref = payload.get("artifact_ref")
+            if ref is not None:
+                artifact = run_dir / "session" / "artifacts" / ref["path"]
+                if not artifact.is_file():
+                    return None
+                data = artifact.read_bytes()
+                if hashlib.sha256(data).hexdigest() != ref.get("sha256"):
+                    return None
+                payload = json.loads(data)
+            payloads.append(payload)
+    return payloads
+
+
+def injected_items(run_dir: Path) -> list[dict] | None:
+    """Memory-card items the host actually put into the model view, one per injection."""
+    payloads = context_payloads(run_dir)
+    if payloads is None:
+        return None
+    return [
+        item
+        for payload in payloads
+        for item in ((payload.get("stats") or {}).get("plugin") or {}).get("actually_injected") or []
+        if item.get("reason") == "memory_card"
+    ]
+
+
+def actual_injection(run_dir: Path) -> list[str] | None:
+    """Card ids the host actually injected. None when the event log cannot be read completely."""
+    items = injected_items(run_dir)
+    return None if items is None else sorted({item["id"] for item in items})
 
 
 def injection_mismatch(out_root: Path, predicted: dict, verified: set) -> str | None:
@@ -168,7 +199,7 @@ def injection_mismatch(out_root: Path, predicted: dict, verified: set) -> str | 
         task_id = run_dir.parent.parent.name
         actual = actual_injection(run_dir)
         if actual is None:
-            return "injection cannot be checked, no events.jsonl: " + task_id + " " + run_dir.name
+            return "injection cannot be checked, events.jsonl or an artifact is missing or altered: " + task_id + " " + run_dir.name
         expected = sorted(predicted.get(task_id, ["<task not in the predicted table>"]))
         if actual != expected:
             return "injection differs from the prediction: " + task_id + " " + run_dir.name + " actual " + json.dumps(actual) + " predicted " + json.dumps(expected)

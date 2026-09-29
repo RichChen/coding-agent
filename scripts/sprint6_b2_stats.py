@@ -16,28 +16,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from scripts.run_a5_main import FAULT_ALARM_RUNS, PREDICTED, accepted_tasks, load_targets, out_root_for  # noqa: E402
+from scripts.run_a5_main import FAULT_ALARM_RUNS, PREDICTED, accepted_tasks, injected_items, load_targets, out_root_for  # noqa: E402
 from scripts.run_swe_task import parse_created_at  # noqa: E402
 
 CARDS = ROOT.parent / "coding-agent" / "benchmarks" / "a5" / "memory-cards-v6.jsonl"
-
-
-def injected_records(run_dir: Path) -> list[dict]:
-    """Memory-card items in context.prepared events, one entry per injection."""
-    found = []
-    events = run_dir / "events.jsonl"
-    if not events.is_file():
-        return found
-    with events.open(encoding="utf-8") as handle:
-        for line in handle:
-            if '"context.prepared"' not in line:
-                continue
-            event = json.loads(line)
-            if event.get("event_type") != "context.prepared":
-                continue
-            plugin = ((event.get("payload") or {}).get("stats") or {}).get("plugin") or {}
-            found.extend(item for item in plugin.get("actually_injected") or [] if item.get("reason") == "memory_card")
-    return found
 
 
 def slot_rows(root: Path, pattern: str) -> tuple[list[dict], list[dict]]:
@@ -90,8 +72,8 @@ def main():
     injected_bytes, injected_counts, injected_tasks = [], [], set()
     for row in b2:
         task_id = row["task_id"]
-        records = injected_records(row["_dir"])
-        if not (row["_dir"] / "events.jsonl").is_file():
+        records = injected_items(row["_dir"])
+        if records is None:
             missing_events.append(task_id + "/" + row["_slot"])
             continue
         expected = predicted[task_id]["injected"]
@@ -136,7 +118,7 @@ def main():
             "runs_disagree": disagree,
             "bytes_or_sha_differs": detail_mismatch,
             "summary_preview_differs": preview_mismatch,
-            "runs_without_events": missing_events,
+            "runs_with_unreadable_events": missing_events,
             "runs_with_a_card_injected_more_than_once": cards_on_later_steps,
             "tasks_injected": len(injected_tasks),
             "runs_injected": len(injected_counts),

@@ -646,6 +646,33 @@ def test_actual_injection_reads_memory_cards_from_context_prepared_only(tmp_path
     assert run_a5_main.actual_injection(tmp_path / "none") is None
 
 
+def test_actual_injection_reads_payloads_stored_as_artifacts(tmp_path):
+    import hashlib
+
+    run = tmp_path / "run"
+    payload = json.dumps({"step": 0, "stats": {"plugin": {"actually_injected": [
+        {"id": "c", "reason": "memory_card", "bytes": 10}, {"id": "a", "reason": "memory_card", "bytes": 10}]}}}).encode()
+    sha = hashlib.sha256(payload).hexdigest()
+    (run / "session" / "artifacts").mkdir(parents=True)
+    (run / "session" / "artifacts" / sha).write_bytes(payload)
+    lines = [
+        {"event_type": "context.prepared", "payload": {"artifact_ref": {"path": sha, "sha256": sha, "sensitive": True}}},
+        {"event_type": "context.prepared", "payload": {"stats": {"plugin": {"actually_injected": []}}}},
+    ]
+    (run / "events.jsonl").write_text("".join(json.dumps(line) + "\n" for line in lines), encoding="utf-8")
+    assert run_a5_main.actual_injection(run) == ["a", "c"]
+    assert [item["id"] for item in run_a5_main.injected_items(run)] == ["c", "a"]
+    (run / "session" / "artifacts" / sha).write_bytes(payload + b" ")
+    assert run_a5_main.actual_injection(run) is None
+    (run / "session" / "artifacts" / sha).unlink()
+    assert run_a5_main.actual_injection(run) is None
+    recorded = run_a5_main.ROOT / "runs" / "a5-main" / "scikit-learn__scikit-learn-14710" / "b2" / "r2"
+    if (recorded / "events.jsonl").is_file():
+        assert run_a5_main.actual_injection(recorded) == sorted([
+            "scikit-learn__scikit-learn-9288", "scikit-learn__scikit-learn-14053",
+            "scikit-learn__scikit-learn-14496", "scikit-learn__scikit-learn-12585"])
+
+
 def test_injection_mismatch_checks_finished_b2_runs_only(tmp_path):
     predicted = {TASK["id"]: ["a", "b"]}
     _summary(tmp_path, "b2", slot="r1", **REAL)
