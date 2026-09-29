@@ -131,13 +131,75 @@ def test_infra_error_rerun_that_passes_stops_rerunning(tmp_path, monkeypatch):
     assert json.loads((tmp_path / TASK["id"] / "b0" / "r1" / "summary.json").read_text())["status"] == "pass"
 
 
-def test_handoff_reads_only_the_numbered_slot(tmp_path):
-    _summary(tmp_path, "b0", slot="r1.infra1", status="infra_error", **REAL)
-    _summary(tmp_path, "b0", status="pass", solved=True, **REAL)
+HTASK = {**TASK, "base_commit": "abc123"}
+ISSUE_SHA = "e" * 64
+
+
+def _handoff_env(tmp_path, monkeypatch):
+    public = tmp_path / "public"
+    public.mkdir()
+    (public / (TASK["id"] + ".json")).write_text("{}", encoding="utf-8")
+    issues = tmp_path / "main-issues.json"
+    issues.write_text(json.dumps({"tasks": {TASK["id"]: {"issue_sha256": ISSUE_SHA}}}), encoding="utf-8")
+    monkeypatch.setattr(run_a5_main, "PUBLIC_ROOT", public)
+    monkeypatch.setattr(run_a5_main, "ISSUES", issues)
+    runs = tmp_path / "runs"
+    runs.mkdir()
+    return runs
+
+
+def _handoff_run(root, slot="r1", grader="pass", **fields):
+    path = _summary(root, "b0", slot=slot, issue_sha256=ISSUE_SHA, answer_isolation_pass=True, **fields)
+    (path.parent / "grader-result.json").write_text(json.dumps({"status": grader}), encoding="utf-8")
+    return path
+
+
+def test_handoff_reads_only_the_numbered_slot(tmp_path, monkeypatch):
+    root = _handoff_env(tmp_path, monkeypatch)
+    _handoff_run(root, slot="r1.infra1", status="infra_error", **REAL)
+    _handoff_run(root, status="pass", solved=True, **REAL)
     destination = tmp_path / "main-b0-runs.json"
-    write_b0_handoff(mock=False, out_root=tmp_path, destination=destination, tasks=[TASK])
+    write_b0_handoff(mock=False, out_root=root, destination=destination, tasks=[HTASK])
     runs = json.loads(destination.read_text(encoding="utf-8"))["runs"]
     assert [(run["repeat"], run["status"]) for run in runs] == [(1, "pass")]
+
+
+def test_handoff_v2_fields(tmp_path, monkeypatch):
+    root = _handoff_env(tmp_path, monkeypatch)
+    _handoff_run(root, status="pass", solved=True, **REAL)
+    destination = tmp_path / "main-b0-runs.json"
+    write_b0_handoff(mock=False, out_root=root, destination=destination, tasks=[HTASK])
+    payload = json.loads(destination.read_text(encoding="utf-8"))
+    assert payload["schema"] == "sprint6.main-b0-runs.v2"
+    run = payload["runs"][0]
+    assert run["answer_isolation_pass"] is True and run["base_commit"] == "abc123" and run["grader_status"] == "pass"
+    assert run["issue_sha256"] == ISSUE_SHA
+    assert run["run_dir"].endswith(TASK["id"] + "/b0/r1")
+    assert run["public_task"].endswith("public/" + TASK["id"] + ".json")
+
+
+def test_handoff_excludes_the_drift_slot(tmp_path, monkeypatch):
+    root = _handoff_env(tmp_path, monkeypatch)
+    for slot in ("r1", "r2", "r3", "r4"):
+        _handoff_run(root, slot=slot, **REAL)
+    destination = tmp_path / "main-b0-runs.json"
+    write_b0_handoff(mock=False, out_root=root, destination=destination, tasks=[HTASK])
+    assert [run["repeat"] for run in json.loads(destination.read_text(encoding="utf-8"))["runs"]] == [1, 2, 3]
+
+
+def test_handoff_refuses_a_wrong_issue_sha_or_missing_grader_result(tmp_path, monkeypatch):
+    root = _handoff_env(tmp_path, monkeypatch)
+    path = _handoff_run(root, **REAL)
+    destination = tmp_path / "main-b0-runs.json"
+    (path.parent / "grader-result.json").unlink()
+    with pytest.raises(SystemExit, match="grader-result"):
+        write_b0_handoff(mock=False, out_root=root, destination=destination, tasks=[HTASK])
+    row = json.loads(path.read_text(encoding="utf-8"))
+    path.write_text(json.dumps({**row, "issue_sha256": "0" * 64}), encoding="utf-8")
+    (path.parent / "grader-result.json").write_text("{}", encoding="utf-8")
+    with pytest.raises(SystemExit, match="issue_sha256"):
+        write_b0_handoff(mock=False, out_root=root, destination=destination, tasks=[HTASK])
+    assert not destination.exists()
 
 
 def _slots(root, statuses):
@@ -423,18 +485,20 @@ def test_out_root_requires_mock(monkeypatch):
         run_a5_main.main()
 
 
-def test_real_handoff_refuses_a_mock_summary(tmp_path):
-    _summary(tmp_path, "b0", mock=True, profile="b0-v2")
+def test_real_handoff_refuses_a_mock_summary(tmp_path, monkeypatch):
+    root = _handoff_env(tmp_path, monkeypatch)
+    _handoff_run(root, mock=True, profile="b0-v2")
     destination = tmp_path / "main-b0-runs.json"
     with pytest.raises(SystemExit, match="mock run"):
-        write_b0_handoff(mock=False, out_root=tmp_path, destination=destination, tasks=[TASK])
+        write_b0_handoff(mock=False, out_root=root, destination=destination, tasks=[HTASK])
     assert not destination.exists()
 
 
-def test_mock_handoff_accepts_mock_summaries(tmp_path):
-    _summary(tmp_path, "b0", mock=True, profile="b0-v2")
+def test_mock_handoff_accepts_mock_summaries(tmp_path, monkeypatch):
+    root = _handoff_env(tmp_path, monkeypatch)
+    _handoff_run(root, mock=True, profile="b0-v2")
     destination = tmp_path / "main-b0-runs.mock.json"
-    write_b0_handoff(mock=True, out_root=tmp_path, destination=destination, tasks=[TASK])
+    write_b0_handoff(mock=True, out_root=root, destination=destination, tasks=[HTASK])
     payload = json.loads(destination.read_text(encoding="utf-8"))
     assert payload["scope"] == "mock"
     assert [run["source_id"] for run in payload["runs"]] == [TASK["id"]]

@@ -29,6 +29,9 @@ INFRA_STOP_RATIO = Decimal("0.10")
 INFRA_STOP_MIN = 3
 PROFILE = ROOT / "configs/sprint/b0-v2.yaml"
 FAULT_ALARM_RUNS = 30
+HANDOFF_REPEATS = (1, 2, 3)
+DRIFT_REPEAT = 4
+DRIFT_SEED = 20260929
 
 
 def out_root_for(mock: bool) -> Path:
@@ -452,16 +455,26 @@ def preflight(tasks, destination: Path | None = None) -> dict:
 
 def write_b0_handoff(*, mock: bool = False, out_root: Path | None = None, destination: Path | None = None, tasks=None):
     out_root = out_root or out_root_for(mock)
+    issues = json.loads(ISSUES.read_text(encoding="utf-8"))["tasks"]
     runs = []
     for task in tasks if tasks is not None else accepted_tasks(load_targets()):
-        for repeat in (1, 2, 3):
-            summary_path = out_root / task["id"] / "b0" / ("r" + str(repeat)) / "summary.json"
+        for repeat in HANDOFF_REPEATS:
+            run_dir = out_root / task["id"] / "b0" / ("r" + str(repeat))
+            summary_path = run_dir / "summary.json"
             if not summary_path.is_file():
                 continue
             summary = json.loads(summary_path.read_text(encoding="utf-8"))
             problem = resumable(summary, phase="b0", mock=mock)
             if problem:
                 raise SystemExit("refusing to hand off " + str(summary_path) + ": " + problem)
+            grader_path = run_dir / "grader-result.json"
+            if not grader_path.is_file():
+                raise SystemExit("refusing to hand off " + str(run_dir) + ": no grader-result.json")
+            if not (PUBLIC_ROOT / (task["id"] + ".json")).is_file():
+                raise SystemExit("refusing to hand off " + task["id"] + ": no public task file")
+            expected = (issues.get(task["id"]) or {}).get("issue_sha256")
+            if expected is None or summary.get("issue_sha256") != expected:
+                raise SystemExit("refusing to hand off " + str(summary_path) + ": issue_sha256 is not main-issues.json")
             runs.append({
                 "source_id": task["id"],
                 "repo": task["repo"],
@@ -471,10 +484,16 @@ def write_b0_handoff(*, mock: bool = False, out_root: Path | None = None, destin
                 "status": summary.get("status"),
                 "cost_cny": summary.get("cost_cny"),
                 "summary": _display_path(summary_path),
+                "answer_isolation_pass": summary.get("answer_isolation_pass"),
+                "base_commit": task["base_commit"],
+                "grader_status": json.loads(grader_path.read_text(encoding="utf-8")).get("status"),
+                "run_dir": _display_path(run_dir),
+                "public_task": _display_path(PUBLIC_ROOT / (task["id"] + ".json")),
+                "issue_sha256": summary["issue_sha256"],
             })
     destination = destination or handoff_path_for(mock)
     payload = {
-        "schema": "sprint6.main-b0-runs.v1",
+        "schema": "sprint6.main-b0-runs.v2",
         "profile_tag": "b0-v2",
         "runs": runs,
     }
@@ -502,7 +521,11 @@ def main():
     parser.add_argument("--task", action="append", default=[])
     parser.add_argument("--preflight", action="store_true", help="run every pre-run check on the pool, no model calls")
     parser.add_argument("--out-root", default=None, help="output root for a mock run")
+    parser.add_argument("--handoff", action="store_true", help="rewrite the B0 handoff from existing r1-r3 summaries, no runs")
     args = parser.parse_args()
+    if args.handoff:
+        write_b0_handoff(mock=args.mock)
+        return
     if not args.preflight and not args.phase:
         raise SystemExit("--phase is required unless --preflight is given")
     if args.phase == "b2" and not args.cards:
