@@ -449,3 +449,11 @@ P5：删除 `pelican-bicycle.html`。用 v5 final 卡片在 3 道题上跑 mock 
 ## 第七轮 第 3 步：冻结收口
 
 日期：2026-09-29。花费：0 CNY。在 `docs/sprint/A5-MAIN-FREEZE.md` 末尾追加「收口」一节：实验运行结束，不再接受 runner / grader / 镜像 / 校准改动；分析以 coding-agent 的 `A5-MAIN-RESULTS.zh-CN.md` 为准，最终叙述以 `A5-FINAL-REPORT.zh-CN.md` 为准，案例数据以 `A5-CASE-DATA.md` 为准，清单以 `A5-MAIN-INVENTORY.md` 为准。前面的修订正文没有改。没有打新 tag。
+
+## 第七轮 第 4 步：文档入口
+
+日期：2026-09-29。花费：0 CNY。`README.zh-CN.md` 和 `README.md` 在简介句后面加「A5-main」一段（B0 68.5%，没有检出大于 13.1 个百分点的效应），链接项目历程、A5-main 设计、运行清单，以及 agent 仓库的结果报告和最终报告（最终报告由 agent 侧收尾后生成）。旧的 H3/H4/H5/R1/R2 段落没有改。审计提供的 `docs/PROJECT-HISTORY.zh-CN.md` 和收尾计划原样入库。
+
+## 第七轮 第 5 步：测试与停下
+
+日期：2026-09-29。花费：0 CNY。`.venv` 全量测试 620 passed，1 failed，22 skipped。失败的是 `tests/test_summary_wrapper.py::test_one_call_no_summary_private_grading_and_durable_replay`：`src/runtime/loop.py` 自 `dd77ba3`（2026-09-24）起会追加 `remaining model calls` 提示，但测试期望没有更新；在 `03fe586` 和 `a5-main-freeze-r4` 上同样失败，与本轮无关。系统 Python 下仍是 444 passed，199 skipped。没有修，写进 `docs/sprint/CHECKPOINT-7.md` 等审计。已通知 coding-agent：清单和案例数据已就绪，可以写最终报告。
