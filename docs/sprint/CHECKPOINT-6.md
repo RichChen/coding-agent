@@ -865,3 +865,103 @@ B0 已经完成，结果文件已经交接给 coding-agent 侧（`main-b0-runs.j
 2. **B2 续跑。** 审计决定后用同一条命令续跑，已完成的 139 次 B2 和 46 次 r4 会跳过，并重新核对注入。
 
 **通知 coding-agent：** B2 再次停止，D8 报告已更新。现有数据是 B2 139/168、`b0/r4` 46/56，仍不完整；统计在 `runs/a5-main-logs/b2-stats.json`。是否等 B2 跑完再做完整分析，由审计决定。
+
+### 6D 第 C 段执行记录（续二）：execution_timeout 规则与续跑（完成）
+
+**结论：B2 和漂移对照臂全部跑完，没有触发任何停止条件。** B2 168/168、`b0/r4` 56/56；实际注入与预测 168/168 一致；全量检查三项都是 0。第 C 段累计花费 76.030 元（B2 57.790 元，r4 18.240 元），`runs/a5-main/` 总额 131.804 元，低于 `TOTAL_CAP` 230 元。
+
+按 D8 要求：没有计算 B2 相对 B0 的差异，没有下结论，本节不报告 B2 或 r4 的解出率。
+
+#### execution_timeout 规则（审计批准的扩展）
+
+| 提交 | 内容 | 对已完成运行的影响 |
+| --- | --- | --- |
+| `5a7ac96` | 规则本体：grader 报 reason 且 `execution_status == "timed_out"`（非 infra、无 missing）时，同一镜像以空改动重评；无 missing、无 reason 且与校准一致，就记为普通失败：`grader_candidate_error="execution_timeout"`，`status="fail"`，`solved=false`，F2P/P2P 全部算失败，`grader_status` 和 `grader_ids.reason` 保留原值，重评结果记入 `timeout_regrade`。否则仍按"grader crashed"停止。`run_checks` 只对 `execution_timeout` 放行 | 只影响超时且有 grader reason 的运行。已完成的运行里只有 sphinx-7590 B2 r3 一次；B0 的 168 次（r1..r3）、当时已完成的 46 次 r4 和其余 138 次 B2 都没有 grader reason，不受影响 |
+| `6dadad2` | `scripts/sprint6_missing_regrade.py` 同时支持超时情形，对已完成的运行零花费执行 | 只用于 sphinx-7590 B2 r3 |
+| `7a9986f` | 冻结修订 4 补记 3，没有打新 tag | 无 |
+
+- **确认 B0 不受影响：** `runs/a5-main/*/b0/r1..r3` 的 168 份 summary 里，`grader_ids.reason` 全部为空，`grader_status` 没有 `invalid_env`，`missing` 全部为 0。
+- **新增测试（`tests/test_candidate_error.py`）：**
+  - 超时加空改动重评正常：判为普通失败，B2 和 r4 都不停止；
+  - 重评与校准不一致、重评出错、没有校准记录、没有重评：都停止；
+  - grader 有 reason 但没有执行超时（执行完成，或测试还没开始），以及超时但没有 reason：都不适用这条规则。
+
+**sphinx-7590 B2 r3 的空改动重评：** 没有 missing，没有 reason，F2P 0/1、P2P 24/24，与校准期望（F2P [0, 1]，P2P [24, 24]，没有排除项）一致，镜像与原运行相同（`sha256:830eab6e…`）。
+
+- 按规则记为普通失败，`grader_candidate_error="execution_timeout"`，summary 写入 `timeout_regrade`，`status` 从 `invalid_env` 改为 `fail`；
+- 原 summary 保留为 `summary.pre-regrade.json`，重评结果在 `grader-regrade-empty.json`，之前的诊断文件 `diagnostic-grader-rerun.json` 保留不动；
+- 这个槽位没有重跑。
+
+#### 续跑
+
+用同一条命令续跑，已完成的 185 个槽位跳过，并重新核对注入。剩下的 39 个槽位（B2 29 个、r4 10 个）全部启动并完成，`halt_reason` 为空。第三次停止时的日志保留在 `runs/a5-main-logs/b2-full-stop3.log`，本次日志在 `runs/a5-main-logs/b2-full.log`。
+
+- 这 39 次运行没有 missing，也没有 grader reason，missing_regrade 和 execution_timeout 两条规则都没有再触发。
+- 续跑期间新出现 1 次 infra_error：sphinx-9461 B2 r2（快照前容器消失），已退役为 `r2.infra1` 并重跑完成。
+- 本次续跑花费 11.095 元（B2 8.212 元，r4 2.883 元）。
+
+#### 完成情况
+
+| 项 | B2 | `b0/r4` |
+| --- | --- | --- |
+| 应跑槽位 | 168 | 56 |
+| 已完成（不含 infra） | 168 | 56 |
+| 未启动 | 0 | 0 |
+| 3 次都跑完的题 | 56 | — |
+| infra_error（都已退役重跑） | 3：django-13964 r3（容器清理失败）、pytest-5631 r1、sphinx-9461 r2（都是快照前容器消失） | 2：sklearn-12585 r4（Docker 控制输出超限）、sphinx-7910 r4（快照前容器消失） |
+| Docker 控制重试 | 35 次 | 13 次 |
+| `harness_tool_errors` | 0 | 0 |
+| grader 报 missing | 1 次（django-13964 r3，`execution`） | 0 |
+| grader reason | 1 次（sphinx-7590 r3，`execution_timeout`） | 0 |
+| 隔离失败 | 0 | 0 |
+| 停止原因 | `completed` 121，`max_model_calls` 46，`model_parse_error` 1 | `completed` 39，`max_model_calls` 17 |
+| 花费 | 57.790 元，平均每次 0.338 元 | 18.240 元，平均每次 0.314 元 |
+| 平均模型调用 | 23.7 | 23.6 |
+
+- 平均花费按含 infra 的运行目录计算（B2 171 个，r4 58 个），与前几节的统计口径相同。
+- infra_error 按阶段分开计算，B2 3/168、r4 2/56，都没有达到"满 3 次且超过 10%"的停止线。
+- 模型全部是 `deepseek-flash` @ `api.deepseek.com`，profile 全部是 `b0-v2`；B2 的变体全部是 B2，r4 全部是 B0。
+- 故障警报：B2 正式运行 168 次，其中有解出，没有触发。
+- 唯一一次 `model_parse_error` 仍是之前记录过的 sklearn-9288 B2 r2（单次 1 元硬上限），续跑没有新增。
+
+#### 预测注入与实际注入的一致性
+
+- 168 次 B2 全部核对：168 次一致，0 次不一致。核对的是事件日志里实际注入的卡片 id 集合，包括存成附件的负载。
+- 每张实际注入卡片的字节数和 sha256 与预测表一致；summary 的预览注入也一致。
+- 每张卡在每次运行中只注入一次，没有日志不可读的运行。
+
+#### 注入统计（168 次 B2）
+
+- 注入至少 1 张卡的题：51 道，就是预测会注入的全部 51 道。
+- 注入至少 1 张卡的运行：153 次（51 道 × 3）；其余 15 次属于预测不注入的 5 道题（sympy-11618、sympy-13757、sympy-14248、sklearn-9288、sphinx-7440）。
+- 注入的运行平均 2.9 张卡、3236.2 字节。
+
+#### gold 行重叠与全量检查
+
+- gold 行重叠（按预测表统计，描述性）：51 道注入卡片的题都是 0 行，长度不少于 10 个字符的行也是 0。
+- 全量检查：168 次 B2 实际注入的卡片中，没有晚于或等于目标题日期的卡，没有目标题自己的卡，没有跨 repo 的卡。
+
+#### 第 C 段全部代码提交与影响汇总
+
+| 提交 | 内容 | 对已完成运行的影响 |
+| --- | --- | --- |
+| `068380e`、`f97284c`、`89ef367`、`8008223`、`5c0c6b5`、`505d730` | 故障警报、D5、D6、D7、冻结补记、统计脚本 | 无，都在第一次 B2 运行之前 |
+| `399132a`、`a75303a` | D7 核对口径修正（只改核对代码） | 不改变任何运行结果；`a75303a` 修正后重新核对当时已完成的 25 次 B2，全部一致 |
+| `d99e1f6`、`abad9dc`、`2be58e7` | missing_regrade 规则、离线脚本、补记 2 | 只改变 django-13964 B2 r3 的分类（普通失败） |
+| `d8337f7` | 零花费诊断脚本 | 无 |
+| `5a7ac96`、`6dadad2`、`7a9986f` | execution_timeout 规则、离线脚本、补记 3 | 只改变 sphinx-7590 B2 r3 的分类（普通失败） |
+
+#### 测试
+
+全套测试 444 passed，199 skipped。
+
+#### 数据位置
+
+- 运行目录：`runs/a5-main/<id>/b2/r1..r3` 和 `runs/a5-main/<id>/b0/r4`；B0 的 r1..r3 不变。
+- 统计：`runs/a5-main-logs/b2-stats.json`（不含解出率）。
+- 预测注入表：`docs/sprint/b2-predicted-injection.json`（`5d858eb4…`，提交 `89ef367`）。
+- 卡片：`memory-cards-v6.jsonl`（`cards_sha256` `3416eb9d…`）。
+
+没有看 B2 相对 B0 的结果，也没有计算差异。停在这里。
+
+**通知 coding-agent：** B2 和漂移对照臂已全部完成，D8 报告就绪，可以开始分析。数据是 B2 168/168、`b0/r4` 56/56，B0 r1..r3 168/168；两次被规则判为普通失败的运行（django-13964 B2 r3 为 `execution`，sphinx-7590 B2 r3 为 `execution_timeout`）的 summary 里 `solved=false`，原 summary 在同目录的 `summary.pre-regrade.json`。infra 退役槽位（`r<k>.infra<n>`）不计入分析。
