@@ -4,6 +4,8 @@
 
 可控的 **Coding Agent 运行时（Harness）**，并内置 **评测 Harness（Eval）**，用于可复现、可度量、可回归的智能体实验。
 
+**A5-main：** 在 56 道 SWE-bench Verified 题上比较 B0（无记忆，解出率 68.5%）和 B2（注入同仓库、更早、按规则提取的 validated_fix 卡片）各 3 次，没有检出大于 13.1 个百分点的效应。见 [项目历程](docs/PROJECT-HISTORY.zh-CN.md)、[A5-main 设计](docs/sprint/A5-MAIN-DESIGN.zh-CN.md)、[运行清单](docs/sprint/A5-MAIN-INVENTORY.md)，以及 agent 仓库的 [结果报告](../coding-agent/docs/sprint/A5-MAIN-RESULTS.zh-CN.md) 和 [最终报告](../coding-agent/docs/A5-FINAL-REPORT.zh-CN.md)（agent 侧收尾后生成）。
+
 当前受控路径见 [H3 Docker](docs/upgrade/H3-IMPLEMENTATION.zh-CN.md)、[H4 窗口/插件接口](docs/upgrade/H4-IMPLEMENTATION.zh-CN.md) 和 [真实 DeepSeek Flash 接入](docs/upgrade/H5-DEEPSEEK.zh-CN.md)。R1 收口与证据索引见 [R1 收口记录](docs/upgrade/R1-CLOSEOUT.zh-CN.md)。真实模型演示使用固定公开模块切片与独立 grader，需要 Docker/Linux 和显式付费调用许可；下文旧宿主示例仅用于 trusted-local 开发，不具备文件系统隔离。
 
 R1 后续：[R2-lite 真摘要](docs/upgrade/R2-LITE-TRUE-SUMMARY.zh-CN.md) 提供默认 fixture、显式 LLM provider、共享预算与恢复去重。[真实摘要及策略对照](docs/upgrade/evidence/R2-real/README.md) 已完成 1 次 smoke、36 次固定历史问答和 8 次 Docker 修复；摘要可缓解部分溢出，但事实采纳不稳定，本次未证明修复成功率提高。

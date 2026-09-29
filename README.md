@@ -4,6 +4,8 @@
 
 A controllable Coding Agent Runtime with integrated Eval Harness — built for reproducible, measurable, regressable agent evaluation.
 
+**A5-main:** on 56 SWE-bench Verified tasks, B0 (no memory, 68.5% solved) was compared with B2 (injected validated_fix cards mined by rule from earlier tasks in the same repository), 3 runs each; no effect larger than 13.1 percentage points was detected. See the [project history](docs/PROJECT-HISTORY.zh-CN.md), [A5-main design](docs/sprint/A5-MAIN-DESIGN.zh-CN.md), [run inventory](docs/sprint/A5-MAIN-INVENTORY.md), and in the agent repository the [results report](../coding-agent/docs/sprint/A5-MAIN-RESULTS.zh-CN.md) and [final report](../coding-agent/docs/A5-FINAL-REPORT.zh-CN.md) (written when the agent side closes out).
+
 Current controlled profile: [H3 Docker](docs/upgrade/H3-IMPLEMENTATION.zh-CN.md), [H4 context/plugin interface](docs/upgrade/H4-IMPLEMENTATION.zh-CN.md), and [real DeepSeek Flash integration](docs/upgrade/H5-DEEPSEEK.zh-CN.md). The [R1 closeout](docs/upgrade/R1-CLOSEOUT.zh-CN.md) records the verified scope and evidence. The DeepSeek demo uses a pinned public module slice and an independent grader; it requires Docker/Linux and explicit paid-call opt-in. Legacy host examples below are trusted-local only, not filesystem isolation.
 
 After R1: [R2-lite true summary](docs/upgrade/R2-LITE-TRUE-SUMMARY.zh-CN.md) adds an explicit LLM summary provider with shared budgets and recovery deduplication; fixture remains the default. The [real-provider pilot](docs/upgrade/evidence/R2-real/README.md) completed one summary smoke, 36 fixed-history comparisons, and eight Docker repair runs. Summaries relieved some overflows, but factual adoption was inconsistent; improved repair success was not demonstrated.
