@@ -572,6 +572,55 @@ def test_with_b0_drift_requires_b2(monkeypatch):
         run_a5_main.main()
 
 
+def _cards_env(tmp_path, **overrides):
+    import hashlib
+    from scripts.handoff_sha import handoff_sha256
+
+    handoffs = []
+    for name, schema in (("dev.json", "sprint5.memory-source-runs.v2"), ("main.json", "sprint6.main-b0-runs.v2")):
+        path = tmp_path / name
+        path.write_text(json.dumps({"schema": schema, "runs": []}), encoding="utf-8")
+        handoffs.append(path)
+    cards = tmp_path / "memory-cards-v6.jsonl"
+    cards.write_text('{"source_id": "a"}\n', encoding="utf-8")
+    manifest = {
+        "status": "final",
+        "cards_sha256": hashlib.sha256(cards.read_bytes()).hexdigest(),
+        "build_inputs": {"handoffs": [
+            {"schema": json.loads(path.read_text())["schema"], "sha256": handoff_sha256(path)} for path in handoffs]},
+    }
+    manifest.update(overrides)
+    (tmp_path / "memory-cards-v6.manifest.json").write_text(json.dumps(manifest), encoding="utf-8")
+    return cards, handoffs
+
+
+def test_card_manifest_check_passes_on_a_matching_final_manifest(tmp_path):
+    cards, handoffs = _cards_env(tmp_path)
+    checked = run_a5_main.check_cards_manifest(cards, handoffs)
+    assert set(checked["handoffs"]) == {"dev.json", "main.json"}
+
+
+@pytest.mark.parametrize("change, message", [
+    ({"status": "interim"}, "status is interim"),
+    ({"cards_sha256": "0" * 64}, "cards_sha256"),
+    ({"build_inputs": {"handoffs": []}}, "not in build_inputs.handoffs"),
+])
+def test_card_manifest_check_refuses_any_mismatch(tmp_path, change, message):
+    cards, handoffs = _cards_env(tmp_path, **change)
+    with pytest.raises(SystemExit, match=message):
+        run_a5_main.check_cards_manifest(cards, handoffs)
+
+
+def test_card_manifest_check_refuses_a_changed_handoff(tmp_path):
+    cards, handoffs = _cards_env(tmp_path)
+    handoffs[1].write_text(json.dumps({"schema": "sprint6.main-b0-runs.v2", "runs": [1]}), encoding="utf-8")
+    with pytest.raises(SystemExit, match="main.json"):
+        run_a5_main.check_cards_manifest(cards, handoffs)
+    (tmp_path / "memory-cards-v6.manifest.json").unlink()
+    with pytest.raises(SystemExit, match="manifest missing"):
+        run_a5_main.check_cards_manifest(cards, handoffs)
+
+
 def test_out_root_requires_mock(monkeypatch):
     monkeypatch.setattr("sys.argv", ["run_a5_main.py", "--phase", "b0", "--out-root", "runs/x"])
     with pytest.raises(SystemExit, match="only allowed with --mock"):

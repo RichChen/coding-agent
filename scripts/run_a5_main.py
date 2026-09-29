@@ -199,7 +199,7 @@ def slot_queue(tasks, phase: str, repeats: int, *, with_b0_drift: bool = False) 
 
 
 async def run_phase(tasks, phase: str, *, cards: Path | None, mock: bool, repeats: int, out_root: Path | None = None,
-                    canaries=None, with_b0_drift: bool = False):
+                    canaries=None, with_b0_drift: bool = False, prerun_checks: dict | None = None):
     out_root = out_root or out_root_for(mock)
     if canaries is None:
         canaries = frozenset(canary_ids(accepted_tasks(load_targets())).values())
@@ -258,6 +258,7 @@ async def run_phase(tasks, phase: str, *, cards: Path | None, mock: bool, repeat
     report = {
         "phase": phase,
         "with_b0_drift": with_b0_drift,
+        "prerun_checks": prerun_checks,
         "mock": mock,
         "parallel": PARALLEL,
         "halt_reason": state["halt"],
@@ -539,6 +540,33 @@ def write_b0_handoff(*, mock: bool = False, out_root: Path | None = None, destin
     return destination
 
 
+DEV_HANDOFF = ROOT / "docs" / "sprint" / "memory-source-runs.json"
+
+
+def check_cards_manifest(cards: Path, handoffs=None) -> dict:
+    """D5: refuse B2 unless the card manifest is final, names both current handoffs, and matches the card file."""
+    manifest_path = cards.with_name(cards.name.removesuffix(".jsonl") + ".manifest.json")
+    if not cards.is_file() or not manifest_path.is_file():
+        raise SystemExit("card file or manifest missing: " + str(cards) + ", " + str(manifest_path))
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    problems = []
+    if manifest.get("status") != "final":
+        problems.append("status is " + str(manifest.get("status")))
+    listed = {(row.get("schema"), row.get("sha256")) for row in (manifest.get("build_inputs") or {}).get("handoffs") or []}
+    expected = {}
+    for path in handoffs or (DEV_HANDOFF, handoff_path_for(False)):
+        schema = json.loads(path.read_text(encoding="utf-8")).get("schema")
+        expected[path.name] = {"schema": schema, "sha256": handoff_sha256(path)}
+        if (schema, expected[path.name]["sha256"]) not in listed:
+            problems.append("handoff " + path.name + " (" + str(schema) + ", " + expected[path.name]["sha256"] + ") not in build_inputs.handoffs")
+    cards_sha = hashlib.sha256(cards.read_bytes()).hexdigest()
+    if manifest.get("cards_sha256") != cards_sha:
+        problems.append("cards_sha256 " + str(manifest.get("cards_sha256")) + " but the file hashes to " + cards_sha)
+    if problems:
+        raise SystemExit("card manifest check failed, not running B2:\n" + "\n".join(problems))
+    return {"cards": _display_path(cards), "cards_sha256": cards_sha, "manifest": _display_path(manifest_path), "handoffs": expected}
+
+
 def _display_path(path: Path) -> str:
     try:
         return path.relative_to(ROOT).as_posix()
@@ -592,8 +620,11 @@ def main():
     out_root = Path(args.out_root) if args.out_root else None
     if out_root is not None and not out_root.is_absolute():
         out_root = ROOT / out_root
+    checks = None
+    if args.phase == "b2":
+        checks = {"cards_manifest": check_cards_manifest(cards)}
     report = asyncio.run(run_phase(tasks, args.phase, cards=cards, mock=args.mock, repeats=args.repeats, out_root=out_root,
-                                   with_b0_drift=args.with_b0_drift))
+                                   with_b0_drift=args.with_b0_drift, prerun_checks=checks))
     print(json.dumps(report, indent=2), flush=True)
     if report["halt_reason"]:
         raise SystemExit("stopped: " + report["halt_reason"])
