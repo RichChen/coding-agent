@@ -138,16 +138,59 @@ def fault_alarm(out_root: Path, phase: str, canaries) -> str | None:
     return None
 
 
-def halt_reason(out_root: Path, phase: str, canaries=frozenset(), extra_phases=()) -> str | None:
+def actual_injection(run_dir: Path) -> list[str] | None:
+    """Card ids the host actually put into the model view, from context.prepared events. None without events."""
+    events = run_dir / "events.jsonl"
+    if not events.is_file():
+        return None
+    ids = set()
+    with events.open(encoding="utf-8") as handle:
+        for line in handle:
+            if '"context.prepared"' not in line:
+                continue
+            event = json.loads(line)
+            if event.get("type") != "context.prepared":
+                continue
+            plugin = ((event.get("payload") or {}).get("stats") or {}).get("plugin") or {}
+            ids.update(item["id"] for item in plugin.get("actually_injected") or [] if item.get("reason") == "memory_card")
+    return sorted(ids)
+
+
+def injection_mismatch(out_root: Path, predicted: dict, verified: set) -> str | None:
+    """D7: every finished B2 run must inject exactly the predicted card set. verified caches runs already checked."""
+    for path in sorted(out_root.glob("*/b2/r*/summary.json")):
+        run_dir = path.parent
+        if "." in run_dir.name or run_dir in verified:
+            continue
+        row = json.loads(path.read_text(encoding="utf-8"))
+        if row.get("status") == "infra_error":
+            continue
+        task_id = run_dir.parent.parent.name
+        actual = actual_injection(run_dir)
+        if actual is None:
+            return "injection cannot be checked, no events.jsonl: " + task_id + " " + run_dir.name
+        expected = sorted(predicted.get(task_id, ["<task not in the predicted table>"]))
+        if actual != expected:
+            return "injection differs from the prediction: " + task_id + " " + run_dir.name + " actual " + json.dumps(actual) + " predicted " + json.dumps(expected)
+        verified.add(run_dir)
+    return None
+
+
+def halt_reason(out_root: Path, phase: str, canaries=frozenset(), extra_phases=(), predicted=None, verified=None) -> str | None:
     """Stop conditions checked before every new run. In-flight runs still finish.
 
     extra_phases get the same per-run checks (the b0/r4 drift slots during B2); the spend cap is the phase's.
+    predicted maps task id to the card ids B2 must inject.
     """
     alarm = fault_alarm(out_root, phase, canaries)
     if alarm:
         return alarm
     for checked in (phase, *extra_phases):
         reason = run_checks(phase_summaries(out_root, checked))
+        if reason:
+            return reason
+    if predicted is not None:
+        reason = injection_mismatch(out_root, predicted, set() if verified is None else verified)
         if reason:
             return reason
     names = set()
@@ -199,8 +242,9 @@ def slot_queue(tasks, phase: str, repeats: int, *, with_b0_drift: bool = False) 
 
 
 async def run_phase(tasks, phase: str, *, cards: Path | None, mock: bool, repeats: int, out_root: Path | None = None,
-                    canaries=None, with_b0_drift: bool = False, prerun_checks: dict | None = None):
+                    canaries=None, with_b0_drift: bool = False, prerun_checks: dict | None = None, predicted: dict | None = None):
     out_root = out_root or out_root_for(mock)
+    verified = set()
     if canaries is None:
         canaries = frozenset(canary_ids(accepted_tasks(load_targets())).values())
     profile = PROFILE
@@ -228,7 +272,7 @@ async def run_phase(tasks, phase: str, *, cards: Path | None, mock: bool, repeat
         pending.append((task, output, slot_phase))
     if refused:
         raise SystemExit("existing summaries do not belong to this phase; not overwriting:\n" + "\n".join(refused))
-    state = {"halt": halt_reason(out_root, phase, canaries, extra)}
+    state = {"halt": halt_reason(out_root, phase, canaries, extra, predicted, verified)}
     semaphore = asyncio.Semaphore(PARALLEL)
 
     async def one(task, output, slot_phase):
@@ -246,7 +290,7 @@ async def run_phase(tasks, phase: str, *, cards: Path | None, mock: bool, repeat
                 except (Exception, SystemExit) as exc:
                     state["halt"] = state["halt"] or ("run crashed: " + task["id"] + " " + type(exc).__name__ + ": " + str(exc)[:300])
                     return None
-                state["halt"] = state["halt"] or halt_reason(out_root, phase, canaries, extra)
+                state["halt"] = state["halt"] or halt_reason(out_root, phase, canaries, extra, predicted, verified)
                 if summary.get("status") != "infra_error":
                     return summary
                 if state["halt"] or not retire_infra(output):
@@ -259,6 +303,7 @@ async def run_phase(tasks, phase: str, *, cards: Path | None, mock: bool, repeat
         "phase": phase,
         "with_b0_drift": with_b0_drift,
         "prerun_checks": prerun_checks,
+        "injection_verified_runs": len(verified),
         "mock": mock,
         "parallel": PARALLEL,
         "halt_reason": state["halt"],
@@ -567,6 +612,28 @@ def check_cards_manifest(cards: Path, handoffs=None) -> dict:
     return {"cards": _display_path(cards), "cards_sha256": cards_sha, "manifest": _display_path(manifest_path), "handoffs": expected}
 
 
+PREDICTED = ROOT / "docs" / "sprint" / "b2-predicted-injection.json"
+
+
+def load_predicted(cards_sha256: str, path: Path = PREDICTED, repo: Path = ROOT) -> tuple[dict, dict]:
+    """D6/D7: the predicted injection table must be committed, unchanged, and built from the same card file."""
+    import subprocess
+
+    if not path.is_file():
+        raise SystemExit("predicted injection table missing: " + str(path))
+    relative = path.relative_to(repo).as_posix()
+    tracked = subprocess.run(["git", "ls-files", "--error-unmatch", relative], cwd=repo, capture_output=True, text=True)
+    dirty = subprocess.run(["git", "status", "--porcelain", "--", relative], cwd=repo, capture_output=True, text=True)
+    if tracked.returncode != 0 or dirty.stdout.strip():
+        raise SystemExit("predicted injection table is not committed as is: " + relative)
+    table = json.loads(path.read_text(encoding="utf-8"))
+    if table.get("cards_sha256") != cards_sha256:
+        raise SystemExit("predicted injection table was built from cards " + str(table.get("cards_sha256")) + ", not " + cards_sha256)
+    by_task = {row["id"]: [item["id"] for item in row["injected"]] for row in table["runs"]}
+    commit = subprocess.run(["git", "log", "-1", "--format=%H", "--", relative], cwd=repo, capture_output=True, text=True).stdout.strip()
+    return by_task, {"path": relative, "sha256": handoff_sha256(path), "commit": commit, "tasks": len(by_task)}
+
+
 def _display_path(path: Path) -> str:
     try:
         return path.relative_to(ROOT).as_posix()
@@ -621,10 +688,15 @@ def main():
     if out_root is not None and not out_root.is_absolute():
         out_root = ROOT / out_root
     checks = None
+    predicted = None
     if args.phase == "b2":
         checks = {"cards_manifest": check_cards_manifest(cards)}
+        predicted, checks["predicted_injection"] = load_predicted(checks["cards_manifest"]["cards_sha256"])
+        missing = [task["id"] for task in tasks if task["id"] not in predicted]
+        if missing:
+            raise SystemExit("tasks missing from the predicted injection table: " + ", ".join(missing))
     report = asyncio.run(run_phase(tasks, args.phase, cards=cards, mock=args.mock, repeats=args.repeats, out_root=out_root,
-                                   with_b0_drift=args.with_b0_drift, prerun_checks=checks))
+                                   with_b0_drift=args.with_b0_drift, prerun_checks=checks, predicted=predicted))
     print(json.dumps(report, indent=2), flush=True)
     if report["halt_reason"]:
         raise SystemExit("stopped: " + report["halt_reason"])

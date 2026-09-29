@@ -621,6 +621,100 @@ def test_card_manifest_check_refuses_a_changed_handoff(tmp_path):
         run_a5_main.check_cards_manifest(cards, handoffs)
 
 
+def _events(run_dir, injected, *, reason="memory_card"):
+    run_dir.mkdir(parents=True, exist_ok=True)
+    lines = [
+        {"type": "run.started", "payload": {}},
+        {"type": "context.prepared", "payload": {"stats": {"plugin": {"actually_injected": [
+            {"id": card, "reason": reason, "bytes": 10} for card in injected]}}}},
+        {"type": "context.prepared", "payload": {"stats": {"plugin": {"actually_injected": [
+            {"proposal_id": "p", "tool": "read_file", "bytes": 5}]}}}},
+        {"type": "run.finished", "payload": {"context_events": [{"plugin": {"actually_injected": [{"id": "not-counted", "reason": "memory_card"}]}}]}},
+    ]
+    (run_dir / "events.jsonl").write_text("".join(json.dumps(line) + "\n" for line in lines), encoding="utf-8")
+
+
+def test_actual_injection_reads_memory_cards_from_context_prepared_only(tmp_path):
+    _events(tmp_path / "run", ["b", "a"])
+    assert run_a5_main.actual_injection(tmp_path / "run") == ["a", "b"]
+    _events(tmp_path / "other", ["a"], reason="something_else")
+    assert run_a5_main.actual_injection(tmp_path / "other") == []
+    assert run_a5_main.actual_injection(tmp_path / "none") is None
+
+
+def test_injection_mismatch_checks_finished_b2_runs_only(tmp_path):
+    predicted = {TASK["id"]: ["a", "b"]}
+    _summary(tmp_path, "b2", slot="r1", **REAL)
+    _events(tmp_path / TASK["id"] / "b2" / "r1", ["b", "a"])
+    _summary(tmp_path, "b2", slot="r2.infra1", status="infra_error", **REAL)
+    _summary(tmp_path, "b2", slot="r3", status="infra_error", **REAL)
+    _summary(tmp_path, "b0", slot="r4", **REAL)
+    verified = set()
+    assert run_a5_main.injection_mismatch(tmp_path, predicted, verified) is None
+    assert verified == {tmp_path / TASK["id"] / "b2" / "r1"}
+    assert run_a5_main.injection_mismatch(tmp_path, {TASK["id"]: ["a"]}, set()).startswith("injection differs from the prediction")
+    assert run_a5_main.injection_mismatch(tmp_path, {}, set()).startswith("injection differs")
+    _summary(tmp_path, "b2", slot="r2", **REAL)
+    assert run_a5_main.injection_mismatch(tmp_path, predicted, verified).startswith("injection cannot be checked")
+
+
+def test_run_phase_stops_when_a_b2_run_injects_other_cards(tmp_path, monkeypatch):
+    calls = []
+
+    async def fake(task, profile, output, **kwargs):
+        calls.append(output.name)
+        _events(output, ["x"] if output.name == "r1" else ["a"])
+        row = {"task_id": task["id"], "variant": kwargs["variant"], "status": "pass", "solved": True, "cost_cny": "0.1", **REAL}
+        (output / "summary.json").write_text(json.dumps(row), encoding="utf-8")
+        return row
+
+    monkeypatch.setattr(run_a5_main, "run_task", fake)
+    monkeypatch.setattr(run_a5_main, "materialize_runner_task", lambda task: task)
+    monkeypatch.setattr(run_a5_main, "PARALLEL", 1)
+    report = asyncio.run(run_phase([TASK], "b2", cards=None, mock=False, repeats=3, out_root=tmp_path,
+                                   canaries=frozenset(), predicted={TASK["id"]: ["a"]}))
+    assert calls == ["r1"] and report["halt_reason"].startswith("injection differs from the prediction")
+
+
+def test_run_phase_counts_verified_injections(tmp_path, monkeypatch):
+    async def fake(task, profile, output, **kwargs):
+        _events(output, ["a"])
+        row = {"task_id": task["id"], "variant": kwargs["variant"], "status": "pass", "solved": True, "cost_cny": "0.1", **REAL}
+        (output / "summary.json").write_text(json.dumps(row), encoding="utf-8")
+        return row
+
+    monkeypatch.setattr(run_a5_main, "run_task", fake)
+    monkeypatch.setattr(run_a5_main, "materialize_runner_task", lambda task: task)
+    report = asyncio.run(run_phase([TASK], "b2", cards=None, mock=False, repeats=3, out_root=tmp_path,
+                                   canaries=frozenset(), predicted={TASK["id"]: ["a"]}))
+    assert report["halt_reason"] is None and report["injection_verified_runs"] == 3
+
+
+def test_load_predicted_requires_a_committed_table_from_the_same_cards(tmp_path):
+    import subprocess
+
+    def git(*args):
+        subprocess.run(["git", *args], cwd=tmp_path, check=True, capture_output=True)
+
+    git("init", "-q")
+    git("config", "user.email", "t@t")
+    git("config", "user.name", "t")
+    path = tmp_path / "pred.json"
+    table = {"cards_sha256": "c" * 64, "runs": [{"id": TASK["id"], "injected": [{"id": "a"}]}]}
+    path.write_text(json.dumps(table), encoding="utf-8")
+    with pytest.raises(SystemExit, match="not committed"):
+        run_a5_main.load_predicted("c" * 64, path, tmp_path)
+    git("add", "pred.json")
+    git("commit", "-q", "-m", "table")
+    by_task, meta = run_a5_main.load_predicted("c" * 64, path, tmp_path)
+    assert by_task == {TASK["id"]: ["a"]} and meta["tasks"] == 1 and len(meta["commit"]) == 40
+    with pytest.raises(SystemExit, match="built from cards"):
+        run_a5_main.load_predicted("d" * 64, path, tmp_path)
+    path.write_text(json.dumps({**table, "runs": []}), encoding="utf-8")
+    with pytest.raises(SystemExit, match="not committed"):
+        run_a5_main.load_predicted("c" * 64, path, tmp_path)
+
+
 def test_out_root_requires_mock(monkeypatch):
     monkeypatch.setattr("sys.argv", ["run_a5_main.py", "--phase", "b0", "--out-root", "runs/x"])
     with pytest.raises(SystemExit, match="only allowed with --mock"):
