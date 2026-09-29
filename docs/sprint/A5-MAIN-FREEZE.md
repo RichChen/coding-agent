@@ -331,3 +331,29 @@ tag `a5-main-freeze-r4` 指向加入本节的提交。`a5-main-freeze`、`-r1`�
 冻结输入（`main-targets.yaml`、`main-accepted-ids.txt`、`b0-v2.yaml`、`memory-source-runs.json`、`main-issues.json`）没有改动，运行参数与修订 3 相同。
 
 全套测试：420 passed，199 skipped。
+
+### 修订 4 补记（第 C 段开跑前，不打新 tag）
+
+依据：v6 卡片审计通过后对第 A 段的确认和纠正，以及 6D 第 C 段 D5–D7。以下内容都在第一次 B2 运行之前提交。
+
+审计确认：infra_error 停止线对 b2 和 b0 分开计算；r4 的花费并入 `runs/a5-main/` 总额，按 `TOTAL_CAP` 230 元停止。
+
+| 项 | 内容 | 提交 |
+| --- | --- | --- |
+| B2 故障警报（新增停止条件） | 混合队列里完成的 B2 正式运行（只数 `b2/r1..r3`；不含 `b0/r4`、`r<k>.infra<n>` 和 `infra_error`；delta_lost 算）达到 30 次时，如果解出数为 0，就停止启动新运行 | `068380e` |
+| D5 v6 核对 | B2 开跑前检查 `memory-cards-v6.manifest.json`：`status: final`；`build_inputs.handoffs` 含 dev 交接文件（`sprint5.memory-source-runs.v2`，`98482670…`）和 `main-b0-runs.json`（`sprint6.main-b0-runs.v2`，`fe0f47b8…`），sha 与当前文件一致；`cards_sha256` 从文件复算一致（`3416eb9d8f6119081330fb3b0a2d612b8fde4678d6ec1c73a7fc681cedfcfc70`）。任何一项不符就拒绝运行 | `f97284c` |
+| D6 预测注入表 | `scripts/sprint6_predict_injection.py` 按 B2 的代码路径（补日期、`load_memory_cards`、`temporal_filter`、`MemoryCardPlugin.decide`）对 56 道题选卡，不调用模型。输出 `docs/sprint/b2-predicted-injection.json`，两次生成逐字节相同 | `89ef367` |
+| D7 注入一致性检查 | B2 开跑前要求预测表已提交且没有未提交的改动、`cards_sha256` 与本次卡片一致、覆盖所有要跑的题。每次 B2 运行（不含 infra）结束后，从 `events.jsonl` 的 `context.prepared` 事件取 `plugin.actually_injected` 里 `reason == "memory_card"` 的卡片 id 集合，与预测不一致就停止；没有 `events.jsonl` 也停止 | `8008223` |
+| D7 核对口径修正 | 上一行的检查按 `type` 字段找事件，事件日志实际用的是 `event_type`，在 mock 端到端检查里被发现。只改核对代码和测试夹具，不影响任何运行 | `399132a` |
+
+**预测注入表：** `docs/sprint/b2-predicted-injection.json`，sha（`handoff_sha256`，LF）`5d858eb4f3ab368fc655b310168e2c77de311ddfee4f77c0928e4d08ba79e3e5`，提交 `89ef367`。
+
+- 56 道题中 51 道会注入至少 1 张卡（停止线是 10 道），共 148 张次；每道 1 张 5 道、2 张 9 道、3 张 24 道、4 张 12 道、5 张 1 道。
+- 注入的题平均 3236.2 字节（上限 4096）。
+- 不注入的 5 道：sympy-11618、sympy-13757、sympy-14248、sklearn-9288、sphinx-7440，插件结论都是 `no_relevant_memory`。
+- 注入的卡片没有晚于目标题的、没有目标题自己的、没有跨 repo 的。
+- 这张表是预注册的次要分析分组，只依赖 issue 和卡片。
+
+**mock 端到端检查**（`runs/a5-main-mock-6d/`，不调用模型）：django-13964、sklearn-9288、sphinx-8120 各 1 次 B2，加 3 个 `b0/r4`。3 次 B2 的实际注入与预测一致（包括 sklearn-9288 的空集合），summary 里的预览注入与预测的 id 和字节数也一致。
+
+全套测试：434 passed，199 skipped。
