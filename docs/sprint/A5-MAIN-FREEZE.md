@@ -354,6 +354,33 @@ tag `a5-main-freeze-r4` 指向加入本节的提交。`a5-main-freeze`、`-r1`�
 - 注入的卡片没有晚于目标题的、没有目标题自己的、没有跨 repo 的。
 - 这张表是预注册的次要分析分组，只依赖 issue 和卡片。
 
-**mock 端到端检查**（`runs/a5-main-mock-6d/`，不调用模型）：django-13964、sklearn-9288、sphinx-8120 各 1 次 B2，加 3 个 `b0/r4`。3 次 B2 的实际注入与预测一致（包括 sklearn-9288 的空集合），summary 里的预览注入与预测的 id 和字节数也一致。
+**mock 端到端检查（补记 1 当时）**（`runs/a5-main-mock-6d/`，不调用模型）：django-13964、sklearn-9288、sphinx-8120 各 1 次 B2，加 3 个 `b0/r4`。3 次 B2 的实际注入与预测一致（包括 sklearn-9288 的空集合），summary 里的预览注入与预测的 id 和字节数也一致。
 
 全套测试：434 passed，199 skipped。
+
+### 修订 4 补记 2（B2 续跑前，不打新 tag）
+
+依据：审计对 django-13964 B2 r3 停止的结论。这次 missing 是候选改动在执行阶段引起的（`setUpClass` 失败），不是 grader 故障。审计不采用"放宽栈帧判据"，改用下面的空改动重评规则。
+
+| 项 | 内容 | 提交 |
+| --- | --- | --- |
+| missing_regrade 规则 | 见下 | `d99e1f6` |
+| 对已完成运行执行重评的脚本 | `scripts/sprint6_missing_regrade.py`，不调用模型 | `abad9dc` |
+
+**规则：**
+
+1. 任何一次运行的 grader 报告 missing，并且原有的栈帧规则（H6）没有判为候选错误时，用同一个镜像、同一套测试覆盖和同一组 F2P/P2P，以空改动再评一次，不花钱。结果写到 `grader-regrade-empty.json`，summary 的 `missing_regrade` 记录计数、期望值和是否一致。
+2. 空改动重评没有 missing，没有 grader reason，并且 F2P、P2P 的 [通过数, 总数] 与校准一致时，这次运行按普通失败处理：missing 的测试算作失败，`solved=false`，`grader_candidate_error="execution"`，不停止。
+3. 空改动重评也有 missing、grader 报了 reason、或者与校准不一致，按原规则停止。没有校准记录的题（不在 A5-main 池里）同样停止。
+4. 规则对 B2 和 `b0/r4` 同样适用。B0 的 168 次运行（r1..r3）都没有 missing，所以这条规则对 B0 没有影响。
+5. H6 不变：它能判定的情况照旧，记录为 `{"source", "file"}`。
+
+**与校准比较的口径（按已批准的 `p2p_excluded` 口径）：**
+
+- F2P 期望值是校准的 `empty_f2p`。
+- P2P 的总数是校准总数减去 `p2p_excluded` 条数；通过数是校准的通过数。
+- 3 道有排除项的题（sphinx-10323、8120、9673）在校准时，被排除的测试在空改动下都失败了，所以排除后通过数不变。如果将来有被排除的测试在空改动下通过，这个口径会判为不一致而停止，偏向保守一侧。
+
+**对 django-13964 B2 r3 的执行结果：** 空改动重评没有 missing，F2P 0/1、P2P 36/36，与校准（`empty_f2p` [0, 1]，`empty_p2p` [36, 36]，没有排除项）一致，镜像与原运行相同。按第 2 条记为普通失败；原 summary 另存为 `summary.pre-regrade.json`，这个槽位不重跑。
+
+全套测试：441 passed，199 skipped。
