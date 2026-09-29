@@ -1,8 +1,9 @@
-"""Apply the missing_regrade rule to a finished run: grade its image again with an empty delta. No model calls.
+"""Apply the empty-delta regrade rule to a finished run: grade its image again with an empty delta. No model calls.
 
-When the regrade has no missing id and matches calibration, the run becomes an ordinary failure: summary.json
-gets grader_candidate_error="execution" and missing_regrade, and the old summary is kept as
-summary.pre-regrade.json. Otherwise nothing in the run changes.
+Two triggers: the grader reported missing ids (missing_regrade), or test execution timed out and left a
+grader reason (timeout_regrade). When the regrade has no missing id and matches calibration, the run becomes
+an ordinary failure: summary.json gets grader_candidate_error ("execution" or "execution_timeout") and the
+regrade verdict, and the old summary is kept as summary.pre-regrade.json. Otherwise nothing in the run changes.
 """
 from __future__ import annotations
 
@@ -16,15 +17,26 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from scripts.run_a5_main import accepted_tasks, load_targets, materialize_runner_task  # noqa: E402
 from scripts.run_swe_task import calibration_row, delta_changes, empty_regrade, prerun_check  # noqa: E402
-from src.eval.candidate_error import classify_missing, expected_empty, missing_count, regrade_verdict  # noqa: E402
+from src.eval.candidate_error import (  # noqa: E402
+    classify_missing,
+    classify_timeout,
+    expected_empty,
+    missing_count,
+    regrade_verdict,
+    timed_out_with_reason,
+)
 
 
 async def regrade_run(run_dir: Path) -> dict:
     summary_path = run_dir / "summary.json"
     summary = json.loads(summary_path.read_text(encoding="utf-8"))
     evaluation = json.loads((run_dir / "grader-result.json").read_text(encoding="utf-8"))
-    if not missing_count(evaluation):
-        raise SystemExit("the grader reported no missing id for " + str(run_dir))
+    missing = missing_count(evaluation)
+    timed_out = not missing and timed_out_with_reason(evaluation)
+    if not missing and not timed_out:
+        raise SystemExit("the grader reported neither missing ids nor a timed-out execution for " + str(run_dir))
+    if summary.get("status") == "infra_error":
+        raise SystemExit("infra_error runs are not regraded: " + str(run_dir))
     if summary.get("grader_candidate_error"):
         raise SystemExit("already classified: " + str(run_dir))
     task = next(task for task in accepted_tasks(load_targets()) if task["id"] == summary["task_id"])
@@ -38,15 +50,21 @@ async def regrade_run(run_dir: Path) -> dict:
     regrade = await empty_regrade(prepared, image, spec, f2p)
     (run_dir / "grader-regrade-empty.json").write_text(json.dumps(regrade, indent=2, default=str), encoding="utf-8")
     verdict = regrade_verdict(regrade, expected_empty(calibration_row(prepared["id"])))
-    delta_path = run_dir / "candidate-delta.json"
-    changed = delta_changes(json.loads(delta_path.read_text(encoding="utf-8"))) if delta_path.is_file() else []
-    error = classify_missing(evaluation, changed, verdict)
-    result = {"run": str(run_dir.relative_to(ROOT).as_posix()), "image": image, "missing_regrade": verdict, "grader_candidate_error": error}
+    if missing:
+        delta_path = run_dir / "candidate-delta.json"
+        changed = delta_changes(json.loads(delta_path.read_text(encoding="utf-8"))) if delta_path.is_file() else []
+        error = classify_missing(evaluation, changed, verdict)
+    else:
+        error = classify_timeout(evaluation, verdict)
+    field = "missing_regrade" if missing else "timeout_regrade"
+    result = {"run": str(run_dir.relative_to(ROOT).as_posix()), "image": image, field: verdict, "grader_candidate_error": error}
     if error is not None:
         (run_dir / "summary.pre-regrade.json").write_text(summary_path.read_text(encoding="utf-8"), encoding="utf-8")
         summary["grader_candidate_error"] = error
-        summary["missing_regrade"] = verdict
+        summary[field] = verdict
         summary["solved"] = False
+        if error == "execution_timeout":
+            summary["status"] = "fail"
         summary["docker_retries"] = list(summary.get("docker_retries") or []) + [
             dict(stage="regrade", **row) for row in regrade.get("docker_retries") or []]
         summary_path.write_text(json.dumps(summary, indent=2), encoding="utf-8")
