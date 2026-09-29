@@ -21,6 +21,16 @@ python scripts/demo_memory_validity.py --output reports/upgrade/my-second-demo
 
 H4/H5：`RepoSkillH4Plugin` 提交 async JSON proposals 和可序列化状态，不直连模型。公私分离的单任务交接包已由 harness `real-04` 完成 off/on 联调，各 4 次模型调用、独立 grader 各 4/4；这是另一仓保存的既有证据，本轮没有重跑。字段映射与历史边界见 [H4 适配说明](docs/upgrade/H4-ADAPTER.md)，最新证据区分见 [A5 验收记录](docs/upgrade/A5-VERIFICATION.md)。
 
+## A5-main（2026-09）
+
+在 56 道 SWE-bench Verified 题上比较 B0（不注入记忆）和 B2（注入同仓库、更早、已验证修复的卡片）。B0 解出率 68.5%。没有检出大于 13.1 个百分点的效应。
+
+- 预注册结果：[A5-MAIN-RESULTS.zh-CN.md](docs/sprint/A5-MAIN-RESULTS.zh-CN.md)
+- 最终报告：[A5-FINAL-REPORT.zh-CN.md](docs/A5-FINAL-REPORT.zh-CN.md)
+- 历程指针：[PROJECT-HISTORY.zh-CN.md](docs/PROJECT-HISTORY.zh-CN.md)
+
+下面的 240 条矩阵和 pilot 是未执行的计划。更早的 L5 比 L2 高 9.4 个百分点来自自建题集 medium_48，不是这次实验。
+
 ## A5 四变体离线合同（无需 API key）
 
 ```powershell
