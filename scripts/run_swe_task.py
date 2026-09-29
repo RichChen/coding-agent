@@ -23,7 +23,14 @@ import yaml
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from src.eval.candidate_error import classify_missing, expected_empty, missing_count, regrade_verdict
+from src.eval.candidate_error import (
+    classify_missing,
+    classify_timeout,
+    expected_empty,
+    missing_count,
+    regrade_verdict,
+    timed_out_with_reason,
+)
 from src.eval.grader import tree_hash
 from src.eval.image_grader import ImageGrader
 from src.eval.repo_grader import RepositoryGrader, RepositorySpec
@@ -827,14 +834,20 @@ async def run_task(task: dict, profile: Path, output: Path, *, mock: bool, varia
     if final_model != requested_model:
         model["changed_to"] = final_model
     missing = missing_count(evaluation)
+    timed_out = not infra and not missing and timed_out_with_reason(evaluation)
     verdict = None
     regrade_retries = []
-    if missing and not infra:
+    if (missing or timed_out) and not infra:
         regrade = await empty_regrade(task, image, spec, f2p)
         (output / "grader-regrade-empty.json").write_text(json.dumps(regrade, indent=2, default=str), encoding="utf-8")
         verdict = regrade_verdict(regrade, expected_empty(calibration_row(task["id"])))
         regrade_retries = regrade.get("docker_retries") or []
-    candidate_error = classify_missing(evaluation, delta_changes(delta), verdict) if missing and not infra else None
+    candidate_error = None
+    if missing and not infra:
+        candidate_error = classify_missing(evaluation, delta_changes(delta), verdict)
+    elif timed_out:
+        candidate_error = classify_timeout(evaluation, verdict)
+    timeout_failure = candidate_error == "execution_timeout"
     summary = {
         "task_id": task["id"],
         "variant": variant,
@@ -842,8 +855,8 @@ async def run_task(task: dict, profile: Path, output: Path, *, mock: bool, varia
         "profile": profile.stem,
         "model": model,
         **fingerprints,
-        "solved": False if lost or infra or missing else bool(evaluation.get("solved")),
-        "status": "infra_error" if infra else ("delta_lost" if lost else evaluation.get("status")),
+        "solved": False if lost or infra or missing or timed_out else bool(evaluation.get("solved")),
+        "status": "infra_error" if infra else ("delta_lost" if lost else ("fail" if timeout_failure else evaluation.get("status"))),
         "grader_status": evaluation.get("status"),
         "grader_ids": {
             "f2p": len(f2p),
@@ -852,7 +865,8 @@ async def run_task(task: dict, profile: Path, output: Path, *, mock: bool, varia
             "reason": evaluation.get("reason"),
         },
         "grader_candidate_error": candidate_error,
-        "missing_regrade": verdict,
+        "missing_regrade": verdict if missing else None,
+        "timeout_regrade": verdict if timed_out else None,
         "changed_files": changed,
         "first_edit_step": stats["first_edit_step"],
         "model_calls": model_calls,

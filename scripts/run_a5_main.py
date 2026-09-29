@@ -253,6 +253,8 @@ def run_checks(rows: list[dict]) -> str | None:
         ids = row.get("grader_ids") or {}
         if ids.get("missing") and not row.get("grader_candidate_error"):
             return "grader reported missing ids: " + str(row.get("task_id"))
+        if row.get("grader_candidate_error") == "execution_timeout":
+            continue
         if ids.get("reason") or row.get("grader_status") == "invalid_env":
             return "grader crashed: " + str(row.get("task_id")) + " " + str(ids.get("reason"))
     return None

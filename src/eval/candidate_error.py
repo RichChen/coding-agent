@@ -3,8 +3,9 @@
 Rule: take the grader receipt's runner_error and the tail of each collection-error traceback. If the innermost
 frame that belongs to the project is in a file the candidate changed, the run is an ordinary
 failure. Otherwise the same image is graded once more with an empty delta (missing_regrade); if that has no
-missing id and matches calibration, the run is an ordinary failure too ("execution"). Anything else stays a
-stop condition.
+missing id and matches calibration, the run is an ordinary failure too ("execution"). A run whose test
+execution timed out and left a grader reason gets the same empty-delta regrade; a consistent one makes it an
+ordinary failure ("execution_timeout"). Anything else stays a stop condition.
 """
 from __future__ import annotations
 
@@ -97,4 +98,22 @@ def classify_missing(evaluation: dict, changed: list[str], verdict: dict | None)
         return found
     if verdict is not None and verdict["consistent"]:
         return "execution"
+    return None
+
+
+def timed_out_with_reason(evaluation: dict) -> bool:
+    """Test execution ran past its timeout and the grader then failed (no receipt), leaving a reason."""
+    return bool(evaluation.get("reason")) and evaluation.get("execution_status") == "timed_out"
+
+
+def classify_timeout(evaluation: dict, verdict: dict | None):
+    """grader_candidate_error for a timed-out run with a grader reason, or None to stop.
+
+    A consistent empty-delta regrade means the image and grader are fine and the candidate made the tests run
+    past the timeout: an ordinary failure recorded as "execution_timeout", with every F2P/P2P id failed.
+    """
+    if not timed_out_with_reason(evaluation):
+        return None
+    if verdict is not None and verdict["consistent"]:
+        return "execution_timeout"
     return None

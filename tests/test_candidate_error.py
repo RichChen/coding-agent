@@ -3,6 +3,7 @@ import json
 from scripts.run_a5_main import halt_reason
 from src.eval.candidate_error import (
     classify_missing,
+    classify_timeout,
     expected_empty,
     grader_candidate_error,
     innermost_project_frame,
@@ -163,6 +164,56 @@ def test_the_traceback_rule_still_comes_first_and_no_missing_needs_nothing():
     assert classify_missing(evaluation, ["django/contrib/admin/views/main.py"], stale) == {
         "source": "runner_error", "file": "django/contrib/admin/views/main.py"}
     assert classify_missing(_evaluation(cases=[{"nodeid": "x", "outcome": "failed"}]), CHANGED, None) is None
+
+
+SPHINX_CALIBRATION = {"empty_f2p": [0, 1], "empty_p2p": [24, 24], "p2p_excluded": []}
+RECEIPT_GONE = "DockerUnavailable: Docker exec failed after 3 retries: FileNotFoundError: /tmp/a5-pytest-receipt.json"
+
+
+def _timed_out_run(reason=RECEIPT_GONE, execution_status="timed_out"):
+    return {"status": "invalid_env", "solved": False, "reason": reason, "execution_status": execution_status}
+
+
+def _sphinx_regrade(p2p_passed=24, reason=None):
+    cases = [{"nodeid": "f", "outcome": "failed"}] + [
+        {"nodeid": "p" + str(i), "outcome": "passed" if i < p2p_passed else "failed"} for i in range(24)]
+    return {"status": "fail", "reason": reason, "cases": cases, "f2p_passed": 0, "f2p_total": 1, "p2p_passed": p2p_passed, "p2p_total": 24}
+
+
+def _timeout_summary(root, phase, slot, error, verdict):
+    path = root / "sphinx-doc__sphinx-7590" / phase / slot / "summary.json"
+    path.parent.mkdir(parents=True)
+    path.write_text(json.dumps({"task_id": "sphinx-doc__sphinx-7590", "variant": phase.upper(), "solved": False,
+                                "status": "fail" if error else "invalid_env", "grader_status": "invalid_env", "cost_cny": "0",
+                                "grader_ids": {"f2p": 1, "p2p": 24, "missing": 0, "reason": RECEIPT_GONE},
+                                "grader_candidate_error": error, "timeout_regrade": verdict}), encoding="utf-8")
+
+
+def test_timeout_with_a_clean_empty_regrade_is_an_ordinary_failure_in_b2_and_the_drift_slot(tmp_path):
+    verdict = regrade_verdict(_sphinx_regrade(), expected_empty(SPHINX_CALIBRATION))
+    assert verdict["consistent"]
+    error = classify_timeout(_timed_out_run(), verdict)
+    assert error == "execution_timeout"
+    _timeout_summary(tmp_path, "b2", "r3", error, verdict)
+    _timeout_summary(tmp_path, "b0", "r4", error, verdict)
+    assert halt_reason(tmp_path, "b2", extra_phases=("b0",)) is None
+
+
+def test_timeout_with_a_bad_empty_regrade_still_stops(tmp_path):
+    expected = expected_empty(SPHINX_CALIBRATION)
+    assert classify_timeout(_timed_out_run(), regrade_verdict(_sphinx_regrade(p2p_passed=23), expected)) is None
+    assert classify_timeout(_timed_out_run(), regrade_verdict(_sphinx_regrade(reason="TimeoutError"), expected)) is None
+    assert classify_timeout(_timed_out_run(), regrade_verdict(_sphinx_regrade(), None)) is None
+    assert classify_timeout(_timed_out_run(), None) is None
+    _timeout_summary(tmp_path, "b2", "r3", None, regrade_verdict(_sphinx_regrade(p2p_passed=23), expected))
+    assert halt_reason(tmp_path, "b2").startswith("grader crashed: sphinx-doc__sphinx-7590")
+
+
+def test_a_grader_reason_without_an_execution_timeout_still_stops():
+    verdict = regrade_verdict(_sphinx_regrade(), expected_empty(SPHINX_CALIBRATION))
+    assert classify_timeout(_timed_out_run(execution_status="completed"), verdict) is None
+    assert classify_timeout(_timed_out_run(execution_status=None), verdict) is None
+    assert classify_timeout(_timed_out_run(reason=None), verdict) is None
 
 
 def test_receipt_diagnostics_keep_the_end_of_a_long_traceback():
