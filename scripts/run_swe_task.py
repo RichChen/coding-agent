@@ -23,7 +23,7 @@ import yaml
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from src.eval.candidate_error import grader_candidate_error
+from src.eval.candidate_error import classify_missing, expected_empty, missing_count, regrade_verdict
 from src.eval.grader import tree_hash
 from src.eval.image_grader import ImageGrader
 from src.eval.repo_grader import RepositoryGrader, RepositorySpec
@@ -441,6 +441,26 @@ def select_tasks(manifest: dict, requested: list[str]) -> list[dict]:
 
 DEV_HANDOFF = ROOT / "docs" / "sprint" / "memory-source-runs.json"
 MAIN_TARGETS = ROOT / "configs" / "sprint" / "main-targets.yaml"
+MAIN_CALIBRATION = ROOT / "docs" / "sprint" / "main-calibration"
+
+
+async def empty_regrade(task: dict, image: str, spec, f2p: list[str]) -> dict:
+    """Grade the same image and test overlay with an empty delta. No model calls."""
+    return await ImageGrader().evaluate(
+        image=image,
+        delta={"changed": {}, "deleted": []},
+        test_overlay=spec.test_overlay,
+        f2p=f2p,
+        p2p=list(spec.baseline_passed),
+        django=task.get("family") == "django",
+        sympy=False,
+        timeout=float(task["grader_timeout_seconds"]),
+    )
+
+
+def calibration_row(task_id: str, root: Path = MAIN_CALIBRATION) -> dict | None:
+    path = root / (task_id + ".json")
+    return load_json(path) if path.is_file() else None
 
 
 def parse_created_at(value, what: str) -> datetime:
@@ -806,9 +826,15 @@ async def run_task(task: dict, profile: Path, output: Path, *, mock: bool, varia
     final_model = model_identity(agent.llm)
     if final_model != requested_model:
         model["changed_to"] = final_model
-    cases = evaluation.get("cases") or []
-    missing = sum(1 for case in cases if case.get("outcome") == "missing")
-    candidate_error = grader_candidate_error(evaluation, delta_changes(delta)) if missing and not infra else None
+    missing = missing_count(evaluation)
+    verdict = None
+    regrade_retries = []
+    if missing and not infra:
+        regrade = await empty_regrade(task, image, spec, f2p)
+        (output / "grader-regrade-empty.json").write_text(json.dumps(regrade, indent=2, default=str), encoding="utf-8")
+        verdict = regrade_verdict(regrade, expected_empty(calibration_row(task["id"])))
+        regrade_retries = regrade.get("docker_retries") or []
+    candidate_error = classify_missing(evaluation, delta_changes(delta), verdict) if missing and not infra else None
     summary = {
         "task_id": task["id"],
         "variant": variant,
@@ -816,7 +842,7 @@ async def run_task(task: dict, profile: Path, output: Path, *, mock: bool, varia
         "profile": profile.stem,
         "model": model,
         **fingerprints,
-        "solved": False if lost or infra else bool(evaluation.get("solved")),
+        "solved": False if lost or infra or missing else bool(evaluation.get("solved")),
         "status": "infra_error" if infra else ("delta_lost" if lost else evaluation.get("status")),
         "grader_status": evaluation.get("status"),
         "grader_ids": {
@@ -826,6 +852,7 @@ async def run_task(task: dict, profile: Path, output: Path, *, mock: bool, varia
             "reason": evaluation.get("reason"),
         },
         "grader_candidate_error": candidate_error,
+        "missing_regrade": verdict,
         "changed_files": changed,
         "first_edit_step": stats["first_edit_step"],
         "model_calls": model_calls,
@@ -838,7 +865,8 @@ async def run_task(task: dict, profile: Path, output: Path, *, mock: bool, varia
         "run_error": run_error,
         "infra_reason": infra_reason,
         "docker_retries": [dict(stage="run", **row) for row in backend.docker_retries]
-                          + [dict(stage="grader", **row) for row in evaluation.get("docker_retries") or []],
+                          + [dict(stage="grader", **row) for row in evaluation.get("docker_retries") or []]
+                          + [dict(stage="regrade", **row) for row in regrade_retries],
         "snapshot_error": snapshot_error,
         "export_skipped_files": getattr(backend, "export_skipped_files", None),
         "answer_isolation_pass": True if clean else None,

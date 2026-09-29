@@ -2,7 +2,9 @@
 
 Rule: take the grader receipt's runner_error and the tail of each collection-error traceback. If the innermost
 frame that belongs to the project is in a file the candidate changed, the run is an ordinary
-failure. Anything else stays a stop condition.
+failure. Otherwise the same image is graded once more with an empty delta (missing_regrade); if that has no
+missing id and matches calibration, the run is an ordinary failure too ("execution"). Anything else stays a
+stop condition.
 """
 from __future__ import annotations
 
@@ -45,4 +47,54 @@ def grader_candidate_error(evaluation: dict, changed: list[str]) -> dict | None:
         frame = innermost_project_frame(text)
         if frame in changed_set:
             return {"source": source, "file": frame}
+    return None
+
+
+def missing_count(evaluation: dict) -> int:
+    return sum(1 for case in evaluation.get("cases") or [] if case.get("outcome") == "missing")
+
+
+def expected_empty(calibration: dict | None) -> dict | None:
+    """Empty-delta counts the runtime grader should reproduce, as [passed, total].
+
+    P2P follows the approved p2p_excluded reading: excluded ids leave the runtime set, and in calibration they
+    all failed under the empty delta, so the total drops by their count and the passed count stays.
+    """
+    if not calibration or calibration.get("empty_f2p") is None or calibration.get("empty_p2p") is None:
+        return None
+    excluded = len(calibration.get("p2p_excluded") or [])
+    passed, total = calibration["empty_p2p"]
+    return {"f2p": list(calibration["empty_f2p"]), "p2p": [passed, total - excluded]}
+
+
+def regrade_verdict(regrade: dict, expected: dict | None) -> dict:
+    """missing_regrade: the empty-delta regrade has no missing id and matches calibration."""
+    got = {
+        "f2p": [regrade.get("f2p_passed"), regrade.get("f2p_total")],
+        "p2p": [regrade.get("p2p_passed"), regrade.get("p2p_total")],
+    }
+    missing = missing_count(regrade)
+    return {
+        "status": regrade.get("status"),
+        "reason": regrade.get("reason"),
+        "missing": missing,
+        **got,
+        "expected": expected,
+        "consistent": expected is not None and missing == 0 and not regrade.get("reason") and got == expected,
+    }
+
+
+def classify_missing(evaluation: dict, changed: list[str], verdict: dict | None):
+    """grader_candidate_error for a run whose grader reported missing ids, or None to stop.
+
+    The traceback rule comes first. Otherwise a consistent empty-delta regrade means the candidate broke the
+    run during execution: an ordinary failure recorded as "execution".
+    """
+    if not missing_count(evaluation):
+        return None
+    found = grader_candidate_error(evaluation, changed)
+    if found is not None:
+        return found
+    if verdict is not None and verdict["consistent"]:
+        return "execution"
     return None

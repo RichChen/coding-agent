@@ -1,7 +1,13 @@
 import json
 
 from scripts.run_a5_main import halt_reason
-from src.eval.candidate_error import grader_candidate_error, innermost_project_frame
+from src.eval.candidate_error import (
+    classify_missing,
+    expected_empty,
+    grader_candidate_error,
+    innermost_project_frame,
+    regrade_verdict,
+)
 from src.eval.image_grader import receipt_diagnostics
 
 DJANGO_RUNNER_ERROR = """Traceback (most recent call last):
@@ -77,6 +83,86 @@ def test_error_in_a_file_the_candidate_did_not_change_still_stops():
 def test_pytest_collection_traceback_counts():
     evaluation = _evaluation(collection_error_tails=[PYTEST_COLLECTION])
     assert grader_candidate_error(evaluation, ["src/_pytest/foo.py"]) == {"source": "collection_errors[0]", "file": "src/_pytest/foo.py"}
+
+
+SETUPCLASS_STDERR = """ERROR: setUpClass (many_to_one.tests.ManyToOneTests)
+Traceback (most recent call last):
+  File "/workspace/tests/many_to_one/tests.py", line 26, in setUpTestData
+    cls.a.save()
+  File "/workspace/django/db/models/base.py", line 828, in _save_table
+    raise ValueError("Cannot force an update in save() with no primary key.")
+"""
+CALIBRATION = {"empty_f2p": [0, 1], "empty_p2p": [36, 36], "p2p_excluded": []}
+CHANGED = ["django/db/models/fields/related_descriptors.py", "tests/many_to_one/tests.py"]
+
+
+def _missing_run():
+    cases = [{"nodeid": "f", "outcome": "missing"}] + [{"nodeid": "p" + str(i), "outcome": "missing"} for i in range(36)]
+    return _evaluation(execution_stderr_tail=SETUPCLASS_STDERR, cases=cases, f2p_passed=0, f2p_total=1, p2p_passed=0, p2p_total=36)
+
+
+def _regrade(missing=0, p2p_passed=36, reason=None):
+    cases = [{"nodeid": "f", "outcome": "failed"}] + [
+        {"nodeid": "p" + str(i), "outcome": "missing" if i < missing else "passed"} for i in range(36)]
+    return {"status": "fail", "reason": reason, "cases": cases, "f2p_passed": 0, "f2p_total": 1, "p2p_passed": p2p_passed, "p2p_total": 36}
+
+
+def test_expected_empty_follows_the_p2p_excluded_reading():
+    assert expected_empty(CALIBRATION) == {"f2p": [0, 1], "p2p": [36, 36]}
+    sphinx = {"empty_f2p": [0, 1], "empty_p2p": [43, 44], "p2p_excluded": ["tests/test_intl.py::test_text_docfields"]}
+    assert expected_empty(sphinx) == {"f2p": [0, 1], "p2p": [43, 43]}
+    assert expected_empty(None) is None
+
+
+def test_execution_missing_with_a_clean_empty_regrade_is_an_ordinary_failure(tmp_path):
+    evaluation = _missing_run()
+    assert grader_candidate_error(evaluation, CHANGED) is None
+    verdict = regrade_verdict(_regrade(), expected_empty(CALIBRATION))
+    assert verdict["consistent"] and verdict["missing"] == 0
+    error = classify_missing(evaluation, CHANGED, verdict)
+    assert error == "execution"
+    _summary(tmp_path, "django__django-13964", grader_candidate_error=error, missing_regrade=verdict)
+    assert halt_reason(tmp_path, "b0") is None
+
+
+def test_execution_missing_counts_for_b2_and_the_drift_slot(tmp_path):
+    verdict = regrade_verdict(_regrade(), expected_empty(CALIBRATION))
+    for phase, slot in (("b2", "r3"), ("b0", "r4")):
+        path = tmp_path / "django__django-13964" / phase / slot / "summary.json"
+        path.parent.mkdir(parents=True)
+        path.write_text(json.dumps({"task_id": "django__django-13964", "variant": phase.upper(), "solved": False, "status": "fail",
+                                    "cost_cny": "0", "grader_ids": {"f2p": 1, "p2p": 36, "missing": 37, "reason": None},
+                                    "grader_candidate_error": classify_missing(_missing_run(), CHANGED, verdict)}), encoding="utf-8")
+    assert halt_reason(tmp_path, "b2", extra_phases=("b0",)) is None
+
+
+def test_missing_in_the_empty_regrade_still_stops(tmp_path):
+    verdict = regrade_verdict(_regrade(missing=3, p2p_passed=33), expected_empty(CALIBRATION))
+    assert not verdict["consistent"] and verdict["missing"] == 3
+    error = classify_missing(_missing_run(), CHANGED, verdict)
+    assert error is None
+    path = tmp_path / "django__django-13964" / "b2" / "r3" / "summary.json"
+    path.parent.mkdir(parents=True)
+    path.write_text(json.dumps({"task_id": "django__django-13964", "variant": "B2", "solved": False, "status": "fail", "cost_cny": "0",
+                                "grader_ids": {"f2p": 1, "p2p": 36, "missing": 37, "reason": None},
+                                "grader_candidate_error": error, "missing_regrade": verdict}), encoding="utf-8")
+    assert halt_reason(tmp_path, "b2") == "grader reported missing ids: django__django-13964"
+
+
+def test_an_empty_regrade_that_differs_from_calibration_or_crashes_still_stops():
+    expected = expected_empty(CALIBRATION)
+    assert classify_missing(_missing_run(), CHANGED, regrade_verdict(_regrade(p2p_passed=35), expected)) is None
+    assert classify_missing(_missing_run(), CHANGED, regrade_verdict(_regrade(reason="TimeoutError"), expected)) is None
+    assert classify_missing(_missing_run(), CHANGED, regrade_verdict(_regrade(), None)) is None
+    assert classify_missing(_missing_run(), CHANGED, None) is None
+
+
+def test_the_traceback_rule_still_comes_first_and_no_missing_needs_nothing():
+    evaluation = _evaluation(runner_error=DJANGO_RUNNER_ERROR, cases=[{"nodeid": "x", "outcome": "missing"}])
+    stale = regrade_verdict(_regrade(missing=1, p2p_passed=35), expected_empty(CALIBRATION))
+    assert classify_missing(evaluation, ["django/contrib/admin/views/main.py"], stale) == {
+        "source": "runner_error", "file": "django/contrib/admin/views/main.py"}
+    assert classify_missing(_evaluation(cases=[{"nodeid": "x", "outcome": "failed"}]), CHANGED, None) is None
 
 
 def test_receipt_diagnostics_keep_the_end_of_a_long_traceback():
