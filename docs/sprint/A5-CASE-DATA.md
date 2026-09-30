@@ -4,7 +4,7 @@
 
 日期：2026-09-29。审计侧根据 `runs/a5-main/`、`docs/sprint/b2-predicted-injection.json` 和 v6 卡片整理。
 gold 只取 `+++ b/` 的路径，不记录 patch 文本。卡片文件去掉测试路径。
-coding-agent 写最终报告时引用本文件第 7 节，不要自己重新扫轨迹。
+最终报告引用本文件第 1–4 节，不要重新扫轨迹。
 
 核对脚本：`.tmp/case_mem.py` 的 `table` / `follow` / `task`。收尾时复跑，数字必须一致。
 
