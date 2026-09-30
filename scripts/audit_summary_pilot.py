@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import copy
 import json
+import re
 import sys
 from collections import Counter
 from pathlib import Path
@@ -24,6 +25,17 @@ from src.tracing.store import EventStore
 def require(value, message):
     if not value:
         raise ValueError(message)
+
+
+_REMAINING_CALLS = re.compile(r'^remaining model calls: \d+/\d+$')
+
+
+def without_send_time_note(view):
+    # The loop appends this note only on the message sent to the model.
+    if (view and isinstance(view[-1], dict) and view[-1].get('role') == 'user'
+            and _REMAINING_CALLS.fullmatch(view[-1].get('content') or '')):
+        return view[:-1]
+    return view
 
 
 def jsonl(text):
@@ -69,7 +81,7 @@ def audit_session(directory, *, context_only=False):
         require(item['raw_message_hash'] in raw_hashes, 'view has no raw snapshot')
         require(view_hash(item['view']) == item['stats']['view_hash'], 'prepared view hash mismatch')
     if (directory/'view.json').exists():
-        require(read(directory/'view.json') == prepared[-1]['view'], 'exported view mismatch')
+        require(without_send_time_note(read(directory/'view.json')) == prepared[-1]['view'], 'exported view mismatch')
     if (directory/'raw-messages.json').exists():
         require(view_hash(read(directory/'raw-messages.json')) in raw_hashes, 'exported raw mismatch')
     summary_attempts = [dict(usage=r.get('usage')) for r in called]

@@ -101,7 +101,7 @@ async def test_one_call_no_summary_private_grading_and_durable_replay(tmp_path,m
     monkeypatch.setattr(wrapper,'build_agent',build)
     row=dict(item_id='source',category='primary',task_id='old-facts',variant='evidence',repeat=1,run_id='test-run')
     assert (await wrapper.run_one(tmp_path,row))['success']
-    assert requests==[wrapper.make_view(source,'evidence')]
+    assert requests==[wrapper.make_view(source,'evidence')+[{"role":"user","content":"remaining model calls: 1/1"}]]
     assert expected['endpoint'] not in json.dumps(requests)
     assert expected['idempotency_header'] not in json.dumps(requests)
     evidence=audit_session(tmp_path/'runs/test-run')
