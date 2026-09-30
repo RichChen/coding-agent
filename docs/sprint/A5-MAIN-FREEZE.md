@@ -415,3 +415,10 @@ tag `a5-main-freeze-r4` 指向加入本节的提交。`a5-main-freeze`、`-r1`�
 - 案例数据以本仓库 `docs/sprint/A5-CASE-DATA.md` 为准。
 - 运行清单（tag、输入 sha、槽位计数、花费、检查摘要）以本仓库 `docs/sprint/A5-MAIN-INVENTORY.md` 为准。
 - 不打新的 freeze tag。如果审计要求，再打 `a5-main-closeout`。
+
+日期：2026-09-30。审计后续。
+
+- coding-agent 的 `docs/A5-FINAL-REPORT.zh-CN.md` 已经写好。最终叙述以该文件为准。两个 README 只保留链接，不再写「收尾后生成」。
+- `A5-CASE-DATA.md` 文首改为引用本文件第 1–4 节。最终报告第 7 节是「案例分析」，与 `PROJECT-HISTORY.zh-CN.md` 里「最终报告第 7 节」一致，历程正文没有改。
+- 单次调用测试改为接受 loop 在送出消息末尾追加的 `remaining model calls: 1/1`。`src/runtime/loop.py` 没有改。离线审计比对导出视图时先去掉这一条发送时附注，再和存档视图比较。
+- 本次审计要求打 tag `a5-main-closeout`，打在记录这次后续的提交上。
