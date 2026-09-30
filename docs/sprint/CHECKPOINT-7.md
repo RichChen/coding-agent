@@ -68,3 +68,14 @@
 清单（`docs/sprint/A5-MAIN-INVENTORY.md`）和案例数据（`docs/sprint/A5-CASE-DATA.md`，已核对）已经就绪，可以写最终报告。花费、槽位和 tag 请引用清单；案例请引用 `A5-CASE-DATA.md`（"第 7 节"的引用见上文，等审计确认）。
 
 停在这里，等审计。
+
+## 审计后续
+
+日期：2026-09-30。花费 0。没有调用模型，没有改 `src/`、runner、grader、镜像、校准或 `runs/`，没有改 coding-agent 仓库，没有 push。
+
+- **测试。** 失败原因仍是剩余调用提示。`loop.py` 在送给模型的视图末尾追加 `remaining model calls: 1/1`（这次运行 `max_model_calls` 为 1，追加时 `calls_started` 还是 0），存档里的 `context.prepared` 不含这条。测试期望改为接受这一条。`scripts/audit_summary_pilot.py` 的导出视图比对先去掉形如 `remaining model calls: N/M` 的末尾附注，再和存档视图比较；没有这条附注的旧导出仍按原文比较。
+- **案例引用。** `A5-CASE-DATA.md` 文首改为引用本文件第 1–4 节。coding-agent 最终报告第 7 节标题是「案例分析」，`PROJECT-HISTORY.zh-CN.md` 的「最终报告第 7 节」与它对得上，没有改历程正文。最终报告第 7 节开头仍描述案例文件的旧文首，那个仓库本轮不改；引用以改后的 `A5-CASE-DATA.md` 为准。
+- **最终报告。** `D:\crq\src\coding-agent\docs\A5-FINAL-REPORT.zh-CN.md` 已存在。两个 README 去掉「收尾后生成」。冻结记录「收口」末尾追加了同一日期的说明，前面的修订正文没有改。
+- **测试结果。** `.\.venv\Scripts\python.exe -m pytest -q`：621 passed，22 skipped。
+- **提交。** `64bfc48` 测试期望和审计比对，`44e87c9` 案例引用，`f76278e` README 与冻结记录。
+- **tag。** `a5-main-closeout` 指向记录本段的提交。
