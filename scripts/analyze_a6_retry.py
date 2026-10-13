@@ -381,17 +381,15 @@ def render_report(
     scope = str(payload.get("scope") or "")
     title = "# A6-R 分析" + ("（合成数据，scope=synthetic）" if scope == "synthetic" else "")
     declared = payload.get("attempts_sha256")
+    if attempts_sha is not None:
+        check_attempts_sha(payload, attempts_sha)
     lines = [
         title,
         "",
         f"- `a6-retry-runs.json` handoff_sha256：`{runs_sha or '未计算'}`",
         f"- `a6-attempts.json` handoff_sha256：`{attempts_sha or '未计算'}`",
         f"- runs 里记录的 `attempts_sha256`：`{declared}`"
-        + (
-            ""
-            if attempts_sha is None
-            else ("，一致" if declared == attempts_sha else "，**不一致**")
-        ),
+        + ("" if attempts_sha is None else "，一致"),
         "",
         "解出率是非 infra_error 运行里的解出次数除以有效运行数。",
         "每题每组有效运行少于 2 次的题不进入主分析。",
@@ -512,22 +510,52 @@ def render_report(
     return "\n".join(lines)
 
 
+def check_expected_sha(
+    runs_sha: str,
+    attempts_sha: str,
+    *,
+    expect_runs_sha: str | None = None,
+    expect_attempts_sha: str | None = None,
+) -> None:
+    if expect_runs_sha is not None and runs_sha != expect_runs_sha:
+        raise ValueError("runs_sha_unexpected")
+    if expect_attempts_sha is not None and attempts_sha != expect_attempts_sha:
+        raise ValueError("attempts_sha_unexpected")
+
+
+def check_attempts_sha(payload: dict, attempts_sha: str) -> None:
+    """The records the runs were injected with must be the manifest being analysed."""
+    if payload.get("attempts_sha256") != attempts_sha:
+        raise ValueError("attempts_sha_mismatch")
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--runs", type=Path, required=True)
     parser.add_argument("--attempts", type=Path, required=True)
     parser.add_argument("--harness-root", type=Path, required=True)
     parser.add_argument("--out", type=Path, required=True)
+    parser.add_argument("--expect-runs-sha")
+    parser.add_argument("--expect-attempts-sha")
     args = parser.parse_args()
     try:
+        runs_sha = handoff_sha256(args.runs)
+        attempts_sha = handoff_sha256(args.attempts)
+        check_expected_sha(
+            runs_sha,
+            attempts_sha,
+            expect_runs_sha=args.expect_runs_sha,
+            expect_attempts_sha=args.expect_attempts_sha,
+        )
         payload = load_runs(args.runs)
         attempts = load_attempts(args.attempts)
+        check_attempts_sha(payload, attempts_sha)
         report = render_report(
             payload,
             attempts,
             args.harness_root,
-            runs_sha=handoff_sha256(args.runs),
-            attempts_sha=handoff_sha256(args.attempts),
+            runs_sha=runs_sha,
+            attempts_sha=attempts_sha,
         )
     except (ValueError, FileNotFoundError) as exc:
         print("STOP", exc)

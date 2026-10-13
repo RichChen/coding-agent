@@ -21,6 +21,7 @@ from scripts.analyze_a6_retry import (
     sign_flip_p,
     slot_issues,
 )
+from scripts.handoff_sha import handoff_sha256
 from scripts.make_a6_synthetic import simulate, write_scenario
 
 AGENT = Path(__file__).resolve().parents[1]
@@ -338,3 +339,50 @@ def test_cli_stops_on_mock_input(tmp_path, monkeypatch, capsys):
     )
     assert main() == 2
     assert "STOP mock_input" in capsys.readouterr().out
+
+
+def _run_cli(monkeypatch, runs, attempts, root, out, *extra):
+    argv = ["analyze", "--runs", str(runs), "--attempts", str(attempts)]
+    argv += ["--harness-root", str(root), "--out", str(out), *extra]
+    monkeypatch.setattr("sys.argv", argv)
+    return main()
+
+
+def test_cli_stops_when_runs_name_another_manifest(tmp_path, monkeypatch, capsys):
+    runs_path, attempts_path = write_scenario(tmp_path, simulate(0.0, SEED))
+    payload = json.loads(runs_path.read_text(encoding="utf-8"))
+    payload["attempts_sha256"] = "0" * 64
+    runs_path.write_text(json.dumps(payload), encoding="utf-8")
+    out = tmp_path / "report.md"
+    assert _run_cli(monkeypatch, runs_path, attempts_path, tmp_path, out) == 2
+    assert "STOP attempts_sha_mismatch" in capsys.readouterr().out
+    assert not out.exists()
+    with pytest.raises(ValueError, match="attempts_sha_mismatch"):
+        render_report(
+            load_runs(runs_path),
+            load_attempts(attempts_path),
+            tmp_path,
+            attempts_sha=handoff_sha256(attempts_path),
+        )
+
+
+def test_cli_checks_the_expected_handoff_shas(tmp_path, monkeypatch, capsys):
+    runs_path, attempts_path = write_scenario(tmp_path, simulate(0.0, SEED))
+    runs_sha = handoff_sha256(runs_path)
+    attempts_sha = handoff_sha256(attempts_path)
+    out = tmp_path / "report.md"
+    wrong = "f" * 64
+    for extra, reason in (
+        (("--expect-runs-sha", wrong), "runs_sha_unexpected"),
+        (("--expect-attempts-sha", wrong), "attempts_sha_unexpected"),
+        (
+            ("--expect-runs-sha", runs_sha, "--expect-attempts-sha", wrong),
+            "attempts_sha_unexpected",
+        ),
+    ):
+        assert _run_cli(monkeypatch, runs_path, attempts_path, tmp_path, out, *extra) == 2
+        assert f"STOP {reason}" in capsys.readouterr().out
+        assert not out.exists()
+    expected = ("--expect-runs-sha", runs_sha, "--expect-attempts-sha", attempts_sha)
+    assert _run_cli(monkeypatch, runs_path, attempts_path, tmp_path, out, *expected) == 0
+    assert f"`a6-retry-runs.json` handoff_sha256：`{runs_sha}`" in out.read_text(encoding="utf-8")

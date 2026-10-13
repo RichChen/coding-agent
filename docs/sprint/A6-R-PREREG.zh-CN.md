@@ -70,7 +70,7 @@
 | --- | --- |
 | `schema` | 固定 `"a6.retry-runs.v1"`，其他值拒收 |
 | `scope` | 正式数据为 `"a6-retry"`。`"mock"`、`"step7-mock"` 或 `mock: true` 拒收。`"synthetic"` 只用于合成数据，报告标题会标明 |
-| `attempts_sha256` | 生成时所用 `a6-attempts.json` 的 `handoff_sha256` |
+| `attempts_sha256` | 生成时所用 `a6-attempts.json` 的 `handoff_sha256`。和 `--attempts` 文件的实际 `handoff_sha256` 不同时脚本 STOP `attempts_sha_mismatch` |
 | `runs` | 列表，每个槽位一行（应为 318 行）。退役的 `.infra<n>` 目录不列 |
 
 `runs` 每行字段（取自该槽位 `summary.json`）：
@@ -93,6 +93,8 @@
 | `changed_files` | list[str] | |
 | `prompt_sha256` | str | |
 | `retry` | object | `{arm, first, attempt_sha256}`；R0 的 `attempt_sha256` 可为 null |
+
+启动参数 `--expect-runs-sha`、`--expect-attempts-sha` 可选，给出时分别和两个文件的实际 `handoff_sha256` 比较，不同就 STOP（`runs_sha_unexpected`、`attempts_sha_unexpected`）。A6-4 运行时两个都给，取 harness CHECKPOINT-A6-3 和清单里报的值。
 
 ### `a6-attempts.json`（harness 交付）
 
