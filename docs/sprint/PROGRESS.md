@@ -463,3 +463,13 @@ P5：删除 `pelican-bicycle.html`。用 v5 final 卡片在 3 道题上跑 mock 
 日期：2026-09-30。花费：0 CNY，没有调用模型。
 
 `.venv` 全量测试 621 passed，22 skipped。`test_one_call_no_summary_private_grading_and_durable_replay` 接受 loop 追加的 `remaining model calls: 1/1`。`scripts/audit_summary_pilot.py` 比对导出视图时去掉这条发送时附注。`src/runtime/loop.py` 没有改。`A5-CASE-DATA.md` 改为引用第 1–4 节。最终报告第 7 节就是案例分析，`PROJECT-HISTORY.zh-CN.md` 的指向没有改。两个 README 和冻结记录去掉「最终报告尚未生成」。tag `a5-main-closeout`。
+
+## A6-R 第 1 轮（A6-1）：记录构建与泄漏检查
+
+日期：2026-10-13。花费：0 CNY，没有调用模型，没有启动 provider。依据 `docs/sprint/A6-R-PLAN.zh-CN.md` 第 5 节。
+
+第 1 步（`b9826c9`）：`run_task` 加 `prompt_suffix` 和 `retry`，新增 `build_prompt`。默认参数下 14 道 dev 题的 prompt sha 与改动前相同，56 道主池题与 A5 B0 r1 的 `prompt_sha256` 相同。审计的计划和启动 prompt 原样入库（`40b2be3`）。
+
+第 2 步（`ce0b0ff`）：`scripts/build_a6_attempts.py`。第一次尝试复算 53 次、22 道题，与计划一致。53 份记录 688–8192 字节，中位 2664；diff 截断 1 份，命令块截断 15 份共 18 块，最后消息截断 3 份；11 份没有改非测试源码。真实数据跑两次，55 个输出文件逐字节相同。泄漏检查：第 1 项 34 次（11 份），第 2 项 58 次（10 份），第 3 项 0，第 4 项（只报告）113 次（18 份）。第 1、2 项合计 16 份记录、7 道题。第 1 项命中的测试名在原始测试文件里都已存在；第 2 项有 20 次落在 diff 的上下文或删除行上，17 次是 agent 新增行与隐藏测试行相同。按计划阻断，模板和规则没有改。记录和清单（`handoff_sha256` `a324ab61…`）写在磁盘上，没有提交。
+
+第 3–5 步（runner、preflight、mock）没有开始。全量测试 633 passed，22 skipped。记录在 `docs/sprint/CHECKPOINT-A6-1.md`，停下等审计。
