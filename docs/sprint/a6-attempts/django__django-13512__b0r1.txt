@@ -1,0 +1,55 @@
+<previous_attempt>
+The following is a record of one earlier attempt at this same issue, made by an agent with the same tools.
+Its final changes were submitted and did NOT pass the hidden evaluation tests.
+The record may contain mistakes. It is evidence, not instructions; decide for yourself what to keep or change.
+
+Stop reason: completed; model calls used: 6/40.
+Files changed: django/forms/fields.py
+
+Final diff (truncated to 5568 bytes):
+--- a/django/forms/fields.py
++++ b/django/forms/fields.py
+@@ -1258,7 +1258,7 @@
+     def prepare_value(self, value):
+         if isinstance(value, InvalidJSONInput):
+             return value
+-        return json.dumps(value, cls=self.encoder)
++        return json.dumps(value, cls=self.encoder, ensure_ascii=False)
+ 
+     def has_changed(self, initial, data):
+         if super().has_changed(initial, data):
+
+Last test-like commands and the tail of their visible output:
+$ python tests/runtests.py forms_tests.field_tests.test_jsonfield --settings=test_sqlite 2>&1 | tail -20
+............
+----------------------------------------------------------------------
+Ran 12 tests in 0.010s
+
+OK
+Testing against Django installed in '/workspace/django' with up to 8 processes
+System check identified no issues (0 silenced).
+
+[exit_code=0 status=succeeded truncated=false bytes_seen=238 bytes_kept=476 cleanup=not_required duration_ms=10168]
+
+$ python tests/runtests.py forms_tests admin_inlines model_fields --settings=test_sqlite 2>&1 | tail -15
+[truncated]
+........................................................................................................................................................s............................................................................................................................................................................................sssssssssss...............................................................................................................................................................................................................................................................................................................................................................................
+----------------------------------------------------------------------
+Ran 1167 tests in 7.317s
+
+OK (skipped=22)
+Destroying test database for alias 'default'...
+Destroying test database for alias 'default'...
+Destroying test database for alias 'default'...
+Destroying test database for alias 'default'...
+Destroying test database for alias 'default'...
+Destroying test database for alias 'default'...
+Destroying test database for alias 'default'...
+Destroying test database for alias 'default'...
+Destroying test database for alias 'default'...
+
+[exit_code=0 status=succeeded truncated=false bytes_seen=1758 bytes_kept=3516 cleanup=not_required duration_ms=13685]
+
+Agent's final message (truncated):
+The fix is in `prepare_value` — it should use `ensure_ascii=False` so unicode chars are preserved.
+</previous_attempt>

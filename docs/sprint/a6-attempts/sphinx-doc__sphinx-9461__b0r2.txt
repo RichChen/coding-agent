@@ -1,0 +1,65 @@
+<previous_attempt>
+The following is a record of one earlier attempt at this same issue, made by an agent with the same tools.
+Its final changes were submitted and did NOT pass the hidden evaluation tests.
+The record may contain mistakes. It is evidence, not instructions; decide for yourself what to keep or change.
+
+Stop reason: max_model_calls; model calls used: 40/40.
+Files changed: sphinx/util/inspect.py
+
+Final diff (truncated to 6036 bytes):
+--- a/sphinx/util/inspect.py
++++ b/sphinx/util/inspect.py
+@@ -390,6 +390,12 @@
+         if isinstance(obj, cached_property):
+             return True
+ 
++    if isinstance(obj, (classmethod, staticmethod)):
++        # Since Python 3.9, classmethod and staticmethod can wrap other
++        # descriptors such as property (e.g. ``@classmethod @property``).
++        # Unwrap them to detect the wrapped property.
++        return isproperty(obj.__func__)
++
+     return isinstance(obj, property)
+ 
+ 
+--- a/tests/roots/test-ext-autodoc/target/properties.py
++++ b/tests/roots/test-ext-autodoc/target/properties.py
+@@ -4,3 +4,8 @@
+     @property
+     def prop(self) -> int:
+         """docstring"""
++
++    @classmethod
++    @property
++    def class_prop(cls) -> int:
++        """docstring"""
+
+Last test-like commands and the tail of their visible output:
+$ python -m pytest tests/test_ext_autodoc_autoproperty.py tests/test_ext_autodoc_autoclass.py -q 2>&1 | tail -40
+[truncated]
+version)
+
+sphinx/highlighting.py:67
+  /workspace/sphinx/highlighting.py:67: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+    if tuple(LooseVersion(pygmentsversion).version) <= (2, 7, 4):
+
+sphinx/registry.py:24
+  /workspace/sphinx/registry.py:24: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
+    from pkg_resources import iter_entry_points
+
+../usr/local/lib/python3.9/site-packages/pkg_resources/__init__.py:3147
+../usr/local/lib/python3.9/site-packages/pkg_resources/__init__.py:3147
+../usr/local/lib/python3.9/site-packages/pkg_resources/__init__.py:3147
+../usr/local/lib/python3.9/site-packages/pkg_resources/__init__.py:3147
+  /usr/local/lib/python3.9/site-packages/pkg_resources/__init__.py:3147: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('sphinxcontrib')`.
+  Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
+    declare_namespace(pkg)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+16 passed, 7 warnings in 1.17s
+
+[exit_code=0 status=succeeded truncated=false bytes_seen=1644 bytes_kept=3288 cleanup=not_required duration_ms=2279]
+
+Agent's final message (truncated):
+Let me add a class property to the test target and verify the full autodoc flow works.
+</previous_attempt>

@@ -1,0 +1,51 @@
+<previous_attempt>
+The following is a record of one earlier attempt at this same issue, made by an agent with the same tools.
+Its final changes were submitted and did NOT pass the hidden evaluation tests.
+The record may contain mistakes. It is evidence, not instructions; decide for yourself what to keep or change.
+
+Stop reason: completed; model calls used: 32/40.
+Files changed: sympy/geometry/point.py
+
+Final diff (truncated to 6413 bytes):
+--- a/sympy/geometry/point.py
++++ b/sympy/geometry/point.py
+@@ -266,8 +266,11 @@
+         sqrt(x**2 + y**2)
+ 
+         """
+-        return sqrt(sum([(a - b)**2 for a, b in zip(
+-            self.args, p.args if isinstance(p, Point) else p)]))
++        p = Point(p)
++        if len(self.args) != len(p.args):
++            raise ValueError(
++                "Points must have the same number of dimensions")
++        return sqrt(sum([(a - b)**2 for a, b in zip(self.args, p.args)]))
+ 
+     def taxicab_distance(self, p):
+         """The Taxicab Distance from self to point p.
+
+Last test-like commands and the tail of their visible output:
+$ git stash && python -m pytest --doctest-modules sympy/geometry/point.py -q 2>&1 | tail -6; git stash pop
+[stderr]
+/bin/sh: 1: git: not found
+/bin/sh: 1: git: not found
+
+[exit_code=127 status=failed truncated=false bytes_seen=54 bytes_kept=108 cleanup=not_required duration_ms=99]
+Error: nonzero_exit
+Error: nonzero_exit
+
+$ python -m pytest sympy/geometry/tests/ -q 2>&1 | tail -6
+sympy/geometry/tests/test_line.py::test_line_geom
+  /workspace/sympy/assumptions/sathandlers.py:3: DeprecationWarning: Using or importing the ABCs from 'collections' instead of from 'collections.abc' is deprecated since Python 3.3, and in 3.10 it will stop working
+    from collections import MutableMapping, defaultdict
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+37 passed, 3 warnings in 40.08s
+
+[exit_code=0 status=succeeded truncated=false bytes_seen=426 bytes_kept=852 cleanup=not_required duration_ms=54914]
+
+Agent's final message (truncated):
+No git available, but the failures are clearly unrelated to my change — they concern `evalf` float formatting and `Point2D`/`Point3D` reprs, not the `distance` method. The `distance` doctest itself passes.
+
+Let me run the full geometry test suite once more to confirm everything is green.
+</previous_attempt>

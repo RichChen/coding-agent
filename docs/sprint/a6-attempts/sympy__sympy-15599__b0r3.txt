@@ -1,0 +1,80 @@
+<previous_attempt>
+The following is a record of one earlier attempt at this same issue, made by an agent with the same tools.
+Its final changes were submitted and did NOT pass the hidden evaluation tests.
+The record may contain mistakes. It is evidence, not instructions; decide for yourself what to keep or change.
+
+Stop reason: model_parse_error; model calls used: 37/40.
+Files changed: sympy/core/mod.py
+
+Final diff (truncated to 5548 bytes):
+--- a/sympy/core/mod.py
++++ b/sympy/core/mod.py
+@@ -123,9 +123,11 @@
+             for arg in p.args:
+                 both_l[isinstance(arg, cls)].append(arg)
+ 
+-            if mod_l and all(inner.args[1] == q for inner in mod_l):
++            was = non_mod_l[:]
++            non_mod_l = [cls(x, q) for x in non_mod_l]
++            changed = was != non_mod_l
++            if changed or mod_l and all(inner.args[1] == q for inner in mod_l):
+                 # finding distributive term
+-                non_mod_l = [cls(x, q) for x in non_mod_l]
+                 mod = []
+                 non_mod = []
+                 for j in non_mod_l:
+@@ -137,7 +139,8 @@
+                 prod_non_mod = Mul(*non_mod)
+                 prod_mod1 = Mul(*[i.args[0] for i in mod_l])
+                 net = prod_mod1*prod_mod
+-                return prod_non_mod*cls(net, q)
++                if net != p:
++                    return prod_non_mod*cls(net, q)
+ 
+         # XXX other possibilities?
+ 
+--- a/sympy/core/tests/test_arit.py
++++ b/sympy/core/tests/test_arit.py
+@@ -1624,6 +1624,7 @@
+     i = Symbol('i', integer=True)
+     assert (3*i*x) % (2*i*y) == i*Mod(3*x, 2*y)
+     assert Mod(4*i, 4) == 0
++    assert Mod(3*i, 2) == Mod(i, 2)
+ 
+     # issue 8677
+     n = Symbol('n', integer=True, positive=True)
+
+Last test-like commands and the tail of their visible output:
+$ cd /workspace; python -m pytest sympy/core/tests/test_arit.py -q 2>&1 | tail -15
+# Float handling
+        point3 = Float(3.3) % 1
+>       assert (x - 3.3) % 1 == Mod(1.*x + 1 - point3, 1)
+E       assert ((x - 3.3) % 1) == 0.700000000000000
+E        +  where 0.700000000000000 = Mod((((1.0 * x) + 1) - 0.300000000000000), 1)
+
+sympy/core/tests/test_arit.py:1540: AssertionError
+                                DO *NOT* COMMIT!                                
+=========================== short test summary info ============================
+FAILED sympy/core/tests/test_arit.py::test_evenness_in_ternary_integer_product_with_odd
+FAILED sympy/core/tests/test_arit.py::test_oddness_in_ternary_integer_product_with_odd
+FAILED sympy/core/tests/test_arit.py::test_issue_3531 - sympy.utilities.pytes...
+FAILED sympy/core/tests/test_arit.py::test_Mod - assert ((x - 3.3) % 1) == 0....
+4 failed, 81 passed in 3.25s
+
+[exit_code=0 status=succeeded truncated=false bytes_seen=836 bytes_kept=1672 cleanup=not_required duration_ms=4249]
+
+$ cd /workspace; cp sympy/core/mod.py /tmp/mod_fixed.py; cp /opt/repo/sympy/core/mod.py sympy/core/mod.py; python -m pytest sympy/core/tests/test_arit.py -q 2>&1 | tail -8; cp /tmp/mod_fixed.py sympy/core/mod.py
+sympy/core/tests/test_arit.py:1627: AssertionError
+                                DO *NOT* COMMIT!                                
+=========================== short test summary info ============================
+FAILED sympy/core/tests/test_arit.py::test_evenness_in_ternary_integer_product_with_odd
+FAILED sympy/core/tests/test_arit.py::test_oddness_in_ternary_integer_product_with_odd
+FAILED sympy/core/tests/test_arit.py::test_issue_3531 - sympy.utilities.pytes...
+FAILED sympy/core/tests/test_arit.py::test_Mod - assert Mod(3*i, 2) == Mod(i, 2)
+4 failed, 81 passed in 2.56s
+
+[exit_code=0 status=succeeded truncated=false bytes_seen=579 bytes_kept=1158 cleanup=not_required duration_ms=3492]
+
+Agent's final message (truncated):
+My change broke `(x - 3.3) % 1`. The issue: `p = 1.0*x + 0.7` (an Add, not Mul), so it goes through the Add branch. Let me look at the Add branch.
+</previous_attempt>

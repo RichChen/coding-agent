@@ -1,0 +1,27 @@
+<previous_attempt>
+The following is a record of one earlier attempt at this same issue, made by an agent with the same tools.
+Its final changes were submitted and did NOT pass the hidden evaluation tests.
+The record may contain mistakes. It is evidence, not instructions; decide for yourself what to keep or change.
+
+Stop reason: completed; model calls used: 31/40.
+Files changed: none (no source changes were submitted)
+
+Final diff (truncated to 6808 bytes):
+none
+
+Last test-like commands and the tail of their visible output:
+$ cd /workspace && python -m pytest sympy/sets/tests/test_contains.py -q 2>&1 | tail -5
+......                                                                   [100%]
+6 passed in 0.16s
+
+[exit_code=0 status=succeeded truncated=false bytes_seen=98 bytes_kept=196 cleanup=not_required duration_ms=1406]
+
+$ cd /workspace && python -m pytest sympy/sets/tests/test_contains.py sympy/functions/elementary/tests/test_piecewise.py -q 2>&1 | tail -5
+.....................................................................    [100%]
+69 passed in 26.35s
+
+[exit_code=0 status=succeeded truncated=false bytes_seen=100 bytes_kept=200 cleanup=not_required duration_ms=27597]
+
+Agent's final message (truncated):
+The fix for this issue is already present in the base revision. Let me do a final verification of both issue examples and the related test suites.
+</previous_attempt>

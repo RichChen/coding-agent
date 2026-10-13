@@ -1,0 +1,84 @@
+<previous_attempt>
+The following is a record of one earlier attempt at this same issue, made by an agent with the same tools.
+Its final changes were submitted and did NOT pass the hidden evaluation tests.
+The record may contain mistakes. It is evidence, not instructions; decide for yourself what to keep or change.
+
+Stop reason: completed; model calls used: 28/40.
+Files changed: src/_pytest/skipping.py
+
+Final diff (truncated to 6211 bytes):
+--- a/src/_pytest/skipping.py
++++ b/src/_pytest/skipping.py
+@@ -262,6 +262,11 @@
+     outcome = yield
+     rep = outcome.get_result()
+     xfailed = item._store.get(xfailed_key, None)
++    # The xfail mark evaluation is cached during setup/call, but a mark may
++    # have been added dynamically during the test (e.g. via
++    # request.node.add_marker), so re-evaluate if no xfail was found before.
++    if xfailed is None and rep.when == "call" and rep.failed:
++        item._store[xfailed_key] = xfailed = evaluate_xfail_marks(item)
+     # unittest special case, see setting of unexpectedsuccess_key
+     if unexpectedsuccess_key in item._store and rep.when == "call":
+         reason = item._store[unexpectedsuccess_key]
+--- a/testing/test_skipping.py
++++ b/testing/test_skipping.py
+@@ -1108,6 +1108,22 @@
+     assert xfailed
+ 
+ 
++def test_dynamic_xfail_marker(testdir):
++    """Dynamically adding an xfail marker during the test should be honored."""
++    testdir.makepyfile(
++        """
++        import pytest
++
++        def test_xfail_test(request):
++            mark = pytest.mark.xfail(reason="xfail")
++            request.node.add_marker(mark)
++            assert 0
++    """
++    )
++    result = testdir.runpytest("-rsx")
++    result.stdout.fnmatch_lines(["*1 xfailed*"])
++
++
+ def test_module_level_skip_error(testdir):
+     """
+     Verify that using pytest.skip at module level causes a collection error
+
+Last test-like commands and the tail of their visible output:
+$ cd /workspace && python -m pytest testing/test_terminal.py::test_color_yes 2>&1 | grep -A5 "fnmatch\|assert" | head -20
+assert 0
+    
+            def test_this():
+                fail()
+            """
+        )
+--
+>       result.stdout.fnmatch_lines(
+            color_mapping.format_for_fnmatch(
+                [
+                    "{bold}=*= test session starts =*={reset}",
+                    "collected 1 item",
+                    "",
+                    "test_color_yes.py {red}F{reset}{red} * [100%]{reset}",
+--
+                    ">       {kw}assert{hl-reset} {number}0{hl-reset}",
+                    "{bold}{red}E       assert 0{reset}",
+                    "",
+                    "{bold}{red}test_color_yes.py{reset}:2: AssertionError",
+                    "{red}=*= {red}{bold}1 failed{reset}{red} in *s{reset}{red} =*={reset}",
+
+[exit_code=0 status=succeeded truncated=false bytes_seen=743 bytes_kept=1486 cleanup=not_required duration_ms=593]
+
+$ cd /workspace && python -m pytest testing/test_skipping.py -q 2>&1 | tail -5
+........................................................................ [ 90%]
+........                                                                 [100%]
+80 passed in 2.29s
+
+[exit_code=0 status=succeeded truncated=false bytes_seen=179 bytes_kept=358 cleanup=not_required duration_ms=3007]
+
+Agent's final message (truncated):
+The fix is in place. Let me run the final verification of the skipping tests.
+</previous_attempt>

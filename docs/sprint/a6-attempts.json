@@ -1,0 +1,2243 @@
+{
+  "schema": "a6.attempts.v1",
+  "source": "runs/a5-main",
+  "selection": "b0 r1..r3, solved=false, status!=infra_error",
+  "template_sha256": "7bed7ba8560276be361c3840393baefdf103f954ad4dbcf8636f0de1e021b32e",
+  "limits": {
+    "total": 8192,
+    "diff_min": 3000,
+    "command": 1500,
+    "command_line": 500,
+    "message": 1000,
+    "commands": 2
+  },
+  "attempts": 53,
+  "tasks": 22,
+  "by_task": {
+    "django__django-13512": [
+      "b0r1",
+      "b0r2",
+      "b0r3"
+    ],
+    "django__django-13964": [
+      "b0r2"
+    ],
+    "django__django-15022": [
+      "b0r2",
+      "b0r3"
+    ],
+    "django__django-15973": [
+      "b0r1",
+      "b0r2",
+      "b0r3"
+    ],
+    "pytest-dev__pytest-5840": [
+      "b0r1",
+      "b0r2",
+      "b0r3"
+    ],
+    "pytest-dev__pytest-7324": [
+      "b0r1",
+      "b0r2",
+      "b0r3"
+    ],
+    "pytest-dev__pytest-7490": [
+      "b0r3"
+    ],
+    "scikit-learn__scikit-learn-10908": [
+      "b0r3"
+    ],
+    "scikit-learn__scikit-learn-12973": [
+      "b0r1",
+      "b0r2",
+      "b0r3"
+    ],
+    "sphinx-doc__sphinx-10614": [
+      "b0r1",
+      "b0r2",
+      "b0r3"
+    ],
+    "sphinx-doc__sphinx-7590": [
+      "b0r1",
+      "b0r2",
+      "b0r3"
+    ],
+    "sphinx-doc__sphinx-8120": [
+      "b0r2",
+      "b0r3"
+    ],
+    "sphinx-doc__sphinx-9258": [
+      "b0r2",
+      "b0r3"
+    ],
+    "sphinx-doc__sphinx-9461": [
+      "b0r1",
+      "b0r2",
+      "b0r3"
+    ],
+    "sympy__sympy-11618": [
+      "b0r1"
+    ],
+    "sympy__sympy-13091": [
+      "b0r1",
+      "b0r2",
+      "b0r3"
+    ],
+    "sympy__sympy-14248": [
+      "b0r1",
+      "b0r2",
+      "b0r3"
+    ],
+    "sympy__sympy-15599": [
+      "b0r1",
+      "b0r2",
+      "b0r3"
+    ],
+    "sympy__sympy-19040": [
+      "b0r2",
+      "b0r3"
+    ],
+    "sympy__sympy-20428": [
+      "b0r1",
+      "b0r2",
+      "b0r3"
+    ],
+    "sympy__sympy-21596": [
+      "b0r1",
+      "b0r2",
+      "b0r3"
+    ],
+    "sympy__sympy-23950": [
+      "b0r2",
+      "b0r3"
+    ]
+  },
+  "leak_totals": {
+    "ids": 34,
+    "test_patch_lines": 58,
+    "test_patch_new_files": 0,
+    "gold_patch_lines": 113
+  },
+  "records": [
+    {
+      "task": "django__django-13512",
+      "first": "b0r1",
+      "run_dir": "runs/a5-main/django__django-13512/b0/r1",
+      "file": "docs/sprint/a6-attempts/django__django-13512__b0r1.txt",
+      "bytes": 3032,
+      "sha256": "869efb41a4fee5a337ee7ed65a1204ddb43c7264ab13d2c95fdc86fc1fd9e9ee",
+      "a5_prompt_sha256": "d25396cdba082a69eb4be8561712d8049a57c3c27c3c181f8e4984eb4f663ac3",
+      "sections": {
+        "open": 317,
+        "status": 48,
+        "files": 38,
+        "diff": 448,
+        "commands": 2025,
+        "message": 137,
+        "close": 19
+      },
+      "diff_limit": 5568,
+      "truncated": {
+        "diff": false,
+        "commands": 1,
+        "message": false
+      },
+      "source": {
+        "stop_reason": "completed",
+        "model_calls": 6,
+        "source_files": 1,
+        "test_files": 0,
+        "test_like_commands": 2,
+        "commands_shown": 2,
+        "has_final_message": true,
+        "has_diff": true
+      },
+      "leak": {
+        "ids": 0,
+        "test_patch_lines": 0,
+        "test_patch_new_files": 0,
+        "gold_patch_lines": 0
+      }
+    },
+    {
+      "task": "django__django-13512",
+      "first": "b0r2",
+      "run_dir": "runs/a5-main/django__django-13512/b0/r2",
+      "file": "docs/sprint/a6-attempts/django__django-13512__b0r2.txt",
+      "bytes": 2100,
+      "sha256": "e1f21019f1a8956af3d8d6cc27dbfc678f25837d821d4ec6f1eeb4036c25193c",
+      "a5_prompt_sha256": "d25396cdba082a69eb4be8561712d8049a57c3c27c3c181f8e4984eb4f663ac3",
+      "sections": {
+        "open": 317,
+        "status": 48,
+        "files": 38,
+        "diff": 448,
+        "commands": 1093,
+        "message": 137,
+        "close": 19
+      },
+      "diff_limit": 6500,
+      "truncated": {
+        "diff": false,
+        "commands": 0,
+        "message": false
+      },
+      "source": {
+        "stop_reason": "completed",
+        "model_calls": 6,
+        "source_files": 1,
+        "test_files": 0,
+        "test_like_commands": 2,
+        "commands_shown": 2,
+        "has_final_message": true,
+        "has_diff": true
+      },
+      "leak": {
+        "ids": 0,
+        "test_patch_lines": 0,
+        "test_patch_new_files": 0,
+        "gold_patch_lines": 0
+      }
+    },
+    {
+      "task": "django__django-13512",
+      "first": "b0r3",
+      "run_dir": "runs/a5-main/django__django-13512/b0/r3",
+      "file": "docs/sprint/a6-attempts/django__django-13512__b0r3.txt",
+      "bytes": 3030,
+      "sha256": "d051df3609581b667028bcb45903d4c12c2ff076cb3c189214356b1ac6dfa04e",
+      "a5_prompt_sha256": "d25396cdba082a69eb4be8561712d8049a57c3c27c3c181f8e4984eb4f663ac3",
+      "sections": {
+        "open": 317,
+        "status": 48,
+        "files": 38,
+        "diff": 448,
+        "commands": 2023,
+        "message": 137,
+        "close": 19
+      },
+      "diff_limit": 5570,
+      "truncated": {
+        "diff": false,
+        "commands": 1,
+        "message": false
+      },
+      "source": {
+        "stop_reason": "completed",
+        "model_calls": 6,
+        "source_files": 1,
+        "test_files": 0,
+        "test_like_commands": 2,
+        "commands_shown": 2,
+        "has_final_message": true,
+        "has_diff": true
+      },
+      "leak": {
+        "ids": 0,
+        "test_patch_lines": 0,
+        "test_patch_new_files": 0,
+        "gold_patch_lines": 0
+      }
+    },
+    {
+      "task": "django__django-13964",
+      "first": "b0r2",
+      "run_dir": "runs/a5-main/django__django-13964/b0/r2",
+      "file": "docs/sprint/a6-attempts/django__django-13964__b0r2.txt",
+      "bytes": 692,
+      "sha256": "057c78564bd7cbe3e886967aa40a587762ab53181cc26ef7aa61f586ac423176",
+      "a5_prompt_sha256": "68beb8aef7a955f87153230a3019ee835d19d65f70036fe6360b49c90b623f95",
+      "sections": {
+        "open": 317,
+        "status": 55,
+        "files": 55,
+        "diff": 44,
+        "commands": 68,
+        "message": 134,
+        "close": 19
+      },
+      "diff_limit": 7504,
+      "truncated": {
+        "diff": false,
+        "commands": 0,
+        "message": false
+      },
+      "source": {
+        "stop_reason": "max_model_calls",
+        "model_calls": 40,
+        "source_files": 0,
+        "test_files": 0,
+        "test_like_commands": 0,
+        "commands_shown": 0,
+        "has_final_message": true,
+        "has_diff": false
+      },
+      "leak": {
+        "ids": 0,
+        "test_patch_lines": 0,
+        "test_patch_new_files": 0,
+        "gold_patch_lines": 0
+      }
+    },
+    {
+      "task": "django__django-15022",
+      "first": "b0r2",
+      "run_dir": "runs/a5-main/django__django-15022/b0/r2",
+      "file": "docs/sprint/a6-attempts/django__django-15022__b0r2.txt",
+      "bytes": 688,
+      "sha256": "1217cd2d19f28785c6be6d7a391ecfeede0cf2b045b32012eefc37565fd90514",
+      "a5_prompt_sha256": "b8dc51caeac62c1ee52682aac69a000624020da6f2eed6e376c9d595a5b281e3",
+      "sections": {
+        "open": 317,
+        "status": 55,
+        "files": 55,
+        "diff": 44,
+        "commands": 68,
+        "message": 130,
+        "close": 19
+      },
+      "diff_limit": 7508,
+      "truncated": {
+        "diff": false,
+        "commands": 0,
+        "message": false
+      },
+      "source": {
+        "stop_reason": "max_model_calls",
+        "model_calls": 40,
+        "source_files": 0,
+        "test_files": 0,
+        "test_like_commands": 0,
+        "commands_shown": 0,
+        "has_final_message": true,
+        "has_diff": false
+      },
+      "leak": {
+        "ids": 0,
+        "test_patch_lines": 0,
+        "test_patch_new_files": 0,
+        "gold_patch_lines": 0
+      }
+    },
+    {
+      "task": "django__django-15022",
+      "first": "b0r3",
+      "run_dir": "runs/a5-main/django__django-15022/b0/r3",
+      "file": "docs/sprint/a6-attempts/django__django-15022__b0r3.txt",
+      "bytes": 1283,
+      "sha256": "b7b0faf376b29ab8b0b7eead7c0de2737413207b18e955f9af06b99d9314e688",
+      "a5_prompt_sha256": "b8dc51caeac62c1ee52682aac69a000624020da6f2eed6e376c9d595a5b281e3",
+      "sections": {
+        "open": 317,
+        "status": 55,
+        "files": 47,
+        "diff": 557,
+        "commands": 68,
+        "message": 220,
+        "close": 19
+      },
+      "diff_limit": 7426,
+      "truncated": {
+        "diff": false,
+        "commands": 0,
+        "message": false
+      },
+      "source": {
+        "stop_reason": "max_model_calls",
+        "model_calls": 40,
+        "source_files": 1,
+        "test_files": 0,
+        "test_like_commands": 0,
+        "commands_shown": 0,
+        "has_final_message": true,
+        "has_diff": true
+      },
+      "leak": {
+        "ids": 0,
+        "test_patch_lines": 0,
+        "test_patch_new_files": 0,
+        "gold_patch_lines": 0
+      }
+    },
+    {
+      "task": "django__django-15973",
+      "first": "b0r1",
+      "run_dir": "runs/a5-main/django__django-15973/b0/r1",
+      "file": "docs/sprint/a6-attempts/django__django-15973__b0r1.txt",
+      "bytes": 772,
+      "sha256": "84967d742040222215597199171f6f1d8b4182ea85bb9b5306b3290b9308fbbd",
+      "a5_prompt_sha256": "6c97614c51541dd771e470bda94d40542e2ba938a12ae1445c0bafb9904c0d98",
+      "sections": {
+        "open": 317,
+        "status": 55,
+        "files": 55,
+        "diff": 44,
+        "commands": 68,
+        "message": 214,
+        "close": 19
+      },
+      "diff_limit": 7424,
+      "truncated": {
+        "diff": false,
+        "commands": 0,
+        "message": false
+      },
+      "source": {
+        "stop_reason": "max_model_calls",
+        "model_calls": 40,
+        "source_files": 0,
+        "test_files": 0,
+        "test_like_commands": 0,
+        "commands_shown": 0,
+        "has_final_message": true,
+        "has_diff": false
+      },
+      "leak": {
+        "ids": 0,
+        "test_patch_lines": 0,
+        "test_patch_new_files": 0,
+        "gold_patch_lines": 0
+      }
+    },
+    {
+      "task": "django__django-15973",
+      "first": "b0r2",
+      "run_dir": "runs/a5-main/django__django-15973/b0/r2",
+      "file": "docs/sprint/a6-attempts/django__django-15973__b0r2.txt",
+      "bytes": 1017,
+      "sha256": "29b2bbaccfa4259b695a257794b3ea668e8c60a0712dae744b65ead821cd1c5b",
+      "a5_prompt_sha256": "6c97614c51541dd771e470bda94d40542e2ba938a12ae1445c0bafb9904c0d98",
+      "sections": {
+        "open": 317,
+        "status": 55,
+        "files": 55,
+        "diff": 44,
+        "commands": 68,
+        "message": 459,
+        "close": 19
+      },
+      "diff_limit": 7179,
+      "truncated": {
+        "diff": false,
+        "commands": 0,
+        "message": false
+      },
+      "source": {
+        "stop_reason": "max_model_calls",
+        "model_calls": 40,
+        "source_files": 0,
+        "test_files": 0,
+        "test_like_commands": 0,
+        "commands_shown": 0,
+        "has_final_message": true,
+        "has_diff": false
+      },
+      "leak": {
+        "ids": 0,
+        "test_patch_lines": 0,
+        "test_patch_new_files": 0,
+        "gold_patch_lines": 0
+      }
+    },
+    {
+      "task": "django__django-15973",
+      "first": "b0r3",
+      "run_dir": "runs/a5-main/django__django-15973/b0/r3",
+      "file": "docs/sprint/a6-attempts/django__django-15973__b0r3.txt",
+      "bytes": 3159,
+      "sha256": "10d0460ad168755bd3bf8e03145fc7a27cb4fec5a34716747a49b219624c47dd",
+      "a5_prompt_sha256": "6c97614c51541dd771e470bda94d40542e2ba938a12ae1445c0bafb9904c0d98",
+      "sections": {
+        "open": 317,
+        "status": 55,
+        "files": 65,
+        "diff": 1900,
+        "commands": 714,
+        "message": 89,
+        "close": 19
+      },
+      "diff_limit": 6893,
+      "truncated": {
+        "diff": false,
+        "commands": 0,
+        "message": false
+      },
+      "source": {
+        "stop_reason": "max_model_calls",
+        "model_calls": 40,
+        "source_files": 0,
+        "test_files": 1,
+        "test_like_commands": 1,
+        "commands_shown": 1,
+        "has_final_message": true,
+        "has_diff": true
+      },
+      "leak": {
+        "ids": 0,
+        "test_patch_lines": 3,
+        "test_patch_new_files": 0,
+        "gold_patch_lines": 1
+      }
+    },
+    {
+      "task": "pytest-dev__pytest-5840",
+      "first": "b0r1",
+      "run_dir": "runs/a5-main/pytest-dev__pytest-5840/b0/r1",
+      "file": "docs/sprint/a6-attempts/pytest-dev__pytest-5840__b0r1.txt",
+      "bytes": 2040,
+      "sha256": "25cc6650e052e99bf9f6579d64809eff5f8b1e7ca29dab2fb55cd6dce418b7ee",
+      "a5_prompt_sha256": "87202cb2e59acecd0eba6bc0e647eba0dca1e694d3752f5751e9dbdc95030421",
+      "sections": {
+        "open": 317,
+        "status": 49,
+        "files": 38,
+        "diff": 540,
+        "commands": 954,
+        "message": 123,
+        "close": 19
+      },
+      "diff_limit": 6652,
+      "truncated": {
+        "diff": false,
+        "commands": 0,
+        "message": false
+      },
+      "source": {
+        "stop_reason": "completed",
+        "model_calls": 32,
+        "source_files": 1,
+        "test_files": 0,
+        "test_like_commands": 10,
+        "commands_shown": 2,
+        "has_final_message": true,
+        "has_diff": true
+      },
+      "leak": {
+        "ids": 0,
+        "test_patch_lines": 0,
+        "test_patch_new_files": 0,
+        "gold_patch_lines": 0
+      }
+    },
+    {
+      "task": "pytest-dev__pytest-5840",
+      "first": "b0r2",
+      "run_dir": "runs/a5-main/pytest-dev__pytest-5840/b0/r2",
+      "file": "docs/sprint/a6-attempts/pytest-dev__pytest-5840__b0r2.txt",
+      "bytes": 4812,
+      "sha256": "199a5eb2ddda7fb3577164031108be3945bea426e5adf46b8cd6d0b54c857fe2",
+      "a5_prompt_sha256": "87202cb2e59acecd0eba6bc0e647eba0dca1e694d3752f5751e9dbdc95030421",
+      "sections": {
+        "open": 317,
+        "status": 55,
+        "files": 46,
+        "diff": 1867,
+        "commands": 2387,
+        "message": 121,
+        "close": 19
+      },
+      "diff_limit": 5207,
+      "truncated": {
+        "diff": false,
+        "commands": 1,
+        "message": false
+      },
+      "source": {
+        "stop_reason": "max_model_calls",
+        "model_calls": 40,
+        "source_files": 1,
+        "test_files": 0,
+        "test_like_commands": 11,
+        "commands_shown": 2,
+        "has_final_message": true,
+        "has_diff": true
+      },
+      "leak": {
+        "ids": 0,
+        "test_patch_lines": 0,
+        "test_patch_new_files": 0,
+        "gold_patch_lines": 2
+      }
+    },
+    {
+      "task": "pytest-dev__pytest-5840",
+      "first": "b0r3",
+      "run_dir": "runs/a5-main/pytest-dev__pytest-5840/b0/r3",
+      "file": "docs/sprint/a6-attempts/pytest-dev__pytest-5840__b0r3.txt",
+      "bytes": 1792,
+      "sha256": "d8bc62149aa3bbc77ec20ca05a96f3a0cd4c4cf553abec5dff2d60c88ca984f6",
+      "a5_prompt_sha256": "87202cb2e59acecd0eba6bc0e647eba0dca1e694d3752f5751e9dbdc95030421",
+      "sections": {
+        "open": 317,
+        "status": 55,
+        "files": 55,
+        "diff": 44,
+        "commands": 1146,
+        "message": 156,
+        "close": 19
+      },
+      "diff_limit": 6404,
+      "truncated": {
+        "diff": false,
+        "commands": 0,
+        "message": false
+      },
+      "source": {
+        "stop_reason": "max_model_calls",
+        "model_calls": 40,
+        "source_files": 0,
+        "test_files": 0,
+        "test_like_commands": 18,
+        "commands_shown": 2,
+        "has_final_message": true,
+        "has_diff": false
+      },
+      "leak": {
+        "ids": 0,
+        "test_patch_lines": 0,
+        "test_patch_new_files": 0,
+        "gold_patch_lines": 0
+      }
+    },
+    {
+      "task": "pytest-dev__pytest-7324",
+      "first": "b0r1",
+      "run_dir": "runs/a5-main/pytest-dev__pytest-7324/b0/r1",
+      "file": "docs/sprint/a6-attempts/pytest-dev__pytest-7324__b0r1.txt",
+      "bytes": 4262,
+      "sha256": "1368de46a305f1b95d7cf7e45a5523785715e8d0e6a08acf2413685a786588b5",
+      "a5_prompt_sha256": "086daddc7d47c2cfea279b2967a9f66204ec6bedf7f7919a6d3a9f2533019ad5",
+      "sections": {
+        "open": 317,
+        "status": 49,
+        "files": 46,
+        "diff": 1642,
+        "commands": 2085,
+        "message": 104,
+        "close": 19
+      },
+      "diff_limit": 5532,
+      "truncated": {
+        "diff": false,
+        "commands": 1,
+        "message": false
+      },
+      "source": {
+        "stop_reason": "completed",
+        "model_calls": 16,
+        "source_files": 1,
+        "test_files": 2,
+        "test_like_commands": 6,
+        "commands_shown": 2,
+        "has_final_message": true,
+        "has_diff": true
+      },
+      "leak": {
+        "ids": 2,
+        "test_patch_lines": 0,
+        "test_patch_new_files": 0,
+        "gold_patch_lines": 0
+      }
+    },
+    {
+      "task": "pytest-dev__pytest-7324",
+      "first": "b0r2",
+      "run_dir": "runs/a5-main/pytest-dev__pytest-7324/b0/r2",
+      "file": "docs/sprint/a6-attempts/pytest-dev__pytest-7324__b0r2.txt",
+      "bytes": 4577,
+      "sha256": "967d91e66037163e37756875551426f69a1e0d1a725d79fdbe3b18fae4e1131a",
+      "a5_prompt_sha256": "086daddc7d47c2cfea279b2967a9f66204ec6bedf7f7919a6d3a9f2533019ad5",
+      "sections": {
+        "open": 317,
+        "status": 49,
+        "files": 73,
+        "diff": 1918,
+        "commands": 2085,
+        "message": 116,
+        "close": 19
+      },
+      "diff_limit": 5493,
+      "truncated": {
+        "diff": false,
+        "commands": 1,
+        "message": false
+      },
+      "source": {
+        "stop_reason": "completed",
+        "model_calls": 21,
+        "source_files": 2,
+        "test_files": 2,
+        "test_like_commands": 6,
+        "commands_shown": 2,
+        "has_final_message": true,
+        "has_diff": true
+      },
+      "leak": {
+        "ids": 2,
+        "test_patch_lines": 0,
+        "test_patch_new_files": 0,
+        "gold_patch_lines": 0
+      }
+    },
+    {
+      "task": "pytest-dev__pytest-7324",
+      "first": "b0r3",
+      "run_dir": "runs/a5-main/pytest-dev__pytest-7324/b0/r3",
+      "file": "docs/sprint/a6-attempts/pytest-dev__pytest-7324__b0r3.txt",
+      "bytes": 3513,
+      "sha256": "8c08dc165cbfb9501afb9c7e101b2164ba2d20134b51dba91c79b32ccd99f26a",
+      "a5_prompt_sha256": "086daddc7d47c2cfea279b2967a9f66204ec6bedf7f7919a6d3a9f2533019ad5",
+      "sections": {
+        "open": 317,
+        "status": 49,
+        "files": 73,
+        "diff": 1886,
+        "commands": 1061,
+        "message": 108,
+        "close": 19
+      },
+      "diff_limit": 6525,
+      "truncated": {
+        "diff": false,
+        "commands": 0,
+        "message": false
+      },
+      "source": {
+        "stop_reason": "completed",
+        "model_calls": 20,
+        "source_files": 2,
+        "test_files": 2,
+        "test_like_commands": 7,
+        "commands_shown": 2,
+        "has_final_message": true,
+        "has_diff": true
+      },
+      "leak": {
+        "ids": 2,
+        "test_patch_lines": 0,
+        "test_patch_new_files": 0,
+        "gold_patch_lines": 0
+      }
+    },
+    {
+      "task": "pytest-dev__pytest-7490",
+      "first": "b0r3",
+      "run_dir": "runs/a5-main/pytest-dev__pytest-7490/b0/r3",
+      "file": "docs/sprint/a6-attempts/pytest-dev__pytest-7490__b0r3.txt",
+      "bytes": 3397,
+      "sha256": "ab0f33da251502ce036547ecc718b1c292b272aeb396124e7a866621596071aa",
+      "a5_prompt_sha256": "c28788d32e1020cffaa27dbbbcca64118e62755a9c5b6da4a1cff4458d6fa745",
+      "sections": {
+        "open": 317,
+        "status": 49,
+        "files": 39,
+        "diff": 1456,
+        "commands": 1403,
+        "message": 114,
+        "close": 19
+      },
+      "diff_limit": 6211,
+      "truncated": {
+        "diff": false,
+        "commands": 0,
+        "message": false
+      },
+      "source": {
+        "stop_reason": "completed",
+        "model_calls": 28,
+        "source_files": 1,
+        "test_files": 1,
+        "test_like_commands": 13,
+        "commands_shown": 2,
+        "has_final_message": true,
+        "has_diff": true
+      },
+      "leak": {
+        "ids": 1,
+        "test_patch_lines": 0,
+        "test_patch_new_files": 0,
+        "gold_patch_lines": 2
+      }
+    },
+    {
+      "task": "scikit-learn__scikit-learn-10908",
+      "first": "b0r3",
+      "run_dir": "runs/a5-main/scikit-learn__scikit-learn-10908/b0/r3",
+      "file": "docs/sprint/a6-attempts/scikit-learn__scikit-learn-10908__b0r3.txt",
+      "bytes": 2273,
+      "sha256": "f4e9c5177ac631f1eaa5e183129ce5333b2e4f54809a90f369a2814696d82ff4",
+      "a5_prompt_sha256": "6d9b402b0378b063669b8c5b1b8c8fdd028686326fa4e53a2d3031759c6e820f",
+      "sections": {
+        "open": 317,
+        "status": 55,
+        "files": 50,
+        "diff": 1615,
+        "commands": 68,
+        "message": 149,
+        "close": 19
+      },
+      "diff_limit": 7494,
+      "truncated": {
+        "diff": false,
+        "commands": 0,
+        "message": false
+      },
+      "source": {
+        "stop_reason": "max_model_calls",
+        "model_calls": 40,
+        "source_files": 1,
+        "test_files": 0,
+        "test_like_commands": 0,
+        "commands_shown": 0,
+        "has_final_message": true,
+        "has_diff": true
+      },
+      "leak": {
+        "ids": 0,
+        "test_patch_lines": 0,
+        "test_patch_new_files": 0,
+        "gold_patch_lines": 0
+      }
+    },
+    {
+      "task": "scikit-learn__scikit-learn-12973",
+      "first": "b0r1",
+      "run_dir": "runs/a5-main/scikit-learn__scikit-learn-12973/b0/r1",
+      "file": "docs/sprint/a6-attempts/scikit-learn__scikit-learn-12973__b0r1.txt",
+      "bytes": 2016,
+      "sha256": "4e69c5003baba6d1069566e7e928e7067ba2854be7a69efd149c827ff41784bb",
+      "a5_prompt_sha256": "fe0bb22ff500a7db4683877da5a088e993544b78e6aa687345728f25807cef80",
+      "sections": {
+        "open": 317,
+        "status": 48,
+        "files": 51,
+        "diff": 1094,
+        "commands": 392,
+        "message": 95,
+        "close": 19
+      },
+      "diff_limit": 7230,
+      "truncated": {
+        "diff": false,
+        "commands": 0,
+        "message": false
+      },
+      "source": {
+        "stop_reason": "completed",
+        "model_calls": 5,
+        "source_files": 1,
+        "test_files": 0,
+        "test_like_commands": 1,
+        "commands_shown": 1,
+        "has_final_message": true,
+        "has_diff": true
+      },
+      "leak": {
+        "ids": 0,
+        "test_patch_lines": 0,
+        "test_patch_new_files": 0,
+        "gold_patch_lines": 3
+      }
+    },
+    {
+      "task": "scikit-learn__scikit-learn-12973",
+      "first": "b0r2",
+      "run_dir": "runs/a5-main/scikit-learn__scikit-learn-12973/b0/r2",
+      "file": "docs/sprint/a6-attempts/scikit-learn__scikit-learn-12973__b0r2.txt",
+      "bytes": 1999,
+      "sha256": "94ade46a8470671148c63c0cf2fe83c58a9f07af56c0c178d833e9a6611615f9",
+      "a5_prompt_sha256": "fe0bb22ff500a7db4683877da5a088e993544b78e6aa687345728f25807cef80",
+      "sections": {
+        "open": 317,
+        "status": 48,
+        "files": 51,
+        "diff": 1077,
+        "commands": 392,
+        "message": 95,
+        "close": 19
+      },
+      "diff_limit": 7230,
+      "truncated": {
+        "diff": false,
+        "commands": 0,
+        "message": false
+      },
+      "source": {
+        "stop_reason": "completed",
+        "model_calls": 5,
+        "source_files": 1,
+        "test_files": 0,
+        "test_like_commands": 1,
+        "commands_shown": 1,
+        "has_final_message": true,
+        "has_diff": true
+      },
+      "leak": {
+        "ids": 0,
+        "test_patch_lines": 0,
+        "test_patch_new_files": 0,
+        "gold_patch_lines": 5
+      }
+    },
+    {
+      "task": "scikit-learn__scikit-learn-12973",
+      "first": "b0r3",
+      "run_dir": "runs/a5-main/scikit-learn__scikit-learn-12973/b0/r3",
+      "file": "docs/sprint/a6-attempts/scikit-learn__scikit-learn-12973__b0r3.txt",
+      "bytes": 2002,
+      "sha256": "1c4a7322de03f7c66d9c75add1d9081684f2eccbc9a0cace93f66f5770587360",
+      "a5_prompt_sha256": "fe0bb22ff500a7db4683877da5a088e993544b78e6aa687345728f25807cef80",
+      "sections": {
+        "open": 317,
+        "status": 48,
+        "files": 51,
+        "diff": 1077,
+        "commands": 375,
+        "message": 115,
+        "close": 19
+      },
+      "diff_limit": 7227,
+      "truncated": {
+        "diff": false,
+        "commands": 0,
+        "message": false
+      },
+      "source": {
+        "stop_reason": "completed",
+        "model_calls": 6,
+        "source_files": 1,
+        "test_files": 0,
+        "test_like_commands": 1,
+        "commands_shown": 1,
+        "has_final_message": true,
+        "has_diff": true
+      },
+      "leak": {
+        "ids": 0,
+        "test_patch_lines": 0,
+        "test_patch_new_files": 0,
+        "gold_patch_lines": 5
+      }
+    },
+    {
+      "task": "sphinx-doc__sphinx-10614",
+      "first": "b0r1",
+      "run_dir": "runs/a5-main/sphinx-doc__sphinx-10614/b0/r1",
+      "file": "docs/sprint/a6-attempts/sphinx-doc__sphinx-10614__b0r1.txt",
+      "bytes": 2298,
+      "sha256": "ece0261a3d85577a7b5fb4c5e74c70e5c85c2f2f51d1ab9f04006e61339cffd2",
+      "a5_prompt_sha256": "d3bdf4d07b0d1859675eb22a72a12226e53b40e86d7ad28f967948986ba460c3",
+      "sections": {
+        "open": 317,
+        "status": 49,
+        "files": 49,
+        "diff": 996,
+        "commands": 675,
+        "message": 193,
+        "close": 19
+      },
+      "diff_limit": 6850,
+      "truncated": {
+        "diff": false,
+        "commands": 0,
+        "message": false
+      },
+      "source": {
+        "stop_reason": "completed",
+        "model_calls": 34,
+        "source_files": 1,
+        "test_files": 0,
+        "test_like_commands": 4,
+        "commands_shown": 2,
+        "has_final_message": true,
+        "has_diff": true
+      },
+      "leak": {
+        "ids": 0,
+        "test_patch_lines": 0,
+        "test_patch_new_files": 0,
+        "gold_patch_lines": 1
+      }
+    },
+    {
+      "task": "sphinx-doc__sphinx-10614",
+      "first": "b0r2",
+      "run_dir": "runs/a5-main/sphinx-doc__sphinx-10614/b0/r2",
+      "file": "docs/sprint/a6-attempts/sphinx-doc__sphinx-10614__b0r2.txt",
+      "bytes": 5139,
+      "sha256": "41bbe0b7f481cf7d1e8a7719549eca97c153e05a23dc86a52c8a9dca9ed970d8",
+      "a5_prompt_sha256": "d3bdf4d07b0d1859675eb22a72a12226e53b40e86d7ad28f967948986ba460c3",
+      "sections": {
+        "open": 317,
+        "status": 55,
+        "files": 49,
+        "diff": 1220,
+        "commands": 2442,
+        "message": 1037,
+        "close": 19
+      },
+      "diff_limit": 4233,
+      "truncated": {
+        "diff": false,
+        "commands": 2,
+        "message": true
+      },
+      "source": {
+        "stop_reason": "max_model_calls",
+        "model_calls": 40,
+        "source_files": 1,
+        "test_files": 0,
+        "test_like_commands": 11,
+        "commands_shown": 2,
+        "has_final_message": true,
+        "has_diff": true
+      },
+      "leak": {
+        "ids": 0,
+        "test_patch_lines": 0,
+        "test_patch_new_files": 0,
+        "gold_patch_lines": 0
+      }
+    },
+    {
+      "task": "sphinx-doc__sphinx-10614",
+      "first": "b0r3",
+      "run_dir": "runs/a5-main/sphinx-doc__sphinx-10614/b0/r3",
+      "file": "docs/sprint/a6-attempts/sphinx-doc__sphinx-10614__b0r3.txt",
+      "bytes": 3256,
+      "sha256": "89e032893239479cc70b82ccb25de18bb89dfa530d06c80c3895581d2e0b08ed",
+      "a5_prompt_sha256": "d3bdf4d07b0d1859675eb22a72a12226e53b40e86d7ad28f967948986ba460c3",
+      "sections": {
+        "open": 317,
+        "status": 55,
+        "files": 49,
+        "diff": 1213,
+        "commands": 1396,
+        "message": 207,
+        "close": 19
+      },
+      "diff_limit": 6109,
+      "truncated": {
+        "diff": false,
+        "commands": 1,
+        "message": false
+      },
+      "source": {
+        "stop_reason": "max_model_calls",
+        "model_calls": 40,
+        "source_files": 1,
+        "test_files": 0,
+        "test_like_commands": 4,
+        "commands_shown": 2,
+        "has_final_message": true,
+        "has_diff": true
+      },
+      "leak": {
+        "ids": 0,
+        "test_patch_lines": 0,
+        "test_patch_new_files": 0,
+        "gold_patch_lines": 0
+      }
+    },
+    {
+      "task": "sphinx-doc__sphinx-7590",
+      "first": "b0r1",
+      "run_dir": "runs/a5-main/sphinx-doc__sphinx-7590/b0/r1",
+      "file": "docs/sprint/a6-attempts/sphinx-doc__sphinx-7590__b0r1.txt",
+      "bytes": 3774,
+      "sha256": "0cf09da3651fe3d2781fc98a288dc5809cf29bd462346b291b271c336feba122",
+      "a5_prompt_sha256": "f0a91b2d2c27f381eea4aa3a0a115e8404adc71e7a8350c44f91e78ba1cfdb8e",
+      "sections": {
+        "open": 317,
+        "status": 55,
+        "files": 37,
+        "diff": 2852,
+        "commands": 68,
+        "message": 426,
+        "close": 19
+      },
+      "diff_limit": 7230,
+      "truncated": {
+        "diff": false,
+        "commands": 0,
+        "message": false
+      },
+      "source": {
+        "stop_reason": "max_model_calls",
+        "model_calls": 40,
+        "source_files": 1,
+        "test_files": 0,
+        "test_like_commands": 0,
+        "commands_shown": 0,
+        "has_final_message": true,
+        "has_diff": true
+      },
+      "leak": {
+        "ids": 0,
+        "test_patch_lines": 0,
+        "test_patch_new_files": 0,
+        "gold_patch_lines": 12
+      }
+    },
+    {
+      "task": "sphinx-doc__sphinx-7590",
+      "first": "b0r2",
+      "run_dir": "runs/a5-main/sphinx-doc__sphinx-7590/b0/r2",
+      "file": "docs/sprint/a6-attempts/sphinx-doc__sphinx-7590__b0r2.txt",
+      "bytes": 1596,
+      "sha256": "7334788dfb8595ec85eef8f7655b223dcbeaa5cd3b8b62bf44669973c0187932",
+      "a5_prompt_sha256": "f0a91b2d2c27f381eea4aa3a0a115e8404adc71e7a8350c44f91e78ba1cfdb8e",
+      "sections": {
+        "open": 317,
+        "status": 55,
+        "files": 37,
+        "diff": 997,
+        "commands": 68,
+        "message": 103,
+        "close": 19
+      },
+      "diff_limit": 7553,
+      "truncated": {
+        "diff": false,
+        "commands": 0,
+        "message": false
+      },
+      "source": {
+        "stop_reason": "max_model_calls",
+        "model_calls": 40,
+        "source_files": 1,
+        "test_files": 0,
+        "test_like_commands": 0,
+        "commands_shown": 0,
+        "has_final_message": true,
+        "has_diff": true
+      },
+      "leak": {
+        "ids": 0,
+        "test_patch_lines": 0,
+        "test_patch_new_files": 0,
+        "gold_patch_lines": 9
+      }
+    },
+    {
+      "task": "sphinx-doc__sphinx-7590",
+      "first": "b0r3",
+      "run_dir": "runs/a5-main/sphinx-doc__sphinx-7590/b0/r3",
+      "file": "docs/sprint/a6-attempts/sphinx-doc__sphinx-7590__b0r3.txt",
+      "bytes": 3756,
+      "sha256": "fdbe45dd9f912a14a4e08e4a5f2c5459c3c619480b3122f423fbc6ae6061d40e",
+      "a5_prompt_sha256": "f0a91b2d2c27f381eea4aa3a0a115e8404adc71e7a8350c44f91e78ba1cfdb8e",
+      "sections": {
+        "open": 317,
+        "status": 55,
+        "files": 37,
+        "diff": 3199,
+        "commands": 68,
+        "message": 61,
+        "close": 19
+      },
+      "diff_limit": 7595,
+      "truncated": {
+        "diff": false,
+        "commands": 0,
+        "message": false
+      },
+      "source": {
+        "stop_reason": "max_model_calls",
+        "model_calls": 40,
+        "source_files": 1,
+        "test_files": 0,
+        "test_like_commands": 0,
+        "commands_shown": 0,
+        "has_final_message": true,
+        "has_diff": true
+      },
+      "leak": {
+        "ids": 0,
+        "test_patch_lines": 0,
+        "test_patch_new_files": 0,
+        "gold_patch_lines": 11
+      }
+    },
+    {
+      "task": "sphinx-doc__sphinx-8120",
+      "first": "b0r2",
+      "run_dir": "runs/a5-main/sphinx-doc__sphinx-8120/b0/r2",
+      "file": "docs/sprint/a6-attempts/sphinx-doc__sphinx-8120__b0r2.txt",
+      "bytes": 2218,
+      "sha256": "e0f50c92fc6750991e2d019bef6371b1031ed6d6de980b41fc59688df7194264",
+      "a5_prompt_sha256": "6619db89911a4af6aaabde3bd018a81074e5661801c12066c23b4f2219681976",
+      "sections": {
+        "open": 317,
+        "status": 55,
+        "files": 55,
+        "diff": 44,
+        "commands": 1564,
+        "message": 164,
+        "close": 19
+      },
+      "diff_limit": 5978,
+      "truncated": {
+        "diff": false,
+        "commands": 1,
+        "message": false
+      },
+      "source": {
+        "stop_reason": "max_model_calls",
+        "model_calls": 40,
+        "source_files": 0,
+        "test_files": 0,
+        "test_like_commands": 1,
+        "commands_shown": 1,
+        "has_final_message": true,
+        "has_diff": false
+      },
+      "leak": {
+        "ids": 0,
+        "test_patch_lines": 0,
+        "test_patch_new_files": 0,
+        "gold_patch_lines": 0
+      }
+    },
+    {
+      "task": "sphinx-doc__sphinx-8120",
+      "first": "b0r3",
+      "run_dir": "runs/a5-main/sphinx-doc__sphinx-8120/b0/r3",
+      "file": "docs/sprint/a6-attempts/sphinx-doc__sphinx-8120__b0r3.txt",
+      "bytes": 1349,
+      "sha256": "3933fb4ba8947c468257d79b026edff919c17089974b8097c90d4ac189e6af14",
+      "a5_prompt_sha256": "6619db89911a4af6aaabde3bd018a81074e5661801c12066c23b4f2219681976",
+      "sections": {
+        "open": 317,
+        "status": 55,
+        "files": 41,
+        "diff": 666,
+        "commands": 68,
+        "message": 183,
+        "close": 19
+      },
+      "diff_limit": 7469,
+      "truncated": {
+        "diff": false,
+        "commands": 0,
+        "message": false
+      },
+      "source": {
+        "stop_reason": "max_model_calls",
+        "model_calls": 40,
+        "source_files": 1,
+        "test_files": 0,
+        "test_like_commands": 0,
+        "commands_shown": 0,
+        "has_final_message": true,
+        "has_diff": true
+      },
+      "leak": {
+        "ids": 0,
+        "test_patch_lines": 0,
+        "test_patch_new_files": 0,
+        "gold_patch_lines": 0
+      }
+    },
+    {
+      "task": "sphinx-doc__sphinx-9258",
+      "first": "b0r2",
+      "run_dir": "runs/a5-main/sphinx-doc__sphinx-9258/b0/r2",
+      "file": "docs/sprint/a6-attempts/sphinx-doc__sphinx-9258__b0r2.txt",
+      "bytes": 2561,
+      "sha256": "1a581d8d4d3a9eba7812055fd3f9f051d30f5de8230b73db670bf900d8bcf361",
+      "a5_prompt_sha256": "3f05417ddf3dd03f883425e414a7a9da0047ea363ecf66022460c1f13efd7d7c",
+      "sections": {
+        "open": 317,
+        "status": 55,
+        "files": 65,
+        "diff": 672,
+        "commands": 1297,
+        "message": 136,
+        "close": 19
+      },
+      "diff_limit": 6263,
+      "truncated": {
+        "diff": false,
+        "commands": 1,
+        "message": false
+      },
+      "source": {
+        "stop_reason": "max_model_calls",
+        "model_calls": 40,
+        "source_files": 0,
+        "test_files": 1,
+        "test_like_commands": 9,
+        "commands_shown": 2,
+        "has_final_message": true,
+        "has_diff": true
+      },
+      "leak": {
+        "ids": 0,
+        "test_patch_lines": 6,
+        "test_patch_new_files": 0,
+        "gold_patch_lines": 0
+      }
+    },
+    {
+      "task": "sphinx-doc__sphinx-9258",
+      "first": "b0r3",
+      "run_dir": "runs/a5-main/sphinx-doc__sphinx-9258/b0/r3",
+      "file": "docs/sprint/a6-attempts/sphinx-doc__sphinx-9258__b0r3.txt",
+      "bytes": 4407,
+      "sha256": "506b7f8f9db7cba4181fb47a43607474dfd2733c3f001121a619a14aa001d15e",
+      "a5_prompt_sha256": "3f05417ddf3dd03f883425e414a7a9da0047ea363ecf66022460c1f13efd7d7c",
+      "sections": {
+        "open": 317,
+        "status": 55,
+        "files": 40,
+        "diff": 1489,
+        "commands": 2322,
+        "message": 165,
+        "close": 19
+      },
+      "diff_limit": 5234,
+      "truncated": {
+        "diff": false,
+        "commands": 1,
+        "message": false
+      },
+      "source": {
+        "stop_reason": "max_model_calls",
+        "model_calls": 40,
+        "source_files": 1,
+        "test_files": 2,
+        "test_like_commands": 8,
+        "commands_shown": 2,
+        "has_final_message": true,
+        "has_diff": true
+      },
+      "leak": {
+        "ids": 12,
+        "test_patch_lines": 0,
+        "test_patch_new_files": 0,
+        "gold_patch_lines": 1
+      }
+    },
+    {
+      "task": "sphinx-doc__sphinx-9461",
+      "first": "b0r1",
+      "run_dir": "runs/a5-main/sphinx-doc__sphinx-9461/b0/r1",
+      "file": "docs/sprint/a6-attempts/sphinx-doc__sphinx-9461__b0r1.txt",
+      "bytes": 2965,
+      "sha256": "e7e3ac5f7476eb34f1d7d022a72c119063e2d2e18af6b354e0eef9c336a9ac82",
+      "a5_prompt_sha256": "86fd9dc1ceb4ab0e2adf018a1a5680c9fa1033030f90d752c597f11a8411a96e",
+      "sections": {
+        "open": 317,
+        "status": 55,
+        "files": 102,
+        "diff": 2217,
+        "commands": 68,
+        "message": 187,
+        "close": 19
+      },
+      "diff_limit": 7404,
+      "truncated": {
+        "diff": false,
+        "commands": 0,
+        "message": false
+      },
+      "source": {
+        "stop_reason": "max_model_calls",
+        "model_calls": 40,
+        "source_files": 3,
+        "test_files": 0,
+        "test_like_commands": 0,
+        "commands_shown": 0,
+        "has_final_message": true,
+        "has_diff": true
+      },
+      "leak": {
+        "ids": 0,
+        "test_patch_lines": 0,
+        "test_patch_new_files": 0,
+        "gold_patch_lines": 0
+      }
+    },
+    {
+      "task": "sphinx-doc__sphinx-9461",
+      "first": "b0r2",
+      "run_dir": "runs/a5-main/sphinx-doc__sphinx-9461/b0/r2",
+      "file": "docs/sprint/a6-attempts/sphinx-doc__sphinx-9461__b0r2.txt",
+      "bytes": 2938,
+      "sha256": "ba2965bedf8c2f9e153b47257ee7a9011f6177fdef8db691b0f4000ed6aaee65",
+      "a5_prompt_sha256": "86fd9dc1ceb4ab0e2adf018a1a5680c9fa1033030f90d752c597f11a8411a96e",
+      "sections": {
+        "open": 317,
+        "status": 55,
+        "files": 38,
+        "diff": 822,
+        "commands": 1564,
+        "message": 123,
+        "close": 19
+      },
+      "diff_limit": 6036,
+      "truncated": {
+        "diff": false,
+        "commands": 1,
+        "message": false
+      },
+      "source": {
+        "stop_reason": "max_model_calls",
+        "model_calls": 40,
+        "source_files": 1,
+        "test_files": 1,
+        "test_like_commands": 1,
+        "commands_shown": 1,
+        "has_final_message": true,
+        "has_diff": true
+      },
+      "leak": {
+        "ids": 0,
+        "test_patch_lines": 0,
+        "test_patch_new_files": 0,
+        "gold_patch_lines": 0
+      }
+    },
+    {
+      "task": "sphinx-doc__sphinx-9461",
+      "first": "b0r3",
+      "run_dir": "runs/a5-main/sphinx-doc__sphinx-9461/b0/r3",
+      "file": "docs/sprint/a6-attempts/sphinx-doc__sphinx-9461__b0r3.txt",
+      "bytes": 3533,
+      "sha256": "165aec0783dcbed74a7135bbd391766b10088a68ac1f5a7f7e78049e30442d17",
+      "a5_prompt_sha256": "86fd9dc1ceb4ab0e2adf018a1a5680c9fa1033030f90d752c597f11a8411a96e",
+      "sections": {
+        "open": 317,
+        "status": 55,
+        "files": 102,
+        "diff": 2843,
+        "commands": 68,
+        "message": 129,
+        "close": 19
+      },
+      "diff_limit": 7462,
+      "truncated": {
+        "diff": false,
+        "commands": 0,
+        "message": false
+      },
+      "source": {
+        "stop_reason": "max_model_calls",
+        "model_calls": 40,
+        "source_files": 3,
+        "test_files": 0,
+        "test_like_commands": 0,
+        "commands_shown": 0,
+        "has_final_message": true,
+        "has_diff": true
+      },
+      "leak": {
+        "ids": 0,
+        "test_patch_lines": 0,
+        "test_patch_new_files": 0,
+        "gold_patch_lines": 0
+      }
+    },
+    {
+      "task": "sympy__sympy-11618",
+      "first": "b0r1",
+      "run_dir": "runs/a5-main/sympy__sympy-11618/b0/r1",
+      "file": "docs/sprint/a6-attempts/sympy__sympy-11618__b0r1.txt",
+      "bytes": 2352,
+      "sha256": "1ac73843f75a546d64df057da2be1ecc8031ba3b1a587e1fd4e0a9efbc76e3c9",
+      "a5_prompt_sha256": "e1e51ce42c1f52ce72454507f8630841c8245a31a0f2c6ea887256790860c143",
+      "sections": {
+        "open": 317,
+        "status": 49,
+        "files": 39,
+        "diff": 613,
+        "commands": 988,
+        "message": 327,
+        "close": 19
+      },
+      "diff_limit": 6413,
+      "truncated": {
+        "diff": false,
+        "commands": 0,
+        "message": false
+      },
+      "source": {
+        "stop_reason": "completed",
+        "model_calls": 32,
+        "source_files": 1,
+        "test_files": 0,
+        "test_like_commands": 6,
+        "commands_shown": 2,
+        "has_final_message": true,
+        "has_diff": true
+      },
+      "leak": {
+        "ids": 0,
+        "test_patch_lines": 0,
+        "test_patch_new_files": 0,
+        "gold_patch_lines": 3
+      }
+    },
+    {
+      "task": "sympy__sympy-13091",
+      "first": "b0r1",
+      "run_dir": "runs/a5-main/sympy__sympy-13091/b0/r1",
+      "file": "docs/sprint/a6-attempts/sympy__sympy-13091__b0r1.txt",
+      "bytes": 6393,
+      "sha256": "f192e2bde54ea93c4b84e2c0fb79091b52b917f682e1d722a2b956f7efe61d59",
+      "a5_prompt_sha256": "21c277d01af4e028fa453ad681ef12983858f010a5591bd80e51ee667230bb40",
+      "sections": {
+        "open": 317,
+        "status": 55,
+        "files": 55,
+        "diff": 2686,
+        "commands": 3066,
+        "message": 195,
+        "close": 19
+      },
+      "diff_limit": 4445,
+      "truncated": {
+        "diff": false,
+        "commands": 2,
+        "message": false
+      },
+      "source": {
+        "stop_reason": "max_model_calls",
+        "model_calls": 40,
+        "source_files": 2,
+        "test_files": 0,
+        "test_like_commands": 2,
+        "commands_shown": 2,
+        "has_final_message": true,
+        "has_diff": true
+      },
+      "leak": {
+        "ids": 0,
+        "test_patch_lines": 6,
+        "test_patch_new_files": 0,
+        "gold_patch_lines": 6
+      }
+    },
+    {
+      "task": "sympy__sympy-13091",
+      "first": "b0r2",
+      "run_dir": "runs/a5-main/sympy__sympy-13091/b0/r2",
+      "file": "docs/sprint/a6-attempts/sympy__sympy-13091__b0r2.txt",
+      "bytes": 8192,
+      "sha256": "45032d3aef913e88f2c21748ae45c45acd9013b4fcb555a903691ff0a2ebbd05",
+      "a5_prompt_sha256": "21c277d01af4e028fa453ad681ef12983858f010a5591bd80e51ee667230bb40",
+      "sections": {
+        "open": 317,
+        "status": 55,
+        "files": 82,
+        "diff": 4545,
+        "commands": 3066,
+        "message": 108,
+        "close": 19
+      },
+      "diff_limit": 4505,
+      "truncated": {
+        "diff": true,
+        "commands": 2,
+        "message": false
+      },
+      "source": {
+        "stop_reason": "max_model_calls",
+        "model_calls": 40,
+        "source_files": 3,
+        "test_files": 0,
+        "test_like_commands": 5,
+        "commands_shown": 2,
+        "has_final_message": true,
+        "has_diff": true
+      },
+      "leak": {
+        "ids": 0,
+        "test_patch_lines": 22,
+        "test_patch_new_files": 0,
+        "gold_patch_lines": 10
+      }
+    },
+    {
+      "task": "sympy__sympy-13091",
+      "first": "b0r3",
+      "run_dir": "runs/a5-main/sympy__sympy-13091/b0/r3",
+      "file": "docs/sprint/a6-attempts/sympy__sympy-13091__b0r3.txt",
+      "bytes": 6277,
+      "sha256": "6a5bdd9108b68d3b96686457666051ef78e3160cb57af8685b6285a4aca840c6",
+      "a5_prompt_sha256": "21c277d01af4e028fa453ad681ef12983858f010a5591bd80e51ee667230bb40",
+      "sections": {
+        "open": 317,
+        "status": 55,
+        "files": 82,
+        "diff": 3728,
+        "commands": 1889,
+        "message": 187,
+        "close": 19
+      },
+      "diff_limit": 5603,
+      "truncated": {
+        "diff": false,
+        "commands": 1,
+        "message": false
+      },
+      "source": {
+        "stop_reason": "max_model_calls",
+        "model_calls": 40,
+        "source_files": 3,
+        "test_files": 0,
+        "test_like_commands": 9,
+        "commands_shown": 2,
+        "has_final_message": true,
+        "has_diff": true
+      },
+      "leak": {
+        "ids": 0,
+        "test_patch_lines": 15,
+        "test_patch_new_files": 0,
+        "gold_patch_lines": 8
+      }
+    },
+    {
+      "task": "sympy__sympy-14248",
+      "first": "b0r1",
+      "run_dir": "runs/a5-main/sympy__sympy-14248/b0/r1",
+      "file": "docs/sprint/a6-attempts/sympy__sympy-14248__b0r1.txt",
+      "bytes": 2924,
+      "sha256": "e57df97f2d634cb82b3e5e80a84e623b3854d77ca3ab256af7f4686f13b12ee6",
+      "a5_prompt_sha256": "53683fd39626ffbfccfdc699f43241914035c6c04a7d68628acabac76af35897",
+      "sections": {
+        "open": 317,
+        "status": 55,
+        "files": 95,
+        "diff": 2213,
+        "commands": 68,
+        "message": 157,
+        "close": 19
+      },
+      "diff_limit": 7441,
+      "truncated": {
+        "diff": false,
+        "commands": 0,
+        "message": false
+      },
+      "source": {
+        "stop_reason": "max_model_calls",
+        "model_calls": 40,
+        "source_files": 3,
+        "test_files": 0,
+        "test_like_commands": 0,
+        "commands_shown": 0,
+        "has_final_message": true,
+        "has_diff": true
+      },
+      "leak": {
+        "ids": 0,
+        "test_patch_lines": 0,
+        "test_patch_new_files": 0,
+        "gold_patch_lines": 14
+      }
+    },
+    {
+      "task": "sympy__sympy-14248",
+      "first": "b0r2",
+      "run_dir": "runs/a5-main/sympy__sympy-14248/b0/r2",
+      "file": "docs/sprint/a6-attempts/sympy__sympy-14248__b0r2.txt",
+      "bytes": 3744,
+      "sha256": "15c56556be10df02fb17fbb6748364ae82b77d53d76b3efbe47a151d7d77e18b",
+      "a5_prompt_sha256": "53683fd39626ffbfccfdc699f43241914035c6c04a7d68628acabac76af35897",
+      "sections": {
+        "open": 317,
+        "status": 55,
+        "files": 95,
+        "diff": 2780,
+        "commands": 68,
+        "message": 410,
+        "close": 19
+      },
+      "diff_limit": 7188,
+      "truncated": {
+        "diff": false,
+        "commands": 0,
+        "message": false
+      },
+      "source": {
+        "stop_reason": "max_model_calls",
+        "model_calls": 40,
+        "source_files": 3,
+        "test_files": 0,
+        "test_like_commands": 0,
+        "commands_shown": 0,
+        "has_final_message": true,
+        "has_diff": true
+      },
+      "leak": {
+        "ids": 0,
+        "test_patch_lines": 0,
+        "test_patch_new_files": 0,
+        "gold_patch_lines": 14
+      }
+    },
+    {
+      "task": "sympy__sympy-14248",
+      "first": "b0r3",
+      "run_dir": "runs/a5-main/sympy__sympy-14248/b0/r3",
+      "file": "docs/sprint/a6-attempts/sympy__sympy-14248__b0r3.txt",
+      "bytes": 1349,
+      "sha256": "e179bde5c3cd6a98190ff01742613f806a4c2edc48fc5d7d177ef113711df453",
+      "a5_prompt_sha256": "53683fd39626ffbfccfdc699f43241914035c6c04a7d68628acabac76af35897",
+      "sections": {
+        "open": 317,
+        "status": 55,
+        "files": 37,
+        "diff": 704,
+        "commands": 68,
+        "message": 149,
+        "close": 19
+      },
+      "diff_limit": 7507,
+      "truncated": {
+        "diff": false,
+        "commands": 0,
+        "message": false
+      },
+      "source": {
+        "stop_reason": "max_model_calls",
+        "model_calls": 40,
+        "source_files": 1,
+        "test_files": 0,
+        "test_like_commands": 0,
+        "commands_shown": 0,
+        "has_final_message": true,
+        "has_diff": true
+      },
+      "leak": {
+        "ids": 0,
+        "test_patch_lines": 0,
+        "test_patch_new_files": 0,
+        "gold_patch_lines": 6
+      }
+    },
+    {
+      "task": "sympy__sympy-15599",
+      "first": "b0r1",
+      "run_dir": "runs/a5-main/sympy__sympy-15599/b0/r1",
+      "file": "docs/sprint/a6-attempts/sympy__sympy-15599__b0r1.txt",
+      "bytes": 3656,
+      "sha256": "3172c0329b326b19ea086322ffdd07bcbb4d56297eaa3174c060bf340acf1022",
+      "a5_prompt_sha256": "631f1104d26846a755b317d9b12ee20508622a42efb6597d207b7280275223b3",
+      "sections": {
+        "open": 317,
+        "status": 55,
+        "files": 33,
+        "diff": 1136,
+        "commands": 1059,
+        "message": 1037,
+        "close": 19
+      },
+      "diff_limit": 5632,
+      "truncated": {
+        "diff": false,
+        "commands": 0,
+        "message": true
+      },
+      "source": {
+        "stop_reason": "max_model_calls",
+        "model_calls": 40,
+        "source_files": 1,
+        "test_files": 1,
+        "test_like_commands": 8,
+        "commands_shown": 2,
+        "has_final_message": true,
+        "has_diff": true
+      },
+      "leak": {
+        "ids": 2,
+        "test_patch_lines": 1,
+        "test_patch_new_files": 0,
+        "gold_patch_lines": 0
+      }
+    },
+    {
+      "task": "sympy__sympy-15599",
+      "first": "b0r2",
+      "run_dir": "runs/a5-main/sympy__sympy-15599/b0/r2",
+      "file": "docs/sprint/a6-attempts/sympy__sympy-15599__b0r2.txt",
+      "bytes": 4552,
+      "sha256": "3c7cb5ce6637826ec5611bb7da1735716467de96bdc8d860736117992aba6293",
+      "a5_prompt_sha256": "631f1104d26846a755b317d9b12ee20508622a42efb6597d207b7280275223b3",
+      "sections": {
+        "open": 317,
+        "status": 55,
+        "files": 33,
+        "diff": 1587,
+        "commands": 1685,
+        "message": 856,
+        "close": 19
+      },
+      "diff_limit": 5187,
+      "truncated": {
+        "diff": false,
+        "commands": 0,
+        "message": false
+      },
+      "source": {
+        "stop_reason": "max_model_calls",
+        "model_calls": 40,
+        "source_files": 1,
+        "test_files": 1,
+        "test_like_commands": 7,
+        "commands_shown": 2,
+        "has_final_message": true,
+        "has_diff": true
+      },
+      "leak": {
+        "ids": 3,
+        "test_patch_lines": 1,
+        "test_patch_new_files": 0,
+        "gold_patch_lines": 0
+      }
+    },
+    {
+      "task": "sympy__sympy-15599",
+      "first": "b0r3",
+      "run_dir": "runs/a5-main/sympy__sympy-15599/b0/r3",
+      "file": "docs/sprint/a6-attempts/sympy__sympy-15599__b0r3.txt",
+      "bytes": 3937,
+      "sha256": "b32c972ffe7a2ddebed00abf40a840d65524c52b8ba6f377a4bb2e892189bfc7",
+      "a5_prompt_sha256": "631f1104d26846a755b317d9b12ee20508622a42efb6597d207b7280275223b3",
+      "sections": {
+        "open": 317,
+        "status": 57,
+        "files": 33,
+        "diff": 1333,
+        "commands": 1995,
+        "message": 183,
+        "close": 19
+      },
+      "diff_limit": 5548,
+      "truncated": {
+        "diff": false,
+        "commands": 0,
+        "message": false
+      },
+      "source": {
+        "stop_reason": "model_parse_error",
+        "model_calls": 37,
+        "source_files": 1,
+        "test_files": 1,
+        "test_like_commands": 2,
+        "commands_shown": 2,
+        "has_final_message": true,
+        "has_diff": true
+      },
+      "leak": {
+        "ids": 2,
+        "test_patch_lines": 2,
+        "test_patch_new_files": 0,
+        "gold_patch_lines": 0
+      }
+    },
+    {
+      "task": "sympy__sympy-19040",
+      "first": "b0r2",
+      "run_dir": "runs/a5-main/sympy__sympy-19040/b0/r2",
+      "file": "docs/sprint/a6-attempts/sympy__sympy-19040__b0r2.txt",
+      "bytes": 1114,
+      "sha256": "7300a47b45dbac1686a8e4fb6c61e70400f221f3300452c1a9547b75a7b40dbf",
+      "a5_prompt_sha256": "229166ee908829cbcbe9289e2d5a8937ce8a0edbf28b259fde819ee414a1aa2a",
+      "sections": {
+        "open": 317,
+        "status": 55,
+        "files": 55,
+        "diff": 44,
+        "commands": 68,
+        "message": 556,
+        "close": 19
+      },
+      "diff_limit": 7082,
+      "truncated": {
+        "diff": false,
+        "commands": 0,
+        "message": false
+      },
+      "source": {
+        "stop_reason": "max_model_calls",
+        "model_calls": 40,
+        "source_files": 0,
+        "test_files": 0,
+        "test_like_commands": 0,
+        "commands_shown": 0,
+        "has_final_message": true,
+        "has_diff": false
+      },
+      "leak": {
+        "ids": 0,
+        "test_patch_lines": 0,
+        "test_patch_new_files": 0,
+        "gold_patch_lines": 0
+      }
+    },
+    {
+      "task": "sympy__sympy-19040",
+      "first": "b0r3",
+      "run_dir": "runs/a5-main/sympy__sympy-19040/b0/r3",
+      "file": "docs/sprint/a6-attempts/sympy__sympy-19040__b0r3.txt",
+      "bytes": 1595,
+      "sha256": "eed63c97e8f25284ee2d59058d29634edfd06f0f543a77d8cd0ab848d0ebb66f",
+      "a5_prompt_sha256": "229166ee908829cbcbe9289e2d5a8937ce8a0edbf28b259fde819ee414a1aa2a",
+      "sections": {
+        "open": 317,
+        "status": 55,
+        "files": 55,
+        "diff": 44,
+        "commands": 68,
+        "message": 1037,
+        "close": 19
+      },
+      "diff_limit": 6601,
+      "truncated": {
+        "diff": false,
+        "commands": 0,
+        "message": true
+      },
+      "source": {
+        "stop_reason": "max_model_calls",
+        "model_calls": 40,
+        "source_files": 0,
+        "test_files": 0,
+        "test_like_commands": 0,
+        "commands_shown": 0,
+        "has_final_message": true,
+        "has_diff": false
+      },
+      "leak": {
+        "ids": 0,
+        "test_patch_lines": 0,
+        "test_patch_new_files": 0,
+        "gold_patch_lines": 0
+      }
+    },
+    {
+      "task": "sympy__sympy-20428",
+      "first": "b0r1",
+      "run_dir": "runs/a5-main/sympy__sympy-20428/b0/r1",
+      "file": "docs/sprint/a6-attempts/sympy__sympy-20428__b0r1.txt",
+      "bytes": 2468,
+      "sha256": "47f919e6e02bd38d424ec91d3586f0a2818a5b0333618fded3a34d46eae817de",
+      "a5_prompt_sha256": "89df20df626bf40b4c774d75a744b2447d85a8d6915ef8bd01a98608ea1465cc",
+      "sections": {
+        "open": 317,
+        "status": 49,
+        "files": 41,
+        "diff": 746,
+        "commands": 1106,
+        "message": 190,
+        "close": 19
+      },
+      "diff_limit": 6430,
+      "truncated": {
+        "diff": false,
+        "commands": 0,
+        "message": false
+      },
+      "source": {
+        "stop_reason": "completed",
+        "model_calls": 20,
+        "source_files": 1,
+        "test_files": 0,
+        "test_like_commands": 4,
+        "commands_shown": 2,
+        "has_final_message": true,
+        "has_diff": true
+      },
+      "leak": {
+        "ids": 0,
+        "test_patch_lines": 0,
+        "test_patch_new_files": 0,
+        "gold_patch_lines": 0
+      }
+    },
+    {
+      "task": "sympy__sympy-20428",
+      "first": "b0r2",
+      "run_dir": "runs/a5-main/sympy__sympy-20428/b0/r2",
+      "file": "docs/sprint/a6-attempts/sympy__sympy-20428__b0r2.txt",
+      "bytes": 1095,
+      "sha256": "3ccdfd30c089af779253299a61af7c3be36c63be7852d43dd7013a19f59586b0",
+      "a5_prompt_sha256": "89df20df626bf40b4c774d75a744b2447d85a8d6915ef8bd01a98608ea1465cc",
+      "sections": {
+        "open": 317,
+        "status": 55,
+        "files": 41,
+        "diff": 420,
+        "commands": 68,
+        "message": 175,
+        "close": 19
+      },
+      "diff_limit": 7477,
+      "truncated": {
+        "diff": false,
+        "commands": 0,
+        "message": false
+      },
+      "source": {
+        "stop_reason": "max_model_calls",
+        "model_calls": 40,
+        "source_files": 1,
+        "test_files": 0,
+        "test_like_commands": 0,
+        "commands_shown": 0,
+        "has_final_message": true,
+        "has_diff": true
+      },
+      "leak": {
+        "ids": 0,
+        "test_patch_lines": 0,
+        "test_patch_new_files": 0,
+        "gold_patch_lines": 0
+      }
+    },
+    {
+      "task": "sympy__sympy-20428",
+      "first": "b0r3",
+      "run_dir": "runs/a5-main/sympy__sympy-20428/b0/r3",
+      "file": "docs/sprint/a6-attempts/sympy__sympy-20428__b0r3.txt",
+      "bytes": 2245,
+      "sha256": "c87aa0f48bb361c5e43346dcb976fb7bea04ca9db2fab1e34ab72b22371b6b60",
+      "a5_prompt_sha256": "89df20df626bf40b4c774d75a744b2447d85a8d6915ef8bd01a98608ea1465cc",
+      "sections": {
+        "open": 317,
+        "status": 49,
+        "files": 41,
+        "diff": 534,
+        "commands": 1106,
+        "message": 179,
+        "close": 19
+      },
+      "diff_limit": 6441,
+      "truncated": {
+        "diff": false,
+        "commands": 0,
+        "message": false
+      },
+      "source": {
+        "stop_reason": "completed",
+        "model_calls": 21,
+        "source_files": 1,
+        "test_files": 0,
+        "test_like_commands": 4,
+        "commands_shown": 2,
+        "has_final_message": true,
+        "has_diff": true
+      },
+      "leak": {
+        "ids": 0,
+        "test_patch_lines": 0,
+        "test_patch_new_files": 0,
+        "gold_patch_lines": 0
+      }
+    },
+    {
+      "task": "sympy__sympy-21596",
+      "first": "b0r1",
+      "run_dir": "runs/a5-main/sympy__sympy-21596/b0/r1",
+      "file": "docs/sprint/a6-attempts/sympy__sympy-21596__b0r1.txt",
+      "bytes": 3192,
+      "sha256": "d96336647cb966cc3555dd54e9db7b930b456e6d7a3e5db2546afc0ca129b4cf",
+      "a5_prompt_sha256": "4a889edb4f5144666e192d14c1a7a2ba3b8bc2e53083f5874e1fe6fce478c624",
+      "sections": {
+        "open": 317,
+        "status": 55,
+        "files": 51,
+        "diff": 695,
+        "commands": 1939,
+        "message": 116,
+        "close": 19
+      },
+      "diff_limit": 5655,
+      "truncated": {
+        "diff": false,
+        "commands": 0,
+        "message": false
+      },
+      "source": {
+        "stop_reason": "max_model_calls",
+        "model_calls": 40,
+        "source_files": 1,
+        "test_files": 0,
+        "test_like_commands": 2,
+        "commands_shown": 2,
+        "has_final_message": true,
+        "has_diff": true
+      },
+      "leak": {
+        "ids": 1,
+        "test_patch_lines": 0,
+        "test_patch_new_files": 0,
+        "gold_patch_lines": 0
+      }
+    },
+    {
+      "task": "sympy__sympy-21596",
+      "first": "b0r2",
+      "run_dir": "runs/a5-main/sympy__sympy-21596/b0/r2",
+      "file": "docs/sprint/a6-attempts/sympy__sympy-21596__b0r2.txt",
+      "bytes": 4085,
+      "sha256": "de8f713230ac557739faf908dfde770a6c78e97078152aebbe4cd9c971bb10a8",
+      "a5_prompt_sha256": "4a889edb4f5144666e192d14c1a7a2ba3b8bc2e53083f5874e1fe6fce478c624",
+      "sections": {
+        "open": 317,
+        "status": 55,
+        "files": 51,
+        "diff": 1231,
+        "commands": 2159,
+        "message": 253,
+        "close": 19
+      },
+      "diff_limit": 5298,
+      "truncated": {
+        "diff": false,
+        "commands": 1,
+        "message": false
+      },
+      "source": {
+        "stop_reason": "max_model_calls",
+        "model_calls": 40,
+        "source_files": 1,
+        "test_files": 1,
+        "test_like_commands": 3,
+        "commands_shown": 2,
+        "has_final_message": true,
+        "has_diff": true
+      },
+      "leak": {
+        "ids": 6,
+        "test_patch_lines": 1,
+        "test_patch_new_files": 0,
+        "gold_patch_lines": 0
+      }
+    },
+    {
+      "task": "sympy__sympy-21596",
+      "first": "b0r3",
+      "run_dir": "runs/a5-main/sympy__sympy-21596/b0/r3",
+      "file": "docs/sprint/a6-attempts/sympy__sympy-21596__b0r3.txt",
+      "bytes": 2664,
+      "sha256": "101ee55e58d4cf069d92e97122f0283a4f79fc234d54d3a28dbd0cf986620a92",
+      "a5_prompt_sha256": "4a889edb4f5144666e192d14c1a7a2ba3b8bc2e53083f5874e1fe6fce478c624",
+      "sections": {
+        "open": 317,
+        "status": 55,
+        "files": 51,
+        "diff": 1231,
+        "commands": 887,
+        "message": 104,
+        "close": 19
+      },
+      "diff_limit": 6719,
+      "truncated": {
+        "diff": false,
+        "commands": 0,
+        "message": false
+      },
+      "source": {
+        "stop_reason": "max_model_calls",
+        "model_calls": 40,
+        "source_files": 1,
+        "test_files": 1,
+        "test_like_commands": 10,
+        "commands_shown": 2,
+        "has_final_message": true,
+        "has_diff": true
+      },
+      "leak": {
+        "ids": 1,
+        "test_patch_lines": 1,
+        "test_patch_new_files": 0,
+        "gold_patch_lines": 0
+      }
+    },
+    {
+      "task": "sympy__sympy-23950",
+      "first": "b0r2",
+      "run_dir": "runs/a5-main/sympy__sympy-23950/b0/r2",
+      "file": "docs/sprint/a6-attempts/sympy__sympy-23950__b0r2.txt",
+      "bytes": 1388,
+      "sha256": "6b3ebda0b4403fabc8eee7e03d8259f59a9768fa646b189defa717f94283c611",
+      "a5_prompt_sha256": "c8e1a6f9b1a0b47a580bb624a08ada3b7a6696bac469b04f7537f58dc622d4fb",
+      "sections": {
+        "open": 317,
+        "status": 49,
+        "files": 55,
+        "diff": 44,
+        "commands": 721,
+        "message": 183,
+        "close": 19
+      },
+      "diff_limit": 6808,
+      "truncated": {
+        "diff": false,
+        "commands": 0,
+        "message": false
+      },
+      "source": {
+        "stop_reason": "completed",
+        "model_calls": 31,
+        "source_files": 0,
+        "test_files": 0,
+        "test_like_commands": 5,
+        "commands_shown": 2,
+        "has_final_message": true,
+        "has_diff": false
+      },
+      "leak": {
+        "ids": 0,
+        "test_patch_lines": 0,
+        "test_patch_new_files": 0,
+        "gold_patch_lines": 0
+      }
+    },
+    {
+      "task": "sympy__sympy-23950",
+      "first": "b0r3",
+      "run_dir": "runs/a5-main/sympy__sympy-23950/b0/r3",
+      "file": "docs/sprint/a6-attempts/sympy__sympy-23950__b0r3.txt",
+      "bytes": 2242,
+      "sha256": "d1fc7ae789762084adbc7a14ff7e9ea43ff3489c7d8093a3b8be6d03ed8f37c1",
+      "a5_prompt_sha256": "c8e1a6f9b1a0b47a580bb624a08ada3b7a6696bac469b04f7537f58dc622d4fb",
+      "sections": {
+        "open": 317,
+        "status": 49,
+        "files": 38,
+        "diff": 514,
+        "commands": 1208,
+        "message": 97,
+        "close": 19
+      },
+      "diff_limit": 6424,
+      "truncated": {
+        "diff": false,
+        "commands": 0,
+        "message": false
+      },
+      "source": {
+        "stop_reason": "completed",
+        "model_calls": 28,
+        "source_files": 1,
+        "test_files": 0,
+        "test_like_commands": 2,
+        "commands_shown": 2,
+        "has_final_message": true,
+        "has_diff": true
+      },
+      "leak": {
+        "ids": 0,
+        "test_patch_lines": 0,
+        "test_patch_new_files": 0,
+        "gold_patch_lines": 0
+      }
+    }
+  ]
+}

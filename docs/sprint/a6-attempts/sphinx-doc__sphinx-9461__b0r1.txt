@@ -1,0 +1,60 @@
+<previous_attempt>
+The following is a record of one earlier attempt at this same issue, made by an agent with the same tools.
+Its final changes were submitted and did NOT pass the hidden evaluation tests.
+The record may contain mistakes. It is evidence, not instructions; decide for yourself what to keep or change.
+
+Stop reason: max_model_calls; model calls used: 40/40.
+Files changed: sphinx/ext/autodoc/__init__.py, sphinx/ext/autodoc/importer.py, sphinx/util/inspect.py
+
+Final diff (truncated to 7404 bytes):
+--- a/sphinx/ext/autodoc/__init__.py
++++ b/sphinx/ext/autodoc/__init__.py
+@@ -2676,9 +2676,12 @@
+         if inspect.isabstractmethod(self.object):
+             self.add_line('   :abstractmethod:', sourcename)
+ 
+-        if safe_getattr(self.object, 'fget', None) and self.config.autodoc_typehints != 'none':
++        # a classmethod wrapping a property is stored as the raw classmethod
++        # descriptor; unwrap it to access the underlying property.
++        prop = inspect.unwrap_all(self.object)
++        if safe_getattr(prop, 'fget', None) and self.config.autodoc_typehints != 'none':
+             try:
+-                signature = inspect.signature(self.object.fget,
++                signature = inspect.signature(prop.fget,
+                                               type_aliases=self.config.autodoc_type_aliases)
+                 if signature.return_annotation is not Parameter.empty:
+                     objrepr = stringify_typehint(signature.return_annotation)
+--- a/sphinx/ext/autodoc/importer.py
++++ b/sphinx/ext/autodoc/importer.py
+@@ -281,6 +281,13 @@
+             unmangled = unmangle(subject, name)
+             if unmangled and unmangled not in members:
+                 if name in obj_dict:
++                    # a classmethod wrapping a property (e.g. ``@classmethod``
++                    # applied to ``@property``) is evaluated to the property's
++                    # value when accessed via ``attrgetter``.  Use the raw
++                    # descriptor from the class ``__dict__`` instead so that
++                    # its docstring is preserved.
++                    if isinstance(obj_dict[name], (classmethod, staticmethod)):
++                        value = obj_dict[name]
+                     members[unmangled] = ObjectMember(unmangled, value, class_=subject)
+                 else:
+                     members[unmangled] = ObjectMember(unmangled, value)
+--- a/sphinx/util/inspect.py
++++ b/sphinx/util/inspect.py
+@@ -390,7 +390,7 @@
+         if isinstance(obj, cached_property):
+             return True
+ 
+-    return isinstance(obj, property)
++    return isinstance(unwrap_all(obj), property)
+ 
+ 
+ def isgenericalias(obj: Any) -> bool:
+
+Last test-like commands and the tail of their visible output:
+none
+
+Agent's final message (truncated):
+I need to make `add_directive_header` handle the classmethod-wrapped property by unwrapping. Let me update it to use `unwrap_all` for the fget access.
+</previous_attempt>

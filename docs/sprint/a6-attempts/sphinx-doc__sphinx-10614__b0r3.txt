@@ -1,0 +1,86 @@
+<previous_attempt>
+The following is a record of one earlier attempt at this same issue, made by an agent with the same tools.
+Its final changes were submitted and did NOT pass the hidden evaluation tests.
+The record may contain mistakes. It is evidence, not instructions; decide for yourself what to keep or change.
+
+Stop reason: max_model_calls; model calls used: 40/40.
+Files changed: sphinx/ext/inheritance_diagram.py
+
+Final diff (truncated to 6109 bytes):
+--- a/sphinx/ext/inheritance_diagram.py
++++ b/sphinx/ext/inheritance_diagram.py
+@@ -54,6 +54,7 @@
+     render_dot_texinfo,
+ )
+ from sphinx.util.docutils import SphinxDirective
++from sphinx.util.osutil import relative_uri
+ from sphinx.util.typing import OptionSpec
+ from sphinx.writers.html import HTML5Translator
+ from sphinx.writers.latex import LaTeXTranslator
+@@ -413,12 +414,12 @@
+     for child in pending_xrefs:
+         if child.get('refuri') is not None:
+             if graphviz_output_format == 'SVG':
+-                urls[child['reftitle']] = "../" + child.get('refuri')
++                urls[child['reftitle']] = '../' + relative_uri(current_filename, child.get('refuri'))
+             else:
+                 urls[child['reftitle']] = child.get('refuri')
+         elif child.get('refid') is not None:
+             if graphviz_output_format == 'SVG':
+-                urls[child['reftitle']] = '../' + current_filename + '#' + child.get('refid')
++                urls[child['reftitle']] = '../' + relative_uri(current_filename, current_filename + '#' + child.get('refid'))
+             else:
+                 urls[child['reftitle']] = '#' + child.get('refid')
+ 
+
+Last test-like commands and the tail of their visible output:
+$ rm -rf /tmp/repro2 && cp -r tests/roots/test-ext-inheritance_diagram /tmp/repro2 && cd /tmp/repro2 && mkdir -p sub && cat > sub/index.rst <<'EOF'
+Sub
+===
+
+.. inheritance-diagram:: test.Foo
+EOF
+sed -i "s/extensions = .*/extensions = ['sphinx.ext.inheritance_diagram']\ngraphviz_output_format = 'svg'/" conf.py
+python -m sphinx -b html . _build 2>&1 | tail -3
+echo "=== svg links ==="
+grep -o 'xlink:href="[^"]*"' _build/_images/*.svg | sort -u
+build succeeded, 1 warning.
+
+The HTML pages are in _build.
+=== svg links ===
+
+[exit_code=0 status=succeeded truncated=false bytes_seen=77 bytes_kept=154 cleanup=not_required duration_ms=1688]
+
+$ cd /tmp/repro2 && cat > conf.py <<'EOF'
+import os
+import sys
+sys.path.insert(0, os.path.abspath('.'))
+extensions = ['sphinx.ext.autodoc', 'sphinx.ext.inheritance_diagram']
+graphviz_output_format = 'svg'
+EOF
+cat > index.rst <<'EOF'
+Root
+====
+
+.. inheritance-diagram:: test.Foo
+EOF
+cat > sub/index.rst <<'EOF'
+Sub
+===
+
+.. inheritance-diagram:: test.Foo
+EOF
+rm -rf _build && python -m sphinx -b html . _build 2>&1 | tail -3
+echo "=== svg links ==="
+grep -o 'xlink:href="[^"]*"' _build/_image
+[truncated]
+build succeeded, 1 warning.
+
+The HTML pages are in _build.
+=== svg links ===
+
+[exit_code=0 status=succeeded truncated=false bytes_seen=77 bytes_kept=154 cleanup=not_required duration_ms=2108]
+
+Agent's final message (truncated):
+The SVG has no `<a>` links because the classes aren't documented as targets. Let me check the existing test that verifies SVG links to understand how links get generated.
+</previous_attempt>

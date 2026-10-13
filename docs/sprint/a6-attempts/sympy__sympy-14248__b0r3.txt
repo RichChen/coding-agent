@@ -1,0 +1,40 @@
+<previous_attempt>
+The following is a record of one earlier attempt at this same issue, made by an agent with the same tools.
+Its final changes were submitted and did NOT pass the hidden evaluation tests.
+The record may contain mistakes. It is evidence, not instructions; decide for yourself what to keep or change.
+
+Stop reason: max_model_calls; model calls used: 40/40.
+Files changed: sympy/printing/str.py
+
+Final diff (truncated to 7507 bytes):
+--- a/sympy/printing/str.py
++++ b/sympy/printing/str.py
+@@ -312,8 +312,17 @@
+             for arg in expr.args])
+ 
+     def _print_MatAdd(self, expr):
+-        return ' + '.join([self.parenthesize(arg, precedence(expr))
+-            for arg in expr.args])
++        s = None
++        for item in expr.args:
++            pform = self._print(item)
++            if s is None:
++                s = pform     # First element
++            else:
++                if S(item.args[0]).is_negative:
++                    s += ' - ' + pform
++                else:
++                    s += ' + ' + pform
++        return s
+ 
+     def _print_NaN(self, expr):
+         return 'nan'
+
+Last test-like commands and the tail of their visible output:
+none
+
+Agent's final message (truncated):
+I now have all the context needed. Let me make the three edits.
+
+**1. str.py** — handle negative coefficients:
+</previous_attempt>

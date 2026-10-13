@@ -1,0 +1,55 @@
+<previous_attempt>
+The following is a record of one earlier attempt at this same issue, made by an agent with the same tools.
+Its final changes were submitted and did NOT pass the hidden evaluation tests.
+The record may contain mistakes. It is evidence, not instructions; decide for yourself what to keep or change.
+
+Stop reason: max_model_calls; model calls used: 40/40.
+Files changed: sympy/sets/handlers/intersection.py
+
+Final diff (truncated to 6719 bytes):
+--- a/sympy/sets/handlers/intersection.py
++++ b/sympy/sets/handlers/intersection.py
+@@ -306,9 +306,9 @@
+             # univarite imaginary part in same variable
+             x, xis = zip(*[solve_linear(i, 0) for i in Mul.make_args(im) if n in i.free_symbols])
+             if x and all(i == n for i in x):
+-                base_set -= FiniteSet(xis)
++                base_set &= FiniteSet(*xis)
+             else:
+-                base_set -= ConditionSet(n, Eq(im, 0), S.Integers)
++                base_set &= ConditionSet(n, Eq(im, 0), S.Integers)
+         # exclude values that make denominators 0
+         for i in denoms(f):
+             if i.has(n):
+--- a/sympy/sets/tests/test_fancysets.py
++++ b/sympy/sets/tests/test_fancysets.py
+@@ -657,7 +657,7 @@
+ def test_imageset_intersect_real():
+     from sympy import I
+     from sympy.abc import n
+-    assert imageset(Lambda(n, n + (n - 1)*(n + 1)*I), S.Integers).intersect(S.Reals) == Complement(S.Integers, FiniteSet((-1, 1)))
++    assert imageset(Lambda(n, n + (n - 1)*(n + 1)*I), S.Integers).intersect(S.Reals) == FiniteSet(-1, 1)
+     s = ImageSet(
+         Lambda(n, -I*(I*(2*pi*n - pi/4) + log(Abs(sqrt(-I))))),
+         S.Integers)
+
+Last test-like commands and the tail of their visible output:
+$ cd /workspace && timeout 110 python -m pytest sympy/sets/tests/test_sets.py 2>&1 | tail -4
+SymPyDeprecationWarning(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+================== 97 passed, 4 xfailed, 3 warnings in 7.02s ===================
+
+[exit_code=0 status=succeeded truncated=false bytes_seen=183 bytes_kept=366 cleanup=not_required duration_ms=9062]
+
+$ cd /workspace && timeout 110 python -m pytest sympy/sets/tests/test_intersection.py 2>&1 | tail -4
+self._warn_or_fail_if_strict(f"Unknown config option: {key}\n")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+============================== 1 warning in 0.00s ==============================
+
+[exit_code=0 status=succeeded truncated=false bytes_seen=222 bytes_kept=444 cleanup=not_required duration_ms=1575]
+
+Agent's final message (truncated):
+All relevant tests pass. Let me confirm the final state of the fix.
+</previous_attempt>

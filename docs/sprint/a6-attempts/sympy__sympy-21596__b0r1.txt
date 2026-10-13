@@ -1,0 +1,63 @@
+<previous_attempt>
+The following is a record of one earlier attempt at this same issue, made by an agent with the same tools.
+Its final changes were submitted and did NOT pass the hidden evaluation tests.
+The record may contain mistakes. It is evidence, not instructions; decide for yourself what to keep or change.
+
+Stop reason: max_model_calls; model calls used: 40/40.
+Files changed: sympy/sets/handlers/intersection.py
+
+Final diff (truncated to 5655 bytes):
+--- a/sympy/sets/handlers/intersection.py
++++ b/sympy/sets/handlers/intersection.py
+@@ -306,9 +306,9 @@
+             # univarite imaginary part in same variable
+             x, xis = zip(*[solve_linear(i, 0) for i in Mul.make_args(im) if n in i.free_symbols])
+             if x and all(i == n for i in x):
+-                base_set -= FiniteSet(xis)
++                base_set &= FiniteSet(*xis)
+             else:
+-                base_set -= ConditionSet(n, Eq(im, 0), S.Integers)
++                base_set &= ConditionSet(n, Eq(im, 0), S.Integers)
+         # exclude values that make denominators 0
+         for i in denoms(f):
+             if i.has(n):
+
+Last test-like commands and the tail of their visible output:
+$ cd /workspace && python -m pytest sympy/sets/tests/test_sets.py -q 2>&1 | tail -20
+..................x..........                                            [100%]
+=============================== warnings summary ===============================
+../usr/local/lib/python3.9/site-packages/_pytest/config/__init__.py:1474
+  /usr/local/lib/python3.9/site-packages/_pytest/config/__init__.py:1474: PytestConfigWarning: Unknown config option: doctestplus
+  
+    self._warn_or_fail_if_strict(f"Unknown config option: {key}\n")
+
+sympy/sets/tests/test_sets.py::test_union_intersection_constructor
+sympy/sets/tests/test_sets.py::test_union_intersection_constructor
+  /workspace/sympy/core/sympify.py:449: SymPyDeprecationWarning: 
+  
+  String fallback in sympify has been deprecated since SymPy 1.6. Use
+  sympify(str(obj)) or sympy.core.sympify.converter or obj._sympy_
+  instead. See https://github.com/sympy/sympy/issues/18066 for more
+  info.
+  
+    SymPyDeprecationWarning(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+97 passed, 4 xfailed, 3 warnings in 4.49s
+
+[exit_code=0 status=succeeded truncated=false bytes_seen=999 bytes_kept=1998 cleanup=not_required duration_ms=9272]
+
+$ cd /workspace && python -m pytest sympy/sets/tests/test_fancysets.py sympy/sets/tests/test_conditionset.py -q 2>&1 | tail -8
+self._warn_or_fail_if_strict(f"Unknown config option: {key}\n")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+                                DO *NOT* COMMIT!                                
+=========================== short test summary info ============================
+FAILED sympy/sets/tests/test_fancysets.py::test_imageset_intersect_real - ass...
+1 failed, 61 passed, 1 xfailed, 1 warning in 4.56s
+
+[exit_code=0 status=succeeded truncated=false bytes_seen=438 bytes_kept=876 cleanup=not_required duration_ms=6819]
+
+Agent's final message (truncated):
+The fix works. Now let me run the related tests to make sure nothing is broken.
+</previous_attempt>

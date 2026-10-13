@@ -1,0 +1,105 @@
+<previous_attempt>
+The following is a record of one earlier attempt at this same issue, made by an agent with the same tools.
+Its final changes were submitted and did NOT pass the hidden evaluation tests.
+The record may contain mistakes. It is evidence, not instructions; decide for yourself what to keep or change.
+
+Stop reason: max_model_calls; model calls used: 40/40.
+Files changed: sphinx/ext/inheritance_diagram.py
+
+Final diff (truncated to 4233 bytes):
+--- a/sphinx/ext/inheritance_diagram.py
++++ b/sphinx/ext/inheritance_diagram.py
+@@ -54,6 +54,7 @@
+     render_dot_texinfo,
+ )
+ from sphinx.util.docutils import SphinxDirective
++from sphinx.util.osutil import relative_uri
+ from sphinx.util.typing import OptionSpec
+ from sphinx.writers.html import HTML5Translator
+ from sphinx.writers.latex import LaTeXTranslator
+@@ -413,12 +414,13 @@
+     for child in pending_xrefs:
+         if child.get('refuri') is not None:
+             if graphviz_output_format == 'SVG':
+-                urls[child['reftitle']] = "../" + child.get('refuri')
++                urls[child['reftitle']] = relative_uri(current_filename, child.get('refuri'))
+             else:
+                 urls[child['reftitle']] = child.get('refuri')
+         elif child.get('refid') is not None:
+             if graphviz_output_format == 'SVG':
+-                urls[child['reftitle']] = '../' + current_filename + '#' + child.get('refid')
++                urls[child['reftitle']] = relative_uri(current_filename, current_filename) + \
++                    '#' + child.get('refid')
+             else:
+                 urls[child['reftitle']] = '#' + child.get('refid')
+ 
+
+Last test-like commands and the tail of their visible output:
+$ cd /workspace && cat > /tmp/repro_test.py << 'EOF'
+import shutil, re
+from pathlib import Path
+from sphinx.testing.util import SphinxTestApp
+
+def build(tmp_path, name, docpath, content):
+    src = Path('tests/roots/test-ext-inheritance_diagram')
+    dst = tmp_path / name
+    shutil.copytree(src, dst)
+    p = dst / docpath
+    p.parent.mkdir(parents=True, exist_ok=True)
+    p.write_text(content)
+    (dst / 'conf.py').write_text(
+        "import os, sys\nsys.path.insert(0, os.path.abspa
+[truncated]
+### root
+inheritance-3867b4981c56ad1968dd1bb735d91655cc559936.svg ['href="..#test.Foo"']
+.### nested
+inheritance-3867b4981c56ad1968dd1bb735d91655cc559936.svg ['href="../html#test.Foo"']
+inheritance-299b96a9cb3fc3224b243455bcab02cdd3fde096.svg ['href="../sub/index.html"', 'href="../sub/index.html"']
+inheritance-2e7c7dbf51e3ae0b7b7344e25a3e3481f2d14525.svg ['href="../sub/index.html"']
+.
+2 passed in 0.68s
+
+[exit_code=0 status=succeeded truncated=false bytes_seen=406 bytes_kept=812 cleanup=not_required duration_ms=2457]
+
+$ cd /workspace && git stash && cat > /tmp/repro_test.py << 'EOF'
+import shutil, re
+from pathlib import Path
+from sphinx.testing.util import SphinxTestApp
+
+def build(tmp_path, name, docpath, content):
+    src = Path('tests/roots/test-ext-inheritance_diagram')
+    dst = tmp_path / name
+    shutil.copytree(src, dst)
+    p = dst / docpath
+    p.parent.mkdir(parents=True, exist_ok=True)
+    p.write_text(content)
+    (dst / 'conf.py').write_text(
+        "import os, sys\nsys.path.insert(0, 
+[truncated]
+### root
+inheritance-3867b4981c56ad1968dd1bb735d91655cc559936.svg ['href="..#test.Foo"']
+.### nested
+inheritance-3867b4981c56ad1968dd1bb735d91655cc559936.svg ['href="../html#test.Foo"']
+inheritance-299b96a9cb3fc3224b243455bcab02cdd3fde096.svg ['href="../sub/index.html"', 'href="../sub/index.html"']
+inheritance-2e7c7dbf51e3ae0b7b7344e25a3e3481f2d14525.svg ['href="../sub/index.html"']
+.
+2 passed in 0.67s
+
+[stderr]
+fatal: not a git repository (or any parent up to mount point /)
+Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).
+fatal: not a git repository (or any parent up to mount point /)
+Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).
+
+[exit_code=128 status=failed truncated=false bytes_seen=684 bytes_kept=1368 cleanup=not_required duration_ms=1658]
+Error: nonzero_exit
+Error: nonzero_exit
+
+Agent's final message (truncated):
+Now I understand the full picture. `fix_svg_relative_paths` takes links that are relative to the *output root* and rewrites them to be relative to `imgpath` (`_images/`). So the inheritance_diagram code should produce links relative to the **output root**, not prepend `"../"`.
+
+So the correct fix is simply to NOT prepend `"../"` at all — the links should be relative to the output root, and `fix_svg_relative_paths` handles the `_images/` offset. Let me verify: for the root doc, the old code produced `../my_package/my_class_1.html` and it worked. But `fix_svg_relative_paths` would then rewrite `../my_package/...` relative to `_images/` → `../../my_package/...` which would be wrong.
+
+Wait — but the issue says root-level links work. Let me check whether `fix_svg_relative_paths` is applied to inheritance diagrams. The inheritance diagram uses `render_dot` with `format='svg'`, so yes it is. Let me re-examine: the old code prepends `"../"`, then `fix_svg_relative_paths` rewr
+[truncated]
+</previous_attempt>

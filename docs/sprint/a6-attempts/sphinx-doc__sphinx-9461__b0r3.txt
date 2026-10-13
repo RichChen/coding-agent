@@ -1,0 +1,78 @@
+<previous_attempt>
+The following is a record of one earlier attempt at this same issue, made by an agent with the same tools.
+Its final changes were submitted and did NOT pass the hidden evaluation tests.
+The record may contain mistakes. It is evidence, not instructions; decide for yourself what to keep or change.
+
+Stop reason: max_model_calls; model calls used: 40/40.
+Files changed: sphinx/ext/autodoc/__init__.py, sphinx/ext/autodoc/importer.py, sphinx/util/inspect.py
+
+Final diff (truncated to 7462 bytes):
+--- a/sphinx/ext/autodoc/__init__.py
++++ b/sphinx/ext/autodoc/__init__.py
+@@ -2676,9 +2676,15 @@
+         if inspect.isabstractmethod(self.object):
+             self.add_line('   :abstractmethod:', sourcename)
+ 
+-        if safe_getattr(self.object, 'fget', None) and self.config.autodoc_typehints != 'none':
++        # a property wrapped by classmethod/staticmethod is stored as the raw
++        # descriptor; unwrap it to access the underlying property object
++        obj = self.object
++        if isinstance(obj, (classmethod, staticmethod)):
++            obj = obj.__func__
++
++        if safe_getattr(obj, 'fget', None) and self.config.autodoc_typehints != 'none':
+             try:
+-                signature = inspect.signature(self.object.fget,
++                signature = inspect.signature(obj.fget,
+                                               type_aliases=self.config.autodoc_type_aliases)
+                 if signature.return_annotation is not Parameter.empty:
+                     objrepr = stringify_typehint(signature.return_annotation)
+--- a/sphinx/ext/autodoc/importer.py
++++ b/sphinx/ext/autodoc/importer.py
+@@ -281,6 +281,14 @@
+             unmangled = unmangle(subject, name)
+             if unmangled and unmangled not in members:
+                 if name in obj_dict:
++                    # use the raw descriptor for classmethod/staticmethod wrapping
++                    # a property, since accessing it via getattr() would evaluate
++                    # the property and return its value instead of the descriptor
++                    # (cf. https://bugs.python.org/issue43682)
++                    raw = obj_dict[name]
++                    if isinstance(raw, (classmethod, staticmethod)) and \
++                            isinstance(raw.__func__, property):
++                        value = raw
+                     members[unmangled] = ObjectMember(unmangled, value, class_=subject)
+                 else:
+                     members[unmangled] = ObjectMember(unmangled, value)
+--- a/sphinx/util/inspect.py
++++ b/sphinx/util/inspect.py
+@@ -284,6 +284,10 @@
+ 
+ def isabstractmethod(obj: Any) -> bool:
+     """Check if the object is an abstractmethod."""
++    if isinstance(obj, (classmethod, staticmethod)):
++        # unwrap classmethod/staticmethod to check the wrapped object
++        return isabstractmethod(obj.__func__)
++
+     return safe_getattr(obj, '__isabstractmethod__', False) is True
+ 
+ 
+@@ -390,6 +394,11 @@
+         if isinstance(obj, cached_property):
+             return True
+ 
++    if isinstance(obj, (classmethod, staticmethod)):
++        # unwrap classmethod/staticmethod to check the wrapped object
++        # (e.g. ``@classmethod`` applied on top of ``@property``)
++        return isproperty(obj.__func__)
++
+     return isinstance(obj, property)
+ 
+ 
+
+Last test-like commands and the tail of their visible output:
+none
+
+Agent's final message (truncated):
+Let me update `isabstractmethod` to unwrap classmethod/staticmethod wrappers too, then test.
+</previous_attempt>
