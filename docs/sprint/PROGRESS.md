@@ -481,3 +481,11 @@ P5：删除 `pelican-bicycle.html`。用 v5 final 卡片在 3 道题上跑 mock 
 审计结论是泄漏检查第 1、2 项不阻断，判定口径改为"记录内容只能来自第一次运行的产物和原始源码"。为此新增测试：私有材料不可读或换成垃圾内容时，渲染出的记录逐字节不变；合成数据和真实 53 份都测了（`4bfd6f3`）。只改了测试文件的 2 份记录（django-15973 b0r3、sphinx-9258 b0r2），Files changed 改写为 `none (only test files were changed; see the diff)`，其余 51 份不变，泄漏计数仍是 34/58/0/113，只作描述。记录和清单已提交（`27a7a0a`）：模板 sha `7bed7ba8…`，清单 `handoff_sha256` `bd932529…`。
 
 `scripts/run_a6_retry.py`（`69178cc`）：318 个槽位用种子 20261013 打乱；R1 每次运行前按 sha 读回记录，运行后核对第一条 user 消息；停止条件按计划第 1 节；runs 文件字段按 agent 预注册；canary 规则已预先实现。preflight 22/22 题通过，R0 53/53 与 A5 sha 相同，R1 53/53 精确拼接，53 份记录重渲染逐字节相同。mock 4 个槽位（R0、R1 各 2，4 个 repo）跑通，注入核对 4/4；agent `a6-retry-freeze-r1`（`01db102`）的分析脚本读 mock runs 文件，输出 `STOP mock_input`。全量测试 `.venv` 两次都是 661 passed，22 skipped；系统 Python 两次都是 484 passed，199 skipped。记录在 `docs/sprint/CHECKPOINT-A6-1b.md`，没有打 tag，停下等审计。
+
+## A6-R 第 2 轮（A6-2）：冻结和 canary
+
+日期：2026-10-13。花费：2.450 CNY。依据 `A6-R-PLAN.zh-CN.md` 第 5 节 A6-2 和 `AUDIT-A6-1b.zh-CN.md` 第 3 节。
+
+20:54 第一次开工时，agent 仓库还没有 `a6-retry-freeze-r2`，也没有 `CHECKPOINT-A6-1c.md`，按第 0 步停下，什么都没做。重新开工时核对到 r2 → `6c67739`，与 agent CHECKPOINT 一致。审计文件原样入库（`4b10d63`）。全量测试 661 passed、22 skipped 之后，写冻结记录 `A6-R-FREEZE.md`，并打 harness tag `a6-retry-freeze`（`0cbc63d`）。canary 前重跑 preflight，22/22 通过。
+
+canary 4 个槽位（R0 2、R1 2）写入 `runs/a6-retry/`：没有触发停止条件，注入核对 4/4，隔离 4/4，模型 `deepseek-flash` @ `api.deepseek.com`，单次最高 0.834 元，累计 2.450 元。冻结后没有改代码。记录在 `docs/sprint/CHECKPOINT-A6-2.md`（`ce41746`），停下等审计，没有进入 A6-3。
