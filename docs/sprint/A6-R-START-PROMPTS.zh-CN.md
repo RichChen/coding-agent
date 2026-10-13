@@ -20,6 +20,30 @@
 
 不调用模型，不改 coding-harness 仓库。做完打 tag `a6-retry-freeze`，写 `docs/sprint/CHECKPOINT-A6-1.md`，小步提交，不 push，然后停下。
 
+## A6-1b（A6-1 审计后发）
+
+### 发给 coding-harness agent
+
+A6-1 审计结果在 `D:\crq\src\coding-harness\docs\sprint\AUDIT-A6-1.zh-CN.md`，开工前完整读取。泄漏检查第 1、2 项的命中不阻断，判定口径改为"记录内容只能来自第一次运行的产物和原始源码"。
+
+请按审计第 4 节做：
+1. 补一个测试：私有材料不可读或换成垃圾内容时，渲染出的 53 份记录逐字节不变；
+2. 按审计第 2 节改 "Files changed" 的 none 文字，重建记录，提交 `docs/sprint/a6-attempts/` 和 `a6-attempts.json`；
+3. 继续计划第 5 节 A6-1 的第 3–6 步（runner、`--preflight`、mock 端到端、全量测试）。`a6-retry-runs.json` 的字段以 coding-agent 的 `docs/sprint/A6-R-PREREG.zh-CN.md`"输入文件约定"一节为准。mock 端到端的最后一步用 agent 仓库 tag `a6-retry-freeze-r1` 上的 `scripts/analyze_a6_retry.py` 读 mock 的 runs 文件，确认它因为 mock 而 STOP。这一步只读 agent 仓库，不改它；如果那个 tag 还不存在，就跳过这一步并在 CHECKPOINT 里注明。
+
+本轮不调用真实模型。做完写 `docs/sprint/CHECKPOINT-A6-1b.md` 和 PROGRESS，小步提交，不 push，不打 freeze tag，然后停下。
+
+### 发给 coding-agent agent
+
+A6-1 审计结果在 `D:\crq\src\coding-harness\docs\sprint\AUDIT-A6-1.zh-CN.md`，开工前读第 1、3 节。请做：
+1. 结论句里的 X 改为 2.8 × s_obs / √N（s_obs 是实际 d_t 的样本标准差），同时报 95% 区间上限。预注册第 1 节不动，只改"脚本实现口径"一节；
+2. `a6-attempts.json` 以 harness 的实际结构为准：列表在 `records`，计数在 `attempts`。预注册"输入文件约定"一节改成这样，脚本只接受 `records`；
+3. harness 会按审计第 2 节改 "Files changed" 的文字，并重建记录。diff 段不受影响，但等 harness 提交新记录后，要重跑 `tests/test_a6_diff.py` 的逐字节比对；
+4. 重跑合成数据，确认三套结论不变，更新 `A6-R-SYNTHETIC-REPORT.md`；再跑两次全量测试，记下结果，看那 85 个 error 会不会复现；
+5. 保留 `a6-retry-freeze` 不动，打 `a6-retry-freeze-r1`。
+
+不调用模型，不改 coding-harness。写 `docs/sprint/CHECKPOINT-A6-1b.md`，小步提交，不 push，然后停下。
+
 ## 后续轮次（审计通过后发）
 
 - harness A6-2：`A6-1 审计通过。请执行 A6-R-PLAN 第 5 节 A6-2：写冻结记录、打 tag、跑 4 次 canary，写 CHECKPOINT-A6-2 后停下。agent 侧 tag 指向 <commit>。`
