@@ -19,7 +19,7 @@ from pathlib import Path
 if __package__ in {None, ""}:
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from scripts.a6_diff import is_test_path, load_delta, normalized_diff  # noqa: E402
+from scripts.a6_diff import diff_against, is_test_path, load_delta  # noqa: E402
 from scripts.handoff_sha import handoff_sha256  # noqa: E402
 
 SEED = 20261013
@@ -273,14 +273,14 @@ class FirstAttempts:
             delta = load_delta(run_dir)
             if delta is None:
                 raise ValueError("first_attempt_delta_missing:" + task + "/" + first)
-            self._diffs[key] = normalized_diff(delta, self.original(task))
+            self._diffs[key] = diff_against(delta, self.original(task))
         return self._diffs[key]
 
     def second_diff(self, task: str, run_dir: str) -> str | None:
         delta = load_delta(self.root / run_dir)
         if delta is None:
             return None
-        return normalized_diff(delta, self.original(task))
+        return diff_against(delta, self.original(task))
 
     def tier(self, task: str) -> str:
         rows = [self.summary(task, repeat) for repeat in REPEATS]
@@ -292,7 +292,7 @@ class FirstAttempts:
 
 
 def _non_test(files: list | None) -> set[str]:
-    return {str(name).replace("\\", "/") for name in files or [] if not is_test_path(str(name))}
+    return {str(name) for name in files or [] if not is_test_path(str(name))}
 
 
 def secondary(eligible: list[dict], firsts: FirstAttempts) -> dict[str, dict]:

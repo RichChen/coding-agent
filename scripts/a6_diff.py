@@ -1,6 +1,7 @@
-"""Normalized diff for A6-R. Must match harness scripts/build_a6_attempts.py byte for byte.
+"""Normalized diff for A6-R.
 
-The rules are written out in docs/sprint/A6-R-PREREG.zh-CN.md.
+The functions between the markers are copied verbatim from coding-harness
+scripts/build_a6_attempts.py. tests/test_a6_diff.py compares their AST with the harness file.
 """
 
 from __future__ import annotations
@@ -10,82 +11,89 @@ import difflib
 import json
 from pathlib import Path
 
-TRUNCATED = "\n[truncated]"
+# --- copied from coding-harness scripts/build_a6_attempts.py -------------------------------------
 
-
-def normalize_path(path: str) -> str:
-    return path.replace("\\", "/")
+TEST_DIRS = frozenset({"tests", "test", "testing"})
+TRUNCATED = "[truncated]"
 
 
 def is_test_path(path: str) -> bool:
-    parts = normalize_path(path).split("/")
+    parts = path.split("/")
     name = parts[-1]
-    if any(part in {"tests", "test"} for part in parts[:-1]):
-        return True
-    if len(parts) > 1 and parts[0] == "testing":
-        return True
-    if name == "conftest.py":
-        return True
-    return (name.startswith("test_") and name.endswith(".py")) or name.endswith("_test.py")
+    return (any(part in TEST_DIRS for part in parts[:-1]) or name.startswith("test_")
+            or name.endswith("_test.py") or name == "conftest.py")
 
 
-def _text(data: bytes) -> str:
-    return data.decode("utf-8", errors="replace").replace("\r\n", "\n").replace("\r", "\n")
+def _lf_text(data: bytes) -> str | None:
+    try:
+        text = data.decode("utf-8")
+    except UnicodeDecodeError:
+        return None
+    return text.replace("\r\n", "\n").replace("\r", "\n")
 
 
 def _lines(text: str) -> list[str]:
-    pieces = text.split("\n")
-    lines = [piece + "\n" for piece in pieces[:-1]]
-    if pieces[-1]:
-        lines.append(pieces[-1])
+    lines = text.split("\n")
+    if lines and lines[-1] == "":
+        lines.pop()
     return lines
 
 
-def file_diff(path: str, before: bytes | None, after: bytes | None) -> str:
-    old = "" if before is None else _text(before)
-    new = "" if after is None else _text(after)
-    if old == new:
-        return ""
-    fromfile = "/dev/null" if before is None else "a/" + path
-    tofile = "/dev/null" if after is None else "b/" + path
-    out = []
-    for line in difflib.unified_diff(_lines(old), _lines(new), fromfile, tofile, n=3):
-        out.append(line if line.endswith("\n") else line + "\n\\ No newline at end of file\n")
-    return "".join(out)
+def normalized_diff(delta: dict, original) -> str:
+    """Unified diff with 3 lines of context of a candidate delta against the original source.
 
-
-def delta_contents(delta: dict | None) -> dict[str, bytes | None]:
-    """Path -> new bytes, or None for a deletion. changed wins over deleted, as in apply_delta."""
-    files: dict[str, bytes | None] = {}
-    if not delta:
-        return files
-    for name in delta.get("deleted") or []:
-        files[normalize_path(name)] = None
-    for name, change in (delta.get("changed") or {}).items():
-        encoded = change["content"] if isinstance(change, dict) else change
-        files[normalize_path(name)] = base64.b64decode(encoded)
-    return files
-
-
-def normalized_diff(delta: dict | None, original_root: Path) -> str:
-    files = delta_contents(delta)
+    delta is candidate-delta.json: changed maps a path to base64 content (or {"content": ...}), deleted lists paths.
+    original(path) returns the original bytes or None. Non-test files first, then by path. LF, no timestamps.
+    """
+    changed = delta.get("changed") or {}
+    paths = sorted(set(changed) | set(delta.get("deleted") or []), key=lambda path: (is_test_path(path), path))
     parts = []
-    for path in sorted(files, key=lambda item: (is_test_path(item), item)):
-        source = Path(original_root) / path
-        before = source.read_bytes() if source.is_file() else None
-        after = files[path]
-        if before is None and after is None:
+    for path in paths:
+        before = original(path)
+        if path in changed:
+            value = changed[path]
+            after = base64.b64decode(value["content"] if isinstance(value, dict) else value)
+        else:
+            after = None
+        if before == after:
             continue
-        parts.append(file_diff(path, before, after))
+        old = "" if before is None else _lf_text(before)
+        new = "" if after is None else _lf_text(after)
+        if old is None or new is None:
+            parts.append("Binary file " + path + " differs\n")
+            continue
+        lines = list(difflib.unified_diff(
+            _lines(old), _lines(new),
+            "/dev/null" if before is None else "a/" + path,
+            "/dev/null" if after is None else "b/" + path,
+            n=3, lineterm="",
+        ))
+        if lines:
+            parts.append("\n".join(lines) + "\n")
     return "".join(parts)
 
 
-def truncate_diff(text: str, limit: int) -> tuple[str, bool]:
-    encoded = text.encode("utf-8")
-    if len(encoded) <= limit:
+def head(text: str, limit: int) -> tuple[str, bool]:
+    data = text.encode("utf-8")
+    if len(data) <= limit:
         return text, False
-    keep = limit - len(TRUNCATED.encode("utf-8"))
-    return encoded[:keep].decode("utf-8", errors="ignore") + TRUNCATED, True
+    marker = "\n" + TRUNCATED
+    return data[: limit - len(marker.encode("utf-8"))].decode("utf-8", "ignore") + marker, True
+
+
+def original_reader(root: Path):
+    def read(path: str) -> bytes | None:
+        file = root / path
+        return file.read_bytes() if file.is_file() else None
+    return read
+
+# --- end of copy ---------------------------------------------------------------------------------
+
+COPIED = ("TEST_DIRS", "TRUNCATED", "is_test_path", "_lf_text", "_lines", "normalized_diff", "head", "original_reader")
+
+
+def diff_against(delta: dict, original_root: Path) -> str:
+    return normalized_diff(delta, original_reader(Path(original_root)))
 
 
 def load_delta(run_dir: Path) -> dict | None:

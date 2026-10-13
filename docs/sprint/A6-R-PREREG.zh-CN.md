@@ -127,15 +127,14 @@ agent 侧只读顶层 `attempts` 列表，每项至少有 `task`（或 `task_id`
 5. 花费：`cost_cny` 转成数值后平均。
 6. 档位：A5 B0 r1–r3 有效运行里解出 0 次的题为 "0/3"，其余为 "中间档"。
 
-**diff 归一化**（`scripts/a6_diff.py`，与 harness `scripts/build_a6_attempts.py` 必须逐字节一致）
+**diff 归一化**（`scripts/a6_diff.py`，函数逐字复制自 harness `scripts/build_a6_attempts.py`，测试比对两边的 AST，并用 harness 渲染的 53 份记录逐字节核对）
 
-- 路径里的 `\` 换成 `/`。
-- 改动文件集合 = `changed` 的键 ∪ `deleted`；同一路径同时出现在两边时按 `changed` 处理（与 `apply_delta` 一致）。
+- 改动文件集合 = `changed` 的键 ∪ `deleted`；同一路径同时出现在两边时按 `changed` 处理（与 `apply_delta` 一致）。路径原样使用。
 - `changed` 的值是 base64 字符串，或带 `content` 键（base64）的对象。
-- 原文件取原始源码目录下同一路径；不存在视为新建文件（`--- /dev/null`）。`deleted` 写成删除（`+++ /dev/null`）；原文件也不存在则跳过。
-- 文本 = 字节按 UTF-8 解码（`errors="replace"`），`\r\n` 和单独的 `\r` 都换成 `\n`。只按 `\n` 切行。
-- 归一化后前后内容相同的文件不出现在 diff 里。
-- 每个文件用 `difflib.unified_diff`，3 行上下文，文件头 `--- a/<path>`、`+++ b/<path>`，不带时间戳；没有结尾换行的行后面补 `\n\ No newline at end of file\n`。
+- 原文件取原始源码目录下同一路径；不存在视为新建文件（`--- /dev/null`）。`deleted` 写成删除（`+++ /dev/null`）。前后字节相同（包括都不存在）的文件跳过。
+- 文本 = 字节按 UTF-8 严格解码，`\r\n` 和单独的 `\r` 都换成 `\n`；任何一边解码失败就写一行 `Binary file <path> differs`。
+- 按 `\n` 切行，去掉末尾的空行，所以只差结尾换行的文件不算改动；不写 `\ No newline at end of file`。
+- 每个文件用 `difflib.unified_diff`，3 行上下文，文件头 `--- a/<path>`、`+++ b/<path>`，不带时间戳，各行以 `\n` 连接并以 `\n` 结尾；没有差异行的文件不出现。
 - 排序键 (是否测试文件, 路径)：非测试文件在前，组内按路径字符串排序。各文件 diff 直接拼接。
-- 测试文件：路径的某个目录段是 `tests` 或 `test`，或第一段是 `testing`，或文件名是 `conftest.py`，或文件名以 `test_` 开头且以 `.py` 结尾，或以 `_test.py` 结尾。
-- 截断（只用于渲染记录，分析不用）：UTF-8 字节数超过上限时，保留前 `上限 − len("\n[truncated]")` 字节（按 UTF-8 解码时丢掉被切断的字符），再接 `\n[truncated]`。
+- 测试文件：路径按 `/` 切开后，某个目录段是 `tests`、`test` 或 `testing`，或文件名以 `test_` 开头，或以 `_test.py` 结尾，或是 `conftest.py`。
+- 分析比较的是完整 diff。记录渲染时 harness 另外去掉末尾换行、空 diff 写 `none`、超过上限时保留前 `上限 − len("\n[truncated]")` 字节再接 `\n[truncated]`，这些只影响记录文本，不影响分析。

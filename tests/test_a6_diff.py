@@ -1,3 +1,4 @@
+import ast
 import base64
 import json
 import re
@@ -6,24 +7,48 @@ from pathlib import Path
 import pytest
 
 from scripts.a6_diff import (
+    COPIED,
     TRUNCATED,
-    delta_contents,
-    file_diff,
+    diff_against,
+    head,
     is_test_path,
     load_delta,
     normalized_diff,
-    truncate_diff,
 )
 from scripts.handoff_sha import handoff_sha256
 
-HARNESS = Path(__file__).resolve().parents[2] / "coding-harness"
+AGENT = Path(__file__).resolve().parents[1]
+HARNESS = AGENT.parent / "coding-harness"
+BUILDER = HARNESS / "scripts" / "build_a6_attempts.py"
 RECORD_DIFF = re.compile(
-    r"Final diff \(truncated to (\d+) bytes\):\n(.*?)\n\nLast test-like commands", re.DOTALL
+    r"\nFinal diff \(truncated to (\d+) bytes\):\n(.*?)\n\nLast test-like commands", re.DOTALL
 )
 
 
 def _b64(text: str) -> str:
     return base64.b64encode(text.encode("utf-8")).decode("ascii")
+
+
+def _definitions(path: Path) -> dict[str, str]:
+    tree = ast.parse(path.read_text(encoding="utf-8"))
+    found = {}
+    for node in tree.body:
+        if isinstance(node, ast.FunctionDef):
+            found[node.name] = ast.dump(node)
+        elif isinstance(node, ast.Assign) and len(node.targets) == 1:
+            target = node.targets[0]
+            if isinstance(target, ast.Name):
+                found[target.id] = ast.dump(node)
+    return found
+
+
+def test_copied_functions_match_the_harness_builder():
+    if not BUILDER.is_file():
+        pytest.skip("harness build_a6_attempts.py not committed yet")
+    mine = _definitions(AGENT / "scripts" / "a6_diff.py")
+    theirs = _definitions(BUILDER)
+    for name in COPIED:
+        assert mine[name] == theirs[name], name
 
 
 @pytest.mark.parametrize(
@@ -32,13 +57,11 @@ def _b64(text: str) -> str:
         ("tests/prefetch_related/tests.py", True),
         ("sympy/core/tests/test_basic.py", True),
         ("testing/test_assertion.py", True),
+        ("sphinx/testing/fixtures.py", True),
         ("src/_pytest/conftest.py", True),
-        ("sklearn/utils/test_helpers.py", True),
+        ("pkg/test_data.txt", True),
         ("pkg/foo_test.py", True),
-        ("tests\\windows\\x.py", True),
         ("django/contrib/contenttypes/fields.py", False),
-        ("sphinx/testing/fixtures.py", False),
-        ("sympy/testing/pytest.py", False),
         ("src/_pytest/python_api.py", False),
         ("testing.py", False),
     ],
@@ -47,27 +70,22 @@ def test_test_path_rule(path, expected):
     assert is_test_path(path) is expected
 
 
-def test_file_diff_has_no_timestamps_and_marks_missing_newline():
-    diff = file_diff("pkg/a.py", b"x = 1\r\ny = 2\r\n", b"x = 1\ny = 3")
-    assert diff == (
-        "--- a/pkg/a.py\n"
-        "+++ b/pkg/a.py\n"
-        "@@ -1,2 +1,2 @@\n"
-        " x = 1\n"
-        "-y = 2\n"
-        "+y = 3\n"
-        "\\ No newline at end of file\n"
+def _diff(files: dict[str, bytes], delta: dict) -> str:
+    return normalized_diff(delta, files.get)
+
+
+def test_diff_has_no_timestamps_and_ignores_line_endings():
+    diff = _diff(
+        {"pkg/a.py": b"x = 1\r\ny = 2\r\n"}, {"changed": {"pkg/a.py": _b64("x = 1\ny = 3")}}
     )
+    assert diff == "--- a/pkg/a.py\n+++ b/pkg/a.py\n@@ -1,2 +1,2 @@\n x = 1\n-y = 2\n+y = 3\n"
+    assert _diff({"a.py": b"a\r\nb\r\n"}, {"changed": {"a.py": _b64("a\nb")}}) == ""
+    assert _diff({"a.py": b"a\rb\r"}, {"changed": {"a.py": _b64("a\nb\n")}}) == ""
 
 
-def test_line_endings_alone_are_not_a_change():
-    assert file_diff("a.py", b"a\r\nb\r\n", b"a\nb\n") == ""
-    assert file_diff("a.py", b"a\rb\r", b"a\nb\n") == ""
-
-
-def test_only_newline_splits_lines():
-    diff = file_diff("a.py", "a\u2028b\n".encode(), "a\u2028c\n".encode())
-    assert diff.count("\n") == 5
+def test_undecodable_files_are_named_as_binary():
+    delta = {"changed": {"pkg/blob.bin": base64.b64encode(b"\xff\xfe").decode()}}
+    assert _diff({"pkg/blob.bin": b"\x00"}, delta) == "Binary file pkg/blob.bin differs\n"
 
 
 def test_new_and_deleted_files_and_order(tmp_path):
@@ -85,7 +103,7 @@ def test_new_and_deleted_files_and_order(tmp_path):
         },
         "deleted": ["pkg/gone.py", "pkg/never.py"],
     }
-    diff = normalized_diff(delta, original)
+    diff = diff_against(delta, original)
     headers = [line for line in diff.splitlines() if line.startswith(("--- ", "+++ "))]
     assert headers == [
         "--- a/pkg/gone.py",
@@ -96,28 +114,26 @@ def test_new_and_deleted_files_and_order(tmp_path):
         "+++ b/tests/test_x.py",
     ]
     assert "same" not in diff
-    assert normalized_diff(delta, original) == diff
+    assert diff_against(delta, original) == diff
 
 
 def test_changed_wins_over_deleted():
-    files = delta_contents({"changed": {"a\\b.py": _b64("x")}, "deleted": ["a/b.py"]})
-    assert files == {"a/b.py": b"x"}
+    diff = _diff({"a.py": b"x\n"}, {"changed": {"a.py": _b64("y\n")}, "deleted": ["a.py"]})
+    assert "+++ b/a.py" in diff
 
 
 def test_empty_delta_is_empty_diff(tmp_path):
-    assert normalized_diff({"changed": {}, "deleted": []}, tmp_path) == ""
-    assert normalized_diff(None, tmp_path) == ""
+    assert diff_against({"changed": {}, "deleted": []}, tmp_path) == ""
 
 
-def test_truncation_keeps_the_byte_limit():
+def test_head_keeps_the_byte_limit():
     text = "é" * 100
-    short, cut = truncate_diff(text, 1000)
-    assert (short, cut) == (text, False)
-    body, cut = truncate_diff(text, 51)
+    assert head(text, 1000) == (text, False)
+    body, cut = head(text, 51)
     assert cut is True
-    assert body.endswith(TRUNCATED)
+    assert body.endswith("\n" + TRUNCATED)
     assert len(body.encode("utf-8")) <= 51
-    assert body[: -len(TRUNCATED)] == "é" * 19
+    assert body[: -len("\n" + TRUNCATED)] == "é" * 19
 
 
 def test_load_delta_missing_returns_none(tmp_path):
@@ -130,9 +146,8 @@ def test_handoff_sha_matches_the_harness_copy():
     harness = HARNESS / "scripts" / "handoff_sha.py"
     if not harness.is_file():
         pytest.skip("coding-harness not present")
-    mine = Path(__file__).resolve().parents[1] / "scripts" / "handoff_sha.py"
-    normalize = lambda data: data.replace(b"\r\n", b"\n")  # noqa: E731
-    assert normalize(mine.read_bytes()) == normalize(harness.read_bytes())
+    mine = AGENT / "scripts" / "handoff_sha.py"
+    assert mine.read_bytes().replace(b"\r\n", b"\n") == harness.read_bytes().replace(b"\r\n", b"\n")
 
 
 def test_crlf_and_lf_files_share_a_handoff_sha(tmp_path):
@@ -144,11 +159,10 @@ def test_crlf_and_lf_files_share_a_handoff_sha(tmp_path):
 
 
 def test_diff_matches_the_harness_records_byte_for_byte():
-    """Pending until harness commits build_a6_attempts.py and the rendered records."""
-    builder = HARNESS / "scripts" / "build_a6_attempts.py"
+    """Recompute the Final diff section of every rendered record from the A5 run directories."""
     records = HARNESS / "docs" / "sprint" / "a6-attempts"
-    if not builder.is_file() or not records.is_dir():
-        pytest.skip("harness build_a6_attempts.py and records not committed yet")
+    if not BUILDER.is_file() or not records.is_dir():
+        pytest.skip("harness build_a6_attempts.py and records not present yet")
     checked = 0
     for record in sorted(records.glob("*__b0r*.txt")):
         task, first = record.stem.rsplit("__", 1)
@@ -158,11 +172,8 @@ def test_diff_matches_the_harness_records_byte_for_byte():
         limit = int(match.group(1))
         run_dir = HARNESS / "runs" / "a5-main" / task / "b0" / ("r" + first[len("b0r") :])
         original = HARNESS / "runs" / "sprint5-main-images" / task / "staging" / "original"
-        expected, _ = truncate_diff(normalized_diff(load_delta(run_dir), original), limit)
-        rendered = match.group(2)
-        if expected == "":
-            assert rendered.strip() in {"", "none"}, record.name
-        else:
-            assert rendered == expected, record.name
+        diff = diff_against(load_delta(run_dir), original).rstrip("\n")
+        expected = head(diff, limit)[0] if diff else "none"
+        assert match.group(2) == expected, record.name
         checked += 1
     assert checked == 53
