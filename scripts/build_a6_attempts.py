@@ -5,7 +5,8 @@ Each record reads only that run's summary.json, candidate-delta.json and events.
 artifacts the event log points to). grader-result.json is never read.
 
 The leak check reads the private patches and grader ids on the host. It prints and writes counts and
-positions only, never private text.
+positions only, never private text. The counts are descriptive: what keeps private material out of a record
+is that rendering never reads it (AUDIT-A6-1 section 1), and tests/test_build_a6_attempts.py checks that.
 """
 from __future__ import annotations
 
@@ -48,11 +49,11 @@ TEST_LIKE = re.compile(r"pytest|runtests|unittest|tox|python -m")
 TEST_DIRS = frozenset({"tests", "test", "testing"})
 LEAK_LINE_MIN = 20
 LEAK_NAME_MIN = 8
-BLOCKING = ("ids", "test_patch_lines", "test_patch_new_files")
 
 TRUNCATED = "[truncated]"
 NONE = "none"
 NO_SOURCE = "none (no source changes were submitted)"
+TEST_ONLY = "none (only test files were changed; see the diff)"
 SECTIONS = (
     ("open",
      "<previous_attempt>\n"
@@ -80,6 +81,7 @@ def template_sha256() -> str:
         "truncated": TRUNCATED,
         "none": NONE,
         "no_source": NO_SOURCE,
+        "test_only": TEST_ONLY,
         "test_like": TEST_LIKE.pattern,
         "limits": [TOTAL_LIMIT, DIFF_MIN, COMMAND_LIMIT, COMMAND_LINE_LIMIT, MESSAGE_LIMIT, MAX_COMMANDS],
     }
@@ -306,7 +308,7 @@ def render_record(run_dir: Path, summary: dict, original) -> dict:
     fields = {
         "stop_reason": _lf(str(summary["stop_reason"])),
         "model_calls": summary["model_calls"],
-        "files": ", ".join(source_files) if source_files else NO_SOURCE,
+        "files": ", ".join(source_files) if source_files else (TEST_ONLY if summary["changed_files"] else NO_SOURCE),
         "commands": COMMAND_SEPARATOR.join(block for block, _ in blocks) if blocks else NONE,
         "message": message_text,
         "diff": "",
@@ -580,7 +582,6 @@ def build(*, a5_root: Path = A5_ROOT, images_root: Path = IMAGES_ROOT, calibrati
         "tasks": len(by_task),
         "by_task": by_task,
         "leak_totals": totals,
-        "leak_blocking": any(totals[check] for check in BLOCKING),
         "records": [{key: value for key, value in row.items() if key != "_data"} for row in rows],
     }
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -610,9 +611,8 @@ def main():
     for row in manifest["records"]:
         print(row["task"], row["first"], row["bytes"], json.dumps(row["leak"], sort_keys=True), flush=True)
     print("attempts", manifest["attempts"], "tasks", manifest["tasks"], "leak totals", json.dumps(manifest["leak_totals"], sort_keys=True))
+    print("template", manifest["template_sha256"])
     print("manifest", _display(MANIFEST), handoff_sha256(MANIFEST))
-    if manifest["leak_blocking"]:
-        raise SystemExit("leak checks 1-3 have hits; stop for the audit")
 
 
 if __name__ == "__main__":
