@@ -10,7 +10,8 @@
 | --- | --- |
 | `4b10d63` | 审计文件 `AUDIT-A6-1b.zh-CN.md` 和 `A6-R-START-PROMPTS.zh-CN.md` 原样入库 |
 | `0cbc63d` | `docs/sprint/A6-R-FREEZE.md`；harness tag `a6-retry-freeze` 指向它 |
-| 本提交 | 本 CHECKPOINT 和 PROGRESS |
+| `ce41746` | 本 CHECKPOINT |
+| `9cdadc6` | PROGRESS |
 
 ## 第 0 步：agent 侧 tag
 
