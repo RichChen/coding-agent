@@ -235,6 +235,14 @@ def public_issue(task: dict) -> str:
     )
 
 
+def build_prompt(task: dict, prompt_suffix: str | None = None) -> str:
+    """The first user message. A non-empty suffix follows the issue after one blank line."""
+    prompt = public_issue(task)
+    if prompt_suffix:
+        prompt += "\n\n" + prompt_suffix
+    return prompt
+
+
 def grader_spec(task: dict, base: dict[str, bytes] | None = None) -> RepositorySpec:
     receipt = load_json(ROOT / task["receipt"])
     binding = receipt["private_source_binding"]
@@ -708,7 +716,8 @@ async def tool_smoke(image: str, profile: Path) -> dict:
     return record
 
 
-async def run_task(task: dict, profile: Path, output: Path, *, mock: bool, variant: str = "B0", cards_path: Path | None = None, legacy_image: bool = False) -> dict:
+async def run_task(task: dict, profile: Path, output: Path, *, mock: bool, variant: str = "B0", cards_path: Path | None = None, legacy_image: bool = False,
+                   prompt_suffix: str | None = None, retry: dict | None = None) -> dict:
     if task["id"] in HOLDOUT:
         raise SystemExit("hold-out task refused: " + task["id"])
     output.mkdir(parents=True, exist_ok=True)
@@ -722,7 +731,7 @@ async def run_task(task: dict, profile: Path, output: Path, *, mock: bool, varia
     # CNY ledger is the only budget that stops a run. Do not set max_cost_usd here.
     if mock:
         config["llm"]["api_key"] = config["llm"]["api_key"] or "mock"
-    prompt = public_issue(task)
+    prompt = build_prompt(task, prompt_suffix)
     fingerprints = {
         "issue_sha256": hashlib.sha256(issue_text(load_json(Path(task["public_task"]))).encode("utf-8")).hexdigest(),
         "prompt_sha256": hashlib.sha256(prompt.encode("utf-8")).hexdigest(),
@@ -855,6 +864,7 @@ async def run_task(task: dict, profile: Path, output: Path, *, mock: bool, varia
         "profile": profile.stem,
         "model": model,
         **fingerprints,
+        **({"retry": dict(retry)} if retry is not None else {}),
         "solved": False if lost or infra or missing or timed_out else bool(evaluation.get("solved")),
         "status": "infra_error" if infra else ("delta_lost" if lost else ("fail" if timeout_failure else evaluation.get("status"))),
         "grader_status": evaluation.get("status"),
