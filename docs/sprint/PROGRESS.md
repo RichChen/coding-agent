@@ -489,3 +489,11 @@ P5：删除 `pelican-bicycle.html`。用 v5 final 卡片在 3 道题上跑 mock 
 20:54 第一次开工时，agent 仓库还没有 `a6-retry-freeze-r2`，也没有 `CHECKPOINT-A6-1c.md`，按第 0 步停下，什么都没做。重新开工时核对到 r2 → `6c67739`，与 agent CHECKPOINT 一致。审计文件原样入库（`4b10d63`）。全量测试 661 passed、22 skipped 之后，写冻结记录 `A6-R-FREEZE.md`，并打 harness tag `a6-retry-freeze`（`0cbc63d`）。canary 前重跑 preflight，22/22 通过。
 
 canary 4 个槽位（R0 2、R1 2）写入 `runs/a6-retry/`：没有触发停止条件，注入核对 4/4，隔离 4/4，模型 `deepseek-flash` @ `api.deepseek.com`，单次最高 0.834 元，累计 2.450 元。冻结后没有改代码。记录在 `docs/sprint/CHECKPOINT-A6-2.md`（`ce41746`），停下等审计，没有进入 A6-3。
+
+## A6-R 第 3 轮（A6-3）：正式运行
+
+日期：2026-10-13 22:04 至 10-14 03:51。花费：累计 164.577 CNY（`TOTAL_CAP` 210）。依据 `A6-R-PLAN.zh-CN.md` 第 5 节 A6-3 和 `AUDIT-A6-2.zh-CN.md` 第 3 节。审计文件原样入库（`50f54a7`）。
+
+开跑前关闭系统睡眠（跑完后恢复），确认 Docker 在线。runner 跳过 4 个 canary 槽位，跑完其余 314 个：318/318 都有 summary，没有中断目录，没有触发停止条件。7 次 infra_error（都是快照前容器消失），各重跑一次完成。注入核对 318/318，runner 和独立复核结果一致。模型全程是 `deepseek-flash` @ `api.deepseek.com`。单次最高 0.940 元。`context_overflow`：R0 1 次，R1 2 次。
+
+问题：最后约 4 分钟 DeepSeek 账户余额耗尽，22 次运行（R0 8 次、R1 14 次）收到 HTTP 402，被记成了 `model_parse_error` 失败，不是 infra_error，停止条件没有覆盖这种情况。runner 自动写出的 `a6-retry-runs.json`（`handoff_sha256` `05bea3fb…`，`a15696f`）包含这 22 行，暂不交接。没有改代码，没有移动目录，没有计算 R1−R0。记录在 `docs/sprint/CHECKPOINT-A6-3.md`，停下等审计决定这 22 次怎么处理。
