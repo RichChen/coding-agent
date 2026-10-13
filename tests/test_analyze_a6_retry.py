@@ -10,6 +10,7 @@ from scripts.analyze_a6_retry import (
     _stats,
     bootstrap_ci,
     conclusion,
+    data_floor_points,
     detected,
     load_attempts,
     load_runs,
@@ -72,19 +73,25 @@ def test_statistics_follow_the_a5_script():
     values = [0.0, 0.333, -0.333, 0.667, 0.0, 1.0, -0.667]
     assert sign_flip_p(values, seed=20260926) == analyze_a5_main.sign_flip_p(values)
     assert bootstrap_ci(values, seed=20260926) == analyze_a5_main.bootstrap_ci(values)
+    assert data_floor_points(values) == analyze_a5_main.data_floor_points(values)
     assert SEED == 20261013
 
 
-def test_zero_effect_is_not_detected():
+def test_zero_effect_is_not_detected_and_uses_the_observed_sd():
     rows = []
-    for index in range(6):
-        rows += _task(f"t{index}", [False, True, False], [False, True, False])
+    for index in range(3):
+        rows += _task(f"up{index}", [False, False, False], [True, False, False])
+        rows += _task(f"down{index}", [True, False, False], [False, False, False])
     eligible, excluded = prepare(rows)
     stats = _stats(eligible)
     assert excluded == []
-    assert stats["mean"] == 0.0
+    assert stats["mean"] == pytest.approx(0.0)
+    assert stats["sd"] == pytest.approx((1 / 3) * (6 / 5) ** 0.5)
+    assert stats["floor"] == pytest.approx(100 * 2.8 * stats["sd"] / 6**0.5)
     assert not detected(stats)
-    assert conclusion(stats).startswith("未检出大于 40.0 个百分点的效应")
+    text = conclusion(stats)
+    assert text.startswith("未检出大于 41.7 个百分点的效应（2.8×s/√N）；95% 区间上限 ")
+    assert f"95% 区间上限 {100 * stats['high']:.1f} 个百分点" in text
     assert not second_stage_triggered(stats)
 
 
@@ -156,12 +163,32 @@ def test_loader_rejects_mock_and_wrong_schema(tmp_path):
         path.write_text(json.dumps(payload), encoding="utf-8")
         with pytest.raises(ValueError, match=error):
             load_runs(path)
-    attempts = tmp_path / "attempts.json"
-    attempts.write_text(
-        json.dumps({"attempts": [{"task": "t", "first": "b0r4", "sha256": "x"}]}), encoding="utf-8"
-    )
-    with pytest.raises(ValueError, match="bad_attempt_entry"):
-        load_attempts(attempts)
+
+
+def test_attempts_list_is_records_and_attempts_is_the_count(tmp_path):
+    path = tmp_path / "attempts.json"
+    entry = {"task": "t", "first": "b0r1", "sha256": "x"}
+    for payload, error in (
+        ({"attempts": [entry]}, "records_not_a_list"),
+        ({"records": [entry]}, "attempts_count_mismatch"),
+        ({"attempts": 2, "records": [entry]}, "attempts_count_mismatch"),
+        ({"attempts": 1, "records": [dict(entry, first="b0r4")]}, "bad_attempt_entry"),
+        ({"attempts": 1, "records": [{"task_id": "t", "first": "b0r1"}]}, "bad_attempt_entry"),
+    ):
+        path.write_text(json.dumps(payload), encoding="utf-8")
+        with pytest.raises(ValueError, match=error):
+            load_attempts(path)
+    path.write_text(json.dumps({"attempts": 1, "records": [entry]}), encoding="utf-8")
+    assert load_attempts(path) == [entry]
+
+
+def test_harness_attempts_manifest_loads():
+    manifest = AGENT.parent / "coding-harness" / "docs" / "sprint" / "a6-attempts.json"
+    if not manifest.is_file():
+        pytest.skip("harness a6-attempts.json not present")
+    attempts = load_attempts(manifest)
+    assert len(attempts) == 53
+    assert len({item["task"] for item in attempts}) == 22
 
 
 def test_slot_issues_list_missing_duplicate_and_mismatched_slots():
@@ -294,7 +321,7 @@ def test_cli_stops_on_mock_input(tmp_path, monkeypatch, capsys):
         json.dumps({"schema": "a6.retry-runs.v1", "mock": True, "runs": []}), encoding="utf-8"
     )
     attempts = tmp_path / "attempts.json"
-    attempts.write_text(json.dumps({"attempts": []}), encoding="utf-8")
+    attempts.write_text(json.dumps({"attempts": 0, "records": []}), encoding="utf-8")
     monkeypatch.setattr(
         "sys.argv",
         [

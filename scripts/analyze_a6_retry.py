@@ -25,7 +25,6 @@ from scripts.handoff_sha import handoff_sha256  # noqa: E402
 SEED = 20261013
 PERMUTATIONS = 10000
 DETECTION_Z = 2.8
-DETECTION_SD = 0.35
 FULL_CALLS = 40
 SCHEMA = "a6.retry-runs.v1"
 EXPECTED_FIRSTS = 53
@@ -41,14 +40,22 @@ _FIRST = re.compile(r"b0r([123])")
 _RETIRED = re.compile(r"\.infra[0-9]+$")
 
 
-def detection_floor_points(n_tasks: int) -> float:
-    if n_tasks <= 0:
-        return 0.0
-    return 100.0 * DETECTION_Z * DETECTION_SD / math.sqrt(n_tasks)
-
-
 def _mean(values: list[float]) -> float:
     return sum(values) / len(values)
+
+
+def _sample_sd(values: list[float]) -> float:
+    if len(values) < 2:
+        return 0.0
+    mean = _mean(values)
+    variance = sum((value - mean) ** 2 for value in values) / (len(values) - 1)
+    return math.sqrt(variance)
+
+
+def data_floor_points(values: list[float]) -> float:
+    if not values:
+        return 0.0
+    return 100.0 * DETECTION_Z * _sample_sd(values) / math.sqrt(len(values))
 
 
 def sign_flip_p(values: list[float], *, n: int = PERMUTATIONS, seed: int = SEED) -> float:
@@ -119,14 +126,15 @@ def load_runs(path: Path) -> dict:
 def load_attempts(path: Path) -> list[dict]:
     payload = json.loads(Path(path).read_text(encoding="utf-8"))
     _reject_mock(payload, Path(path).name)
-    items = payload.get("attempts")
+    items = payload.get("records")
     if not isinstance(items, list):
-        items = payload.get("records")
-    if not isinstance(items, list):
-        raise ValueError("attempts_not_a_list")
+        raise ValueError("records_not_a_list")
+    count = payload.get("attempts")
+    if isinstance(count, bool) or not isinstance(count, int) or count != len(items):
+        raise ValueError("attempts_count_mismatch")
     attempts = []
     for item in items:
-        task = str(item.get("task") or item.get("task_id") or "")
+        task = str(item.get("task") or "")
         first = str(item.get("first") or "")
         if not task or _FIRST.fullmatch(first) is None:
             raise ValueError("bad_attempt_entry:" + task + ":" + first)
@@ -172,7 +180,7 @@ def prepare(rows: list[dict]) -> tuple[list[dict], list[str]]:
 def _stats(tasks: list[dict]) -> dict:
     values = [task["d"] for task in tasks]
     if not values:
-        return {"n": 0, "mean": 0.0, "p": 1.0, "low": 0.0, "high": 0.0, "floor": 0.0}
+        return {"n": 0, "mean": 0.0, "p": 1.0, "low": 0.0, "high": 0.0, "sd": 0.0, "floor": 0.0}
     low, high = bootstrap_ci(values)
     return {
         "n": len(values),
@@ -180,7 +188,8 @@ def _stats(tasks: list[dict]) -> dict:
         "p": sign_flip_p(values),
         "low": low,
         "high": high,
-        "floor": detection_floor_points(len(values)),
+        "sd": _sample_sd(values),
+        "floor": data_floor_points(values),
     }
 
 
@@ -200,7 +209,8 @@ def conclusion(stats: dict) -> str:
             f"（95% 区间 {low_pp:.1f} 到 {high_pp:.1f}，p = {stats['p']:.4f}）"
         )
     return (
-        f"未检出大于 {stats['floor']:.1f} 个百分点的效应。"
+        f"未检出大于 {stats['floor']:.1f} 个百分点的效应（2.8×s/√N）；"
+        f"95% 区间上限 {high_pp:.1f} 个百分点。"
         f"点估计 {mean_pp:.1f} 个百分点，95% 区间 {low_pp:.1f} 到 {high_pp:.1f}"
     )
 
@@ -441,7 +451,9 @@ def render_report(
             f"- 平均 d_t：{primary['mean']:.4f}",
             f"- 双侧符号翻转 p：{primary['p']:.4f}",
             f"- 95% 区间：{primary['low']:.4f} 到 {primary['high']:.4f}",
-            f"- 设计检测下限：{primary['floor']:.1f} 个百分点（2.8×0.35/√N）",
+            f"- d_t 样本标准差 s：{primary['sd']:.4f}",
+            f"- 数据检测下限：{primary['floor']:.1f} 个百分点（2.8×s/√N）",
+            f"- 95% 区间上限：{100.0 * primary['high']:.1f} 个百分点",
             f"- 结论：{conclusion(primary)}",
             f"- {POWER_LINE}",
             "- 第二阶段触发（点估计 ≥ +5pp 且区间含 0）："

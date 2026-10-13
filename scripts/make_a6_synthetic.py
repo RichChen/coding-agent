@@ -201,7 +201,14 @@ def write_scenario(root: Path, scenario: dict) -> tuple[Path, Path]:
     docs.mkdir(parents=True, exist_ok=True)
     attempts_path = docs / "a6-attempts.json"
     attempts_path.write_text(
-        json.dumps({"schema": "a6.attempts.synthetic", "attempts": scenario["attempts"]}, indent=2)
+        json.dumps(
+            {
+                "schema": "a6.attempts.synthetic",
+                "attempts": len(scenario["attempts"]),
+                "records": scenario["attempts"],
+            },
+            indent=2,
+        )
         + "\n",
         encoding="utf-8",
     )
