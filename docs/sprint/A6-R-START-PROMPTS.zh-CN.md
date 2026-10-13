@@ -44,8 +44,37 @@ A6-1 审计结果在 `D:\crq\src\coding-harness\docs\sprint\AUDIT-A6-1.zh-CN.md`
 
 不调用模型，不改 coding-harness。写 `docs/sprint/CHECKPOINT-A6-1b.md`，小步提交，不 push，然后停下。
 
-## 后续轮次（审计通过后发）
+## A6-1c / A6-2（A6-1b 审计后发）
 
-- harness A6-2：`A6-1 审计通过。请执行 A6-R-PLAN 第 5 节 A6-2：写冻结记录、打 tag、跑 4 次 canary，写 CHECKPOINT-A6-2 后停下。agent 侧 tag 指向 <commit>。`
+两段可以同时发。harness 会先检查 agent 侧的 tag，没有就自己停下。
+
+### 发给 coding-agent agent（A6-1c）
+
+A6-1b 审计结果在 `D:\crq\src\coding-harness\docs\sprint\AUDIT-A6-1b.zh-CN.md`，读第 2 节。请做：
+1. `a6-retry-runs.json` 的 `attempts_sha256` 和清单的 `handoff_sha256` 不一致时 STOP，理由写 `attempts_sha_mismatch`；如果启动参数给了两个交接文件的期望 sha，实际 sha 和期望不同也 STOP。为这两种情况加测试；
+2. 重跑合成数据，确认结论不变；跑一次全量测试；
+3. `a6-retry-freeze-r1` 不动，打 `a6-retry-freeze-r2`。
+
+不调用模型，不改 coding-harness。写 `docs/sprint/CHECKPOINT-A6-1c.md`，写明 tag 指向的 commit。小步提交，不 push，然后停下。
+
+### 发给 coding-harness agent（A6-2）
+
+A6-1b 审计结果在 `D:\crq\src\coding-harness\docs\sprint\AUDIT-A6-1b.zh-CN.md`，开工前完整读取。请执行 `A6-R-PLAN.zh-CN.md` 第 5 节的 A6-2，并按审计第 3 节补充：
+
+0. 先确认 agent 仓库有 tag `a6-retry-freeze-r2`，并且 `D:\crq\src\coding-agent\docs\sprint\CHECKPOINT-A6-1c.md` 写明了它指向的 commit。缺任何一样就立即停下，什么都不做，在回复里说明原因；
+1. 写 `docs/sprint/A6-R-FREEZE.md`（字段按计划第 5 节和审计第 3 节），全量测试通过后打 tag `a6-retry-freeze`；
+2. 重跑 `--preflight`，22/22 通过才继续；
+3. `python scripts/run_a6_retry.py --canary`，只跑 4 个 canary 槽位，结果写进正式目录 `runs/a6-retry/`；
+4. 写 `docs/sprint/CHECKPOINT-A6-2.md` 和 PROGRESS，内容按审计第 3 节的要求。
+
+这是第一次真实调用模型，预计 2–3 元。触发任何停止条件，或者单次花费超过 1.5 元，就停下。不要跑 canary 以外的槽位，不要看 solved 去调整任何东西。冻结之后如果必须改代码，单独提交，并在 CHECKPOINT 里写明。小步提交，不 push，然后停下。
+
+### A6-2 重发（2026-10-13，第一次发时 agent 侧 r2 还没打好）
+
+上次你按第 0 步停下是对的：当时（20:54）agent 仓库还没有 `a6-retry-freeze-r2`。现在 agent 侧已经完成：tag `a6-retry-freeze-r2` → `6c67739e8816621826493d9ef4ca4da64508ac37`，`D:\crq\src\coding-agent\docs\sprint\CHECKPOINT-A6-1c.md` 已写明，审计已核对通过。
+
+请从第 0 步重新执行上面"发给 coding-harness agent（A6-2）"的全部要求（自己再核对一遍 tag 和 CHECKPOINT）。工作区里未提交的 `AUDIT-A6-1b.zh-CN.md` 和 `A6-R-START-PROMPTS.zh-CN.md` 是审计文件，先原样提交，再开始冻结。预计花费 2–3 元，单次超过 1.5 元或触发停止条件就停。写完 CHECKPOINT-A6-2 后停下。
+
+## 后续轮次（审计通过后发）
 - harness A6-3：`A6-2 审计通过。请执行 A6-R-PLAN 第 5 节 A6-3，停止条件按第 1 节，写 a6-retry-runs.json 和 CHECKPOINT-A6-3 后停下。不要计算 R1−R0。`
 - agent A6-4：`harness 的 a6-retry-runs.json 已提交，handoff_sha256 = <sha>。请执行 A6-R-PLAN 第 6 节 A6-4，写 A6-R-RESULTS 和 CHECKPOINT-A6-4 后停下。`
