@@ -75,6 +75,20 @@ A6-1b 审计结果在 `D:\crq\src\coding-harness\docs\sprint\AUDIT-A6-1b.zh-CN.m
 
 请从第 0 步重新执行上面"发给 coding-harness agent（A6-2）"的全部要求（自己再核对一遍 tag 和 CHECKPOINT）。工作区里未提交的 `AUDIT-A6-1b.zh-CN.md` 和 `A6-R-START-PROMPTS.zh-CN.md` 是审计文件，先原样提交，再开始冻结。预计花费 2–3 元，单次超过 1.5 元或触发停止条件就停。写完 CHECKPOINT-A6-2 后停下。
 
+## A6-3（A6-2 审计后发，只发给 harness）
+
+### 发给 coding-harness agent
+
+A6-2 的审计结果在 `D:\crq\src\coding-harness\docs\sprint\AUDIT-A6-2.zh-CN.md`，审计结论是通过，开工前完整读一遍。先把这份审计文件和本 prompt 文件原样提交，然后执行 `A6-R-PLAN.zh-CN.md` 第 5 节的 A6-3，同时满足审计文件第 3 节的补充要求。
+
+- 开跑前关闭系统睡眠，确认 Docker Desktop 在线。然后运行 `python scripts/run_a6_retry.py`，跑剩下的 314 个槽位。canary 的 4 个按已完成处理，不要重跑。
+- 停止条件以冻结记录为准。任意一条触发，或者出现没有 summary 的中断目录，都停下写 CHECKPOINT。中断目录不要删，也不要移动。
+- 冻结后不要改代码。实在必须改，单独提交，并在 CHECKPOINT 里写明它影响了哪些已完成的运行。
+- 跑完写 `docs/sprint/a6-retry-runs.json`、`docs/sprint/CHECKPOINT-A6-3.md` 和 PROGRESS。CHECKPOINT 的内容按审计第 3 节第 5 条写，要按组列出 `context_overflow` 的次数。
+- **不要计算 R1−R0，不要按组汇总解出率，不要下结论。**
+
+预计花费约 170 元，上限 210 元。小步提交，不 push，做完停下。
+
 ## 后续轮次（审计通过后发）
 - harness A6-3：`A6-2 审计通过。请执行 A6-R-PLAN 第 5 节 A6-3，停止条件按第 1 节，写 a6-retry-runs.json 和 CHECKPOINT-A6-3 后停下。不要计算 R1−R0。`
-- agent A6-4：`harness 的 a6-retry-runs.json 已提交，handoff_sha256 = <sha>。请执行 A6-R-PLAN 第 6 节 A6-4，写 A6-R-RESULTS 和 CHECKPOINT-A6-4 后停下。`
+- agent A6-4：`harness 的 a6-retry-runs.json 已提交，handoff_sha256 = <sha>。请执行 A6-R-PLAN 第 6 节 A6-4。用 tag a6-retry-freeze-r2 上的脚本，运行时传 --expect-runs-sha <sha> --expect-attempts-sha bd93252922c990ec61071caecb5a6bf5e604202cbbcf30d296f2b875794dd3ce。写 A6-R-RESULTS 和 CHECKPOINT-A6-4 后停下。`
