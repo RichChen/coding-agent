@@ -473,3 +473,11 @@ P5：删除 `pelican-bicycle.html`。用 v5 final 卡片在 3 道题上跑 mock 
 第 2 步（`ce0b0ff`）：`scripts/build_a6_attempts.py`。第一次尝试复算 53 次、22 道题，与计划一致。53 份记录 688–8192 字节，中位 2664；diff 截断 1 份，命令块截断 15 份共 18 块，最后消息截断 3 份；11 份没有改非测试源码。真实数据跑两次，55 个输出文件逐字节相同。泄漏检查：第 1 项 34 次（11 份），第 2 项 58 次（10 份），第 3 项 0，第 4 项（只报告）113 次（18 份）。第 1、2 项合计 16 份记录、7 道题。第 1 项命中的测试名在原始测试文件里都已存在；第 2 项有 20 次落在 diff 的上下文或删除行上，17 次是 agent 新增行与隐藏测试行相同。按计划阻断，模板和规则没有改。记录和清单（`handoff_sha256` `a324ab61…`）写在磁盘上，没有提交。
 
 第 3–5 步（runner、preflight、mock）没有开始。全量测试 633 passed，22 skipped。记录在 `docs/sprint/CHECKPOINT-A6-1.md`，停下等审计。
+
+## A6-R 第 1b 轮（A6-1 审计后）：runner、preflight、mock
+
+日期：2026-10-13。花费：0 CNY，没有调用真实模型。依据 `docs/sprint/AUDIT-A6-1.zh-CN.md` 第 4 节。
+
+审计结论是泄漏检查第 1、2 项不阻断，判定口径改为"记录内容只能来自第一次运行的产物和原始源码"。为此新增测试：私有材料不可读或换成垃圾内容时，渲染出的记录逐字节不变；合成数据和真实 53 份都测了（`4bfd6f3`）。只改了测试文件的 2 份记录（django-15973 b0r3、sphinx-9258 b0r2），Files changed 改写为 `none (only test files were changed; see the diff)`，其余 51 份不变，泄漏计数仍是 34/58/0/113，只作描述。记录和清单已提交（`27a7a0a`）：模板 sha `7bed7ba8…`，清单 `handoff_sha256` `bd932529…`。
+
+`scripts/run_a6_retry.py`（`69178cc`）：318 个槽位用种子 20261013 打乱；R1 每次运行前按 sha 读回记录，运行后核对第一条 user 消息；停止条件按计划第 1 节；runs 文件字段按 agent 预注册；canary 规则已预先实现。preflight 22/22 题通过，R0 53/53 与 A5 sha 相同，R1 53/53 精确拼接，53 份记录重渲染逐字节相同。mock 4 个槽位（R0、R1 各 2，4 个 repo）跑通，注入核对 4/4；agent `a6-retry-freeze-r1`（`01db102`）的分析脚本读 mock runs 文件，输出 `STOP mock_input`。全量测试 `.venv` 两次都是 661 passed，22 skipped；系统 Python 两次都是 484 passed，199 skipped。记录在 `docs/sprint/CHECKPOINT-A6-1b.md`，没有打 tag，停下等审计。

@@ -1,0 +1,97 @@
+{
+  "schema": "a6.retry-runs.v1",
+  "scope": "mock",
+  "attempts_sha256": "bd93252922c990ec61071caecb5a6bf5e604202cbbcf30d296f2b875794dd3ce",
+  "slots_expected": 318,
+  "runs": [
+    {
+      "task_id": "django__django-15022",
+      "repo": "django/django",
+      "arm": "r1",
+      "first": "b0r2",
+      "k": 3,
+      "run_dir": "runs/a6-retry-mock/django__django-15022/r1/b0r2/r3",
+      "mock": true,
+      "status": "fail",
+      "solved": false,
+      "model_calls": 1,
+      "first_edit_step": null,
+      "cost_cny": "0.000",
+      "stop_reason": "completed",
+      "changed_files": [],
+      "prompt_sha256": "71ba963b5230a62eab0c0d1a6bfb555e1427637564c2c82fcb66567cbd77b401",
+      "retry": {
+        "arm": "r1",
+        "first": "b0r2",
+        "attempt_sha256": "1217cd2d19f28785c6be6d7a391ecfeede0cf2b045b32012eefc37565fd90514"
+      }
+    },
+    {
+      "task_id": "pytest-dev__pytest-7324",
+      "repo": "pytest-dev/pytest",
+      "arm": "r0",
+      "first": "b0r2",
+      "k": 3,
+      "run_dir": "runs/a6-retry-mock/pytest-dev__pytest-7324/r0/b0r2/r3",
+      "mock": true,
+      "status": "fail",
+      "solved": false,
+      "model_calls": 1,
+      "first_edit_step": null,
+      "cost_cny": "0.000",
+      "stop_reason": "completed",
+      "changed_files": [],
+      "prompt_sha256": "086daddc7d47c2cfea279b2967a9f66204ec6bedf7f7919a6d3a9f2533019ad5",
+      "retry": {
+        "arm": "r0",
+        "first": "b0r2",
+        "attempt_sha256": null
+      }
+    },
+    {
+      "task_id": "sphinx-doc__sphinx-7590",
+      "repo": "sphinx-doc/sphinx",
+      "arm": "r0",
+      "first": "b0r1",
+      "k": 3,
+      "run_dir": "runs/a6-retry-mock/sphinx-doc__sphinx-7590/r0/b0r1/r3",
+      "mock": true,
+      "status": "fail",
+      "solved": false,
+      "model_calls": 1,
+      "first_edit_step": null,
+      "cost_cny": "0.000",
+      "stop_reason": "completed",
+      "changed_files": [],
+      "prompt_sha256": "f0a91b2d2c27f381eea4aa3a0a115e8404adc71e7a8350c44f91e78ba1cfdb8e",
+      "retry": {
+        "arm": "r0",
+        "first": "b0r1",
+        "attempt_sha256": null
+      }
+    },
+    {
+      "task_id": "sympy__sympy-19040",
+      "repo": "sympy/sympy",
+      "arm": "r1",
+      "first": "b0r3",
+      "k": 3,
+      "run_dir": "runs/a6-retry-mock/sympy__sympy-19040/r1/b0r3/r3",
+      "mock": true,
+      "status": "fail",
+      "solved": false,
+      "model_calls": 1,
+      "first_edit_step": null,
+      "cost_cny": "0.000",
+      "stop_reason": "completed",
+      "changed_files": [],
+      "prompt_sha256": "cee9a4c83cf710ab6b060674a2532e5ef4a8a4e9256634b05c21e8f19c8b1329",
+      "retry": {
+        "arm": "r1",
+        "first": "b0r3",
+        "attempt_sha256": "eed63c97e8f25284ee2d59058d29634edfd06f0f543a77d8cd0ab848d0ebb66f"
+      }
+    }
+  ],
+  "note": "Zero-model mock runs. This is not the A6-R data."
+}
