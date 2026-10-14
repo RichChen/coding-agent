@@ -1,0 +1,53 @@
+{
+  "usage": {
+    "model_attempts": 6,
+    "known_usage_attempts": 6,
+    "unknown_usage_attempts": 0,
+    "prompt_tokens": 17547,
+    "completion_tokens": 744
+  },
+  "settlement": {
+    "reservation_id": 1,
+    "phase": "build",
+    "operation_id": "a5-s1-sympy__sympy-11400-902823a16b0f",
+    "component": "repair",
+    "status": "provider_usage",
+    "cost_cny": "0.041",
+    "prompt_tokens": 17547,
+    "completion_tokens": 744
+  },
+  "ledger_snapshot": {
+    "schema": "a5.cny.ledger.v1",
+    "currency": "CNY",
+    "price_binding_hash": "ab1cad7069b9b496b74a1bc523121eebd205b1868ce875bff5ba4b91cf739a29",
+    "calls_started": 1,
+    "cost_committed": "0.041",
+    "phase_calls": {
+      "build": 1,
+      "pilot": 0
+    },
+    "phase_cost": {
+      "build": "0.041",
+      "pilot": "0.000"
+    },
+    "outstanding": 0,
+    "settlements": [
+      {
+        "reservation_id": 1,
+        "phase": "build",
+        "operation_id": "a5-s1-sympy__sympy-11400-902823a16b0f",
+        "component": "repair",
+        "status": "provider_usage",
+        "cost_cny": "0.041",
+        "prompt_tokens": 17547,
+        "completion_tokens": 744
+      }
+    ],
+    "hard_caps": {
+      "total": "50.000",
+      "build": "20.000",
+      "pilot": "29.920",
+      "reserve": "0.080"
+    }
+  }
+}

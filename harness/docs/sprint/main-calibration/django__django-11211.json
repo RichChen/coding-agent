@@ -1,0 +1,51 @@
+{
+  "task_id": "django__django-11211",
+  "repo": "django/django",
+  "accepted": true,
+  "reason": null,
+  "empty_f2p": [
+    0,
+    1
+  ],
+  "gold_f2p": [
+    1,
+    1
+  ],
+  "empty_p2p": [
+    76,
+    76
+  ],
+  "gold_p2p": [
+    76,
+    76
+  ],
+  "p2p_excluded_count": 0,
+  "p2p_excluded": [],
+  "nodeids": {
+    "f2p": {
+      "original": 1,
+      "used": 1
+    },
+    "p2p": {
+      "original": 76,
+      "used": 76
+    },
+    "dropped_reasons": {
+      "f2p": {},
+      "p2p": {}
+    },
+    "dropped": [],
+    "mapped": {
+      "f2p": 0,
+      "p2p": 1
+    },
+    "mapping": [
+      {
+        "side": "p2p",
+        "docstring": "A m2m can be followed through another m2m.",
+        "nodeid": "prefetch_related.tests.PrefetchRelatedTests.test_m2m_then_m2m"
+      }
+    ]
+  },
+  "sklearn_import": null
+}

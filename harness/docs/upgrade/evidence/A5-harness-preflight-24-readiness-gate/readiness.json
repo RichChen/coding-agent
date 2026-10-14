@@ -1,0 +1,26 @@
+{
+  "schema": "a5.preflight.result.v1",
+  "status": "blocked",
+  "model_calls": 0,
+  "paid_build_started": false,
+  "paid_pilot_started": false,
+  "targets": 20,
+  "historical_pool": 4,
+  "planned_task_runs": 240,
+  "environment_rows": 0,
+  "runtime_transfer_limit_bytes": 8388608,
+  "errors": [
+    "model_snapshot_and_current_price_missing",
+    "24_environment_baseline_receipts_missing",
+    "dual_source_fingerprint_not_refrozen"
+  ],
+  "source_lock_sha256": "53f50508569127a2b3e88a10532fbd0049f40196e3076f8bfc4e314a295381a0",
+  "public_review_sha256": "d1fe518b3b697eb3a992db6ba24a4786c98c7c5f04766c09286e2502d1773ebd",
+  "current_harness_source_fingerprint": "0ddb9e7d717e840d7cb1e85d29304319fa1b5d492afd86e8ab60022b22844e1a",
+  "next_gates": [
+    "model_snapshot_and_current_price",
+    "24_environment_and_baseline_receipts",
+    "dual_side_source_fingerprint",
+    "B0-B3 receipt importer"
+  ]
+}

@@ -1,0 +1,7 @@
+config,run_index,task_id,success,expected_check,steps,elapsed_ms,tokens,tool_failures,policy_blocks,failure_reason,trace_file
+baseline,1,hard_multi_read_chain,True,True,5,11202.99999997951,5896,0,0,none,traces\hard_multi_read_chain_baseline_20260625T044452.jsonl
+baseline,1,hard_cross_file_api,True,True,8,18468.000000109896,13416,1,0,none,traces\hard_cross_file_api_baseline_20260625T044504.jsonl
+baseline,1,hard_report_transform,True,False,4,11562.000000150874,5331,0,0,none,traces\hard_report_transform_baseline_20260625T044523.jsonl
+context_compact,1,hard_multi_read_chain,True,True,5,12921.999999787658,8095,0,0,none,traces\hard_multi_read_chain_context_compact_20260625T044535.jsonl
+context_compact,1,hard_cross_file_api,True,True,4,11875.0,6328,0,0,none,traces\hard_cross_file_api_context_compact_20260625T044548.jsonl
+context_compact,1,hard_report_transform,True,False,7,14952.99999997951,11596,1,0,none,traces\hard_report_transform_context_compact_20260625T044601.jsonl

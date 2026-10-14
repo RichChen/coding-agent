@@ -1,0 +1,15 @@
+{
+  "schema": "a5.failure-retry-ledger.v1",
+  "attempt": 25,
+  "entries": [
+    {
+      "task_id": "sympy__sympy-20154",
+      "status": "invalid_env",
+      "reason": "environment_or_baseline_preflight_failed",
+      "error": "ModuleNotFoundError: No module named 'src'"
+    }
+  ],
+  "model_calls": 0,
+  "model_reservations": 0,
+  "paid": false
+}

@@ -1,0 +1,33 @@
+{
+  "schema": "a5.failure-retry-ledger.v1",
+  "attempt": 25,
+  "entries": [
+    {
+      "task_id": "django__django-10914",
+      "status": "invalid_env",
+      "reason": "environment_or_baseline_preflight_failed",
+      "error": "OSError: [WinError 1314] 客户端没有所需的特权。: '../../djangodocs/static/docicons-behindscenes.png' -> 'D:\\\\crq\\\\src\\\\coding-harness\\\\docs\\\\upgrade\\\\evidence\\\\A5-harness-preflight-62-history-baseline\\\\tasks\\\\django__django-10914\\\\staging\\\\original\\\\docs\\\\_theme\\\\djangodocs-epub\\\\static\\\\docicons-behindscenes.png'"
+    },
+    {
+      "task_id": "sympy__sympy-11400",
+      "status": "invalid_env",
+      "reason": "environment_or_baseline_preflight_failed",
+      "error": "RuntimeError: docker image build failed: ERROR: open C:\\Users\\Administrator\\.docker\\buildx\\.lock: Access is denied.\n"
+    },
+    {
+      "task_id": "scikit-learn__scikit-learn-10297",
+      "status": "invalid_env",
+      "reason": "environment_or_baseline_preflight_failed",
+      "error": "RuntimeError: docker image build failed: ERROR: open C:\\Users\\Administrator\\.docker\\buildx\\.lock: Access is denied.\n"
+    },
+    {
+      "task_id": "pytest-dev__pytest-5103",
+      "status": "invalid_env",
+      "reason": "environment_or_baseline_preflight_failed",
+      "error": "RuntimeError: docker image build failed: ERROR: open C:\\Users\\Administrator\\.docker\\buildx\\.lock: Access is denied.\n"
+    }
+  ],
+  "model_calls": 0,
+  "model_reservations": 0,
+  "paid": false
+}

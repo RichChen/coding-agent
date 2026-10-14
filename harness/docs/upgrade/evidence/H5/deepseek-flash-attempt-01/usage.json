@@ -1,0 +1,33 @@
+{
+  "model": "deepseek-flash",
+  "attempts": 12,
+  "unknown_usage_attempts": 0,
+  "provider_totals": {
+    "prompt_tokens": 43928,
+    "completion_tokens": 1618,
+    "total_tokens": 45546,
+    "prompt_cache_hit_tokens": 18432,
+    "prompt_cache_miss_tokens": 25496
+  },
+  "known_subtotals": {
+    "prompt_tokens": 43928,
+    "completion_tokens": 1618,
+    "total_tokens": 45546,
+    "prompt_cache_hit_tokens": 18432,
+    "prompt_cache_miss_tokens": 25496
+  },
+  "cost_usd": null,
+  "cost_provenance": "not_reconciled_with_account_billing",
+  "estimated_cost_usd_range": [
+    0.004850495999999999,
+    0.009700991999999999
+  ],
+  "estimate_basis": "off-peak/peak interval, excludes account discounts, not an invoice",
+  "peak_usd_per_million": {
+    "hit": 0.006,
+    "miss": 0.3,
+    "output": 1.2
+  },
+  "pricing_source": "https://api-docs.deepseek.com/quick_start/pricing",
+  "pricing_retrieved": "2026-09-21"
+}

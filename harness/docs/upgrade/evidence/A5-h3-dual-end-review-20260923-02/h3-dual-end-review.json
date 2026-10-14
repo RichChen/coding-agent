@@ -1,0 +1,1471 @@
+{
+  "schema": "a5.h3-dual-end-review.v1",
+  "status": "review_complete_not_h3_passed",
+  "conclusion": "offline evidence binding and matrix checks completed; H3 remains blocked pending dual fingerprint refreeze and snapshot validator reconstruction",
+  "agent_artifact_manifest": {
+    "path": "D:\\crq\\src\\coding-agent\\reports\\upgrade\\a5-agent-canonical-bind-20260923\\artifact-manifest.json",
+    "sha256": "6b31f28f82176441bfc4076965e7b1d9d9f19085076d5ee8b3636c76b1dd57dd",
+    "expected_updated_sha256": "6b31f28f82176441bfc4076965e7b1d9d9f19085076d5ee8b3636c76b1dd57dd",
+    "sha_match": true,
+    "artifacts_internal_hashes_pass": true
+  },
+  "target_binding": {
+    "target_count": 20,
+    "ready_count": 19,
+    "blocked_ids": [
+      "django__django-13265"
+    ],
+    "id_set_pass": true,
+    "evidence_hashes_pass": true,
+    "rows": [
+      {
+        "canonical_id": "django__django-13265",
+        "ledger_grader_ready": false,
+        "agent_readiness": "blocked_contract_baseline_mismatch",
+        "retained_in_240_denominator": true,
+        "assignment_rows": 12,
+        "checks": [
+          {
+            "check": "blocker_readiness",
+            "pass": true
+          },
+          {
+            "check": "blocker_denominator",
+            "pass": true
+          },
+          {
+            "check": "blocker_disposition_hash",
+            "pass": true
+          }
+        ]
+      },
+      {
+        "canonical_id": "django__django-13448",
+        "ledger_grader_ready": true,
+        "agent_readiness": "grader_ready",
+        "retained_in_240_denominator": true,
+        "assignment_rows": 12,
+        "checks": [
+          {
+            "check": "ready_membership",
+            "pass": true
+          },
+          {
+            "check": "denominator",
+            "pass": true
+          },
+          {
+            "check": "all_reference_hashes",
+            "pass": true
+          }
+        ],
+        "reference_checks": [
+          {
+            "field": "calibration_receipt",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\django__django-13448\\calibration.json",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\django__django-13448\\calibration.json",
+            "expected_sha256": "aad8a1ed0e4461cedd79e17f10e47ab2c15b0518d2b3137be9fbe662cee21df7",
+            "actual_sha256": "aad8a1ed0e4461cedd79e17f10e47ab2c15b0518d2b3137be9fbe662cee21df7",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          },
+          {
+            "field": "collection_evidence",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\django__django-13448\\full-repo\\evidence.json",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\django__django-13448\\full-repo\\evidence.json",
+            "expected_sha256": "e3aa1d17d7b35102aeb28fa9a5b103e725189dac0581f7bbdb2c6d88e746771c",
+            "actual_sha256": "e3aa1d17d7b35102aeb28fa9a5b103e725189dac0581f7bbdb2c6d88e746771c",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          },
+          {
+            "field": "known_good_receipt",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-32-preserved-mode-recheck\\tasks\\django__django-13448\\known-good\\evidence.json",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-32-preserved-mode-recheck\\tasks\\django__django-13448\\known-good\\evidence.json",
+            "expected_sha256": "f265033be7f7f41663b7c05911ce171ea757838ec2c20c908eeca75be3e142b1",
+            "actual_sha256": "f265033be7f7f41663b7c05911ce171ea757838ec2c20c908eeca75be3e142b1",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          },
+          {
+            "field": "attempt",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-02",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-02\\receipts.json",
+            "expected_sha256": "257671c0cdcdc6e12e257977a7279910a2964625cc18da246fa77be2bc75e9c3",
+            "actual_sha256": "257671c0cdcdc6e12e257977a7279910a2964625cc18da246fa77be2bc75e9c3",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          }
+        ]
+      },
+      {
+        "canonical_id": "django__django-13590",
+        "ledger_grader_ready": true,
+        "agent_readiness": "grader_ready",
+        "retained_in_240_denominator": true,
+        "assignment_rows": 12,
+        "checks": [
+          {
+            "check": "ready_membership",
+            "pass": true
+          },
+          {
+            "check": "denominator",
+            "pass": true
+          },
+          {
+            "check": "all_reference_hashes",
+            "pass": true
+          }
+        ],
+        "reference_checks": [
+          {
+            "field": "calibration_receipt",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\django__django-13590\\calibration.json",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\django__django-13590\\calibration.json",
+            "expected_sha256": "8494d9f6e50b14b2a90f47d87f6309d5ddce34e51fbe53f59e6642dd5698e493",
+            "actual_sha256": "8494d9f6e50b14b2a90f47d87f6309d5ddce34e51fbe53f59e6642dd5698e493",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          },
+          {
+            "field": "collection_evidence",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\django__django-13590\\full-repo\\evidence.json",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\django__django-13590\\full-repo\\evidence.json",
+            "expected_sha256": "ae8018ba33c1311f214de99d534a4886c9e4f8e2c064d788774fff62fcedbc54",
+            "actual_sha256": "ae8018ba33c1311f214de99d534a4886c9e4f8e2c064d788774fff62fcedbc54",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          },
+          {
+            "field": "known_good_receipt",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-32-preserved-mode-recheck\\tasks\\django__django-13590\\known-good\\evidence.json",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-32-preserved-mode-recheck\\tasks\\django__django-13590\\known-good\\evidence.json",
+            "expected_sha256": "2a5203cf1339266bfcb69434e544cae2a0389a446d093cba77d424d204898bff",
+            "actual_sha256": "2a5203cf1339266bfcb69434e544cae2a0389a446d093cba77d424d204898bff",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          },
+          {
+            "field": "attempt",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-02",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-02\\receipts.json",
+            "expected_sha256": "257671c0cdcdc6e12e257977a7279910a2964625cc18da246fa77be2bc75e9c3",
+            "actual_sha256": "257671c0cdcdc6e12e257977a7279910a2964625cc18da246fa77be2bc75e9c3",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          }
+        ]
+      },
+      {
+        "canonical_id": "django__django-15781",
+        "ledger_grader_ready": true,
+        "agent_readiness": "grader_ready",
+        "retained_in_240_denominator": true,
+        "assignment_rows": 12,
+        "checks": [
+          {
+            "check": "ready_membership",
+            "pass": true
+          },
+          {
+            "check": "denominator",
+            "pass": true
+          },
+          {
+            "check": "all_reference_hashes",
+            "pass": true
+          }
+        ],
+        "reference_checks": [
+          {
+            "field": "calibration_receipt",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\django__django-15781\\calibration.json",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\django__django-15781\\calibration.json",
+            "expected_sha256": "5b8f67bb4dc870c9ff49231ac3425e4921c9c838d8b33ed09bfdd377af93328d",
+            "actual_sha256": "5b8f67bb4dc870c9ff49231ac3425e4921c9c838d8b33ed09bfdd377af93328d",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          },
+          {
+            "field": "collection_evidence",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\django__django-15781\\full-repo\\evidence.json",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\django__django-15781\\full-repo\\evidence.json",
+            "expected_sha256": "b30c6fc40b900c138a5a0b1e8d6cdcbb3f59c041135548ce67adfad7954712a1",
+            "actual_sha256": "b30c6fc40b900c138a5a0b1e8d6cdcbb3f59c041135548ce67adfad7954712a1",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          },
+          {
+            "field": "known_good_receipt",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-32-preserved-mode-recheck\\tasks\\django__django-15781\\known-good\\evidence.json",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-32-preserved-mode-recheck\\tasks\\django__django-15781\\known-good\\evidence.json",
+            "expected_sha256": "fce81009e80c6b17b8234fcf0160c3504fa13cbba73fdd8b76ba5826d15f5c17",
+            "actual_sha256": "fce81009e80c6b17b8234fcf0160c3504fa13cbba73fdd8b76ba5826d15f5c17",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          },
+          {
+            "field": "attempt",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-02",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-02\\receipts.json",
+            "expected_sha256": "257671c0cdcdc6e12e257977a7279910a2964625cc18da246fa77be2bc75e9c3",
+            "actual_sha256": "257671c0cdcdc6e12e257977a7279910a2964625cc18da246fa77be2bc75e9c3",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          }
+        ]
+      },
+      {
+        "canonical_id": "pytest-dev__pytest-7220",
+        "ledger_grader_ready": true,
+        "agent_readiness": "grader_ready",
+        "retained_in_240_denominator": true,
+        "assignment_rows": 12,
+        "checks": [
+          {
+            "check": "ready_membership",
+            "pass": true
+          },
+          {
+            "check": "denominator",
+            "pass": true
+          },
+          {
+            "check": "all_reference_hashes",
+            "pass": true
+          }
+        ],
+        "reference_checks": [
+          {
+            "field": "calibration_receipt",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\pytest-dev__pytest-7220\\calibration.json",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\pytest-dev__pytest-7220\\calibration.json",
+            "expected_sha256": "3ad55b39479b46ed0f568de42c7a4e41f3fe5135691fb48ea4c64c1148e191d0",
+            "actual_sha256": "3ad55b39479b46ed0f568de42c7a4e41f3fe5135691fb48ea4c64c1148e191d0",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          },
+          {
+            "field": "collection_evidence",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\pytest-dev__pytest-7220\\full-repo\\evidence.json",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\pytest-dev__pytest-7220\\full-repo\\evidence.json",
+            "expected_sha256": "afc3ef9eb60b7cefd95fb23362edca7a6626b579578e2649dd03df457e4191df",
+            "actual_sha256": "afc3ef9eb60b7cefd95fb23362edca7a6626b579578e2649dd03df457e4191df",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          },
+          {
+            "field": "known_good_receipt",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-14-host-pytest\\tasks\\pytest-dev__pytest-7220\\known-good\\evidence.json",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-14-host-pytest\\tasks\\pytest-dev__pytest-7220\\known-good\\evidence.json",
+            "expected_sha256": "6a64fbb435e013608c8516ad7df8958d7b64a8acbe72ac1ddcfe861b57c5544e",
+            "actual_sha256": "6a64fbb435e013608c8516ad7df8958d7b64a8acbe72ac1ddcfe861b57c5544e",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          },
+          {
+            "field": "attempt",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-05",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-05\\receipts.json",
+            "expected_sha256": "4ce66a7c84fb5ad9e8a1262b6e65cbfd54b336ccf69466809d13720bf612b84b",
+            "actual_sha256": "4ce66a7c84fb5ad9e8a1262b6e65cbfd54b336ccf69466809d13720bf612b84b",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          }
+        ]
+      },
+      {
+        "canonical_id": "pytest-dev__pytest-7432",
+        "ledger_grader_ready": true,
+        "agent_readiness": "grader_ready",
+        "retained_in_240_denominator": true,
+        "assignment_rows": 12,
+        "checks": [
+          {
+            "check": "ready_membership",
+            "pass": true
+          },
+          {
+            "check": "denominator",
+            "pass": true
+          },
+          {
+            "check": "all_reference_hashes",
+            "pass": true
+          }
+        ],
+        "reference_checks": [
+          {
+            "field": "calibration_receipt",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\pytest-dev__pytest-7432\\calibration.json",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\pytest-dev__pytest-7432\\calibration.json",
+            "expected_sha256": "af25be7caef82ca8cae8aa13665b34a6f22b1d44943c6e56d72ab924f7658b48",
+            "actual_sha256": "af25be7caef82ca8cae8aa13665b34a6f22b1d44943c6e56d72ab924f7658b48",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          },
+          {
+            "field": "collection_evidence",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\pytest-dev__pytest-7432\\full-repo\\evidence.json",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\pytest-dev__pytest-7432\\full-repo\\evidence.json",
+            "expected_sha256": "b0ae3b2545edbf28211420f1cdc293311250a713f80e6b8c610a13bfd50b87c3",
+            "actual_sha256": "b0ae3b2545edbf28211420f1cdc293311250a713f80e6b8c610a13bfd50b87c3",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          },
+          {
+            "field": "known_good_receipt",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-39-pytest-full-collection\\tasks\\pytest-dev__pytest-7432\\known-good\\evidence.json",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-39-pytest-full-collection\\tasks\\pytest-dev__pytest-7432\\known-good\\evidence.json",
+            "expected_sha256": "c4051cb62c02e1e45f304b33988007d1a5f1777c6d20545f344c188e7b4911c1",
+            "actual_sha256": "c4051cb62c02e1e45f304b33988007d1a5f1777c6d20545f344c188e7b4911c1",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          },
+          {
+            "field": "attempt",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-02",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-02\\receipts.json",
+            "expected_sha256": "257671c0cdcdc6e12e257977a7279910a2964625cc18da246fa77be2bc75e9c3",
+            "actual_sha256": "257671c0cdcdc6e12e257977a7279910a2964625cc18da246fa77be2bc75e9c3",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          }
+        ]
+      },
+      {
+        "canonical_id": "pytest-dev__pytest-8365",
+        "ledger_grader_ready": true,
+        "agent_readiness": "grader_ready",
+        "retained_in_240_denominator": true,
+        "assignment_rows": 12,
+        "checks": [
+          {
+            "check": "ready_membership",
+            "pass": true
+          },
+          {
+            "check": "denominator",
+            "pass": true
+          },
+          {
+            "check": "all_reference_hashes",
+            "pass": true
+          }
+        ],
+        "reference_checks": [
+          {
+            "field": "calibration_receipt",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\pytest-dev__pytest-8365\\calibration.json",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\pytest-dev__pytest-8365\\calibration.json",
+            "expected_sha256": "8fd321376f753bc6244221adb1bd704d21c564f4b41c345137efc2293d52c935",
+            "actual_sha256": "8fd321376f753bc6244221adb1bd704d21c564f4b41c345137efc2293d52c935",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          },
+          {
+            "field": "collection_evidence",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\pytest-dev__pytest-8365\\full-repo\\evidence.json",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\pytest-dev__pytest-8365\\full-repo\\evidence.json",
+            "expected_sha256": "d62022bfec6b1a8ff6262f404027533e920f0913812533359219f4006ea57708",
+            "actual_sha256": "d62022bfec6b1a8ff6262f404027533e920f0913812533359219f4006ea57708",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          },
+          {
+            "field": "known_good_receipt",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-14-host-pytest\\tasks\\pytest-dev__pytest-8365\\known-good\\evidence.json",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-14-host-pytest\\tasks\\pytest-dev__pytest-8365\\known-good\\evidence.json",
+            "expected_sha256": "6d980dec2ade3ef6febbcf79e665ca0627c2b424c4cd7777c618daf8520e3e94",
+            "actual_sha256": "6d980dec2ade3ef6febbcf79e665ca0627c2b424c4cd7777c618daf8520e3e94",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          },
+          {
+            "field": "attempt",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-05",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-05\\receipts.json",
+            "expected_sha256": "4ce66a7c84fb5ad9e8a1262b6e65cbfd54b336ccf69466809d13720bf612b84b",
+            "actual_sha256": "4ce66a7c84fb5ad9e8a1262b6e65cbfd54b336ccf69466809d13720bf612b84b",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          }
+        ]
+      },
+      {
+        "canonical_id": "pytest-dev__pytest-9359",
+        "ledger_grader_ready": true,
+        "agent_readiness": "grader_ready",
+        "retained_in_240_denominator": true,
+        "assignment_rows": 12,
+        "checks": [
+          {
+            "check": "ready_membership",
+            "pass": true
+          },
+          {
+            "check": "denominator",
+            "pass": true
+          },
+          {
+            "check": "all_reference_hashes",
+            "pass": true
+          }
+        ],
+        "reference_checks": [
+          {
+            "field": "calibration_receipt",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\pytest-dev__pytest-9359\\calibration.json",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\pytest-dev__pytest-9359\\calibration.json",
+            "expected_sha256": "89f414e012ddb3ab3a99caa7284156ee17f1b69e95d5c41e6be081080209337f",
+            "actual_sha256": "89f414e012ddb3ab3a99caa7284156ee17f1b69e95d5c41e6be081080209337f",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          },
+          {
+            "field": "collection_evidence",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\pytest-dev__pytest-9359\\full-repo\\evidence.json",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\pytest-dev__pytest-9359\\full-repo\\evidence.json",
+            "expected_sha256": "b12ed665b234139cb971c7eff765a6932917448476cee690bd5587a8d847515f",
+            "actual_sha256": "b12ed665b234139cb971c7eff765a6932917448476cee690bd5587a8d847515f",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          },
+          {
+            "field": "known_good_receipt",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-16-pytest9359-py39\\tasks\\pytest-dev__pytest-9359\\known-good\\evidence.json",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-16-pytest9359-py39\\tasks\\pytest-dev__pytest-9359\\known-good\\evidence.json",
+            "expected_sha256": "5921db1e570e5605e81f390a5b651848172da56de6787776fa26664df0658f1d",
+            "actual_sha256": "5921db1e570e5605e81f390a5b651848172da56de6787776fa26664df0658f1d",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          },
+          {
+            "field": "attempt",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-05",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-05\\receipts.json",
+            "expected_sha256": "4ce66a7c84fb5ad9e8a1262b6e65cbfd54b336ccf69466809d13720bf612b84b",
+            "actual_sha256": "4ce66a7c84fb5ad9e8a1262b6e65cbfd54b336ccf69466809d13720bf612b84b",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          }
+        ]
+      },
+      {
+        "canonical_id": "scikit-learn__scikit-learn-25500",
+        "ledger_grader_ready": true,
+        "agent_readiness": "grader_ready",
+        "retained_in_240_denominator": true,
+        "assignment_rows": 12,
+        "checks": [
+          {
+            "check": "ready_membership",
+            "pass": true
+          },
+          {
+            "check": "denominator",
+            "pass": true
+          },
+          {
+            "check": "all_reference_hashes",
+            "pass": true
+          }
+        ],
+        "reference_checks": [
+          {
+            "field": "calibration_receipt",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\scikit-learn__scikit-learn-25500\\calibration.json",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\scikit-learn__scikit-learn-25500\\calibration.json",
+            "expected_sha256": "dbda3344bf22e46e4e887d1df4eff645679e9580aa499384ee76c75054223d84",
+            "actual_sha256": "dbda3344bf22e46e4e887d1df4eff645679e9580aa499384ee76c75054223d84",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          },
+          {
+            "field": "collection_evidence",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\scikit-learn__scikit-learn-25500\\full-repo\\evidence.json",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\scikit-learn__scikit-learn-25500\\full-repo\\evidence.json",
+            "expected_sha256": "f6032f40f011d713c069c85804b026ef47855b5f45adac478e86bc37789a7bce",
+            "actual_sha256": "f6032f40f011d713c069c85804b026ef47855b5f45adac478e86bc37789a7bce",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          },
+          {
+            "field": "known_good_receipt",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-43-sklearn-native-recheck\\tasks\\scikit-learn__scikit-learn-25500\\known-good\\evidence.json",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-43-sklearn-native-recheck\\tasks\\scikit-learn__scikit-learn-25500\\known-good\\evidence.json",
+            "expected_sha256": "62a13fa2ea1882384cce93f5c93825814861b5b6e75ea5f7a606ff55e2e6695a",
+            "actual_sha256": "62a13fa2ea1882384cce93f5c93825814861b5b6e75ea5f7a606ff55e2e6695a",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          },
+          {
+            "field": "attempt",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-02",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-02\\receipts.json",
+            "expected_sha256": "257671c0cdcdc6e12e257977a7279910a2964625cc18da246fa77be2bc75e9c3",
+            "actual_sha256": "257671c0cdcdc6e12e257977a7279910a2964625cc18da246fa77be2bc75e9c3",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          }
+        ]
+      },
+      {
+        "canonical_id": "scikit-learn__scikit-learn-25570",
+        "ledger_grader_ready": true,
+        "agent_readiness": "grader_ready",
+        "retained_in_240_denominator": true,
+        "assignment_rows": 12,
+        "checks": [
+          {
+            "check": "ready_membership",
+            "pass": true
+          },
+          {
+            "check": "denominator",
+            "pass": true
+          },
+          {
+            "check": "all_reference_hashes",
+            "pass": true
+          }
+        ],
+        "reference_checks": [
+          {
+            "field": "calibration_receipt",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\scikit-learn__scikit-learn-25570\\calibration.json",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\scikit-learn__scikit-learn-25570\\calibration.json",
+            "expected_sha256": "859e5261dd1a8748d2249eef17ddaf2eca8d82cc3b9ac5de3773a46f4086e733",
+            "actual_sha256": "859e5261dd1a8748d2249eef17ddaf2eca8d82cc3b9ac5de3773a46f4086e733",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          },
+          {
+            "field": "collection_evidence",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\scikit-learn__scikit-learn-25570\\full-repo\\evidence.json",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\scikit-learn__scikit-learn-25570\\full-repo\\evidence.json",
+            "expected_sha256": "434183e39f6a23b26445e2eb387da4ab79eda3f9bf9f3bf831f9989c65ad06a9",
+            "actual_sha256": "434183e39f6a23b26445e2eb387da4ab79eda3f9bf9f3bf831f9989c65ad06a9",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          },
+          {
+            "field": "known_good_receipt",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-45-last-native-recheck\\tasks\\scikit-learn__scikit-learn-25570\\known-good\\evidence.json",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-45-last-native-recheck\\tasks\\scikit-learn__scikit-learn-25570\\known-good\\evidence.json",
+            "expected_sha256": "db46732883b3247ac55b0f8532e2e8882322fe724dc2ee5c5e0972f0a3222be6",
+            "actual_sha256": "db46732883b3247ac55b0f8532e2e8882322fe724dc2ee5c5e0972f0a3222be6",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          },
+          {
+            "field": "attempt",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-02",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-02\\receipts.json",
+            "expected_sha256": "257671c0cdcdc6e12e257977a7279910a2964625cc18da246fa77be2bc75e9c3",
+            "actual_sha256": "257671c0cdcdc6e12e257977a7279910a2964625cc18da246fa77be2bc75e9c3",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          }
+        ]
+      },
+      {
+        "canonical_id": "scikit-learn__scikit-learn-25638",
+        "ledger_grader_ready": true,
+        "agent_readiness": "grader_ready",
+        "retained_in_240_denominator": true,
+        "assignment_rows": 12,
+        "checks": [
+          {
+            "check": "ready_membership",
+            "pass": true
+          },
+          {
+            "check": "denominator",
+            "pass": true
+          },
+          {
+            "check": "all_reference_hashes",
+            "pass": true
+          }
+        ],
+        "reference_checks": [
+          {
+            "field": "calibration_receipt",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\scikit-learn__scikit-learn-25638\\calibration.json",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\scikit-learn__scikit-learn-25638\\calibration.json",
+            "expected_sha256": "ee13e4a61155e11c3b0ef35b6e68e99a98cfad1a12665c8599ed618a70639f11",
+            "actual_sha256": "ee13e4a61155e11c3b0ef35b6e68e99a98cfad1a12665c8599ed618a70639f11",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          },
+          {
+            "field": "collection_evidence",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\scikit-learn__scikit-learn-25638\\full-repo\\evidence.json",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\scikit-learn__scikit-learn-25638\\full-repo\\evidence.json",
+            "expected_sha256": "d232a5d15ff474c8013f5411f9490d698c97daadc4cacfab5b4c5a5d25fe3bd0",
+            "actual_sha256": "d232a5d15ff474c8013f5411f9490d698c97daadc4cacfab5b4c5a5d25fe3bd0",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          },
+          {
+            "field": "known_good_receipt",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-43-sklearn-native-recheck\\tasks\\scikit-learn__scikit-learn-25638\\known-good\\evidence.json",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-43-sklearn-native-recheck\\tasks\\scikit-learn__scikit-learn-25638\\known-good\\evidence.json",
+            "expected_sha256": "5ffa0891817a89481a149f36fcb349386ffda3a19248686ef87fb523651a0543",
+            "actual_sha256": "5ffa0891817a89481a149f36fcb349386ffda3a19248686ef87fb523651a0543",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          },
+          {
+            "field": "attempt",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-02",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-02\\receipts.json",
+            "expected_sha256": "257671c0cdcdc6e12e257977a7279910a2964625cc18da246fa77be2bc75e9c3",
+            "actual_sha256": "257671c0cdcdc6e12e257977a7279910a2964625cc18da246fa77be2bc75e9c3",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          }
+        ]
+      },
+      {
+        "canonical_id": "scikit-learn__scikit-learn-25747",
+        "ledger_grader_ready": true,
+        "agent_readiness": "grader_ready",
+        "retained_in_240_denominator": true,
+        "assignment_rows": 12,
+        "checks": [
+          {
+            "check": "ready_membership",
+            "pass": true
+          },
+          {
+            "check": "denominator",
+            "pass": true
+          },
+          {
+            "check": "all_reference_hashes",
+            "pass": true
+          }
+        ],
+        "reference_checks": [
+          {
+            "field": "calibration_receipt",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\scikit-learn__scikit-learn-25747\\calibration.json",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\scikit-learn__scikit-learn-25747\\calibration.json",
+            "expected_sha256": "798e773a8c87712b2121574b203fb7502df04cae21c6150391d490914c99ac8c",
+            "actual_sha256": "798e773a8c87712b2121574b203fb7502df04cae21c6150391d490914c99ac8c",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          },
+          {
+            "field": "collection_evidence",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\scikit-learn__scikit-learn-25747\\full-repo\\evidence.json",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\scikit-learn__scikit-learn-25747\\full-repo\\evidence.json",
+            "expected_sha256": "98c47484e995459931a84a2f166a2d52b67cce58d72a6ce870da999d5118f167",
+            "actual_sha256": "98c47484e995459931a84a2f166a2d52b67cce58d72a6ce870da999d5118f167",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          },
+          {
+            "field": "known_good_receipt",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-41-native-image-load\\tasks\\scikit-learn__scikit-learn-25747\\known-good\\evidence.json",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-41-native-image-load\\tasks\\scikit-learn__scikit-learn-25747\\known-good\\evidence.json",
+            "expected_sha256": "c6812bf0f45c1c6b99e9b152c8e9094298f236749f205f2b3ae05c603e735b97",
+            "actual_sha256": "c6812bf0f45c1c6b99e9b152c8e9094298f236749f205f2b3ae05c603e735b97",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          },
+          {
+            "field": "attempt",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-02",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-02\\receipts.json",
+            "expected_sha256": "257671c0cdcdc6e12e257977a7279910a2964625cc18da246fa77be2bc75e9c3",
+            "actual_sha256": "257671c0cdcdc6e12e257977a7279910a2964625cc18da246fa77be2bc75e9c3",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          }
+        ]
+      },
+      {
+        "canonical_id": "sphinx-doc__sphinx-10451",
+        "ledger_grader_ready": true,
+        "agent_readiness": "grader_ready",
+        "retained_in_240_denominator": true,
+        "assignment_rows": 12,
+        "checks": [
+          {
+            "check": "ready_membership",
+            "pass": true
+          },
+          {
+            "check": "denominator",
+            "pass": true
+          },
+          {
+            "check": "all_reference_hashes",
+            "pass": true
+          }
+        ],
+        "reference_checks": [
+          {
+            "field": "calibration_receipt",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\sphinx-doc__sphinx-10451\\calibration.json",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\sphinx-doc__sphinx-10451\\calibration.json",
+            "expected_sha256": "467af42ba86381ebed1b47bc57e4e69ac35830ab11439dc0b0740a037c74c183",
+            "actual_sha256": "467af42ba86381ebed1b47bc57e4e69ac35830ab11439dc0b0740a037c74c183",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          },
+          {
+            "field": "collection_evidence",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\sphinx-doc__sphinx-10451\\full-repo\\evidence.json",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\sphinx-doc__sphinx-10451\\full-repo\\evidence.json",
+            "expected_sha256": "a66575023436dbbf0160e6400e5222bfe1fcfaf35d1a4d01c906f4db3c08105e",
+            "actual_sha256": "a66575023436dbbf0160e6400e5222bfe1fcfaf35d1a4d01c906f4db3c08105e",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          },
+          {
+            "field": "known_good_receipt",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-35-sphinx-test-files\\tasks\\sphinx-doc__sphinx-10451\\known-good\\evidence.json",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-35-sphinx-test-files\\tasks\\sphinx-doc__sphinx-10451\\known-good\\evidence.json",
+            "expected_sha256": "c0c9a0ce4c0995e0c56ed9e9e776be6b1ce141b1ff0922054153bffad602bde7",
+            "actual_sha256": "c0c9a0ce4c0995e0c56ed9e9e776be6b1ce141b1ff0922054153bffad602bde7",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          },
+          {
+            "field": "attempt",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-02",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-02\\receipts.json",
+            "expected_sha256": "257671c0cdcdc6e12e257977a7279910a2964625cc18da246fa77be2bc75e9c3",
+            "actual_sha256": "257671c0cdcdc6e12e257977a7279910a2964625cc18da246fa77be2bc75e9c3",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          }
+        ]
+      },
+      {
+        "canonical_id": "sphinx-doc__sphinx-8595",
+        "ledger_grader_ready": true,
+        "agent_readiness": "grader_ready",
+        "retained_in_240_denominator": true,
+        "assignment_rows": 12,
+        "checks": [
+          {
+            "check": "ready_membership",
+            "pass": true
+          },
+          {
+            "check": "denominator",
+            "pass": true
+          },
+          {
+            "check": "all_reference_hashes",
+            "pass": true
+          }
+        ],
+        "reference_checks": [
+          {
+            "field": "calibration_receipt",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\sphinx-doc__sphinx-8595\\calibration.json",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\sphinx-doc__sphinx-8595\\calibration.json",
+            "expected_sha256": "867240fb6787e997800d60ff09860a2bd7e19d601041562247abe86612444dd6",
+            "actual_sha256": "867240fb6787e997800d60ff09860a2bd7e19d601041562247abe86612444dd6",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          },
+          {
+            "field": "collection_evidence",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\sphinx-doc__sphinx-8595\\full-repo\\evidence.json",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\sphinx-doc__sphinx-8595\\full-repo\\evidence.json",
+            "expected_sha256": "f65f67fdfba2689e47c26eb5396a30ec26ac1723b47857ac4051caf343e032c4",
+            "actual_sha256": "f65f67fdfba2689e47c26eb5396a30ec26ac1723b47857ac4051caf343e032c4",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          },
+          {
+            "field": "known_good_receipt",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-35-sphinx-test-files\\tasks\\sphinx-doc__sphinx-8595\\known-good\\evidence.json",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-35-sphinx-test-files\\tasks\\sphinx-doc__sphinx-8595\\known-good\\evidence.json",
+            "expected_sha256": "e4a458ca488113d77ac89c55da40ed393954670ba7b5d8b5b8cde9876de001c7",
+            "actual_sha256": "e4a458ca488113d77ac89c55da40ed393954670ba7b5d8b5b8cde9876de001c7",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          },
+          {
+            "field": "attempt",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-02",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-02\\receipts.json",
+            "expected_sha256": "257671c0cdcdc6e12e257977a7279910a2964625cc18da246fa77be2bc75e9c3",
+            "actual_sha256": "257671c0cdcdc6e12e257977a7279910a2964625cc18da246fa77be2bc75e9c3",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          }
+        ]
+      },
+      {
+        "canonical_id": "sphinx-doc__sphinx-8713",
+        "ledger_grader_ready": true,
+        "agent_readiness": "grader_ready",
+        "retained_in_240_denominator": true,
+        "assignment_rows": 12,
+        "checks": [
+          {
+            "check": "ready_membership",
+            "pass": true
+          },
+          {
+            "check": "denominator",
+            "pass": true
+          },
+          {
+            "check": "all_reference_hashes",
+            "pass": true
+          }
+        ],
+        "reference_checks": [
+          {
+            "field": "calibration_receipt",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\sphinx-doc__sphinx-8713\\calibration.json",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\sphinx-doc__sphinx-8713\\calibration.json",
+            "expected_sha256": "456c327ce99cb6aefbf75ea86c56be1222e60de078dffd14f349c7fa4f802c8e",
+            "actual_sha256": "456c327ce99cb6aefbf75ea86c56be1222e60de078dffd14f349c7fa4f802c8e",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          },
+          {
+            "field": "collection_evidence",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\sphinx-doc__sphinx-8713\\full-repo\\evidence.json",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\sphinx-doc__sphinx-8713\\full-repo\\evidence.json",
+            "expected_sha256": "7703dd94f9d0130a43fec882e6b0de4d4193fd8ff3f78ce2169501c64c340ced",
+            "actual_sha256": "7703dd94f9d0130a43fec882e6b0de4d4193fd8ff3f78ce2169501c64c340ced",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          },
+          {
+            "field": "known_good_receipt",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-35-sphinx-test-files\\tasks\\sphinx-doc__sphinx-8713\\known-good\\evidence.json",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-35-sphinx-test-files\\tasks\\sphinx-doc__sphinx-8713\\known-good\\evidence.json",
+            "expected_sha256": "77eedd66e08c53c95dd08e712a1cbd74561e51f4e104f7962ba98836cd92751d",
+            "actual_sha256": "77eedd66e08c53c95dd08e712a1cbd74561e51f4e104f7962ba98836cd92751d",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          },
+          {
+            "field": "attempt",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-02",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-02\\receipts.json",
+            "expected_sha256": "257671c0cdcdc6e12e257977a7279910a2964625cc18da246fa77be2bc75e9c3",
+            "actual_sha256": "257671c0cdcdc6e12e257977a7279910a2964625cc18da246fa77be2bc75e9c3",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          }
+        ]
+      },
+      {
+        "canonical_id": "sphinx-doc__sphinx-8721",
+        "ledger_grader_ready": true,
+        "agent_readiness": "grader_ready",
+        "retained_in_240_denominator": true,
+        "assignment_rows": 12,
+        "checks": [
+          {
+            "check": "ready_membership",
+            "pass": true
+          },
+          {
+            "check": "denominator",
+            "pass": true
+          },
+          {
+            "check": "all_reference_hashes",
+            "pass": true
+          }
+        ],
+        "reference_checks": [
+          {
+            "field": "calibration_receipt",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\sphinx-doc__sphinx-8721\\calibration.json",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\sphinx-doc__sphinx-8721\\calibration.json",
+            "expected_sha256": "9e418c1c0f0bcdd39d668651dc48b52f9586e3e4b028e75a09113a494045398a",
+            "actual_sha256": "9e418c1c0f0bcdd39d668651dc48b52f9586e3e4b028e75a09113a494045398a",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          },
+          {
+            "field": "collection_evidence",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\sphinx-doc__sphinx-8721\\full-repo\\evidence.json",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\sphinx-doc__sphinx-8721\\full-repo\\evidence.json",
+            "expected_sha256": "7c8d8ecf99e43addfc325e52dc73c5f6458ce364ba29165b2e41e76bbee9cf61",
+            "actual_sha256": "7c8d8ecf99e43addfc325e52dc73c5f6458ce364ba29165b2e41e76bbee9cf61",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          },
+          {
+            "field": "known_good_receipt",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-36-repo-compat\\tasks\\sphinx-doc__sphinx-8721\\known-good\\evidence.json",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-36-repo-compat\\tasks\\sphinx-doc__sphinx-8721\\known-good\\evidence.json",
+            "expected_sha256": "b504cf0732f2ae3cce46324441b926eba67ef941a05404e9cc5d67accf71034d",
+            "actual_sha256": "b504cf0732f2ae3cce46324441b926eba67ef941a05404e9cc5d67accf71034d",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          },
+          {
+            "field": "attempt",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-02",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-02\\receipts.json",
+            "expected_sha256": "257671c0cdcdc6e12e257977a7279910a2964625cc18da246fa77be2bc75e9c3",
+            "actual_sha256": "257671c0cdcdc6e12e257977a7279910a2964625cc18da246fa77be2bc75e9c3",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          }
+        ]
+      },
+      {
+        "canonical_id": "sympy__sympy-18532",
+        "ledger_grader_ready": true,
+        "agent_readiness": "grader_ready",
+        "retained_in_240_denominator": true,
+        "assignment_rows": 12,
+        "checks": [
+          {
+            "check": "ready_membership",
+            "pass": true
+          },
+          {
+            "check": "denominator",
+            "pass": true
+          },
+          {
+            "check": "all_reference_hashes",
+            "pass": true
+          }
+        ],
+        "reference_checks": [
+          {
+            "field": "calibration_receipt",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\sympy__sympy-18532\\calibration.json",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\sympy__sympy-18532\\calibration.json",
+            "expected_sha256": "7477f14d6f1e1bfdd42a0a6eb61f52d456886f269f37d861b139700942292e2e",
+            "actual_sha256": "7477f14d6f1e1bfdd42a0a6eb61f52d456886f269f37d861b139700942292e2e",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          },
+          {
+            "field": "collection_evidence",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\sympy__sympy-18532\\full-repo\\evidence.json",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\sympy__sympy-18532\\full-repo\\evidence.json",
+            "expected_sha256": "0c9b7d911ad7ce262ae09ac00a117ef30584f9c7535f61287cf4a416546f06e3",
+            "actual_sha256": "0c9b7d911ad7ce262ae09ac00a117ef30584f9c7535f61287cf4a416546f06e3",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          },
+          {
+            "field": "known_good_receipt",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-37-historical-and-sympy\\tasks\\sympy__sympy-18532\\known-good\\evidence.json",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-37-historical-and-sympy\\tasks\\sympy__sympy-18532\\known-good\\evidence.json",
+            "expected_sha256": "b54e10a99da765b48b93b2f8cdeae1d7964a00a06c8f64b2f0a506c4745965ca",
+            "actual_sha256": "b54e10a99da765b48b93b2f8cdeae1d7964a00a06c8f64b2f0a506c4745965ca",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          },
+          {
+            "field": "attempt",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-03",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-03\\receipts.json",
+            "expected_sha256": "d0354b89752809cf35a8516f6556b700bb7b45b7cc3163cee4235268dbad0aeb",
+            "actual_sha256": "d0354b89752809cf35a8516f6556b700bb7b45b7cc3163cee4235268dbad0aeb",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          }
+        ]
+      },
+      {
+        "canonical_id": "sympy__sympy-20154",
+        "ledger_grader_ready": true,
+        "agent_readiness": "grader_ready",
+        "retained_in_240_denominator": true,
+        "assignment_rows": 12,
+        "checks": [
+          {
+            "check": "ready_membership",
+            "pass": true
+          },
+          {
+            "check": "denominator",
+            "pass": true
+          },
+          {
+            "check": "all_reference_hashes",
+            "pass": true
+          }
+        ],
+        "reference_checks": [
+          {
+            "field": "calibration_receipt",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\sympy__sympy-20154\\calibration.json",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\sympy__sympy-20154\\calibration.json",
+            "expected_sha256": "45620d4db50557326cb6b5b995851cd6813779eb0ca08fe3484290149d1ee4ea",
+            "actual_sha256": "45620d4db50557326cb6b5b995851cd6813779eb0ca08fe3484290149d1ee4ea",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          },
+          {
+            "field": "collection_evidence",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\sympy__sympy-20154\\full-repo\\evidence.json",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\sympy__sympy-20154\\full-repo\\evidence.json",
+            "expected_sha256": "45bbfa51db1b4689b5c74429ee211915e3f7cbd7dd894d7be24e7cac5ba8bb1c",
+            "actual_sha256": "45bbfa51db1b4689b5c74429ee211915e3f7cbd7dd894d7be24e7cac5ba8bb1c",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          },
+          {
+            "field": "known_good_receipt",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-32-preserved-mode-recheck\\tasks\\sympy__sympy-20154\\known-good\\evidence.json",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-32-preserved-mode-recheck\\tasks\\sympy__sympy-20154\\known-good\\evidence.json",
+            "expected_sha256": "e6fcbbe63e82a993dda554fc9e631a030f7663f396ff1dea4ddde123d4294312",
+            "actual_sha256": "e6fcbbe63e82a993dda554fc9e631a030f7663f396ff1dea4ddde123d4294312",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          },
+          {
+            "field": "attempt",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-02",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-02\\receipts.json",
+            "expected_sha256": "257671c0cdcdc6e12e257977a7279910a2964625cc18da246fa77be2bc75e9c3",
+            "actual_sha256": "257671c0cdcdc6e12e257977a7279910a2964625cc18da246fa77be2bc75e9c3",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          }
+        ]
+      },
+      {
+        "canonical_id": "sympy__sympy-20442",
+        "ledger_grader_ready": true,
+        "agent_readiness": "grader_ready",
+        "retained_in_240_denominator": true,
+        "assignment_rows": 12,
+        "checks": [
+          {
+            "check": "ready_membership",
+            "pass": true
+          },
+          {
+            "check": "denominator",
+            "pass": true
+          },
+          {
+            "check": "all_reference_hashes",
+            "pass": true
+          }
+        ],
+        "reference_checks": [
+          {
+            "field": "calibration_receipt",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\sympy__sympy-20442\\calibration.json",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\sympy__sympy-20442\\calibration.json",
+            "expected_sha256": "8052e0375d955fa2bd5e21e0a230de2b412eab2cb8b16526bfc4591ee7a66565",
+            "actual_sha256": "8052e0375d955fa2bd5e21e0a230de2b412eab2cb8b16526bfc4591ee7a66565",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          },
+          {
+            "field": "collection_evidence",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\sympy__sympy-20442\\full-repo\\evidence.json",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\sympy__sympy-20442\\full-repo\\evidence.json",
+            "expected_sha256": "0a9b95b67a78bfc1fad3b59c91d40a11e4fe70c0ddc2f5efeb5fa41d1e7ae772",
+            "actual_sha256": "0a9b95b67a78bfc1fad3b59c91d40a11e4fe70c0ddc2f5efeb5fa41d1e7ae772",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          },
+          {
+            "field": "known_good_receipt",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-32-preserved-mode-recheck\\tasks\\sympy__sympy-20442\\known-good\\evidence.json",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-32-preserved-mode-recheck\\tasks\\sympy__sympy-20442\\known-good\\evidence.json",
+            "expected_sha256": "ff108ffa9dec0851d0992b65a51d827bd01507a863d74dd88aa5b9470eb7f20e",
+            "actual_sha256": "ff108ffa9dec0851d0992b65a51d827bd01507a863d74dd88aa5b9470eb7f20e",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          },
+          {
+            "field": "attempt",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-02",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-02\\receipts.json",
+            "expected_sha256": "257671c0cdcdc6e12e257977a7279910a2964625cc18da246fa77be2bc75e9c3",
+            "actual_sha256": "257671c0cdcdc6e12e257977a7279910a2964625cc18da246fa77be2bc75e9c3",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          }
+        ]
+      },
+      {
+        "canonical_id": "sympy__sympy-24152",
+        "ledger_grader_ready": true,
+        "agent_readiness": "grader_ready",
+        "retained_in_240_denominator": true,
+        "assignment_rows": 12,
+        "checks": [
+          {
+            "check": "ready_membership",
+            "pass": true
+          },
+          {
+            "check": "denominator",
+            "pass": true
+          },
+          {
+            "check": "all_reference_hashes",
+            "pass": true
+          }
+        ],
+        "reference_checks": [
+          {
+            "field": "calibration_receipt",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\sympy__sympy-24152\\calibration.json",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\sympy__sympy-24152\\calibration.json",
+            "expected_sha256": "4c12b9ea2001c80a55177cc0cb97320f19f718d9a42f367ac375227bbbfa8f78",
+            "actual_sha256": "4c12b9ea2001c80a55177cc0cb97320f19f718d9a42f367ac375227bbbfa8f78",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          },
+          {
+            "field": "collection_evidence",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\sympy__sympy-24152\\full-repo\\evidence.json",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\sympy__sympy-24152\\full-repo\\evidence.json",
+            "expected_sha256": "78bf70bdd02f9ff727334cd22a9be3456d3a33c88eb8fe3b8a1a0ac2fb0a1bfc",
+            "actual_sha256": "78bf70bdd02f9ff727334cd22a9be3456d3a33c88eb8fe3b8a1a0ac2fb0a1bfc",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          },
+          {
+            "field": "known_good_receipt",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-32-preserved-mode-recheck\\tasks\\sympy__sympy-24152\\known-good\\evidence.json",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-32-preserved-mode-recheck\\tasks\\sympy__sympy-24152\\known-good\\evidence.json",
+            "expected_sha256": "20c9ec7e930b9a3b42346cc41bd6365ba7768be329ce6c318a3fdf96f3a8e5a4",
+            "actual_sha256": "20c9ec7e930b9a3b42346cc41bd6365ba7768be329ce6c318a3fdf96f3a8e5a4",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          },
+          {
+            "field": "attempt",
+            "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-02",
+            "checked_file": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-02\\receipts.json",
+            "expected_sha256": "257671c0cdcdc6e12e257977a7279910a2964625cc18da246fa77be2bc75e9c3",
+            "actual_sha256": "257671c0cdcdc6e12e257977a7279910a2964625cc18da246fa77be2bc75e9c3",
+            "exists": true,
+            "match": true,
+            "projection_matches_package": true,
+            "pass": true
+          }
+        ]
+      }
+    ]
+  },
+  "coverage": {
+    "source_path": "D:\\crq\\src\\coding-agent\\reports\\upgrade\\a5-pilot20-preparation-20260921-v4\\assignments.json",
+    "source_sha256": "5ef02ef8f8b8d5960f180b24856801efa1d134bcc892e51d585686d15d81792d",
+    "expected_source_sha256": "5ef02ef8f8b8d5960f180b24856801efa1d134bcc892e51d585686d15d81792d",
+    "source_hash_match": true,
+    "row_count": 240,
+    "unique_assignment_ids": 240,
+    "unique_cells": 240,
+    "duplicate_cells": [],
+    "target_count": 20,
+    "variants": [
+      "B0",
+      "B1",
+      "B2",
+      "B3"
+    ],
+    "organization_seeds": [
+      42,
+      43,
+      44
+    ],
+    "variant_counts": {
+      "B0": 60,
+      "B1": 60,
+      "B2": 60,
+      "B3": 60
+    },
+    "seed_counts": {
+      "42": 80,
+      "43": 80,
+      "44": 80
+    },
+    "all_planned_not_started": true,
+    "all_provider_seed_null": true,
+    "all_run_attempt_zero": true,
+    "django_13265_rows": 12,
+    "pass": true
+  },
+  "snapshot": {
+    "snapshot_path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-real240-77-harness-preflight\\memory-snapshot.jsonl",
+    "snapshot_sha256": "1ab4f6cd9b0ae8a90658b4cf90058f72d7fdc7750f13122b9bbb9fbee10be780",
+    "expected_snapshot_sha256": "1ab4f6cd9b0ae8a90658b4cf90058f72d7fdc7750f13122b9bbb9fbee10be780",
+    "snapshot_hash_match": true,
+    "manifest_path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-real240-77-harness-preflight\\memory-snapshot-manifest.json",
+    "manifest_sha256": "3d39442ea01ee26322cbe2b25465c7f752a96bf5bccb5b81ea96dca9053fcc52",
+    "expected_manifest_sha256": "3d39442ea01ee26322cbe2b25465c7f752a96bf5bccb5b81ea96dca9053fcc52",
+    "manifest_hash_match": true,
+    "record_count": 11,
+    "manifest_record_count": 11,
+    "unique_source_ids": 11,
+    "line_checks": [
+      {
+        "source_id": "django__django-10914",
+        "expected": "86b4fa651c22286ff8ed00a3ddeb9de40e4e1a7eccc244e43709cf0f17939617",
+        "actual": "86b4fa651c22286ff8ed00a3ddeb9de40e4e1a7eccc244e43709cf0f17939617",
+        "match": true
+      },
+      {
+        "source_id": "django__django-10924",
+        "expected": "d5311efba3a48af1595bf0919ba5e4498aca6d38097d0b27475f7c52ed0b5f0d",
+        "actual": "d5311efba3a48af1595bf0919ba5e4498aca6d38097d0b27475f7c52ed0b5f0d",
+        "match": true
+      },
+      {
+        "source_id": "sympy__sympy-11400",
+        "expected": "819b7d54555260654b4d2fdb0e1927fe6eaeb2b1209bbd9159e09ff6cd19fe24",
+        "actual": "819b7d54555260654b4d2fdb0e1927fe6eaeb2b1209bbd9159e09ff6cd19fe24",
+        "match": true
+      },
+      {
+        "source_id": "scikit-learn__scikit-learn-10297",
+        "expected": "dd469099602d8ca2b8877905527a25da46fdf1faaf7e470d5a7d7df143275fe5",
+        "actual": "dd469099602d8ca2b8877905527a25da46fdf1faaf7e470d5a7d7df143275fe5",
+        "match": true
+      },
+      {
+        "source_id": "pytest-dev__pytest-5103",
+        "expected": "ae7cf29610cbf30a592218fd199fa868fd9994cfdc72bb94a0693b9d2f782e43",
+        "actual": "ae7cf29610cbf30a592218fd199fa868fd9994cfdc72bb94a0693b9d2f782e43",
+        "match": true
+      },
+      {
+        "source_id": "django__django-11039",
+        "expected": "d991858e22cebe520f6e7f8481036692a89f49ec236fb44df92dd1d0e1140df0",
+        "actual": "d991858e22cebe520f6e7f8481036692a89f49ec236fb44df92dd1d0e1140df0",
+        "match": true
+      },
+      {
+        "source_id": "sympy__sympy-12171",
+        "expected": "33384a79a6e73d1f06456947aae1f025cbed3d1fd3d6fbdaa43fa98718fb62dc",
+        "actual": "33384a79a6e73d1f06456947aae1f025cbed3d1fd3d6fbdaa43fa98718fb62dc",
+        "match": true
+      },
+      {
+        "source_id": "scikit-learn__scikit-learn-10949",
+        "expected": "50a668566eb7905491fae243b25d65b983a51edd28ccbd7f053aef7514168647",
+        "actual": "50a668566eb7905491fae243b25d65b983a51edd28ccbd7f053aef7514168647",
+        "match": true
+      },
+      {
+        "source_id": "scikit-learn__scikit-learn-11040",
+        "expected": "c78c61ee4f2a15297e02955d4cef6f2505434f24ec605b552893f85a5b5ecd42",
+        "actual": "c78c61ee4f2a15297e02955d4cef6f2505434f24ec605b552893f85a5b5ecd42",
+        "match": true
+      },
+      {
+        "source_id": "pytest-dev__pytest-5221",
+        "expected": "2f438ff4ba1f7f68d1ecf9c936b1fcbd1f6d449e12830ee5932f2195d04d3e3f",
+        "actual": "2f438ff4ba1f7f68d1ecf9c936b1fcbd1f6d449e12830ee5932f2195d04d3e3f",
+        "match": true
+      },
+      {
+        "source_id": "scikit-learn__scikit-learn-11281",
+        "expected": "615c8419f2955ee7a15d68ddecc1487db0150aa5389a9e9071988ae0e91abc3c",
+        "actual": "615c8419f2955ee7a15d68ddecc1487db0150aa5389a9e9071988ae0e91abc3c",
+        "match": true
+      }
+    ],
+    "all_pending_validator_reconstruction": true,
+    "internal_validated_count": 0,
+    "promotion_permitted": false,
+    "pass": true
+  },
+  "fingerprints": {
+    "manifest_path": "D:\\crq\\src\\coding-harness\\configs\\a5\\source-fingerprint.pending.json",
+    "manifest_sha256": "f53d51e25a6f8f1b868dc07b56cec17d0c094e805b244c6fd2e5550de09566aa",
+    "manifest_status": "frozen_after_both_sides_stable",
+    "frozen_harness_source_fingerprint": "3b963ddc1af8d906b1d6811a8b2046162818474a5bd3bc953a7b305a124ca017",
+    "current_harness_source_fingerprint": "b596cc4cb8381cac514efe4ab69919f16296d6877cf009530552f2ede07198b3",
+    "harness_fingerprint_match": false,
+    "agent_fingerprint_in_old_manifest": "c47d837b309d503898fbe74ffdca18421c297d0c9fb8fb1df57b2921e37b12f2",
+    "agent_current_fingerprint_supplied": false,
+    "pass": false
+  },
+  "canonical_state": {
+    "runnable_frozen": false,
+    "execution_enabled": false,
+    "provider_calls": 0,
+    "paid_build_started": false,
+    "paid_pilot_started": false
+  },
+  "pending_gates": [
+    "dual_source_fingerprint_refreeze_after_both_sides_final_changes",
+    "current_harness_fingerprint_drift_from_old_freeze",
+    "agent_current_fingerprint_not_supplied_for_dual_refreeze",
+    "snapshot_validator_reconstruction_and_nonpromotion_review",
+    "final H3 receipt-schema/injection-semantics cross-check"
+  ],
+  "model_calls": 0,
+  "paid": false,
+  "provider_started": false,
+  "memory_build_started": false,
+  "docker_paid_run_started": false,
+  "pilot_started": false
+}

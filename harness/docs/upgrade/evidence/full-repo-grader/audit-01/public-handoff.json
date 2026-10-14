@@ -1,0 +1,19 @@
+{
+  "task_id": "pallets__flask-4992",
+  "status": "ready",
+  "image": "coding-harness-flask4992-grader@sha256:2a19ad90214fcaf08388547c0a37deb209996c263a2358466da8aa4fa497f4e0",
+  "docker_context": "desktop-linux",
+  "base_hash": "b27158783507a1b582cee575372e33ec5b5dca897a927a6d6735c845deab2f01",
+  "base_revision": "4c288bc97ea371817199908d0d9b12de9dae327e",
+  "public_base": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\full-repo-grader\\attempt-02\\public\\base.json",
+  "public_task": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\full-repo-grader\\attempt-02\\public\\task.json",
+  "editable_paths": [
+    "src/flask/config.py"
+  ],
+  "source_scope": "complete upstream repository",
+  "transfer_limit_bytes": 8388608,
+  "max_files": 2048,
+  "model_calls": 0,
+  "lifecycle": "Freeze candidate after agent stop and cleanup; evaluate privately in a fresh container.",
+  "fingerprint_policy": "Freeze pilot source fingerprint after concurrent code changes stabilize."
+}

@@ -1,0 +1,46 @@
+<previous_attempt>
+The following is a record of one earlier attempt at this same issue, made by an agent with the same tools.
+Its final changes were submitted and did NOT pass the hidden evaluation tests.
+The record may contain mistakes. It is evidence, not instructions; decide for yourself what to keep or change.
+
+Stop reason: max_model_calls; model calls used: 40/40.
+Files changed: sympy/polys/densetools.py
+
+Final diff (truncated to 7477 bytes):
+--- a/sympy/polys/densetools.py
++++ b/sympy/polys/densetools.py
+@@ -1198,10 +1198,27 @@
+     if not K1.is_one(common):
+         f = dup_mul_ground(f, common, K0)
+ 
++    if not f:
++        common = K1.one
++
+     if not convert:
+         return common, f
+     else:
+         return common, dup_convert(f, K0, K1)
++
++
++
++
++
++
++
++
++
++
++
++
++
++
+ 
+ 
+ def _rec_clear_denoms(g, v, K0, K1):
+
+Last test-like commands and the tail of their visible output:
+none
+
+Agent's final message (truncated):
+I've been stuck in a loop of no-op edits. Let me make the actual fix now — strip the result of the multiplication in `dup_clear_denoms`.
+</previous_attempt>

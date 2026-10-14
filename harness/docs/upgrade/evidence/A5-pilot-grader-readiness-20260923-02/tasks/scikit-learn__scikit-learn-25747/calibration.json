@@ -1,0 +1,70 @@
+{
+  "task_id": "scikit-learn__scikit-learn-25747",
+  "status": "ready",
+  "grader_ready": true,
+  "repo": "scikit-learn/scikit-learn",
+  "base_revision": "2c867b8f822eb7a684f0d5c4359e4426e1c9cfe0",
+  "image": "coding-harness-a5-recheck@sha256:90274a820c1a94456ae4b9c3f2f36d557982b5bdedbbc209c4bcb8dd24f496da",
+  "model_calls": 0,
+  "paid": false,
+  "canonical_binding_required": true,
+  "input_baseline_status": "baseline_ready",
+  "pilot_binding": {
+    "status": "pass",
+    "reason": null,
+    "canonical_target_id": "scikit-learn__scikit-learn-25747",
+    "repo": "scikit-learn/scikit-learn",
+    "expected_repo": "scikit-learn/scikit-learn",
+    "base_revision": "2c867b8f822eb7a684f0d5c4359e4426e1c9cfe0",
+    "expected_base_commit": "2c867b8f822eb7a684f0d5c4359e4426e1c9cfe0",
+    "pilot_base_hash": "de1632245705f0609fd8622643a98ac0d7d01704808ea7f27aab4918b033627a"
+  },
+  "known_good_binding": {
+    "status": "pass",
+    "reason": null,
+    "receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-41-native-image-load\\tasks\\scikit-learn__scikit-learn-25747\\known-good\\evidence.json",
+    "receipt_sha256": "c6812bf0f45c1c6b99e9b152c8e9094298f236749f205f2b3ae05c603e735b97",
+    "image": "coding-harness-a5-recheck@sha256:90274a820c1a94456ae4b9c3f2f36d557982b5bdedbbc209c4bcb8dd24f496da",
+    "receipt_image": "coding-harness-a5-recheck@sha256:90274a820c1a94456ae4b9c3f2f36d557982b5bdedbbc209c4bcb8dd24f496da",
+    "expected_outcomes": {
+      "sklearn/utils/tests/test_set_output.py::test_set_output_pandas_keep_index": "passed"
+    },
+    "verified_outcomes": {
+      "sklearn/utils/tests/test_set_output.py::test_set_output_pandas_keep_index": "passed"
+    },
+    "cleanup_verified": true
+  },
+  "reason": null,
+  "full_collection_status": "ready",
+  "full_collection_count": 28046,
+  "full_collection_hash": "d924fb0fab058ddc62d8c92fddbb06e32462d419ec26826ecc624166536fdb59",
+  "collection_evidence_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-02\\tasks\\scikit-learn__scikit-learn-25747\\full-repo\\evidence.json",
+  "collection_evidence_sha256": "98c47484e995459931a84a2f166a2d52b67cce58d72a6ce870da999d5118f167",
+  "cleanup_verified": true,
+  "calibration_mode": "full_repo_collection_plus_bound_known_good_target_plus_executed_host_grader_policy_checks",
+  "negative_checks": {
+    "scope": "executed_host_policy_fixture_not_target_specific",
+    "checks": [
+      {
+        "case": "protected_path_change",
+        "status": "rejected",
+        "observed_status": "fail",
+        "observed_reason": "protected_or_unassigned_path_changed"
+      },
+      {
+        "case": "missing_receipt",
+        "status": "rejected",
+        "observed_status": "invalid_env",
+        "observed_reason": "missing_or_incomplete_receipt"
+      },
+      {
+        "case": "input_integrity_change",
+        "status": "rejected",
+        "observed_status": "fail",
+        "observed_reason": "frozen_input_changed_during_tests"
+      }
+    ],
+    "passed": true
+  },
+  "negative_checks_passed": true
+}

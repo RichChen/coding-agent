@@ -1,0 +1,259 @@
+{
+  "case": "unassigned_edit",
+  "passed": true,
+  "base_verified": true,
+  "isolation": {
+    "Id": "468d0ca088af73fc2d815b9e1e7c9c088bf19b9ae9f6e9876f65f3791fec9187",
+    "Created": "2026-09-21T15:52:08.416903227Z",
+    "Path": "/usr/local/bin/python",
+    "Args": [
+      "-I",
+      "-S",
+      "-c",
+      "import time; time.sleep(604800)"
+    ],
+    "State": {
+      "Status": "running",
+      "Running": true,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 83272,
+      "ExitCode": 0,
+      "Error": "",
+      "StartedAt": "2026-09-21T15:52:08.529433923Z",
+      "FinishedAt": "0001-01-01T00:00:00Z"
+    },
+    "Image": "sha256:69deefd436081d10fd7c97d9482315669d7e8cc87565789e7b74e06b970e4e7f",
+    "ResolvConfPath": "/var/lib/docker/containers/468d0ca088af73fc2d815b9e1e7c9c088bf19b9ae9f6e9876f65f3791fec9187/resolv.conf",
+    "HostnamePath": "/var/lib/docker/containers/468d0ca088af73fc2d815b9e1e7c9c088bf19b9ae9f6e9876f65f3791fec9187/hostname",
+    "HostsPath": "/var/lib/docker/containers/468d0ca088af73fc2d815b9e1e7c9c088bf19b9ae9f6e9876f65f3791fec9187/hosts",
+    "LogPath": "",
+    "Name": "/h3-870068cb42994445965b7c241334cf15",
+    "RestartCount": 0,
+    "Driver": "overlayfs",
+    "Platform": "linux",
+    "MountLabel": "",
+    "ProcessLabel": "",
+    "AppArmorProfile": "",
+    "ExecIDs": null,
+    "HostConfig": {
+      "Binds": null,
+      "ContainerIDFile": "",
+      "LogConfig": {
+        "Type": "none",
+        "Config": {}
+      },
+      "NetworkMode": "none",
+      "PortBindings": {},
+      "RestartPolicy": {
+        "Name": "no",
+        "MaximumRetryCount": 0
+      },
+      "AutoRemove": false,
+      "VolumeDriver": "",
+      "VolumesFrom": null,
+      "ConsoleSize": [
+        0,
+        0
+      ],
+      "CapAdd": null,
+      "CapDrop": [
+        "ALL"
+      ],
+      "CgroupnsMode": "private",
+      "Dns": null,
+      "DnsOptions": [],
+      "DnsSearch": [],
+      "ExtraHosts": null,
+      "GroupAdd": null,
+      "IpcMode": "private",
+      "Cgroup": "",
+      "Links": null,
+      "OomScoreAdj": 0,
+      "PidMode": "",
+      "Privileged": false,
+      "PublishAllPorts": false,
+      "ReadonlyRootfs": true,
+      "SecurityOpt": [
+        "no-new-privileges:true"
+      ],
+      "Tmpfs": {
+        "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777",
+        "/workspace": "rw,nosuid,nodev,size=268435456,mode=1777"
+      },
+      "UTSMode": "",
+      "UsernsMode": "",
+      "ShmSize": 67108864,
+      "Runtime": "runc",
+      "Isolation": "",
+      "CpuShares": 0,
+      "Memory": 1073741824,
+      "NanoCpus": 1000000000,
+      "CgroupParent": "",
+      "BlkioWeight": 0,
+      "BlkioWeightDevice": [],
+      "BlkioDeviceReadBps": [],
+      "BlkioDeviceWriteBps": [],
+      "BlkioDeviceReadIOps": [],
+      "BlkioDeviceWriteIOps": [],
+      "CpuPeriod": 0,
+      "CpuQuota": 0,
+      "CpuRealtimePeriod": 0,
+      "CpuRealtimeRuntime": 0,
+      "CpusetCpus": "",
+      "CpusetMems": "",
+      "Devices": [],
+      "DeviceCgroupRules": null,
+      "DeviceRequests": null,
+      "MemoryReservation": 0,
+      "MemorySwap": 1073741824,
+      "MemorySwappiness": null,
+      "OomKillDisable": null,
+      "PidsLimit": 128,
+      "Ulimits": null,
+      "CpuCount": 0,
+      "CpuPercent": 0,
+      "IOMaximumIOps": 0,
+      "IOMaximumBandwidth": 0,
+      "MaskedPaths": [
+        "/proc/acpi",
+        "/proc/asound",
+        "/proc/interrupts",
+        "/proc/kcore",
+        "/proc/keys",
+        "/proc/latency_stats",
+        "/proc/sched_debug",
+        "/proc/scsi",
+        "/proc/timer_list",
+        "/proc/timer_stats",
+        "/sys/devices/virtual/powercap",
+        "/sys/firmware"
+      ],
+      "ReadonlyPaths": [
+        "/proc/bus",
+        "/proc/fs",
+        "/proc/irq",
+        "/proc/sys",
+        "/proc/sysrq-trigger"
+      ]
+    },
+    "Storage": {
+      "RootFS": {
+        "Snapshot": {
+          "Name": "overlayfs"
+        }
+      }
+    },
+    "Mounts": [],
+    "Config": {
+      "Hostname": "468d0ca088af",
+      "Domainname": "",
+      "User": "1000:1000",
+      "AttachStdin": false,
+      "AttachStdout": true,
+      "AttachStderr": true,
+      "Tty": false,
+      "OpenStdin": false,
+      "StdinOnce": false,
+      "Env": [
+        "PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+        "LANG=C.UTF-8",
+        "GPG_KEY=E3FF2839C048B25C084DEBE9B26995E310250568",
+        "PYTHON_VERSION=3.9.19",
+        "PYTHON_PIP_VERSION=23.0.1",
+        "PYTHON_SETUPTOOLS_VERSION=58.1.0",
+        "PYTHON_GET_PIP_URL=https://github.com/pypa/get-pip/raw/def4aec84b261b939137dd1c69eff0aabb4a7bf4/public/get-pip.py",
+        "PYTHON_GET_PIP_SHA256=bc37786ec99618416cc0a0ca32833da447f4d91ab51d2c138dd15b7af21e8e9a"
+      ],
+      "Cmd": [
+        "-I",
+        "-S",
+        "-c",
+        "import time; time.sleep(604800)"
+      ],
+      "Image": "coding-harness-a5-transport@sha256:69deefd436081d10fd7c97d9482315669d7e8cc87565789e7b74e06b970e4e7f",
+      "Volumes": null,
+      "WorkingDir": "/workspace",
+      "Entrypoint": [
+        "/usr/local/bin/python"
+      ],
+      "Labels": {
+        "coding-harness.h3": "true"
+      }
+    },
+    "NetworkSettings": {
+      "SandboxID": "e34cc47628751a2cbaa62734c9adbda2ea34d20e00d7a2e86bb58a6b74cfb0a9",
+      "SandboxKey": "/var/run/docker/netns/e34cc4762875",
+      "Ports": {},
+      "Networks": {
+        "none": {
+          "IPAMConfig": null,
+          "Links": null,
+          "Aliases": null,
+          "DriverOpts": null,
+          "GwPriority": 0,
+          "NetworkID": "0578bece0afec6e9438c77cd1e9e80cf5e90a1209d171f5f2bea58f58ec4d45d",
+          "EndpointID": "e02411956335d9aef69d73aa498d34203d6d1e26a08cf94f4a82d52d21054544",
+          "Gateway": "",
+          "IPAddress": "",
+          "MacAddress": "",
+          "IPPrefixLen": 0,
+          "IPv6Gateway": "",
+          "GlobalIPv6Address": "",
+          "GlobalIPv6PrefixLen": 0,
+          "DNSNames": null
+        }
+      }
+    },
+    "ImageManifestDescriptor": {
+      "mediaType": "application/vnd.oci.image.manifest.v1+json",
+      "digest": "sha256:8667f9359d7b03635ded815a2af8c2515d519c9867bf3cb6ec476daba92bcd2d",
+      "size": 2197,
+      "platform": {
+        "architecture": "amd64",
+        "os": "linux"
+      }
+    }
+  },
+  "capabilities": {
+    "profile": "docker_linux",
+    "platform": "linux-container",
+    "image": "coding-harness-a5-transport@sha256:69deefd436081d10fd7c97d9482315669d7e8cc87565789e7b74e06b970e4e7f",
+    "context": "desktop-linux",
+    "cancel": true,
+    "filesystem_isolation": true,
+    "network_control": true,
+    "network_default": "none",
+    "resource_limits": true,
+    "complete_isolation": false,
+    "cpu_limit": 1.0,
+    "memory_limit_bytes": 1073741824,
+    "pids_limit": 128,
+    "workspace_limit_bytes": 268435456,
+    "tmpfs_limit_bytes": 67108864,
+    "tree_reclaim_guaranteed": true,
+    "privileged": false,
+    "docker_socket_mounted": false,
+    "host_mounts": false,
+    "workspace_transfer_limit": 8388608,
+    "transport": "image_backed_base_plus_delta",
+    "source_tree_hash": "e84f42b5e2329609b3cd6912c459da0cdad98570e9b59e6c2bef127492d0a8a3",
+    "delta_schema": "a5.typed-tree.delta.v1"
+  },
+  "rejection": "Docker exec failed: Traceback (most recent call last):\n  File \"/opt/a5-tree.py\", line 291, in <module>\n    main()\n  File \"/opt/a5-tree.py\", line 281, in main\n    result = export_delta('/workspace', manifest, json.load(sys.stdin)['allowed_paths'])\n  File \"/opt/a5-tree.py\", line 186, in export_delta\n    raise ValueError('candidate changed unassigned paths: ' + repr(sorted(set(changed) - allowed)[:10]))\nValueError: candidate changed unassigned paths: ['.gitattributes']\n",
+  "cleanup_verified": true,
+  "lifecycle": [
+    {
+      "event": "created",
+      "container": "h3-870068cb42994445965b7c241334cf15",
+      "image_id": "sha256:69deefd436081d10fd7c97d9482315669d7e8cc87565789e7b74e06b970e4e7f"
+    },
+    {
+      "event": "destroyed",
+      "container": "h3-870068cb42994445965b7c241334cf15",
+      "elapsed_s": 0.21892590000061318
+    }
+  ]
+}

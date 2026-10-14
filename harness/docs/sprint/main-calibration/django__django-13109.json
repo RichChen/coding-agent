@@ -1,0 +1,103 @@
+{
+  "task_id": "django__django-13109",
+  "repo": "django/django",
+  "accepted": true,
+  "reason": null,
+  "empty_f2p": [
+    0,
+    2
+  ],
+  "gold_f2p": [
+    2,
+    2
+  ],
+  "empty_p2p": [
+    169,
+    169
+  ],
+  "gold_p2p": [
+    169,
+    169
+  ],
+  "p2p_excluded_count": 0,
+  "p2p_excluded": [],
+  "nodeids": {
+    "f2p": {
+      "original": 2,
+      "used": 2
+    },
+    "p2p": {
+      "original": 170,
+      "used": 169
+    },
+    "dropped_reasons": {
+      "f2p": {},
+      "p2p": {
+        "docstring_ambiguous": 1
+      }
+    },
+    "dropped": [
+      {
+        "side": "p2p",
+        "nodeid": "Regression for #19733",
+        "reason": "docstring_ambiguous",
+        "candidates": [
+          "model_forms.tests.FormFieldCallbackTests.test_modelform_factory_without_fields",
+          "model_forms.tests.FormFieldCallbackTests.test_modelform_factory_with_all_fields"
+        ]
+      }
+    ],
+    "mapped": {
+      "f2p": 0,
+      "p2p": 9
+    },
+    "mapping": [
+      {
+        "side": "p2p",
+        "docstring": "Regression for #13095: Using base forms with widgets defined in Meta should not raise errors.",
+        "nodeid": "model_forms.tests.FormFieldCallbackTests.test_baseform_with_widgets_in_meta"
+      },
+      {
+        "side": "p2p",
+        "docstring": "A custom formfield_callback is used if provided",
+        "nodeid": "model_forms.tests.FormFieldCallbackTests.test_custom_callback"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Regression for #15315: modelform_factory should accept widgets",
+        "nodeid": "model_forms.tests.FormFieldCallbackTests.test_factory_with_widget_argument"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Data for a ManyToManyField is a list rather than a lazy QuerySet.",
+        "nodeid": "model_forms.tests.ModelToDictTests.test_many_to_many"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Ensure keys and blank character strings are tested for uniqueness.",
+        "nodeid": "model_forms.tests.UniqueTest.test_explicitpk_unique"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Test for primary_key being in the form and failing validation.",
+        "nodeid": "model_forms.tests.UniqueTest.test_explicitpk_unspecified"
+      },
+      {
+        "side": "p2p",
+        "docstring": "ModelForm test of unique_together constraint",
+        "nodeid": "model_forms.tests.UniqueTest.test_unique_together"
+      },
+      {
+        "side": "p2p",
+        "docstring": "FilePathField(blank=True) includes the empty option.",
+        "nodeid": "model_forms.tests.FileAndImageFieldTests.test_file_path_field_blank"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Check basic URL field validation on model forms",
+        "nodeid": "model_forms.tests.ModelOtherFieldTests.test_url_on_modelform"
+      }
+    ]
+  },
+  "sklearn_import": null
+}

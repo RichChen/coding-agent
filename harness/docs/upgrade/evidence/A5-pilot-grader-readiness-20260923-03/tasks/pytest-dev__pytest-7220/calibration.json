@@ -1,0 +1,78 @@
+{
+  "task_id": "pytest-dev__pytest-7220",
+  "status": "blocked",
+  "grader_ready": false,
+  "repo": "pytest-dev/pytest",
+  "base_revision": "56bf819c2f4eaf8b36bd8c42c06bb59d5a3bfc0f",
+  "image": "coding-harness-a5-pytest@sha256:5ff30847f41d2c2c66f161c8b97a3bba9a2b11823be8cff8c1f5f896babdb376",
+  "model_calls": 0,
+  "paid": false,
+  "canonical_binding_required": true,
+  "input_baseline_status": "baseline_ready",
+  "pilot_binding": {
+    "status": "pass",
+    "reason": null,
+    "canonical_target_id": "pytest-dev__pytest-7220",
+    "repo": "pytest-dev/pytest",
+    "expected_repo": "pytest-dev/pytest",
+    "base_revision": "56bf819c2f4eaf8b36bd8c42c06bb59d5a3bfc0f",
+    "expected_base_commit": "56bf819c2f4eaf8b36bd8c42c06bb59d5a3bfc0f",
+    "pilot_base_hash": "98c55d8f72e86fd1a54c12ee6c0dab8511821337902eeb28fa4f454dea783060"
+  },
+  "known_good_binding": {
+    "status": "pass",
+    "reason": null,
+    "receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-14-host-pytest\\tasks\\pytest-dev__pytest-7220\\known-good\\evidence.json",
+    "receipt_sha256": "6a64fbb435e013608c8516ad7df8958d7b64a8acbe72ac1ddcfe861b57c5544e",
+    "image": "coding-harness-a5-pytest@sha256:5ff30847f41d2c2c66f161c8b97a3bba9a2b11823be8cff8c1f5f896babdb376",
+    "receipt_image": "coding-harness-a5-pytest@sha256:5ff30847f41d2c2c66f161c8b97a3bba9a2b11823be8cff8c1f5f896babdb376",
+    "expected_outcomes": {
+      "testing/test_nodes.py::test_failure_with_changed_cwd": "passed"
+    },
+    "verified_outcomes": {
+      "testing/test_nodes.py::test_failure_with_changed_cwd": "passed"
+    },
+    "cleanup_verified": true
+  },
+  "reason": "collection_or_executable_grader_policy_check_failed",
+  "full_collection_status": "invalid_env",
+  "full_collection_count": 0,
+  "full_collection_hash": null,
+  "collection_evidence_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-03\\tasks\\pytest-dev__pytest-7220\\full-repo\\evidence.json",
+  "collection_evidence_sha256": "59d60d6fd3488fc3b317198507a0ec27a370071de9a3fc246fd384fa678370a3",
+  "source_seed": {
+    "mode": "explicit_archive_files",
+    "archive_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\pytest-dev__pytest-7220\\source.tar.gz",
+    "archive_sha256": "56ab5df6573cba42f4ac8c38986dc3ae30998829dd9d7b084c5c15ad2486e6d9",
+    "source_tree_hash": "1efb0e02cc19673cf21d0bd64a0163d578fbf74d8b183a7d394ae00ea6fb46ad",
+    "file_count": 512,
+    "total_bytes": 3591593
+  },
+  "cleanup_verified": true,
+  "calibration_mode": "full_repo_collection_plus_bound_known_good_target_plus_executed_host_grader_policy_checks",
+  "negative_checks": {
+    "scope": "executed_host_policy_fixture_not_target_specific",
+    "checks": [
+      {
+        "case": "protected_path_change",
+        "status": "rejected",
+        "observed_status": "fail",
+        "observed_reason": "protected_or_unassigned_path_changed"
+      },
+      {
+        "case": "missing_receipt",
+        "status": "rejected",
+        "observed_status": "invalid_env",
+        "observed_reason": "missing_or_incomplete_receipt"
+      },
+      {
+        "case": "input_integrity_change",
+        "status": "rejected",
+        "observed_status": "fail",
+        "observed_reason": "frozen_input_changed_during_tests"
+      }
+    ],
+    "passed": true
+  },
+  "negative_checks_passed": true
+}

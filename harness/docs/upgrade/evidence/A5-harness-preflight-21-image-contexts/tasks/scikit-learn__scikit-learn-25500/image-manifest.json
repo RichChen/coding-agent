@@ -1,0 +1,24 @@
+{
+  "schema": "a5.image-backed-source.v1",
+  "task_id": "scikit-learn__scikit-learn-25500",
+  "repo": "scikit-learn/scikit-learn",
+  "base_revision": "4db04923a754b6a2defa1b172f55d492b85d165e",
+  "transport_mode": "image_backed_base_plus_delta",
+  "archive_sha256": "f5aa6b197a3681b1339c89c2c9b51bba121dbe91657ad317bc707ad9305675f6",
+  "archive_bytes": 7402291,
+  "source_tree_hash": "5d2802d064d8167b0d9c07f59ab348278917f72d2da7f3994a8c56338acb92a4",
+  "file_count": 1532,
+  "total_bytes": 20682366,
+  "inventory_sha256": "f1ff83e448c693b7b4a0b81416eb407ecba77383868eaf683c10eb840468cacc",
+  "nonregular_paths": [],
+  "base_image": "python@sha256:603879aeff06df23f0d392a19f7ce02aa85e14e6b4d25fd9647b116e0cb93467",
+  "dockerfile_sha256": "4d1343c4a2f9ed8897d15a24243ade5dbe9da956b578877bec2bb0215a85bf3c",
+  "agent_return_contract": {
+    "schema": "a5.snapshot.delta.v1",
+    "max_bytes": 8388608,
+    "max_files": 2048,
+    "requires_base_tree_hash": true,
+    "requires_candidate_tree_hash": true,
+    "allowlist_required": true
+  }
+}

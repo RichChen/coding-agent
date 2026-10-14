@@ -1,0 +1,86 @@
+{
+  "schema": "a5.memory-pool.s1-smoke-plan.v1",
+  "status": "planned_not_executed",
+  "model_calls": 0,
+  "paid": false,
+  "selected_sources": [
+    "django__django-10914",
+    "sympy__sympy-11400",
+    "scikit-learn__scikit-learn-10297",
+    "pytest-dev__pytest-5103",
+    "django__django-10924",
+    "sympy__sympy-11870"
+  ],
+  "repo_families": [
+    "django",
+    "pytest-dev",
+    "scikit-learn",
+    "sympy"
+  ],
+  "min_gate_per_source": [
+    "complete_public_source_tree_and_fixed_base_revision",
+    "repo_specific_environment_with_real_collection_or_target_run",
+    "public_only_agent_inputs",
+    "independent_validation_receipt",
+    "provenance_review_before_validated"
+  ],
+  "per_source_status": [
+    {
+      "source_id": "django__django-10914",
+      "min_gate": "baseline_evidence_present_gate_not_reverified_this_handoff",
+      "smoke_build_status": "not_started",
+      "trajectory_status": "absent",
+      "validation_receipt_status": "absent",
+      "expected_output_dir": "docs/upgrade/evidence/<NEW-S1>/django__django-10914"
+    },
+    {
+      "source_id": "sympy__sympy-11400",
+      "min_gate": "baseline_evidence_present_gate_not_reverified_this_handoff",
+      "smoke_build_status": "not_started",
+      "trajectory_status": "absent",
+      "validation_receipt_status": "absent",
+      "expected_output_dir": "docs/upgrade/evidence/<NEW-S1>/sympy__sympy-11400"
+    },
+    {
+      "source_id": "scikit-learn__scikit-learn-10297",
+      "min_gate": "baseline_evidence_present_gate_not_reverified_this_handoff",
+      "smoke_build_status": "not_started",
+      "trajectory_status": "absent",
+      "validation_receipt_status": "absent",
+      "expected_output_dir": "docs/upgrade/evidence/<NEW-S1>/scikit-learn__scikit-learn-10297"
+    },
+    {
+      "source_id": "pytest-dev__pytest-5103",
+      "min_gate": "baseline_evidence_present_gate_not_reverified_this_handoff",
+      "smoke_build_status": "not_started",
+      "trajectory_status": "absent",
+      "validation_receipt_status": "absent",
+      "expected_output_dir": "docs/upgrade/evidence/<NEW-S1>/pytest-dev__pytest-5103"
+    },
+    {
+      "source_id": "django__django-10924",
+      "min_gate": "baseline_evidence_present_gate_not_reverified_this_handoff",
+      "smoke_build_status": "not_started",
+      "trajectory_status": "absent",
+      "validation_receipt_status": "absent",
+      "expected_output_dir": "docs/upgrade/evidence/<NEW-S1>/django__django-10924"
+    },
+    {
+      "source_id": "sympy__sympy-11870",
+      "min_gate": "baseline_evidence_present_gate_not_reverified_this_handoff",
+      "smoke_build_status": "not_started",
+      "trajectory_status": "absent",
+      "validation_receipt_status": "absent",
+      "expected_output_dir": "docs/upgrade/evidence/<NEW-S1>/sympy__sympy-11870"
+    }
+  ],
+  "command_templates_only": [
+    ".venv\\Scripts\\python.exe scripts/<source-smoke-cli> --source <source-id> --public-input <manifest> --output-dir docs/upgrade/evidence/<NEW-S1>/<source-id>",
+    ".venv\\Scripts\\python.exe scripts/<validation-or-grader-cli> --assignment <private-host-assignment> --output-dir docs/upgrade/evidence/<NEW-S1>/<source-id>/validation"
+  ],
+  "cli_existence": {
+    "source-smoke-cli": "not_confirmed_this_handoff",
+    "validation-or-grader-cli": "not_confirmed_this_handoff",
+    "note": "Confirm real CLI/args before any future execution; use new output dirs, stage logs, and timeouts."
+  }
+}

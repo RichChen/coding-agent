@@ -1,0 +1,15 @@
+{
+  "schema": "a5.failure-retry-ledger.v1",
+  "attempt": 20,
+  "entries": [
+    {
+      "task_id": "pytest-dev__pytest-8365",
+      "status": "image_context_ready",
+      "reason": "docker_build_deferred",
+      "retries": 0
+    }
+  ],
+  "model_calls": 0,
+  "model_reservations": 0,
+  "paid": false
+}

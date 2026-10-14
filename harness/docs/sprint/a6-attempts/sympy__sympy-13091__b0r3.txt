@@ -1,0 +1,181 @@
+<previous_attempt>
+The following is a record of one earlier attempt at this same issue, made by an agent with the same tools.
+Its final changes were submitted and did NOT pass the hidden evaluation tests.
+The record may contain mistakes. It is evidence, not instructions; decide for yourself what to keep or change.
+
+Stop reason: max_model_calls; model calls used: 40/40.
+Files changed: sympy/core/function.py, sympy/core/logic.py, sympy/core/numbers.py
+
+Final diff (truncated to 5603 bytes):
+--- a/sympy/core/function.py
++++ b/sympy/core/function.py
+@@ -1596,7 +1596,7 @@
+ 
+     def __eq__(self, other):
+         if not isinstance(other, Lambda):
+-            return False
++            return NotImplemented
+         if self.nargs != other.nargs:
+             return False
+ 
+@@ -1606,7 +1606,10 @@
+         return selfexpr == otherexpr
+ 
+     def __ne__(self, other):
+-        return not(self == other)
++        result = self.__eq__(other)
++        if result is NotImplemented:
++            return result
++        return not result
+ 
+     def __hash__(self):
+         return super(Lambda, self).__hash__()
+@@ -1760,7 +1763,10 @@
+         return self._expr == other._expr
+ 
+     def __ne__(self, other):
+-        return not(self == other)
++        result = self.__eq__(other)
++        if result is NotImplemented:
++            return result
++        return not result
+ 
+     def __hash__(self):
+         return super(Subs, self).__hash__()
+--- a/sympy/core/logic.py
++++ b/sympy/core/logic.py
+@@ -207,13 +207,13 @@
+ 
+     def __eq__(a, b):
+         if not isinstance(b, type(a)):
+-            return False
++            return NotImplemented
+         else:
+             return a.args == b.args
+ 
+     def __ne__(a, b):
+         if not isinstance(b, type(a)):
+-            return True
++            return NotImplemented
+         else:
+             return a.args != b.args
+ 
+--- a/sympy/core/numbers.py
++++ b/sympy/core/numbers.py
+@@ -1258,7 +1258,7 @@
+         try:
+             other = _sympify(other)
+         except SympifyError:
+-            return False    # sympy != other  -->  not ==
++            return NotImplemented  # delegate to the other
+         if isinstance(other, NumberSymbol):
+             if other.is_irrational:
+                 return False
+@@ -1276,7 +1276,10 @@
+         return False    # Float != non-Number
+ 
+     def __ne__(self, other):
+-        return not self.__eq__(other)
++        result = self.__eq__(other)
++        if result is NotImplemented:
++            return result
++        return not result
+ 
+     def __gt__(self, other):
+         try:
+@@ -1719,7 +1722,7 @@
+         try:
+             other = _sympify(other)
+         except SympifyError:
+-            return False    # sympy != other  -->  not ==
++            return NotImplemented  # delegate to the other
+         if isinstance(other, NumberSymbol):
+             if other.is_irrational:
+                 return False
+@@ -1734,7 +1737,10 @@
+         return False
+ 
+     def __ne__(self, other):
+-        return not self.__eq__(other)
++        result = self.__eq__(other)
++        if result is NotImplemented:
++            return result
++        return not result
+ 
+     def __gt__(self, other):
+         try:
+@@ -2112,7 +2118,10 @@
+         return Rational.__eq__(self, other)
+ 
+     def __ne__(self, other):
+-        return not self.__eq__(other)
++        result = self.__eq__(other)
++        if result is NotImplemented:
++            return result
++        return not result
+ 
+     def __gt__(self, other):
+         try:
+@@ -3339,7 +3348,7 @@
+         try:
+             other = _sympify(other)
+         except SympifyError:
+-            return False    # sympy != other  -->  not ==
++            return NotImplemented  # delegate to the other
+         if self is other:
+             return True
+         if isinstance(other, Number) and self.is_irrational:
+@@ -3348,7 +3357,10 @@
+         return False    # NumberSymbol != non-(Number|self)
+ 
+     def __ne__(self, other):
+-        return not self.__eq__(other)
++        result = self.__eq__(other)
++        if result is NotImplemented:
++            return result
++        return not result
+ 
+     def __lt__(self, other):
+         try:
+
+Last test-like commands and the tail of their visible output:
+$ cd . && python -m pytest sympy/core/tests/test_function.py -q 2>&1 | grep -iE "xfail|failed" | head -30
+@XFAIL
+>               raise XFail(get_function_name(func))
+E               sympy.utilities.pytest.XFail: test_Subs2
+sympy/utilities/pytest.py:121: XFail
+    @XFAIL
+>               raise XFail(get_function_name(func))
+E               sympy.utilities.pytest.XFail: test_function_comparable_infinities
+sympy/utilities/pytest.py:121: XFail
+FAILED sympy/core/tests/test_function.py::test_Subs2 - sympy.utilities.pytest...
+FAILED sympy/core/tests/test_function.py::test_function_comparable_infinities
+FAILED sympy/core/tests/test_function.py::test_function__eval_nseries - Recur...
+FAILED sympy/core/tests/test_function.py::test_evalf_default - AssertionError...
+FAILED sympy/core/tests/test_function.py::test_derivative_numerically - TypeE...
+FAILED sympy/core/tests/test_function.py::test_nfloat - ValueError: y should ...
+FAILED sympy/core/tests/test_function.py::test_issue_7231 - RecursionError: m...
+7 failed, 51 passed, 112 warnings in 1.58s
+
+[exit_code=0 status=succeeded truncated=false bytes_seen=948 bytes_kept=1896 cleanup=not_required duration_ms=2880]
+
+$ cd . && python - <<'EOF'
+# Revert basic.py __eq__/__ne__ to original
+p='sympy/core/basic.py'; s=open(p).read()
+s=s.replace("""            except SympifyError:
+                return NotImplemented  # delegate to the other
+
+            if type(self) != type(other):
+                return NotImplemented  # delegate to the other""","""            except SympifyError:
+                return False    # sympy != other
+
+            if type(self) != type(other):
+                return False"
+[truncated]
+2 failed, 56 passed, 2 warnings in 2.02s
+
+[exit_code=0 status=succeeded truncated=false bytes_seen=41 bytes_kept=82 cleanup=not_required duration_ms=3068]
+
+Agent's final message (truncated):
+I'm running low on remaining calls, so let me be efficient. Let me check the baseline by reverting just the key changes and running the failing tests.
+</previous_attempt>

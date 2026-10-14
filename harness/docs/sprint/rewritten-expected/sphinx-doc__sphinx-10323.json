@@ -1,0 +1,17 @@
+{
+  "schema": "sprint6.rewritten-expected.v1",
+  "task_id": "sphinx-doc__sphinx-10323",
+  "clean_image_digest": "coding-harness-a5-clean@sha256:77402ccd150de11af19e5aec63db03f61ae465df6aaa60425772959d52ada454",
+  "files": {
+    "tox.ini": {
+      "commands": [
+        "sed -i 's/pytest/pytest -rA/' tox.ini"
+      ],
+      "rules": [
+        "plain_sed"
+      ],
+      "original_sha256": "4eaf848385252cf058e340d7048e7ca7b0bcd8a641d951f8110efd83a8e030bb",
+      "expected_sha256": "7c66d0e4d58ce0243b16b324c25ec559eacdffd442d08b08bca017f4a2a4813a"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "schema": "a5.remaining-memory-source-readiness.v1",
+  "status": "blocked",
+  "assigned": 16,
+  "status_counts": {
+    "blocked": 4,
+    "invalid_env": 12
+  },
+  "environment_baseline_ready": 0,
+  "model_calls": 0,
+  "paid": false,
+  "paid_build_started": false,
+  "paid_pilot_started": false,
+  "memory_build_eligible": false,
+  "next_gate": "repo-specific environment and baseline preflight"
+}

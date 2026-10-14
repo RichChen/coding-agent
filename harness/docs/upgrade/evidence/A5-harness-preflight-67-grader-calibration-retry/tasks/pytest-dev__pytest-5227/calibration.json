@@ -1,0 +1,35 @@
+{
+  "task_id": "pytest-dev__pytest-5227",
+  "status": "ready",
+  "image": "coding-harness-a5-known-good@sha256:dc05f30b2ecdf38532fffeee38196a6a2fef667b68e4c7b24a6e7e10597abe7b",
+  "repo": "pytest-dev/pytest",
+  "full_collection_count": 2398,
+  "full_collection_hash": "c74bba033b5f1e9cbb95cb8dc63aa5b58bae8cc4a1276b3cbb67433aa0a46057",
+  "full_suite_passed": 0,
+  "full_suite_failed": 0,
+  "full_suite_skipped": 0,
+  "calibration_mode": "full_repository_collection_plus_known_good_target_and_rejection_checks",
+  "evidence_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-67-grader-calibration-retry\\tasks\\pytest-dev__pytest-5227\\full-repo\\evidence.json",
+  "negative_checks": [
+    {
+      "case": "protected_path_change",
+      "status": "rejected",
+      "reason": "protected_or_unassigned_path_changed"
+    },
+    {
+      "case": "missing_receipt",
+      "status": "rejected",
+      "reason": "missing_or_incomplete_receipt"
+    },
+    {
+      "case": "input_integrity_change",
+      "status": "rejected",
+      "reason": "frozen_input_changed_during_tests"
+    }
+  ],
+  "negative_checks_passed": true,
+  "known_good_target_status": "pass",
+  "cleanup_verified": true,
+  "model_calls": 0,
+  "paid": false
+}

@@ -1,0 +1,42 @@
+{
+  "task_id": "sphinx-doc__sphinx-8721",
+  "repo": "sphinx-doc/sphinx",
+  "accepted": false,
+  "reason": "empty_f2p_did_not_fail",
+  "empty_f2p": [
+    1,
+    1
+  ],
+  "gold_f2p": [
+    1,
+    1
+  ],
+  "empty_p2p": [
+    2,
+    3
+  ],
+  "gold_p2p": [
+    2,
+    3
+  ],
+  "p2p_excluded_count": 1,
+  "p2p_excluded": [
+    "tests/test_ext_viewcode.py::test_viewcode_epub_enabled"
+  ],
+  "sklearn_import": null,
+  "nodeids": {
+    "f2p": {
+      "original": 1,
+      "used": 1
+    },
+    "p2p": {
+      "original": 3,
+      "used": 3
+    },
+    "dropped_reasons": {
+      "f2p": {},
+      "p2p": {}
+    },
+    "dropped": []
+  }
+}

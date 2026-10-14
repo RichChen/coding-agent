@@ -1,0 +1,83 @@
+<previous_attempt>
+The following is a record of one earlier attempt at this same issue, made by an agent with the same tools.
+Its final changes were submitted and did NOT pass the hidden evaluation tests.
+The record may contain mistakes. It is evidence, not instructions; decide for yourself what to keep or change.
+
+Stop reason: max_model_calls; model calls used: 40/40.
+Files changed: none (only test files were changed; see the diff)
+
+Final diff (truncated to 6893 bytes):
+--- /dev/null
++++ b/tests/migrations/test_repro_through.py
+@@ -0,0 +1,50 @@
++from django.db import models
++from django.db.migrations.state import ModelState, ProjectState
++from django.test import SimpleTestCase
++
++
++class ReproThroughTests(SimpleTestCase):
++    def test_through_in_other_app(self):
++        state = ProjectState()
++        state.add_model(
++            ModelState(
++                "variavel",
++                "VariavelModel",
++                [("id", models.AutoField(primary_key=True))],
++            )
++        )
++        state.add_model(
++            ModelState(
++                "fonte_variavel",
++                "FonteVariavelModel",
++                [
++                    ("id", models.AutoField(primary_key=True)),
++                    (
++                        "variavel",
++                        models.ForeignKey("variavel.VariavelModel", models.CASCADE),
++                    ),
++                    ("fonte", models.ForeignKey("fonte.FonteModel", models.CASCADE)),
++                ],
++            )
++        )
++        state.add_model(
++            ModelState(
++                "fonte",
++                "FonteModel",
++                [
++                    ("id", models.AutoField(primary_key=True)),
++                    (
++                        "variaveis",
++                        models.ManyToManyField(
++                            "variavel.VariavelModel",
++                            through="fonte_variavel.FonteVariavelModel",
++                        ),
++                    ),
++                ],
++            )
++        )
++        apps = state.apps
++        Fonte = apps.get_model("fonte", "FonteModel")
++        field = Fonte._meta.get_field("variaveis")
++        print("THROUGH:", repr(field.remote_field.through))
++        self.assertIsNot(field.remote_field.through, "fonte_variavel.FonteVariavelModel")
+
+Last test-like commands and the tail of their visible output:
+$ python tests/runtests.py migrations.test_repro_through -v2 2>&1 | tail -40
+test_through_in_other_app (migrations.test_repro_through.ReproThroughTests) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.002s
+
+OK
+Testing against Django installed in '/workspace/django' with up to 8 processes
+Importing application migrations
+Found 1 test(s).
+Skipping setup of unused database(s): default, other.
+System check identified no issues (0 silenced).
+THROUGH: <class '__fake__.FonteVariavelModel'>
+
+[exit_code=0 status=succeeded truncated=false bytes_seen=458 bytes_kept=916 cleanup=not_required duration_ms=1220]
+
+Agent's final message (truncated):
+Let me write a reproduction test to confirm the bug.
+</previous_attempt>

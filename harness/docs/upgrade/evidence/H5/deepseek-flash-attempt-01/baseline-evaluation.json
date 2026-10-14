@@ -1,0 +1,874 @@
+{
+  "task_id": "boltons-475-strutils-slice",
+  "status": "partial",
+  "collected": 18,
+  "passed": 8,
+  "failed": 10,
+  "duration_ms": 21986.959300000308,
+  "reason": null,
+  "manifest": {
+    "schema": "h3.evaluation.v1",
+    "task_id": "boltons-475-strutils-slice",
+    "base_hash": "24cb5b38cfcedf39aa712e0c86c779b32fbc5bb25b1fa4b266fe3e18529d36ec",
+    "image": "python@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9",
+    "editable_paths": [
+      "boltons/strutils.py"
+    ],
+    "case_ids": [
+      "line-separator",
+      "paragraph-separator",
+      "date-28",
+      "number-29",
+      "leading-trailing",
+      "adjacent-unicode",
+      "mixed-newlines",
+      "custom-newline",
+      "empty",
+      "crlf",
+      "blank-lines",
+      "legacy-separators",
+      "whitespace",
+      "literal-backslash",
+      "unicode-text",
+      "empty-margin",
+      "unrelated-camel",
+      "unrelated-bytes"
+    ],
+    "private_spec_hash": "f72355c6e0adf0281335ff11f695dec54fd5fdddeb6e866ef830b72af04c4cfd",
+    "timeout_seconds": 15.0,
+    "runner": "isolated-python-function-v1",
+    "runner_hash": "bdfdc7ab8448c2afc979a1271b721b49999ff7f9470afdc69647f6663a72500b",
+    "candidate_hash": "24cb5b38cfcedf39aa712e0c86c779b32fbc5bb25b1fa4b266fe3e18529d36ec"
+  },
+  "cases": [
+    {
+      "case_id": "line-separator",
+      "status": "fail",
+      "execution": "succeeded",
+      "exit_code": 0,
+      "error_kind": null,
+      "stdout": "\"> alpha\\u2028beta\"\n",
+      "stderr": "",
+      "bytes_seen": 20,
+      "truncated": false,
+      "cleanup_ok": true,
+      "lifecycle": [
+        {
+          "event": "created",
+          "container": "h3-0b0ec07aedde40219c9c792dd6a2c2b4",
+          "image_id": "sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9"
+        },
+        {
+          "event": "destroyed",
+          "container": "h3-0b0ec07aedde40219c9c792dd6a2c2b4",
+          "elapsed_s": 0.20562860000063665
+        }
+      ],
+      "capabilities": {
+        "profile": "docker_linux",
+        "platform": "linux-container",
+        "image": "python@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9",
+        "context": "desktop-linux",
+        "cancel": true,
+        "filesystem_isolation": true,
+        "network_control": true,
+        "network_default": "none",
+        "resource_limits": true,
+        "complete_isolation": false,
+        "cpu_limit": 1.0,
+        "memory_limit_bytes": 536870912,
+        "pids_limit": 128,
+        "workspace_limit_bytes": 67108864,
+        "tmpfs_limit_bytes": 16777216,
+        "tree_reclaim_guaranteed": true,
+        "privileged": false,
+        "docker_socket_mounted": false,
+        "host_mounts": false,
+        "workspace_transfer_limit": 8388608
+      }
+    },
+    {
+      "case_id": "paragraph-separator",
+      "status": "fail",
+      "execution": "succeeded",
+      "exit_code": 0,
+      "error_kind": null,
+      "stdout": "\"--alpha\\u2029beta\"\n",
+      "stderr": "",
+      "bytes_seen": 20,
+      "truncated": false,
+      "cleanup_ok": true,
+      "lifecycle": [
+        {
+          "event": "created",
+          "container": "h3-c4264eea79144d08a031d901dffdcffc",
+          "image_id": "sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9"
+        },
+        {
+          "event": "destroyed",
+          "container": "h3-c4264eea79144d08a031d901dffdcffc",
+          "elapsed_s": 0.17059019999942393
+        }
+      ],
+      "capabilities": {
+        "profile": "docker_linux",
+        "platform": "linux-container",
+        "image": "python@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9",
+        "context": "desktop-linux",
+        "cancel": true,
+        "filesystem_isolation": true,
+        "network_control": true,
+        "network_default": "none",
+        "resource_limits": true,
+        "complete_isolation": false,
+        "cpu_limit": 1.0,
+        "memory_limit_bytes": 536870912,
+        "pids_limit": 128,
+        "workspace_limit_bytes": 67108864,
+        "tmpfs_limit_bytes": 16777216,
+        "tree_reclaim_guaranteed": true,
+        "privileged": false,
+        "docker_socket_mounted": false,
+        "host_mounts": false,
+        "workspace_transfer_limit": 8388608
+      }
+    },
+    {
+      "case_id": "date-28",
+      "status": "fail",
+      "execution": "succeeded",
+      "exit_code": 0,
+      "error_kind": null,
+      "stdout": "\"> February\\n> , 2026\"\n",
+      "stderr": "",
+      "bytes_seen": 23,
+      "truncated": false,
+      "cleanup_ok": true,
+      "lifecycle": [
+        {
+          "event": "created",
+          "container": "h3-e04304f80ee448abb86763499e3652bd",
+          "image_id": "sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9"
+        },
+        {
+          "event": "destroyed",
+          "container": "h3-e04304f80ee448abb86763499e3652bd",
+          "elapsed_s": 0.16806779999751598
+        }
+      ],
+      "capabilities": {
+        "profile": "docker_linux",
+        "platform": "linux-container",
+        "image": "python@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9",
+        "context": "desktop-linux",
+        "cancel": true,
+        "filesystem_isolation": true,
+        "network_control": true,
+        "network_default": "none",
+        "resource_limits": true,
+        "complete_isolation": false,
+        "cpu_limit": 1.0,
+        "memory_limit_bytes": 536870912,
+        "pids_limit": 128,
+        "workspace_limit_bytes": 67108864,
+        "tmpfs_limit_bytes": 16777216,
+        "tree_reclaim_guaranteed": true,
+        "privileged": false,
+        "docker_socket_mounted": false,
+        "host_mounts": false,
+        "workspace_transfer_limit": 8388608
+      }
+    },
+    {
+      "case_id": "number-29",
+      "status": "fail",
+      "execution": "succeeded",
+      "exit_code": 0,
+      "error_kind": null,
+      "stdout": "\"\\n* and\\n\"\n",
+      "stderr": "",
+      "bytes_seen": 12,
+      "truncated": false,
+      "cleanup_ok": true,
+      "lifecycle": [
+        {
+          "event": "created",
+          "container": "h3-2d04df93207349d29a1a7cd33174a02f",
+          "image_id": "sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9"
+        },
+        {
+          "event": "destroyed",
+          "container": "h3-2d04df93207349d29a1a7cd33174a02f",
+          "elapsed_s": 0.17249160000210395
+        }
+      ],
+      "capabilities": {
+        "profile": "docker_linux",
+        "platform": "linux-container",
+        "image": "python@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9",
+        "context": "desktop-linux",
+        "cancel": true,
+        "filesystem_isolation": true,
+        "network_control": true,
+        "network_default": "none",
+        "resource_limits": true,
+        "complete_isolation": false,
+        "cpu_limit": 1.0,
+        "memory_limit_bytes": 536870912,
+        "pids_limit": 128,
+        "workspace_limit_bytes": 67108864,
+        "tmpfs_limit_bytes": 16777216,
+        "tree_reclaim_guaranteed": true,
+        "privileged": false,
+        "docker_socket_mounted": false,
+        "host_mounts": false,
+        "workspace_transfer_limit": 8388608
+      }
+    },
+    {
+      "case_id": "leading-trailing",
+      "status": "fail",
+      "execution": "succeeded",
+      "exit_code": 0,
+      "error_kind": null,
+      "stdout": "\"  \\u2028a\\u2029\"\n",
+      "stderr": "",
+      "bytes_seen": 18,
+      "truncated": false,
+      "cleanup_ok": true,
+      "lifecycle": [
+        {
+          "event": "created",
+          "container": "h3-fd6536d28bdc4dd69738776f39a5f3bb",
+          "image_id": "sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9"
+        },
+        {
+          "event": "destroyed",
+          "container": "h3-fd6536d28bdc4dd69738776f39a5f3bb",
+          "elapsed_s": 0.1691596999989997
+        }
+      ],
+      "capabilities": {
+        "profile": "docker_linux",
+        "platform": "linux-container",
+        "image": "python@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9",
+        "context": "desktop-linux",
+        "cancel": true,
+        "filesystem_isolation": true,
+        "network_control": true,
+        "network_default": "none",
+        "resource_limits": true,
+        "complete_isolation": false,
+        "cpu_limit": 1.0,
+        "memory_limit_bytes": 536870912,
+        "pids_limit": 128,
+        "workspace_limit_bytes": 67108864,
+        "tmpfs_limit_bytes": 16777216,
+        "tree_reclaim_guaranteed": true,
+        "privileged": false,
+        "docker_socket_mounted": false,
+        "host_mounts": false,
+        "workspace_transfer_limit": 8388608
+      }
+    },
+    {
+      "case_id": "adjacent-unicode",
+      "status": "fail",
+      "execution": "succeeded",
+      "exit_code": 0,
+      "error_kind": null,
+      "stdout": "\"+a\\u2028\\u2029b\"\n",
+      "stderr": "",
+      "bytes_seen": 18,
+      "truncated": false,
+      "cleanup_ok": true,
+      "lifecycle": [
+        {
+          "event": "created",
+          "container": "h3-54600c3539014eb7a301745b3a704e5b",
+          "image_id": "sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9"
+        },
+        {
+          "event": "destroyed",
+          "container": "h3-54600c3539014eb7a301745b3a704e5b",
+          "elapsed_s": 0.18062479999935022
+        }
+      ],
+      "capabilities": {
+        "profile": "docker_linux",
+        "platform": "linux-container",
+        "image": "python@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9",
+        "context": "desktop-linux",
+        "cancel": true,
+        "filesystem_isolation": true,
+        "network_control": true,
+        "network_default": "none",
+        "resource_limits": true,
+        "complete_isolation": false,
+        "cpu_limit": 1.0,
+        "memory_limit_bytes": 536870912,
+        "pids_limit": 128,
+        "workspace_limit_bytes": 67108864,
+        "tmpfs_limit_bytes": 16777216,
+        "tree_reclaim_guaranteed": true,
+        "privileged": false,
+        "docker_socket_mounted": false,
+        "host_mounts": false,
+        "workspace_transfer_limit": 8388608
+      }
+    },
+    {
+      "case_id": "mixed-newlines",
+      "status": "fail",
+      "execution": "succeeded",
+      "exit_code": 0,
+      "error_kind": null,
+      "stdout": "\"-a\\n-b\\u2028c\\u2029d\\n-e\\n-f\"\n",
+      "stderr": "",
+      "bytes_seen": 31,
+      "truncated": false,
+      "cleanup_ok": true,
+      "lifecycle": [
+        {
+          "event": "created",
+          "container": "h3-aa042cfed70d40938034301eaa5e66af",
+          "image_id": "sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9"
+        },
+        {
+          "event": "destroyed",
+          "container": "h3-aa042cfed70d40938034301eaa5e66af",
+          "elapsed_s": 0.1524530999995477
+        }
+      ],
+      "capabilities": {
+        "profile": "docker_linux",
+        "platform": "linux-container",
+        "image": "python@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9",
+        "context": "desktop-linux",
+        "cancel": true,
+        "filesystem_isolation": true,
+        "network_control": true,
+        "network_default": "none",
+        "resource_limits": true,
+        "complete_isolation": false,
+        "cpu_limit": 1.0,
+        "memory_limit_bytes": 536870912,
+        "pids_limit": 128,
+        "workspace_limit_bytes": 67108864,
+        "tmpfs_limit_bytes": 16777216,
+        "tree_reclaim_guaranteed": true,
+        "privileged": false,
+        "docker_socket_mounted": false,
+        "host_mounts": false,
+        "workspace_transfer_limit": 8388608
+      }
+    },
+    {
+      "case_id": "custom-newline",
+      "status": "fail",
+      "execution": "succeeded",
+      "exit_code": 0,
+      "error_kind": null,
+      "stdout": "\">x\\u2028y\\u2029z\"\n",
+      "stderr": "",
+      "bytes_seen": 19,
+      "truncated": false,
+      "cleanup_ok": true,
+      "lifecycle": [
+        {
+          "event": "created",
+          "container": "h3-6b61d9076286496dbec668eabc4d8057",
+          "image_id": "sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9"
+        },
+        {
+          "event": "destroyed",
+          "container": "h3-6b61d9076286496dbec668eabc4d8057",
+          "elapsed_s": 0.17473840000093332
+        }
+      ],
+      "capabilities": {
+        "profile": "docker_linux",
+        "platform": "linux-container",
+        "image": "python@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9",
+        "context": "desktop-linux",
+        "cancel": true,
+        "filesystem_isolation": true,
+        "network_control": true,
+        "network_default": "none",
+        "resource_limits": true,
+        "complete_isolation": false,
+        "cpu_limit": 1.0,
+        "memory_limit_bytes": 536870912,
+        "pids_limit": 128,
+        "workspace_limit_bytes": 67108864,
+        "tmpfs_limit_bytes": 16777216,
+        "tree_reclaim_guaranteed": true,
+        "privileged": false,
+        "docker_socket_mounted": false,
+        "host_mounts": false,
+        "workspace_transfer_limit": 8388608
+      }
+    },
+    {
+      "case_id": "empty",
+      "status": "pass",
+      "execution": "succeeded",
+      "exit_code": 0,
+      "error_kind": null,
+      "stdout": "\"\"\n",
+      "stderr": "",
+      "bytes_seen": 3,
+      "truncated": false,
+      "cleanup_ok": true,
+      "lifecycle": [
+        {
+          "event": "created",
+          "container": "h3-a204a186f80d4997adab2b1ebe8f76d5",
+          "image_id": "sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9"
+        },
+        {
+          "event": "destroyed",
+          "container": "h3-a204a186f80d4997adab2b1ebe8f76d5",
+          "elapsed_s": 0.16279070000018692
+        }
+      ],
+      "capabilities": {
+        "profile": "docker_linux",
+        "platform": "linux-container",
+        "image": "python@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9",
+        "context": "desktop-linux",
+        "cancel": true,
+        "filesystem_isolation": true,
+        "network_control": true,
+        "network_default": "none",
+        "resource_limits": true,
+        "complete_isolation": false,
+        "cpu_limit": 1.0,
+        "memory_limit_bytes": 536870912,
+        "pids_limit": 128,
+        "workspace_limit_bytes": 67108864,
+        "tmpfs_limit_bytes": 16777216,
+        "tree_reclaim_guaranteed": true,
+        "privileged": false,
+        "docker_socket_mounted": false,
+        "host_mounts": false,
+        "workspace_transfer_limit": 8388608
+      }
+    },
+    {
+      "case_id": "crlf",
+      "status": "pass",
+      "execution": "succeeded",
+      "exit_code": 0,
+      "error_kind": null,
+      "stdout": "\"  a\\n  b\\n\"\n",
+      "stderr": "",
+      "bytes_seen": 13,
+      "truncated": false,
+      "cleanup_ok": true,
+      "lifecycle": [
+        {
+          "event": "created",
+          "container": "h3-04ef0ef700a3455197b08e63c427e7ab",
+          "image_id": "sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9"
+        },
+        {
+          "event": "destroyed",
+          "container": "h3-04ef0ef700a3455197b08e63c427e7ab",
+          "elapsed_s": 0.17014740000013262
+        }
+      ],
+      "capabilities": {
+        "profile": "docker_linux",
+        "platform": "linux-container",
+        "image": "python@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9",
+        "context": "desktop-linux",
+        "cancel": true,
+        "filesystem_isolation": true,
+        "network_control": true,
+        "network_default": "none",
+        "resource_limits": true,
+        "complete_isolation": false,
+        "cpu_limit": 1.0,
+        "memory_limit_bytes": 536870912,
+        "pids_limit": 128,
+        "workspace_limit_bytes": 67108864,
+        "tmpfs_limit_bytes": 16777216,
+        "tree_reclaim_guaranteed": true,
+        "privileged": false,
+        "docker_socket_mounted": false,
+        "host_mounts": false,
+        "workspace_transfer_limit": 8388608
+      }
+    },
+    {
+      "case_id": "blank-lines",
+      "status": "pass",
+      "execution": "succeeded",
+      "exit_code": 0,
+      "error_kind": null,
+      "stdout": "\"\\n>a\\n\\n\"\n",
+      "stderr": "",
+      "bytes_seen": 11,
+      "truncated": false,
+      "cleanup_ok": true,
+      "lifecycle": [
+        {
+          "event": "created",
+          "container": "h3-49bacb4ef7c242288e3e7cec5403e05a",
+          "image_id": "sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9"
+        },
+        {
+          "event": "destroyed",
+          "container": "h3-49bacb4ef7c242288e3e7cec5403e05a",
+          "elapsed_s": 0.15592520000063814
+        }
+      ],
+      "capabilities": {
+        "profile": "docker_linux",
+        "platform": "linux-container",
+        "image": "python@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9",
+        "context": "desktop-linux",
+        "cancel": true,
+        "filesystem_isolation": true,
+        "network_control": true,
+        "network_default": "none",
+        "resource_limits": true,
+        "complete_isolation": false,
+        "cpu_limit": 1.0,
+        "memory_limit_bytes": 536870912,
+        "pids_limit": 128,
+        "workspace_limit_bytes": 67108864,
+        "tmpfs_limit_bytes": 16777216,
+        "tree_reclaim_guaranteed": true,
+        "privileged": false,
+        "docker_socket_mounted": false,
+        "host_mounts": false,
+        "workspace_transfer_limit": 8388608
+      }
+    },
+    {
+      "case_id": "legacy-separators",
+      "status": "pass",
+      "execution": "succeeded",
+      "exit_code": 0,
+      "error_kind": null,
+      "stdout": "\">a\\n>b\\n>c\\n>d\"\n",
+      "stderr": "",
+      "bytes_seen": 17,
+      "truncated": false,
+      "cleanup_ok": true,
+      "lifecycle": [
+        {
+          "event": "created",
+          "container": "h3-d566277b35e8487d93d6c8108b4fa43b",
+          "image_id": "sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9"
+        },
+        {
+          "event": "destroyed",
+          "container": "h3-d566277b35e8487d93d6c8108b4fa43b",
+          "elapsed_s": 0.16507809999893652
+        }
+      ],
+      "capabilities": {
+        "profile": "docker_linux",
+        "platform": "linux-container",
+        "image": "python@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9",
+        "context": "desktop-linux",
+        "cancel": true,
+        "filesystem_isolation": true,
+        "network_control": true,
+        "network_default": "none",
+        "resource_limits": true,
+        "complete_isolation": false,
+        "cpu_limit": 1.0,
+        "memory_limit_bytes": 536870912,
+        "pids_limit": 128,
+        "workspace_limit_bytes": 67108864,
+        "tmpfs_limit_bytes": 16777216,
+        "tree_reclaim_guaranteed": true,
+        "privileged": false,
+        "docker_socket_mounted": false,
+        "host_mounts": false,
+        "workspace_transfer_limit": 8388608
+      }
+    },
+    {
+      "case_id": "whitespace",
+      "status": "pass",
+      "execution": "succeeded",
+      "exit_code": 0,
+      "error_kind": null,
+      "stdout": "\"+ \\t\\n+  \"\n",
+      "stderr": "",
+      "bytes_seen": 12,
+      "truncated": false,
+      "cleanup_ok": true,
+      "lifecycle": [
+        {
+          "event": "created",
+          "container": "h3-5153a4914ef84c2485015e1f6583d679",
+          "image_id": "sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9"
+        },
+        {
+          "event": "destroyed",
+          "container": "h3-5153a4914ef84c2485015e1f6583d679",
+          "elapsed_s": 0.17309169999862206
+        }
+      ],
+      "capabilities": {
+        "profile": "docker_linux",
+        "platform": "linux-container",
+        "image": "python@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9",
+        "context": "desktop-linux",
+        "cancel": true,
+        "filesystem_isolation": true,
+        "network_control": true,
+        "network_default": "none",
+        "resource_limits": true,
+        "complete_isolation": false,
+        "cpu_limit": 1.0,
+        "memory_limit_bytes": 536870912,
+        "pids_limit": 128,
+        "workspace_limit_bytes": 67108864,
+        "tmpfs_limit_bytes": 16777216,
+        "tree_reclaim_guaranteed": true,
+        "privileged": false,
+        "docker_socket_mounted": false,
+        "host_mounts": false,
+        "workspace_transfer_limit": 8388608
+      }
+    },
+    {
+      "case_id": "literal-backslash",
+      "status": "pass",
+      "execution": "succeeded",
+      "exit_code": 0,
+      "error_kind": null,
+      "stdout": "\"-a\\\\u2028b\"\n",
+      "stderr": "",
+      "bytes_seen": 13,
+      "truncated": false,
+      "cleanup_ok": true,
+      "lifecycle": [
+        {
+          "event": "created",
+          "container": "h3-a2d73d9e702c4d18b783c5686914f7f3",
+          "image_id": "sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9"
+        },
+        {
+          "event": "destroyed",
+          "container": "h3-a2d73d9e702c4d18b783c5686914f7f3",
+          "elapsed_s": 0.172427699999389
+        }
+      ],
+      "capabilities": {
+        "profile": "docker_linux",
+        "platform": "linux-container",
+        "image": "python@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9",
+        "context": "desktop-linux",
+        "cancel": true,
+        "filesystem_isolation": true,
+        "network_control": true,
+        "network_default": "none",
+        "resource_limits": true,
+        "complete_isolation": false,
+        "cpu_limit": 1.0,
+        "memory_limit_bytes": 536870912,
+        "pids_limit": 128,
+        "workspace_limit_bytes": 67108864,
+        "tmpfs_limit_bytes": 16777216,
+        "tree_reclaim_guaranteed": true,
+        "privileged": false,
+        "docker_socket_mounted": false,
+        "host_mounts": false,
+        "workspace_transfer_limit": 8388608
+      }
+    },
+    {
+      "case_id": "unicode-text",
+      "status": "fail",
+      "execution": "succeeded",
+      "exit_code": 0,
+      "error_kind": null,
+      "stdout": "\">\\u4f60\\u597d\\u2028\\u4e16\\u754c\\n>\\u2029\\u5c3e\\u90e8\\n\"\n",
+      "stderr": "",
+      "bytes_seen": 57,
+      "truncated": false,
+      "cleanup_ok": true,
+      "lifecycle": [
+        {
+          "event": "created",
+          "container": "h3-a97ed59c993d43b8a1fb4da8b647830e",
+          "image_id": "sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9"
+        },
+        {
+          "event": "destroyed",
+          "container": "h3-a97ed59c993d43b8a1fb4da8b647830e",
+          "elapsed_s": 0.17175810000117053
+        }
+      ],
+      "capabilities": {
+        "profile": "docker_linux",
+        "platform": "linux-container",
+        "image": "python@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9",
+        "context": "desktop-linux",
+        "cancel": true,
+        "filesystem_isolation": true,
+        "network_control": true,
+        "network_default": "none",
+        "resource_limits": true,
+        "complete_isolation": false,
+        "cpu_limit": 1.0,
+        "memory_limit_bytes": 536870912,
+        "pids_limit": 128,
+        "workspace_limit_bytes": 67108864,
+        "tmpfs_limit_bytes": 16777216,
+        "tree_reclaim_guaranteed": true,
+        "privileged": false,
+        "docker_socket_mounted": false,
+        "host_mounts": false,
+        "workspace_transfer_limit": 8388608
+      }
+    },
+    {
+      "case_id": "empty-margin",
+      "status": "fail",
+      "execution": "succeeded",
+      "exit_code": 0,
+      "error_kind": null,
+      "stdout": "\"x\\u2029y\"\n",
+      "stderr": "",
+      "bytes_seen": 11,
+      "truncated": false,
+      "cleanup_ok": true,
+      "lifecycle": [
+        {
+          "event": "created",
+          "container": "h3-63c99c295fd344f38426a4fab3e51b06",
+          "image_id": "sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9"
+        },
+        {
+          "event": "destroyed",
+          "container": "h3-63c99c295fd344f38426a4fab3e51b06",
+          "elapsed_s": 0.16920140000001993
+        }
+      ],
+      "capabilities": {
+        "profile": "docker_linux",
+        "platform": "linux-container",
+        "image": "python@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9",
+        "context": "desktop-linux",
+        "cancel": true,
+        "filesystem_isolation": true,
+        "network_control": true,
+        "network_default": "none",
+        "resource_limits": true,
+        "complete_isolation": false,
+        "cpu_limit": 1.0,
+        "memory_limit_bytes": 536870912,
+        "pids_limit": 128,
+        "workspace_limit_bytes": 67108864,
+        "tmpfs_limit_bytes": 16777216,
+        "tree_reclaim_guaranteed": true,
+        "privileged": false,
+        "docker_socket_mounted": false,
+        "host_mounts": false,
+        "workspace_transfer_limit": 8388608
+      }
+    },
+    {
+      "case_id": "unrelated-camel",
+      "status": "pass",
+      "execution": "succeeded",
+      "exit_code": 0,
+      "error_kind": null,
+      "stdout": "\"basic_parse_test\"\n",
+      "stderr": "",
+      "bytes_seen": 19,
+      "truncated": false,
+      "cleanup_ok": true,
+      "lifecycle": [
+        {
+          "event": "created",
+          "container": "h3-2017a220c9ca448cbf65e61b7c13dd70",
+          "image_id": "sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9"
+        },
+        {
+          "event": "destroyed",
+          "container": "h3-2017a220c9ca448cbf65e61b7c13dd70",
+          "elapsed_s": 0.18199590000222088
+        }
+      ],
+      "capabilities": {
+        "profile": "docker_linux",
+        "platform": "linux-container",
+        "image": "python@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9",
+        "context": "desktop-linux",
+        "cancel": true,
+        "filesystem_isolation": true,
+        "network_control": true,
+        "network_default": "none",
+        "resource_limits": true,
+        "complete_isolation": false,
+        "cpu_limit": 1.0,
+        "memory_limit_bytes": 536870912,
+        "pids_limit": 128,
+        "workspace_limit_bytes": 67108864,
+        "tmpfs_limit_bytes": 16777216,
+        "tree_reclaim_guaranteed": true,
+        "privileged": false,
+        "docker_socket_mounted": false,
+        "host_mounts": false,
+        "workspace_transfer_limit": 8388608
+      }
+    },
+    {
+      "case_id": "unrelated-bytes",
+      "status": "pass",
+      "execution": "succeeded",
+      "exit_code": 0,
+      "error_kind": null,
+      "stdout": "\"1K\"\n",
+      "stderr": "",
+      "bytes_seen": 5,
+      "truncated": false,
+      "cleanup_ok": true,
+      "lifecycle": [
+        {
+          "event": "created",
+          "container": "h3-921d9f0c40ff4961b528f9c607d4f267",
+          "image_id": "sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9"
+        },
+        {
+          "event": "destroyed",
+          "container": "h3-921d9f0c40ff4961b528f9c607d4f267",
+          "elapsed_s": 0.1543013999980758
+        }
+      ],
+      "capabilities": {
+        "profile": "docker_linux",
+        "platform": "linux-container",
+        "image": "python@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9",
+        "context": "desktop-linux",
+        "cancel": true,
+        "filesystem_isolation": true,
+        "network_control": true,
+        "network_default": "none",
+        "resource_limits": true,
+        "complete_isolation": false,
+        "cpu_limit": 1.0,
+        "memory_limit_bytes": 536870912,
+        "pids_limit": 128,
+        "workspace_limit_bytes": 67108864,
+        "tmpfs_limit_bytes": 16777216,
+        "tree_reclaim_guaranteed": true,
+        "privileged": false,
+        "docker_socket_mounted": false,
+        "host_mounts": false,
+        "workspace_transfer_limit": 8388608
+      }
+    }
+  ],
+  "changed_paths": []
+}

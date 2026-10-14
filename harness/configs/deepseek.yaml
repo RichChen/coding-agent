@@ -1,0 +1,34 @@
+# Dedicated real-provider profile; existing H4 plugin/config contracts stay intact.
+llm:
+  base_url: "https://api.deepseek.com/v1"
+  api_key: "${LLM_API_KEY}"
+  model: "${DEEPSEEK_MODEL:deepseek-flash}"
+  thinking: disabled
+  max_tokens: 8192
+  trust_env: false
+runtime:
+  max_steps: 40
+  step_timeout_seconds: 120
+  total_timeout_seconds: 1200
+  context:
+    strategy: masking
+    max_tokens: 131072
+    keep_recent_tool_results: 3
+    plugin: noop
+  budget:
+    max_model_calls: 50
+    max_tokens: 1000000
+policy:
+  command:
+    execution_profile: docker_linux
+    docker_context: desktop-linux
+    docker_network: none
+    timeout_seconds: 30
+    env_whitelist: []
+  file_size_limit_bytes: 1048576
+  tool_output_max_chars: 16000
+tools:
+  enabled: [read_file, write_file, list_dir, edit_file, search_replace, run_command]
+tracing:
+  lifecycle_events: true
+  llm_stream_events: true

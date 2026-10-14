@@ -1,0 +1,51 @@
+{
+  "task_id": "django__django-13512",
+  "repo": "django/django",
+  "accepted": true,
+  "reason": null,
+  "empty_f2p": [
+    1,
+    3
+  ],
+  "gold_f2p": [
+    3,
+    3
+  ],
+  "empty_p2p": [
+    32,
+    32
+  ],
+  "gold_p2p": [
+    32,
+    32
+  ],
+  "p2p_excluded_count": 0,
+  "p2p_excluded": [],
+  "nodeids": {
+    "f2p": {
+      "original": 3,
+      "used": 3
+    },
+    "p2p": {
+      "original": 32,
+      "used": 32
+    },
+    "dropped_reasons": {
+      "f2p": {},
+      "p2p": {}
+    },
+    "dropped": [],
+    "mapped": {
+      "f2p": 0,
+      "p2p": 1
+    },
+    "mapping": [
+      {
+        "side": "p2p",
+        "docstring": "The widget can be overridden with an attribute.",
+        "nodeid": "forms_tests.field_tests.test_jsonfield.JSONFieldTest.test_custom_widget_attribute"
+      }
+    ]
+  },
+  "sklearn_import": null
+}

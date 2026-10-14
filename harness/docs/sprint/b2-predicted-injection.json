@@ -1,0 +1,2884 @@
+{
+  "schema": "sprint6.b2-predicted-injection.v1",
+  "variant": "B2",
+  "cards": "D:/crq/src/coding-agent/benchmarks/a5/memory-cards-v6.jsonl",
+  "cards_sha256": "3416eb9d8f6119081330fb3b0a2d612b8fde4678d6ec1c73a7fc681cedfcfc70",
+  "handoffs": {
+    "memory-source-runs.json": {
+      "schema": "sprint5.memory-source-runs.v2",
+      "sha256": "984826707e8f69ad9b900134bd244c6056f2d8860f3036a3606bfc60b4bcb450"
+    },
+    "main-b0-runs.json": {
+      "schema": "sprint6.main-b0-runs.v2",
+      "sha256": "fe0f47b8df67730a0335d7109631dc09bc4d6b5d19a601acfec0963f5dcb1f8c"
+    }
+  },
+  "tasks": 56,
+  "tasks_with_cards": 51,
+  "cards_injected_total": 148,
+  "mean_injected_bytes_when_injected": 3236.2,
+  "gold_overlap_summary": {
+    "tasks_with_any_overlap": 0,
+    "tasks_with_nontrivial_overlap": 0,
+    "lines_in_injected_text": 0,
+    "nontrivial_lines_in_injected_text": 0,
+    "nontrivial_min_chars": 10
+  },
+  "audit": {
+    "later_than_target": [],
+    "own_task": [],
+    "cross_repo": []
+  },
+  "runs": [
+    {
+      "id": "django__django-11211",
+      "repo": "django/django",
+      "created_at": "2019-04-13T12:01:14Z",
+      "cards_after_filter": [
+        "django__django-10914",
+        "django__django-10924",
+        "django__django-11039"
+      ],
+      "decision": "selected",
+      "injected": [
+        {
+          "id": "django__django-10924",
+          "bytes": 1500,
+          "sha256": "498181f0a96c634991f2695fda851e746bd9bfba15843e7f3df1318a51949349"
+        },
+        {
+          "id": "django__django-10914",
+          "bytes": 1453,
+          "sha256": "d0cabbd746290f71bf938b443689d9723a3dd76a0d8f34b00364500a476a52b1"
+        }
+      ],
+      "injected_bytes": 2953,
+      "not_injected": [
+        {
+          "id": "django__django-11039",
+          "status": "over_budget",
+          "bytes": 1500
+        }
+      ],
+      "gold_overlap": {
+        "gold_added_lines": 3,
+        "in_injected_text": 0,
+        "gold_added_lines_nontrivial": 3,
+        "in_injected_text_nontrivial": 0
+      }
+    },
+    {
+      "id": "django__django-11749",
+      "repo": "django/django",
+      "created_at": "2019-09-05T21:47:44Z",
+      "cards_after_filter": [
+        "django__django-10914",
+        "django__django-10924",
+        "django__django-11039",
+        "django__django-11211"
+      ],
+      "decision": "selected",
+      "injected": [
+        {
+          "id": "django__django-11039",
+          "bytes": 1500,
+          "sha256": "1f92193fe582efae3557d418ef590ede8a673626ec3bd81546c29f09f4ebaaa8"
+        },
+        {
+          "id": "django__django-10914",
+          "bytes": 1453,
+          "sha256": "d0cabbd746290f71bf938b443689d9723a3dd76a0d8f34b00364500a476a52b1"
+        }
+      ],
+      "injected_bytes": 2953,
+      "not_injected": [
+        {
+          "id": "django__django-10924",
+          "status": "over_budget",
+          "bytes": 1500
+        },
+        {
+          "id": "django__django-11211",
+          "status": "over_budget",
+          "bytes": 1500
+        }
+      ],
+      "gold_overlap": {
+        "gold_added_lines": 9,
+        "in_injected_text": 0,
+        "gold_added_lines_nontrivial": 6,
+        "in_injected_text_nontrivial": 0
+      }
+    },
+    {
+      "id": "django__django-12276",
+      "repo": "django/django",
+      "created_at": "2020-01-05T08:04:40Z",
+      "cards_after_filter": [
+        "django__django-10914",
+        "django__django-10924",
+        "django__django-11039",
+        "django__django-11211",
+        "django__django-11749"
+      ],
+      "decision": "selected",
+      "injected": [
+        {
+          "id": "django__django-11749",
+          "bytes": 1500,
+          "sha256": "f11f92f2dbcf45e0cd16f3fdecc9c367ae58fe5f1eeaca4f8c176a558d3f6732"
+        },
+        {
+          "id": "django__django-10924",
+          "bytes": 1500,
+          "sha256": "498181f0a96c634991f2695fda851e746bd9bfba15843e7f3df1318a51949349"
+        }
+      ],
+      "injected_bytes": 3000,
+      "not_injected": [
+        {
+          "id": "django__django-11211",
+          "status": "over_budget",
+          "bytes": 1500
+        },
+        {
+          "id": "django__django-10914",
+          "status": "over_budget",
+          "bytes": 1453
+        },
+        {
+          "id": "django__django-11039",
+          "status": "over_budget",
+          "bytes": 1500
+        }
+      ],
+      "gold_overlap": {
+        "gold_added_lines": 2,
+        "in_injected_text": 0,
+        "gold_added_lines_nontrivial": 2,
+        "in_injected_text_nontrivial": 0
+      }
+    },
+    {
+      "id": "django__django-13109",
+      "repo": "django/django",
+      "created_at": "2020-06-25T08:36:45Z",
+      "cards_after_filter": [
+        "django__django-10914",
+        "django__django-10924",
+        "django__django-11039",
+        "django__django-11211",
+        "django__django-11749",
+        "django__django-12276"
+      ],
+      "decision": "selected",
+      "injected": [
+        {
+          "id": "django__django-11211",
+          "bytes": 1500,
+          "sha256": "fc5aaec39eb2f8bc175f330830881f1e86ad4890da4586d8c8cc751f734608b4"
+        },
+        {
+          "id": "django__django-10924",
+          "bytes": 1500,
+          "sha256": "498181f0a96c634991f2695fda851e746bd9bfba15843e7f3df1318a51949349"
+        }
+      ],
+      "injected_bytes": 3000,
+      "not_injected": [
+        {
+          "id": "django__django-12276",
+          "status": "over_budget",
+          "bytes": 1172
+        },
+        {
+          "id": "django__django-11749",
+          "status": "over_budget",
+          "bytes": 1500
+        },
+        {
+          "id": "django__django-11039",
+          "status": "over_budget",
+          "bytes": 1500
+        },
+        {
+          "id": "django__django-10914",
+          "status": "over_budget",
+          "bytes": 1453
+        }
+      ],
+      "gold_overlap": {
+        "gold_added_lines": 1,
+        "in_injected_text": 0,
+        "gold_added_lines_nontrivial": 1,
+        "in_injected_text_nontrivial": 0
+      }
+    },
+    {
+      "id": "django__django-13512",
+      "repo": "django/django",
+      "created_at": "2020-10-08T13:52:57Z",
+      "cards_after_filter": [
+        "django__django-10914",
+        "django__django-10924",
+        "django__django-11039",
+        "django__django-11211",
+        "django__django-11749",
+        "django__django-12276",
+        "django__django-13109"
+      ],
+      "decision": "selected",
+      "injected": [
+        {
+          "id": "django__django-12276",
+          "bytes": 1172,
+          "sha256": "dd7f82e2e0e24c3fcc37c61f84706a7561c85eaca4baa086daab8d2e8b46b8ff"
+        },
+        {
+          "id": "django__django-10924",
+          "bytes": 1500,
+          "sha256": "498181f0a96c634991f2695fda851e746bd9bfba15843e7f3df1318a51949349"
+        },
+        {
+          "id": "django__django-13109",
+          "bytes": 1082,
+          "sha256": "5d21a2f19382f10c3f05b46ac153175e3c144b1ab654d59c8f7662b1a5770da9"
+        }
+      ],
+      "injected_bytes": 3754,
+      "not_injected": [
+        {
+          "id": "django__django-11211",
+          "status": "over_budget",
+          "bytes": 1500
+        },
+        {
+          "id": "django__django-11039",
+          "status": "over_budget",
+          "bytes": 1500
+        },
+        {
+          "id": "django__django-10914",
+          "status": "over_budget",
+          "bytes": 1453
+        },
+        {
+          "id": "django__django-11749",
+          "status": "over_budget",
+          "bytes": 1500
+        }
+      ],
+      "gold_overlap": {
+        "gold_added_lines": 3,
+        "in_injected_text": 0,
+        "gold_added_lines_nontrivial": 3,
+        "in_injected_text_nontrivial": 0
+      }
+    },
+    {
+      "id": "django__django-13964",
+      "repo": "django/django",
+      "created_at": "2021-02-02T17:07:43Z",
+      "cards_after_filter": [
+        "django__django-10914",
+        "django__django-10924",
+        "django__django-11039",
+        "django__django-11211",
+        "django__django-11749",
+        "django__django-12276",
+        "django__django-13109",
+        "django__django-13512"
+      ],
+      "decision": "selected",
+      "injected": [
+        {
+          "id": "django__django-11211",
+          "bytes": 1500,
+          "sha256": "fc5aaec39eb2f8bc175f330830881f1e86ad4890da4586d8c8cc751f734608b4"
+        },
+        {
+          "id": "django__django-13109",
+          "bytes": 1082,
+          "sha256": "5d21a2f19382f10c3f05b46ac153175e3c144b1ab654d59c8f7662b1a5770da9"
+        },
+        {
+          "id": "django__django-11039",
+          "bytes": 1500,
+          "sha256": "1f92193fe582efae3557d418ef590ede8a673626ec3bd81546c29f09f4ebaaa8"
+        }
+      ],
+      "injected_bytes": 4082,
+      "not_injected": [
+        {
+          "id": "django__django-12276",
+          "status": "over_budget",
+          "bytes": 1172
+        },
+        {
+          "id": "django__django-10924",
+          "status": "over_budget",
+          "bytes": 1500
+        },
+        {
+          "id": "django__django-10914",
+          "status": "over_budget",
+          "bytes": 1453
+        },
+        {
+          "id": "django__django-11749",
+          "status": "over_budget",
+          "bytes": 1500
+        }
+      ],
+      "gold_overlap": {
+        "gold_added_lines": 1,
+        "in_injected_text": 0,
+        "gold_added_lines_nontrivial": 1,
+        "in_injected_text_nontrivial": 0
+      }
+    },
+    {
+      "id": "django__django-14434",
+      "repo": "django/django",
+      "created_at": "2021-05-23T12:27:14Z",
+      "cards_after_filter": [
+        "django__django-10914",
+        "django__django-10924",
+        "django__django-11039",
+        "django__django-11211",
+        "django__django-11749",
+        "django__django-12276",
+        "django__django-13109",
+        "django__django-13512",
+        "django__django-13964"
+      ],
+      "decision": "selected",
+      "injected": [
+        {
+          "id": "django__django-11749",
+          "bytes": 1500,
+          "sha256": "f11f92f2dbcf45e0cd16f3fdecc9c367ae58fe5f1eeaca4f8c176a558d3f6732"
+        },
+        {
+          "id": "django__django-13109",
+          "bytes": 1082,
+          "sha256": "5d21a2f19382f10c3f05b46ac153175e3c144b1ab654d59c8f7662b1a5770da9"
+        },
+        {
+          "id": "django__django-13964",
+          "bytes": 1500,
+          "sha256": "c3e35b64823c307e24ad663de9a711b686735075b3e883ece71b9bd4fcbc24f3"
+        }
+      ],
+      "injected_bytes": 4082,
+      "not_injected": [
+        {
+          "id": "django__django-12276",
+          "status": "over_budget",
+          "bytes": 1172
+        },
+        {
+          "id": "django__django-10914",
+          "status": "over_budget",
+          "bytes": 1453
+        },
+        {
+          "id": "django__django-11211",
+          "status": "over_budget",
+          "bytes": 1500
+        },
+        {
+          "id": "django__django-11039",
+          "status": "over_budget",
+          "bytes": 1500
+        }
+      ],
+      "gold_overlap": {
+        "gold_added_lines": 4,
+        "in_injected_text": 0,
+        "gold_added_lines_nontrivial": 4,
+        "in_injected_text_nontrivial": 0
+      }
+    },
+    {
+      "id": "django__django-15022",
+      "repo": "django/django",
+      "created_at": "2021-10-24T17:48:28Z",
+      "cards_after_filter": [
+        "django__django-10914",
+        "django__django-10924",
+        "django__django-11039",
+        "django__django-11211",
+        "django__django-11749",
+        "django__django-12276",
+        "django__django-13109",
+        "django__django-13512",
+        "django__django-13964",
+        "django__django-14434"
+      ],
+      "decision": "selected",
+      "injected": [
+        {
+          "id": "django__django-10924",
+          "bytes": 1500,
+          "sha256": "498181f0a96c634991f2695fda851e746bd9bfba15843e7f3df1318a51949349"
+        },
+        {
+          "id": "django__django-11211",
+          "bytes": 1500,
+          "sha256": "fc5aaec39eb2f8bc175f330830881f1e86ad4890da4586d8c8cc751f734608b4"
+        },
+        {
+          "id": "django__django-13109",
+          "bytes": 1082,
+          "sha256": "5d21a2f19382f10c3f05b46ac153175e3c144b1ab654d59c8f7662b1a5770da9"
+        }
+      ],
+      "injected_bytes": 4082,
+      "not_injected": [
+        {
+          "id": "django__django-13964",
+          "status": "over_budget",
+          "bytes": 1500
+        },
+        {
+          "id": "django__django-14434",
+          "status": "over_budget",
+          "bytes": 970
+        },
+        {
+          "id": "django__django-11749",
+          "status": "over_budget",
+          "bytes": 1500
+        },
+        {
+          "id": "django__django-10914",
+          "status": "over_budget",
+          "bytes": 1453
+        },
+        {
+          "id": "django__django-12276",
+          "status": "over_budget",
+          "bytes": 1172
+        },
+        {
+          "id": "django__django-11039",
+          "status": "over_budget",
+          "bytes": 1500
+        }
+      ],
+      "gold_overlap": {
+        "gold_added_lines": 3,
+        "in_injected_text": 0,
+        "gold_added_lines_nontrivial": 3,
+        "in_injected_text_nontrivial": 0
+      }
+    },
+    {
+      "id": "django__django-15499",
+      "repo": "django/django",
+      "created_at": "2022-03-10T22:32:35Z",
+      "cards_after_filter": [
+        "django__django-10914",
+        "django__django-10924",
+        "django__django-11039",
+        "django__django-11211",
+        "django__django-11749",
+        "django__django-12276",
+        "django__django-13109",
+        "django__django-13512",
+        "django__django-13964",
+        "django__django-14434",
+        "django__django-15022"
+      ],
+      "decision": "selected",
+      "injected": [
+        {
+          "id": "django__django-10924",
+          "bytes": 1500,
+          "sha256": "498181f0a96c634991f2695fda851e746bd9bfba15843e7f3df1318a51949349"
+        },
+        {
+          "id": "django__django-15022",
+          "bytes": 1500,
+          "sha256": "c1a36034608058926659b063915c530e960439c601363e6900e252ba0515438e"
+        }
+      ],
+      "injected_bytes": 3000,
+      "not_injected": [
+        {
+          "id": "django__django-11039",
+          "status": "over_budget",
+          "bytes": 1500
+        },
+        {
+          "id": "django__django-11749",
+          "status": "over_budget",
+          "bytes": 1500
+        },
+        {
+          "id": "django__django-11211",
+          "status": "over_budget",
+          "bytes": 1500
+        }
+      ],
+      "gold_overlap": {
+        "gold_added_lines": 13,
+        "in_injected_text": 0,
+        "gold_added_lines_nontrivial": 8,
+        "in_injected_text_nontrivial": 0
+      }
+    },
+    {
+      "id": "django__django-15973",
+      "repo": "django/django",
+      "created_at": "2022-08-19T18:10:02Z",
+      "cards_after_filter": [
+        "django__django-10914",
+        "django__django-10924",
+        "django__django-11039",
+        "django__django-11211",
+        "django__django-11749",
+        "django__django-12276",
+        "django__django-13109",
+        "django__django-13512",
+        "django__django-13964",
+        "django__django-14434",
+        "django__django-15022",
+        "django__django-15499"
+      ],
+      "decision": "selected",
+      "injected": [
+        {
+          "id": "django__django-10924",
+          "bytes": 1500,
+          "sha256": "498181f0a96c634991f2695fda851e746bd9bfba15843e7f3df1318a51949349"
+        },
+        {
+          "id": "django__django-11039",
+          "bytes": 1500,
+          "sha256": "1f92193fe582efae3557d418ef590ede8a673626ec3bd81546c29f09f4ebaaa8"
+        },
+        {
+          "id": "django__django-13109",
+          "bytes": 1082,
+          "sha256": "5d21a2f19382f10c3f05b46ac153175e3c144b1ab654d59c8f7662b1a5770da9"
+        }
+      ],
+      "injected_bytes": 4082,
+      "not_injected": [
+        {
+          "id": "django__django-11211",
+          "status": "over_budget",
+          "bytes": 1500
+        },
+        {
+          "id": "django__django-15022",
+          "status": "over_budget",
+          "bytes": 1500
+        },
+        {
+          "id": "django__django-11749",
+          "status": "over_budget",
+          "bytes": 1500
+        },
+        {
+          "id": "django__django-15499",
+          "status": "over_budget",
+          "bytes": 1500
+        },
+        {
+          "id": "django__django-13964",
+          "status": "over_budget",
+          "bytes": 1500
+        },
+        {
+          "id": "django__django-10914",
+          "status": "over_budget",
+          "bytes": 1453
+        },
+        {
+          "id": "django__django-12276",
+          "status": "over_budget",
+          "bytes": 1172
+        },
+        {
+          "id": "django__django-14434",
+          "status": "over_budget",
+          "bytes": 970
+        }
+      ],
+      "gold_overlap": {
+        "gold_added_lines": 1,
+        "in_injected_text": 0,
+        "gold_added_lines_nontrivial": 1,
+        "in_injected_text_nontrivial": 0
+      }
+    },
+    {
+      "id": "django__django-16527",
+      "repo": "django/django",
+      "created_at": "2023-02-05T22:05:00Z",
+      "cards_after_filter": [
+        "django__django-10914",
+        "django__django-10924",
+        "django__django-11039",
+        "django__django-11211",
+        "django__django-11749",
+        "django__django-12276",
+        "django__django-13109",
+        "django__django-13512",
+        "django__django-13964",
+        "django__django-14434",
+        "django__django-15022",
+        "django__django-15499",
+        "django__django-15973"
+      ],
+      "decision": "selected",
+      "injected": [
+        {
+          "id": "django__django-12276",
+          "bytes": 1172,
+          "sha256": "dd7f82e2e0e24c3fcc37c61f84706a7561c85eaca4baa086daab8d2e8b46b8ff"
+        },
+        {
+          "id": "django__django-15022",
+          "bytes": 1500,
+          "sha256": "c1a36034608058926659b063915c530e960439c601363e6900e252ba0515438e"
+        },
+        {
+          "id": "django__django-13109",
+          "bytes": 1082,
+          "sha256": "5d21a2f19382f10c3f05b46ac153175e3c144b1ab654d59c8f7662b1a5770da9"
+        }
+      ],
+      "injected_bytes": 3754,
+      "not_injected": [
+        {
+          "id": "django__django-11039",
+          "status": "over_budget",
+          "bytes": 1500
+        },
+        {
+          "id": "django__django-15499",
+          "status": "over_budget",
+          "bytes": 1500
+        },
+        {
+          "id": "django__django-10914",
+          "status": "over_budget",
+          "bytes": 1453
+        },
+        {
+          "id": "django__django-11749",
+          "status": "over_budget",
+          "bytes": 1500
+        },
+        {
+          "id": "django__django-13964",
+          "status": "over_budget",
+          "bytes": 1500
+        },
+        {
+          "id": "django__django-10924",
+          "status": "over_budget",
+          "bytes": 1500
+        },
+        {
+          "id": "django__django-11211",
+          "status": "over_budget",
+          "bytes": 1500
+        }
+      ],
+      "gold_overlap": {
+        "gold_added_lines": 1,
+        "in_injected_text": 0,
+        "gold_added_lines_nontrivial": 1,
+        "in_injected_text_nontrivial": 0
+      }
+    },
+    {
+      "id": "sympy__sympy-11618",
+      "repo": "sympy/sympy",
+      "created_at": "2016-09-15T20:01:58Z",
+      "cards_after_filter": [
+        "sympy__sympy-11400"
+      ],
+      "decision": "no_relevant_memory",
+      "injected": [],
+      "injected_bytes": 0,
+      "not_injected": [],
+      "gold_overlap": {
+        "gold_added_lines": 11,
+        "in_injected_text": 0,
+        "gold_added_lines_nontrivial": 10,
+        "in_injected_text_nontrivial": 0
+      }
+    },
+    {
+      "id": "sympy__sympy-13091",
+      "repo": "sympy/sympy",
+      "created_at": "2017-08-05T08:04:32Z",
+      "cards_after_filter": [
+        "sympy__sympy-11400",
+        "sympy__sympy-11870",
+        "sympy__sympy-11897",
+        "sympy__sympy-12171",
+        "sympy__sympy-11618"
+      ],
+      "decision": "selected",
+      "injected": [
+        {
+          "id": "sympy__sympy-11618",
+          "bytes": 855,
+          "sha256": "17a2d03a13f3dd12bab183119ea4b23c8c4b736c4705dc7a89c928c06367c4ee"
+        }
+      ],
+      "injected_bytes": 855,
+      "not_injected": [],
+      "gold_overlap": {
+        "gold_added_lines": 56,
+        "in_injected_text": 0,
+        "gold_added_lines_nontrivial": 56,
+        "in_injected_text_nontrivial": 0
+      }
+    },
+    {
+      "id": "sympy__sympy-13757",
+      "repo": "sympy/sympy",
+      "created_at": "2017-12-17T11:08:44Z",
+      "cards_after_filter": [
+        "sympy__sympy-11400",
+        "sympy__sympy-11870",
+        "sympy__sympy-11897",
+        "sympy__sympy-12171",
+        "sympy__sympy-11618",
+        "sympy__sympy-13091"
+      ],
+      "decision": "no_relevant_memory",
+      "injected": [],
+      "injected_bytes": 0,
+      "not_injected": [],
+      "gold_overlap": {
+        "gold_added_lines": 1,
+        "in_injected_text": 0,
+        "gold_added_lines_nontrivial": 1,
+        "in_injected_text_nontrivial": 0
+      }
+    },
+    {
+      "id": "sympy__sympy-14248",
+      "repo": "sympy/sympy",
+      "created_at": "2018-02-17T10:38:44Z",
+      "cards_after_filter": [
+        "sympy__sympy-11400",
+        "sympy__sympy-11870",
+        "sympy__sympy-11897",
+        "sympy__sympy-12171",
+        "sympy__sympy-11618",
+        "sympy__sympy-13091",
+        "sympy__sympy-13757"
+      ],
+      "decision": "no_relevant_memory",
+      "injected": [],
+      "injected_bytes": 0,
+      "not_injected": [],
+      "gold_overlap": {
+        "gold_added_lines": 53,
+        "in_injected_text": 0,
+        "gold_added_lines_nontrivial": 38,
+        "in_injected_text_nontrivial": 0
+      }
+    },
+    {
+      "id": "sympy__sympy-15599",
+      "repo": "sympy/sympy",
+      "created_at": "2018-12-06T17:45:49Z",
+      "cards_after_filter": [
+        "sympy__sympy-11400",
+        "sympy__sympy-11870",
+        "sympy__sympy-11897",
+        "sympy__sympy-12171",
+        "sympy__sympy-11618",
+        "sympy__sympy-13091",
+        "sympy__sympy-13757",
+        "sympy__sympy-14248"
+      ],
+      "decision": "selected",
+      "injected": [
+        {
+          "id": "sympy__sympy-13757",
+          "bytes": 1072,
+          "sha256": "62ea3fe7bbc14cd1207c8cbe5de9cf86e2bd8833ec9f3da4be9aac0466f1cddf"
+        },
+        {
+          "id": "sympy__sympy-11618",
+          "bytes": 855,
+          "sha256": "17a2d03a13f3dd12bab183119ea4b23c8c4b736c4705dc7a89c928c06367c4ee"
+        }
+      ],
+      "injected_bytes": 1927,
+      "not_injected": [],
+      "gold_overlap": {
+        "gold_added_lines": 13,
+        "in_injected_text": 0,
+        "gold_added_lines_nontrivial": 11,
+        "in_injected_text_nontrivial": 0
+      }
+    },
+    {
+      "id": "sympy__sympy-16766",
+      "repo": "sympy/sympy",
+      "created_at": "2019-05-01T22:02:17Z",
+      "cards_after_filter": [
+        "sympy__sympy-11400",
+        "sympy__sympy-11870",
+        "sympy__sympy-11897",
+        "sympy__sympy-12171",
+        "sympy__sympy-11618",
+        "sympy__sympy-13091",
+        "sympy__sympy-13757",
+        "sympy__sympy-14248",
+        "sympy__sympy-15599"
+      ],
+      "decision": "selected",
+      "injected": [
+        {
+          "id": "sympy__sympy-13757",
+          "bytes": 1072,
+          "sha256": "62ea3fe7bbc14cd1207c8cbe5de9cf86e2bd8833ec9f3da4be9aac0466f1cddf"
+        }
+      ],
+      "injected_bytes": 1072,
+      "not_injected": [],
+      "gold_overlap": {
+        "gold_added_lines": 4,
+        "in_injected_text": 0,
+        "gold_added_lines_nontrivial": 4,
+        "in_injected_text_nontrivial": 0
+      }
+    },
+    {
+      "id": "sympy__sympy-17655",
+      "repo": "sympy/sympy",
+      "created_at": "2019-09-25T17:04:26Z",
+      "cards_after_filter": [
+        "sympy__sympy-11400",
+        "sympy__sympy-11870",
+        "sympy__sympy-11897",
+        "sympy__sympy-12171",
+        "sympy__sympy-11618",
+        "sympy__sympy-13091",
+        "sympy__sympy-13757",
+        "sympy__sympy-14248",
+        "sympy__sympy-15599",
+        "sympy__sympy-16766"
+      ],
+      "decision": "selected",
+      "injected": [
+        {
+          "id": "sympy__sympy-11618",
+          "bytes": 855,
+          "sha256": "17a2d03a13f3dd12bab183119ea4b23c8c4b736c4705dc7a89c928c06367c4ee"
+        },
+        {
+          "id": "sympy__sympy-16766",
+          "bytes": 1393,
+          "sha256": "0f774d96e8843dd96a9b5f1ae6314e41bdd1cd34c133ae3f3213e5aba23fe08a"
+        },
+        {
+          "id": "sympy__sympy-13757",
+          "bytes": 1072,
+          "sha256": "62ea3fe7bbc14cd1207c8cbe5de9cf86e2bd8833ec9f3da4be9aac0466f1cddf"
+        }
+      ],
+      "injected_bytes": 3320,
+      "not_injected": [],
+      "gold_overlap": {
+        "gold_added_lines": 3,
+        "in_injected_text": 0,
+        "gold_added_lines_nontrivial": 3,
+        "in_injected_text_nontrivial": 0
+      }
+    },
+    {
+      "id": "sympy__sympy-19040",
+      "repo": "sympy/sympy",
+      "created_at": "2020-03-31T19:53:54Z",
+      "cards_after_filter": [
+        "sympy__sympy-11400",
+        "sympy__sympy-11870",
+        "sympy__sympy-11897",
+        "sympy__sympy-12171",
+        "sympy__sympy-11618",
+        "sympy__sympy-13091",
+        "sympy__sympy-13757",
+        "sympy__sympy-14248",
+        "sympy__sympy-15599",
+        "sympy__sympy-16766",
+        "sympy__sympy-17655"
+      ],
+      "decision": "selected",
+      "injected": [
+        {
+          "id": "sympy__sympy-17655",
+          "bytes": 1139,
+          "sha256": "e943a46cc6fb598be3ed6c437d87758131203edba9e3b0f1b7b0b7c0832b885b"
+        },
+        {
+          "id": "sympy__sympy-11618",
+          "bytes": 855,
+          "sha256": "17a2d03a13f3dd12bab183119ea4b23c8c4b736c4705dc7a89c928c06367c4ee"
+        },
+        {
+          "id": "sympy__sympy-13757",
+          "bytes": 1072,
+          "sha256": "62ea3fe7bbc14cd1207c8cbe5de9cf86e2bd8833ec9f3da4be9aac0466f1cddf"
+        }
+      ],
+      "injected_bytes": 3066,
+      "not_injected": [
+        {
+          "id": "sympy__sympy-16766",
+          "status": "over_budget",
+          "bytes": 1393
+        }
+      ],
+      "gold_overlap": {
+        "gold_added_lines": 1,
+        "in_injected_text": 0,
+        "gold_added_lines_nontrivial": 1,
+        "in_injected_text_nontrivial": 0
+      }
+    },
+    {
+      "id": "sympy__sympy-20428",
+      "repo": "sympy/sympy",
+      "created_at": "2020-11-14T05:56:31Z",
+      "cards_after_filter": [
+        "sympy__sympy-11400",
+        "sympy__sympy-11870",
+        "sympy__sympy-11897",
+        "sympy__sympy-12171",
+        "sympy__sympy-11618",
+        "sympy__sympy-13091",
+        "sympy__sympy-13757",
+        "sympy__sympy-14248",
+        "sympy__sympy-15599",
+        "sympy__sympy-16766",
+        "sympy__sympy-17655",
+        "sympy__sympy-19040"
+      ],
+      "decision": "selected",
+      "injected": [
+        {
+          "id": "sympy__sympy-13757",
+          "bytes": 1072,
+          "sha256": "62ea3fe7bbc14cd1207c8cbe5de9cf86e2bd8833ec9f3da4be9aac0466f1cddf"
+        },
+        {
+          "id": "sympy__sympy-17655",
+          "bytes": 1139,
+          "sha256": "e943a46cc6fb598be3ed6c437d87758131203edba9e3b0f1b7b0b7c0832b885b"
+        },
+        {
+          "id": "sympy__sympy-11618",
+          "bytes": 855,
+          "sha256": "17a2d03a13f3dd12bab183119ea4b23c8c4b736c4705dc7a89c928c06367c4ee"
+        },
+        {
+          "id": "sympy__sympy-19040",
+          "bytes": 925,
+          "sha256": "f28413dbda1386a2e4901257f32f444e1f944d1b73880ee391ae099cfb0f6fd8"
+        }
+      ],
+      "injected_bytes": 3991,
+      "not_injected": [
+        {
+          "id": "sympy__sympy-16766",
+          "status": "over_budget",
+          "bytes": 1393
+        }
+      ],
+      "gold_overlap": {
+        "gold_added_lines": 1,
+        "in_injected_text": 0,
+        "gold_added_lines_nontrivial": 1,
+        "in_injected_text_nontrivial": 0
+      }
+    },
+    {
+      "id": "sympy__sympy-21596",
+      "repo": "sympy/sympy",
+      "created_at": "2021-06-10T15:35:08Z",
+      "cards_after_filter": [
+        "sympy__sympy-11400",
+        "sympy__sympy-11870",
+        "sympy__sympy-11897",
+        "sympy__sympy-12171",
+        "sympy__sympy-11618",
+        "sympy__sympy-13091",
+        "sympy__sympy-13757",
+        "sympy__sympy-14248",
+        "sympy__sympy-15599",
+        "sympy__sympy-16766",
+        "sympy__sympy-17655",
+        "sympy__sympy-19040",
+        "sympy__sympy-20428"
+      ],
+      "decision": "selected",
+      "injected": [
+        {
+          "id": "sympy__sympy-19040",
+          "bytes": 925,
+          "sha256": "f28413dbda1386a2e4901257f32f444e1f944d1b73880ee391ae099cfb0f6fd8"
+        },
+        {
+          "id": "sympy__sympy-17655",
+          "bytes": 1139,
+          "sha256": "e943a46cc6fb598be3ed6c437d87758131203edba9e3b0f1b7b0b7c0832b885b"
+        },
+        {
+          "id": "sympy__sympy-16766",
+          "bytes": 1393,
+          "sha256": "0f774d96e8843dd96a9b5f1ae6314e41bdd1cd34c133ae3f3213e5aba23fe08a"
+        }
+      ],
+      "injected_bytes": 3457,
+      "not_injected": [],
+      "gold_overlap": {
+        "gold_added_lines": 19,
+        "in_injected_text": 0,
+        "gold_added_lines_nontrivial": 17,
+        "in_injected_text_nontrivial": 0
+      }
+    },
+    {
+      "id": "sympy__sympy-22714",
+      "repo": "sympy/sympy",
+      "created_at": "2021-12-19T18:54:36Z",
+      "cards_after_filter": [
+        "sympy__sympy-11400",
+        "sympy__sympy-11870",
+        "sympy__sympy-11897",
+        "sympy__sympy-12171",
+        "sympy__sympy-11618",
+        "sympy__sympy-13091",
+        "sympy__sympy-13757",
+        "sympy__sympy-14248",
+        "sympy__sympy-15599",
+        "sympy__sympy-16766",
+        "sympy__sympy-17655",
+        "sympy__sympy-19040",
+        "sympy__sympy-20428",
+        "sympy__sympy-21596"
+      ],
+      "decision": "selected",
+      "injected": [
+        {
+          "id": "sympy__sympy-17655",
+          "bytes": 1139,
+          "sha256": "e943a46cc6fb598be3ed6c437d87758131203edba9e3b0f1b7b0b7c0832b885b"
+        },
+        {
+          "id": "sympy__sympy-16766",
+          "bytes": 1393,
+          "sha256": "0f774d96e8843dd96a9b5f1ae6314e41bdd1cd34c133ae3f3213e5aba23fe08a"
+        },
+        {
+          "id": "sympy__sympy-13757",
+          "bytes": 1072,
+          "sha256": "62ea3fe7bbc14cd1207c8cbe5de9cf86e2bd8833ec9f3da4be9aac0466f1cddf"
+        }
+      ],
+      "injected_bytes": 3604,
+      "not_injected": [
+        {
+          "id": "sympy__sympy-11618",
+          "status": "over_budget",
+          "bytes": 855
+        },
+        {
+          "id": "sympy__sympy-19040",
+          "status": "over_budget",
+          "bytes": 925
+        }
+      ],
+      "gold_overlap": {
+        "gold_added_lines": 1,
+        "in_injected_text": 0,
+        "gold_added_lines_nontrivial": 1,
+        "in_injected_text_nontrivial": 0
+      }
+    },
+    {
+      "id": "sympy__sympy-23950",
+      "repo": "sympy/sympy",
+      "created_at": "2022-08-20T18:21:10Z",
+      "cards_after_filter": [
+        "sympy__sympy-11400",
+        "sympy__sympy-11870",
+        "sympy__sympy-11897",
+        "sympy__sympy-12171",
+        "sympy__sympy-11618",
+        "sympy__sympy-13091",
+        "sympy__sympy-13757",
+        "sympy__sympy-14248",
+        "sympy__sympy-15599",
+        "sympy__sympy-16766",
+        "sympy__sympy-17655",
+        "sympy__sympy-19040",
+        "sympy__sympy-20428",
+        "sympy__sympy-21596",
+        "sympy__sympy-22714"
+      ],
+      "decision": "selected",
+      "injected": [
+        {
+          "id": "sympy__sympy-22714",
+          "bytes": 796,
+          "sha256": "2b7b11b7d51af9c54c8424cde54dedb8fbd64f7fc70c6d762290719ba539f92e"
+        },
+        {
+          "id": "sympy__sympy-17655",
+          "bytes": 1139,
+          "sha256": "e943a46cc6fb598be3ed6c437d87758131203edba9e3b0f1b7b0b7c0832b885b"
+        },
+        {
+          "id": "sympy__sympy-19040",
+          "bytes": 925,
+          "sha256": "f28413dbda1386a2e4901257f32f444e1f944d1b73880ee391ae099cfb0f6fd8"
+        },
+        {
+          "id": "sympy__sympy-11618",
+          "bytes": 855,
+          "sha256": "17a2d03a13f3dd12bab183119ea4b23c8c4b736c4705dc7a89c928c06367c4ee"
+        }
+      ],
+      "injected_bytes": 3715,
+      "not_injected": [
+        {
+          "id": "sympy__sympy-16766",
+          "status": "over_budget",
+          "bytes": 1393
+        },
+        {
+          "id": "sympy__sympy-13757",
+          "status": "over_budget",
+          "bytes": 1072
+        }
+      ],
+      "gold_overlap": {
+        "gold_added_lines": 1,
+        "in_injected_text": 0,
+        "gold_added_lines_nontrivial": 1,
+        "in_injected_text_nontrivial": 0
+      }
+    },
+    {
+      "id": "scikit-learn__scikit-learn-9288",
+      "repo": "scikit-learn/scikit-learn",
+      "created_at": "2017-07-06T11:03:14Z",
+      "cards_after_filter": [],
+      "decision": "no_relevant_memory",
+      "injected": [],
+      "injected_bytes": 0,
+      "not_injected": [],
+      "gold_overlap": {
+        "gold_added_lines": 3,
+        "in_injected_text": 0,
+        "gold_added_lines_nontrivial": 3,
+        "in_injected_text_nontrivial": 0
+      }
+    },
+    {
+      "id": "scikit-learn__scikit-learn-10908",
+      "repo": "scikit-learn/scikit-learn",
+      "created_at": "2018-04-03T03:50:46Z",
+      "cards_after_filter": [
+        "scikit-learn__scikit-learn-10297",
+        "scikit-learn__scikit-learn-10508",
+        "scikit-learn__scikit-learn-9288"
+      ],
+      "decision": "selected",
+      "injected": [
+        {
+          "id": "scikit-learn__scikit-learn-9288",
+          "bytes": 844,
+          "sha256": "db3eeb633f778b216e475bc60e7664187a30067168f7eca6d9019e521e8faa0f"
+        },
+        {
+          "id": "scikit-learn__scikit-learn-10297",
+          "bytes": 771,
+          "sha256": "5764140dd80a59bc10502078ea3592911a86a44c44393546103ade6cc566a968"
+        }
+      ],
+      "injected_bytes": 1615,
+      "not_injected": [],
+      "gold_overlap": {
+        "gold_added_lines": 2,
+        "in_injected_text": 0,
+        "gold_added_lines_nontrivial": 2,
+        "in_injected_text_nontrivial": 0
+      }
+    },
+    {
+      "id": "scikit-learn__scikit-learn-12585",
+      "repo": "scikit-learn/scikit-learn",
+      "created_at": "2018-11-14T13:20:30Z",
+      "cards_after_filter": [
+        "scikit-learn__scikit-learn-10297",
+        "scikit-learn__scikit-learn-10508",
+        "scikit-learn__scikit-learn-10949",
+        "scikit-learn__scikit-learn-11040",
+        "scikit-learn__scikit-learn-11281",
+        "scikit-learn__scikit-learn-9288",
+        "scikit-learn__scikit-learn-10908"
+      ],
+      "decision": "selected",
+      "injected": [
+        {
+          "id": "scikit-learn__scikit-learn-11040",
+          "bytes": 871,
+          "sha256": "f26b24ed9611ce06991114d10cbad02bfc56e72b0818cc046e230c329cd6e22b"
+        },
+        {
+          "id": "scikit-learn__scikit-learn-9288",
+          "bytes": 844,
+          "sha256": "db3eeb633f778b216e475bc60e7664187a30067168f7eca6d9019e521e8faa0f"
+        },
+        {
+          "id": "scikit-learn__scikit-learn-10297",
+          "bytes": 771,
+          "sha256": "5764140dd80a59bc10502078ea3592911a86a44c44393546103ade6cc566a968"
+        },
+        {
+          "id": "scikit-learn__scikit-learn-10908",
+          "bytes": 943,
+          "sha256": "947293c6b9240457e257d604506dd8d2e7e7dfc0fea1fcd3fb36982d31f70dfe"
+        }
+      ],
+      "injected_bytes": 3429,
+      "not_injected": [
+        {
+          "id": "scikit-learn__scikit-learn-11281",
+          "status": "over_budget",
+          "bytes": 1465
+        }
+      ],
+      "gold_overlap": {
+        "gold_added_lines": 1,
+        "in_injected_text": 0,
+        "gold_added_lines_nontrivial": 1,
+        "in_injected_text_nontrivial": 0
+      }
+    },
+    {
+      "id": "scikit-learn__scikit-learn-12973",
+      "repo": "scikit-learn/scikit-learn",
+      "created_at": "2019-01-13T16:19:52Z",
+      "cards_after_filter": [
+        "scikit-learn__scikit-learn-10297",
+        "scikit-learn__scikit-learn-10508",
+        "scikit-learn__scikit-learn-10949",
+        "scikit-learn__scikit-learn-11040",
+        "scikit-learn__scikit-learn-11281",
+        "scikit-learn__scikit-learn-9288",
+        "scikit-learn__scikit-learn-10908",
+        "scikit-learn__scikit-learn-12585"
+      ],
+      "decision": "selected",
+      "injected": [
+        {
+          "id": "scikit-learn__scikit-learn-9288",
+          "bytes": 844,
+          "sha256": "db3eeb633f778b216e475bc60e7664187a30067168f7eca6d9019e521e8faa0f"
+        },
+        {
+          "id": "scikit-learn__scikit-learn-12585",
+          "bytes": 945,
+          "sha256": "3a214b2867d9f7eb89e062b741c5a44d8a953522401941282ef1453995f0b91b"
+        },
+        {
+          "id": "scikit-learn__scikit-learn-10297",
+          "bytes": 771,
+          "sha256": "5764140dd80a59bc10502078ea3592911a86a44c44393546103ade6cc566a968"
+        },
+        {
+          "id": "scikit-learn__scikit-learn-10908",
+          "bytes": 943,
+          "sha256": "947293c6b9240457e257d604506dd8d2e7e7dfc0fea1fcd3fb36982d31f70dfe"
+        }
+      ],
+      "injected_bytes": 3503,
+      "not_injected": [
+        {
+          "id": "scikit-learn__scikit-learn-11281",
+          "status": "over_budget",
+          "bytes": 1465
+        },
+        {
+          "id": "scikit-learn__scikit-learn-11040",
+          "status": "over_budget",
+          "bytes": 871
+        }
+      ],
+      "gold_overlap": {
+        "gold_added_lines": 7,
+        "in_injected_text": 0,
+        "gold_added_lines_nontrivial": 7,
+        "in_injected_text_nontrivial": 0
+      }
+    },
+    {
+      "id": "scikit-learn__scikit-learn-13142",
+      "repo": "scikit-learn/scikit-learn",
+      "created_at": "2019-02-12T14:32:37Z",
+      "cards_after_filter": [
+        "scikit-learn__scikit-learn-10297",
+        "scikit-learn__scikit-learn-10508",
+        "scikit-learn__scikit-learn-10949",
+        "scikit-learn__scikit-learn-11040",
+        "scikit-learn__scikit-learn-11281",
+        "scikit-learn__scikit-learn-9288",
+        "scikit-learn__scikit-learn-10908",
+        "scikit-learn__scikit-learn-12585",
+        "scikit-learn__scikit-learn-12973"
+      ],
+      "decision": "selected",
+      "injected": [
+        {
+          "id": "scikit-learn__scikit-learn-12585",
+          "bytes": 945,
+          "sha256": "3a214b2867d9f7eb89e062b741c5a44d8a953522401941282ef1453995f0b91b"
+        },
+        {
+          "id": "scikit-learn__scikit-learn-11281",
+          "bytes": 1465,
+          "sha256": "83a4ee395c37b91fe40eaa5844829b5dd07cdccb50c248f526eb08c032f6e19c"
+        },
+        {
+          "id": "scikit-learn__scikit-learn-9288",
+          "bytes": 844,
+          "sha256": "db3eeb633f778b216e475bc60e7664187a30067168f7eca6d9019e521e8faa0f"
+        },
+        {
+          "id": "scikit-learn__scikit-learn-10297",
+          "bytes": 771,
+          "sha256": "5764140dd80a59bc10502078ea3592911a86a44c44393546103ade6cc566a968"
+        }
+      ],
+      "injected_bytes": 4025,
+      "not_injected": [
+        {
+          "id": "scikit-learn__scikit-learn-10908",
+          "status": "over_budget",
+          "bytes": 943
+        },
+        {
+          "id": "scikit-learn__scikit-learn-11040",
+          "status": "over_budget",
+          "bytes": 871
+        }
+      ],
+      "gold_overlap": {
+        "gold_added_lines": 4,
+        "in_injected_text": 0,
+        "gold_added_lines_nontrivial": 4,
+        "in_injected_text_nontrivial": 0
+      }
+    },
+    {
+      "id": "scikit-learn__scikit-learn-13439",
+      "repo": "scikit-learn/scikit-learn",
+      "created_at": "2019-03-12T20:32:50Z",
+      "cards_after_filter": [
+        "scikit-learn__scikit-learn-10297",
+        "scikit-learn__scikit-learn-10508",
+        "scikit-learn__scikit-learn-10949",
+        "scikit-learn__scikit-learn-11040",
+        "scikit-learn__scikit-learn-11281",
+        "scikit-learn__scikit-learn-9288",
+        "scikit-learn__scikit-learn-10908",
+        "scikit-learn__scikit-learn-12585",
+        "scikit-learn__scikit-learn-12973",
+        "scikit-learn__scikit-learn-13142"
+      ],
+      "decision": "selected",
+      "injected": [
+        {
+          "id": "scikit-learn__scikit-learn-13142",
+          "bytes": 873,
+          "sha256": "8cd2156b23d980b32d6ff748b853cd387e43f3ccd76f674eeb80f5219f3b8f18"
+        },
+        {
+          "id": "scikit-learn__scikit-learn-9288",
+          "bytes": 844,
+          "sha256": "db3eeb633f778b216e475bc60e7664187a30067168f7eca6d9019e521e8faa0f"
+        },
+        {
+          "id": "scikit-learn__scikit-learn-10297",
+          "bytes": 771,
+          "sha256": "5764140dd80a59bc10502078ea3592911a86a44c44393546103ade6cc566a968"
+        },
+        {
+          "id": "scikit-learn__scikit-learn-11040",
+          "bytes": 871,
+          "sha256": "f26b24ed9611ce06991114d10cbad02bfc56e72b0818cc046e230c329cd6e22b"
+        }
+      ],
+      "injected_bytes": 3359,
+      "not_injected": [
+        {
+          "id": "scikit-learn__scikit-learn-12585",
+          "status": "over_budget",
+          "bytes": 945
+        },
+        {
+          "id": "scikit-learn__scikit-learn-10908",
+          "status": "over_budget",
+          "bytes": 943
+        },
+        {
+          "id": "scikit-learn__scikit-learn-11281",
+          "status": "over_budget",
+          "bytes": 1465
+        }
+      ],
+      "gold_overlap": {
+        "gold_added_lines": 5,
+        "in_injected_text": 0,
+        "gold_added_lines_nontrivial": 3,
+        "in_injected_text_nontrivial": 0
+      }
+    },
+    {
+      "id": "scikit-learn__scikit-learn-14053",
+      "repo": "scikit-learn/scikit-learn",
+      "created_at": "2019-06-09T15:36:55Z",
+      "cards_after_filter": [
+        "scikit-learn__scikit-learn-10297",
+        "scikit-learn__scikit-learn-10508",
+        "scikit-learn__scikit-learn-10949",
+        "scikit-learn__scikit-learn-11040",
+        "scikit-learn__scikit-learn-11281",
+        "scikit-learn__scikit-learn-9288",
+        "scikit-learn__scikit-learn-10908",
+        "scikit-learn__scikit-learn-12585",
+        "scikit-learn__scikit-learn-12973",
+        "scikit-learn__scikit-learn-13142",
+        "scikit-learn__scikit-learn-13439"
+      ],
+      "decision": "selected",
+      "injected": [
+        {
+          "id": "scikit-learn__scikit-learn-9288",
+          "bytes": 844,
+          "sha256": "db3eeb633f778b216e475bc60e7664187a30067168f7eca6d9019e521e8faa0f"
+        },
+        {
+          "id": "scikit-learn__scikit-learn-13142",
+          "bytes": 873,
+          "sha256": "8cd2156b23d980b32d6ff748b853cd387e43f3ccd76f674eeb80f5219f3b8f18"
+        },
+        {
+          "id": "scikit-learn__scikit-learn-13439",
+          "bytes": 652,
+          "sha256": "fa3fc8ad50a69fc139615752e2e6e8bef82a1c819ad50867e544154579fbd172"
+        },
+        {
+          "id": "scikit-learn__scikit-learn-12585",
+          "bytes": 945,
+          "sha256": "3a214b2867d9f7eb89e062b741c5a44d8a953522401941282ef1453995f0b91b"
+        },
+        {
+          "id": "scikit-learn__scikit-learn-10297",
+          "bytes": 771,
+          "sha256": "5764140dd80a59bc10502078ea3592911a86a44c44393546103ade6cc566a968"
+        }
+      ],
+      "injected_bytes": 4085,
+      "not_injected": [
+        {
+          "id": "scikit-learn__scikit-learn-11040",
+          "status": "over_budget",
+          "bytes": 871
+        },
+        {
+          "id": "scikit-learn__scikit-learn-10908",
+          "status": "over_budget",
+          "bytes": 943
+        },
+        {
+          "id": "scikit-learn__scikit-learn-11281",
+          "status": "over_budget",
+          "bytes": 1465
+        }
+      ],
+      "gold_overlap": {
+        "gold_added_lines": 2,
+        "in_injected_text": 0,
+        "gold_added_lines_nontrivial": 2,
+        "in_injected_text_nontrivial": 0
+      }
+    },
+    {
+      "id": "scikit-learn__scikit-learn-14496",
+      "repo": "scikit-learn/scikit-learn",
+      "created_at": "2019-07-28T13:47:05Z",
+      "cards_after_filter": [
+        "scikit-learn__scikit-learn-10297",
+        "scikit-learn__scikit-learn-10508",
+        "scikit-learn__scikit-learn-10949",
+        "scikit-learn__scikit-learn-11040",
+        "scikit-learn__scikit-learn-11281",
+        "scikit-learn__scikit-learn-9288",
+        "scikit-learn__scikit-learn-10908",
+        "scikit-learn__scikit-learn-12585",
+        "scikit-learn__scikit-learn-12973",
+        "scikit-learn__scikit-learn-13142",
+        "scikit-learn__scikit-learn-13439",
+        "scikit-learn__scikit-learn-14053"
+      ],
+      "decision": "selected",
+      "injected": [
+        {
+          "id": "scikit-learn__scikit-learn-14053",
+          "bytes": 1043,
+          "sha256": "f2c11e2fc2629c41c0d6a6705ae6100137befc18f3c30648c9ace4dab9249aad"
+        },
+        {
+          "id": "scikit-learn__scikit-learn-11040",
+          "bytes": 871,
+          "sha256": "f26b24ed9611ce06991114d10cbad02bfc56e72b0818cc046e230c329cd6e22b"
+        },
+        {
+          "id": "scikit-learn__scikit-learn-13142",
+          "bytes": 873,
+          "sha256": "8cd2156b23d980b32d6ff748b853cd387e43f3ccd76f674eeb80f5219f3b8f18"
+        },
+        {
+          "id": "scikit-learn__scikit-learn-12585",
+          "bytes": 945,
+          "sha256": "3a214b2867d9f7eb89e062b741c5a44d8a953522401941282ef1453995f0b91b"
+        }
+      ],
+      "injected_bytes": 3732,
+      "not_injected": [
+        {
+          "id": "scikit-learn__scikit-learn-9288",
+          "status": "over_budget",
+          "bytes": 844
+        },
+        {
+          "id": "scikit-learn__scikit-learn-13439",
+          "status": "over_budget",
+          "bytes": 652
+        },
+        {
+          "id": "scikit-learn__scikit-learn-10297",
+          "status": "over_budget",
+          "bytes": 771
+        },
+        {
+          "id": "scikit-learn__scikit-learn-11281",
+          "status": "over_budget",
+          "bytes": 1465
+        },
+        {
+          "id": "scikit-learn__scikit-learn-10908",
+          "status": "over_budget",
+          "bytes": 943
+        }
+      ],
+      "gold_overlap": {
+        "gold_added_lines": 9,
+        "in_injected_text": 0,
+        "gold_added_lines_nontrivial": 9,
+        "in_injected_text_nontrivial": 0
+      }
+    },
+    {
+      "id": "scikit-learn__scikit-learn-14710",
+      "repo": "scikit-learn/scikit-learn",
+      "created_at": "2019-08-21T16:29:47Z",
+      "cards_after_filter": [
+        "scikit-learn__scikit-learn-10297",
+        "scikit-learn__scikit-learn-10508",
+        "scikit-learn__scikit-learn-10949",
+        "scikit-learn__scikit-learn-11040",
+        "scikit-learn__scikit-learn-11281",
+        "scikit-learn__scikit-learn-9288",
+        "scikit-learn__scikit-learn-10908",
+        "scikit-learn__scikit-learn-12585",
+        "scikit-learn__scikit-learn-12973",
+        "scikit-learn__scikit-learn-13142",
+        "scikit-learn__scikit-learn-13439",
+        "scikit-learn__scikit-learn-14053",
+        "scikit-learn__scikit-learn-14496"
+      ],
+      "decision": "selected",
+      "injected": [
+        {
+          "id": "scikit-learn__scikit-learn-9288",
+          "bytes": 844,
+          "sha256": "db3eeb633f778b216e475bc60e7664187a30067168f7eca6d9019e521e8faa0f"
+        },
+        {
+          "id": "scikit-learn__scikit-learn-14053",
+          "bytes": 1043,
+          "sha256": "f2c11e2fc2629c41c0d6a6705ae6100137befc18f3c30648c9ace4dab9249aad"
+        },
+        {
+          "id": "scikit-learn__scikit-learn-14496",
+          "bytes": 702,
+          "sha256": "f1e77ec9698b72630710319c056473cb8742e06ea0357ffeb92f7d28632e63fc"
+        },
+        {
+          "id": "scikit-learn__scikit-learn-12585",
+          "bytes": 945,
+          "sha256": "3a214b2867d9f7eb89e062b741c5a44d8a953522401941282ef1453995f0b91b"
+        }
+      ],
+      "injected_bytes": 3534,
+      "not_injected": [
+        {
+          "id": "scikit-learn__scikit-learn-13142",
+          "status": "over_budget",
+          "bytes": 873
+        },
+        {
+          "id": "scikit-learn__scikit-learn-10297",
+          "status": "over_budget",
+          "bytes": 771
+        },
+        {
+          "id": "scikit-learn__scikit-learn-11040",
+          "status": "over_budget",
+          "bytes": 871
+        },
+        {
+          "id": "scikit-learn__scikit-learn-10908",
+          "status": "over_budget",
+          "bytes": 943
+        },
+        {
+          "id": "scikit-learn__scikit-learn-13439",
+          "status": "over_budget",
+          "bytes": 652
+        },
+        {
+          "id": "scikit-learn__scikit-learn-11281",
+          "status": "over_budget",
+          "bytes": 1465
+        }
+      ],
+      "gold_overlap": {
+        "gold_added_lines": 4,
+        "in_injected_text": 0,
+        "gold_added_lines_nontrivial": 4,
+        "in_injected_text_nontrivial": 0
+      }
+    },
+    {
+      "id": "scikit-learn__scikit-learn-15100",
+      "repo": "scikit-learn/scikit-learn",
+      "created_at": "2019-09-26T19:21:38Z",
+      "cards_after_filter": [
+        "scikit-learn__scikit-learn-10297",
+        "scikit-learn__scikit-learn-10508",
+        "scikit-learn__scikit-learn-10949",
+        "scikit-learn__scikit-learn-11040",
+        "scikit-learn__scikit-learn-11281",
+        "scikit-learn__scikit-learn-9288",
+        "scikit-learn__scikit-learn-10908",
+        "scikit-learn__scikit-learn-12585",
+        "scikit-learn__scikit-learn-12973",
+        "scikit-learn__scikit-learn-13142",
+        "scikit-learn__scikit-learn-13439",
+        "scikit-learn__scikit-learn-14053",
+        "scikit-learn__scikit-learn-14496",
+        "scikit-learn__scikit-learn-14710"
+      ],
+      "decision": "selected",
+      "injected": [
+        {
+          "id": "scikit-learn__scikit-learn-9288",
+          "bytes": 844,
+          "sha256": "db3eeb633f778b216e475bc60e7664187a30067168f7eca6d9019e521e8faa0f"
+        },
+        {
+          "id": "scikit-learn__scikit-learn-14710",
+          "bytes": 955,
+          "sha256": "e946326785980b2a9156eff35a40178b8627c4420ff8795ac67fd87d611321f7"
+        },
+        {
+          "id": "scikit-learn__scikit-learn-14053",
+          "bytes": 1043,
+          "sha256": "f2c11e2fc2629c41c0d6a6705ae6100137befc18f3c30648c9ace4dab9249aad"
+        },
+        {
+          "id": "scikit-learn__scikit-learn-13142",
+          "bytes": 873,
+          "sha256": "8cd2156b23d980b32d6ff748b853cd387e43f3ccd76f674eeb80f5219f3b8f18"
+        }
+      ],
+      "injected_bytes": 3715,
+      "not_injected": [
+        {
+          "id": "scikit-learn__scikit-learn-14496",
+          "status": "over_budget",
+          "bytes": 702
+        },
+        {
+          "id": "scikit-learn__scikit-learn-13439",
+          "status": "over_budget",
+          "bytes": 652
+        },
+        {
+          "id": "scikit-learn__scikit-learn-10297",
+          "status": "over_budget",
+          "bytes": 771
+        },
+        {
+          "id": "scikit-learn__scikit-learn-12585",
+          "status": "over_budget",
+          "bytes": 945
+        },
+        {
+          "id": "scikit-learn__scikit-learn-10908",
+          "status": "over_budget",
+          "bytes": 943
+        },
+        {
+          "id": "scikit-learn__scikit-learn-11040",
+          "status": "over_budget",
+          "bytes": 871
+        },
+        {
+          "id": "scikit-learn__scikit-learn-11281",
+          "status": "over_budget",
+          "bytes": 1465
+        }
+      ],
+      "gold_overlap": {
+        "gold_added_lines": 6,
+        "in_injected_text": 0,
+        "gold_added_lines_nontrivial": 5,
+        "in_injected_text_nontrivial": 0
+      }
+    },
+    {
+      "id": "sphinx-doc__sphinx-7440",
+      "repo": "sphinx-doc/sphinx",
+      "created_at": "2020-04-08T13:46:43Z",
+      "cards_after_filter": [],
+      "decision": "no_relevant_memory",
+      "injected": [],
+      "injected_bytes": 0,
+      "not_injected": [],
+      "gold_overlap": {
+        "gold_added_lines": 2,
+        "in_injected_text": 0,
+        "gold_added_lines_nontrivial": 2,
+        "in_injected_text_nontrivial": 0
+      }
+    },
+    {
+      "id": "sphinx-doc__sphinx-7590",
+      "repo": "sphinx-doc/sphinx",
+      "created_at": "2020-05-01T18:29:11Z",
+      "cards_after_filter": [
+        "sphinx-doc__sphinx-7440"
+      ],
+      "decision": "selected",
+      "injected": [
+        {
+          "id": "sphinx-doc__sphinx-7440",
+          "bytes": 1364,
+          "sha256": "f3eeb241fceb415313aec4901b151ae21d1cef432010bd1cc613d0843e72347e"
+        }
+      ],
+      "injected_bytes": 1364,
+      "not_injected": [],
+      "gold_overlap": {
+        "gold_added_lines": 81,
+        "in_injected_text": 0,
+        "gold_added_lines_nontrivial": 74,
+        "in_injected_text_nontrivial": 0
+      }
+    },
+    {
+      "id": "sphinx-doc__sphinx-7910",
+      "repo": "sphinx-doc/sphinx",
+      "created_at": "2020-07-04T01:08:20Z",
+      "cards_after_filter": [
+        "sphinx-doc__sphinx-7440",
+        "sphinx-doc__sphinx-7590"
+      ],
+      "decision": "selected",
+      "injected": [
+        {
+          "id": "sphinx-doc__sphinx-7440",
+          "bytes": 1364,
+          "sha256": "f3eeb241fceb415313aec4901b151ae21d1cef432010bd1cc613d0843e72347e"
+        }
+      ],
+      "injected_bytes": 1364,
+      "not_injected": [],
+      "gold_overlap": {
+        "gold_added_lines": 2,
+        "in_injected_text": 0,
+        "gold_added_lines_nontrivial": 2,
+        "in_injected_text_nontrivial": 0
+      }
+    },
+    {
+      "id": "sphinx-doc__sphinx-8120",
+      "repo": "sphinx-doc/sphinx",
+      "created_at": "2020-08-14T07:23:34Z",
+      "cards_after_filter": [
+        "sphinx-doc__sphinx-7440",
+        "sphinx-doc__sphinx-7590",
+        "sphinx-doc__sphinx-7910"
+      ],
+      "decision": "selected",
+      "injected": [
+        {
+          "id": "sphinx-doc__sphinx-7440",
+          "bytes": 1364,
+          "sha256": "f3eeb241fceb415313aec4901b151ae21d1cef432010bd1cc613d0843e72347e"
+        },
+        {
+          "id": "sphinx-doc__sphinx-7910",
+          "bytes": 1095,
+          "sha256": "26b518fcfb2807816c0b66bf34d87c8799b34e8bdc5616ed10d7cdf7de718230"
+        }
+      ],
+      "injected_bytes": 2459,
+      "not_injected": [],
+      "gold_overlap": {
+        "gold_added_lines": 5,
+        "in_injected_text": 0,
+        "gold_added_lines_nontrivial": 5,
+        "in_injected_text_nontrivial": 0
+      }
+    },
+    {
+      "id": "sphinx-doc__sphinx-8459",
+      "repo": "sphinx-doc/sphinx",
+      "created_at": "2020-11-20T16:44:10Z",
+      "cards_after_filter": [
+        "sphinx-doc__sphinx-7440",
+        "sphinx-doc__sphinx-7590",
+        "sphinx-doc__sphinx-7910",
+        "sphinx-doc__sphinx-8120"
+      ],
+      "decision": "selected",
+      "injected": [
+        {
+          "id": "sphinx-doc__sphinx-7910",
+          "bytes": 1095,
+          "sha256": "26b518fcfb2807816c0b66bf34d87c8799b34e8bdc5616ed10d7cdf7de718230"
+        },
+        {
+          "id": "sphinx-doc__sphinx-7440",
+          "bytes": 1364,
+          "sha256": "f3eeb241fceb415313aec4901b151ae21d1cef432010bd1cc613d0843e72347e"
+        },
+        {
+          "id": "sphinx-doc__sphinx-8120",
+          "bytes": 1328,
+          "sha256": "873e9e59c9f0911344692f45d994b77a21ce1c1f6260c93e7855d6261496c316"
+        }
+      ],
+      "injected_bytes": 3787,
+      "not_injected": [],
+      "gold_overlap": {
+        "gold_added_lines": 1,
+        "in_injected_text": 0,
+        "gold_added_lines_nontrivial": 1,
+        "in_injected_text_nontrivial": 0
+      }
+    },
+    {
+      "id": "sphinx-doc__sphinx-8593",
+      "repo": "sphinx-doc/sphinx",
+      "created_at": "2020-12-27T02:41:20Z",
+      "cards_after_filter": [
+        "sphinx-doc__sphinx-7440",
+        "sphinx-doc__sphinx-7590",
+        "sphinx-doc__sphinx-7910",
+        "sphinx-doc__sphinx-8120",
+        "sphinx-doc__sphinx-8459"
+      ],
+      "decision": "selected",
+      "injected": [
+        {
+          "id": "sphinx-doc__sphinx-8120",
+          "bytes": 1328,
+          "sha256": "873e9e59c9f0911344692f45d994b77a21ce1c1f6260c93e7855d6261496c316"
+        },
+        {
+          "id": "sphinx-doc__sphinx-8459",
+          "bytes": 1371,
+          "sha256": "8481cea1ffaed71e9fa69f6df66e87cdc1ee3c9e394eb9bd90c84fb952840168"
+        },
+        {
+          "id": "sphinx-doc__sphinx-7440",
+          "bytes": 1364,
+          "sha256": "f3eeb241fceb415313aec4901b151ae21d1cef432010bd1cc613d0843e72347e"
+        }
+      ],
+      "injected_bytes": 4063,
+      "not_injected": [
+        {
+          "id": "sphinx-doc__sphinx-7910",
+          "status": "over_budget",
+          "bytes": 1095
+        }
+      ],
+      "gold_overlap": {
+        "gold_added_lines": 39,
+        "in_injected_text": 0,
+        "gold_added_lines_nontrivial": 33,
+        "in_injected_text_nontrivial": 0
+      }
+    },
+    {
+      "id": "sphinx-doc__sphinx-9258",
+      "repo": "sphinx-doc/sphinx",
+      "created_at": "2021-05-21T16:56:41Z",
+      "cards_after_filter": [
+        "sphinx-doc__sphinx-7440",
+        "sphinx-doc__sphinx-7590",
+        "sphinx-doc__sphinx-7910",
+        "sphinx-doc__sphinx-8120",
+        "sphinx-doc__sphinx-8459",
+        "sphinx-doc__sphinx-8593"
+      ],
+      "decision": "selected",
+      "injected": [
+        {
+          "id": "sphinx-doc__sphinx-8459",
+          "bytes": 1371,
+          "sha256": "8481cea1ffaed71e9fa69f6df66e87cdc1ee3c9e394eb9bd90c84fb952840168"
+        },
+        {
+          "id": "sphinx-doc__sphinx-8120",
+          "bytes": 1328,
+          "sha256": "873e9e59c9f0911344692f45d994b77a21ce1c1f6260c93e7855d6261496c316"
+        },
+        {
+          "id": "sphinx-doc__sphinx-7440",
+          "bytes": 1364,
+          "sha256": "f3eeb241fceb415313aec4901b151ae21d1cef432010bd1cc613d0843e72347e"
+        }
+      ],
+      "injected_bytes": 4063,
+      "not_injected": [
+        {
+          "id": "sphinx-doc__sphinx-8593",
+          "status": "over_budget",
+          "bytes": 1500
+        },
+        {
+          "id": "sphinx-doc__sphinx-7910",
+          "status": "over_budget",
+          "bytes": 1095
+        }
+      ],
+      "gold_overlap": {
+        "gold_added_lines": 1,
+        "in_injected_text": 0,
+        "gold_added_lines_nontrivial": 1,
+        "in_injected_text_nontrivial": 0
+      }
+    },
+    {
+      "id": "sphinx-doc__sphinx-9461",
+      "repo": "sphinx-doc/sphinx",
+      "created_at": "2021-07-17T06:31:58Z",
+      "cards_after_filter": [
+        "sphinx-doc__sphinx-7440",
+        "sphinx-doc__sphinx-7590",
+        "sphinx-doc__sphinx-7910",
+        "sphinx-doc__sphinx-8120",
+        "sphinx-doc__sphinx-8459",
+        "sphinx-doc__sphinx-8593",
+        "sphinx-doc__sphinx-9258"
+      ],
+      "decision": "selected",
+      "injected": [
+        {
+          "id": "sphinx-doc__sphinx-7910",
+          "bytes": 1095,
+          "sha256": "26b518fcfb2807816c0b66bf34d87c8799b34e8bdc5616ed10d7cdf7de718230"
+        },
+        {
+          "id": "sphinx-doc__sphinx-8120",
+          "bytes": 1328,
+          "sha256": "873e9e59c9f0911344692f45d994b77a21ce1c1f6260c93e7855d6261496c316"
+        },
+        {
+          "id": "sphinx-doc__sphinx-8459",
+          "bytes": 1371,
+          "sha256": "8481cea1ffaed71e9fa69f6df66e87cdc1ee3c9e394eb9bd90c84fb952840168"
+        }
+      ],
+      "injected_bytes": 3794,
+      "not_injected": [
+        {
+          "id": "sphinx-doc__sphinx-8593",
+          "status": "over_budget",
+          "bytes": 1500
+        },
+        {
+          "id": "sphinx-doc__sphinx-9258",
+          "status": "over_budget",
+          "bytes": 1045
+        },
+        {
+          "id": "sphinx-doc__sphinx-7440",
+          "status": "over_budget",
+          "bytes": 1364
+        }
+      ],
+      "gold_overlap": {
+        "gold_added_lines": 44,
+        "in_injected_text": 0,
+        "gold_added_lines_nontrivial": 39,
+        "in_injected_text_nontrivial": 0
+      }
+    },
+    {
+      "id": "sphinx-doc__sphinx-9673",
+      "repo": "sphinx-doc/sphinx",
+      "created_at": "2021-09-25T15:53:46Z",
+      "cards_after_filter": [
+        "sphinx-doc__sphinx-7440",
+        "sphinx-doc__sphinx-7590",
+        "sphinx-doc__sphinx-7910",
+        "sphinx-doc__sphinx-8120",
+        "sphinx-doc__sphinx-8459",
+        "sphinx-doc__sphinx-8593",
+        "sphinx-doc__sphinx-9258",
+        "sphinx-doc__sphinx-9461"
+      ],
+      "decision": "selected",
+      "injected": [
+        {
+          "id": "sphinx-doc__sphinx-8459",
+          "bytes": 1371,
+          "sha256": "8481cea1ffaed71e9fa69f6df66e87cdc1ee3c9e394eb9bd90c84fb952840168"
+        },
+        {
+          "id": "sphinx-doc__sphinx-7910",
+          "bytes": 1095,
+          "sha256": "26b518fcfb2807816c0b66bf34d87c8799b34e8bdc5616ed10d7cdf7de718230"
+        },
+        {
+          "id": "sphinx-doc__sphinx-8593",
+          "bytes": 1500,
+          "sha256": "ac63b94835f1084d0295f6d2a8a2963928c45d241cb9590011868c7421ad469d"
+        }
+      ],
+      "injected_bytes": 3966,
+      "not_injected": [
+        {
+          "id": "sphinx-doc__sphinx-9258",
+          "status": "over_budget",
+          "bytes": 1045
+        },
+        {
+          "id": "sphinx-doc__sphinx-8120",
+          "status": "over_budget",
+          "bytes": 1328
+        },
+        {
+          "id": "sphinx-doc__sphinx-7440",
+          "status": "over_budget",
+          "bytes": 1364
+        }
+      ],
+      "gold_overlap": {
+        "gold_added_lines": 2,
+        "in_injected_text": 0,
+        "gold_added_lines_nontrivial": 2,
+        "in_injected_text_nontrivial": 0
+      }
+    },
+    {
+      "id": "sphinx-doc__sphinx-10323",
+      "repo": "sphinx-doc/sphinx",
+      "created_at": "2022-04-02T14:42:24Z",
+      "cards_after_filter": [
+        "sphinx-doc__sphinx-7440",
+        "sphinx-doc__sphinx-7590",
+        "sphinx-doc__sphinx-7910",
+        "sphinx-doc__sphinx-8120",
+        "sphinx-doc__sphinx-8459",
+        "sphinx-doc__sphinx-8593",
+        "sphinx-doc__sphinx-9258",
+        "sphinx-doc__sphinx-9461",
+        "sphinx-doc__sphinx-9673"
+      ],
+      "decision": "selected",
+      "injected": [
+        {
+          "id": "sphinx-doc__sphinx-9673",
+          "bytes": 1500,
+          "sha256": "3e49825054044febcf526b43818cc9798493b0fbcbc107d4013003f623cd156c"
+        },
+        {
+          "id": "sphinx-doc__sphinx-8120",
+          "bytes": 1328,
+          "sha256": "873e9e59c9f0911344692f45d994b77a21ce1c1f6260c93e7855d6261496c316"
+        },
+        {
+          "id": "sphinx-doc__sphinx-7910",
+          "bytes": 1095,
+          "sha256": "26b518fcfb2807816c0b66bf34d87c8799b34e8bdc5616ed10d7cdf7de718230"
+        }
+      ],
+      "injected_bytes": 3923,
+      "not_injected": [
+        {
+          "id": "sphinx-doc__sphinx-8593",
+          "status": "over_budget",
+          "bytes": 1500
+        },
+        {
+          "id": "sphinx-doc__sphinx-7440",
+          "status": "over_budget",
+          "bytes": 1364
+        },
+        {
+          "id": "sphinx-doc__sphinx-8459",
+          "status": "over_budget",
+          "bytes": 1371
+        },
+        {
+          "id": "sphinx-doc__sphinx-9258",
+          "status": "over_budget",
+          "bytes": 1045
+        }
+      ],
+      "gold_overlap": {
+        "gold_added_lines": 2,
+        "in_injected_text": 0,
+        "gold_added_lines_nontrivial": 2,
+        "in_injected_text_nontrivial": 0
+      }
+    },
+    {
+      "id": "sphinx-doc__sphinx-10614",
+      "repo": "sphinx-doc/sphinx",
+      "created_at": "2022-06-29T14:29:04Z",
+      "cards_after_filter": [
+        "sphinx-doc__sphinx-7440",
+        "sphinx-doc__sphinx-7590",
+        "sphinx-doc__sphinx-7910",
+        "sphinx-doc__sphinx-8120",
+        "sphinx-doc__sphinx-8459",
+        "sphinx-doc__sphinx-8593",
+        "sphinx-doc__sphinx-9258",
+        "sphinx-doc__sphinx-9461",
+        "sphinx-doc__sphinx-9673",
+        "sphinx-doc__sphinx-10323"
+      ],
+      "decision": "selected",
+      "injected": [
+        {
+          "id": "sphinx-doc__sphinx-8120",
+          "bytes": 1328,
+          "sha256": "873e9e59c9f0911344692f45d994b77a21ce1c1f6260c93e7855d6261496c316"
+        },
+        {
+          "id": "sphinx-doc__sphinx-10323",
+          "bytes": 958,
+          "sha256": "7d110bf63d75e539a8edc5e44fd0b21d18ad851f226ebac8db13066d7615a460"
+        },
+        {
+          "id": "sphinx-doc__sphinx-9258",
+          "bytes": 1045,
+          "sha256": "5748f3236510a24b740cf8d99dbbd811184e0717a24157f04ef11014eb437e20"
+        }
+      ],
+      "injected_bytes": 3331,
+      "not_injected": [
+        {
+          "id": "sphinx-doc__sphinx-7440",
+          "status": "over_budget",
+          "bytes": 1364
+        },
+        {
+          "id": "sphinx-doc__sphinx-8459",
+          "status": "over_budget",
+          "bytes": 1371
+        },
+        {
+          "id": "sphinx-doc__sphinx-9673",
+          "status": "over_budget",
+          "bytes": 1500
+        },
+        {
+          "id": "sphinx-doc__sphinx-8593",
+          "status": "over_budget",
+          "bytes": 1500
+        },
+        {
+          "id": "sphinx-doc__sphinx-7910",
+          "status": "over_budget",
+          "bytes": 1095
+        }
+      ],
+      "gold_overlap": {
+        "gold_added_lines": 6,
+        "in_injected_text": 0,
+        "gold_added_lines_nontrivial": 6,
+        "in_injected_text_nontrivial": 0
+      }
+    },
+    {
+      "id": "pytest-dev__pytest-5262",
+      "repo": "pytest-dev/pytest",
+      "created_at": "2019-05-14T21:54:55Z",
+      "cards_after_filter": [
+        "pytest-dev__pytest-5103",
+        "pytest-dev__pytest-5227"
+      ],
+      "decision": "selected",
+      "injected": [
+        {
+          "id": "pytest-dev__pytest-5227",
+          "bytes": 1500,
+          "sha256": "c02ad0e9f0244b105fca67bf7aa717d3daed3b5ed5e244e28a2f936651052b1e"
+        }
+      ],
+      "injected_bytes": 1500,
+      "not_injected": [],
+      "gold_overlap": {
+        "gold_added_lines": 3,
+        "in_injected_text": 0,
+        "gold_added_lines_nontrivial": 2,
+        "in_injected_text_nontrivial": 0
+      }
+    },
+    {
+      "id": "pytest-dev__pytest-5631",
+      "repo": "pytest-dev/pytest",
+      "created_at": "2019-07-19T20:13:12Z",
+      "cards_after_filter": [
+        "pytest-dev__pytest-5103",
+        "pytest-dev__pytest-5227",
+        "pytest-dev__pytest-5262"
+      ],
+      "decision": "selected",
+      "injected": [
+        {
+          "id": "pytest-dev__pytest-5262",
+          "bytes": 762,
+          "sha256": "3b1fabf2cdcb64060cbfaf5dc9e474858df0749ca22922ea700d4128e1946ad6"
+        },
+        {
+          "id": "pytest-dev__pytest-5227",
+          "bytes": 1500,
+          "sha256": "c02ad0e9f0244b105fca67bf7aa717d3daed3b5ed5e244e28a2f936651052b1e"
+        }
+      ],
+      "injected_bytes": 2262,
+      "not_injected": [],
+      "gold_overlap": {
+        "gold_added_lines": 10,
+        "in_injected_text": 0,
+        "gold_added_lines_nontrivial": 6,
+        "in_injected_text_nontrivial": 0
+      }
+    },
+    {
+      "id": "pytest-dev__pytest-5809",
+      "repo": "pytest-dev/pytest",
+      "created_at": "2019-09-01T04:40:09Z",
+      "cards_after_filter": [
+        "pytest-dev__pytest-5103",
+        "pytest-dev__pytest-5227",
+        "pytest-dev__pytest-5262",
+        "pytest-dev__pytest-5631"
+      ],
+      "decision": "selected",
+      "injected": [
+        {
+          "id": "pytest-dev__pytest-5631",
+          "bytes": 1036,
+          "sha256": "c3863017b98dd813a1dd71c146f684025a1a7a8f74153b1fe8376ef8c61f9587"
+        },
+        {
+          "id": "pytest-dev__pytest-5227",
+          "bytes": 1500,
+          "sha256": "c02ad0e9f0244b105fca67bf7aa717d3daed3b5ed5e244e28a2f936651052b1e"
+        },
+        {
+          "id": "pytest-dev__pytest-5262",
+          "bytes": 762,
+          "sha256": "3b1fabf2cdcb64060cbfaf5dc9e474858df0749ca22922ea700d4128e1946ad6"
+        }
+      ],
+      "injected_bytes": 3298,
+      "not_injected": [],
+      "gold_overlap": {
+        "gold_added_lines": 1,
+        "in_injected_text": 0,
+        "gold_added_lines_nontrivial": 1,
+        "in_injected_text_nontrivial": 0
+      }
+    },
+    {
+      "id": "pytest-dev__pytest-5840",
+      "repo": "pytest-dev/pytest",
+      "created_at": "2019-09-12T01:09:28Z",
+      "cards_after_filter": [
+        "pytest-dev__pytest-5103",
+        "pytest-dev__pytest-5227",
+        "pytest-dev__pytest-5262",
+        "pytest-dev__pytest-5631",
+        "pytest-dev__pytest-5809"
+      ],
+      "decision": "selected",
+      "injected": [
+        {
+          "id": "pytest-dev__pytest-5631",
+          "bytes": 1036,
+          "sha256": "c3863017b98dd813a1dd71c146f684025a1a7a8f74153b1fe8376ef8c61f9587"
+        },
+        {
+          "id": "pytest-dev__pytest-5809",
+          "bytes": 878,
+          "sha256": "3f74553da6c96527ff83099945dc817e1401a1dc6b3fc71bc9341fd00cbf8d62"
+        },
+        {
+          "id": "pytest-dev__pytest-5262",
+          "bytes": 762,
+          "sha256": "3b1fabf2cdcb64060cbfaf5dc9e474858df0749ca22922ea700d4128e1946ad6"
+        }
+      ],
+      "injected_bytes": 2676,
+      "not_injected": [
+        {
+          "id": "pytest-dev__pytest-5227",
+          "status": "over_budget",
+          "bytes": 1500
+        }
+      ],
+      "gold_overlap": {
+        "gold_added_lines": 8,
+        "in_injected_text": 0,
+        "gold_added_lines_nontrivial": 8,
+        "in_injected_text_nontrivial": 0
+      }
+    },
+    {
+      "id": "pytest-dev__pytest-6202",
+      "repo": "pytest-dev/pytest",
+      "created_at": "2019-11-16T07:45:21Z",
+      "cards_after_filter": [
+        "pytest-dev__pytest-5103",
+        "pytest-dev__pytest-5227",
+        "pytest-dev__pytest-5262",
+        "pytest-dev__pytest-5631",
+        "pytest-dev__pytest-5809",
+        "pytest-dev__pytest-5840"
+      ],
+      "decision": "selected",
+      "injected": [
+        {
+          "id": "pytest-dev__pytest-5809",
+          "bytes": 878,
+          "sha256": "3f74553da6c96527ff83099945dc817e1401a1dc6b3fc71bc9341fd00cbf8d62"
+        },
+        {
+          "id": "pytest-dev__pytest-5631",
+          "bytes": 1036,
+          "sha256": "c3863017b98dd813a1dd71c146f684025a1a7a8f74153b1fe8376ef8c61f9587"
+        },
+        {
+          "id": "pytest-dev__pytest-5262",
+          "bytes": 762,
+          "sha256": "3b1fabf2cdcb64060cbfaf5dc9e474858df0749ca22922ea700d4128e1946ad6"
+        }
+      ],
+      "injected_bytes": 2676,
+      "not_injected": [
+        {
+          "id": "pytest-dev__pytest-5227",
+          "status": "over_budget",
+          "bytes": 1500
+        }
+      ],
+      "gold_overlap": {
+        "gold_added_lines": 1,
+        "in_injected_text": 0,
+        "gold_added_lines_nontrivial": 1,
+        "in_injected_text_nontrivial": 0
+      }
+    },
+    {
+      "id": "pytest-dev__pytest-7205",
+      "repo": "pytest-dev/pytest",
+      "created_at": "2020-05-09T11:25:58Z",
+      "cards_after_filter": [
+        "pytest-dev__pytest-5103",
+        "pytest-dev__pytest-5227",
+        "pytest-dev__pytest-5262",
+        "pytest-dev__pytest-5631",
+        "pytest-dev__pytest-5809",
+        "pytest-dev__pytest-5840",
+        "pytest-dev__pytest-6202"
+      ],
+      "decision": "selected",
+      "injected": [
+        {
+          "id": "pytest-dev__pytest-5631",
+          "bytes": 1036,
+          "sha256": "c3863017b98dd813a1dd71c146f684025a1a7a8f74153b1fe8376ef8c61f9587"
+        },
+        {
+          "id": "pytest-dev__pytest-5262",
+          "bytes": 762,
+          "sha256": "3b1fabf2cdcb64060cbfaf5dc9e474858df0749ca22922ea700d4128e1946ad6"
+        },
+        {
+          "id": "pytest-dev__pytest-6202",
+          "bytes": 1115,
+          "sha256": "14a8f1163ec321eb681b028b78258638efae1371f34ded40ef703ec0d501092d"
+        },
+        {
+          "id": "pytest-dev__pytest-5809",
+          "bytes": 878,
+          "sha256": "3f74553da6c96527ff83099945dc817e1401a1dc6b3fc71bc9341fd00cbf8d62"
+        }
+      ],
+      "injected_bytes": 3791,
+      "not_injected": [
+        {
+          "id": "pytest-dev__pytest-5227",
+          "status": "over_budget",
+          "bytes": 1500
+        }
+      ],
+      "gold_overlap": {
+        "gold_added_lines": 2,
+        "in_injected_text": 0,
+        "gold_added_lines_nontrivial": 2,
+        "in_injected_text_nontrivial": 0
+      }
+    },
+    {
+      "id": "pytest-dev__pytest-7324",
+      "repo": "pytest-dev/pytest",
+      "created_at": "2020-06-05T13:00:07Z",
+      "cards_after_filter": [
+        "pytest-dev__pytest-5103",
+        "pytest-dev__pytest-5227",
+        "pytest-dev__pytest-5262",
+        "pytest-dev__pytest-5631",
+        "pytest-dev__pytest-5809",
+        "pytest-dev__pytest-5840",
+        "pytest-dev__pytest-6202",
+        "pytest-dev__pytest-7205"
+      ],
+      "decision": "selected",
+      "injected": [
+        {
+          "id": "pytest-dev__pytest-5227",
+          "bytes": 1500,
+          "sha256": "c02ad0e9f0244b105fca67bf7aa717d3daed3b5ed5e244e28a2f936651052b1e"
+        },
+        {
+          "id": "pytest-dev__pytest-5631",
+          "bytes": 1036,
+          "sha256": "c3863017b98dd813a1dd71c146f684025a1a7a8f74153b1fe8376ef8c61f9587"
+        },
+        {
+          "id": "pytest-dev__pytest-6202",
+          "bytes": 1115,
+          "sha256": "14a8f1163ec321eb681b028b78258638efae1371f34ded40ef703ec0d501092d"
+        }
+      ],
+      "injected_bytes": 3651,
+      "not_injected": [
+        {
+          "id": "pytest-dev__pytest-7205",
+          "status": "over_budget",
+          "bytes": 1500
+        },
+        {
+          "id": "pytest-dev__pytest-5262",
+          "status": "over_budget",
+          "bytes": 762
+        },
+        {
+          "id": "pytest-dev__pytest-5809",
+          "status": "over_budget",
+          "bytes": 878
+        }
+      ],
+      "gold_overlap": {
+        "gold_added_lines": 6,
+        "in_injected_text": 0,
+        "gold_added_lines_nontrivial": 6,
+        "in_injected_text_nontrivial": 0
+      }
+    },
+    {
+      "id": "pytest-dev__pytest-7490",
+      "repo": "pytest-dev/pytest",
+      "created_at": "2020-07-13T22:20:10Z",
+      "cards_after_filter": [
+        "pytest-dev__pytest-5103",
+        "pytest-dev__pytest-5227",
+        "pytest-dev__pytest-5262",
+        "pytest-dev__pytest-5631",
+        "pytest-dev__pytest-5809",
+        "pytest-dev__pytest-5840",
+        "pytest-dev__pytest-6202",
+        "pytest-dev__pytest-7205",
+        "pytest-dev__pytest-7324"
+      ],
+      "decision": "selected",
+      "injected": [
+        {
+          "id": "pytest-dev__pytest-5262",
+          "bytes": 762,
+          "sha256": "3b1fabf2cdcb64060cbfaf5dc9e474858df0749ca22922ea700d4128e1946ad6"
+        },
+        {
+          "id": "pytest-dev__pytest-7205",
+          "bytes": 1500,
+          "sha256": "0a75a83a569220fbfea85138b12a896f8c2b4be29c665621f0a2e73d77dbc407"
+        },
+        {
+          "id": "pytest-dev__pytest-6202",
+          "bytes": 1115,
+          "sha256": "14a8f1163ec321eb681b028b78258638efae1371f34ded40ef703ec0d501092d"
+        }
+      ],
+      "injected_bytes": 3377,
+      "not_injected": [
+        {
+          "id": "pytest-dev__pytest-5631",
+          "status": "over_budget",
+          "bytes": 1036
+        },
+        {
+          "id": "pytest-dev__pytest-5809",
+          "status": "over_budget",
+          "bytes": 878
+        },
+        {
+          "id": "pytest-dev__pytest-5227",
+          "status": "over_budget",
+          "bytes": 1500
+        }
+      ],
+      "gold_overlap": {
+        "gold_added_lines": 10,
+        "in_injected_text": 0,
+        "gold_added_lines_nontrivial": 10,
+        "in_injected_text_nontrivial": 0
+      }
+    },
+    {
+      "id": "pytest-dev__pytest-7521",
+      "repo": "pytest-dev/pytest",
+      "created_at": "2020-07-20T15:55:11Z",
+      "cards_after_filter": [
+        "pytest-dev__pytest-5103",
+        "pytest-dev__pytest-5227",
+        "pytest-dev__pytest-5262",
+        "pytest-dev__pytest-5631",
+        "pytest-dev__pytest-5809",
+        "pytest-dev__pytest-5840",
+        "pytest-dev__pytest-6202",
+        "pytest-dev__pytest-7205",
+        "pytest-dev__pytest-7324",
+        "pytest-dev__pytest-7490"
+      ],
+      "decision": "selected",
+      "injected": [
+        {
+          "id": "pytest-dev__pytest-5262",
+          "bytes": 762,
+          "sha256": "3b1fabf2cdcb64060cbfaf5dc9e474858df0749ca22922ea700d4128e1946ad6"
+        },
+        {
+          "id": "pytest-dev__pytest-7490",
+          "bytes": 1500,
+          "sha256": "ff06d2ee8238f4e7aefd71f6a34ca8bf78954d7eec3638158879a85787984139"
+        },
+        {
+          "id": "pytest-dev__pytest-6202",
+          "bytes": 1115,
+          "sha256": "14a8f1163ec321eb681b028b78258638efae1371f34ded40ef703ec0d501092d"
+        }
+      ],
+      "injected_bytes": 3377,
+      "not_injected": [
+        {
+          "id": "pytest-dev__pytest-7205",
+          "status": "over_budget",
+          "bytes": 1500
+        },
+        {
+          "id": "pytest-dev__pytest-5631",
+          "status": "over_budget",
+          "bytes": 1036
+        },
+        {
+          "id": "pytest-dev__pytest-5227",
+          "status": "over_budget",
+          "bytes": 1500
+        },
+        {
+          "id": "pytest-dev__pytest-5809",
+          "status": "over_budget",
+          "bytes": 878
+        }
+      ],
+      "gold_overlap": {
+        "gold_added_lines": 1,
+        "in_injected_text": 0,
+        "gold_added_lines_nontrivial": 1,
+        "in_injected_text_nontrivial": 0
+      }
+    },
+    {
+      "id": "pytest-dev__pytest-7982",
+      "repo": "pytest-dev/pytest",
+      "created_at": "2020-10-31T12:27:03Z",
+      "cards_after_filter": [
+        "pytest-dev__pytest-5103",
+        "pytest-dev__pytest-5227",
+        "pytest-dev__pytest-5262",
+        "pytest-dev__pytest-5631",
+        "pytest-dev__pytest-5809",
+        "pytest-dev__pytest-5840",
+        "pytest-dev__pytest-6202",
+        "pytest-dev__pytest-7205",
+        "pytest-dev__pytest-7324",
+        "pytest-dev__pytest-7490",
+        "pytest-dev__pytest-7521"
+      ],
+      "decision": "selected",
+      "injected": [
+        {
+          "id": "pytest-dev__pytest-5262",
+          "bytes": 762,
+          "sha256": "3b1fabf2cdcb64060cbfaf5dc9e474858df0749ca22922ea700d4128e1946ad6"
+        },
+        {
+          "id": "pytest-dev__pytest-7521",
+          "bytes": 1308,
+          "sha256": "677f360c232d392c508b1ad120927ebb2ba27a4f30a6209f8e60160ed83cdfc9"
+        },
+        {
+          "id": "pytest-dev__pytest-7490",
+          "bytes": 1500,
+          "sha256": "ff06d2ee8238f4e7aefd71f6a34ca8bf78954d7eec3638158879a85787984139"
+        }
+      ],
+      "injected_bytes": 3570,
+      "not_injected": [
+        {
+          "id": "pytest-dev__pytest-5631",
+          "status": "over_budget",
+          "bytes": 1036
+        },
+        {
+          "id": "pytest-dev__pytest-7205",
+          "status": "over_budget",
+          "bytes": 1500
+        },
+        {
+          "id": "pytest-dev__pytest-6202",
+          "status": "over_budget",
+          "bytes": 1115
+        },
+        {
+          "id": "pytest-dev__pytest-5227",
+          "status": "over_budget",
+          "bytes": 1500
+        },
+        {
+          "id": "pytest-dev__pytest-5809",
+          "status": "over_budget",
+          "bytes": 878
+        }
+      ],
+      "gold_overlap": {
+        "gold_added_lines": 1,
+        "in_injected_text": 0,
+        "gold_added_lines_nontrivial": 1,
+        "in_injected_text_nontrivial": 0
+      }
+    },
+    {
+      "id": "pytest-dev__pytest-8399",
+      "repo": "pytest-dev/pytest",
+      "created_at": "2021-03-04T17:52:17Z",
+      "cards_after_filter": [
+        "pytest-dev__pytest-5103",
+        "pytest-dev__pytest-5227",
+        "pytest-dev__pytest-5262",
+        "pytest-dev__pytest-5631",
+        "pytest-dev__pytest-5809",
+        "pytest-dev__pytest-5840",
+        "pytest-dev__pytest-6202",
+        "pytest-dev__pytest-7205",
+        "pytest-dev__pytest-7324",
+        "pytest-dev__pytest-7490",
+        "pytest-dev__pytest-7521",
+        "pytest-dev__pytest-7982"
+      ],
+      "decision": "selected",
+      "injected": [
+        {
+          "id": "pytest-dev__pytest-7205",
+          "bytes": 1500,
+          "sha256": "0a75a83a569220fbfea85138b12a896f8c2b4be29c665621f0a2e73d77dbc407"
+        },
+        {
+          "id": "pytest-dev__pytest-5631",
+          "bytes": 1036,
+          "sha256": "c3863017b98dd813a1dd71c146f684025a1a7a8f74153b1fe8376ef8c61f9587"
+        },
+        {
+          "id": "pytest-dev__pytest-5262",
+          "bytes": 762,
+          "sha256": "3b1fabf2cdcb64060cbfaf5dc9e474858df0749ca22922ea700d4128e1946ad6"
+        },
+        {
+          "id": "pytest-dev__pytest-7982",
+          "bytes": 754,
+          "sha256": "db1005d9db8681115bff33f985666cb06418f20588089988c6a1639e00e212a5"
+        }
+      ],
+      "injected_bytes": 4052,
+      "not_injected": [
+        {
+          "id": "pytest-dev__pytest-7521",
+          "status": "over_budget",
+          "bytes": 1308
+        },
+        {
+          "id": "pytest-dev__pytest-6202",
+          "status": "over_budget",
+          "bytes": 1115
+        },
+        {
+          "id": "pytest-dev__pytest-5227",
+          "status": "over_budget",
+          "bytes": 1500
+        },
+        {
+          "id": "pytest-dev__pytest-7490",
+          "status": "over_budget",
+          "bytes": 1500
+        },
+        {
+          "id": "pytest-dev__pytest-5809",
+          "status": "over_budget",
+          "bytes": 878
+        }
+      ],
+      "gold_overlap": {
+        "gold_added_lines": 5,
+        "in_injected_text": 0,
+        "gold_added_lines_nontrivial": 5,
+        "in_injected_text_nontrivial": 0
+      }
+    },
+    {
+      "id": "pytest-dev__pytest-10081",
+      "repo": "pytest-dev/pytest",
+      "created_at": "2022-06-26T13:53:24Z",
+      "cards_after_filter": [
+        "pytest-dev__pytest-5103",
+        "pytest-dev__pytest-5227",
+        "pytest-dev__pytest-5262",
+        "pytest-dev__pytest-5631",
+        "pytest-dev__pytest-5809",
+        "pytest-dev__pytest-5840",
+        "pytest-dev__pytest-6202",
+        "pytest-dev__pytest-7205",
+        "pytest-dev__pytest-7324",
+        "pytest-dev__pytest-7490",
+        "pytest-dev__pytest-7521",
+        "pytest-dev__pytest-7982",
+        "pytest-dev__pytest-8399"
+      ],
+      "decision": "selected",
+      "injected": [
+        {
+          "id": "pytest-dev__pytest-5262",
+          "bytes": 762,
+          "sha256": "3b1fabf2cdcb64060cbfaf5dc9e474858df0749ca22922ea700d4128e1946ad6"
+        },
+        {
+          "id": "pytest-dev__pytest-8399",
+          "bytes": 1130,
+          "sha256": "92a1cd779d1f7e89f76a09b3d7ee027508881b10bcd1eabe47667c84062f5138"
+        },
+        {
+          "id": "pytest-dev__pytest-7521",
+          "bytes": 1308,
+          "sha256": "677f360c232d392c508b1ad120927ebb2ba27a4f30a6209f8e60160ed83cdfc9"
+        },
+        {
+          "id": "pytest-dev__pytest-7982",
+          "bytes": 754,
+          "sha256": "db1005d9db8681115bff33f985666cb06418f20588089988c6a1639e00e212a5"
+        }
+      ],
+      "injected_bytes": 3954,
+      "not_injected": [
+        {
+          "id": "pytest-dev__pytest-7205",
+          "status": "over_budget",
+          "bytes": 1500
+        },
+        {
+          "id": "pytest-dev__pytest-7490",
+          "status": "over_budget",
+          "bytes": 1500
+        },
+        {
+          "id": "pytest-dev__pytest-5631",
+          "status": "over_budget",
+          "bytes": 1036
+        },
+        {
+          "id": "pytest-dev__pytest-6202",
+          "status": "over_budget",
+          "bytes": 1115
+        },
+        {
+          "id": "pytest-dev__pytest-5227",
+          "status": "over_budget",
+          "bytes": 1500
+        },
+        {
+          "id": "pytest-dev__pytest-5809",
+          "status": "over_budget",
+          "bytes": 878
+        }
+      ],
+      "gold_overlap": {
+        "gold_added_lines": 4,
+        "in_injected_text": 0,
+        "gold_added_lines_nontrivial": 4,
+        "in_injected_text_nontrivial": 0
+      }
+    }
+  ]
+}

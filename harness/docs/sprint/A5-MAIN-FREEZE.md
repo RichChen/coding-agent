@@ -1,0 +1,424 @@
+# A5-main 冻结记录
+
+harness tag `a5-main-freeze` 指向加入本文件的提交。它的父提交 `2b1d2442c88d869534c8c54a3a667310477808c4` 是第 0 步的代码改动（infra_error 重跑、停止条件、模型记录）。
+
+coding-agent tag `a5-main-freeze` 指向 `a22e4ca0a3994012c167a3e02e06498731c24a18`（见 coding-agent 提交 `1053203` 的 CHECKPOINT-6）。
+
+从这里到 R6 结束，不改 runner、grader、镜像和校准。只有停止条件要求时才改，改动单独提交并在 CHECKPOINT 里写明影响了哪些已完成的运行。
+
+## 输入文件
+
+sha 用 `scripts/handoff_sha.py` 的 `handoff_sha256` 算：先把换行统一成 LF，再取 sha256。
+
+| 文件 | sha256 |
+|------|--------|
+| `configs/sprint/main-targets.yaml` | `3556a5fdfac8b7d4ac2b631a31e2a7951312523aff605014f3b32eaf184738a4` |
+| `docs/sprint/main-accepted-ids.txt`（56 道合格题） | `d71cb17adb44fd06f71bf8b0f8babcac12ea839354f1dcec30aae2ffa719b730` |
+| `configs/sprint/b0-v2.yaml` | `ddf53b2db293bf03c7a099a43a34ea96aee5ecca365d9b8b4f11d66afb344e60` |
+| `docs/sprint/memory-source-runs.json`（dev 交接） | `984826707e8f69ad9b900134bd244c6056f2d8860f3036a3606bfc60b4bcb450` |
+
+`main-accepted-ids.txt` 是 `docs/sprint/main-calibration/*.json` 里 `accepted: true` 的 id，按字母排序，每行一个，末尾有换行。各仓库题数：pytest 12，sympy 12，django 11，sphinx 11，scikit-learn 10。
+
+## 运行参数
+
+| 参数 | 值 |
+|------|----|
+| `PARALLEL` | 4（B0 与 B2 相同） |
+| `TOTAL_CAP` | 150 元 |
+| B0 软上限 | 80 元 |
+| `MAX_INFRA_RERUNS` | 2 |
+| infra_error 停止线 | 超过已完成运行的 10% |
+
+Docker Desktop：8 核，7.7 GiB 内存。
+
+## 修订 1
+
+tag `a5-main-freeze-r1` 指向加入本节的提交。原 tag `a5-main-freeze` 保留不动。依据是 `docs/sprint/HARNESS-SPRINT-6A-FIX.zh-CN.md` 和 CHECKPOINT-6 的两次审计结论。
+
+### 原因
+
+canary 里 sphinx-8593 在运行前比对失败。构建镜像时，`pre_install` 用 sed 改写的文件不参与 source-only 比对；运行时却参与了，而且没有排除。12 道题会因此在运行前失败（11 道 sphinx 和 pytest-8399）。镜像本身没有问题，也不是泄漏。
+
+### 改动与提交
+
+| 项 | 内容 | 提交 |
+| --- | --- | --- |
+| F1 | 被改写的文件按"在 clean image 的 /tmp tmpfs 里断网重放 sed 后的期望 sha"比对，不再有跳过不比的文件；构建和运行都通过 `overrides_for` 读同一份 `docs/sprint/rewritten-expected/<task>.json` | `a3b4450`、`53c072a` |
+| F2 | `run_a5_main.py --preflight`：56 道题执行全部运行前检查，不调用模型 | `43ee604` |
+| F3 | `--out-root`（只能和 `--mock` 一起用）和全池 mock 核对脚本 `scripts/sprint6_mock_e2e_check.py` | `43ee604`、`a3cdc3a` |
+| F4 | 移动 sphinx-8593 的失败槽位，见下文 | 只移动文件，没有提交 |
+| F5 | infra_error 次数 ≥ 3 **并且**超过已完成运行的 10% 时才停止 | `653ebbb` |
+
+`docs/sprint/rewritten-expected/` 在本修订中的 git tree 是 `dab524dfff1c46344e1a3ec524b66048739c140e`。
+
+### 改写命令的解析规则
+
+- **guarded_sed**（审计批准新增）：一条命令按 `&&`、`||` 拆开后，每一段都是 `sed -i … <文件>` 或 `grep -q … <文件>`，至少有一段是 sed，并且都指向同一个不含 `/` 的文件。这时整条命令原文算作这个文件的改写命令，重放时整条交给 `/bin/sh` 执行，顺序和规格一致。
+- **plain_sed 的收紧**：原来的"以 sed 开头、最后一个词不含 `/`"规则保留，但现在要求整条命令只有一段。否则 `sed … && pip install -e .` 会被误算成对 `.` 的改写。
+- 其他命令都不算改写，比对时也不为它们放宽。
+- 记录里每条命令都标明匹配的规则（`plain_sed` 或 `guarded_sed`）。
+- 这次规则修改只影响 sphinx-9258：它的 `setup.py` 多了 2 条 guarded_sed 命令，期望 sha 是 `27bcaf655c0321c29b0c30ce9c740c8551c63a67cefd9a89436c05361cf5255a`。另外 11 份记录只新增了 `rules` 字段，其他内容不变。plain_sed 的收紧不影响 56 道题中的任何一道。
+
+### 核对口径修正
+
+1. **F2（审计批准）**：运行时 P2P 条数等于校准 `nodeids.p2p.used` 减去 `p2p_excluded` 条数，并且每个被排除的 id 都必须在选中的 P2P 列表里。涉及 sphinx-8120、9673、10323。
+2. **F3（审计批准）**：有 `p2p_excluded` 的三道题，P2P 通过数等于 `empty_p2p` 的通过数，总数等于 `empty_p2p` 的总数减去排除条数；同时确认被排除的 id 没有出现在 grader 的用例里。
+3. **F3（按第二次审计的授权自行修正）**：原口径要求"F2P 全部失败，并且等于 empty_f2p"。django-13512（1/3）和 sympy-14248（1/12）在空改动下各有 1 条 F2P 通过，运行时的结果和 `empty_f2p` 完全相同。校准的合格规则（`sprint5_prepare_main.py` 的 `acceptance`）只要求空改动下 F2P 不全部通过。新口径：F2P 的通过数和总数等于 `empty_f2p`，通过数小于总数，summary 的 `solved` 为 false。依据的记录字段是校准 JSON 的 `empty_f2p` 和 `accepted`。
+
+三处都只改核对口径，不改任何运行时行为。
+
+### F4 规则
+
+模型调用为 0、花费为 0、因为 harness 运行前检查的 bug 而失败的运行，不算实验数据，可以移出后重跑这个槽位。**有模型调用的运行一律不适用这条规则。**
+
+按这条规则，`runs/a5-main/sphinx-doc__sphinx-8593/b0/r1/` 已整个移到 `runs/a5-main-halted/sphinx-doc__sphinx-8593/b0/r1/`，`runs/a5-main/b0-report.json` 移到 `runs/a5-main-halted/b0-report.json`。
+
+### 已完成的 canary
+
+django-13964 r1 和 sklearn-13142 r1 继续有效。它们跑在 `02c8671` 上，`pre_install` 不改写源码文件，override 为空，新旧比对规则的结果相同。它们也没有 `p2p_excluded`，两种 id 口径的结果一致。
+
+### F2、F3 结果
+
+- F2 预检：56/56 通过。所有题 `answer_isolation_pass` 为 true，带 override 的 source-only 比对全部通过，grader id 按修正后的口径和校准一致，public task 全部生成。
+- F3 mock 端到端：56 道 mock B0 r1 写在 `runs/a5-main-mock-e2e/`，花费 0，没有停止。
+  - 没有 answer isolation 失败，没有 infra_error，grader 没有崩溃，没有 `missing`。
+  - 按修正后的口径 56/56 一致：F2P 等于 `empty_f2p`（54 道 0 通过，2 道部分通过）。
+  - P2P 全部通过，并且等于 `empty_p2p`（三道有排除的题是 43/43、23/23、38/38）。
+  - 被排除的 id 都没有进入 grader。
+
+冻结输入的 sha 没有变化，本修订没有改 clean image、校准记录、profile 和 `src/eval`。全量测试 343 passed、199 skipped。
+
+## 修订 2
+
+tag `a5-main-freeze-r2` 指向加入本节的提交。`a5-main-freeze` 和 `a5-main-freeze-r1` 保留不动。依据是 `docs/sprint/HARNESS-SPRINT-6B-FIX.zh-CN.md`（CHECKPOINT-6a 的审计结论）。
+
+### 原因
+
+第一次全量 B0 停止后发现了三类问题：
+
+- 容器里的文件工具和 search_code 用了 `Path.is_relative_to`（3.9 才有）和 `subprocess.run(capture_output=, text=)`（3.7 才有）。在 3.6 和 3.8 的镜像里（17 道题），这些工具每次调用都失败。
+- 并发下的 Docker 控制错误没有重试：两次候选快照因为 `ConnectionResetError` 失败，被当成空补丁评分（`delta_lost`）。
+- 一次 grader 在测试开始之前超时，被记为 `invalid_env`。
+
+### 改动与提交
+
+| 项 | 内容 | 提交 |
+| --- | --- | --- |
+| G1 | 容器内代码兼容 Python 3.6：`is_relative_to` 改成 `relative_to` 加 `try/except ValueError`（越界照样拒绝），`capture_output/text` 改成 `stdout/stderr=PIPE, universal_newlines=True`。改了 `FILE_CODE`、`SEARCH_CODE` 和 B2 dispatcher 的 `RPC`。新测试会自动收集 A5-main 路径上所有送进容器执行的 Python 代码（22 段，包括工具、后端、grader、runner、source-only 比对和重放），做两件事：一是静态扫描 3.7+ 的 API 和语法，二是在 `python:3.6.15-slim-buster` 里对每段跑 `py_compile`，同时在 3.6 里实际执行文件工具和 search_code，确认符号链接逃逸仍然被拒绝。本轮已实跑通过。 | `ef32056` |
+| G2 | `--preflight` 加工具冒烟，零模型调用。每道题先按真实运行的方式启动 clean image（`clean_backend`，和 `run_task` 共用），然后用固定参数依次调用 `list_dir`、`read_file`（仓库根目录的 `setup.py`，没有就取第一个文件）、`search_code`、`run_command`（在 /workspace 建临时文件并打印 Python 版本）、`search_replace`、`edit_file`，最后用 `read_file` 确认两处编辑生效。容器关闭时不导出，也不评分。判失败的情况有两种：`success=False`，或输出里有 Python traceback。 | `074a076` |
+| G3 | Docker 控制调用遇到 `DockerUnavailable`、`ConnectionResetError` 或 `TimeoutError` 时，间隔 2、5、10 秒重试 3 次，每次重试都记进 summary 的 `docker_retries`（阶段、操作、第几次、等待、错误、时间）。重试后仍失败的运行记 `infra_error`，走原来的重跑规则，细则见下文。 | `e4b919a` |
+| G4 | summary 加 `harness_tool_errors`，任何运行大于 0 就停止启动新运行。`scripts/sprint6_canary.py` 负责 canary 的选题和检查。 | `040a7a8` |
+| G5 | `PARALLEL=3`（B0 与 B2 相同），B0 软上限 110 元，`TOTAL_CAP` 220 元 | `d002f27` |
+| G6 | 作废 25 次运行，见下文 | `53600b9`（脚本；文件只移动） |
+
+### G3 细则
+
+- **重试的调用**：凡是经过 `DockerExecutionBackend._ok` 的调用，包括：
+  - `info`、`image inspect`、`create`、`start`、`inspect`；
+  - 启动时的 exec（导入文件、复制仓库、链接 native 产物）；
+  - 候选快照（`export_delta`）；
+  - grader 的启动、APPLY、上传 runner、读取 receipt；
+  - 容器销毁（`rm -f` 和 `ps` 确认）。
+- `create` 重试之前，先 `rm -f` 同名容器，避免第一次其实已经建成导致名字冲突。
+- **不重试的失败**：
+  - 容器里 harness 脚本自己报 traceback，以及 `delta_too_large`。这两种是程序结果，不是 Docker 控制错误，重试也不会变。
+  - agent 工具命令本身的 `docker exec`（`execute()`）。命令可能已经执行了一部分，不能安全地重放。如果这类失败把容器关掉了，候选快照就不存在，按下一条记 `infra_error`，不会按空补丁评分。
+- **agent 阶段记 `infra_error`、不送 grader 的情况**：
+  - StoreError；
+  - 容器启动失败；
+  - 候选快照失败（`snapshot_error` 非空，包括 `container_gone_before_snapshot`）；
+  - 没有候选快照；
+  - 容器销毁失败。
+- **grader 阶段**：
+  - `execution_status` 为 None，也就是在测试执行之前就失败或超时，记 `infra_error`；
+  - 测试开始以后超时，仍是普通失败；
+  - 测试结束以后读 receipt 失败，仍按 grader 崩溃停止。
+- summary 新增 `run_error`、`infra_reason`、`docker_retries`。
+
+### harness_tool_errors 的口径
+
+只统计程序由 harness 提供的工具：`read_file`、`list_dir`、`write_file`、`edit_file`、`search_replace`、`search_code`。计数条件：
+
+- 输出里的 Python traceback 最后一个异常是实现类异常，即 `AttributeError`、`ImportError`、`ModuleNotFoundError`、`SyntaxError`、`IndentationError`、`TabError`、`NameError`、`UnboundLocalError`、`TypeError` 之一；
+- 并且该次调用的参数符合工具 schema（按 `tool.intent` 配对）。
+
+以下情况不计入：`run_command` 的输出（那是 agent 自己的命令）、"file not found"/"path denied"/"search string not found" 这类 `ValueError`/`OSError`，以及参数不合 schema 时的异常。用作废的 25 次运行校验：这个口径算出 109 次，和人工统计的 `is_relative_to` 失败次数一次不差；agent 命令里的 12 个 traceback 都没有计入。
+
+### 作废规则与 25 次运行
+
+**修订 2 之前的全部 B0 运行，不论结果。** `runs/a5-main/` 下的 25 次运行和 `b0-report.json` 已整个移到 `runs/a5-main-void/r1-tool-py36/`，只移动、不删除，那里的 `README.md` 和 `void-runs.json` 列出每次运行的镜像 Python、`harness_tool_errors`、solved、status 和花费。
+
+- 这 25 次运行是：
+  - django 11211、11749、12276、13109、13512、13964、14434 各 r1–r3；
+  - django-15022 r1–r2；
+  - sklearn-13142 r1；
+  - sphinx-8593 r1。
+- 合计 `harness_tool_errors` 109，解出 2 次（django-13964 r2、sklearn-13142 r1），花费 13.682 元。这部分花费不计入 `TOTAL_CAP`。
+- 修订 1 里"继续有效"的 canary（django-13964 r1、sklearn-13142 r1）也在其中，同样作废。
+- 修订 1 的 F4 移到 `runs/a5-main-halted/` 的零花费槽位不受影响。
+
+B0 从空的 `runs/a5-main/` 重新开始。这一轮没有生成过 `docs/sprint/main-b0-runs.json`。
+
+### 运行参数（修订 2）
+
+| 参数 | 值 |
+|------|----|
+| `PARALLEL` | 3（B0 与 B2 相同） |
+| `TOTAL_CAP` | 220 元，只统计 `runs/a5-main/` 下的花费，作废运行不计 |
+| B0 软上限 | 110 元 |
+| `MAX_INFRA_RERUNS` | 2 |
+| infra_error 停止线 | ≥ 3 并且超过已完成运行的 10% |
+| 新停止条件 | 任何运行 `harness_tool_errors > 0` |
+| Docker 控制重试 | 3 次，间隔 2、5、10 秒 |
+
+### 预检结果
+
+`run_a5_main.py --preflight`（`runs/a5-main-logs/preflight.json`）：56/56 通过，其中工具冒烟 56/56。
+
+| 镜像 Python | 通过 / 总数 | 工具冒烟 | 容器里实际的版本 |
+| --- | --- | --- | --- |
+| 3.6 | 15 / 15 | 15 / 15 | 3.6.15 |
+| 3.8 | 2 / 2 | 2 / 2 | 3.8.20 |
+| 3.9 | 38 / 38 | 38 / 38 | 3.9.25 |
+| 3.11 | 1 / 1 | 1 / 1 | 3.11.16 |
+
+所有冒烟容器都确认已清理。冻结输入的 sha、clean image、校准记录、`rewritten-expected`（tree 仍是 `dab524dfff1c46344e1a3ec524b66048739c140e`）和 profile 都没有变化。
+
+### canary 选题
+
+每个镜像 Python 版本各一道，按 `created_at` 排序取下中位：3.6 取 sklearn-14053，3.8 取 django-13964，3.9 取 pytest-7490，3.11 取 django-16527。检查项包括：
+
+- 第 1 步原有各项；
+- `harness_tool_errors == 0`；
+- 没有 infra_error（因此也没有 Docker 控制类 infra_error）。
+
+## 修订 3
+
+tag `a5-main-freeze-r3` 指向加入本节的提交。`a5-main-freeze`、`a5-main-freeze-r1`、`a5-main-freeze-r2` 保留不动。依据是 `docs/sprint/HARNESS-SPRINT-6C-FIX.zh-CN.md`（CHECKPOINT-6a 的审计结论）。
+
+### 原因
+
+修订 2 下的 36 次正式运行 0 解出。根因是 pool 题的 user prompt 里没有 issue 文本，只有 `Public issue for <id>` 占位（38 个字符）：
+
+- `select_main_targets.py` 只把 `instance_id`、`FAIL_TO_PASS`、`PASS_TO_PASS`、`patch`、`test_patch` 存进私有文件，没有保存 `problem_statement`；
+- `materialize_runner_task` 用 `private.get("problem_statement") or ("Public issue for " + id)` 静默回退。
+
+作废的 38 个运行目录里，记录下来的 user prompt 全部是占位文本（infra 槽位也是）。dev 14 题的 public task 由另一条路径生成，带有完整 issue，不受影响。
+
+### 改动与提交
+
+| 项 | 内容 | 提交 |
+| --- | --- | --- |
+| H1 | 从 `princeton-nlp/SWE-bench_Verified` test（Hub revision `c104f840cc67f8b6eec6f759ebc8b2693d585d4a`，文件 `data/test-00000-of-00001.parquet`）读取 60 道题的 `problem_statement`，原样保存（不 strip，不拼 `hints_text`，与 dev 相同）到 `runs/sprint5-main-public/<id>.json`（`issue_text`、`issue_sha256`、`repo_ref`），并写 `docs/sprint/main-issues.json`。脚本 `scripts/sprint6_restore_issues.py` 先按原规则重新选题，60 个 id 与顺序和 `main-targets.yaml` 一致、id 列表 sha 仍是 `d4caaa48…`、repo 与 base_commit 一致，才写文件。`select_main_targets.py` 以后选题时同时写 public 文件；本轮没有重选。`materialize_runner_task` 改为直接用 public 文件，不再从私有文件拼 issue | `6a21da4` |
+| H2 | 去掉静默回退，改为报错，改动位置见下表；新增 `tests/test_no_silent_fallback.py` | `2dddb2b` |
+| H3 | 预检对每道合格题渲染完整 user prompt，检查：原样包含 `issue_text`、issue sha 与 `main-issues.json` 一致、长度大于 0、不含私有字段内容。另外渲染 dev 14 题的 prompt，要求与 `runs/sprint4-b0-v2/<id>/r1/events.jsonl` 里记录的 user prompt 逐字节一致；不一致时 `--preflight` 失败 | `b0d25be` |
+| H4 | summary 增加 `issue_sha256`、`prompt_sha256`。canary 改为每个 repo 一道，检查项增加"`issue_sha256` 等于 `main-issues.json`"和"有 `prompt_sha256`" | `f1b1f8c` |
+| H5 | 故障警报（规则见下） | `dc61377` |
+| H6 | 候选改动导致的 missing 记普通失败（规则见下） | `1133112` |
+| H7 | 作废修订 3 之前的 38 个运行目录（规则见下），脚本 `scripts/sprint6_void_r2.py` | `7d768b9` |
+| H8 | B0 软上限 120 元，`TOTAL_CAP` 230 元，`PARALLEL` 仍为 3 | `60fd926` |
+
+### H2 改为报错的位置
+
+| 文件 | 原来的回退 | 现在 |
+| --- | --- | --- |
+| `scripts/run_a5_main.py` `materialize_runner_task` | `private.get("problem_statement") or ("Public issue for " + id)` | 读 `runs/sprint5-main-public/<id>.json`；文件缺失、`issue_text` 为空、sha 与 `main-issues.json` 不一致、`repo_ref` 与目标不一致都报错（`checked_public`） |
+| 同上 | `private.get("test_patch") or ""`、`private.get("patch") or ""`（grader id 选择与 receipt 的 patch 路径） | 为空就报错 |
+| `scripts/run_swe_task.py` `public_issue` | `public.get("issue_text") or ""` | `issue_text()`：为空、只有空白或以 `Public issue for ` 开头都报错 |
+| 同上 | `repo_ref.get("repo_id", task.get("repo", ""))`、`repo_ref.get("revision", "")` | `repo_ref` 缺 `repo_id` 或 `revision` 就报错 |
+| 同上 | family 不是 django 就用 pytest 命令 | 按 family 查表（django、pytest-dev、scikit-learn、sphinx-doc、sympy），查不到就报错 |
+| `scripts/run_swe_task.py` `run_task`（卡片插件） | 两处 `public.get("issue_text") or ""` | `issue_text(public)` |
+| `scripts/run_swe_task.py` `grader_spec` | `binding.get("test_patch_paths") or []`、`binding.get("gold_patch_paths") or []` | 为空就报错 |
+| `scripts/run_swe_task.py` `grader_spec`、`run_task` | `task.get("grader_timeout_seconds", 300)` | 必须给出（pool 与 dev 都是 600） |
+
+检查过、没有改的 `or` 默认值：`api_key or "mock"/"smoke"`（只在 mock 和工具冒烟里用，不调模型）、`result.output or ""`（工具冒烟的输出）、`_named_reason(...) or "unknown"`（停止原因的显示）、`base_url or ""`（模型身份记录）、`_memory_task` 里的 `.get(..., "")`（dev 记忆源核验，不在 A5-main 路径上）、`p2p_excluded or []`（合法地可以为空）。
+
+### main-issues.json
+
+`docs/sprint/main-issues.json` 的 sha256（`handoff_sha256`，LF）是 `114f6367a0f14e274a2f4af5368661a21533b436ae9e50ee073e6a530310c0ba`。它记录数据集名称、split、Hub revision、parquet 文件 sha256、60 个 id 的列表 sha，以及每道题的 `issue_sha256` 和字符数。
+
+- 60 道题 issue 字符数：最小 190，中位 1448，最大 22778。
+- 56 道合格题：最小 190，中位 1498.5，最大 22778。
+- dev 14 题里有 2 道也在 Verified 中（django-10914、sklearn-10297），它们的 dev `issue_text` 与数据集 `problem_statement` 逐字节相同，说明"原样保存"与 dev 的做法一致。
+
+### 作废规则
+
+**修订 3 之前的全部 B0 运行，不论结果。** `runs/a5-main/` 下的 38 个运行目录（36 个正式槽位、2 个 infra 槽位 `django-12276/b0/r1.infra1`、`django-15973/b0/r2.infra1`）和 `b0-report.json` 已移到 `runs/a5-main-void/r2-no-issue/`，只移动，不删除；那里的 `README.md` 和 `void-runs.json` 逐个列出。已经花掉的 24.055 元记为作废成本，不计入实验，也不计入 `TOTAL_CAP`（只统计 `runs/a5-main/`）。B0 从空的 `runs/a5-main/` 重新开始。
+
+### 故障警报（预注册）
+
+全量 B0 中（不含 5 道 canary 的 r1），完成的正式运行（不含 `r<k>.infra<n>` 退役槽位和 `infra_error`）达到 30 次时，如果解出数为 0，就停止启动新运行，等待审计。实现在 `run_a5_main.fault_alarm`，每次运行结束后与其他停止条件一起检查。
+
+这一条只用来发现 harness 故障，不改变实验设计。触发后只允许排查 harness，不允许因此调整题目、profile 或卡片。
+
+### 候选改动导致的 missing
+
+- grader receipt 的 `runner_error`，以及收集阶段每条 traceback 的末尾（新字段 `collection_error_tails`，每条保留最后 2048 个字符；原有 `collection_errors` 不变）：取其中最内层属于项目的栈帧（`/workspace/` 下或相对路径的文件；跳过标准库、site-packages、`/tmp/a5-runner.py` 和 frozen 模块）。
+- 如果这个文件在本次候选改动修改过的文件里，就把这次运行记为普通失败（`solved=false`），summary 记录 `grader_candidate_error`（来源和文件），不停止。
+- 其他 missing 照常停止。候选改动为空时，这条规则永远不适用。
+- canary 检查里的"grader reported missing ids"按同一规则放行。
+- 用修订 2 停止时的 django-16527 r2 核对：候选在 `django/contrib/admin/views/main.py` 里引入了 `IndentationError`，按这条规则判为候选错误；如果把候选改动当成空的，则仍然停止。
+
+### 运行参数（修订 3）
+
+| 参数 | 值 |
+|------|----|
+| `PARALLEL` | 3（B0 与 B2 相同） |
+| `TOTAL_CAP` | 230 元，只统计 `runs/a5-main/` 下的花费 |
+| B0 软上限 | 120 元 |
+| `MAX_INFRA_RERUNS` | 2 |
+| infra_error 停止线 | 满 3 次且超过已完成运行的 10% |
+| 其他停止条件 | 任何运行 `harness_tool_errors > 0`；非候选错误的 missing；grader 崩溃；隔离失败；模型变化；故障警报 |
+| Docker 控制重试 | 3 次，间隔 2、5、10 秒 |
+
+冻结输入（`main-targets.yaml`、`main-accepted-ids.txt`、`b0-v2.yaml`、`memory-source-runs.json`）的 sha 与上表相同；clean image 记录和校准记录自 `a5-main-freeze-r2` 以来没有改动。
+
+### 预检结果
+
+`run_a5_main.py --preflight`（`runs/a5-main-logs/preflight.json`）：56/56 通过；工具冒烟 56/56；prompt 检查 56/56；dev prompt 14/14 逐字节一致。
+
+| 镜像 Python | 通过 / 总数 | 工具冒烟 |
+| --- | --- | --- |
+| 3.6 | 15 / 15 | 15 / 15 |
+| 3.8 | 2 / 2 | 2 / 2 |
+| 3.9 | 38 / 38 | 38 / 38 |
+| 3.11 | 1 / 1 | 1 / 1 |
+
+私有内容检查的口径：gold patch、test patch、F2P/P2P 原始列表都不能出现在整个 prompt 里；单个 F2P/P2P id 不能出现在 prompt 的模板部分（去掉末尾原样 issue 后的部分）。有 3 道题的单个 id 出现在数据集自带的公开 issue 里，只记录，不算泄露：sympy-15599（`test_Mod`）、pytest-5262 和 pytest-7521（P2P id `[100%]`）。
+
+### canary 选题
+
+每个 repo 各一道，按 `created_at` 排序取下中位：django-13964、pytest-7205、scikit-learn-13142、sphinx-8593、sympy-16766。每道跑一次真实的 B0 r1。检查项包括：
+
+- 第 1 步原有各项；
+- `harness_tool_errors == 0`；
+- 没有 infra_error；
+- `issue_sha256` 等于 `main-issues.json`，并且有 `prompt_sha256`。
+
+全套测试：412 passed，199 skipped。
+
+## 修订 4
+
+tag `a5-main-freeze-r4` 指向加入本节的提交。`a5-main-freeze`、`-r1`、`-r2`、`-r3` 保留不动。依据是 `docs/sprint/HARNESS-SPRINT-6D.zh-CN.md` 第 A 段。本修订没有调用模型，也没有改动任何运行结果。
+
+### 改动与提交
+
+| 项 | 内容 | 提交 |
+| --- | --- | --- |
+| D1 | 交接文件 v2（schema `sprint6.main-b0-runs.v2`），命令 `run_a5_main.py --handoff` | `614ebce` |
+| D2 | 4 次 delta_lost 的描述性归类，脚本 `scripts/sprint6_delta_lost.py`；分类规则不变，结果写在 CHECKPOINT-6 | `1c6498b` |
+| D3 | 漂移对照臂 `--phase b2 --with-b0-drift` | `9d1a438` |
+
+### 交接文件 v2
+
+- `docs/sprint/main-b0-runs.json` 的 sha（`handoff_sha256`，LF）：`fe0f47b8df67730a0335d7109631dc09bc4d6b5d19a601acfec0963f5dcb1f8c`。
+- 旧文件改名为 `docs/sprint/main-b0-runs.v1.json` 保留，sha `5c42a406c35a94c80dc7163a061e7383a66609b6c28ebaf7bd0c2fa19f92eb9e`。
+- 只读 `b0/r1..r3` 的 `summary.json` 和 `grader-result.json`，不读 `r4` 和 `r<k>.infra<n>`。
+- 每次运行在 v1 字段之外新增：`answer_isolation_pass`（summary）、`base_commit`（`main-targets.yaml`）、`grader_status`（`grader-result.json`）、`run_dir`（相对仓库根）、`public_task`（`runs/sprint5-main-public/<id>.json`）、`issue_sha256`。
+- 生成时检查：`grader-result.json` 和 public 文件必须存在，summary 的 `issue_sha256` 必须等于 `main-issues.json`，否则报错、不写文件。
+- 168 次运行的 v1 字段与 v1 文件逐项相同；`answer_isolation_pass` 168 次全部为 true；`grader_status` pass 115、fail 39、partial 14（delta_lost 的 4 次，grader 结果是 fail）。
+
+### 漂移对照臂（预注册）
+
+- 只能和 `--phase b2` 一起用。队列是 168 个 B2 槽位（56 题 × r1..r3）加 56 个 `b0/r4` 槽位，先按 (题目 id, 阶段, 重复号) 排序，再用 `random.Random(20260929).shuffle` 打乱，与输入顺序无关。`PARALLEL` 仍为 3；信号量先到先得，所以启动顺序就是队列顺序。
+- 56 道合格题的完整队列：224 个槽位，按 `<id>/<阶段>/r<k>` 每行一个、LF 结尾拼起来的 sha256 是 `db6809a12869b301e01662b3f404d3bd3351fef24036a78885f77cd0f941b911`；前三个是 `sphinx-doc__sphinx-8459/b0/r4`、`sphinx-doc__sphinx-7440/b2/r3`、`sympy__sympy-21596/b2/r3`。
+- `b0/r4` 用与 r1–r3 相同的 profile（`b0-v2`）和 B0 变体，不带卡片，输出在 `runs/a5-main/<id>/b0/r4`。
+- `b0/r4` 不进入交接文件，不参与卡片构建，也不参与主要分析。
+- 续跑、infra 重跑（退役为 `r4.infra<n>`，最多 2 次）和停止条件对 r4 同样适用：harness 工具错误、隔离失败、非候选错误的 missing、grader 崩溃、infra_error 停止线分别对 b2 和 b0 各自的运行检查；模型名称检查覆盖 b0 与 b2 全部运行。
+- 花费计入 `runs/a5-main/` 总额，按 `TOTAL_CAP` 230 元停止；B0 软上限 120 元只用于 `--phase b0`。
+- 新增测试：队列可复现且完整；r4 按 B0、不带卡片、按队列顺序启动；r4 续跑与 infra 重跑；r4 触发停止条件；`--with-b0-drift` 只能配 b2；交接文件不含 r4。
+
+冻结输入（`main-targets.yaml`、`main-accepted-ids.txt`、`b0-v2.yaml`、`memory-source-runs.json`、`main-issues.json`）没有改动，运行参数与修订 3 相同。
+
+全套测试：420 passed，199 skipped。
+
+### 修订 4 补记（第 C 段开跑前，不打新 tag）
+
+依据：v6 卡片审计通过后对第 A 段的确认和纠正，以及 6D 第 C 段 D5–D7。以下内容都在第一次 B2 运行之前提交。
+
+审计确认：infra_error 停止线对 b2 和 b0 分开计算；r4 的花费并入 `runs/a5-main/` 总额，按 `TOTAL_CAP` 230 元停止。
+
+| 项 | 内容 | 提交 |
+| --- | --- | --- |
+| B2 故障警报（新增停止条件） | 混合队列里完成的 B2 正式运行（只数 `b2/r1..r3`；不含 `b0/r4`、`r<k>.infra<n>` 和 `infra_error`；delta_lost 算）达到 30 次时，如果解出数为 0，就停止启动新运行 | `068380e` |
+| D5 v6 核对 | B2 开跑前检查 `memory-cards-v6.manifest.json`：`status: final`；`build_inputs.handoffs` 含 dev 交接文件（`sprint5.memory-source-runs.v2`，`98482670…`）和 `main-b0-runs.json`（`sprint6.main-b0-runs.v2`，`fe0f47b8…`），sha 与当前文件一致；`cards_sha256` 从文件复算一致（`3416eb9d8f6119081330fb3b0a2d612b8fde4678d6ec1c73a7fc681cedfcfc70`）。任何一项不符就拒绝运行 | `f97284c` |
+| D6 预测注入表 | `scripts/sprint6_predict_injection.py` 按 B2 的代码路径（补日期、`load_memory_cards`、`temporal_filter`、`MemoryCardPlugin.decide`）对 56 道题选卡，不调用模型。输出 `docs/sprint/b2-predicted-injection.json`，两次生成逐字节相同 | `89ef367` |
+| D7 注入一致性检查 | B2 开跑前要求预测表已提交且没有未提交的改动、`cards_sha256` 与本次卡片一致、覆盖所有要跑的题。每次 B2 运行（不含 infra）结束后，从 `events.jsonl` 的 `context.prepared` 事件取 `plugin.actually_injected` 里 `reason == "memory_card"` 的卡片 id 集合，与预测不一致就停止；没有 `events.jsonl` 也停止 | `8008223` |
+| D7 核对口径修正 | 上一行的检查按 `type` 字段找事件，事件日志实际用的是 `event_type`，在 mock 端到端检查里被发现。只改核对代码和测试夹具，不影响任何运行 | `399132a` |
+
+**预测注入表：** `docs/sprint/b2-predicted-injection.json`，sha（`handoff_sha256`，LF）`5d858eb4f3ab368fc655b310168e2c77de311ddfee4f77c0928e4d08ba79e3e5`，提交 `89ef367`。
+
+- 56 道题中 51 道会注入至少 1 张卡（停止线是 10 道），共 148 张次；每道 1 张 5 道、2 张 9 道、3 张 24 道、4 张 12 道、5 张 1 道。
+- 注入的题平均 3236.2 字节（上限 4096）。
+- 不注入的 5 道：sympy-11618、sympy-13757、sympy-14248、sklearn-9288、sphinx-7440，插件结论都是 `no_relevant_memory`。
+- 注入的卡片没有晚于目标题的、没有目标题自己的、没有跨 repo 的。
+- 这张表是预注册的次要分析分组，只依赖 issue 和卡片。
+
+**mock 端到端检查（补记 1 当时）**（`runs/a5-main-mock-6d/`，不调用模型）：django-13964、sklearn-9288、sphinx-8120 各 1 次 B2，加 3 个 `b0/r4`。3 次 B2 的实际注入与预测一致（包括 sklearn-9288 的空集合），summary 里的预览注入与预测的 id 和字节数也一致。
+
+全套测试：434 passed，199 skipped。
+
+### 修订 4 补记 2（B2 续跑前，不打新 tag）
+
+依据：审计对 django-13964 B2 r3 停止的结论。这次 missing 是候选改动在执行阶段引起的（`setUpClass` 失败），不是 grader 故障。审计不采用"放宽栈帧判据"，改用下面的空改动重评规则。
+
+| 项 | 内容 | 提交 |
+| --- | --- | --- |
+| missing_regrade 规则 | 见下 | `d99e1f6` |
+| 对已完成运行执行重评的脚本 | `scripts/sprint6_missing_regrade.py`，不调用模型 | `abad9dc` |
+
+**规则：**
+
+1. 任何一次运行的 grader 报告 missing，并且原有的栈帧规则（H6）没有判为候选错误时，用同一个镜像、同一套测试覆盖和同一组 F2P/P2P，以空改动再评一次，不花钱。结果写到 `grader-regrade-empty.json`，summary 的 `missing_regrade` 记录计数、期望值和是否一致。
+2. 空改动重评没有 missing，没有 grader reason，并且 F2P、P2P 的 [通过数, 总数] 与校准一致时，这次运行按普通失败处理：missing 的测试算作失败，`solved=false`，`grader_candidate_error="execution"`，不停止。
+3. 空改动重评也有 missing、grader 报了 reason、或者与校准不一致，按原规则停止。没有校准记录的题（不在 A5-main 池里）同样停止。
+4. 规则对 B2 和 `b0/r4` 同样适用。B0 的 168 次运行（r1..r3）都没有 missing，所以这条规则对 B0 没有影响。
+5. H6 不变：它能判定的情况照旧，记录为 `{"source", "file"}`。
+
+**与校准比较的口径（按已批准的 `p2p_excluded` 口径）：**
+
+- F2P 期望值是校准的 `empty_f2p`。
+- P2P 的总数是校准总数减去 `p2p_excluded` 条数；通过数是校准的通过数。
+- 3 道有排除项的题（sphinx-10323、8120、9673）在校准时，被排除的测试在空改动下都失败了，所以排除后通过数不变。如果将来有被排除的测试在空改动下通过，这个口径会判为不一致而停止，偏向保守一侧。
+
+**对 django-13964 B2 r3 的执行结果：** 空改动重评没有 missing，F2P 0/1、P2P 36/36，与校准（`empty_f2p` [0, 1]，`empty_p2p` [36, 36]，没有排除项）一致，镜像与原运行相同。按第 2 条记为普通失败；原 summary 另存为 `summary.pre-regrade.json`，这个槽位不重跑。
+
+全套测试：441 passed，199 skipped。
+
+### 修订 4 补记 3（B2 第二次续跑前，不打新 tag）
+
+依据：审计批准 sphinx-7590 B2 r3 停止后提出的扩展。这次候选改动让 `_parse_udl_suffix` 陷入死循环，测试执行超过 600 秒超时，没有写出 receipt，grader 读 receipt 失败后报 `DockerUnavailable`，状态 `invalid_env`。零花费诊断显示空改动重评 10.1 秒完成且与校准一致，候选改动重评再次超时，所以这是候选改动的执行失败，不是 grader 或镜像故障。
+
+| 项 | 内容 | 提交 |
+| --- | --- | --- |
+| 超时触发空改动重评 | `classify_timeout`、`run_task` 触发、`run_checks` 放行 | `5a7ac96` |
+| 离线重评脚本支持超时情形 | `scripts/sprint6_missing_regrade.py` | `6dadad2` |
+
+**规则：**
+
+1. 触发条件：grader 报了 reason，并且 `execution_status == "timed_out"`（测试已经开始执行后超时）。测试开始前就失败的情况仍按 infra 处理（`grader_infra_reason` 不变），不走这条规则；有 missing 的运行仍走补记 2 的规则。
+2. 触发后用同一个镜像、同一套测试覆盖和同一组 F2P/P2P 以空改动再评一次，不花钱。结果写到 `grader-regrade-empty.json`，summary 的 `timeout_regrade` 记录计数、期望值和是否一致。
+3. 空改动重评没有 missing、没有 reason，并且 F2P、P2P 与校准一致（口径同补记 2）时，这次运行按普通失败处理：F2P/P2P 全部算失败，`solved=false`，`status="fail"`，`grader_candidate_error="execution_timeout"`；`grader_status` 和 `grader_ids.reason` 保留原值作为证据。不停止。
+4. 空改动重评不一致、有 missing、有 reason，或者没有校准记录，按原规则停止（"grader crashed"）。
+5. 规则对 B2 和 `b0/r4` 同样适用。已完成的运行中只有 sphinx-7590 B2 r3 有 grader reason；B0 的 168 次运行（r1..r3）、已完成的 `b0/r4` 和其余 B2 运行都没有 grader reason，这条规则对它们没有影响。
+
+**对 sphinx-7590 B2 r3 的执行结果：** 空改动重评没有 missing，没有 reason，F2P 0/1、P2P 24/24，与校准期望（F2P [0, 1]，P2P [24, 24]）一致，镜像 `coding-harness-a5-clean@sha256:830eab6e…` 与原运行相同。按第 3 条记为普通失败；原 summary 另存为 `summary.pre-regrade.json`，这个槽位不重跑。
+
+全套测试：444 passed，199 skipped。
+
+## 收口
+
+日期：2026-09-29。
+
+- 实验运行已经结束：B0 r1–r3 168/168、B2 r1–r3 168/168、B0 r4 56/56。此后不再接受对 runner、grader、镜像或校准的改动，也不再重跑任何槽位。
+- 主要分析和次要分析以 coding-agent 的 `docs/sprint/A5-MAIN-RESULTS.zh-CN.md` 为准；最终叙述以 `coding-agent/docs/A5-FINAL-REPORT.zh-CN.md` 为准（agent 侧收尾后才会有）。
+- 案例数据以本仓库 `docs/sprint/A5-CASE-DATA.md` 为准。
+- 运行清单（tag、输入 sha、槽位计数、花费、检查摘要）以本仓库 `docs/sprint/A5-MAIN-INVENTORY.md` 为准。
+- 不打新的 freeze tag。如果审计要求，再打 `a5-main-closeout`。
+
+日期：2026-09-30。审计后续。
+
+- coding-agent 的 `docs/A5-FINAL-REPORT.zh-CN.md` 已经写好。最终叙述以该文件为准。两个 README 只保留链接，不再写「收尾后生成」。
+- `A5-CASE-DATA.md` 文首改为引用本文件第 1–4 节。最终报告第 7 节是「案例分析」，与 `PROJECT-HISTORY.zh-CN.md` 里「最终报告第 7 节」一致，历程正文没有改。
+- 单次调用测试改为接受 loop 在送出消息末尾追加的 `remaining model calls: 1/1`。`src/runtime/loop.py` 没有改。离线审计比对导出视图时先去掉这一条发送时附注，再和存档视图比较。
+- 本次审计要求打 tag `a5-main-closeout`，打在记录这次后续的提交上。

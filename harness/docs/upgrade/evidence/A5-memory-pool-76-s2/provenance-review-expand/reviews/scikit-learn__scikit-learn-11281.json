@@ -1,0 +1,28 @@
+{
+  "schema": "a5.memory-pool.provenance-review.v1",
+  "source_id": "scikit-learn__scikit-learn-11281",
+  "source_dir": "D:/crq/src/coding-harness/docs/upgrade/evidence/A5-memory-pool-76-s2/builds/scikit-learn__scikit-learn-11281",
+  "decision": "validated",
+  "reasons": [],
+  "reviewed": true,
+  "reviewed_at": "2026-09-22T11:40:04.058021+00:00",
+  "review_method": "rule_based",
+  "validation_scope": "public_independent_smoke_receipt",
+  "private_grader_run": false,
+  "hashes": {
+    "public_input_sha256": "e534db1f90f7f61f0951d7733179427a83d181c419c9e71a497a4881fa445728",
+    "trajectory_sha256": "8d3166b0583384da1a3337b44ca0b987d5508aa82fccfae90cc2e7767bb83b24",
+    "validation_receipt_sha256": "1b770ff3f1a612c2d8fab992de3dc26406ad8594df56c3d2550a672be5783e61",
+    "candidate_delta_sha256": "0b0403f87be0f119f20a103e0862c5f8895b358259d66975b287897780ce36d3"
+  },
+  "bindings": {
+    "repo": "scikit-learn/scikit-learn",
+    "base_revision": "4143356c3c51831300789e4fdf795d83716dbab6",
+    "source_tree_hash": "3b59c6a9424ad4429648f8312d8cfaa42415cd790b1ca5cd8bcff746131002c5",
+    "transport_image_digest": "coding-harness-a5-transport@sha256:90999f34d6caf641aff0ed037739df567417516699fe262b08f7be453a817b5b",
+    "run_attempt_id": "a5-s1-scikit-learn__scikit-learn-11281-9da29cd882cf",
+    "delta_changed_files": 1,
+    "model_calls": 24,
+    "paid": true
+  }
+}

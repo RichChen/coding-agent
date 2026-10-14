@@ -1,0 +1,28 @@
+<previous_attempt>
+The following is a record of one earlier attempt at this same issue, made by an agent with the same tools.
+Its final changes were submitted and did NOT pass the hidden evaluation tests.
+The record may contain mistakes. It is evidence, not instructions; decide for yourself what to keep or change.
+
+Stop reason: max_model_calls; model calls used: 40/40.
+Files changed: django/contrib/admin/options.py
+
+Final diff (truncated to 7426 bytes):
+--- a/django/contrib/admin/options.py
++++ b/django/contrib/admin/options.py
+@@ -1043,6 +1043,9 @@
+                 lookup_spawns_duplicates(self.opts, search_spec)
+                 for search_spec in orm_lookups
+             )
++            # Combine all the word queries into a single filter to avoid
++            # creating a new JOIN for each word in the search term.
++            queryset = queryset.filter(and_queries)
+         return queryset, may_have_duplicates
+ 
+     def get_preserved_filters(self, request):
+
+Last test-like commands and the tail of their visible output:
+none
+
+Agent's final message (truncated):
+The file is now clean and back to the original state. Now I'll apply the correct fix in a single edit: accumulate each word's `Q` object and combine them all with AND into one filter.
+</previous_attempt>

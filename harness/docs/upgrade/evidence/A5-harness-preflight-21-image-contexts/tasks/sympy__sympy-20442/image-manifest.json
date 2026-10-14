@@ -1,0 +1,24 @@
+{
+  "schema": "a5.image-backed-source.v1",
+  "task_id": "sympy__sympy-20442",
+  "repo": "sympy/sympy",
+  "base_revision": "1abbc0ac3e552cb184317194e5d5c5b9dd8fb640",
+  "transport_mode": "image_backed_base_plus_delta",
+  "archive_sha256": "ee0a80aa963aaa77f37175092ef9257619727e8c6b4b584b9946e531f7f055dc",
+  "archive_bytes": 6972736,
+  "source_tree_hash": "ab7dbbc9cb0aa3d449c9f1721009d2a17495a971ec3c5731bb09202d483c1331",
+  "file_count": 1815,
+  "total_bytes": 32961753,
+  "inventory_sha256": "6e5aca7d52550f796ab31a61c8c80a60e5e0f8fcf09aed84cc54b46e96a1101c",
+  "nonregular_paths": [],
+  "base_image": "python@sha256:603879aeff06df23f0d392a19f7ce02aa85e14e6b4d25fd9647b116e0cb93467",
+  "dockerfile_sha256": "4d1343c4a2f9ed8897d15a24243ade5dbe9da956b578877bec2bb0215a85bf3c",
+  "agent_return_contract": {
+    "schema": "a5.snapshot.delta.v1",
+    "max_bytes": 8388608,
+    "max_files": 2048,
+    "requires_base_tree_hash": true,
+    "requires_candidate_tree_hash": true,
+    "allowlist_required": true
+  }
+}

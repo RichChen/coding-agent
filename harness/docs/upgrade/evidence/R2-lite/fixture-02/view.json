@@ -1,0 +1,33 @@
+[
+  {
+    "role": "system",
+    "content": "Preserve constraints and verify changes."
+  },
+  {
+    "role": "user",
+    "content": "Fix the public function; keep the latest failure in view."
+  },
+  {
+    "role": "assistant",
+    "content": "[Untrusted fixture summary; consult original observations] past analysis past analysis past analysis past analysis past analysis past analysis past analysi | public file 0\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx | past analysis past analysis past analysis past analysis past analysis past analysis past analysi | public file 1\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+  },
+  {
+    "role": "assistant",
+    "content": null,
+    "tool_calls": [
+      {
+        "id": "current",
+        "type": "function",
+        "function": {
+          "name": "run_command",
+          "arguments": "{}"
+        }
+      }
+    ]
+  },
+  {
+    "role": "tool",
+    "tool_call_id": "current",
+    "content": "Error: latest public test still fails."
+  }
+]

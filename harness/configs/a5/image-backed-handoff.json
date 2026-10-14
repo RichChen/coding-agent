@@ -1,0 +1,59 @@
+{
+  "schema": "a5.image-backed-handoff.v2",
+  "status": "memory_pool_grader_calibrated_11_of_20_blocked",
+  "source_transport": "complete_archive_image_backed_base_plus_bounded_typed_delta",
+  "initial24": {
+    "assigned": 24,
+    "transport_ready": 24,
+    "source_tree_complete": 24,
+    "environment_ready": 24,
+    "environment_baseline_ready": 23,
+    "grader_ready": 4,
+    "baseline_contract_mismatch": ["django__django-13265"],
+    "final_audit_checks_passed": 173,
+    "final_audit_checks_assigned": 173,
+    "new_private_images_verified": 40,
+    "model_calls": 0,
+    "paid": false
+  },
+  "memory_pool": {
+    "sources": 20,
+    "ready_for_paid_build": false,
+    "shared_gates_ready_for_approval": true,
+    "remaining16_preflight": "complete_with_11_baseline_ready_and_5_invalid_env",
+    "preflight_audit": "docs/upgrade/evidence/A5-harness-preflight-58-memory-pool-audit",
+    "full_denominator": 20,
+    "source_complete": 20,
+    "transport_ready": 16,
+    "environment_baseline_ready": 11,
+    "grader_ready": 11,
+    "eligible": 11,
+    "final_gate_audit": "docs/upgrade/evidence/A5-harness-preflight-71-memory-gates-final",
+    "subset_receipts_do_not_unlock_remaining16": true
+  },
+  "evidence": {
+    "transport": "docs/upgrade/evidence/A5-harness-preflight-23-transport-smoke",
+    "typed_tree": "docs/upgrade/evidence/A5-harness-preflight-22-typed-tree",
+    "contract": "docs/upgrade/A5-IMAGE-BACKED-CONTINUATION-CONTRACT.md",
+    "environment_baseline": "docs/upgrade/evidence/A5-harness-preflight-47-final-audit",
+    "report": "docs/upgrade/A5-INITIAL24-ENVIRONMENT-BASELINE-REPORT.zh-CN.md"
+  },
+  "required_before_memory_build": [
+    "versioned_resolution_and_rerun_of_django13265_private_f2p_baseline_mismatch",
+    "baseline_and_independent_grader_receipts_for_all_initial24",
+    "independent_preflight_receipts_for_remaining16_memory_sources",
+    "remaining16_five_invalid_env_rows",
+    "historical_four_own_environment_baseline_and_grader_receipts",
+    "independent_full_repo_grader_calibration_for_blocked_rows",
+    "explicit_paid_build_authorization",
+    "separate_memory_build_cny_ledger_runtime_alignment",
+    "dual_source_fingerprint_freeze",
+    "B0-B3_operation_attempt_receipt_importer"
+  ],
+  "paid_execution": false,
+  "private_image_boundary": "Baseline/known-good images contain private patches and are grader-only; public source images remain the attempt-23 transport images.",
+  "shared_gate_evidence": "docs/upgrade/evidence/A5-harness-preflight-72-shared-gates/shared-gates.json",
+  "model_price_binding": "configs/a5/model-price-binding.json",
+  "source_fingerprint_binding": "configs/a5/source-fingerprint.pending.json",
+  "handoff_instruction": "django-13265 contract disposition is preserved in A5-harness-preflight-48: two F2P methods fail baseline and two are regression methods that pass baseline; no IDs are removed. The final 20-source gate is audited in A5-harness-preflight-69: source archives are complete 20/20, 11 remaining16 sources have image-backed full-repository collection calibration plus known-good target and protected-path/missing-receipt/integrity rejection checks, and 9 sources remain blocked. The four historical retries retain host ACL/buildx-lock invalid_env receipts; django-11001/11019 retain baseline mismatch receipts; sympy-12236 and pytest-5413/5495 retain known-good or collection failures. Shared model/price binding, CNY ledger alignment, dual fingerprints and B0-B3 importer remain auditable. Do not start paid memory build or pilot."
+}

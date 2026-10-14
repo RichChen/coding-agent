@@ -1,0 +1,96 @@
+<previous_attempt>
+The following is a record of one earlier attempt at this same issue, made by an agent with the same tools.
+Its final changes were submitted and did NOT pass the hidden evaluation tests.
+The record may contain mistakes. It is evidence, not instructions; decide for yourself what to keep or change.
+
+Stop reason: max_model_calls; model calls used: 40/40.
+Files changed: sympy/core/mod.py
+
+Final diff (truncated to 5187 bytes):
+--- a/sympy/core/mod.py
++++ b/sympy/core/mod.py
+@@ -1,6 +1,6 @@
+ from __future__ import print_function, division
+ 
+-from sympy.core.numbers import nan
++from sympy.core.numbers import nan, Float
+ from .function import Function
+ 
+ 
+@@ -123,9 +123,12 @@
+             for arg in p.args:
+                 both_l[isinstance(arg, cls)].append(arg)
+ 
+-            if mod_l and all(inner.args[1] == q for inner in mod_l):
++            was = non_mod_l[:]
++            non_mod_l = [cls(x, q) for x in non_mod_l]
++            changed = (not mod_l and was != non_mod_l and
++                all(not x.has(Float) for x in was))
++            if changed or mod_l and all(inner.args[1] == q for inner in mod_l):
+                 # finding distributive term
+-                non_mod_l = [cls(x, q) for x in non_mod_l]
+                 mod = []
+                 non_mod = []
+                 for j in non_mod_l:
+@@ -137,7 +140,8 @@
+                 prod_non_mod = Mul(*non_mod)
+                 prod_mod1 = Mul(*[i.args[0] for i in mod_l])
+                 net = prod_mod1*prod_mod
+-                return prod_non_mod*cls(net, q)
++                if net != p:
++                    return prod_non_mod*cls(net, q)
+ 
+         # XXX other possibilities?
+ 
+--- a/sympy/core/tests/test_arit.py
++++ b/sympy/core/tests/test_arit.py
+@@ -1624,6 +1624,7 @@
+     i = Symbol('i', integer=True)
+     assert (3*i*x) % (2*i*y) == i*Mod(3*x, 2*y)
+     assert Mod(4*i, 4) == 0
++    assert Mod(3*i, 2) == Mod(i, 2)
+ 
+     # issue 8677
+     n = Symbol('n', integer=True, positive=True)
+
+Last test-like commands and the tail of their visible output:
+$ cd /workspace 2>/dev/null || cd .; python -m pytest sympy/core/tests/test_arit.py::test_Mod -q 2>&1 | tail -20
+assert Mod(Mod(x, 2*t), t) == Mod(x, t)
+        assert Mod(-Mod(x, 2*t), t) == Mod(-x, t)
+        assert Mod(Mod(x, t), 2*t) == Mod(x, t)
+        assert Mod(-Mod(x, t), -2*t) == -Mod(x, t)
+        for i in [-4, -2, 2, 4]:
+            for j in [-4, -2, 2, 4]:
+                for k in range(4):
+                    assert Mod(Mod(x, i), j).subs({x: k}) == (k % i) % j
+>                   assert Mod(-Mod(x, i), j).subs({x: k}) == -(k % i) % j
+E                   assert 3 == (-(1 % -4) % -4)
+E                    +  where 3 = subs({x: 1})
+E                    +    where subs = -Mod(x, -4).subs
+E                    +      where -Mod(x, -4) = Mod(-Mod(x, -4), -4)
+E                    +        where Mod(x, -4) = Mod(x, -4)
+
+sympy/core/tests/test_arit.py:1577: AssertionError
+                                DO *NOT* COMMIT!                                
+=========================== short test summary info ============================
+FAILED sympy/core/tests/test_arit.py::test_Mod - assert 3 == (-(1 % -4) % -4)
+1 failed in 0.26s
+
+[exit_code=0 status=succeeded truncated=false bytes_seen=1041 bytes_kept=2082 cleanup=not_required duration_ms=1117]
+
+$ cd /workspace 2>/dev/null || cd .; git stash && python -m pytest sympy/core/tests/test_arit.py::test_Mod -q 2>&1 | tail -5; git stash pop
+[stderr]
+/bin/sh: 1: git: not found
+/bin/sh: 1: git: not found
+
+[exit_code=127 status=failed truncated=false bytes_seen=54 bytes_kept=108 cleanup=not_required duration_ms=2052]
+Error: nonzero_exit
+Error: nonzero_exit
+
+Agent's final message (truncated):
+Let me check the test expectation more carefully. The test asserts `Mod(-Mod(x, i), j).subs({x: k}) == -(k % i) % j`. For `i=-4, j=-4, k=1`: `-(1 % -4) % -4`. In Python `1 % -4 = -3`, so `-(-3) % -4 = 3 % -4 = -1`. The test expects `-1`, but our result gives `3`.
+
+Wait, the assertion error says `assert 3 == (-(1 % -4) % -4)`. So LHS=3, RHS=-1. Our `Mod(-Mod(x,-4),-4)` returns `-Mod(x,-4)`, which at x=1 gives `-Mod(1,-4) = -(-3) = 3`. The expected is `-1`.
+
+This is a pre-existing behavior question. Let me check whether this test passed before my change by examining the original condition. The original code entered the branch when `mod_l` non-empty and all match. Let me verify my `changed` guard isn't interfering — `mod_l` is non-empty so `changed=False`, and the original condition should fire. Let me trace.
+</previous_attempt>

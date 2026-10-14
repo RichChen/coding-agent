@@ -1,0 +1,26 @@
+{
+  "schema": "a5.memory-pool.s1-paid-authorization.v1",
+  "authorized_at": "2026-09-22T18:37:00+08:00",
+  "authority": "user_message_raise_call_and_context_budget_and_rerun",
+  "prior_attempt": "docs/upgrade/evidence/A5-memory-pool-74-s1-smoke",
+  "contract": "docs/upgrade/A5-PRE-MEMORY-CURSOR-CONTRACT.zh-CN.md",
+  "paid_execution": true,
+  "pilot_started": false,
+  "sources": [
+    "django__django-10914",
+    "sympy__sympy-11400",
+    "scikit-learn__scikit-learn-10297",
+    "pytest-dev__pytest-5103",
+    "django__django-10924",
+    "sympy__sympy-11870"
+  ],
+  "budget_change": {
+    "max_model_calls": {"from": 6, "to": 24},
+    "context_max_tokens": {"from": 32000, "to": 96000},
+    "max_steps": {"from": 20, "to": 35},
+    "total_timeout_seconds": {"from": 600, "to": 1200},
+    "rationale": "prior runs hit max_model_calls or context_overflow before edit tools; moderate raise for explore-then-edit"
+  },
+  "cli": "scripts/a5_memory_source_smoke.py",
+  "config": "configs/memory-smoke-a5.yaml"
+}

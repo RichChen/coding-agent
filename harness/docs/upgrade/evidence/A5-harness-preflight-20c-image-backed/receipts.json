@@ -1,0 +1,35 @@
+{
+  "schema": "a5.image-backed-preflight.receipts.v1",
+  "rows": [
+    {
+      "task_id": "pytest-dev__pytest-8365",
+      "repo": "pytest-dev/pytest",
+      "base_revision": "4964b468c83c06971eb743fbc57cc404f760c573",
+      "role": "target",
+      "status": "image_context_ready",
+      "attempt": 20,
+      "retries": 0,
+      "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\pytest-dev__pytest-8365\\source-receipt.json",
+      "image_digest": null,
+      "model_calls": 0,
+      "paid": false,
+      "source": {
+        "archive_sha256": "972e266e9e055878d90bac983c281243bc7169e70638c2ff9caa25fb61759fb5",
+        "archive_bytes": 1190917,
+        "inventory_sha256": "46680cf4afbae57c89097f36d8f94b3b5dfa4683e5cc64fe26be872e4ac584cf",
+        "file_count": 535,
+        "total_bytes": 4337617,
+        "source_tree_hash": "faf5d395fc9cd01a0396fcb10f683cce33f52994aa5af11607345f2a3902a8ce",
+        "nonregular_paths": [],
+        "complete_member_inventory_verified": true,
+        "within_runtime_limits": true
+      },
+      "transport_mode": "runtime_full",
+      "base_image": "python@sha256:603879aeff06df23f0d392a19f7ce02aa85e14e6b4d25fd9647b116e0cb93467",
+      "image_context": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-20c-image-backed\\tasks\\pytest-dev__pytest-8365\\image-context",
+      "image_context_sha256": "9c5502a350268cfd6e7f9bff2259ae152063245853c22e00b136cfbdacb9cdf9",
+      "reason": "docker_build_deferred",
+      "duration_seconds": 0.11690550000639632
+    }
+  ]
+}

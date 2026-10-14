@@ -1,0 +1,57 @@
+{
+  "task_id": "short-control",
+  "success": true,
+  "final_answer": "{\"endpoint\":\"/v1/health-events\",\"timeout_ms\":850,\"retry_limit\":4,\"idempotency_header\":\"X-Event-Nonce\"}",
+  "failure_reason": "none",
+  "steps": [],
+  "total_elapsed_ms": 2135.621599998558,
+  "total_tokens": 264,
+  "tool_failures": 0,
+  "policy_blocks": 0,
+  "total_tool_invocations": 0,
+  "plan": null,
+  "context_events": [],
+  "subagent_traces": [],
+  "llm_attempts": [
+    {
+      "attempt": 0,
+      "success": true,
+      "error_kind": null,
+      "status_code": null,
+      "message": null,
+      "elapsed_ms": 942.5197999953525,
+      "usage": {
+        "prompt_tokens": 228,
+        "completion_tokens": 36,
+        "total_tokens": 264,
+        "provenance": "provider",
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 228
+      },
+      "usage_provenance": "provider"
+    }
+  ],
+  "termination_kind": null,
+  "cleanup_elapsed_s": null,
+  "model_budget": {
+    "calls_started": 1,
+    "tokens_committed": 264,
+    "cost_committed": 0.00011159999999999999,
+    "outstanding_reservations": 0,
+    "max_model_calls": 1,
+    "max_tokens": 32768,
+    "max_cost_usd": 0.02,
+    "settlements": [
+      {
+        "total_tokens": 264,
+        "provenance": "provider",
+        "cost_usd": 0.00011159999999999999,
+        "cost_provenance": "provider_split",
+        "note": null
+      }
+    ]
+  },
+  "run_output": null,
+  "execution": null,
+  "summary": null
+}

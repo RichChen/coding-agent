@@ -1,0 +1,48 @@
+{
+  "task_id": "pytest-dev__pytest-5262",
+  "repo": "pytest-dev/pytest",
+  "accepted": true,
+  "reason": null,
+  "empty_f2p": [
+    0,
+    1
+  ],
+  "gold_f2p": [
+    1,
+    1
+  ],
+  "empty_p2p": [
+    107,
+    107
+  ],
+  "gold_p2p": [
+    107,
+    107
+  ],
+  "p2p_excluded_count": 0,
+  "p2p_excluded": [],
+  "sklearn_import": null,
+  "nodeids": {
+    "f2p": {
+      "original": 1,
+      "used": 1
+    },
+    "p2p": {
+      "original": 108,
+      "used": 107
+    },
+    "dropped_reasons": {
+      "f2p": {},
+      "p2p": {
+        "unusable_nodeid": 1
+      }
+    },
+    "dropped": [
+      {
+        "side": "p2p",
+        "nodeid": "[100%]",
+        "reason": "unusable_nodeid"
+      }
+    ]
+  }
+}

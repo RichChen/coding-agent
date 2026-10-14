@@ -1,0 +1,16 @@
+{
+  "task_id": "boltons-475-strutils-slice",
+  "description": "Repair the reported Unicode line-separator defect in boltons/strutils.py. iter_splitlines and indent should recognize Unicode line/paragraph separators without splitting ordinary date/number text, and preserve existing empty-line, CRLF and custom-newline behavior. Only modify boltons/strutils.py. Inspect the implementation, run the provided public tests before and after editing, then briefly describe the fix. Do not modify tests or create extra files. Use python -B for commands so bytecode files are not created. This is a frozen repository module slice, not a full checkout. Public check: python -B test_public.py. Network and package installation are unavailable.",
+  "repo_id": "https://github.com/mahmoud/boltons",
+  "base_revision": "967864f89791509f9eb36b22b4579d36b72a6df2",
+  "workspace_profile": "docker_linux",
+  "budget": {},
+  "public_context": {
+    "defect_report": "https://github.com/mahmoud/boltons/pull/475",
+    "scope": "module slice",
+    "base_hash": "24cb5b38cfcedf39aa712e0c86c779b32fbc5bb25b1fa4b266fe3e18529d36ec",
+    "editable_paths": [
+      "boltons/strutils.py"
+    ]
+  }
+}

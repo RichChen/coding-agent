@@ -1,0 +1,134 @@
+{
+  "task_id": "pytest-dev__pytest-7324",
+  "repo": "pytest-dev/pytest",
+  "accepted": true,
+  "reason": null,
+  "empty_f2p": [
+    0,
+    3
+  ],
+  "gold_f2p": [
+    3,
+    3
+  ],
+  "empty_p2p": [
+    40,
+    40
+  ],
+  "gold_p2p": [
+    40,
+    40
+  ],
+  "p2p_excluded_count": 0,
+  "p2p_excluded": [],
+  "sklearn_import": null,
+  "nodeids": {
+    "f2p": {
+      "original": 3,
+      "used": 3
+    },
+    "p2p": {
+      "original": 58,
+      "used": 40
+    },
+    "dropped_reasons": {
+      "f2p": {},
+      "p2p": {
+        "unbalanced_brackets": 16,
+        "parameter_contains_node_separator": 2
+      }
+    },
+    "dropped": [
+      {
+        "side": "p2p",
+        "nodeid": "testing/test_mark_expression.py::test_basic[not",
+        "reason": "unbalanced_brackets"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "testing/test_mark_expression.py::test_basic[true",
+        "reason": "unbalanced_brackets"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "testing/test_mark_expression.py::test_basic[false",
+        "reason": "unbalanced_brackets"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "testing/test_mark_expression.py::test_basic[(not",
+        "reason": "unbalanced_brackets"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "testing/test_mark_expression.py::test_syntax_oddeties[",
+        "reason": "unbalanced_brackets"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "testing/test_mark_expression.py::test_syntax_oddeties[(",
+        "reason": "unbalanced_brackets"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "testing/test_mark_expression.py::test_syntax_oddeties[not",
+        "reason": "unbalanced_brackets"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "testing/test_mark_expression.py::test_syntax_errors[(-2-expected",
+        "reason": "unbalanced_brackets"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "testing/test_mark_expression.py::test_syntax_errors[",
+        "reason": "unbalanced_brackets"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "testing/test_mark_expression.py::test_syntax_errors[)-1-expected",
+        "reason": "unbalanced_brackets"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "testing/test_mark_expression.py::test_syntax_errors[)",
+        "reason": "unbalanced_brackets"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "testing/test_mark_expression.py::test_syntax_errors[not-4-expected",
+        "reason": "unbalanced_brackets"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "testing/test_mark_expression.py::test_syntax_errors[not",
+        "reason": "unbalanced_brackets"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "testing/test_mark_expression.py::test_syntax_errors[(not)-5-expected",
+        "reason": "unbalanced_brackets"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "testing/test_mark_expression.py::test_syntax_errors[and-1-expected",
+        "reason": "unbalanced_brackets"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "testing/test_mark_expression.py::test_syntax_errors[ident",
+        "reason": "unbalanced_brackets"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "testing/test_mark_expression.py::test_valid_idents[:::]",
+        "reason": "parameter_contains_node_separator"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "testing/test_mark_expression.py::test_valid_idents[a:::c]",
+        "reason": "parameter_contains_node_separator"
+      }
+    ]
+  }
+}

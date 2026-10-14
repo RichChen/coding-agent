@@ -1,0 +1,199 @@
+{
+  "schema": "a5.failure-ledger-ref.v1",
+  "failed_count": 4,
+  "blocked_count": 5,
+  "promoted_failed_or_blocked": false,
+  "failed": [
+    {
+      "source_id": "sympy__sympy-11870",
+      "state": "failed_retained",
+      "promoted": false,
+      "reason": "no_candidate_changes_budget_exhausted_no_edits",
+      "wave": "s1",
+      "refs": [
+        {
+          "path": "D:/crq/src/coding-harness/docs/upgrade/evidence/A5-memory-pool-76-s2/failure-ledger.jsonl",
+          "sha256": "04a8b0fc88f33836b3340bd6e6095c5f7e93db7249a93a83e751d48134470a6a"
+        },
+        {
+          "path": "D:/crq/src/coding-harness/docs/upgrade/evidence/A5-memory-pool-76-s2/s2-status.json",
+          "sha256": "3234fa6a906157693bccae516eb4e20d0a609b52dceed8f616d759fc805429b9"
+        }
+      ]
+    },
+    {
+      "source_id": "sympy__sympy-11897",
+      "state": "failed_retained",
+      "promoted": false,
+      "reason": "no_candidate_changes_budget_exhausted_no_edits",
+      "wave": "s2",
+      "refs": [
+        {
+          "path": "D:/crq/src/coding-harness/docs/upgrade/evidence/A5-memory-pool-76-s2/failure-ledger.jsonl",
+          "sha256": "04a8b0fc88f33836b3340bd6e6095c5f7e93db7249a93a83e751d48134470a6a"
+        },
+        {
+          "path": "D:/crq/src/coding-harness/docs/upgrade/evidence/A5-memory-pool-76-s2/s2-status.json",
+          "sha256": "3234fa6a906157693bccae516eb4e20d0a609b52dceed8f616d759fc805429b9"
+        }
+      ]
+    },
+    {
+      "source_id": "scikit-learn__scikit-learn-10508",
+      "state": "failed_retained",
+      "promoted": false,
+      "reason": "edits_recorded_but_empty_delta",
+      "wave": "s2",
+      "refs": [
+        {
+          "path": "D:/crq/src/coding-harness/docs/upgrade/evidence/A5-memory-pool-76-s2/failure-ledger.jsonl",
+          "sha256": "04a8b0fc88f33836b3340bd6e6095c5f7e93db7249a93a83e751d48134470a6a"
+        },
+        {
+          "path": "D:/crq/src/coding-harness/docs/upgrade/evidence/A5-memory-pool-76-s2/s2-status.json",
+          "sha256": "3234fa6a906157693bccae516eb4e20d0a609b52dceed8f616d759fc805429b9"
+        }
+      ]
+    },
+    {
+      "source_id": "pytest-dev__pytest-5227",
+      "state": "failed_retained",
+      "promoted": false,
+      "reason": "unassigned_path_then_reverify_still_failed",
+      "wave": "s2",
+      "refs": [
+        {
+          "path": "D:/crq/src/coding-harness/docs/upgrade/evidence/A5-memory-pool-76-s2/failure-ledger.jsonl",
+          "sha256": "04a8b0fc88f33836b3340bd6e6095c5f7e93db7249a93a83e751d48134470a6a"
+        },
+        {
+          "path": "D:/crq/src/coding-harness/docs/upgrade/evidence/A5-memory-pool-76-s2/s2-status.json",
+          "sha256": "3234fa6a906157693bccae516eb4e20d0a609b52dceed8f616d759fc805429b9"
+        }
+      ]
+    }
+  ],
+  "blocked": [
+    {
+      "source_id": "django__django-11001",
+      "state": "blocked",
+      "promoted": false,
+      "disposition": "blocked_baseline_contract_mismatch",
+      "refs": [
+        {
+          "path": "D:/crq/src/coding-harness/docs/upgrade/evidence/A5-memory-pool-76-s2/s2-status.json",
+          "sha256": "3234fa6a906157693bccae516eb4e20d0a609b52dceed8f616d759fc805429b9"
+        },
+        {
+          "path": "D:/crq/src/coding-harness/docs/upgrade/evidence/A5-memory-pool-76-s2/authorization.json",
+          "sha256": "d85c038b2641cc5f96ed147e69e58d41710f5046bef0d61fc0812cceb422a4d5"
+        },
+        {
+          "path": "D:/crq/src/coding-harness/docs/upgrade/evidence/A5-harness-preflight-71-memory-gates-final/anomaly-dispositions.json",
+          "sha256": "6c80c0b1b024927eed684ac2d8633ff3ecd62f2945b02b946983d493e6ead9df"
+        },
+        {
+          "path": "D:/crq/src/coding-harness/docs/upgrade/evidence/A5-harness-preflight-57-remaining16-baseline/tasks/django__django-11001/receipt.json",
+          "sha256": "605fd02231c5c096fe91ef2d26f455c039d136db335bd905cf31810c7c1e2cea"
+        }
+      ]
+    },
+    {
+      "source_id": "django__django-11019",
+      "state": "blocked",
+      "promoted": false,
+      "disposition": "blocked_baseline_contract_mismatch",
+      "refs": [
+        {
+          "path": "D:/crq/src/coding-harness/docs/upgrade/evidence/A5-memory-pool-76-s2/s2-status.json",
+          "sha256": "3234fa6a906157693bccae516eb4e20d0a609b52dceed8f616d759fc805429b9"
+        },
+        {
+          "path": "D:/crq/src/coding-harness/docs/upgrade/evidence/A5-memory-pool-76-s2/authorization.json",
+          "sha256": "d85c038b2641cc5f96ed147e69e58d41710f5046bef0d61fc0812cceb422a4d5"
+        },
+        {
+          "path": "D:/crq/src/coding-harness/docs/upgrade/evidence/A5-harness-preflight-71-memory-gates-final/anomaly-dispositions.json",
+          "sha256": "6c80c0b1b024927eed684ac2d8633ff3ecd62f2945b02b946983d493e6ead9df"
+        },
+        {
+          "path": "D:/crq/src/coding-harness/docs/upgrade/evidence/A5-harness-preflight-57-remaining16-baseline/tasks/django__django-11019/receipt.json",
+          "sha256": "5cadf19792f01d5f06da1feba524f41867b4636aad4473ad674516a3f2470294"
+        }
+      ]
+    },
+    {
+      "source_id": "sympy__sympy-12236",
+      "state": "blocked",
+      "promoted": false,
+      "disposition": "blocked_known_good_failure",
+      "refs": [
+        {
+          "path": "D:/crq/src/coding-harness/docs/upgrade/evidence/A5-memory-pool-76-s2/s2-status.json",
+          "sha256": "3234fa6a906157693bccae516eb4e20d0a609b52dceed8f616d759fc805429b9"
+        },
+        {
+          "path": "D:/crq/src/coding-harness/docs/upgrade/evidence/A5-memory-pool-76-s2/authorization.json",
+          "sha256": "d85c038b2641cc5f96ed147e69e58d41710f5046bef0d61fc0812cceb422a4d5"
+        },
+        {
+          "path": "D:/crq/src/coding-harness/docs/upgrade/evidence/A5-harness-preflight-71-memory-gates-final/anomaly-dispositions.json",
+          "sha256": "6c80c0b1b024927eed684ac2d8633ff3ecd62f2945b02b946983d493e6ead9df"
+        },
+        {
+          "path": "D:/crq/src/coding-harness/docs/upgrade/evidence/A5-harness-preflight-57-remaining16-baseline/tasks/sympy__sympy-12236/receipt.json",
+          "sha256": "6730e5909ff758f1cf64f7a1eac8da8e9f8df79451bec00a508b98ec0a956cee"
+        }
+      ]
+    },
+    {
+      "source_id": "pytest-dev__pytest-5413",
+      "state": "blocked",
+      "promoted": false,
+      "disposition": "blocked_collection_invalid_and_known_good_failure",
+      "refs": [
+        {
+          "path": "D:/crq/src/coding-harness/docs/upgrade/evidence/A5-memory-pool-76-s2/s2-status.json",
+          "sha256": "3234fa6a906157693bccae516eb4e20d0a609b52dceed8f616d759fc805429b9"
+        },
+        {
+          "path": "D:/crq/src/coding-harness/docs/upgrade/evidence/A5-memory-pool-76-s2/authorization.json",
+          "sha256": "d85c038b2641cc5f96ed147e69e58d41710f5046bef0d61fc0812cceb422a4d5"
+        },
+        {
+          "path": "D:/crq/src/coding-harness/docs/upgrade/evidence/A5-harness-preflight-71-memory-gates-final/anomaly-dispositions.json",
+          "sha256": "6c80c0b1b024927eed684ac2d8633ff3ecd62f2945b02b946983d493e6ead9df"
+        },
+        {
+          "path": "D:/crq/src/coding-harness/docs/upgrade/evidence/A5-harness-preflight-57-remaining16-baseline/tasks/pytest-dev__pytest-5413/receipt.json",
+          "sha256": "c183f5a2e6439d191eb9dd62b157b7c79a96ef014b4c6fd2bde7b6396f6311fe"
+        }
+      ]
+    },
+    {
+      "source_id": "pytest-dev__pytest-5495",
+      "state": "blocked",
+      "promoted": false,
+      "disposition": "blocked_collection_invalid_and_known_good_failure",
+      "refs": [
+        {
+          "path": "D:/crq/src/coding-harness/docs/upgrade/evidence/A5-memory-pool-76-s2/s2-status.json",
+          "sha256": "3234fa6a906157693bccae516eb4e20d0a609b52dceed8f616d759fc805429b9"
+        },
+        {
+          "path": "D:/crq/src/coding-harness/docs/upgrade/evidence/A5-memory-pool-76-s2/authorization.json",
+          "sha256": "d85c038b2641cc5f96ed147e69e58d41710f5046bef0d61fc0812cceb422a4d5"
+        },
+        {
+          "path": "D:/crq/src/coding-harness/docs/upgrade/evidence/A5-harness-preflight-71-memory-gates-final/anomaly-dispositions.json",
+          "sha256": "6c80c0b1b024927eed684ac2d8633ff3ecd62f2945b02b946983d493e6ead9df"
+        },
+        {
+          "path": "D:/crq/src/coding-harness/docs/upgrade/evidence/A5-harness-preflight-57-remaining16-baseline/tasks/pytest-dev__pytest-5495/receipt.json",
+          "sha256": "b004ab54141e76d85f8d00ee0a09b00013a4017b28b8954f8780da81e9a77b56"
+        }
+      ]
+    }
+  ],
+  "note": "failed and blocked rows are referenced, not copied into the lightweight snapshot"
+}

@@ -1,0 +1,88 @@
+{
+  "schema": "a5.repo-baseline-preflight.receipts.v1",
+  "rows": [
+    {
+      "task_id": "sympy__sympy-20154",
+      "repo": "sympy/sympy",
+      "base_revision": "bdb49c4abfb35554a3c8ce761696ffff3bb837fe",
+      "status": "invalid_env",
+      "attempt": 25,
+      "retries": 0,
+      "model_calls": 0,
+      "paid": false,
+      "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sympy__sympy-20154\\source-receipt.json",
+      "transport_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-23-transport-smoke\\tasks\\sympy__sympy-20154\\receipt.json",
+      "source": {
+        "schema": "a5.full-archive-inventory.v1",
+        "repo": "sympy/sympy",
+        "base_revision": "bdb49c4abfb35554a3c8ce761696ffff3bb837fe",
+        "archive_sha256": "6bf852392fa24f95a6f8840c72298d9c8d483cfe6153e9bdca0d25fc8cff5720",
+        "archive_bytes": 6958813,
+        "git_pax_commit": "bdb49c4abfb35554a3c8ce761696ffff3bb837fe",
+        "source_tree_hash": "0a9e97fcf237be3f373a2c90966bfd59b653a20628dfbab48434ccdbf7af51b0",
+        "inventory_sha256": "2d3d3c373e997d89c3946a9caf9ce0a981861b745b7010c154d87e65f67f26e5",
+        "file_count": 1813,
+        "total_bytes": 32900772,
+        "nonregular_paths": [],
+        "excluded_upstream_paths": [],
+        "snapshot_kind": "complete_pinned_upstream_archive",
+        "within_runtime_limits": false,
+        "inventory_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sympy__sympy-20154\\source-inventory.json"
+      },
+      "transport_mode": "image_backed_base_plus_delta",
+      "transport_image_digest": "coding-harness-a5-transport@sha256:a55cfa0b19c880ffa0d0cda391d9e69a0faded3c42434238a35b60909c92497e",
+      "baseline_image_digest": "coding-harness-a5-baseline@sha256:976afe277cd112460657f99a9336c6ad54d8ab0c7a394a2094d4b4c846141549",
+      "known_good_image_digest": "coding-harness-a5-known-good@sha256:cbecda3ba88b6a858eee4288f5046f92d14ffdcd0ebf0080a17ab3fd17899406",
+      "baseline_image_id": "sha256:976afe277cd112460657f99a9336c6ad54d8ab0c7a394a2094d4b4c846141549",
+      "known_good_image_id": "sha256:cbecda3ba88b6a858eee4288f5046f92d14ffdcd0ebf0080a17ab3fd17899406",
+      "private_source_binding": {
+        "path": "D:\\crq\\src\\coding-agent\\reports\\upgrade\\a5-pilot20-preparation-20260921-v4\\private\\tasks\\a5-task-532c204a7648a7cd\\source-row.json",
+        "sha256": "0f2a7d0b3052436307f0168ad78af41b2589842b0e40d5797fa599016981763c",
+        "test_patch_sha256": "cf0ba8dc5c2b8b8194b9f404eafb9f595870820a5d2125fee6cabacd5f5dcf8a",
+        "gold_patch_sha256": "af9701694b221266b83758b2209e9494b7f2c52388c0f80c3ea07965279feec1",
+        "test_patch_paths": [
+          "sympy/utilities/tests/test_iterables.py"
+        ],
+        "gold_patch_paths": [
+          "sympy/utilities/iterables.py"
+        ]
+      },
+      "snapshot_binding": {
+        "original_tree_hash": "eef9257e6309dbf4eb0f8f493095b42ef05ee4f909a6d48f1cb5b11c03c00b11",
+        "baseline_tree_hash": "63eb7fd5e7d0c0b49d0fd08c8c4682e4b76c7f52c3b251bec771e6543f414677",
+        "known_good_tree_hash": "269d27bec117f29f270f13e1bfe8e2a5a07d55c41b0ac3b227d86a96c118a178"
+      },
+      "python_version": null,
+      "pytest_version": "7.4.4",
+      "collection": {
+        "status": "invalid_env",
+        "count": 0,
+        "hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "nodeids": [],
+        "receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-25g-repo-baseline-sympy20154\\tasks\\sympy__sympy-20154\\collection\\evidence.json",
+        "collection_errors": []
+      },
+      "baseline": {
+        "status": "baseline_invalid",
+        "failure_nodeids": [
+          "sympy/utilities/tests/test_iterables.py::test_partitions",
+          "sympy/utilities/tests/test_iterables.py::test_uniq"
+        ],
+        "outcomes": {},
+        "missing_exact_nodeids": [
+          "sympy/utilities/tests/test_iterables.py::test_partitions",
+          "sympy/utilities/tests/test_iterables.py::test_uniq"
+        ],
+        "receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-25g-repo-baseline-sympy20154\\tasks\\sympy__sympy-20154\\baseline\\evidence.json"
+      },
+      "grader": {
+        "status": "pending_full_repo_grader",
+        "known_good": "fail",
+        "known_good_outcomes": {}
+      },
+      "cleanup_verified": true,
+      "dependencies": "see image pip freeze receipt",
+      "reason": "environment_or_baseline_gate_failed"
+    }
+  ]
+}

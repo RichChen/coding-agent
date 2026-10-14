@@ -1,0 +1,199 @@
+{
+  "task_id": "django__django-15022",
+  "repo": "django/django",
+  "accepted": true,
+  "reason": null,
+  "empty_f2p": [
+    0,
+    3
+  ],
+  "gold_f2p": [
+    3,
+    3
+  ],
+  "empty_p2p": [
+    54,
+    54
+  ],
+  "gold_p2p": [
+    54,
+    54
+  ],
+  "p2p_excluded_count": 0,
+  "p2p_excluded": [],
+  "nodeids": {
+    "f2p": {
+      "original": 3,
+      "used": 3
+    },
+    "p2p": {
+      "original": 56,
+      "used": 54
+    },
+    "dropped_reasons": {
+      "f2p": {},
+      "p2p": {
+        "docstring_ambiguous": 2
+      }
+    },
+    "dropped": [
+      {
+        "side": "p2p",
+        "nodeid": "The primary key is used in the ordering of the changelist's results to",
+        "reason": "docstring_ambiguous",
+        "candidates": [
+          "admin_changelist.tests.ChangeListTests.test_deterministic_order_for_unordered_model",
+          "admin_changelist.tests.ChangeListTests.test_deterministic_order_for_model_ordered_by_its_manager"
+        ]
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Regression test for #13902: When using a ManyToMany in list_filter,",
+        "reason": "docstring_ambiguous",
+        "candidates": [
+          "admin_changelist.tests.ChangeListTests.test_no_duplicates_for_m2m_in_list_filter",
+          "admin_changelist.tests.ChangeListTests.test_no_duplicates_for_through_m2m_in_list_filter",
+          "admin_changelist.tests.ChangeListTests.test_no_duplicates_for_inherited_m2m_in_list_filter",
+          "admin_changelist.tests.ChangeListTests.test_no_duplicates_for_m2m_to_inherited_in_list_filter"
+        ]
+      }
+    ],
+    "mapped": {
+      "f2p": 2,
+      "p2p": 24
+    },
+    "mapping": [
+      {
+        "side": "f2p",
+        "docstring": "All rows containing each of the searched words are returned, where each",
+        "nodeid": "admin_changelist.tests.ChangeListTests.test_multiple_search_fields"
+      },
+      {
+        "side": "f2p",
+        "docstring": "Searches over multi-valued relationships return rows from related",
+        "nodeid": "admin_changelist.tests.ChangeListTests.test_related_field_multiple_search_terms"
+      },
+      {
+        "side": "p2p",
+        "docstring": "{% get_admin_log %} works if the user model's primary key isn't named",
+        "nodeid": "admin_changelist.tests.GetAdminLogTests.test_custom_user_pk_not_named_id"
+      },
+      {
+        "side": "p2p",
+        "docstring": "{% get_admin_log %} works without specifying a user.",
+        "nodeid": "admin_changelist.tests.GetAdminLogTests.test_no_user"
+      },
+      {
+        "side": "p2p",
+        "docstring": "list_editable edits use a filtered queryset to limit memory usage.",
+        "nodeid": "admin_changelist.tests.ChangeListTests.test_changelist_view_list_editable_changed_objects_uses_filter"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Regression test for #13196: output of functions should be  localized",
+        "nodeid": "admin_changelist.tests.ChangeListTests.test_computed_list_display_localization"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Regression tests for #14206: dynamic list_display support.",
+        "nodeid": "admin_changelist.tests.ChangeListTests.test_dynamic_list_display"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Regression tests for #16257: dynamic list_display_links support.",
+        "nodeid": "admin_changelist.tests.ChangeListTests.test_dynamic_list_display_links"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Regression tests for ticket #17646: dynamic list_filter support.",
+        "nodeid": "admin_changelist.tests.ChangeListTests.test_dynamic_list_filter"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Simultaneous edits of list_editable fields on the changelist by",
+        "nodeid": "admin_changelist.tests.ChangeListTests.test_multiuser_edit"
+      },
+      {
+        "side": "p2p",
+        "docstring": "When using a ManyToMany in search_fields at the second level behind a",
+        "nodeid": "admin_changelist.tests.ChangeListTests.test_no_duplicates_for_many_to_many_at_second_level_in_search_fields"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Regressions tests for #15819: If a field listed in list_filters is a",
+        "nodeid": "admin_changelist.tests.ChangeListTests.test_no_duplicates_for_non_unique_related_object_in_list_filter"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Regressions tests for #15819: If a field listed in search_fields",
+        "nodeid": "admin_changelist.tests.ChangeListTests.test_no_duplicates_for_non_unique_related_object_in_search_fields"
+      },
+      {
+        "side": "p2p",
+        "docstring": "When using a ManyToMany in list_filter at the second level behind a",
+        "nodeid": "admin_changelist.tests.ChangeListTests.test_no_duplicates_for_through_m2m_at_second_level_in_list_filter"
+      },
+      {
+        "side": "p2p",
+        "docstring": "If a ManyToManyField is in list_filter but isn't in any lookup params,",
+        "nodeid": "admin_changelist.tests.ChangeListTests.test_no_exists_for_m2m_in_list_filter_without_params"
+      },
+      {
+        "side": "p2p",
+        "docstring": "#15185 -- Allow no links from the 'change list' view grid.",
+        "nodeid": "admin_changelist.tests.ChangeListTests.test_no_list_display_links"
+      },
+      {
+        "side": "p2p",
+        "docstring": "When ModelAdmin.has_add_permission() returns False, the object-tools",
+        "nodeid": "admin_changelist.tests.ChangeListTests.test_object_tools_displayed_no_add_permission"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Regression tests for #12893: Pagination in admins changelist doesn't",
+        "nodeid": "admin_changelist.tests.ChangeListTests.test_pagination"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Regression tests for ticket #15653: ensure the number of pages",
+        "nodeid": "admin_changelist.tests.ChangeListTests.test_pagination_page_range"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Regression test for #14312: list_editable with pagination",
+        "nodeid": "admin_changelist.tests.ChangeListTests.test_result_list_editable"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Regression tests for #11791: Inclusion tag result_list generates a",
+        "nodeid": "admin_changelist.tests.ChangeListTests.test_result_list_editable_html"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Regression test for #14982: EMPTY_CHANGELIST_VALUE should be honored",
+        "nodeid": "admin_changelist.tests.ChangeListTests.test_result_list_empty_changelist_value"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Inclusion tag result_list generates a table when with default",
+        "nodeid": "admin_changelist.tests.ChangeListTests.test_result_list_html"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Empty value display can be set in ModelAdmin or individual fields.",
+        "nodeid": "admin_changelist.tests.ChangeListTests.test_result_list_set_empty_value_display_in_model_admin"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Empty value display can be set on AdminSite.",
+        "nodeid": "admin_changelist.tests.ChangeListTests.test_result_list_set_empty_value_display_on_admin_site"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Regression test for #10348: ChangeList.get_queryset() shouldn't",
+        "nodeid": "admin_changelist.tests.ChangeListTests.test_select_related_preserved"
+      }
+    ]
+  },
+  "sklearn_import": null
+}

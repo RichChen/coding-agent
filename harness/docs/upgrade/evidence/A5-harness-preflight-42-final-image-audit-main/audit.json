@@ -1,0 +1,1492 @@
+{
+  "rows": [
+    {
+      "task_id": "django__django-10914",
+      "kind": "baseline",
+      "image": "coding-harness-a5-baseline@sha256:3f063b8a34938ecf389a33c5c4743c8944ccd964c93b92e274b004df76f5905d",
+      "status": "verified",
+      "model_calls": 0,
+      "paid": false,
+      "expected_members": 9015,
+      "mismatches": [],
+      "generated": {
+        "Django.egg-info": {
+          "kind": "dir",
+          "size": 180
+        },
+        "django/__pycache__": {
+          "kind": "dir",
+          "size": 60
+        },
+        "django/utils/__pycache__": {
+          "kind": "dir",
+          "size": 80
+        },
+        "django/utils/__pycache__/version.cpython-39.pyc": {
+          "kind": "file",
+          "size": 2983
+        },
+        "django/utils/__pycache__/__init__.cpython-39.pyc": {
+          "kind": "file",
+          "size": 126
+        },
+        "django/__pycache__/__init__.cpython-39.pyc": {
+          "kind": "file",
+          "size": 940
+        },
+        "Django.egg-info/top_level.txt": {
+          "kind": "file",
+          "size": 7
+        },
+        "Django.egg-info/requires.txt": {
+          "kind": "file",
+          "size": 61
+        },
+        "Django.egg-info/not-zip-safe": {
+          "kind": "file",
+          "size": 1
+        },
+        "Django.egg-info/entry_points.txt": {
+          "kind": "file",
+          "size": 83
+        },
+        "Django.egg-info/dependency_links.txt": {
+          "kind": "file",
+          "size": 1
+        },
+        "Django.egg-info/SOURCES.txt": {
+          "kind": "file",
+          "size": 279128
+        },
+        "Django.egg-info/PKG-INFO": {
+          "kind": "file",
+          "size": 3329
+        }
+      },
+      "environment": "asgiref==3.2.10\n# Editable install with no version control (Django==3.0)\n-e /workspace\nexceptiongroup==1.3.1\niniconfig==2.1.0\npackaging==26.3\npip==23.0.1\npluggy==1.6.0\npytest==7.4.4\npytz==2023.3\nsetuptools==58.1.0\nsqlparse==0.4.4\ntomli==2.4.1\ntyping_extensions==4.16.0\nwheel==0.44.0\n",
+      "python": "3.9.19",
+      "cleanup_verified": true
+    },
+    {
+      "task_id": "django__django-10914",
+      "kind": "known-good",
+      "image": "coding-harness-a5-known-good@sha256:258f7cb2af1e19fb072b0bd7cbff6ace4eb7aaae551c2e8cefe5fc4080ab7472",
+      "status": "verified",
+      "model_calls": 0,
+      "paid": false,
+      "expected_members": 9015,
+      "mismatches": [],
+      "generated": {
+        "Django.egg-info": {
+          "kind": "dir",
+          "size": 180
+        },
+        "Django.egg-info/top_level.txt": {
+          "kind": "file",
+          "size": 7
+        },
+        "Django.egg-info/SOURCES.txt": {
+          "kind": "file",
+          "size": 279128
+        },
+        "Django.egg-info/PKG-INFO": {
+          "kind": "file",
+          "size": 3329
+        },
+        "Django.egg-info/requires.txt": {
+          "kind": "file",
+          "size": 61
+        },
+        "Django.egg-info/not-zip-safe": {
+          "kind": "file",
+          "size": 1
+        },
+        "Django.egg-info/entry_points.txt": {
+          "kind": "file",
+          "size": 83
+        },
+        "Django.egg-info/dependency_links.txt": {
+          "kind": "file",
+          "size": 1
+        }
+      },
+      "environment": "asgiref==3.2.10\n# Editable install with no version control (Django==3.0)\n-e /workspace\nexceptiongroup==1.3.1\niniconfig==2.1.0\npackaging==26.3\npip==23.0.1\npluggy==1.6.0\npytest==7.4.4\npytz==2023.3\nsetuptools==58.1.0\nsqlparse==0.4.4\ntomli==2.4.1\ntyping_extensions==4.16.0\nwheel==0.44.0\n",
+      "python": "3.9.19",
+      "cleanup_verified": true
+    },
+    {
+      "task_id": "django__django-13265",
+      "kind": "baseline",
+      "image": "coding-harness-a5-baseline@sha256:1345f16620bd0ca13a9c07a606fadbfc4a310c3903b2a260a6ceff59a164b190",
+      "status": "verified",
+      "model_calls": 0,
+      "paid": false,
+      "expected_members": 9496,
+      "mismatches": [],
+      "generated": {
+        "Django.egg-info": {
+          "kind": "dir",
+          "size": 180
+        },
+        "django/__pycache__": {
+          "kind": "dir",
+          "size": 60
+        },
+        "django/utils/__pycache__": {
+          "kind": "dir",
+          "size": 80
+        },
+        "django/utils/__pycache__/version.cpython-39.pyc": {
+          "kind": "file",
+          "size": 2973
+        },
+        "django/utils/__pycache__/__init__.cpython-39.pyc": {
+          "kind": "file",
+          "size": 126
+        },
+        "django/__pycache__/__init__.cpython-39.pyc": {
+          "kind": "file",
+          "size": 940
+        },
+        "Django.egg-info/top_level.txt": {
+          "kind": "file",
+          "size": 7
+        },
+        "Django.egg-info/requires.txt": {
+          "kind": "file",
+          "size": 84
+        },
+        "Django.egg-info/not-zip-safe": {
+          "kind": "file",
+          "size": 1
+        },
+        "Django.egg-info/entry_points.txt": {
+          "kind": "file",
+          "size": 83
+        },
+        "Django.egg-info/dependency_links.txt": {
+          "kind": "file",
+          "size": 1
+        },
+        "Django.egg-info/SOURCES.txt": {
+          "kind": "file",
+          "size": 294866
+        },
+        "Django.egg-info/PKG-INFO": {
+          "kind": "file",
+          "size": 3771
+        }
+      },
+      "environment": "asgiref==3.5.2\n# Editable install with no version control (Django==3.2)\n-e /workspace\nexceptiongroup==1.3.1\niniconfig==2.1.0\npackaging==26.3\npip==23.0.1\npluggy==1.6.0\npytest==7.4.4\npytz==2023.3\nsetuptools==58.1.0\nsqlparse==0.4.4\ntomli==2.4.1\ntyping_extensions==4.16.0\nwheel==0.44.0\n",
+      "python": "3.9.19",
+      "cleanup_verified": true
+    },
+    {
+      "task_id": "django__django-13265",
+      "kind": "known-good",
+      "image": "coding-harness-a5-known-good@sha256:c6f709c6f0be0c2a52590300ca6ccc0a86193086d0dd50e183132aa7bb582468",
+      "status": "verified",
+      "model_calls": 0,
+      "paid": false,
+      "expected_members": 9496,
+      "mismatches": [],
+      "generated": {
+        "Django.egg-info": {
+          "kind": "dir",
+          "size": 180
+        },
+        "Django.egg-info/top_level.txt": {
+          "kind": "file",
+          "size": 7
+        },
+        "Django.egg-info/requires.txt": {
+          "kind": "file",
+          "size": 84
+        },
+        "Django.egg-info/not-zip-safe": {
+          "kind": "file",
+          "size": 1
+        },
+        "Django.egg-info/entry_points.txt": {
+          "kind": "file",
+          "size": 83
+        },
+        "Django.egg-info/dependency_links.txt": {
+          "kind": "file",
+          "size": 1
+        },
+        "Django.egg-info/SOURCES.txt": {
+          "kind": "file",
+          "size": 294866
+        },
+        "Django.egg-info/PKG-INFO": {
+          "kind": "file",
+          "size": 3771
+        }
+      },
+      "environment": "asgiref==3.5.2\n# Editable install with no version control (Django==3.2)\n-e /workspace\nexceptiongroup==1.3.1\niniconfig==2.1.0\npackaging==26.3\npip==23.0.1\npluggy==1.6.0\npytest==7.4.4\npytz==2023.3\nsetuptools==58.1.0\nsqlparse==0.4.4\ntomli==2.4.1\ntyping_extensions==4.16.0\nwheel==0.44.0\n",
+      "python": "3.9.19",
+      "cleanup_verified": true
+    },
+    {
+      "task_id": "django__django-13448",
+      "kind": "baseline",
+      "image": "coding-harness-a5-baseline@sha256:069eeae8f6981d6d03871a8fe19389bfadbfd93a728e76c215a29daaac053528",
+      "status": "verified",
+      "model_calls": 0,
+      "paid": false,
+      "expected_members": 9512,
+      "mismatches": [],
+      "generated": {
+        "Django.egg-info": {
+          "kind": "dir",
+          "size": 180
+        },
+        "django/__pycache__": {
+          "kind": "dir",
+          "size": 60
+        },
+        "django/utils/__pycache__": {
+          "kind": "dir",
+          "size": 80
+        },
+        "django/utils/__pycache__/version.cpython-39.pyc": {
+          "kind": "file",
+          "size": 2973
+        },
+        "django/utils/__pycache__/__init__.cpython-39.pyc": {
+          "kind": "file",
+          "size": 126
+        },
+        "django/__pycache__/__init__.cpython-39.pyc": {
+          "kind": "file",
+          "size": 940
+        },
+        "Django.egg-info/top_level.txt": {
+          "kind": "file",
+          "size": 7
+        },
+        "Django.egg-info/requires.txt": {
+          "kind": "file",
+          "size": 84
+        },
+        "Django.egg-info/not-zip-safe": {
+          "kind": "file",
+          "size": 1
+        },
+        "Django.egg-info/entry_points.txt": {
+          "kind": "file",
+          "size": 83
+        },
+        "Django.egg-info/dependency_links.txt": {
+          "kind": "file",
+          "size": 1
+        },
+        "Django.egg-info/SOURCES.txt": {
+          "kind": "file",
+          "size": 295399
+        },
+        "Django.egg-info/PKG-INFO": {
+          "kind": "file",
+          "size": 3771
+        }
+      },
+      "environment": "asgiref==3.5.2\n# Editable install with no version control (Django==3.2)\n-e /workspace\nexceptiongroup==1.3.1\niniconfig==2.1.0\npackaging==26.3\npip==23.0.1\npluggy==1.6.0\npytest==7.4.4\npytz==2023.3\nsetuptools==58.1.0\nsqlparse==0.4.4\ntomli==2.4.1\ntyping_extensions==4.16.0\nwheel==0.44.0\n",
+      "python": "3.9.19",
+      "cleanup_verified": true
+    },
+    {
+      "task_id": "django__django-13448",
+      "kind": "known-good",
+      "image": "coding-harness-a5-known-good@sha256:ff9a9b2b595c5a7e405aa324bdada15b612b2ab6eae2bcbc3b690672aed9b257",
+      "status": "verified",
+      "model_calls": 0,
+      "paid": false,
+      "expected_members": 9512,
+      "mismatches": [],
+      "generated": {
+        "Django.egg-info": {
+          "kind": "dir",
+          "size": 180
+        },
+        "Django.egg-info/top_level.txt": {
+          "kind": "file",
+          "size": 7
+        },
+        "Django.egg-info/requires.txt": {
+          "kind": "file",
+          "size": 84
+        },
+        "Django.egg-info/not-zip-safe": {
+          "kind": "file",
+          "size": 1
+        },
+        "Django.egg-info/entry_points.txt": {
+          "kind": "file",
+          "size": 83
+        },
+        "Django.egg-info/dependency_links.txt": {
+          "kind": "file",
+          "size": 1
+        },
+        "Django.egg-info/SOURCES.txt": {
+          "kind": "file",
+          "size": 295399
+        },
+        "Django.egg-info/PKG-INFO": {
+          "kind": "file",
+          "size": 3771
+        }
+      },
+      "environment": "asgiref==3.5.2\n# Editable install with no version control (Django==3.2)\n-e /workspace\nexceptiongroup==1.3.1\niniconfig==2.1.0\npackaging==26.3\npip==23.0.1\npluggy==1.6.0\npytest==7.4.4\npytz==2023.3\nsetuptools==58.1.0\nsqlparse==0.4.4\ntomli==2.4.1\ntyping_extensions==4.16.0\nwheel==0.44.0\n",
+      "python": "3.9.19",
+      "cleanup_verified": true
+    },
+    {
+      "task_id": "django__django-13590",
+      "kind": "baseline",
+      "image": "coding-harness-a5-baseline@sha256:5a6120dc14f9e6827f391ef67d5567dc67371ba4a2427de546ccbc2954de85d2",
+      "status": "verified",
+      "model_calls": 0,
+      "paid": false,
+      "expected_members": 9520,
+      "mismatches": [],
+      "generated": {
+        "Django.egg-info": {
+          "kind": "dir",
+          "size": 180
+        },
+        "django/__pycache__": {
+          "kind": "dir",
+          "size": 60
+        },
+        "django/utils/__pycache__": {
+          "kind": "dir",
+          "size": 80
+        },
+        "django/utils/__pycache__/version.cpython-39.pyc": {
+          "kind": "file",
+          "size": 2973
+        },
+        "django/utils/__pycache__/__init__.cpython-39.pyc": {
+          "kind": "file",
+          "size": 126
+        },
+        "django/__pycache__/__init__.cpython-39.pyc": {
+          "kind": "file",
+          "size": 940
+        },
+        "Django.egg-info/top_level.txt": {
+          "kind": "file",
+          "size": 7
+        },
+        "Django.egg-info/requires.txt": {
+          "kind": "file",
+          "size": 84
+        },
+        "Django.egg-info/not-zip-safe": {
+          "kind": "file",
+          "size": 1
+        },
+        "Django.egg-info/entry_points.txt": {
+          "kind": "file",
+          "size": 83
+        },
+        "Django.egg-info/dependency_links.txt": {
+          "kind": "file",
+          "size": 1
+        },
+        "Django.egg-info/SOURCES.txt": {
+          "kind": "file",
+          "size": 295768
+        },
+        "Django.egg-info/PKG-INFO": {
+          "kind": "file",
+          "size": 3821
+        }
+      },
+      "environment": "asgiref==3.5.2\n# Editable install with no version control (Django==3.2)\n-e /workspace\nexceptiongroup==1.3.1\niniconfig==2.1.0\npackaging==26.3\npip==23.0.1\npluggy==1.6.0\npytest==7.4.4\npytz==2023.3\nsetuptools==58.1.0\nsqlparse==0.4.4\ntomli==2.4.1\ntyping_extensions==4.16.0\nwheel==0.44.0\n",
+      "python": "3.9.19",
+      "cleanup_verified": true
+    },
+    {
+      "task_id": "django__django-13590",
+      "kind": "known-good",
+      "image": "coding-harness-a5-known-good@sha256:53f64134485a7ffe49c70f548ca7e43a22d54aedb10f34ed9f7fb912adb282a7",
+      "status": "verified",
+      "model_calls": 0,
+      "paid": false,
+      "expected_members": 9520,
+      "mismatches": [],
+      "generated": {
+        "Django.egg-info": {
+          "kind": "dir",
+          "size": 180
+        },
+        "Django.egg-info/top_level.txt": {
+          "kind": "file",
+          "size": 7
+        },
+        "Django.egg-info/requires.txt": {
+          "kind": "file",
+          "size": 84
+        },
+        "Django.egg-info/not-zip-safe": {
+          "kind": "file",
+          "size": 1
+        },
+        "Django.egg-info/entry_points.txt": {
+          "kind": "file",
+          "size": 83
+        },
+        "Django.egg-info/dependency_links.txt": {
+          "kind": "file",
+          "size": 1
+        },
+        "Django.egg-info/SOURCES.txt": {
+          "kind": "file",
+          "size": 295768
+        },
+        "Django.egg-info/PKG-INFO": {
+          "kind": "file",
+          "size": 3821
+        }
+      },
+      "environment": "asgiref==3.5.2\n# Editable install with no version control (Django==3.2)\n-e /workspace\nexceptiongroup==1.3.1\niniconfig==2.1.0\npackaging==26.3\npip==23.0.1\npluggy==1.6.0\npytest==7.4.4\npytz==2023.3\nsetuptools==58.1.0\nsqlparse==0.4.4\ntomli==2.4.1\ntyping_extensions==4.16.0\nwheel==0.44.0\n",
+      "python": "3.9.19",
+      "cleanup_verified": true
+    },
+    {
+      "task_id": "django__django-15781",
+      "kind": "baseline",
+      "image": "coding-harness-a5-baseline@sha256:8c3017ec8a17b67de8304839726393be7a60d7f94601c2fb6906a7fc527bd909",
+      "status": "verified",
+      "model_calls": 0,
+      "paid": false,
+      "expected_members": 9797,
+      "mismatches": [],
+      "generated": {
+        "Django.egg-info": {
+          "kind": "dir",
+          "size": 180
+        },
+        "django/__pycache__": {
+          "kind": "dir",
+          "size": 60
+        },
+        "django/utils/__pycache__": {
+          "kind": "dir",
+          "size": 120
+        },
+        "django/utils/__pycache__/version.cpython-39.pyc": {
+          "kind": "file",
+          "size": 3165
+        },
+        "django/utils/__pycache__/regex_helper.cpython-39.pyc": {
+          "kind": "file",
+          "size": 7582
+        },
+        "django/utils/__pycache__/functional.cpython-39.pyc": {
+          "kind": "file",
+          "size": 14548
+        },
+        "django/utils/__pycache__/__init__.cpython-39.pyc": {
+          "kind": "file",
+          "size": 126
+        },
+        "django/__pycache__/__init__.cpython-39.pyc": {
+          "kind": "file",
+          "size": 940
+        },
+        "Django.egg-info/top_level.txt": {
+          "kind": "file",
+          "size": 7
+        },
+        "Django.egg-info/requires.txt": {
+          "kind": "file",
+          "size": 159
+        },
+        "Django.egg-info/not-zip-safe": {
+          "kind": "file",
+          "size": 1
+        },
+        "Django.egg-info/entry_points.txt": {
+          "kind": "file",
+          "size": 82
+        },
+        "Django.egg-info/dependency_links.txt": {
+          "kind": "file",
+          "size": 1
+        },
+        "Django.egg-info/SOURCES.txt": {
+          "kind": "file",
+          "size": 305565
+        },
+        "Django.egg-info/PKG-INFO": {
+          "kind": "file",
+          "size": 4026
+        }
+      },
+      "environment": "asgiref==3.7.2\n# Editable install with no version control (Django==4.2)\n-e /workspace\nexceptiongroup==1.3.1\niniconfig==2.1.0\npackaging==26.3\npip==23.0.1\npluggy==1.6.0\npytest==7.4.4\npytz==2023.3\nsetuptools==58.1.0\nsqlparse==0.4.4\ntomli==2.4.1\ntyping_extensions==4.16.0\nwheel==0.44.0\n",
+      "python": "3.9.19",
+      "cleanup_verified": true
+    },
+    {
+      "task_id": "django__django-15781",
+      "kind": "known-good",
+      "image": "coding-harness-a5-known-good@sha256:69f4a4bf74714ad76457519e3a732613f47b628db1049ddb56c71f318a23dc34",
+      "status": "verified",
+      "model_calls": 0,
+      "paid": false,
+      "expected_members": 9797,
+      "mismatches": [],
+      "generated": {
+        "Django.egg-info": {
+          "kind": "dir",
+          "size": 180
+        },
+        "Django.egg-info/top_level.txt": {
+          "kind": "file",
+          "size": 7
+        },
+        "Django.egg-info/requires.txt": {
+          "kind": "file",
+          "size": 159
+        },
+        "Django.egg-info/not-zip-safe": {
+          "kind": "file",
+          "size": 1
+        },
+        "Django.egg-info/entry_points.txt": {
+          "kind": "file",
+          "size": 82
+        },
+        "Django.egg-info/dependency_links.txt": {
+          "kind": "file",
+          "size": 1
+        },
+        "Django.egg-info/SOURCES.txt": {
+          "kind": "file",
+          "size": 305565
+        },
+        "Django.egg-info/PKG-INFO": {
+          "kind": "file",
+          "size": 4026
+        }
+      },
+      "environment": "asgiref==3.7.2\nDjango==4.2\nexceptiongroup==1.3.1\niniconfig==2.1.0\npackaging==26.3\npip==23.0.1\npluggy==1.6.0\npytest==7.4.4\npytz==2023.3\nsetuptools==58.1.0\nsqlparse==0.4.4\ntomli==2.4.1\ntyping_extensions==4.16.0\nwheel==0.44.0\n",
+      "python": "3.9.19",
+      "cleanup_verified": true
+    },
+    {
+      "task_id": "sphinx-doc__sphinx-10451",
+      "kind": "baseline",
+      "image": "coding-harness-a5-baseline@sha256:cdc2fa27cb44eb2c778676ceec1dd669d8455357d0a06e7bdc03b32d165ef397",
+      "status": "invalid",
+      "model_calls": 0,
+      "paid": false,
+      "error": "DockerUnavailable('Docker exec failed: Traceback (most recent call last):\\n  File \"<string>\", line 9, in <module>\\nValueError: upstream native file cannot be redirected: tests/roots/test-apidoc-duplicates/fish_licence/halibut.cpython-38-x86_64-linux-gnu.so\\n')",
+      "cleanup_verified": true
+    },
+    {
+      "task_id": "sphinx-doc__sphinx-10451",
+      "kind": "known-good",
+      "image": "coding-harness-a5-known-good@sha256:c5ddba1dd1ddaadcaebe16c85b53d40e308bea95ac6a467fac22a829d0ff40d4",
+      "status": "invalid",
+      "model_calls": 0,
+      "paid": false,
+      "error": "DockerUnavailable('Docker exec failed: Traceback (most recent call last):\\n  File \"<string>\", line 9, in <module>\\nValueError: upstream native file cannot be redirected: tests/roots/test-apidoc-duplicates/fish_licence/halibut.cpython-38-x86_64-linux-gnu.so\\n')",
+      "cleanup_verified": true
+    },
+    {
+      "task_id": "sphinx-doc__sphinx-8595",
+      "kind": "baseline",
+      "image": "coding-harness-a5-baseline@sha256:08038a4f8e02b84c379792ad651a3797b46713d81943d7fd2a2b047d7e4eb924",
+      "status": "verified",
+      "model_calls": 0,
+      "paid": false,
+      "expected_members": 1870,
+      "mismatches": [],
+      "generated": {
+        "Sphinx.egg-info": {
+          "kind": "dir",
+          "size": 180
+        },
+        "sphinx/__pycache__": {
+          "kind": "dir",
+          "size": 80
+        },
+        "sphinx/__pycache__/deprecation.cpython-39.pyc": {
+          "kind": "file",
+          "size": 3937
+        },
+        "sphinx/__pycache__/__init__.cpython-39.pyc": {
+          "kind": "file",
+          "size": 1130
+        },
+        "Sphinx.egg-info/top_level.txt": {
+          "kind": "file",
+          "size": 7
+        },
+        "Sphinx.egg-info/requires.txt": {
+          "kind": "file",
+          "size": 494
+        },
+        "Sphinx.egg-info/not-zip-safe": {
+          "kind": "file",
+          "size": 1
+        },
+        "Sphinx.egg-info/entry_points.txt": {
+          "kind": "file",
+          "size": 263
+        },
+        "Sphinx.egg-info/dependency_links.txt": {
+          "kind": "file",
+          "size": 1
+        },
+        "Sphinx.egg-info/SOURCES.txt": {
+          "kind": "file",
+          "size": 56083
+        },
+        "Sphinx.egg-info/PKG-INFO": {
+          "kind": "file",
+          "size": 6859
+        }
+      },
+      "environment": "alabaster==0.7.13\nBabel==2.12.1\ncertifi==2026.7.22\ncharset-normalizer==3.5.1\ndocutils==0.16\nexceptiongroup==1.3.1\nhtml5lib==1.1\nidna==3.20\nimagesize==1.4.1\niniconfig==2.1.0\nJinja2==3.0.3\nMarkupSafe==3.0.3\npackaging==23.1\npip==23.0.1\npluggy==1.6.0\nPygments==2.15.1\npytest==7.4.4\nrequests==2.31.0\nsetuptools==58.1.0\nsix==1.17.0\nsnowballstemmer==2.2.0\n# Editable install with no version control (Sphinx==3.5.0.dev20260921)\n-e /workspace\nsphinxcontrib-applehelp==1.0.2\nsphinxcontrib-devhelp==1.0.2\nsphinxcontrib-htmlhelp==2.0.0\nsphinxcontrib-jsmath==1.0.1\nsphinxcontrib-qthelp==1.0.3\nsphinxcontrib-serializinghtml==1.1.5\ntomli==2.4.1\ntyping_extensions==4.16.0\nurllib3==2.6.3\nwebencodings==0.5.1\nwheel==0.44.0\n",
+      "python": "3.9.19",
+      "cleanup_verified": true
+    },
+    {
+      "task_id": "sphinx-doc__sphinx-8595",
+      "kind": "known-good",
+      "image": "coding-harness-a5-known-good@sha256:37958016f1dd7f141db9a9b1aef1d634ef4d5519f99e11371b9148a2fdc7d37d",
+      "status": "verified",
+      "model_calls": 0,
+      "paid": false,
+      "expected_members": 1870,
+      "mismatches": [],
+      "generated": {
+        "Sphinx.egg-info": {
+          "kind": "dir",
+          "size": 180
+        },
+        "Sphinx.egg-info/top_level.txt": {
+          "kind": "file",
+          "size": 7
+        },
+        "Sphinx.egg-info/requires.txt": {
+          "kind": "file",
+          "size": 494
+        },
+        "Sphinx.egg-info/not-zip-safe": {
+          "kind": "file",
+          "size": 1
+        },
+        "Sphinx.egg-info/entry_points.txt": {
+          "kind": "file",
+          "size": 263
+        },
+        "Sphinx.egg-info/dependency_links.txt": {
+          "kind": "file",
+          "size": 1
+        },
+        "Sphinx.egg-info/SOURCES.txt": {
+          "kind": "file",
+          "size": 56083
+        },
+        "Sphinx.egg-info/PKG-INFO": {
+          "kind": "file",
+          "size": 6859
+        }
+      },
+      "environment": "alabaster==0.7.13\nBabel==2.12.1\ncertifi==2026.7.22\ncharset-normalizer==3.5.1\ndocutils==0.16\nexceptiongroup==1.3.1\nhtml5lib==1.1\nidna==3.20\nimagesize==1.4.1\niniconfig==2.1.0\nJinja2==3.0.3\nMarkupSafe==3.0.3\npackaging==23.1\npip==23.0.1\npluggy==1.6.0\nPygments==2.15.1\npytest==7.4.4\nrequests==2.31.0\nsetuptools==58.1.0\nsix==1.17.0\nsnowballstemmer==2.2.0\n# Editable install with no version control (Sphinx==3.5.0.dev20260921)\n-e /workspace\nsphinxcontrib-applehelp==1.0.2\nsphinxcontrib-devhelp==1.0.2\nsphinxcontrib-htmlhelp==2.0.0\nsphinxcontrib-jsmath==1.0.1\nsphinxcontrib-qthelp==1.0.3\nsphinxcontrib-serializinghtml==1.1.5\ntomli==2.4.1\ntyping_extensions==4.16.0\nurllib3==2.6.3\nwebencodings==0.5.1\nwheel==0.44.0\n",
+      "python": "3.9.19",
+      "cleanup_verified": true
+    },
+    {
+      "task_id": "sphinx-doc__sphinx-8713",
+      "kind": "baseline",
+      "image": "coding-harness-a5-baseline@sha256:fa6bfa4c200740d01c8accb764edc793f253b4054b15cdbcfbcbbef4f214c55b",
+      "status": "verified",
+      "model_calls": 0,
+      "paid": false,
+      "expected_members": 1874,
+      "mismatches": [],
+      "generated": {
+        "Sphinx.egg-info": {
+          "kind": "dir",
+          "size": 180
+        },
+        "sphinx/__pycache__": {
+          "kind": "dir",
+          "size": 80
+        },
+        "sphinx/__pycache__/deprecation.cpython-39.pyc": {
+          "kind": "file",
+          "size": 3946
+        },
+        "sphinx/__pycache__/__init__.cpython-39.pyc": {
+          "kind": "file",
+          "size": 1123
+        },
+        "Sphinx.egg-info/top_level.txt": {
+          "kind": "file",
+          "size": 7
+        },
+        "Sphinx.egg-info/requires.txt": {
+          "kind": "file",
+          "size": 494
+        },
+        "Sphinx.egg-info/not-zip-safe": {
+          "kind": "file",
+          "size": 1
+        },
+        "Sphinx.egg-info/entry_points.txt": {
+          "kind": "file",
+          "size": 263
+        },
+        "Sphinx.egg-info/dependency_links.txt": {
+          "kind": "file",
+          "size": 1
+        },
+        "Sphinx.egg-info/SOURCES.txt": {
+          "kind": "file",
+          "size": 56207
+        },
+        "Sphinx.egg-info/PKG-INFO": {
+          "kind": "file",
+          "size": 6809
+        }
+      },
+      "environment": "alabaster==0.7.13\nBabel==2.12.1\ncertifi==2026.7.22\ncharset-normalizer==3.5.1\ndocutils==0.17.1\nexceptiongroup==1.3.1\nhtml5lib==1.1\nidna==3.20\nimagesize==1.4.1\niniconfig==2.1.0\nJinja2==3.0.3\nMarkupSafe==3.0.3\npackaging==23.1\npip==23.0.1\npluggy==1.6.0\nPygments==2.15.1\npytest==7.4.4\nrequests==2.31.0\nsetuptools==58.1.0\nsix==1.17.0\nsnowballstemmer==2.2.0\n# Editable install with no version control (Sphinx==4.0.0.dev20260921)\n-e /workspace\nsphinxcontrib-applehelp==1.0.2\nsphinxcontrib-devhelp==1.0.2\nsphinxcontrib-htmlhelp==2.0.0\nsphinxcontrib-jsmath==1.0.1\nsphinxcontrib-qthelp==1.0.3\nsphinxcontrib-serializinghtml==1.1.5\ntomli==2.4.1\ntyping_extensions==4.16.0\nurllib3==2.6.3\nwebencodings==0.5.1\nwheel==0.44.0\n",
+      "python": "3.9.19",
+      "cleanup_verified": true
+    },
+    {
+      "task_id": "sphinx-doc__sphinx-8713",
+      "kind": "known-good",
+      "image": "coding-harness-a5-known-good@sha256:f369fcaa06d92480132ac61576c3aa9fc6eb62e4a28c00bed3b5c872a236c542",
+      "status": "verified",
+      "model_calls": 0,
+      "paid": false,
+      "expected_members": 1874,
+      "mismatches": [],
+      "generated": {
+        "Sphinx.egg-info": {
+          "kind": "dir",
+          "size": 180
+        },
+        "Sphinx.egg-info/top_level.txt": {
+          "kind": "file",
+          "size": 7
+        },
+        "Sphinx.egg-info/requires.txt": {
+          "kind": "file",
+          "size": 494
+        },
+        "Sphinx.egg-info/not-zip-safe": {
+          "kind": "file",
+          "size": 1
+        },
+        "Sphinx.egg-info/entry_points.txt": {
+          "kind": "file",
+          "size": 263
+        },
+        "Sphinx.egg-info/dependency_links.txt": {
+          "kind": "file",
+          "size": 1
+        },
+        "Sphinx.egg-info/SOURCES.txt": {
+          "kind": "file",
+          "size": 56207
+        },
+        "Sphinx.egg-info/PKG-INFO": {
+          "kind": "file",
+          "size": 6809
+        }
+      },
+      "environment": "alabaster==0.7.13\nBabel==2.12.1\ncertifi==2026.7.22\ncharset-normalizer==3.5.1\ndocutils==0.17.1\nexceptiongroup==1.3.1\nhtml5lib==1.1\nidna==3.20\nimagesize==1.4.1\niniconfig==2.1.0\nJinja2==3.0.3\nMarkupSafe==3.0.3\npackaging==23.1\npip==23.0.1\npluggy==1.6.0\nPygments==2.15.1\npytest==7.4.4\nrequests==2.31.0\nsetuptools==58.1.0\nsix==1.17.0\nsnowballstemmer==2.2.0\n# Editable install with no version control (Sphinx==4.0.0.dev20260921)\n-e /workspace\nsphinxcontrib-applehelp==1.0.2\nsphinxcontrib-devhelp==1.0.2\nsphinxcontrib-htmlhelp==2.0.0\nsphinxcontrib-jsmath==1.0.1\nsphinxcontrib-qthelp==1.0.3\nsphinxcontrib-serializinghtml==1.1.5\ntomli==2.4.1\ntyping_extensions==4.16.0\nurllib3==2.6.3\nwebencodings==0.5.1\nwheel==0.44.0\n",
+      "python": "3.9.19",
+      "cleanup_verified": true
+    },
+    {
+      "task_id": "sphinx-doc__sphinx-8721",
+      "kind": "baseline",
+      "image": "coding-harness-a5-recheck@sha256:d77bcb325ac2a664e6ab658b352cbacd1217c187e5c475a1579da64514789702",
+      "status": "verified",
+      "model_calls": 0,
+      "paid": false,
+      "expected_members": 1879,
+      "mismatches": [],
+      "generated": {
+        "Sphinx.egg-info": {
+          "kind": "dir",
+          "size": 180
+        },
+        "sphinx/__pycache__": {
+          "kind": "dir",
+          "size": 80
+        },
+        "sphinx/__pycache__/deprecation.cpython-39.pyc": {
+          "kind": "file",
+          "size": 3937
+        },
+        "sphinx/__pycache__/__init__.cpython-39.pyc": {
+          "kind": "file",
+          "size": 1130
+        },
+        "Sphinx.egg-info/top_level.txt": {
+          "kind": "file",
+          "size": 7
+        },
+        "Sphinx.egg-info/requires.txt": {
+          "kind": "file",
+          "size": 494
+        },
+        "Sphinx.egg-info/not-zip-safe": {
+          "kind": "file",
+          "size": 1
+        },
+        "Sphinx.egg-info/entry_points.txt": {
+          "kind": "file",
+          "size": 263
+        },
+        "Sphinx.egg-info/dependency_links.txt": {
+          "kind": "file",
+          "size": 1
+        },
+        "Sphinx.egg-info/SOURCES.txt": {
+          "kind": "file",
+          "size": 56320
+        },
+        "Sphinx.egg-info/PKG-INFO": {
+          "kind": "file",
+          "size": 6859
+        }
+      },
+      "environment": "alabaster==0.7.13\nBabel==2.12.1\ncertifi==2026.7.22\ncharset-normalizer==3.5.1\ndocutils==0.16\nexceptiongroup==1.3.1\nhtml5lib==1.1\nidna==3.20\nimagesize==1.4.1\niniconfig==2.1.0\nJinja2==3.0.3\nMarkupSafe==3.0.3\npackaging==23.1\npip==23.0.1\npluggy==1.6.0\nPygments==2.8.1\npytest==7.4.4\nrequests==2.31.0\nsetuptools==58.1.0\nsix==1.17.0\nsnowballstemmer==2.2.0\n# Editable install with no version control (Sphinx==3.5.0.dev20260921)\n-e /workspace\nsphinxcontrib-applehelp==1.0.2\nsphinxcontrib-devhelp==1.0.2\nsphinxcontrib-htmlhelp==2.0.0\nsphinxcontrib-jsmath==1.0.1\nsphinxcontrib-qthelp==1.0.3\nsphinxcontrib-serializinghtml==1.1.5\ntomli==2.4.1\ntyping_extensions==4.16.0\nurllib3==2.6.3\nwebencodings==0.5.1\nwheel==0.44.0\n",
+      "python": "3.9.19",
+      "cleanup_verified": true
+    },
+    {
+      "task_id": "sphinx-doc__sphinx-8721",
+      "kind": "known-good",
+      "image": "coding-harness-a5-recheck@sha256:5808165c6309a13d45ef473aa3f6350ecf43d1633f97dac89edf0b4754b06bec",
+      "status": "verified",
+      "model_calls": 0,
+      "paid": false,
+      "expected_members": 1879,
+      "mismatches": [],
+      "generated": {
+        "Sphinx.egg-info": {
+          "kind": "dir",
+          "size": 180
+        },
+        "sphinx/__pycache__": {
+          "kind": "dir",
+          "size": 80
+        },
+        "sphinx/__pycache__/deprecation.cpython-39.pyc": {
+          "kind": "file",
+          "size": 3937
+        },
+        "sphinx/__pycache__/__init__.cpython-39.pyc": {
+          "kind": "file",
+          "size": 1130
+        },
+        "Sphinx.egg-info/top_level.txt": {
+          "kind": "file",
+          "size": 7
+        },
+        "Sphinx.egg-info/requires.txt": {
+          "kind": "file",
+          "size": 494
+        },
+        "Sphinx.egg-info/not-zip-safe": {
+          "kind": "file",
+          "size": 1
+        },
+        "Sphinx.egg-info/entry_points.txt": {
+          "kind": "file",
+          "size": 263
+        },
+        "Sphinx.egg-info/dependency_links.txt": {
+          "kind": "file",
+          "size": 1
+        },
+        "Sphinx.egg-info/SOURCES.txt": {
+          "kind": "file",
+          "size": 56320
+        },
+        "Sphinx.egg-info/PKG-INFO": {
+          "kind": "file",
+          "size": 6859
+        }
+      },
+      "environment": "alabaster==0.7.13\nBabel==2.12.1\ncertifi==2026.7.22\ncharset-normalizer==3.5.1\ndocutils==0.16\nexceptiongroup==1.3.1\nhtml5lib==1.1\nidna==3.20\nimagesize==1.4.1\niniconfig==2.1.0\nJinja2==3.0.3\nMarkupSafe==3.0.3\npackaging==23.1\npip==23.0.1\npluggy==1.6.0\nPygments==2.8.1\npytest==7.4.4\nrequests==2.31.0\nsetuptools==58.1.0\nsix==1.17.0\nsnowballstemmer==2.2.0\n# Editable install with no version control (Sphinx==3.5.0.dev20260921)\n-e /workspace\nsphinxcontrib-applehelp==1.0.2\nsphinxcontrib-devhelp==1.0.2\nsphinxcontrib-htmlhelp==2.0.0\nsphinxcontrib-jsmath==1.0.1\nsphinxcontrib-qthelp==1.0.3\nsphinxcontrib-serializinghtml==1.1.5\ntomli==2.4.1\ntyping_extensions==4.16.0\nurllib3==2.6.3\nwebencodings==0.5.1\nwheel==0.44.0\n",
+      "python": "3.9.19",
+      "cleanup_verified": true
+    },
+    {
+      "task_id": "sympy__sympy-11400",
+      "kind": "baseline",
+      "image": "coding-harness-a5-baseline@sha256:daf346fdac75f47cc42f122987cbaed07833e756efe72529cbcf9d9fba2d513b",
+      "status": "verified",
+      "model_calls": 0,
+      "paid": false,
+      "expected_members": 1574,
+      "mismatches": [],
+      "generated": {
+        "sympy.egg-info": {
+          "kind": "dir",
+          "size": 140
+        },
+        "sympy.egg-info/top_level.txt": {
+          "kind": "file",
+          "size": 6
+        },
+        "sympy.egg-info/requires.txt": {
+          "kind": "file",
+          "size": 13
+        },
+        "sympy.egg-info/dependency_links.txt": {
+          "kind": "file",
+          "size": 1
+        },
+        "sympy.egg-info/SOURCES.txt": {
+          "kind": "file",
+          "size": 48426
+        },
+        "sympy.egg-info/PKG-INFO": {
+          "kind": "file",
+          "size": 1427
+        }
+      },
+      "environment": "attrs==26.1.0\nexceptiongroup==1.3.1\nhypothesis==6.82.0\niniconfig==2.1.0\nmpmath==1.3.0\npackaging==26.3\npip==23.0.1\npluggy==1.6.0\npytest==7.4.4\nsetuptools==58.1.0\nsortedcontainers==2.4.0\n# Editable install with no version control (sympy==1.0.1.dev0)\n-e /workspace\ntomli==2.4.1\ntyping_extensions==4.16.0\nwheel==0.44.0\n",
+      "python": "3.9.19",
+      "cleanup_verified": true
+    },
+    {
+      "task_id": "sympy__sympy-11400",
+      "kind": "known-good",
+      "image": "coding-harness-a5-known-good@sha256:d6294594f7e4cf7e30f2e06186f4a2f252fd0590162c6990737ea648ef522b0d",
+      "status": "verified",
+      "model_calls": 0,
+      "paid": false,
+      "expected_members": 1574,
+      "mismatches": [],
+      "generated": {
+        "sympy.egg-info": {
+          "kind": "dir",
+          "size": 140
+        },
+        "sympy.egg-info/top_level.txt": {
+          "kind": "file",
+          "size": 6
+        },
+        "sympy.egg-info/requires.txt": {
+          "kind": "file",
+          "size": 13
+        },
+        "sympy.egg-info/dependency_links.txt": {
+          "kind": "file",
+          "size": 1
+        },
+        "sympy.egg-info/SOURCES.txt": {
+          "kind": "file",
+          "size": 48426
+        },
+        "sympy.egg-info/PKG-INFO": {
+          "kind": "file",
+          "size": 1427
+        }
+      },
+      "environment": "attrs==26.1.0\nexceptiongroup==1.3.1\nhypothesis==6.82.0\niniconfig==2.1.0\nmpmath==1.3.0\npackaging==26.3\npip==23.0.1\npluggy==1.6.0\npytest==7.4.4\nsetuptools==58.1.0\nsortedcontainers==2.4.0\n# Editable install with no version control (sympy==1.0.1.dev0)\n-e /workspace\ntomli==2.4.1\ntyping_extensions==4.16.0\nwheel==0.44.0\n",
+      "python": "3.9.19",
+      "cleanup_verified": true
+    },
+    {
+      "task_id": "sympy__sympy-18532",
+      "kind": "baseline",
+      "image": "coding-harness-a5-baseline@sha256:9e0b0761709909850a0bb7d6157b7e674a01153fa8db4db82726b4b7bc920022",
+      "status": "verified",
+      "model_calls": 0,
+      "paid": false,
+      "expected_members": 1951,
+      "mismatches": [],
+      "generated": {
+        "sympy.egg-info": {
+          "kind": "dir",
+          "size": 180
+        },
+        "sympy.egg-info/top_level.txt": {
+          "kind": "file",
+          "size": 13
+        },
+        "sympy.egg-info/requires.txt": {
+          "kind": "file",
+          "size": 13
+        },
+        "sympy.egg-info/not-zip-safe": {
+          "kind": "file",
+          "size": 1
+        },
+        "sympy.egg-info/entry_points.txt": {
+          "kind": "file",
+          "size": 40
+        },
+        "sympy.egg-info/dependency_links.txt": {
+          "kind": "file",
+          "size": 1
+        },
+        "sympy.egg-info/SOURCES.txt": {
+          "kind": "file",
+          "size": 61251
+        },
+        "sympy.egg-info/PKG-INFO": {
+          "kind": "file",
+          "size": 1586
+        }
+      },
+      "environment": "attrs==26.1.0\nexceptiongroup==1.3.1\nhypothesis==6.82.0\niniconfig==2.1.0\nmpmath==1.3.0\npackaging==26.3\npip==23.0.1\npluggy==1.6.0\npytest==7.4.4\nsetuptools==58.1.0\nsortedcontainers==2.4.0\n# Editable install with no version control (sympy==1.6.dev0)\n-e /workspace\ntomli==2.4.1\ntyping_extensions==4.16.0\nwheel==0.44.0\n",
+      "python": "3.9.19",
+      "cleanup_verified": true
+    },
+    {
+      "task_id": "sympy__sympy-18532",
+      "kind": "known-good",
+      "image": "coding-harness-a5-known-good@sha256:8854ab47e905ef0e4395dc29c890cb0847fea4c022465fd885cf048e41a61056",
+      "status": "verified",
+      "model_calls": 0,
+      "paid": false,
+      "expected_members": 1951,
+      "mismatches": [],
+      "generated": {
+        "sympy.egg-info": {
+          "kind": "dir",
+          "size": 180
+        },
+        "sympy.egg-info/top_level.txt": {
+          "kind": "file",
+          "size": 13
+        },
+        "sympy.egg-info/requires.txt": {
+          "kind": "file",
+          "size": 13
+        },
+        "sympy.egg-info/not-zip-safe": {
+          "kind": "file",
+          "size": 1
+        },
+        "sympy.egg-info/entry_points.txt": {
+          "kind": "file",
+          "size": 40
+        },
+        "sympy.egg-info/dependency_links.txt": {
+          "kind": "file",
+          "size": 1
+        },
+        "sympy.egg-info/SOURCES.txt": {
+          "kind": "file",
+          "size": 61251
+        },
+        "sympy.egg-info/PKG-INFO": {
+          "kind": "file",
+          "size": 1586
+        }
+      },
+      "environment": "attrs==26.1.0\nexceptiongroup==1.3.1\nhypothesis==6.82.0\niniconfig==2.1.0\nmpmath==1.3.0\npackaging==26.3\npip==23.0.1\npluggy==1.6.0\npytest==7.4.4\nsetuptools==58.1.0\nsortedcontainers==2.4.0\n# Editable install with no version control (sympy==1.6.dev0)\n-e /workspace\ntomli==2.4.1\ntyping_extensions==4.16.0\nwheel==0.44.0\n",
+      "python": "3.9.19",
+      "cleanup_verified": true
+    },
+    {
+      "task_id": "sympy__sympy-20154",
+      "kind": "baseline",
+      "image": "coding-harness-a5-baseline@sha256:7bf82ec2de135edd3bf8e21fc27811cdc3c0ffcb9e766eac073a2e0bf0f6651a",
+      "status": "verified",
+      "model_calls": 0,
+      "paid": false,
+      "expected_members": 2025,
+      "mismatches": [],
+      "generated": {
+        "sympy.egg-info": {
+          "kind": "dir",
+          "size": 180
+        },
+        "sympy.egg-info/top_level.txt": {
+          "kind": "file",
+          "size": 13
+        },
+        "sympy.egg-info/requires.txt": {
+          "kind": "file",
+          "size": 13
+        },
+        "sympy.egg-info/not-zip-safe": {
+          "kind": "file",
+          "size": 1
+        },
+        "sympy.egg-info/entry_points.txt": {
+          "kind": "file",
+          "size": 40
+        },
+        "sympy.egg-info/dependency_links.txt": {
+          "kind": "file",
+          "size": 1
+        },
+        "sympy.egg-info/SOURCES.txt": {
+          "kind": "file",
+          "size": 63775
+        },
+        "sympy.egg-info/PKG-INFO": {
+          "kind": "file",
+          "size": 11774
+        }
+      },
+      "environment": "attrs==26.1.0\nexceptiongroup==1.3.1\nhypothesis==6.82.0\niniconfig==2.1.0\nmpmath==1.3.0\npackaging==26.3\npip==23.0.1\npluggy==1.6.0\npytest==7.4.4\nsetuptools==58.1.0\nsortedcontainers==2.4.0\n# Editable install with no version control (sympy==1.7.dev0)\n-e /workspace\ntomli==2.4.1\ntyping_extensions==4.16.0\nwheel==0.44.0\n",
+      "python": "3.9.19",
+      "cleanup_verified": true
+    },
+    {
+      "task_id": "sympy__sympy-20154",
+      "kind": "known-good",
+      "image": "coding-harness-a5-known-good@sha256:5cf0b1cfdc41510af3bbb879bd65d7a28346a3a22f2183897eb1f1303ca47818",
+      "status": "verified",
+      "model_calls": 0,
+      "paid": false,
+      "expected_members": 2025,
+      "mismatches": [],
+      "generated": {
+        "sympy.egg-info": {
+          "kind": "dir",
+          "size": 180
+        },
+        "sympy.egg-info/top_level.txt": {
+          "kind": "file",
+          "size": 13
+        },
+        "sympy.egg-info/requires.txt": {
+          "kind": "file",
+          "size": 13
+        },
+        "sympy.egg-info/not-zip-safe": {
+          "kind": "file",
+          "size": 1
+        },
+        "sympy.egg-info/entry_points.txt": {
+          "kind": "file",
+          "size": 40
+        },
+        "sympy.egg-info/dependency_links.txt": {
+          "kind": "file",
+          "size": 1
+        },
+        "sympy.egg-info/SOURCES.txt": {
+          "kind": "file",
+          "size": 63775
+        },
+        "sympy.egg-info/PKG-INFO": {
+          "kind": "file",
+          "size": 11774
+        }
+      },
+      "environment": "attrs==26.1.0\nexceptiongroup==1.3.1\nhypothesis==6.82.0\niniconfig==2.1.0\nmpmath==1.3.0\npackaging==26.3\npip==23.0.1\npluggy==1.6.0\npytest==7.4.4\nsetuptools==58.1.0\nsortedcontainers==2.4.0\n# Editable install with no version control (sympy==1.7.dev0)\n-e /workspace\ntomli==2.4.1\ntyping_extensions==4.16.0\nwheel==0.44.0\n",
+      "python": "3.9.19",
+      "cleanup_verified": true
+    },
+    {
+      "task_id": "sympy__sympy-20442",
+      "kind": "baseline",
+      "image": "coding-harness-a5-baseline@sha256:7d7bd0c873dfb07cb338d3713c4416dfd525b09c4b62c0a814be18f5ea936cec",
+      "status": "verified",
+      "model_calls": 0,
+      "paid": false,
+      "expected_members": 2027,
+      "mismatches": [],
+      "generated": {
+        "sympy.egg-info": {
+          "kind": "dir",
+          "size": 180
+        },
+        "sympy.egg-info/top_level.txt": {
+          "kind": "file",
+          "size": 13
+        },
+        "sympy.egg-info/requires.txt": {
+          "kind": "file",
+          "size": 13
+        },
+        "sympy.egg-info/not-zip-safe": {
+          "kind": "file",
+          "size": 1
+        },
+        "sympy.egg-info/entry_points.txt": {
+          "kind": "file",
+          "size": 40
+        },
+        "sympy.egg-info/dependency_links.txt": {
+          "kind": "file",
+          "size": 1
+        },
+        "sympy.egg-info/SOURCES.txt": {
+          "kind": "file",
+          "size": 63799
+        },
+        "sympy.egg-info/PKG-INFO": {
+          "kind": "file",
+          "size": 11724
+        }
+      },
+      "environment": "attrs==26.1.0\nexceptiongroup==1.3.1\nhypothesis==6.82.0\niniconfig==2.1.0\nmpmath==1.3.0\npackaging==26.3\npip==23.0.1\npluggy==1.6.0\npytest==7.4.4\nsetuptools==58.1.0\nsortedcontainers==2.4.0\n# Editable install with no version control (sympy==1.8.dev0)\n-e /workspace\ntomli==2.4.1\ntyping_extensions==4.16.0\nwheel==0.44.0\n",
+      "python": "3.9.19",
+      "cleanup_verified": true
+    },
+    {
+      "task_id": "sympy__sympy-20442",
+      "kind": "known-good",
+      "image": "coding-harness-a5-known-good@sha256:43779d24b3ba008a374ded0b97c368f94bb4abcdd19f49ed808cbaf29b1e240e",
+      "status": "verified",
+      "model_calls": 0,
+      "paid": false,
+      "expected_members": 2027,
+      "mismatches": [],
+      "generated": {
+        "sympy.egg-info": {
+          "kind": "dir",
+          "size": 180
+        },
+        "sympy.egg-info/top_level.txt": {
+          "kind": "file",
+          "size": 13
+        },
+        "sympy.egg-info/requires.txt": {
+          "kind": "file",
+          "size": 13
+        },
+        "sympy.egg-info/not-zip-safe": {
+          "kind": "file",
+          "size": 1
+        },
+        "sympy.egg-info/entry_points.txt": {
+          "kind": "file",
+          "size": 40
+        },
+        "sympy.egg-info/dependency_links.txt": {
+          "kind": "file",
+          "size": 1
+        },
+        "sympy.egg-info/SOURCES.txt": {
+          "kind": "file",
+          "size": 63799
+        },
+        "sympy.egg-info/PKG-INFO": {
+          "kind": "file",
+          "size": 11724
+        }
+      },
+      "environment": "attrs==26.1.0\nexceptiongroup==1.3.1\nhypothesis==6.82.0\niniconfig==2.1.0\nmpmath==1.3.0\npackaging==26.3\npip==23.0.1\npluggy==1.6.0\npytest==7.4.4\nsetuptools==58.1.0\nsortedcontainers==2.4.0\n# Editable install with no version control (sympy==1.8.dev0)\n-e /workspace\ntomli==2.4.1\ntyping_extensions==4.16.0\nwheel==0.44.0\n",
+      "python": "3.9.19",
+      "cleanup_verified": true
+    },
+    {
+      "task_id": "sympy__sympy-24152",
+      "kind": "baseline",
+      "image": "coding-harness-a5-baseline@sha256:3f8346d1910baf3b6ce37831f3b272d091e04fca4185a77ceac108f922ce9b72",
+      "status": "verified",
+      "model_calls": 0,
+      "paid": false,
+      "expected_members": 2234,
+      "mismatches": [],
+      "generated": {
+        "sympy.egg-info": {
+          "kind": "dir",
+          "size": 180
+        },
+        "sympy.egg-info/top_level.txt": {
+          "kind": "file",
+          "size": 13
+        },
+        "sympy.egg-info/requires.txt": {
+          "kind": "file",
+          "size": 13
+        },
+        "sympy.egg-info/not-zip-safe": {
+          "kind": "file",
+          "size": 1
+        },
+        "sympy.egg-info/entry_points.txt": {
+          "kind": "file",
+          "size": 40
+        },
+        "sympy.egg-info/dependency_links.txt": {
+          "kind": "file",
+          "size": 1
+        },
+        "sympy.egg-info/SOURCES.txt": {
+          "kind": "file",
+          "size": 71226
+        },
+        "sympy.egg-info/PKG-INFO": {
+          "kind": "file",
+          "size": 12693
+        }
+      },
+      "environment": "attrs==26.1.0\nexceptiongroup==1.3.1\nhypothesis==6.82.0\niniconfig==2.1.0\nmpmath==1.3.0\npackaging==26.3\npip==23.0.1\npluggy==1.6.0\npytest==7.4.4\nsetuptools==58.1.0\nsortedcontainers==2.4.0\n# Editable install with no version control (sympy==1.12.dev0)\n-e /workspace\ntomli==2.4.1\ntyping_extensions==4.16.0\nwheel==0.44.0\n",
+      "python": "3.9.19",
+      "cleanup_verified": true
+    },
+    {
+      "task_id": "sympy__sympy-24152",
+      "kind": "known-good",
+      "image": "coding-harness-a5-known-good@sha256:0a29a3e113055a73ef0724ee2a2f986401e304928971fb4c0444008e37c1d22c",
+      "status": "verified",
+      "model_calls": 0,
+      "paid": false,
+      "expected_members": 2234,
+      "mismatches": [],
+      "generated": {
+        "sympy.egg-info": {
+          "kind": "dir",
+          "size": 180
+        },
+        "sympy.egg-info/top_level.txt": {
+          "kind": "file",
+          "size": 13
+        },
+        "sympy.egg-info/requires.txt": {
+          "kind": "file",
+          "size": 13
+        },
+        "sympy.egg-info/not-zip-safe": {
+          "kind": "file",
+          "size": 1
+        },
+        "sympy.egg-info/entry_points.txt": {
+          "kind": "file",
+          "size": 40
+        },
+        "sympy.egg-info/dependency_links.txt": {
+          "kind": "file",
+          "size": 1
+        },
+        "sympy.egg-info/SOURCES.txt": {
+          "kind": "file",
+          "size": 71226
+        },
+        "sympy.egg-info/PKG-INFO": {
+          "kind": "file",
+          "size": 12693
+        }
+      },
+      "environment": "attrs==26.1.0\nexceptiongroup==1.3.1\nhypothesis==6.82.0\niniconfig==2.1.0\nmpmath==1.3.0\npackaging==26.3\npip==23.0.1\npluggy==1.6.0\npytest==7.4.4\nsetuptools==58.1.0\nsortedcontainers==2.4.0\n# Editable install with no version control (sympy==1.12.dev0)\n-e /workspace\ntomli==2.4.1\ntyping_extensions==4.16.0\nwheel==0.44.0\n",
+      "python": "3.9.19",
+      "cleanup_verified": true
+    },
+    {
+      "task_id": "pytest-dev__pytest-7432",
+      "kind": "baseline",
+      "image": "coding-harness-a5-recheck@sha256:f1bccfd0200de2c36f86da6dcf4cf46b907666f99e7f10de24c193463804bb18",
+      "status": "verified",
+      "model_calls": 0,
+      "paid": false,
+      "expected_members": 607,
+      "mismatches": [],
+      "generated": {
+        "src/pytest.egg-info": {
+          "kind": "dir",
+          "size": 180
+        },
+        "src/pytest.egg-info/top_level.txt": {
+          "kind": "file",
+          "size": 15
+        },
+        "src/pytest.egg-info/requires.txt": {
+          "kind": "file",
+          "size": 336
+        },
+        "src/pytest.egg-info/not-zip-safe": {
+          "kind": "file",
+          "size": 1
+        },
+        "src/pytest.egg-info/entry_points.txt": {
+          "kind": "file",
+          "size": 78
+        },
+        "src/pytest.egg-info/dependency_links.txt": {
+          "kind": "file",
+          "size": 1
+        },
+        "src/pytest.egg-info/SOURCES.txt": {
+          "kind": "file",
+          "size": 1902
+        },
+        "src/pytest.egg-info/PKG-INFO": {
+          "kind": "file",
+          "size": 6604
+        },
+        "src/_pytest/_version.py": {
+          "kind": "file",
+          "size": 142
+        }
+      },
+      "environment": "atomicwrites==1.4.0\nattrs==19.3.0\nelementpath==2.2.3\nhypothesis==5.49.0\niniconfig==1.1.1\nmore-itertools==8.7.0\npackaging==20.9\npip==23.0.1\npluggy==0.13.1\npy==1.10.0\npyparsing==2.4.7\n# Editable install with no version control (pytest==5.4.0)\n-e /workspace/src\nsetuptools==58.1.0\nsetuptools-scm==6.4.2\nsix==1.16.0\nsortedcontainers==2.3.0\ntoml==0.10.2\ntomli==1.2.3\nwcwidth==0.2.13\nwheel==0.44.0\nxmlschema==1.5.3\n",
+      "python": "3.9.19",
+      "cleanup_verified": true
+    },
+    {
+      "task_id": "pytest-dev__pytest-7432",
+      "kind": "known-good",
+      "image": "coding-harness-a5-recheck@sha256:5c97017803c8c6454734cf88e5e2d110c73d6e9f38243f027a6b310b79246770",
+      "status": "verified",
+      "model_calls": 0,
+      "paid": false,
+      "expected_members": 607,
+      "mismatches": [],
+      "generated": {
+        "src/pytest.egg-info": {
+          "kind": "dir",
+          "size": 180
+        },
+        "src/pytest.egg-info/top_level.txt": {
+          "kind": "file",
+          "size": 15
+        },
+        "src/pytest.egg-info/requires.txt": {
+          "kind": "file",
+          "size": 336
+        },
+        "src/pytest.egg-info/not-zip-safe": {
+          "kind": "file",
+          "size": 1
+        },
+        "src/pytest.egg-info/entry_points.txt": {
+          "kind": "file",
+          "size": 78
+        },
+        "src/pytest.egg-info/dependency_links.txt": {
+          "kind": "file",
+          "size": 1
+        },
+        "src/pytest.egg-info/SOURCES.txt": {
+          "kind": "file",
+          "size": 1902
+        },
+        "src/pytest.egg-info/PKG-INFO": {
+          "kind": "file",
+          "size": 6604
+        },
+        "src/_pytest/_version.py": {
+          "kind": "file",
+          "size": 142
+        }
+      },
+      "environment": "atomicwrites==1.4.0\nattrs==19.3.0\nelementpath==2.2.3\nhypothesis==5.49.0\niniconfig==1.1.1\nmore-itertools==8.7.0\npackaging==20.9\npip==23.0.1\npluggy==0.13.1\npy==1.10.0\npyparsing==2.4.7\n# Editable install with no version control (pytest==5.4.0)\n-e /workspace/src\nsetuptools==58.1.0\nsetuptools-scm==6.4.2\nsix==1.16.0\nsortedcontainers==2.3.0\ntoml==0.10.2\ntomli==1.2.3\nwcwidth==0.2.13\nwheel==0.44.0\nxmlschema==1.5.3\n",
+      "python": "3.9.19",
+      "cleanup_verified": true
+    }
+  ],
+  "verified": 28,
+  "assigned": 30,
+  "model_calls": 0,
+  "paid": false
+}

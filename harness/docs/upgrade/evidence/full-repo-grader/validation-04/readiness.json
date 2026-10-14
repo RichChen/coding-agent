@@ -1,0 +1,22 @@
+{
+  "status": "ready",
+  "collected": 484,
+  "required": 482,
+  "baseline_passed": 481,
+  "baseline_failed_nodes": [
+    "tests/test_config.py::test_config_from_file_toml"
+  ],
+  "baseline_allowed_nonpass": {
+    "tests/test_reqctx.py::TestGreenletContextCopying::test_greenlet_context_copying": "skipped",
+    "tests/test_reqctx.py::TestGreenletContextCopying::test_greenlet_context_copying_api": "skipped"
+  },
+  "known_good_status": "pass",
+  "known_good_passed": 482,
+  "regressions_preserved": 481,
+  "regressions_assigned": 481,
+  "negative_checks_passed": true,
+  "cleanup_verified": true,
+  "candidate_import_verified": true,
+  "offline_report_reproducible": true,
+  "model_calls": 0
+}

@@ -1,0 +1,325 @@
+{
+  "status": "executed",
+  "receipt": {
+    "schema": "repo.pytest.receipt.v1",
+    "collected": [],
+    "reports": [],
+    "collection_errors": [],
+    "complete": false,
+    "python": "3.7.17 (default, Sep 20 2023, 12:13:47) \n[GCC 10.2.1 20210110]",
+    "exit_code": 3
+  },
+  "cleanup_verified": true,
+  "model_calls": 0,
+  "isolation": {
+    "Id": "b02fb94788c0d02ba304e4e1bb7fff8031fd38ba0153ef403b3ee3ec39623f10",
+    "Created": "2026-09-21T14:49:31.788446747Z",
+    "Path": "/usr/local/bin/python",
+    "Args": [
+      "-I",
+      "-S",
+      "-c",
+      "import time; time.sleep(604800)"
+    ],
+    "State": {
+      "Status": "running",
+      "Running": true,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 71449,
+      "ExitCode": 0,
+      "Error": "",
+      "StartedAt": "2026-09-21T14:49:31.913007798Z",
+      "FinishedAt": "0001-01-01T00:00:00Z"
+    },
+    "Image": "sha256:abd720f428fd0996d45645d4d50212e5c254864024febe860b2b577f42dde206",
+    "ResolvConfPath": "/var/lib/docker/containers/b02fb94788c0d02ba304e4e1bb7fff8031fd38ba0153ef403b3ee3ec39623f10/resolv.conf",
+    "HostnamePath": "/var/lib/docker/containers/b02fb94788c0d02ba304e4e1bb7fff8031fd38ba0153ef403b3ee3ec39623f10/hostname",
+    "HostsPath": "/var/lib/docker/containers/b02fb94788c0d02ba304e4e1bb7fff8031fd38ba0153ef403b3ee3ec39623f10/hosts",
+    "LogPath": "",
+    "Name": "/h3-b521acfb6a814f21b600b51a2805a93b",
+    "RestartCount": 0,
+    "Driver": "overlayfs",
+    "Platform": "linux",
+    "MountLabel": "",
+    "ProcessLabel": "",
+    "AppArmorProfile": "",
+    "ExecIDs": null,
+    "HostConfig": {
+      "Binds": null,
+      "ContainerIDFile": "",
+      "LogConfig": {
+        "Type": "none",
+        "Config": {}
+      },
+      "NetworkMode": "none",
+      "PortBindings": {},
+      "RestartPolicy": {
+        "Name": "no",
+        "MaximumRetryCount": 0
+      },
+      "AutoRemove": false,
+      "VolumeDriver": "",
+      "VolumesFrom": null,
+      "ConsoleSize": [
+        0,
+        0
+      ],
+      "CapAdd": null,
+      "CapDrop": [
+        "ALL"
+      ],
+      "CgroupnsMode": "private",
+      "Dns": null,
+      "DnsOptions": [],
+      "DnsSearch": [],
+      "ExtraHosts": null,
+      "GroupAdd": null,
+      "IpcMode": "private",
+      "Cgroup": "",
+      "Links": null,
+      "OomScoreAdj": 0,
+      "PidMode": "",
+      "Privileged": false,
+      "PublishAllPorts": false,
+      "ReadonlyRootfs": true,
+      "SecurityOpt": [
+        "no-new-privileges:true"
+      ],
+      "Tmpfs": {
+        "/tmp": "rw,noexec,nosuid,nodev,size=536870912,mode=1777",
+        "/workspace": "rw,nosuid,nodev,size=268435456,mode=1777"
+      },
+      "UTSMode": "",
+      "UsernsMode": "",
+      "ShmSize": 67108864,
+      "Runtime": "runc",
+      "Isolation": "",
+      "CpuShares": 0,
+      "Memory": 2147483648,
+      "NanoCpus": 1000000000,
+      "CgroupParent": "",
+      "BlkioWeight": 0,
+      "BlkioWeightDevice": [],
+      "BlkioDeviceReadBps": [],
+      "BlkioDeviceWriteBps": [],
+      "BlkioDeviceReadIOps": [],
+      "BlkioDeviceWriteIOps": [],
+      "CpuPeriod": 0,
+      "CpuQuota": 0,
+      "CpuRealtimePeriod": 0,
+      "CpuRealtimeRuntime": 0,
+      "CpusetCpus": "",
+      "CpusetMems": "",
+      "Devices": [],
+      "DeviceCgroupRules": null,
+      "DeviceRequests": null,
+      "MemoryReservation": 0,
+      "MemorySwap": 2147483648,
+      "MemorySwappiness": null,
+      "OomKillDisable": null,
+      "PidsLimit": 128,
+      "Ulimits": null,
+      "CpuCount": 0,
+      "CpuPercent": 0,
+      "IOMaximumIOps": 0,
+      "IOMaximumBandwidth": 0,
+      "MaskedPaths": [
+        "/proc/acpi",
+        "/proc/asound",
+        "/proc/interrupts",
+        "/proc/kcore",
+        "/proc/keys",
+        "/proc/latency_stats",
+        "/proc/sched_debug",
+        "/proc/scsi",
+        "/proc/timer_list",
+        "/proc/timer_stats",
+        "/sys/devices/virtual/powercap",
+        "/sys/firmware"
+      ],
+      "ReadonlyPaths": [
+        "/proc/bus",
+        "/proc/fs",
+        "/proc/irq",
+        "/proc/sys",
+        "/proc/sysrq-trigger"
+      ]
+    },
+    "Storage": {
+      "RootFS": {
+        "Snapshot": {
+          "Name": "overlayfs"
+        }
+      }
+    },
+    "Mounts": [],
+    "Config": {
+      "Hostname": "b02fb94788c0",
+      "Domainname": "",
+      "User": "1000:1000",
+      "AttachStdin": false,
+      "AttachStdout": true,
+      "AttachStderr": true,
+      "Tty": false,
+      "OpenStdin": false,
+      "StdinOnce": false,
+      "Env": [
+        "PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+        "LANG=C.UTF-8",
+        "GPG_KEY=0D96DF4D4110E5C43FBFB17F2D347EA6AA65421D",
+        "PYTHON_VERSION=3.7.17",
+        "PYTHON_PIP_VERSION=23.0.1",
+        "PYTHON_SETUPTOOLS_VERSION=57.5.0",
+        "PYTHON_GET_PIP_URL=https://github.com/pypa/get-pip/raw/9af82b715db434abb94a0a6f3569f43e72157346/public/get-pip.py",
+        "PYTHON_GET_PIP_SHA256=45a2bb8bf2bb5eff16fdd00faef6f29731831c7c59bd9fc2bf1f3bed511ff1fe",
+        "PYTHONDONTWRITEBYTECODE=1",
+        "PYTEST_DISABLE_PLUGIN_AUTOLOAD=1"
+      ],
+      "Cmd": [
+        "-I",
+        "-S",
+        "-c",
+        "import time; time.sleep(604800)"
+      ],
+      "Image": "coding-harness-a5-pytest@sha256:abd720f428fd0996d45645d4d50212e5c254864024febe860b2b577f42dde206",
+      "Volumes": null,
+      "WorkingDir": "/workspace",
+      "Entrypoint": [
+        "/usr/local/bin/python"
+      ],
+      "Labels": {
+        "coding-harness.h3": "true"
+      }
+    },
+    "NetworkSettings": {
+      "SandboxID": "ddfa6a6df53811677cbed39e83e25799076282e4be33de741324fe67a896902f",
+      "SandboxKey": "/var/run/docker/netns/ddfa6a6df538",
+      "Ports": {},
+      "Networks": {
+        "none": {
+          "IPAMConfig": null,
+          "Links": null,
+          "Aliases": null,
+          "DriverOpts": null,
+          "GwPriority": 0,
+          "NetworkID": "0578bece0afec6e9438c77cd1e9e80cf5e90a1209d171f5f2bea58f58ec4d45d",
+          "EndpointID": "18139c8decbf11e71dab0c8a7a34c1534762dc520c0f7ac875474857296fca80",
+          "Gateway": "",
+          "IPAddress": "",
+          "MacAddress": "",
+          "IPPrefixLen": 0,
+          "IPv6Gateway": "",
+          "GlobalIPv6Address": "",
+          "GlobalIPv6PrefixLen": 0,
+          "DNSNames": null
+        }
+      }
+    },
+    "ImageManifestDescriptor": {
+      "mediaType": "application/vnd.oci.image.manifest.v1+json",
+      "digest": "sha256:68de0ca32c8566af1375b131310cdfe24de88f6b82181488a995a3f7ebb0f652",
+      "size": 2763,
+      "platform": {
+        "architecture": "amd64",
+        "os": "linux"
+      }
+    }
+  },
+  "generated_environment_files": {
+    "src/pytest.egg-info/top_level.txt": "10d13421e655d48d51eb50ceb7c82ce4a9925f08ad6aadb3b2d1746b3e5ff4f0",
+    "src/pytest.egg-info/requires.txt": "fb4f60053c4656ef4bc177c5338b6b0a53079b5ed6014a8e3cba285e73b6bd51",
+    "src/pytest.egg-info/dependency_links.txt": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "src/pytest.egg-info/not-zip-safe": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "src/pytest.egg-info/entry_points.txt": "6b174afd54f93f6a03f1026fe6bee8f25a3d0c2e39689daebc1defa533fea921",
+    "src/pytest.egg-info/PKG-INFO": "bede19490f231bc82b6c2e8b59280f6b1d6b7c85b61e4677f07462f40e12ce9e",
+    "src/pytest.egg-info/SOURCES.txt": "61fa2e7a177b7062313860a701ccf83f00dd7535397f4b3f4e294fa5c88efe07",
+    "src/_pytest/_version.py": "9126b25934f0e31fb3696032ff63baacc96489be263432d2a1196fca8d5b4923"
+  },
+  "environment": {
+    "python": "3.7.17 (default, Sep 20 2023, 12:13:47) \n[GCC 10.2.1 20210110]",
+    "packages": {
+      "iniconfig": "1.1.1",
+      "typing-extensions": "3.7.4.3",
+      "elementpath": "2.2.3",
+      "argcomplete": "1.12.3",
+      "hypothesis": "4.14.5",
+      "pyparsing": "2.4.7",
+      "toml": "0.10.2",
+      "more-itertools": "8.7.0",
+      "setuptools-scm": "6.0.1",
+      "six": "1.16.0",
+      "urllib3": "1.26.5",
+      "importlib-metadata": "4.0.1",
+      "packaging": "20.9",
+      "wcwidth": "0.2.5",
+      "tomli": "1.2.3",
+      "setuptools": "59.6.0",
+      "wheel": "0.37.1",
+      "sortedcontainers": "2.3.0",
+      "attrs": "18.2.0",
+      "xmlschema": "1.5.3",
+      "py": "1.10.0",
+      "pluggy": "0.9.0",
+      "mock": "4.0.3",
+      "idna": "2.10",
+      "nose": "1.3.7",
+      "chardet": "4.0.0",
+      "atomicwrites": "1.4.0",
+      "zipp": "3.4.1",
+      "Pygments": "2.8.1",
+      "certifi": "2021.5.30",
+      "requests": "2.25.1",
+      "pip": "23.0.1",
+      "pytest": "4.5.0"
+    }
+  },
+  "pip_freeze": "argcomplete==1.12.3\natomicwrites==1.4.0\nattrs==18.2.0\ncertifi==2021.5.30\nchardet==4.0.0\nelementpath==2.2.3\nhypothesis==4.14.5\nidna==2.10\nimportlib-metadata==4.0.1\niniconfig==1.1.1\nmock==4.0.3\nmore-itertools==8.7.0\nnose==1.3.7\npackaging==20.9\npip==23.0.1\npluggy==0.9.0\npy==1.10.0\nPygments==2.8.1\npyparsing==2.4.7\n# Editable install with no version control (pytest==4.5.0)\n-e /workspace/src\nrequests==2.25.1\nsetuptools==59.6.0\nsetuptools-scm==6.0.1\nsix==1.16.0\nsortedcontainers==2.3.0\ntoml==0.10.2\ntomli==1.2.3\ntyping-extensions==3.7.4.3\nurllib3==1.26.5\nwcwidth==0.2.5\nwheel==0.37.1\nxmlschema==1.5.3\nzipp==3.4.1\n",
+  "execution": {
+    "status": "succeeded",
+    "exit_code": 0,
+    "error_kind": null,
+    "truncated": false,
+    "stdout": "ALL TESTS PASSED\n",
+    "stderr": "",
+    "duration_ms": 123.3053000032669
+  },
+  "changed_frozen_inputs": [],
+  "integrity_verified": true,
+  "lifecycle": [
+    {
+      "event": "created",
+      "container": "h3-b521acfb6a814f21b600b51a2805a93b",
+      "image_id": "sha256:abd720f428fd0996d45645d4d50212e5c254864024febe860b2b577f42dde206"
+    },
+    {
+      "event": "destroyed",
+      "container": "h3-b521acfb6a814f21b600b51a2805a93b",
+      "elapsed_s": 0.16537309999694116
+    }
+  ],
+  "capabilities": {
+    "profile": "docker_linux",
+    "platform": "linux-container",
+    "image": "coding-harness-a5-pytest@sha256:abd720f428fd0996d45645d4d50212e5c254864024febe860b2b577f42dde206",
+    "context": "desktop-linux",
+    "cancel": true,
+    "filesystem_isolation": true,
+    "network_control": true,
+    "network_default": "none",
+    "resource_limits": true,
+    "complete_isolation": false,
+    "cpu_limit": 1.0,
+    "memory_limit_bytes": 2147483648,
+    "pids_limit": 128,
+    "workspace_limit_bytes": 268435456,
+    "tmpfs_limit_bytes": 536870912,
+    "tree_reclaim_guaranteed": true,
+    "privileged": false,
+    "docker_socket_mounted": false,
+    "host_mounts": false,
+    "workspace_transfer_limit": 8388608
+  }
+}

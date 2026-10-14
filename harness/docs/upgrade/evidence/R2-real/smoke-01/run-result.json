@@ -1,0 +1,476 @@
+{
+  "task_id": "true-summary-demo",
+  "success": true,
+  "final_answer": null,
+  "failure_reason": "none",
+  "steps": [],
+  "total_elapsed_ms": 3047.8705999994418,
+  "total_tokens": 5904,
+  "tool_failures": 0,
+  "policy_blocks": 0,
+  "total_tool_invocations": 0,
+  "plan": null,
+  "context_events": [
+    {
+      "strategy": "summary",
+      "requested": "summary",
+      "actually_injected": "summary",
+      "summary_provider": "llm",
+      "raw_message_hash": "b620be15f2035e74451b4167e265e37271b98b90c0a96221c8e4a31951d66382",
+      "raw_serialized_bytes": 42147,
+      "summary_records": [
+        {
+          "summary_id": "cba19afc993849d9ac740ad5bead32a2",
+          "provider": "llm",
+          "model": "deepseek-flash",
+          "provider_binding": {
+            "provider": "llm",
+            "adapter": "host-llm-summary-1",
+            "model": "deepseek-flash",
+            "endpoint": "https://api.deepseek.com/v1",
+            "thinking": "disabled"
+          },
+          "prompt_version": "true-summary-1",
+          "config_version": "r2-lite-1",
+          "prompt_hash": "e7c163d0911fd1df34da112001747c50a1f398757be9a05e5ec7f1db7f43fa7b",
+          "config_hash": "df732f20abf1e5b3b87e6db8214283d1920977af6fd5c65f59c99d8ea87293b3",
+          "raw_message_hash": "b620be15f2035e74451b4167e265e37271b98b90c0a96221c8e4a31951d66382",
+          "source_hash": "d20a9f6aabdde1267e2bdf137959ca58c291ed3ab8e3b00d706f57b4bbc51085",
+          "source_start": 2,
+          "source_end": 10,
+          "source_event_seq": 3,
+          "source_event_range": [
+            3,
+            3
+          ],
+          "source_step_range": [
+            0,
+            3
+          ],
+          "source_step_range_kind": "zero_based_raw_assistant_turns",
+          "snapshot_step": 0,
+          "source_range_kind": "raw_history_snapshot",
+          "generated_step": 0,
+          "status": "llm_success",
+          "text": "The task is to fix a public function while preserving constraints and verifying changes, keeping the latest failure in view. The recorded events consist only of repeated assistant messages containing the filler text \"past analysis\" and four read_file tool calls (call-0 through call-3) with empty arguments. The corresponding tool results are labeled \"public file 0\" through \"public file 3\", each followed by long runs of the character 'x' with no discernible code, function definition, error message, or test output. No actual analysis, code change, verification, or failure information is present in the provided events. The public function to be fixed was not identified, no failure was observed or reported, and no fix or verification occurred. The task remains unresolved.",
+          "model_calls": 1,
+          "usage": {
+            "prompt_tokens": 5748,
+            "completion_tokens": 156,
+            "total_tokens": 5904,
+            "provenance": "provider",
+            "prompt_cache_hit_tokens": 0,
+            "prompt_cache_miss_tokens": 5748
+          },
+          "usage_provenance": "provider",
+          "input_tokens": 5748,
+          "output_tokens": 156,
+          "total_tokens": 5904,
+          "cost_usd": 0.0019115999999999998,
+          "cost_provenance": "price_table_estimate",
+          "started_at": "2026-09-21T08:30:15.816434+00:00",
+          "elapsed_seconds": 2.2764016000000993,
+          "before_bytes": 41761,
+          "after_bytes": 1018,
+          "estimated_input_tokens": 10447,
+          "estimated_output_tokens": 255,
+          "request_size": {
+            "serialized_bytes": 42869,
+            "estimated_input_tokens": 10718,
+            "admission_input_tokens": 43445,
+            "reserved_output_tokens": 512,
+            "estimate_method": "utf8_bytes_div_4_estimated",
+            "admission_method": "utf8_bytes_plus_protocol_allowance"
+          },
+          "tokens_committed": 5904,
+          "cost_committed_usd": 0.0019115999999999998,
+          "price_table": {
+            "prompt_per_1k": 0.0003,
+            "completion_per_1k": 0.0012
+          },
+          "currency": "USD",
+          "price_version": "deepseek-official-2026-09-21-peak",
+          "completed_at": "2026-09-21T08:30:18.160877+00:00"
+        }
+      ],
+      "overflow": false,
+      "serialized_bytes": 1430,
+      "estimated_input_tokens": 358,
+      "admission_input_tokens": 2102,
+      "reserved_output_tokens": 256,
+      "estimate_method": "utf8_bytes_div_4_estimated",
+      "admission_method": "utf8_bytes_plus_protocol_allowance",
+      "summary_calls": 1,
+      "summary_model_calls": 1,
+      "summary_accounting": {
+        "provider": "llm",
+        "model_calls": 1,
+        "known_total_tokens": 5904,
+        "unknown_usage_calls": 0,
+        "tokens_committed": 5904,
+        "estimated_cost_usd": 0.0019115999999999998,
+        "cost_committed_usd": 0.0019115999999999998,
+        "elapsed_seconds": 2.2764016000000993,
+        "records": [
+          {
+            "summary_id": "cba19afc993849d9ac740ad5bead32a2",
+            "provider": "llm",
+            "model": "deepseek-flash",
+            "provider_binding": {
+              "provider": "llm",
+              "adapter": "host-llm-summary-1",
+              "model": "deepseek-flash",
+              "endpoint": "https://api.deepseek.com/v1",
+              "thinking": "disabled"
+            },
+            "prompt_version": "true-summary-1",
+            "config_version": "r2-lite-1",
+            "prompt_hash": "e7c163d0911fd1df34da112001747c50a1f398757be9a05e5ec7f1db7f43fa7b",
+            "config_hash": "df732f20abf1e5b3b87e6db8214283d1920977af6fd5c65f59c99d8ea87293b3",
+            "raw_message_hash": "b620be15f2035e74451b4167e265e37271b98b90c0a96221c8e4a31951d66382",
+            "source_hash": "d20a9f6aabdde1267e2bdf137959ca58c291ed3ab8e3b00d706f57b4bbc51085",
+            "source_start": 2,
+            "source_end": 10,
+            "source_event_seq": 3,
+            "source_event_range": [
+              3,
+              3
+            ],
+            "source_step_range": [
+              0,
+              3
+            ],
+            "source_step_range_kind": "zero_based_raw_assistant_turns",
+            "snapshot_step": 0,
+            "source_range_kind": "raw_history_snapshot",
+            "generated_step": 0,
+            "status": "llm_success",
+            "text": "The task is to fix a public function while preserving constraints and verifying changes, keeping the latest failure in view. The recorded events consist only of repeated assistant messages containing the filler text \"past analysis\" and four read_file tool calls (call-0 through call-3) with empty arguments. The corresponding tool results are labeled \"public file 0\" through \"public file 3\", each followed by long runs of the character 'x' with no discernible code, function definition, error message, or test output. No actual analysis, code change, verification, or failure information is present in the provided events. The public function to be fixed was not identified, no failure was observed or reported, and no fix or verification occurred. The task remains unresolved.",
+            "model_calls": 1,
+            "usage": {
+              "prompt_tokens": 5748,
+              "completion_tokens": 156,
+              "total_tokens": 5904,
+              "provenance": "provider",
+              "prompt_cache_hit_tokens": 0,
+              "prompt_cache_miss_tokens": 5748
+            },
+            "usage_provenance": "provider",
+            "input_tokens": 5748,
+            "output_tokens": 156,
+            "total_tokens": 5904,
+            "cost_usd": 0.0019115999999999998,
+            "cost_provenance": "price_table_estimate",
+            "started_at": "2026-09-21T08:30:15.816434+00:00",
+            "elapsed_seconds": 2.2764016000000993,
+            "before_bytes": 41761,
+            "after_bytes": 1018,
+            "estimated_input_tokens": 10447,
+            "estimated_output_tokens": 255,
+            "request_size": {
+              "serialized_bytes": 42869,
+              "estimated_input_tokens": 10718,
+              "admission_input_tokens": 43445,
+              "reserved_output_tokens": 512,
+              "estimate_method": "utf8_bytes_div_4_estimated",
+              "admission_method": "utf8_bytes_plus_protocol_allowance"
+            },
+            "tokens_committed": 5904,
+            "cost_committed_usd": 0.0019115999999999998,
+            "price_table": {
+              "prompt_per_1k": 0.0003,
+              "completion_per_1k": 0.0012
+            },
+            "currency": "USD",
+            "price_version": "deepseek-official-2026-09-21-peak",
+            "completed_at": "2026-09-21T08:30:18.160877+00:00"
+          }
+        ]
+      },
+      "manager_state": {
+        "schema_version": "0.1",
+        "summary_calls": 1,
+        "summaries": [
+          {
+            "summary_id": "cba19afc993849d9ac740ad5bead32a2",
+            "provider": "llm",
+            "model": "deepseek-flash",
+            "provider_binding": {
+              "provider": "llm",
+              "adapter": "host-llm-summary-1",
+              "model": "deepseek-flash",
+              "endpoint": "https://api.deepseek.com/v1",
+              "thinking": "disabled"
+            },
+            "prompt_version": "true-summary-1",
+            "config_version": "r2-lite-1",
+            "prompt_hash": "e7c163d0911fd1df34da112001747c50a1f398757be9a05e5ec7f1db7f43fa7b",
+            "config_hash": "df732f20abf1e5b3b87e6db8214283d1920977af6fd5c65f59c99d8ea87293b3",
+            "raw_message_hash": "b620be15f2035e74451b4167e265e37271b98b90c0a96221c8e4a31951d66382",
+            "source_hash": "d20a9f6aabdde1267e2bdf137959ca58c291ed3ab8e3b00d706f57b4bbc51085",
+            "source_start": 2,
+            "source_end": 10,
+            "source_event_seq": 3,
+            "source_event_range": [
+              3,
+              3
+            ],
+            "source_step_range": [
+              0,
+              3
+            ],
+            "source_step_range_kind": "zero_based_raw_assistant_turns",
+            "snapshot_step": 0,
+            "source_range_kind": "raw_history_snapshot",
+            "generated_step": 0,
+            "status": "llm_success",
+            "text": "The task is to fix a public function while preserving constraints and verifying changes, keeping the latest failure in view. The recorded events consist only of repeated assistant messages containing the filler text \"past analysis\" and four read_file tool calls (call-0 through call-3) with empty arguments. The corresponding tool results are labeled \"public file 0\" through \"public file 3\", each followed by long runs of the character 'x' with no discernible code, function definition, error message, or test output. No actual analysis, code change, verification, or failure information is present in the provided events. The public function to be fixed was not identified, no failure was observed or reported, and no fix or verification occurred. The task remains unresolved.",
+            "model_calls": 1,
+            "usage": {
+              "prompt_tokens": 5748,
+              "completion_tokens": 156,
+              "total_tokens": 5904,
+              "provenance": "provider",
+              "prompt_cache_hit_tokens": 0,
+              "prompt_cache_miss_tokens": 5748
+            },
+            "usage_provenance": "provider",
+            "input_tokens": 5748,
+            "output_tokens": 156,
+            "total_tokens": 5904,
+            "cost_usd": 0.0019115999999999998,
+            "cost_provenance": "price_table_estimate",
+            "started_at": "2026-09-21T08:30:15.816434+00:00",
+            "elapsed_seconds": 2.2764016000000993,
+            "before_bytes": 41761,
+            "after_bytes": 1018,
+            "estimated_input_tokens": 10447,
+            "estimated_output_tokens": 255,
+            "request_size": {
+              "serialized_bytes": 42869,
+              "estimated_input_tokens": 10718,
+              "admission_input_tokens": 43445,
+              "reserved_output_tokens": 512,
+              "estimate_method": "utf8_bytes_div_4_estimated",
+              "admission_method": "utf8_bytes_plus_protocol_allowance"
+            },
+            "tokens_committed": 5904,
+            "cost_committed_usd": 0.0019115999999999998,
+            "price_table": {
+              "prompt_per_1k": 0.0003,
+              "completion_per_1k": 0.0012
+            },
+            "currency": "USD",
+            "price_version": "deepseek-official-2026-09-21-peak",
+            "completed_at": "2026-09-21T08:30:18.160877+00:00"
+          }
+        ],
+        "plugin_state": {},
+        "summary_provider": "llm",
+        "summary_attempts": [
+          {
+            "summary_id": "cba19afc993849d9ac740ad5bead32a2",
+            "provider": "llm",
+            "model": "deepseek-flash",
+            "provider_binding": {
+              "provider": "llm",
+              "adapter": "host-llm-summary-1",
+              "model": "deepseek-flash",
+              "endpoint": "https://api.deepseek.com/v1",
+              "thinking": "disabled"
+            },
+            "prompt_version": "true-summary-1",
+            "config_version": "r2-lite-1",
+            "prompt_hash": "e7c163d0911fd1df34da112001747c50a1f398757be9a05e5ec7f1db7f43fa7b",
+            "config_hash": "df732f20abf1e5b3b87e6db8214283d1920977af6fd5c65f59c99d8ea87293b3",
+            "raw_message_hash": "b620be15f2035e74451b4167e265e37271b98b90c0a96221c8e4a31951d66382",
+            "source_hash": "d20a9f6aabdde1267e2bdf137959ca58c291ed3ab8e3b00d706f57b4bbc51085",
+            "source_start": 2,
+            "source_end": 10,
+            "source_event_seq": 3,
+            "source_event_range": [
+              3,
+              3
+            ],
+            "source_step_range": [
+              0,
+              3
+            ],
+            "source_step_range_kind": "zero_based_raw_assistant_turns",
+            "snapshot_step": 0,
+            "source_range_kind": "raw_history_snapshot",
+            "generated_step": 0,
+            "status": "llm_success",
+            "text": "The task is to fix a public function while preserving constraints and verifying changes, keeping the latest failure in view. The recorded events consist only of repeated assistant messages containing the filler text \"past analysis\" and four read_file tool calls (call-0 through call-3) with empty arguments. The corresponding tool results are labeled \"public file 0\" through \"public file 3\", each followed by long runs of the character 'x' with no discernible code, function definition, error message, or test output. No actual analysis, code change, verification, or failure information is present in the provided events. The public function to be fixed was not identified, no failure was observed or reported, and no fix or verification occurred. The task remains unresolved.",
+            "model_calls": 1,
+            "usage": {
+              "prompt_tokens": 5748,
+              "completion_tokens": 156,
+              "total_tokens": 5904,
+              "provenance": "provider",
+              "prompt_cache_hit_tokens": 0,
+              "prompt_cache_miss_tokens": 5748
+            },
+            "usage_provenance": "provider",
+            "input_tokens": 5748,
+            "output_tokens": 156,
+            "total_tokens": 5904,
+            "cost_usd": 0.0019115999999999998,
+            "cost_provenance": "price_table_estimate",
+            "started_at": "2026-09-21T08:30:15.816434+00:00",
+            "elapsed_seconds": 2.2764016000000993,
+            "before_bytes": 41761,
+            "after_bytes": 1018,
+            "estimated_input_tokens": 10447,
+            "estimated_output_tokens": 255,
+            "request_size": {
+              "serialized_bytes": 42869,
+              "estimated_input_tokens": 10718,
+              "admission_input_tokens": 43445,
+              "reserved_output_tokens": 512,
+              "estimate_method": "utf8_bytes_div_4_estimated",
+              "admission_method": "utf8_bytes_plus_protocol_allowance"
+            },
+            "tokens_committed": 5904,
+            "cost_committed_usd": 0.0019115999999999998,
+            "price_table": {
+              "prompt_per_1k": 0.0003,
+              "completion_per_1k": 0.0012
+            },
+            "currency": "USD",
+            "price_version": "deepseek-official-2026-09-21-peak",
+            "completed_at": "2026-09-21T08:30:18.160877+00:00"
+          }
+        ],
+        "dispatch_calls": 0,
+        "dispatch_receipts": [],
+        "dispatch_observations": []
+      },
+      "plugin": {
+        "name": "noop",
+        "requested": [],
+        "actually_injected": [],
+        "rejected": [],
+        "action_proposals": [],
+        "method_degraded": false,
+        "policy_error": null,
+        "schema_version": "0.1",
+        "ignored_optional_fields": [],
+        "events": []
+      },
+      "max_tokens": 6000,
+      "view_hash": "27c22ce4e6ca3dc497032824dd9377267ed62a05db16ee0075bcc3fd1ab99f6d",
+      "view_serialized_bytes": 1406,
+      "step": 0
+    }
+  ],
+  "subagent_traces": [],
+  "llm_attempts": [],
+  "termination_kind": "context_view_ready",
+  "cleanup_elapsed_s": null,
+  "model_budget": {
+    "calls_started": 1,
+    "tokens_committed": 5904,
+    "cost_committed": 0.0019115999999999998,
+    "outstanding_reservations": 0,
+    "max_model_calls": 1,
+    "max_tokens": 131072,
+    "max_cost_usd": 0.1,
+    "settlements": [
+      {
+        "total_tokens": 5904,
+        "provenance": "provider",
+        "cost_usd": 0.0019115999999999998,
+        "cost_provenance": "provider_split",
+        "note": null
+      }
+    ]
+  },
+  "run_output": null,
+  "execution": null,
+  "summary": {
+    "provider": "llm",
+    "model_calls": 1,
+    "known_total_tokens": 5904,
+    "unknown_usage_calls": 0,
+    "tokens_committed": 5904,
+    "estimated_cost_usd": 0.0019115999999999998,
+    "cost_committed_usd": 0.0019115999999999998,
+    "elapsed_seconds": 2.2764016000000993,
+    "records": [
+      {
+        "summary_id": "cba19afc993849d9ac740ad5bead32a2",
+        "provider": "llm",
+        "model": "deepseek-flash",
+        "provider_binding": {
+          "provider": "llm",
+          "adapter": "host-llm-summary-1",
+          "model": "deepseek-flash",
+          "endpoint": "https://api.deepseek.com/v1",
+          "thinking": "disabled"
+        },
+        "prompt_version": "true-summary-1",
+        "config_version": "r2-lite-1",
+        "prompt_hash": "e7c163d0911fd1df34da112001747c50a1f398757be9a05e5ec7f1db7f43fa7b",
+        "config_hash": "df732f20abf1e5b3b87e6db8214283d1920977af6fd5c65f59c99d8ea87293b3",
+        "raw_message_hash": "b620be15f2035e74451b4167e265e37271b98b90c0a96221c8e4a31951d66382",
+        "source_hash": "d20a9f6aabdde1267e2bdf137959ca58c291ed3ab8e3b00d706f57b4bbc51085",
+        "source_start": 2,
+        "source_end": 10,
+        "source_event_seq": 3,
+        "source_event_range": [
+          3,
+          3
+        ],
+        "source_step_range": [
+          0,
+          3
+        ],
+        "source_step_range_kind": "zero_based_raw_assistant_turns",
+        "snapshot_step": 0,
+        "source_range_kind": "raw_history_snapshot",
+        "generated_step": 0,
+        "status": "llm_success",
+        "text": "The task is to fix a public function while preserving constraints and verifying changes, keeping the latest failure in view. The recorded events consist only of repeated assistant messages containing the filler text \"past analysis\" and four read_file tool calls (call-0 through call-3) with empty arguments. The corresponding tool results are labeled \"public file 0\" through \"public file 3\", each followed by long runs of the character 'x' with no discernible code, function definition, error message, or test output. No actual analysis, code change, verification, or failure information is present in the provided events. The public function to be fixed was not identified, no failure was observed or reported, and no fix or verification occurred. The task remains unresolved.",
+        "model_calls": 1,
+        "usage": {
+          "prompt_tokens": 5748,
+          "completion_tokens": 156,
+          "total_tokens": 5904,
+          "provenance": "provider",
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 5748
+        },
+        "usage_provenance": "provider",
+        "input_tokens": 5748,
+        "output_tokens": 156,
+        "total_tokens": 5904,
+        "cost_usd": 0.0019115999999999998,
+        "cost_provenance": "price_table_estimate",
+        "started_at": "2026-09-21T08:30:15.816434+00:00",
+        "elapsed_seconds": 2.2764016000000993,
+        "before_bytes": 41761,
+        "after_bytes": 1018,
+        "estimated_input_tokens": 10447,
+        "estimated_output_tokens": 255,
+        "request_size": {
+          "serialized_bytes": 42869,
+          "estimated_input_tokens": 10718,
+          "admission_input_tokens": 43445,
+          "reserved_output_tokens": 512,
+          "estimate_method": "utf8_bytes_div_4_estimated",
+          "admission_method": "utf8_bytes_plus_protocol_allowance"
+        },
+        "tokens_committed": 5904,
+        "cost_committed_usd": 0.0019115999999999998,
+        "price_table": {
+          "prompt_per_1k": 0.0003,
+          "completion_per_1k": 0.0012
+        },
+        "currency": "USD",
+        "price_version": "deepseek-official-2026-09-21-peak",
+        "completed_at": "2026-09-21T08:30:18.160877+00:00"
+      }
+    ]
+  }
+}

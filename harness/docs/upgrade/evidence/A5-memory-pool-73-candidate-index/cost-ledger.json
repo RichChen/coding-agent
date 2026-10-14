@@ -1,0 +1,23 @@
+{
+  "schema": "a5.memory-pool.cost-ledger.v1",
+  "created_at": "2026-09-22T09:39:43.441072+00:00",
+  "currency": "CNY",
+  "model_calls": 0,
+  "paid": false,
+  "fixture_only": true,
+  "hard_caps_ref": "docs/upgrade/evidence/A5-harness-preflight-72-shared-gates/shared-gates.json",
+  "hard_caps": {
+    "total": "50.000",
+    "build": "3.840",
+    "pilot": "46.080",
+    "reserve": "0.080"
+  },
+  "memory_build_budget_status": "separate_user_authorized_runtime_alignment_pending",
+  "this_handoff": {
+    "spent_cny": "0.000",
+    "reserved_cny": "0.000",
+    "reconciled": true,
+    "note": "No provider calls; unknown usage remains reserved only after future authorization."
+  },
+  "entries": []
+}

@@ -1,0 +1,27 @@
+{
+  "task_id": "pytest-dev__pytest-5631",
+  "clean_image_digest": "coding-harness-a5-clean@sha256:0ef7d8aeb753f3446e4bc75c2bbe6e423288b4289e796e198a9820476c7361a1",
+  "clean_image_id": "sha256:0ef7d8aeb753f3446e4bc75c2bbe6e423288b4289e796e198a9820476c7361a1",
+  "original_tree_hash": "3861cb0db6872cf73a9c2bab0acb45d513e5665056928ab71ddc7a8b7034a61b",
+  "image_source_only_hash": "3861cb0db6872cf73a9c2bab0acb45d513e5665056928ab71ddc7a8b7034a61b",
+  "source_only_match": true,
+  "filesystem_scan": {
+    "needle_count": 9,
+    "hits": [],
+    "hit_count": 0,
+    "base_image_same": [
+      "/usr/local/lib/python3.9/pickle.py",
+      "/usr/local/lib/python3.9/pickletools.py",
+      "/usr/local/lib/python3.9/runpy.py"
+    ],
+    "base_image_same_count": 3,
+    "install_record_same": [
+      "/usr/local/lib/python3.9/site-packages/attr/_cmp.py"
+    ],
+    "install_record_same_count": 1,
+    "pass": true
+  },
+  "answer_isolation_pass": true,
+  "base_image": "python:3.9-slim-bookworm",
+  "spec_python": "3.9"
+}

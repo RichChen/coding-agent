@@ -1,0 +1,37 @@
+{
+  "schema": "a5.memory-source-anomaly-dispositions.v1",
+  "model_calls": 0,
+  "paid": false,
+  "rows": [
+    {
+      "task_id": "django__django-11001",
+      "disposition": "blocked_baseline_contract_mismatch",
+      "evidence": "A5-harness-preflight-57-remaining16-baseline/tasks/django__django-11001/receipt.json",
+      "action": "retain_exact_collection_and_failure_nodes; no waiver or ID substitution"
+    },
+    {
+      "task_id": "django__django-11019",
+      "disposition": "blocked_baseline_contract_mismatch",
+      "evidence": "A5-harness-preflight-57-remaining16-baseline/tasks/django__django-11019/receipt.json",
+      "action": "retain exact collection and failure nodes; no waiver or ID substitution"
+    },
+    {
+      "task_id": "sympy__sympy-12236",
+      "disposition": "blocked_known_good_failure",
+      "evidence": "A5-harness-preflight-57-remaining16-baseline/tasks/sympy__sympy-12236/receipt.json",
+      "action": "retain baseline mismatch and known-good failure; do not mark eligible"
+    },
+    {
+      "task_id": "pytest-dev__pytest-5413",
+      "disposition": "blocked_collection_invalid_and_known_good_failure",
+      "evidence": "A5-harness-preflight-57-remaining16-baseline/tasks/pytest-dev__pytest-5413/receipt.json",
+      "action": "retain missing exact node receipt and environment failure"
+    },
+    {
+      "task_id": "pytest-dev__pytest-5495",
+      "disposition": "blocked_collection_invalid_and_known_good_failure",
+      "evidence": "A5-harness-preflight-57-remaining16-baseline/tasks/pytest-dev__pytest-5495/receipt.json",
+      "action": "retain missing exact node receipt and environment failure"
+    }
+  ]
+}

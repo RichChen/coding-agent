@@ -1,0 +1,78 @@
+{
+  "task_id": "scikit-learn__scikit-learn-15100",
+  "repo": "scikit-learn/scikit-learn",
+  "accepted": true,
+  "reason": null,
+  "empty_f2p": [
+    0,
+    1
+  ],
+  "gold_f2p": [
+    1,
+    1
+  ],
+  "empty_p2p": [
+    86,
+    86
+  ],
+  "gold_p2p": [
+    86,
+    86
+  ],
+  "p2p_excluded_count": 0,
+  "p2p_excluded": [],
+  "sklearn_import": true,
+  "nodeids": {
+    "f2p": {
+      "original": 1,
+      "used": 1
+    },
+    "p2p": {
+      "original": 93,
+      "used": 86
+    },
+    "dropped_reasons": {
+      "f2p": {},
+      "p2p": {
+        "unbalanced_brackets": 7
+      }
+    },
+    "dropped": [
+      {
+        "side": "p2p",
+        "nodeid": "sklearn/feature_extraction/tests/test_text.py::test_callable_analyzer_error[file-AttributeError-'str'",
+        "reason": "unbalanced_brackets"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "sklearn/feature_extraction/tests/test_text.py::test_unused_parameters_warn[stop_words0-None-None-ngram_range0-None-char-'stop_words'-'analyzer'-!=",
+        "reason": "unbalanced_brackets"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "sklearn/feature_extraction/tests/test_text.py::test_unused_parameters_warn[None-<lambda>-None-ngram_range1-None-char-'tokenizer'-'analyzer'-!=",
+        "reason": "unbalanced_brackets"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "sklearn/feature_extraction/tests/test_text.py::test_unused_parameters_warn[None-<lambda>-None-ngram_range2-\\\\w+-word-'token_pattern'-'tokenizer'-is",
+        "reason": "unbalanced_brackets"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "sklearn/feature_extraction/tests/test_text.py::test_unused_parameters_warn[None-None-<lambda>-ngram_range3-\\\\w+-<lambda>-'preprocessor'-'analyzer'-is",
+        "reason": "unbalanced_brackets"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "sklearn/feature_extraction/tests/test_text.py::test_unused_parameters_warn[None-None-None-ngram_range4-None-<lambda>-'ngram_range'-'analyzer'-is",
+        "reason": "unbalanced_brackets"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "sklearn/feature_extraction/tests/test_text.py::test_unused_parameters_warn[None-None-None-ngram_range5-\\\\w+-char-'token_pattern'-'analyzer'-!=",
+        "reason": "unbalanced_brackets"
+      }
+    ]
+  }
+}

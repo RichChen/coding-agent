@@ -1,0 +1,14 @@
+{
+  "task_id": "pytest-dev__pytest-7432",
+  "repo": "pytest-dev/pytest",
+  "base_revision": "e6e300e729dd33956e5448d8be9a0b1540b4e53a",
+  "status": "invalid_env",
+  "attempt": 25,
+  "retries": 0,
+  "model_calls": 0,
+  "paid": false,
+  "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\pytest-dev__pytest-7432\\source-receipt.json",
+  "transport_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-23-transport-smoke\\tasks\\pytest-dev__pytest-7432\\receipt.json",
+  "reason": "environment_or_baseline_preflight_failed",
+  "error": "RuntimeError: docker image build failed: pace && tar -xzf /opt/baseline.tar.gz -C /opt/repo\n   4 |     WORKDIR /workspace\n   5 | >>> RUN python -m pip install --no-cache-dir attrs==19.3.0 iniconfig==1.1.1 packaging==20.9 pyparsing==2.4.7 pluggy==0.13.1 py==1.10.0 toml==0.10.2 tomli==1.2.3 atomicwrites==1.4.0 more-itertools==8.7.0 six==1.16.0 wcwidth==0.2.13 hypothesis==5.49.0 sortedcontainers==2.3.0 && python -m pip install --no-cache-dir --no-deps -e /workspace\n   6 |     RUN cp -a /workspace/. /opt/repo/\n   7 |     RUN python -m pip freeze --all > /opt/grader-environment.txt\n--------------------\nERROR: failed to build: failed to solve: process \"/bin/sh -c python -m pip install --no-cache-dir attrs==19.3.0 iniconfig==1.1.1 packaging==20.9 pyparsing==2.4.7 pluggy==0.13.1 py==1.10.0 toml==0.10.2 tomli==1.2.3 atomicwrites==1.4.0 more-itertools==8.7.0 six==1.16.0 wcwidth==0.2.13 hypothesis==5.49.0 sortedcontainers==2.3.0 && python -m pip install --no-cache-dir --no-deps -e /workspace\" did not complete successfully: exit code: 1\n"
+}

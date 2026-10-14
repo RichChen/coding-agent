@@ -1,0 +1,15 @@
+{
+  "schema": "a5.failure-retry-ledger.v1",
+  "attempt": 25,
+  "entries": [
+    {
+      "task_id": "sympy__sympy-20154",
+      "status": "invalid_env",
+      "reason": "environment_or_baseline_preflight_failed",
+      "error": "RuntimeError: git apply check test: error: patch failed: sympy/utilities/tests/test_iterables.py:481\nerror: sympy/utilities/tests/test_iterables.py: patch does not apply\n"
+    }
+  ],
+  "model_calls": 0,
+  "model_reservations": 0,
+  "paid": false
+}

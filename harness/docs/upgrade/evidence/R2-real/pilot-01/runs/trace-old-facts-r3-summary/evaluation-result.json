@@ -1,0 +1,21 @@
+{
+  "valid_json": true,
+  "correct": 4,
+  "total": 4,
+  "success": true,
+  "fields": {
+    "endpoint": true,
+    "timeout_ms": true,
+    "retry_limit": true,
+    "idempotency_header": true
+  },
+  "abstentions": 0,
+  "unsupported_values": 0,
+  "summary_exact_value_mentions": {
+    "endpoint": true,
+    "timeout_ms": true,
+    "retry_limit": true,
+    "idempotency_header": true
+  },
+  "summary_coverage_method": "literal value presence only, not semantic verification"
+}

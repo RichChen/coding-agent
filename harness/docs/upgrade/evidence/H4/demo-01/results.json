@@ -1,0 +1,344 @@
+[
+  {
+    "strategy": "none",
+    "status": "context_overflow",
+    "stats": {
+      "strategy": "none",
+      "requested": "none",
+      "actually_injected": "none",
+      "raw_message_hash": "b620be15f2035e74451b4167e265e37271b98b90c0a96221c8e4a31951d66382",
+      "raw_serialized_bytes": 42147,
+      "summary_records": [],
+      "overflow": true,
+      "serialized_bytes": 42171,
+      "estimated_input_tokens": 10543,
+      "admission_input_tokens": 43067,
+      "reserved_output_tokens": 256,
+      "estimate_method": "utf8_bytes_div_4_estimated",
+      "admission_method": "utf8_bytes_plus_protocol_allowance",
+      "summary_calls": 0,
+      "summary_model_calls": 0,
+      "max_tokens": 6000
+    }
+  },
+  {
+    "strategy": "masking",
+    "status": "context_overflow",
+    "stats": {
+      "strategy": "masking",
+      "requested": "masking",
+      "actually_injected": "masking",
+      "raw_message_hash": "b620be15f2035e74451b4167e265e37271b98b90c0a96221c8e4a31951d66382",
+      "raw_serialized_bytes": 42147,
+      "summary_records": [],
+      "overflow": true,
+      "serialized_bytes": 10215,
+      "estimated_input_tokens": 2554,
+      "admission_input_tokens": 11111,
+      "reserved_output_tokens": 256,
+      "estimate_method": "utf8_bytes_div_4_estimated",
+      "admission_method": "utf8_bytes_plus_protocol_allowance",
+      "masking": {
+        "message_count_before": 12,
+        "message_count_after": 12,
+        "chars_before": 41151,
+        "chars_after": 9199,
+        "chars_saved": 31952,
+        "tool_messages_before": 5,
+        "tool_messages_after": 5,
+        "compacted_tool_count": 4,
+        "preserved_tool_count": 1,
+        "keep_recent": 1,
+        "did_compact": true,
+        "estimated_tokens_before": 10290,
+        "estimated_tokens_after": 2302
+      },
+      "compacted_tool_count": 4,
+      "summary_calls": 0,
+      "summary_model_calls": 0,
+      "max_tokens": 6000
+    }
+  },
+  {
+    "strategy": "summary",
+    "status": "ready",
+    "stats": {
+      "strategy": "summary",
+      "requested": "summary",
+      "actually_injected": "summary",
+      "raw_message_hash": "b620be15f2035e74451b4167e265e37271b98b90c0a96221c8e4a31951d66382",
+      "raw_serialized_bytes": 42147,
+      "summary_records": [
+        {
+          "source_start": 2,
+          "source_end": 10,
+          "source_hash": "d20a9f6aabdde1267e2bdf137959ca58c291ed3ab8e3b00d706f57b4bbc51085",
+          "text": "[Untrusted fixture summary; consult original observations] past analysis past analysis past analysis past analysis past analysis past analysis past analysi | public file 0\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx | past analysis past analysis past analysis past analysis past analysis past analysis past analysi | public file 1\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          "raw_message_hash": "b620be15f2035e74451b4167e265e37271b98b90c0a96221c8e4a31951d66382",
+          "source_event_seq": null,
+          "generator": "fixture-extractive",
+          "model": null,
+          "version": "1",
+          "model_calls": 0,
+          "cost_usd": 0.0,
+          "cost_provenance": "no_model_call",
+          "input_tokens": null,
+          "output_tokens": null,
+          "estimated_input_tokens": 10447
+        }
+      ],
+      "overflow": false,
+      "serialized_bytes": 1002,
+      "estimated_input_tokens": 251,
+      "admission_input_tokens": 1706,
+      "reserved_output_tokens": 256,
+      "estimate_method": "utf8_bytes_div_4_estimated",
+      "admission_method": "utf8_bytes_plus_protocol_allowance",
+      "summary_calls": 1,
+      "summary_model_calls": 0,
+      "plugin": {
+        "name": "fixture",
+        "requested": [
+          {
+            "id": "valid",
+            "source": "fixture://api",
+            "reason": "known current",
+            "repo_revision": "v2",
+            "bytes": 31,
+            "sha256": "db3f589794c8c16f8e96283f9a484c3bbc3c83f3a458f760fa3f9e932282f0fe"
+          },
+          {
+            "id": "old",
+            "source": "fixture://api-v1",
+            "reason": "stale example",
+            "repo_revision": "v1",
+            "bytes": 23,
+            "sha256": "8614867fc65e17e6c5bbdab2b767b7c8c2406b1f1264b7d9b94f3b0b0bb4ca63"
+          },
+          {
+            "id": "large",
+            "source": "fixture://large",
+            "reason": "quota example",
+            "repo_revision": null,
+            "bytes": 8000,
+            "sha256": "b0e8596364b13fd4cc15146fcd186eb6a34ed62247a3eee5e866c1c7e89f0cbe"
+          }
+        ],
+        "actually_injected": [
+          {
+            "id": "valid",
+            "source": "fixture://api",
+            "reason": "known current",
+            "repo_revision": "v2",
+            "bytes": 31,
+            "sha256": "db3f589794c8c16f8e96283f9a484c3bbc3c83f3a458f760fa3f9e932282f0fe"
+          }
+        ],
+        "rejected": [
+          {
+            "id": "old",
+            "source": "fixture://api-v1",
+            "reason": "stale example",
+            "repo_revision": "v1",
+            "bytes": 23,
+            "sha256": "8614867fc65e17e6c5bbdab2b767b7c8c2406b1f1264b7d9b94f3b0b0bb4ca63",
+            "rejection": "revision_mismatch"
+          },
+          {
+            "id": "large",
+            "source": "fixture://large",
+            "reason": "quota example",
+            "repo_revision": null,
+            "bytes": 8000,
+            "sha256": "b0e8596364b13fd4cc15146fcd186eb6a34ed62247a3eee5e866c1c7e89f0cbe",
+            "rejection": "injection_quota"
+          }
+        ],
+        "action_proposals": [],
+        "method_degraded": false,
+        "policy_error": null,
+        "schema_version": "0.1",
+        "ignored_optional_fields": [],
+        "events": []
+      },
+      "max_tokens": 6000,
+      "view_hash": "cab30d85381195bb53553bce8eada47389feaf8e2b25d81d298c1b1e71693abf",
+      "view_serialized_bytes": 978,
+      "manager_state": {
+        "schema_version": "0.1",
+        "summary_calls": 1,
+        "summaries": [
+          {
+            "source_start": 2,
+            "source_end": 10,
+            "source_hash": "d20a9f6aabdde1267e2bdf137959ca58c291ed3ab8e3b00d706f57b4bbc51085",
+            "text": "[Untrusted fixture summary; consult original observations] past analysis past analysis past analysis past analysis past analysis past analysis past analysi | public file 0\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx | past analysis past analysis past analysis past analysis past analysis past analysis past analysi | public file 1\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+            "raw_message_hash": "b620be15f2035e74451b4167e265e37271b98b90c0a96221c8e4a31951d66382",
+            "source_event_seq": null,
+            "generator": "fixture-extractive",
+            "model": null,
+            "version": "1",
+            "model_calls": 0,
+            "cost_usd": 0.0,
+            "cost_provenance": "no_model_call",
+            "input_tokens": null,
+            "output_tokens": null,
+            "estimated_input_tokens": 10447
+          }
+        ],
+        "plugin_state": {
+          "calls": 1
+        }
+      }
+    }
+  },
+  {
+    "strategy": "mask-then-summary",
+    "status": "ready",
+    "stats": {
+      "strategy": "mask-then-summary",
+      "requested": "mask-then-summary",
+      "actually_injected": "mask-then-summary",
+      "raw_message_hash": "b620be15f2035e74451b4167e265e37271b98b90c0a96221c8e4a31951d66382",
+      "raw_serialized_bytes": 42147,
+      "summary_records": [
+        {
+          "source_start": 2,
+          "source_end": 10,
+          "source_hash": "d20a9f6aabdde1267e2bdf137959ca58c291ed3ab8e3b00d706f57b4bbc51085",
+          "text": "[Untrusted fixture summary; consult original observations] past analysis past analysis past analysis past analysis past analysis past analysis past analysi | public file 0\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx | past analysis past analysis past analysis past analysis past analysis past analysis past analysi | public file 1\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          "raw_message_hash": "b620be15f2035e74451b4167e265e37271b98b90c0a96221c8e4a31951d66382",
+          "source_event_seq": null,
+          "generator": "fixture-extractive",
+          "model": null,
+          "version": "1",
+          "model_calls": 0,
+          "cost_usd": 0.0,
+          "cost_provenance": "no_model_call",
+          "input_tokens": null,
+          "output_tokens": null,
+          "estimated_input_tokens": 10447
+        }
+      ],
+      "overflow": false,
+      "serialized_bytes": 1002,
+      "estimated_input_tokens": 251,
+      "admission_input_tokens": 1706,
+      "reserved_output_tokens": 256,
+      "estimate_method": "utf8_bytes_div_4_estimated",
+      "admission_method": "utf8_bytes_plus_protocol_allowance",
+      "masking": {
+        "message_count_before": 12,
+        "message_count_after": 12,
+        "chars_before": 41151,
+        "chars_after": 9199,
+        "chars_saved": 31952,
+        "tool_messages_before": 5,
+        "tool_messages_after": 5,
+        "compacted_tool_count": 4,
+        "preserved_tool_count": 1,
+        "keep_recent": 1,
+        "did_compact": true,
+        "estimated_tokens_before": 10290,
+        "estimated_tokens_after": 2302
+      },
+      "compacted_tool_count": 4,
+      "summary_calls": 1,
+      "summary_model_calls": 0,
+      "plugin": {
+        "name": "fixture",
+        "requested": [
+          {
+            "id": "valid",
+            "source": "fixture://api",
+            "reason": "known current",
+            "repo_revision": "v2",
+            "bytes": 31,
+            "sha256": "db3f589794c8c16f8e96283f9a484c3bbc3c83f3a458f760fa3f9e932282f0fe"
+          },
+          {
+            "id": "old",
+            "source": "fixture://api-v1",
+            "reason": "stale example",
+            "repo_revision": "v1",
+            "bytes": 23,
+            "sha256": "8614867fc65e17e6c5bbdab2b767b7c8c2406b1f1264b7d9b94f3b0b0bb4ca63"
+          },
+          {
+            "id": "large",
+            "source": "fixture://large",
+            "reason": "quota example",
+            "repo_revision": null,
+            "bytes": 8000,
+            "sha256": "b0e8596364b13fd4cc15146fcd186eb6a34ed62247a3eee5e866c1c7e89f0cbe"
+          }
+        ],
+        "actually_injected": [
+          {
+            "id": "valid",
+            "source": "fixture://api",
+            "reason": "known current",
+            "repo_revision": "v2",
+            "bytes": 31,
+            "sha256": "db3f589794c8c16f8e96283f9a484c3bbc3c83f3a458f760fa3f9e932282f0fe"
+          }
+        ],
+        "rejected": [
+          {
+            "id": "old",
+            "source": "fixture://api-v1",
+            "reason": "stale example",
+            "repo_revision": "v1",
+            "bytes": 23,
+            "sha256": "8614867fc65e17e6c5bbdab2b767b7c8c2406b1f1264b7d9b94f3b0b0bb4ca63",
+            "rejection": "revision_mismatch"
+          },
+          {
+            "id": "large",
+            "source": "fixture://large",
+            "reason": "quota example",
+            "repo_revision": null,
+            "bytes": 8000,
+            "sha256": "b0e8596364b13fd4cc15146fcd186eb6a34ed62247a3eee5e866c1c7e89f0cbe",
+            "rejection": "injection_quota"
+          }
+        ],
+        "action_proposals": [],
+        "method_degraded": false,
+        "policy_error": null,
+        "schema_version": "0.1",
+        "ignored_optional_fields": [],
+        "events": []
+      },
+      "max_tokens": 6000,
+      "view_hash": "cab30d85381195bb53553bce8eada47389feaf8e2b25d81d298c1b1e71693abf",
+      "view_serialized_bytes": 978,
+      "manager_state": {
+        "schema_version": "0.1",
+        "summary_calls": 1,
+        "summaries": [
+          {
+            "source_start": 2,
+            "source_end": 10,
+            "source_hash": "d20a9f6aabdde1267e2bdf137959ca58c291ed3ab8e3b00d706f57b4bbc51085",
+            "text": "[Untrusted fixture summary; consult original observations] past analysis past analysis past analysis past analysis past analysis past analysis past analysi | public file 0\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx | past analysis past analysis past analysis past analysis past analysis past analysis past analysi | public file 1\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+            "raw_message_hash": "b620be15f2035e74451b4167e265e37271b98b90c0a96221c8e4a31951d66382",
+            "source_event_seq": null,
+            "generator": "fixture-extractive",
+            "model": null,
+            "version": "1",
+            "model_calls": 0,
+            "cost_usd": 0.0,
+            "cost_provenance": "no_model_call",
+            "input_tokens": null,
+            "output_tokens": null,
+            "estimated_input_tokens": 10447
+          }
+        ],
+        "plugin_state": {
+          "calls": 1
+        }
+      }
+    }
+  }
+]

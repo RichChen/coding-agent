@@ -1,0 +1,60 @@
+{
+  "task_id": "pytest-dev__pytest-7521",
+  "repo": "pytest-dev/pytest",
+  "accepted": true,
+  "reason": null,
+  "empty_f2p": [
+    0,
+    2
+  ],
+  "gold_f2p": [
+    2,
+    2
+  ],
+  "empty_p2p": [
+    122,
+    122
+  ],
+  "gold_p2p": [
+    122,
+    122
+  ],
+  "p2p_excluded_count": 0,
+  "p2p_excluded": [],
+  "sklearn_import": null,
+  "nodeids": {
+    "f2p": {
+      "original": 2,
+      "used": 2
+    },
+    "p2p": {
+      "original": 125,
+      "used": 122
+    },
+    "dropped_reasons": {
+      "f2p": {},
+      "p2p": {
+        "unusable_nodeid": 1,
+        "test_file_missing": 1,
+        "unbalanced_brackets": 1
+      }
+    },
+    "dropped": [
+      {
+        "side": "p2p",
+        "nodeid": "[100%]",
+        "reason": "unusable_nodeid"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "test_capsysbinary.py::test_hello",
+        "reason": "test_file_missing"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "testing/test_capture.py::test_capturing_and_logging_fundamentals[SysCapture(2,",
+        "reason": "unbalanced_brackets"
+      }
+    ]
+  }
+}

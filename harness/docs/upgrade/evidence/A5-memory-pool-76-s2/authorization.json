@@ -1,0 +1,44 @@
+{
+  "schema": "a5.memory-pool.s2-authorization.v1",
+  "authorized_at": "2026-09-22T19:23:00+08:00",
+  "authority": "user_message_start_s2_obey_contract",
+  "contract": "docs/upgrade/A5-PRE-MEMORY-CURSOR-CONTRACT.zh-CN.md",
+  "s1_attempt": "docs/upgrade/evidence/A5-memory-pool-75-s1-smoke",
+  "paid_execution": true,
+  "pilot_started": false,
+  "bounds": {
+    "fixed_source_pool": 20,
+    "target_validated_or_candidate": "about_12_to_15_not_a_promise",
+    "no_forge_promotion": true,
+    "no_full_repo_grader_required_for_unused_sources": true,
+    "min_gate_only_for_paid_sources": true,
+    "private_grader_not_required_for_lightweight_validated": "public_independent_validation_receipt_acceptable_if_provenance_review_passes"
+  },
+  "carry_forward_candidates": [
+    "django__django-10914",
+    "django__django-10924",
+    "sympy__sympy-11400",
+    "scikit-learn__scikit-learn-10297",
+    "pytest-dev__pytest-5103"
+  ],
+  "failed_retained": ["sympy__sympy-11870"],
+  "blocked_not_paid": [
+    "django__django-11001",
+    "django__django-11019",
+    "sympy__sympy-12236",
+    "pytest-dev__pytest-5413",
+    "pytest-dev__pytest-5495"
+  ],
+  "expansion_sources": [
+    "django__django-11039",
+    "sympy__sympy-11897",
+    "sympy__sympy-12171",
+    "scikit-learn__scikit-learn-10508",
+    "scikit-learn__scikit-learn-10949",
+    "scikit-learn__scikit-learn-11040",
+    "pytest-dev__pytest-5221",
+    "pytest-dev__pytest-5227"
+  ],
+  "cli": "scripts/a5_memory_source_smoke.py",
+  "config": "configs/memory-smoke-a5.yaml"
+}

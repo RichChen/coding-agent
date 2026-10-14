@@ -1,0 +1,34 @@
+{
+  "task_id": "django__django-10924",
+  "status": "fail",
+  "image": "coding-harness-a5-known-good@sha256:89a2aa64cb4b0b19a13d683f7f28c4923f9b13514df908777cece3e3b15b44b5",
+  "repo": "django/django",
+  "full_collection_count": 0,
+  "full_collection_hash": null,
+  "full_suite_passed": 0,
+  "full_suite_failed": 0,
+  "full_suite_skipped": 0,
+  "evidence_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-65-grader-calibration\\tasks\\django__django-10924\\full-repo\\evidence.json",
+  "negative_checks": [
+    {
+      "case": "protected_path_change",
+      "status": "rejected",
+      "reason": "protected_or_unassigned_path_changed"
+    },
+    {
+      "case": "missing_receipt",
+      "status": "rejected",
+      "reason": "missing_or_incomplete_receipt"
+    },
+    {
+      "case": "input_integrity_change",
+      "status": "rejected",
+      "reason": "frozen_input_changed_during_tests"
+    }
+  ],
+  "negative_checks_passed": true,
+  "known_good_target_status": "pass",
+  "cleanup_verified": true,
+  "model_calls": 0,
+  "paid": false
+}

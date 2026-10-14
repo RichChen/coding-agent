@@ -1,0 +1,26 @@
+{
+  "schema": "a5.model-price-binding.v1",
+  "verified": true,
+  "provider": "DeepSeek",
+  "model": "deepseek-flash",
+  "snapshot_id": "deepseek-flash@DeepSeek-V4.1-Flash",
+  "snapshot_semantics": "provider model id plus official model mapping retrieved 2026-09-21; rebind if provider remaps the alias",
+  "currency": "CNY",
+  "source_url": "https://api-docs.deepseek.com/quick_start/pricing",
+  "retrieved_on": "2026-09-21",
+  "effective_on": "2026-09-21",
+  "provider_price_currency": "USD",
+  "accounting_schedule_ref": "D:/crq/src/coding-agent/configs/a5/funding-cny-v1.json",
+  "price_basis": "host CNY accounting schedule; provider price page and model mapping are retained as provenance; no account invoice claim",
+  "prompt_cache_hit_per_million": "0.040",
+  "prompt_cache_miss_per_million": "2.000",
+  "completion_per_million": "8.000",
+  "verification_evidence": [
+    "docs/upgrade/H5-DEEPSEEK.zh-CN.md",
+    "docs/upgrade/R2-EXPERIMENT-CONTRACT.zh-CN.md",
+    "D:/crq/src/coding-agent/configs/a5/funding-cny-v1.json"
+  ],
+  "rebind_on": ["provider model alias change", "price page change", "accounting schedule change"],
+  "model_calls": 0,
+  "paid": false
+}

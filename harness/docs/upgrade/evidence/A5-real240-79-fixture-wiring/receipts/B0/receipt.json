@@ -1,0 +1,44 @@
+{
+  "schema": "a5.pilot-run-receipt.v1",
+  "assignment_id": "29a4274e47cb48d6787b514a863a9541c931b859c0860af30696db2ab997cb78",
+  "experiment_id": "a5-pilot-20-v1",
+  "canonical_target_id": "django__django-13265",
+  "agent_task_id": "a5-task-9d74ed989dbd3bb5",
+  "variant": "B0",
+  "repeat_id": 0,
+  "seed": 42,
+  "public_task_hash": "49c9482120eb6f290d4e64e5d014efbcf2223ff956951acfd9313687bb2f12d8",
+  "target_base_hash": "8d7a13396e19723734aa5ec43703ab0d32d7a8f5ee53a35cad520bb50bf5eb60",
+  "memory_snapshot_hash": "6671b434ccc774e68d063a9bc029400acba81f91a634c6d4c8b8c67f9fcbc851",
+  "injection_receipt_refs": [],
+  "model_binding_hash": "db26fee0ce5d271997ce39c0bf4e526b0ef43c0d6e7d53ec5069af56bcc03418",
+  "harness_fingerprint": "0939b6cb2b2fc5e287f31c5f0450b4854800b2c0b030e0ef45ed5cd33142b1e2",
+  "agent_fingerprint": "b3e447df09e050aacd8f35f4254de3be1c62bcf914230bd96848a029ce39e365",
+  "operation_id": "fixture-B0-op",
+  "attempt_ids": [
+    "fixture-B0-attempt-1"
+  ],
+  "usage": {
+    "unknown": true
+  },
+  "reservation": {
+    "reserved_cny": "0.192"
+  },
+  "settlement": {
+    "status": "unknown_keeps_reserve",
+    "cost_cny": "0.192"
+  },
+  "candidate_hash": "968e3e09f41c4aaf8ebeb4a8ae819d70c37f08c8f9cac1278484ed42fca6aba8",
+  "grader_receipt_ref": "223edabbea076a84ac632a96fab58c3cc3a3f4e7b9722f5e9951e58f4cde3185",
+  "cleanup_verified": true,
+  "status": "fixture_accepted",
+  "failure_reason": null,
+  "created_at": "2026-09-22T00:00:00+00:00",
+  "finished_at": "2026-09-22T00:00:00+00:00",
+  "fixture_only": true,
+  "model_calls": 0,
+  "paid": false,
+  "receipt_status": "accepted",
+  "following_claim": "not_inferred_from_injection",
+  "pilot_claim": "not_a_real_pilot"
+}

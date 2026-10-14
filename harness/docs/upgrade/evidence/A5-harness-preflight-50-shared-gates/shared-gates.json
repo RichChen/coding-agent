@@ -1,0 +1,68 @@
+{
+  "schema": "a5.shared-gates.v1",
+  "model_binding_hash": "ab1cad7069b9b496b74a1bc523121eebd205b1868ce875bff5ba4b91cf739a29",
+  "model_binding_ref": "D:\\crq\\src\\coding-harness\\configs\\a5\\model-price-binding.json",
+  "harness_source_fingerprint": "3b963ddc1af8d906b1d6811a8b2046162818474a5bd3bc953a7b305a124ca017",
+  "harness_files": 72,
+  "coding_agent_source_fingerprint": "c47d837b309d503898fbe74ffdca18421c297d0c9fb8fb1df57b2921e37b12f2",
+  "coding_agent_files": 101,
+  "fingerprint_scope": "current source/config snapshot; any later change invalidates this freeze",
+  "ledger": {
+    "schema": "a5.cny.runtime-alignment.v1",
+    "price_binding_hash": "ab1cad7069b9b496b74a1bc523121eebd205b1868ce875bff5ba4b91cf739a29",
+    "ledger_schema": "a5.cny.ledger.v1",
+    "currency": "CNY",
+    "hard_caps": {
+      "total": "50.000",
+      "build": "3.840",
+      "pilot": "46.080",
+      "reserve": "0.080"
+    },
+    "phase_caps_match_plan": true,
+    "unknown_usage_keeps_reserve": true,
+    "model_calls": 0,
+    "paid": false
+  },
+  "b0_b3_receipts": [
+    {
+      "variant": "B0",
+      "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-50-shared-gates\\receipts\\B0\\receipt.json",
+      "sha256": "e64a0fc146d38868486a0168e5a0015a925d4148fdc0568e6d1263208d9f4d2d",
+      "receipt_status": "accepted"
+    },
+    {
+      "variant": "B1",
+      "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-50-shared-gates\\receipts\\B1\\receipt.json",
+      "sha256": "c35f1f487355eb3d346eec942ffe791291a378a901308e30a7bd12a3bba8d2eb",
+      "receipt_status": "accepted"
+    },
+    {
+      "variant": "B2",
+      "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-50-shared-gates\\receipts\\B2\\receipt.json",
+      "sha256": "de597b316dd28072b2196343538cb0e3da147c52b03b6e20f1d6028cabf6c6a9",
+      "receipt_status": "accepted"
+    },
+    {
+      "variant": "B3",
+      "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-50-shared-gates\\receipts\\B3\\receipt.json",
+      "sha256": "8c774559fdc1d36dd3803c53edcd9cc30f3a5332edef7e99dd8063dee7541114",
+      "receipt_status": "accepted"
+    }
+  ],
+  "django_contract_resolution": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-48-django-contract-resolution\\contract-resolution.json",
+  "django_contract_resolution_sha256": "c198d977d371a2f759fdbe37600cafe14b3053e563720174a329e0ce8fefbb29",
+  "initial24_environment_baseline": {
+    "assigned": 24,
+    "environment_ready": 24,
+    "baseline_contract_resolved": false,
+    "reason": "23 baseline-ready plus django contract kept visible"
+  },
+  "remaining16_memory_sources": "not_started",
+  "model_calls": 0,
+  "paid_build_started": false,
+  "paid_pilot_started": false,
+  "memory_build_eligible": false,
+  "shared_gates_ready_for_approval": true,
+  "ready_for_paid_build": false,
+  "approval_boundary": "shared gates are auditable; per-source 16 preflights and explicit funding approval remain required"
+}

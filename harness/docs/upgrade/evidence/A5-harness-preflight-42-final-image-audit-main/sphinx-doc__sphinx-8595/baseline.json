@@ -1,0 +1,59 @@
+{
+  "task_id": "sphinx-doc__sphinx-8595",
+  "kind": "baseline",
+  "image": "coding-harness-a5-baseline@sha256:08038a4f8e02b84c379792ad651a3797b46713d81943d7fd2a2b047d7e4eb924",
+  "status": "verified",
+  "model_calls": 0,
+  "paid": false,
+  "expected_members": 1870,
+  "mismatches": [],
+  "generated": {
+    "Sphinx.egg-info": {
+      "kind": "dir",
+      "size": 180
+    },
+    "sphinx/__pycache__": {
+      "kind": "dir",
+      "size": 80
+    },
+    "sphinx/__pycache__/deprecation.cpython-39.pyc": {
+      "kind": "file",
+      "size": 3937
+    },
+    "sphinx/__pycache__/__init__.cpython-39.pyc": {
+      "kind": "file",
+      "size": 1130
+    },
+    "Sphinx.egg-info/top_level.txt": {
+      "kind": "file",
+      "size": 7
+    },
+    "Sphinx.egg-info/requires.txt": {
+      "kind": "file",
+      "size": 494
+    },
+    "Sphinx.egg-info/not-zip-safe": {
+      "kind": "file",
+      "size": 1
+    },
+    "Sphinx.egg-info/entry_points.txt": {
+      "kind": "file",
+      "size": 263
+    },
+    "Sphinx.egg-info/dependency_links.txt": {
+      "kind": "file",
+      "size": 1
+    },
+    "Sphinx.egg-info/SOURCES.txt": {
+      "kind": "file",
+      "size": 56083
+    },
+    "Sphinx.egg-info/PKG-INFO": {
+      "kind": "file",
+      "size": 6859
+    }
+  },
+  "environment": "alabaster==0.7.13\nBabel==2.12.1\ncertifi==2026.7.22\ncharset-normalizer==3.5.1\ndocutils==0.16\nexceptiongroup==1.3.1\nhtml5lib==1.1\nidna==3.20\nimagesize==1.4.1\niniconfig==2.1.0\nJinja2==3.0.3\nMarkupSafe==3.0.3\npackaging==23.1\npip==23.0.1\npluggy==1.6.0\nPygments==2.15.1\npytest==7.4.4\nrequests==2.31.0\nsetuptools==58.1.0\nsix==1.17.0\nsnowballstemmer==2.2.0\n# Editable install with no version control (Sphinx==3.5.0.dev20260921)\n-e /workspace\nsphinxcontrib-applehelp==1.0.2\nsphinxcontrib-devhelp==1.0.2\nsphinxcontrib-htmlhelp==2.0.0\nsphinxcontrib-jsmath==1.0.1\nsphinxcontrib-qthelp==1.0.3\nsphinxcontrib-serializinghtml==1.1.5\ntomli==2.4.1\ntyping_extensions==4.16.0\nurllib3==2.6.3\nwebencodings==0.5.1\nwheel==0.44.0\n",
+  "python": "3.9.19",
+  "cleanup_verified": true
+}

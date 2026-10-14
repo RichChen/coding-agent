@@ -1,0 +1,62 @@
+{
+  "schema": "a5.h3-dual-end-review.v2",
+  "status": "blocked_not_h3_passed",
+  "h3_pass": false,
+  "runnable_frozen": false,
+  "provider_started": false,
+  "model_calls": 0,
+  "paid": false,
+  "pilot_started": false,
+  "profile": {
+    "model_calls_per_run": 6,
+    "source": "D:/crq/src/coding-agent/reports/upgrade/a5-funded-build-preparation-20260921-v1/public/*.json",
+    "interpretation": "per-run model call cap; not evidence of calls made"
+  },
+  "fingerprint_refreeze": {
+    "path": "source-fingerprint-refreeze.json",
+    "harness": "b596cc4cb8381cac514efe4ab69919f16296d6877cf009530552f2ede07198b3",
+    "agent": "47a8546101a3e02fd7d7281b15a9314926e8d8dc924f8e29cb3016f5e0300052",
+    "agent_manifest_sha256": "fa670fd6c6d3d0f164ad6d0d8070a812cde5569d1bffdfeab8c6928daa6f6f80"
+  },
+  "matrix_and_targets": {
+    "matrix_path": "D:/crq/src/coding-harness/docs/upgrade/evidence/A5-real240-78-pilot-lock/pilot-matrix-lock.json",
+    "matrix_sha256": "fe33d1212d7de5ad4e6bee6a90e0cd0df5f5b5ff7e4b28d7abc1bbcd2bd70e25",
+    "assigned": 240,
+    "shape": "20 targets x B0/B1/B2/B3 x seed 42/43/44",
+    "grader_ready": 19,
+    "contract_blocker": "django__django-13265",
+    "blocker_disposition": "retained in denominator; not grader_ready; baseline/F2P mismatch"
+  },
+  "checks": {
+    "dual_fingerprint_current": true,
+    "agent_runtime_manifest_hash": true,
+    "grader_ledger_20_rows": true,
+    "django_blocker_preserved": true,
+    "snapshot_records_reconstructed": true,
+    "snapshot_promotion_permitted": false,
+    "b0_no_injection_semantics": true,
+    "b1_b3_real_injection_receipts": false,
+    "provider_operation_ids": false,
+    "provider_attempt_ids": false,
+    "actual_injection_hashes": false
+  },
+  "injection_evidence": {
+    "path": "D:/crq/src/coding-agent/reports/upgrade/a5-agent-lightweight-runtime-20260923/variant-injection-self-check.json",
+    "status": "passed_offline_no_model_calls",
+    "b1_b3_receipt_status": "prepared_not_injected",
+    "actual_hash": null,
+    "model_operation_id": null,
+    "model_attempt_id": null,
+    "meaning": "memory view was prepared, but the evidence does not prove it entered a real provider request"
+  },
+  "pilot_gate": {
+    "requested_scope": "pytest-dev__pytest-7220 x B0/B1/B2/B3 x seed 42 (4 runs)",
+    "authorized_by_user": true,
+    "opened": false,
+    "reason": "H3 blocked by missing real B1-B3 injection receipts; stop before provider/model/paid run"
+  },
+  "blocking_gates": [
+    "real provider-backed B1-B3 injection receipts with operation_id, attempt_id and actual_hash",
+    "final receipt cross-check after those receipts exist"
+  ]
+}

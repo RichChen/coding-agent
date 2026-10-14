@@ -1,0 +1,276 @@
+{
+  "case": "export",
+  "passed": true,
+  "base_verified": true,
+  "isolation": {
+    "Id": "6da55c6ffcd2d1798098354b29a6b7d80d5cc5aaaba4435aac074af51235ed0b",
+    "Created": "2026-09-21T15:51:12.792448462Z",
+    "Path": "/usr/local/bin/python",
+    "Args": [
+      "-I",
+      "-S",
+      "-c",
+      "import time; time.sleep(604800)"
+    ],
+    "State": {
+      "Status": "running",
+      "Running": true,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 81910,
+      "ExitCode": 0,
+      "Error": "",
+      "StartedAt": "2026-09-21T15:51:13.074391115Z",
+      "FinishedAt": "0001-01-01T00:00:00Z"
+    },
+    "Image": "sha256:a35cec86a0a02fcdf1ad8b6aa59d61448593c76d6da9b4bdcef0d003f281560c",
+    "ResolvConfPath": "/var/lib/docker/containers/6da55c6ffcd2d1798098354b29a6b7d80d5cc5aaaba4435aac074af51235ed0b/resolv.conf",
+    "HostnamePath": "/var/lib/docker/containers/6da55c6ffcd2d1798098354b29a6b7d80d5cc5aaaba4435aac074af51235ed0b/hostname",
+    "HostsPath": "/var/lib/docker/containers/6da55c6ffcd2d1798098354b29a6b7d80d5cc5aaaba4435aac074af51235ed0b/hosts",
+    "LogPath": "",
+    "Name": "/h3-132fc25a8dde4db5b3d36405a94aabd5",
+    "RestartCount": 0,
+    "Driver": "overlayfs",
+    "Platform": "linux",
+    "MountLabel": "",
+    "ProcessLabel": "",
+    "AppArmorProfile": "",
+    "ExecIDs": null,
+    "HostConfig": {
+      "Binds": null,
+      "ContainerIDFile": "",
+      "LogConfig": {
+        "Type": "none",
+        "Config": {}
+      },
+      "NetworkMode": "none",
+      "PortBindings": {},
+      "RestartPolicy": {
+        "Name": "no",
+        "MaximumRetryCount": 0
+      },
+      "AutoRemove": false,
+      "VolumeDriver": "",
+      "VolumesFrom": null,
+      "ConsoleSize": [
+        0,
+        0
+      ],
+      "CapAdd": null,
+      "CapDrop": [
+        "ALL"
+      ],
+      "CgroupnsMode": "private",
+      "Dns": null,
+      "DnsOptions": [],
+      "DnsSearch": [],
+      "ExtraHosts": null,
+      "GroupAdd": null,
+      "IpcMode": "private",
+      "Cgroup": "",
+      "Links": null,
+      "OomScoreAdj": 0,
+      "PidMode": "",
+      "Privileged": false,
+      "PublishAllPorts": false,
+      "ReadonlyRootfs": true,
+      "SecurityOpt": [
+        "no-new-privileges:true"
+      ],
+      "Tmpfs": {
+        "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777",
+        "/workspace": "rw,nosuid,nodev,size=268435456,mode=1777"
+      },
+      "UTSMode": "",
+      "UsernsMode": "",
+      "ShmSize": 67108864,
+      "Runtime": "runc",
+      "Isolation": "",
+      "CpuShares": 0,
+      "Memory": 1073741824,
+      "NanoCpus": 1000000000,
+      "CgroupParent": "",
+      "BlkioWeight": 0,
+      "BlkioWeightDevice": [],
+      "BlkioDeviceReadBps": [],
+      "BlkioDeviceWriteBps": [],
+      "BlkioDeviceReadIOps": [],
+      "BlkioDeviceWriteIOps": [],
+      "CpuPeriod": 0,
+      "CpuQuota": 0,
+      "CpuRealtimePeriod": 0,
+      "CpuRealtimeRuntime": 0,
+      "CpusetCpus": "",
+      "CpusetMems": "",
+      "Devices": [],
+      "DeviceCgroupRules": null,
+      "DeviceRequests": null,
+      "MemoryReservation": 0,
+      "MemorySwap": 1073741824,
+      "MemorySwappiness": null,
+      "OomKillDisable": null,
+      "PidsLimit": 128,
+      "Ulimits": null,
+      "CpuCount": 0,
+      "CpuPercent": 0,
+      "IOMaximumIOps": 0,
+      "IOMaximumBandwidth": 0,
+      "MaskedPaths": [
+        "/proc/acpi",
+        "/proc/asound",
+        "/proc/interrupts",
+        "/proc/kcore",
+        "/proc/keys",
+        "/proc/latency_stats",
+        "/proc/sched_debug",
+        "/proc/scsi",
+        "/proc/timer_list",
+        "/proc/timer_stats",
+        "/sys/devices/virtual/powercap",
+        "/sys/firmware"
+      ],
+      "ReadonlyPaths": [
+        "/proc/bus",
+        "/proc/fs",
+        "/proc/irq",
+        "/proc/sys",
+        "/proc/sysrq-trigger"
+      ]
+    },
+    "Storage": {
+      "RootFS": {
+        "Snapshot": {
+          "Name": "overlayfs"
+        }
+      }
+    },
+    "Mounts": [],
+    "Config": {
+      "Hostname": "6da55c6ffcd2",
+      "Domainname": "",
+      "User": "1000:1000",
+      "AttachStdin": false,
+      "AttachStdout": true,
+      "AttachStderr": true,
+      "Tty": false,
+      "OpenStdin": false,
+      "StdinOnce": false,
+      "Env": [
+        "PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+        "LANG=C.UTF-8",
+        "GPG_KEY=E3FF2839C048B25C084DEBE9B26995E310250568",
+        "PYTHON_VERSION=3.9.19",
+        "PYTHON_PIP_VERSION=23.0.1",
+        "PYTHON_SETUPTOOLS_VERSION=58.1.0",
+        "PYTHON_GET_PIP_URL=https://github.com/pypa/get-pip/raw/def4aec84b261b939137dd1c69eff0aabb4a7bf4/public/get-pip.py",
+        "PYTHON_GET_PIP_SHA256=bc37786ec99618416cc0a0ca32833da447f4d91ab51d2c138dd15b7af21e8e9a"
+      ],
+      "Cmd": [
+        "-I",
+        "-S",
+        "-c",
+        "import time; time.sleep(604800)"
+      ],
+      "Image": "coding-harness-a5-transport@sha256:a35cec86a0a02fcdf1ad8b6aa59d61448593c76d6da9b4bdcef0d003f281560c",
+      "Volumes": null,
+      "WorkingDir": "/workspace",
+      "Entrypoint": [
+        "/usr/local/bin/python"
+      ],
+      "Labels": {
+        "coding-harness.h3": "true"
+      }
+    },
+    "NetworkSettings": {
+      "SandboxID": "4e24986fa593f8f205ef44f4857f217adfdd48d88a4921b5a1fa6211f4cad01b",
+      "SandboxKey": "/var/run/docker/netns/4e24986fa593",
+      "Ports": {},
+      "Networks": {
+        "none": {
+          "IPAMConfig": null,
+          "Links": null,
+          "Aliases": null,
+          "DriverOpts": null,
+          "GwPriority": 0,
+          "NetworkID": "0578bece0afec6e9438c77cd1e9e80cf5e90a1209d171f5f2bea58f58ec4d45d",
+          "EndpointID": "ce1db24a7a10c06e2af0f67f32a2479990f8fdaea188996ed9d4b3505f8f58a4",
+          "Gateway": "",
+          "IPAddress": "",
+          "MacAddress": "",
+          "IPPrefixLen": 0,
+          "IPv6Gateway": "",
+          "GlobalIPv6Address": "",
+          "GlobalIPv6PrefixLen": 0,
+          "DNSNames": null
+        }
+      }
+    },
+    "ImageManifestDescriptor": {
+      "mediaType": "application/vnd.oci.image.manifest.v1+json",
+      "digest": "sha256:459e96e790a4e52eadd4760e413707ce5393bdc0616d47da21d37809bfcf2f04",
+      "size": 2197,
+      "platform": {
+        "architecture": "amd64",
+        "os": "linux"
+      }
+    }
+  },
+  "capabilities": {
+    "profile": "docker_linux",
+    "platform": "linux-container",
+    "image": "coding-harness-a5-transport@sha256:a35cec86a0a02fcdf1ad8b6aa59d61448593c76d6da9b4bdcef0d003f281560c",
+    "context": "desktop-linux",
+    "cancel": true,
+    "filesystem_isolation": true,
+    "network_control": true,
+    "network_default": "none",
+    "resource_limits": true,
+    "complete_isolation": false,
+    "cpu_limit": 1.0,
+    "memory_limit_bytes": 1073741824,
+    "pids_limit": 128,
+    "workspace_limit_bytes": 268435456,
+    "tmpfs_limit_bytes": 67108864,
+    "tree_reclaim_guaranteed": true,
+    "privileged": false,
+    "docker_socket_mounted": false,
+    "host_mounts": false,
+    "workspace_transfer_limit": 8388608,
+    "transport": "image_backed_base_plus_delta",
+    "source_tree_hash": "3a5c0f99946858bcf30438336d065c1807b64872c14eb8b472bd71b5b4f07889",
+    "delta_schema": "a5.typed-tree.delta.v1"
+  },
+  "delta_bytes": 8480,
+  "delta": {
+    "base_tree_hash": "3a5c0f99946858bcf30438336d065c1807b64872c14eb8b472bd71b5b4f07889",
+    "candidate_tree_hash": "4bfa36c2600d44912e8b78fb1803ede0ed68fa881dbc6d06c88aa8f34e10a4b5",
+    "changed": {
+      "doc/conf.py": {
+        "content": "IyBTcGhpbnggZG9jdW1lbnRhdGlvbiBidWlsZCBjb25maWd1cmF0aW9uIGZpbGUKCmltcG9ydCByZQoKaW1wb3J0IHNwaGlueAoKZXh0ZW5zaW9ucyA9IFsnc3BoaW54LmV4dC5hdXRvZG9jJywgJ3NwaGlueC5leHQuZG9jdGVzdCcsICdzcGhpbnguZXh0LnRvZG8nLAogICAgICAgICAgICAgICdzcGhpbnguZXh0LmF1dG9zdW1tYXJ5JywgJ3NwaGlueC5leHQuZXh0bGlua3MnLAogICAgICAgICAgICAgICdzcGhpbnguZXh0LmludGVyc3BoaW54JywKICAgICAgICAgICAgICAnc3BoaW54LmV4dC52aWV3Y29kZScsICdzcGhpbnguZXh0LmluaGVyaXRhbmNlX2RpYWdyYW0nXQoKbWFzdGVyX2RvYyA9ICdjb250ZW50cycKdGVtcGxhdGVzX3BhdGggPSBbJ190ZW1wbGF0ZXMnXQpleGNsdWRlX3BhdHRlcm5zID0gWydfYnVpbGQnXQoKcHJvamVjdCA9ICdTcGhpbngnCmNvcHlyaWdodCA9ICcyMDA3LTIwMjEsIEdlb3JnIEJyYW5kbCBhbmQgdGhlIFNwaGlueCB0ZWFtJwp2ZXJzaW9uID0gc3BoaW54Ll9fZGlzcGxheV92ZXJzaW9uX18KcmVsZWFzZSA9IHZlcnNpb24Kc2hvd19hdXRob3JzID0gVHJ1ZQoKaHRtbF90aGVtZSA9ICdzcGhpbngxMycKaHRtbF90aGVtZV9wYXRoID0gWydfdGhlbWVzJ10KbW9kaW5kZXhfY29tbW9uX3ByZWZpeCA9IFsnc3BoaW54LiddCmh0bWxfc3RhdGljX3BhdGggPSBbJ19zdGF0aWMnXQpodG1sX3NpZGViYXJzID0geydpbmRleCc6IFsnaW5kZXhzaWRlYmFyLmh0bWwnLCAnc2VhcmNoYm94Lmh0bWwnXX0KaHRtbF9hZGRpdGlvbmFsX3BhZ2VzID0geydpbmRleCc6ICdpbmRleC5odG1sJ30KaHRtbF91c2Vfb3BlbnNlYXJjaCA9ICdodHRwczovL3d3dy5zcGhpbngtZG9jLm9yZy9lbi9tYXN0ZXInCmh0bWxfYmFzZXVybCA9ICdodHRwczovL3d3dy5zcGhpbngtZG9jLm9yZy9lbi9tYXN0ZXIvJwpodG1sX2Zhdmljb24gPSAnX3N0YXRpYy9mYXZpY29uLnN2ZycKCmh0bWxoZWxwX2Jhc2VuYW1lID0gJ1NwaGlueGRvYycKCmVwdWJfdGhlbWUgPSAnZXB1YicKZXB1Yl9iYXNlbmFtZSA9ICdzcGhpbngnCmVwdWJfYXV0aG9yID0gJ0dlb3JnIEJyYW5kbCcKZXB1Yl9wdWJsaXNoZXIgPSAnaHR0cDovL3NwaGlueC1kb2Mub3JnLycKZXB1Yl91aWQgPSAnd2ViLXNpdGUnCmVwdWJfc2NoZW1lID0gJ3VybCcKZXB1Yl9pZGVudGlmaWVyID0gZXB1Yl9wdWJsaXNoZXIKZXB1Yl9wcmVfZmlsZXMgPSBbKCdpbmRleC54aHRtbCcsICdXZWxjb21lJyldCmVwdWJfcG9zdF9maWxlcyA9IFsoJ3VzYWdlL2luc3RhbGxhdGlvbi54aHRtbCcsICdJbnN0YWxsaW5nIFNwaGlueCcpLAogICAgICAgICAgICAgICAgICAgKCdkZXZlbG9wLnhodG1sJywgJ1NwaGlueCBkZXZlbG9wbWVudCcpXQplcHViX2V4Y2x1ZGVfZmlsZXMgPSBbJ19zdGF0aWMvb3BlbnNlYXJjaC54bWwnLCAnX3N0YXRpYy9kb2N0b29scy5qcycsCiAgICAgICAgICAgICAgICAgICAgICAnX3N0YXRpYy9qcXVlcnkuanMnLCAnX3N0YXRpYy9zZWFyY2h0b29scy5qcycsCiAgICAgICAgICAgICAgICAgICAgICAnX3N0YXRpYy91bmRlcnNjb3JlLmpzJywgJ19zdGF0aWMvYmFzaWMuY3NzJywKICAgICAgICAgICAgICAgICAgICAgICdfc3RhdGljL2xhbmd1YWdlX2RhdGEuanMnLAogICAgICAgICAgICAgICAgICAgICAgJ3NlYXJjaC5odG1sJywgJ19zdGF0aWMvd2Vic3VwcG9ydC5qcyddCmVwdWJfZml4X2ltYWdlcyA9IEZhbHNlCmVwdWJfbWF4X2ltYWdlX3dpZHRoID0gMAplcHViX3Nob3dfdXJscyA9ICdpbmxpbmUnCmVwdWJfdXNlX2luZGV4ID0gRmFsc2UKZXB1Yl9ndWlkZSA9ICgoJ3RvYycsICdjb250ZW50cy54aHRtbCcsICdUYWJsZSBvZiBDb250ZW50cycpLCkKZXB1Yl9kZXNjcmlwdGlvbiA9ICdTcGhpbnggZG9jdW1lbnRhdGlvbiBnZW5lcmF0b3Igc3lzdGVtIG1hbnVhbCcKCmxhdGV4X2RvY3VtZW50cyA9IFsoJ2NvbnRlbnRzJywgJ3NwaGlueC50ZXgnLCAnU3BoaW54IERvY3VtZW50YXRpb24nLAogICAgICAgICAgICAgICAgICAgICdHZW9yZyBCcmFuZGwnLCAnbWFudWFsJywgMSldCmxhdGV4X2xvZ28gPSAnX3N0YXRpYy9zcGhpbngucG5nJwpsYXRleF9lbGVtZW50cyA9IHsKICAgICdmb250ZW5jJzogcidcdXNlcGFja2FnZVtMR1IsWDIsVDFde2ZvbnRlbmN9JywKICAgICdmb250cGtnJzogcicnJwpcdXNlcGFja2FnZVtzY117bWF0aHBhem99Clx1c2VwYWNrYWdlW3NjYWxlZF17aGVsdmV0fQpcdXNlcGFja2FnZXtjb3VyaWVyfQpcc3Vic3RpdHV0ZWZvbnR7TEdSfXtccm1kZWZhdWx0fXtjbXJ9ClxzdWJzdGl0dXRlZm9udHtMR1J9e1xzZmRlZmF1bHR9e2Ntc3N9ClxzdWJzdGl0dXRlZm9udHtMR1J9e1x0dGRlZmF1bHR9e2NtdHR9ClxzdWJzdGl0dXRlZm9udHtYMn17XHJtZGVmYXVsdH17Y21yfQpcc3Vic3RpdHV0ZWZvbnR7WDJ9e1xzZmRlZmF1bHR9e2Ntc3N9ClxzdWJzdGl0dXRlZm9udHtYMn17XHR0ZGVmYXVsdH17Y210dH0KJycnLAogICAgJ3Bhc3NvcHRpb25zdG9wYWNrYWdlcyc6ICdcXFBhc3NPcHRpb25zVG9QYWNrYWdle3N2Z25hbWVzfXt4Y29sb3J9JywKICAgICdwcmVhbWJsZSc6ICdcXERlY2xhcmVVbmljb2RlQ2hhcmFjdGVyezIyOUV9e1xcZW5zdXJlbWF0aHtcXGJveHBsdXN9fScsCiAgICAnZnZzZXQnOiAnXFxmdnNldHtmb250c2l6ZT1hdXRvfScsCiAgICAjIGZpeCBtaXNzaW5nIGluZGV4IGVudHJ5IGR1ZSB0byBSVEQgZG9pbmcgb25seSBvbmNlIHBkZmxhdGV4IGFmdGVyIG1ha2VpbmRleAogICAgJ3ByaW50aW5kZXgnOiByJycnClxJZkZpbGVFeGlzdHN7XGpvYm5hbWUuaW5kfQogICAgICAgICAgICAge1xmb290bm90ZXNpemVccmFnZ2VkcmlnaHRccHJpbnRpbmRleH0KICAgICAgICAgICAgIHtcYmVnaW57c3BoaW54dGhlaW5kZXh9XGVuZHtzcGhpbnh0aGVpbmRleH19CicnJywKfQpsYXRleF9zaG93X3VybHMgPSAnZm9vdG5vdGUnCmxhdGV4X3VzZV94aW5keSA9IFRydWUKCmF1dG9kb2NfbWVtYmVyX29yZGVyID0gJ2dyb3Vwd2lzZScKdG9kb19pbmNsdWRlX3RvZG9zID0gVHJ1ZQpleHRsaW5rcyA9IHsnZHVyZWYnOiAoJ2h0dHA6Ly9kb2N1dGlscy5zb3VyY2Vmb3JnZS5uZXQvZG9jcy9yZWYvcnN0LycKICAgICAgICAgICAgICAgICAgICAgICdyZXN0cnVjdHVyZWR0ZXh0Lmh0bWwjJXMnLCAnJyksCiAgICAgICAgICAgICdkdXJvbGUnOiAoJ2h0dHA6Ly9kb2N1dGlscy5zb3VyY2Vmb3JnZS5uZXQvZG9jcy9yZWYvcnN0LycKICAgICAgICAgICAgICAgICAgICAgICAncm9sZXMuaHRtbCMlcycsICcnKSwKICAgICAgICAgICAgJ2R1ZGlyJzogKCdodHRwOi8vZG9jdXRpbHMuc291cmNlZm9yZ2UubmV0L2RvY3MvcmVmL3JzdC8nCiAgICAgICAgICAgICAgICAgICAgICAnZGlyZWN0aXZlcy5odG1sIyVzJywgJycpfQoKbWFuX3BhZ2VzID0gWwogICAgKCdjb250ZW50cycsICdzcGhpbngtYWxsJywgJ1NwaGlueCBkb2N1bWVudGF0aW9uIGdlbmVyYXRvciBzeXN0ZW0gbWFudWFsJywKICAgICAnR2VvcmcgQnJhbmRsJywgMSksCiAgICAoJ21hbi9zcGhpbngtYnVpbGQnLCAnc3BoaW54LWJ1aWxkJywgJ1NwaGlueCBkb2N1bWVudGF0aW9uIGdlbmVyYXRvciB0b29sJywKICAgICAnJywgMSksCiAgICAoJ21hbi9zcGhpbngtcXVpY2tzdGFydCcsICdzcGhpbngtcXVpY2tzdGFydCcsICdTcGhpbnggZG9jdW1lbnRhdGlvbiAnCiAgICAgJ3RlbXBsYXRlIGdlbmVyYXRvcicsICcnLCAxKSwKICAgICgnbWFuL3NwaGlueC1hcGlkb2MnLCAnc3BoaW54LWFwaWRvYycsICdTcGhpbnggQVBJIGRvYyBnZW5lcmF0b3IgdG9vbCcsCiAgICAgJycsIDEpLAogICAgKCdtYW4vc3BoaW54LWF1dG9nZW4nLCAnc3BoaW54LWF1dG9nZW4nLCAnR2VuZXJhdGUgYXV0b2RvYyBzdHViIHBhZ2VzJywKICAgICAnJywgMSksCl0KCnRleGluZm9fZG9jdW1lbnRzID0gWwogICAgKCdjb250ZW50cycsICdzcGhpbngnLCAnU3BoaW54IERvY3VtZW50YXRpb24nLCAnR2VvcmcgQnJhbmRsJywKICAgICAnU3BoaW54JywgJ1RoZSBTcGhpbnggZG9jdW1lbnRhdGlvbiBidWlsZGVyLicsICdEb2N1bWVudGF0aW9uIHRvb2xzJywKICAgICAxKSwKXQoKaW50ZXJzcGhpbnhfbWFwcGluZyA9IHsKICAgICdweXRob24nOiAoJ2h0dHBzOi8vZG9jcy5weXRob24ub3JnLzMvJywgTm9uZSksCiAgICAncmVxdWVzdHMnOiAoJ2h0dHBzOi8vcmVxdWVzdHMucmVhZHRoZWRvY3MuaW8vZW4vbWFzdGVyJywgTm9uZSksCn0KCiMgU3BoaW54IGRvY3VtZW50IHRyYW5zbGF0aW9uIHdpdGggc3BoaW54IGdldHRleHQgZmVhdHVyZSB1c2VzIHRoZXNlIHNldHRpbmdzOgpsb2NhbGVfZGlycyA9IFsnbG9jYWxlLyddCmdldHRleHRfY29tcGFjdCA9IEZhbHNlCgoKIyAtLSBFeHRlbnNpb24gaW50ZXJmYWNlIC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KCmZyb20gc3BoaW54IGltcG9ydCBhZGRub2RlcyAgIyBub3FhCgpldmVudF9zaWdfcmUgPSByZS5jb21waWxlKHInKFthLXpBLVotXSspXHMqXCgoLiopXCknKQoKCmRlZiBwYXJzZV9ldmVudChlbnYsIHNpZywgc2lnbm9kZSk6CiAgICBtID0gZXZlbnRfc2lnX3JlLm1hdGNoKHNpZykKICAgIGlmIG5vdCBtOgogICAgICAgIHNpZ25vZGUgKz0gYWRkbm9kZXMuZGVzY19uYW1lKHNpZywgc2lnKQogICAgICAgIHJldHVybiBzaWcKICAgIG5hbWUsIGFyZ3MgPSBtLmdyb3VwcygpCiAgICBzaWdub2RlICs9IGFkZG5vZGVzLmRlc2NfbmFtZShuYW1lLCBuYW1lKQogICAgcGxpc3QgPSBhZGRub2Rlcy5kZXNjX3BhcmFtZXRlcmxpc3QoKQogICAgZm9yIGFyZyBpbiBhcmdzLnNwbGl0KCcsJyk6CiAgICAgICAgYXJnID0gYXJnLnN0cmlwKCkKICAgICAgICBwbGlzdCArPSBhZGRub2Rlcy5kZXNjX3BhcmFtZXRlcihhcmcsIGFyZykKICAgIHNpZ25vZGUgKz0gcGxpc3QKICAgIHJldHVybiBuYW1lCgoKZGVmIHNldHVwKGFwcCk6CiAgICBmcm9tIHNwaGlueC5leHQuYXV0b2RvYyBpbXBvcnQgY3V0X2xpbmVzCiAgICBmcm9tIHNwaGlueC51dGlsLmRvY2ZpZWxkcyBpbXBvcnQgR3JvdXBlZEZpZWxkCiAgICBhcHAuY29ubmVjdCgnYXV0b2RvYy1wcm9jZXNzLWRvY3N0cmluZycsIGN1dF9saW5lcyg0LCB3aGF0PVsnbW9kdWxlJ10pKQogICAgYXBwLmFkZF9vYmplY3RfdHlwZSgnY29uZnZhbCcsICdjb25mdmFsJywKICAgICAgICAgICAgICAgICAgICAgICAgb2JqbmFtZT0nY29uZmlndXJhdGlvbiB2YWx1ZScsCiAgICAgICAgICAgICAgICAgICAgICAgIGluZGV4dGVtcGxhdGU9J3BhaXI6ICVzOyBjb25maWd1cmF0aW9uIHZhbHVlJykKICAgIGFwcC5hZGRfb2JqZWN0X3R5cGUoJ3NldHVwdG9vbHMtY29uZnZhbCcsICdzZXR1cHRvb2xzLWNvbmZ2YWwnLAogICAgICAgICAgICAgICAgICAgICAgICBvYmpuYW1lPSdzZXR1cHRvb2xzIGNvbmZpZ3VyYXRpb24gdmFsdWUnLAogICAgICAgICAgICAgICAgICAgICAgICBpbmRleHRlbXBsYXRlPSdwYWlyOiAlczsgc2V0dXB0b29scyBjb25maWd1cmF0aW9uIHZhbHVlJykKICAgIGZkZXNjID0gR3JvdXBlZEZpZWxkKCdwYXJhbWV0ZXInLCBsYWJlbD0nUGFyYW1ldGVycycsCiAgICAgICAgICAgICAgICAgICAgICAgICBuYW1lcz1bJ3BhcmFtJ10sIGNhbl9jb2xsYXBzZT1UcnVlKQogICAgYXBwLmFkZF9vYmplY3RfdHlwZSgnZXZlbnQnLCAnZXZlbnQnLCAncGFpcjogJXM7IGV2ZW50JywgcGFyc2VfZXZlbnQsCiAgICAgICAgICAgICAgICAgICAgICAgIGRvY19maWVsZF90eXBlcz1bZmRlc2NdKQoKICAgICMgd29ya2Fyb3VuZCBmb3IgUlRECiAgICBmcm9tIHNwaGlueC51dGlsIGltcG9ydCBsb2dnaW5nCiAgICBsb2dnZXIgPSBsb2dnaW5nLmdldExvZ2dlcihfX25hbWVfXykKICAgIGFwcC5pbmZvID0gbGFtYmRhICphcmdzLCAqKmt3YXJnczogbG9nZ2VyLmluZm8oKmFyZ3MsICoqa3dhcmdzKQogICAgYXBwLndhcm4gPSBsYW1iZGEgKmFyZ3MsICoqa3dhcmdzOiBsb2dnZXIud2FybmluZygqYXJncywgKiprd2FyZ3MpCiAgICBhcHAuZGVidWcgPSBsYW1iZGEgKmFyZ3MsICoqa3dhcmdzOiBsb2dnZXIuZGVidWcoKmFyZ3MsICoqa3dhcmdzKQoKIyBhNSB0cmFuc3BvcnQgc21va2UK",
+        "metadata": {
+          "kind": "file",
+          "mode": 436,
+          "sha256": "d155dfa984531e1fc6cf80440fb57c15fab597f8c21c1d262517d50f1d266d70",
+          "size": 6069
+        }
+      }
+    },
+    "deleted": [],
+    "schema": "a5.typed-tree.delta.v1"
+  },
+  "cleanup_verified": true,
+  "lifecycle": [
+    {
+      "event": "created",
+      "container": "h3-132fc25a8dde4db5b3d36405a94aabd5",
+      "image_id": "sha256:a35cec86a0a02fcdf1ad8b6aa59d61448593c76d6da9b4bdcef0d003f281560c"
+    },
+    {
+      "event": "destroyed",
+      "container": "h3-132fc25a8dde4db5b3d36405a94aabd5",
+      "elapsed_s": 0.1887087000068277
+    }
+  ]
+}

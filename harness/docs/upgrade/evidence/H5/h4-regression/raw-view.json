@@ -1,0 +1,63 @@
+{
+  "raw_hash": "86c8ba4acafa545eb9afcb3cb34cb921b3f7628200acdbb067a993b4bc7c9fe5",
+  "view_hash": "0cd8b2bdf1e32fa60d8ce422969a960cdfcc274a0adbfc51454b237a1831f93c",
+  "stats": {
+    "actually_injected": "masking",
+    "admission_input_tokens": 1843,
+    "admission_method": "utf8_bytes_plus_protocol_allowance",
+    "compacted_tool_count": 1,
+    "estimate_method": "utf8_bytes_div_4_estimated",
+    "estimated_input_tokens": 269,
+    "manager_state": {
+      "plugin_state": {
+        "calls": 2
+      },
+      "schema_version": "0.1",
+      "summaries": [],
+      "summary_calls": 0
+    },
+    "masking": {
+      "chars_after": 638,
+      "chars_before": 20623,
+      "chars_saved": 19985,
+      "compacted_tool_count": 1,
+      "did_compact": true,
+      "estimated_tokens_after": 160,
+      "estimated_tokens_before": 5156,
+      "keep_recent": 0,
+      "message_count_after": 4,
+      "message_count_before": 4,
+      "preserved_tool_count": 0,
+      "tool_messages_after": 1,
+      "tool_messages_before": 1
+    },
+    "max_tokens": 16000,
+    "overflow": false,
+    "plugin": {
+      "action_proposals": [],
+      "actually_injected": [],
+      "events": [],
+      "ignored_optional_fields": [],
+      "method_degraded": false,
+      "name": "fixture",
+      "policy_error": null,
+      "rejected": [],
+      "requested": [],
+      "schema_version": "0.1"
+    },
+    "raw_message_hash": "86c8ba4acafa545eb9afcb3cb34cb921b3f7628200acdbb067a993b4bc7c9fe5",
+    "raw_serialized_bytes": 20887,
+    "requested": "masking",
+    "reserved_output_tokens": 4096,
+    "serialized_bytes": 1075,
+    "step": 1,
+    "strategy": "masking",
+    "summary_calls": 0,
+    "summary_model_calls": 0,
+    "summary_records": [],
+    "view_hash": "0cd8b2bdf1e32fa60d8ce422969a960cdfcc274a0adbfc51454b237a1831f93c",
+    "view_serialized_bytes": 902
+  },
+  "operations": 1,
+  "replay_model_calls": 0
+}

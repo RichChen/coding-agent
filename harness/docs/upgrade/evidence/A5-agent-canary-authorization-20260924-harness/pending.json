@@ -1,0 +1,11 @@
+{
+  "schema": "a5.canary-pending.v1",
+  "status": "blocked_before_provider",
+  "blocking_items": [
+    "LLM_API_KEY missing from harness process",
+    "pytest-7220 pinned public workspace checkout is not present in the preparation bundle",
+    "agent lightweight runtime currently declares prepared_not_injected and needs provider-backed receipt emission"
+  ],
+  "scope_preserved": {"authorized_runs":4,"reserved_unrun_rows":236},
+  "no_code_changes_for_canary": true
+}

@@ -1,0 +1,46 @@
+{
+  "assigned_task_ids": [
+    "e2e"
+  ],
+  "public_task_hash": "8d4983be727049f5aa4951a10a25281be18ddc36b5ee96eef2e062f6374c5a88",
+  "config_hash": "d61eb4f1ef9ac4c84acf746ab3d47d017968e4acbe6ce0906cd96c63ea598864",
+  "code_hash": "13ef288c34249eb980031101cc823aa3813b0316e666357c03a2d0c144735ef0",
+  "base_hash": "8d6c09e346e32df8411b5e6a5e6446690f79db8624517b464c34a30b7bc32e00",
+  "private_spec_hash": "b0ff73bdefde08cb5c8973669abf56e5bbee5cdc3179672ffdc2e24b85f03b9f",
+  "model": "mock-model",
+  "context": "desktop-linux",
+  "agent_capabilities": {
+    "profile": "docker_linux",
+    "platform": "linux-container",
+    "image": "python@sha256:2f17fc044b579bab302c2e8054d3a686e2cb9a83de48e70534b94cd8ebbe06a9",
+    "context": "desktop-linux",
+    "cancel": true,
+    "filesystem_isolation": true,
+    "network_control": true,
+    "network_default": "none",
+    "resource_limits": true,
+    "complete_isolation": false,
+    "cpu_limit": 1.0,
+    "memory_limit_bytes": 536870912,
+    "pids_limit": 128,
+    "workspace_limit_bytes": 67108864,
+    "tmpfs_limit_bytes": 16777216,
+    "tree_reclaim_guaranteed": true,
+    "privileged": false,
+    "docker_socket_mounted": false,
+    "host_mounts": false,
+    "workspace_transfer_limit": 8388608
+  },
+  "enforced_budget": {
+    "max_steps": 30,
+    "total_timeout_seconds": 600,
+    "step_timeout_seconds": 60,
+    "max_model_calls": 35,
+    "max_tokens": 100000,
+    "max_cost_usd": null
+  },
+  "python": "3.13.9 | packaged by Anaconda, Inc. | (main, Oct 21 2025, 19:09:58) [MSC v.1929 64 bit (AMD64)]",
+  "host_platform": "Windows-10-10.0.19045-SP0",
+  "git_commit": "1f5903b620895ad8af3289ffeae529c15c3576a0",
+  "code_hash_includes_uncommitted_source": true
+}

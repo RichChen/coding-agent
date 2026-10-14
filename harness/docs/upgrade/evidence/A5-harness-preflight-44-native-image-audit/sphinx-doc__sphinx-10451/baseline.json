@@ -1,0 +1,61 @@
+{
+  "task_id": "sphinx-doc__sphinx-10451",
+  "kind": "baseline",
+  "image": "coding-harness-a5-baseline@sha256:cdc2fa27cb44eb2c778676ceec1dd669d8455357d0a06e7bdc03b32d165ef397",
+  "status": "verified",
+  "model_calls": 0,
+  "paid": false,
+  "expected_members": 2052,
+  "mismatches": [],
+  "generated": {
+    "Sphinx.egg-info": {
+      "kind": "dir",
+      "size": 180
+    },
+    "sphinx/__pycache__": {
+      "kind": "dir",
+      "size": 80
+    },
+    "sphinx/__pycache__/deprecation.cpython-39.pyc": {
+      "kind": "file",
+      "size": 3654
+    },
+    "sphinx/__pycache__/__init__.cpython-39.pyc": {
+      "kind": "file",
+      "size": 1053
+    },
+    "Sphinx.egg-info/top_level.txt": {
+      "kind": "file",
+      "size": 7
+    },
+    "Sphinx.egg-info/requires.txt": {
+      "kind": "file",
+      "size": 580
+    },
+    "Sphinx.egg-info/not-zip-safe": {
+      "kind": "file",
+      "size": 1
+    },
+    "Sphinx.egg-info/entry_points.txt": {
+      "kind": "file",
+      "size": 263
+    },
+    "Sphinx.egg-info/dependency_links.txt": {
+      "kind": "file",
+      "size": 1
+    },
+    "Sphinx.egg-info/SOURCES.txt": {
+      "kind": "file",
+      "size": 62335
+    },
+    "Sphinx.egg-info/PKG-INFO": {
+      "kind": "file",
+      "size": 6709
+    }
+  },
+  "environment": "alabaster==0.7.13\nBabel==2.12.1\ncertifi==2026.7.22\ncharset-normalizer==3.5.1\ndocutils==0.18.1\nexceptiongroup==1.3.1\nhtml5lib==1.1\nidna==3.20\nimagesize==1.4.1\niniconfig==2.1.0\nJinja2==3.1.2\nMarkupSafe==3.0.3\npackaging==23.1\npip==23.0.1\npluggy==1.6.0\nPygments==2.15.1\npytest==7.4.4\nrequests==2.31.0\nsetuptools==58.1.0\nsix==1.17.0\nsnowballstemmer==2.2.0\n# Editable install with no version control (Sphinx==5.1.0.dev20260921)\n-e /workspace\nsphinxcontrib-applehelp==1.0.2\nsphinxcontrib-devhelp==1.0.2\nsphinxcontrib-htmlhelp==2.0.0\nsphinxcontrib-jsmath==1.0.1\nsphinxcontrib-qthelp==1.0.3\nsphinxcontrib-serializinghtml==1.1.5\ntomli==2.4.1\ntyping_extensions==4.16.0\nurllib3==2.6.3\nwebencodings==0.5.1\nwheel==0.44.0\n",
+  "python": "3.9.19",
+  "generated_native_links": [],
+  "mountinfo": "758 502 0:100 / / ro,relatime - overlay overlay rw,lowerdir=/var/lib/desktop-containerd/daemon/io.containerd.snapshotter.v1.overlayfs/snapshots/3353/fs:/var/lib/desktop-containerd/daemon/io.containerd.snapshotter.v1.overlayfs/snapshots/2692/fs:/var/lib/desktop-containerd/daemon/io.containerd.snapshotter.v1.overlayfs/snapshots/2690/fs:/var/lib/desktop-containerd/daemon/io.containerd.snapshotter.v1.overlayfs/snapshots/2687/fs:/var/lib/desktop-containerd/daemon/io.containerd.snapshotter.v1.overlayfs/snapshots/2686/fs:/var/lib/desktop-containerd/daemon/io.containerd.snapshotter.v1.overlayfs/snapshots/2685/fs:/var/lib/desktop-containerd/daemon/io.containerd.snapshotter.v1.overlayfs/snapshots/2684/fs:/var/lib/desktop-containerd/daemon/io.containerd.snapshotter.v1.overlayfs/snapshots/1862/fs:/var/lib/desktop-containerd/daemon/io.containerd.snapshotter.v1.overlayfs/snapshots/1861/fs:/var/lib/desktop-containerd/daemon/io.containerd.snapshotter.v1.overlayfs/snapshots/1860/fs:/var/lib/desktop-containerd/daemon/io.containerd.snapshotter.v1.overlayfs/snapshots/1859/fs:/var/lib/desktop-containerd/daemon/io.containerd.snapshotter.v1.overlayfs/snapshots/1858/fs:/var/lib/desktop-containerd/daemon/io.containerd.snapshotter.v1.overlayfs/snapshots/1386/fs:/var/lib/desktop-containerd/daemon/io.containerd.snapshotter.v1.overlayfs/snapshots/1385/fs:/var/lib/desktop-containerd/daemon/io.containerd.snapshotter.v1.overlayfs/snapshots/1384/fs:/var/lib/desktop-containerd/daemon/io.containerd.snapshotter.v1.overlayfs/snapshots/1383/fs:/var/lib/desktop-containerd/daemon/io.containerd.snapshotter.v1.overlayfs/snapshots/1382/fs,upperdir=/var/lib/desktop-containerd/daemon/io.containerd.snapshotter.v1.overlayfs/snapshots/3354/fs,workdir=/var/lib/desktop-containerd/daemon/io.containerd.snapshotter.v1.overlayfs/snapshots/3354/work\n760 758 0:109 / /proc rw,nosuid,nodev,noexec,relatime - proc proc rw\n761 758 0:110 / /dev rw,nosuid - tmpfs tmpfs rw,size=65536k,mode=755\n762 761 0:111 / /dev/pts rw,nosuid,noexec,relatime - devpts devpts rw,gid=5,mode=620,ptmxmode=666\n763 758 0:112 / /sys ro,nosuid,nodev,noexec,relatime - sysfs sysfs ro\n764 763 0:25 / /sys/fs/cgroup ro,nosuid,nodev,noexec,relatime - cgroup2 cgroup rw,nsdelegate\n765 761 0:107 / /dev/mqueue rw,nosuid,nodev,noexec,relatime - mqueue mqueue rw\n766 761 0:113 / /dev/shm rw,nosuid,nodev,noexec,relatime - tmpfs shm rw,size=65536k\n767 758 0:114 / /tmp rw,nosuid,nodev,noexec,relatime - tmpfs tmpfs rw,size=524288k\n768 758 0:115 / /workspace rw,nosuid,nodev,noexec,relatime - tmpfs tmpfs rw,size=524288k\n769 758 8:64 /data/docker/containers/bb0bbab22eab1434a86ecc54a25159ca26bafe61956f02f2f753a779f8b70d64/hostname /etc/hostname ro,relatime - ext4 /dev/sde rw\n770 758 8:64 /data/docker/containers/bb0bbab22eab1434a86ecc54a25159ca26bafe61956f02f2f753a779f8b70d64/hosts /etc/hosts ro,relatime - ext4 /dev/sde rw\n771 758 8:64 /data/docker/containers/bb0bbab22eab1434a86ecc54a25159ca26bafe61956f02f2f753a779f8b70d64/resolv.conf /etc/resolv.conf ro,relatime - ext4 /dev/sde rw\n550 760 0:109 /bus /proc/bus ro,nosuid,nodev,noexec,relatime - proc proc rw\n551 760 0:109 /fs /proc/fs ro,nosuid,nodev,noexec,relatime - proc proc rw\n552 760 0:109 /irq /proc/irq ro,nosuid,nodev,noexec,relatime - proc proc rw\n553 760 0:109 /sys /proc/sys ro,nosuid,nodev,noexec,relatime - proc proc rw\n554 760 0:109 /sysrq-trigger /proc/sysrq-trigger ro,nosuid,nodev,noexec,relatime - proc proc rw\n555 760 0:116 / /proc/acpi ro,relatime - tmpfs tmpfs ro,size=4k,nr_inodes=1\n556 760 0:110 /null /proc/interrupts rw,nosuid - tmpfs tmpfs rw,size=65536k,mode=755\n557 760 0:110 /null /proc/kcore rw,nosuid - tmpfs tmpfs rw,size=65536k,mode=755\n623 760 0:110 /null /proc/keys rw,nosuid - tmpfs tmpfs rw,size=65536k,mode=755\n624 760 0:110 /null /proc/latency_stats rw,nosuid - tmpfs tmpfs rw,size=65536k,mode=755\n625 760 0:116 / /proc/scsi ro,relatime - tmpfs tmpfs ro,size=4k,nr_inodes=1\n626 760 0:110 /null /proc/timer_list rw,nosuid - tmpfs tmpfs rw,size=65536k,mode=755\n627 763 0:116 / /sys/firmware ro,relatime - tmpfs tmpfs ro,size=4k,nr_inodes=1\n",
+  "cleanup_verified": true
+}

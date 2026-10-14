@@ -1,0 +1,21 @@
+{
+  "provider": "DeepSeek",
+  "model": "deepseek-flash",
+  "endpoint": "https://api.deepseek.com/v1",
+  "thinking": "disabled",
+  "streaming": true,
+  "context": {
+    "strategy": "masking",
+    "max_tokens": 131072,
+    "micro_compact": false,
+    "keep_recent_tool_results": 3,
+    "compact_token_threshold": null,
+    "summary_max_calls": 1,
+    "plugin": "noop",
+    "plugin_candidates": [],
+    "max_injection_bytes": 4096
+  },
+  "max_output_tokens": 8192,
+  "started_at": "2026-09-20T16:27:29.069670+00:00",
+  "config_hash": "09583ee6c2392737d5fac1b89432a24d88a12fce3ac982991e0991b7c9887ec6"
+}

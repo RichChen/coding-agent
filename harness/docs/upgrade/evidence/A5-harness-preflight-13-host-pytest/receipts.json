@@ -1,0 +1,1283 @@
+{
+  "schema": "a5.host-preflight.receipts.v1",
+  "rows": [
+    {
+      "task_id": "django__django-13265",
+      "agent_task_id": "a5-task-9d74ed989dbd3bb5",
+      "repo": "django/django",
+      "base_revision": "b2b0711b555fa292751763c2df4fe577c396f265",
+      "role": "target",
+      "status": "invalid_env",
+      "source": {
+        "schema": "a5.full-archive-inventory.v1",
+        "repo": "django/django",
+        "base_revision": "b2b0711b555fa292751763c2df4fe577c396f265",
+        "archive_sha256": "1f33092ede7bdacc03c825df4b170d0eaae2c3ce47944a04eedb22b9e2e1345c",
+        "archive_bytes": 9340862,
+        "git_pax_commit": "b2b0711b555fa292751763c2df4fe577c396f265",
+        "source_tree_hash": null,
+        "inventory_sha256": "5d8a3b133cf9db0dfa1051769b7738c74deb5ff6381b5edd83588a5cba7490eb",
+        "file_count": 6393,
+        "total_bytes": 38513500,
+        "nonregular_paths": [
+          "docs/_theme/djangodocs-epub/static/docicons-behindscenes.png",
+          "docs/_theme/djangodocs-epub/static/docicons-note.png",
+          "docs/_theme/djangodocs-epub/static/docicons-philosophy.png",
+          "docs/_theme/djangodocs-epub/static/docicons-warning.png"
+        ],
+        "excluded_upstream_paths": [],
+        "snapshot_kind": "complete_pinned_upstream_archive",
+        "within_runtime_limits": false,
+        "inventory_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\django__django-13265\\source-inventory.json"
+      },
+      "image_digest": null,
+      "python_version": null,
+      "pytest_version": null,
+      "dependencies": null,
+      "collection": {
+        "status": "not_run",
+        "count": null,
+        "hash": null
+      },
+      "baseline": {
+        "status": "not_run",
+        "failure_nodeids": null
+      },
+      "grader": {
+        "status": "not_run",
+        "known_good": "not_run",
+        "negative_rejection": "not_run"
+      },
+      "cleanup": "not_applicable_no_container_started",
+      "model_calls": 0,
+      "paid": false,
+      "attempt": 1,
+      "retries": 0,
+      "reason": "full_source_exceeds_runtime_limits",
+      "duration_seconds": 16.83499529999972,
+      "carried_source_failure": true,
+      "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\django__django-13265\\source-receipt.json"
+    },
+    {
+      "task_id": "django__django-15781",
+      "agent_task_id": "a5-task-703c29e3748cc6fc",
+      "repo": "django/django",
+      "base_revision": "8d160f154f0240a423e83ffe0690e472f837373c",
+      "role": "target",
+      "status": "invalid_env",
+      "source": {
+        "schema": "a5.full-archive-inventory.v1",
+        "repo": "django/django",
+        "base_revision": "8d160f154f0240a423e83ffe0690e472f837373c",
+        "archive_sha256": "7406c0f42c1d69bbc6edd169d0c3e5f326d8fc88726f0454ffb540be98715f71",
+        "archive_bytes": 10191604,
+        "git_pax_commit": "8d160f154f0240a423e83ffe0690e472f837373c",
+        "source_tree_hash": null,
+        "inventory_sha256": "c75ed36036cbeb5a523228ea2fa8cc9af6ef9bfcd6fb98f33a45f38adb9c149e",
+        "file_count": 6637,
+        "total_bytes": 41586843,
+        "nonregular_paths": [
+          "docs/_theme/djangodocs-epub/static/docicons-behindscenes.png",
+          "docs/_theme/djangodocs-epub/static/docicons-note.png",
+          "docs/_theme/djangodocs-epub/static/docicons-philosophy.png",
+          "docs/_theme/djangodocs-epub/static/docicons-warning.png"
+        ],
+        "excluded_upstream_paths": [],
+        "snapshot_kind": "complete_pinned_upstream_archive",
+        "within_runtime_limits": false,
+        "inventory_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\django__django-15781\\source-inventory.json"
+      },
+      "image_digest": null,
+      "python_version": null,
+      "pytest_version": null,
+      "dependencies": null,
+      "collection": {
+        "status": "not_run",
+        "count": null,
+        "hash": null
+      },
+      "baseline": {
+        "status": "not_run",
+        "failure_nodeids": null
+      },
+      "grader": {
+        "status": "not_run",
+        "known_good": "not_run",
+        "negative_rejection": "not_run"
+      },
+      "cleanup": "not_applicable_no_container_started",
+      "model_calls": 0,
+      "paid": false,
+      "attempt": 1,
+      "retries": 0,
+      "reason": "full_source_exceeds_runtime_limits",
+      "duration_seconds": 14.955652699994971,
+      "carried_source_failure": true,
+      "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\django__django-15781\\source-receipt.json"
+    },
+    {
+      "task_id": "django__django-13590",
+      "agent_task_id": "a5-task-dbbbc570b9ba0e23",
+      "repo": "django/django",
+      "base_revision": "755dbf39fcdc491fe9b588358303e259c7750be4",
+      "role": "target",
+      "status": "invalid_env",
+      "source": {
+        "schema": "a5.full-archive-inventory.v1",
+        "repo": "django/django",
+        "base_revision": "755dbf39fcdc491fe9b588358303e259c7750be4",
+        "archive_sha256": "213a5810c2553385182b03bef2b674a7bf0b7904ef7ad19f388c60e144f06f84",
+        "archive_bytes": 9375172,
+        "git_pax_commit": "755dbf39fcdc491fe9b588358303e259c7750be4",
+        "source_tree_hash": null,
+        "inventory_sha256": "4aff4a641d5fe7a946a3ca5d35f4a1146813e7e8ec7f11ad730ad408aea88838",
+        "file_count": 6412,
+        "total_bytes": 38713009,
+        "nonregular_paths": [
+          "docs/_theme/djangodocs-epub/static/docicons-behindscenes.png",
+          "docs/_theme/djangodocs-epub/static/docicons-note.png",
+          "docs/_theme/djangodocs-epub/static/docicons-philosophy.png",
+          "docs/_theme/djangodocs-epub/static/docicons-warning.png"
+        ],
+        "excluded_upstream_paths": [],
+        "snapshot_kind": "complete_pinned_upstream_archive",
+        "within_runtime_limits": false,
+        "inventory_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\django__django-13590\\source-inventory.json"
+      },
+      "image_digest": null,
+      "python_version": null,
+      "pytest_version": null,
+      "dependencies": null,
+      "collection": {
+        "status": "not_run",
+        "count": null,
+        "hash": null
+      },
+      "baseline": {
+        "status": "not_run",
+        "failure_nodeids": null
+      },
+      "grader": {
+        "status": "not_run",
+        "known_good": "not_run",
+        "negative_rejection": "not_run"
+      },
+      "cleanup": "not_applicable_no_container_started",
+      "model_calls": 0,
+      "paid": false,
+      "attempt": 1,
+      "retries": 0,
+      "reason": "full_source_exceeds_runtime_limits",
+      "duration_seconds": 16.551782199996524,
+      "carried_source_failure": true,
+      "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\django__django-13590\\source-receipt.json"
+    },
+    {
+      "task_id": "django__django-13448",
+      "agent_task_id": "a5-task-aa769cb3dfe9f323",
+      "repo": "django/django",
+      "base_revision": "7b9596b974fb0ad1868b10c8c2174e10b72be403",
+      "role": "target",
+      "status": "invalid_env",
+      "source": {
+        "schema": "a5.full-archive-inventory.v1",
+        "repo": "django/django",
+        "base_revision": "7b9596b974fb0ad1868b10c8c2174e10b72be403",
+        "archive_sha256": "c31ef5b1c6c41a31b4773fe8413037232dbea1dc4ea33f73ffdebc92435ade6f",
+        "archive_bytes": 9362905,
+        "git_pax_commit": "7b9596b974fb0ad1868b10c8c2174e10b72be403",
+        "source_tree_hash": null,
+        "inventory_sha256": "4606713a512e05407ef631d7220407ca4c1ecb909ba6b891eba27a8077cd20e8",
+        "file_count": 6400,
+        "total_bytes": 38637667,
+        "nonregular_paths": [
+          "docs/_theme/djangodocs-epub/static/docicons-behindscenes.png",
+          "docs/_theme/djangodocs-epub/static/docicons-note.png",
+          "docs/_theme/djangodocs-epub/static/docicons-philosophy.png",
+          "docs/_theme/djangodocs-epub/static/docicons-warning.png"
+        ],
+        "excluded_upstream_paths": [],
+        "snapshot_kind": "complete_pinned_upstream_archive",
+        "within_runtime_limits": false,
+        "inventory_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\django__django-13448\\source-inventory.json"
+      },
+      "image_digest": null,
+      "python_version": null,
+      "pytest_version": null,
+      "dependencies": null,
+      "collection": {
+        "status": "not_run",
+        "count": null,
+        "hash": null
+      },
+      "baseline": {
+        "status": "not_run",
+        "failure_nodeids": null
+      },
+      "grader": {
+        "status": "not_run",
+        "known_good": "not_run",
+        "negative_rejection": "not_run"
+      },
+      "cleanup": "not_applicable_no_container_started",
+      "model_calls": 0,
+      "paid": false,
+      "attempt": 1,
+      "retries": 0,
+      "reason": "full_source_exceeds_runtime_limits",
+      "duration_seconds": 17.004081499995664,
+      "carried_source_failure": true,
+      "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\django__django-13448\\source-receipt.json"
+    },
+    {
+      "task_id": "sympy__sympy-20154",
+      "agent_task_id": "a5-task-532c204a7648a7cd",
+      "repo": "sympy/sympy",
+      "base_revision": "bdb49c4abfb35554a3c8ce761696ffff3bb837fe",
+      "role": "target",
+      "status": "invalid_env",
+      "source": {
+        "schema": "a5.full-archive-inventory.v1",
+        "repo": "sympy/sympy",
+        "base_revision": "bdb49c4abfb35554a3c8ce761696ffff3bb837fe",
+        "archive_sha256": "6bf852392fa24f95a6f8840c72298d9c8d483cfe6153e9bdca0d25fc8cff5720",
+        "archive_bytes": 6958813,
+        "git_pax_commit": "bdb49c4abfb35554a3c8ce761696ffff3bb837fe",
+        "source_tree_hash": "0a9e97fcf237be3f373a2c90966bfd59b653a20628dfbab48434ccdbf7af51b0",
+        "inventory_sha256": "2d3d3c373e997d89c3946a9caf9ce0a981861b745b7010c154d87e65f67f26e5",
+        "file_count": 1813,
+        "total_bytes": 32900772,
+        "nonregular_paths": [],
+        "excluded_upstream_paths": [],
+        "snapshot_kind": "complete_pinned_upstream_archive",
+        "within_runtime_limits": false,
+        "inventory_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sympy__sympy-20154\\source-inventory.json"
+      },
+      "image_digest": null,
+      "python_version": null,
+      "pytest_version": null,
+      "dependencies": null,
+      "collection": {
+        "status": "not_run",
+        "count": null,
+        "hash": null
+      },
+      "baseline": {
+        "status": "not_run",
+        "failure_nodeids": null
+      },
+      "grader": {
+        "status": "not_run",
+        "known_good": "not_run",
+        "negative_rejection": "not_run"
+      },
+      "cleanup": "not_applicable_no_container_started",
+      "model_calls": 0,
+      "paid": false,
+      "attempt": 1,
+      "retries": 0,
+      "reason": "full_source_exceeds_runtime_limits",
+      "duration_seconds": 3.6782819000072777,
+      "carried_source_failure": true,
+      "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sympy__sympy-20154\\source-receipt.json"
+    },
+    {
+      "task_id": "sympy__sympy-24152",
+      "agent_task_id": "a5-task-72007d74676c0af1",
+      "repo": "sympy/sympy",
+      "base_revision": "b9af885473ad7e34b5b0826cb424dd26d8934670",
+      "role": "target",
+      "status": "invalid_env",
+      "source": {
+        "schema": "a5.full-archive-inventory.v1",
+        "repo": "sympy/sympy",
+        "base_revision": "b9af885473ad7e34b5b0826cb424dd26d8934670",
+        "archive_sha256": "ff92e14e517a36f3a5b318fb0005f753cd5a690c500509fd5d845dd483168abb",
+        "archive_bytes": 8066674,
+        "git_pax_commit": "b9af885473ad7e34b5b0826cb424dd26d8934670",
+        "source_tree_hash": "dd6a2f2819ea84569102b382da0b8a21d2cba8839b18419a9e945d8da74b0f1f",
+        "inventory_sha256": "2f3b87af7e821d50f6e09b7a79311a38b3791cb483ed6b0e101cad10abd6c61e",
+        "file_count": 1995,
+        "total_bytes": 36513507,
+        "nonregular_paths": [],
+        "excluded_upstream_paths": [],
+        "snapshot_kind": "complete_pinned_upstream_archive",
+        "within_runtime_limits": false,
+        "inventory_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sympy__sympy-24152\\source-inventory.json"
+      },
+      "image_digest": null,
+      "python_version": null,
+      "pytest_version": null,
+      "dependencies": null,
+      "collection": {
+        "status": "not_run",
+        "count": null,
+        "hash": null
+      },
+      "baseline": {
+        "status": "not_run",
+        "failure_nodeids": null
+      },
+      "grader": {
+        "status": "not_run",
+        "known_good": "not_run",
+        "negative_rejection": "not_run"
+      },
+      "cleanup": "not_applicable_no_container_started",
+      "model_calls": 0,
+      "paid": false,
+      "attempt": 1,
+      "retries": 0,
+      "reason": "full_source_exceeds_runtime_limits",
+      "duration_seconds": 12.56281739998667,
+      "carried_source_failure": true,
+      "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sympy__sympy-24152\\source-receipt.json"
+    },
+    {
+      "task_id": "sympy__sympy-20442",
+      "agent_task_id": "a5-task-515fa015f4d4445e",
+      "repo": "sympy/sympy",
+      "base_revision": "1abbc0ac3e552cb184317194e5d5c5b9dd8fb640",
+      "role": "target",
+      "status": "invalid_env",
+      "source": {
+        "schema": "a5.full-archive-inventory.v1",
+        "repo": "sympy/sympy",
+        "base_revision": "1abbc0ac3e552cb184317194e5d5c5b9dd8fb640",
+        "archive_sha256": "ee0a80aa963aaa77f37175092ef9257619727e8c6b4b584b9946e531f7f055dc",
+        "archive_bytes": 6972736,
+        "git_pax_commit": "1abbc0ac3e552cb184317194e5d5c5b9dd8fb640",
+        "source_tree_hash": "ab7dbbc9cb0aa3d449c9f1721009d2a17495a971ec3c5731bb09202d483c1331",
+        "inventory_sha256": "6e5aca7d52550f796ab31a61c8c80a60e5e0f8fcf09aed84cc54b46e96a1101c",
+        "file_count": 1815,
+        "total_bytes": 32961753,
+        "nonregular_paths": [],
+        "excluded_upstream_paths": [],
+        "snapshot_kind": "complete_pinned_upstream_archive",
+        "within_runtime_limits": false,
+        "inventory_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sympy__sympy-20442\\source-inventory.json"
+      },
+      "image_digest": null,
+      "python_version": null,
+      "pytest_version": null,
+      "dependencies": null,
+      "collection": {
+        "status": "not_run",
+        "count": null,
+        "hash": null
+      },
+      "baseline": {
+        "status": "not_run",
+        "failure_nodeids": null
+      },
+      "grader": {
+        "status": "not_run",
+        "known_good": "not_run",
+        "negative_rejection": "not_run"
+      },
+      "cleanup": "not_applicable_no_container_started",
+      "model_calls": 0,
+      "paid": false,
+      "attempt": 1,
+      "retries": 0,
+      "reason": "full_source_exceeds_runtime_limits",
+      "duration_seconds": 10.95405309999478,
+      "carried_source_failure": true,
+      "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sympy__sympy-20442\\source-receipt.json"
+    },
+    {
+      "task_id": "sympy__sympy-18532",
+      "agent_task_id": "a5-task-9b7d3e751f58d383",
+      "repo": "sympy/sympy",
+      "base_revision": "74227f900b05009d4eed62e34a166228788a32ca",
+      "role": "target",
+      "status": "invalid_env",
+      "source": {
+        "schema": "a5.full-archive-inventory.v1",
+        "repo": "sympy/sympy",
+        "base_revision": "74227f900b05009d4eed62e34a166228788a32ca",
+        "archive_sha256": "b1cba448101be1efc844166e8490187d133b469ba68b510298dc52227970270d",
+        "archive_bytes": 6892186,
+        "git_pax_commit": "74227f900b05009d4eed62e34a166228788a32ca",
+        "source_tree_hash": "987d81c25585578bd490fbe3e50b032c0e0572bc9cd9e6cf958f1c3e4f26086d",
+        "inventory_sha256": "c25e38970985cec8edb7196d22899c30a3501c5093e081a491917860a00e0aa3",
+        "file_count": 1742,
+        "total_bytes": 31938205,
+        "nonregular_paths": [],
+        "excluded_upstream_paths": [],
+        "snapshot_kind": "complete_pinned_upstream_archive",
+        "within_runtime_limits": false,
+        "inventory_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sympy__sympy-18532\\source-inventory.json"
+      },
+      "image_digest": null,
+      "python_version": null,
+      "pytest_version": null,
+      "dependencies": null,
+      "collection": {
+        "status": "not_run",
+        "count": null,
+        "hash": null
+      },
+      "baseline": {
+        "status": "not_run",
+        "failure_nodeids": null
+      },
+      "grader": {
+        "status": "not_run",
+        "known_good": "not_run",
+        "negative_rejection": "not_run"
+      },
+      "cleanup": "not_applicable_no_container_started",
+      "model_calls": 0,
+      "paid": false,
+      "attempt": 1,
+      "retries": 0,
+      "reason": "full_source_exceeds_runtime_limits",
+      "duration_seconds": 12.25507070000458,
+      "carried_source_failure": true,
+      "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sympy__sympy-18532\\source-receipt.json"
+    },
+    {
+      "task_id": "scikit-learn__scikit-learn-25747",
+      "agent_task_id": "a5-task-07b0ed7ca1d52f88",
+      "repo": "scikit-learn/scikit-learn",
+      "base_revision": "2c867b8f822eb7a684f0d5c4359e4426e1c9cfe0",
+      "role": "target",
+      "status": "invalid_env",
+      "source": {
+        "schema": "a5.full-archive-inventory.v1",
+        "repo": "scikit-learn/scikit-learn",
+        "base_revision": "2c867b8f822eb7a684f0d5c4359e4426e1c9cfe0",
+        "archive_sha256": "2e30657bf995547dea101d594eaf7c4f885953bf780c0c8380e2e3fd045c741a",
+        "archive_bytes": 7412695,
+        "git_pax_commit": "2c867b8f822eb7a684f0d5c4359e4426e1c9cfe0",
+        "source_tree_hash": "e6e6290d1c0a547b0aa656fbc121564fc75798373ae36b8ea04247700ce95cfa",
+        "inventory_sha256": "2705cb0d5cc3cc59983c93042030cdd71ab6a683c8f4a81992e838521cdefece",
+        "file_count": 1522,
+        "total_bytes": 20731203,
+        "nonregular_paths": [],
+        "excluded_upstream_paths": [],
+        "snapshot_kind": "complete_pinned_upstream_archive",
+        "within_runtime_limits": false,
+        "inventory_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\scikit-learn__scikit-learn-25747\\source-inventory.json"
+      },
+      "image_digest": null,
+      "python_version": null,
+      "pytest_version": null,
+      "dependencies": null,
+      "collection": {
+        "status": "not_run",
+        "count": null,
+        "hash": null
+      },
+      "baseline": {
+        "status": "not_run",
+        "failure_nodeids": null
+      },
+      "grader": {
+        "status": "not_run",
+        "known_good": "not_run",
+        "negative_rejection": "not_run"
+      },
+      "cleanup": "not_applicable_no_container_started",
+      "model_calls": 0,
+      "paid": false,
+      "attempt": 1,
+      "retries": 0,
+      "reason": "full_source_exceeds_runtime_limits",
+      "duration_seconds": 11.629609499999788,
+      "carried_source_failure": true,
+      "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\scikit-learn__scikit-learn-25747\\source-receipt.json"
+    },
+    {
+      "task_id": "scikit-learn__scikit-learn-25500",
+      "agent_task_id": "a5-task-43b70843ce92c9d8",
+      "repo": "scikit-learn/scikit-learn",
+      "base_revision": "4db04923a754b6a2defa1b172f55d492b85d165e",
+      "role": "target",
+      "status": "invalid_env",
+      "source": {
+        "schema": "a5.full-archive-inventory.v1",
+        "repo": "scikit-learn/scikit-learn",
+        "base_revision": "4db04923a754b6a2defa1b172f55d492b85d165e",
+        "archive_sha256": "f5aa6b197a3681b1339c89c2c9b51bba121dbe91657ad317bc707ad9305675f6",
+        "archive_bytes": 7402291,
+        "git_pax_commit": "4db04923a754b6a2defa1b172f55d492b85d165e",
+        "source_tree_hash": "5d2802d064d8167b0d9c07f59ab348278917f72d2da7f3994a8c56338acb92a4",
+        "inventory_sha256": "f1ff83e448c693b7b4a0b81416eb407ecba77383868eaf683c10eb840468cacc",
+        "file_count": 1532,
+        "total_bytes": 20682366,
+        "nonregular_paths": [],
+        "excluded_upstream_paths": [],
+        "snapshot_kind": "complete_pinned_upstream_archive",
+        "within_runtime_limits": false,
+        "inventory_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\scikit-learn__scikit-learn-25500\\source-inventory.json"
+      },
+      "image_digest": null,
+      "python_version": null,
+      "pytest_version": null,
+      "dependencies": null,
+      "collection": {
+        "status": "not_run",
+        "count": null,
+        "hash": null
+      },
+      "baseline": {
+        "status": "not_run",
+        "failure_nodeids": null
+      },
+      "grader": {
+        "status": "not_run",
+        "known_good": "not_run",
+        "negative_rejection": "not_run"
+      },
+      "cleanup": "not_applicable_no_container_started",
+      "model_calls": 0,
+      "paid": false,
+      "attempt": 1,
+      "retries": 0,
+      "reason": "full_source_exceeds_runtime_limits",
+      "duration_seconds": 9.354339900004561,
+      "carried_source_failure": true,
+      "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\scikit-learn__scikit-learn-25500\\source-receipt.json"
+    },
+    {
+      "task_id": "scikit-learn__scikit-learn-25638",
+      "agent_task_id": "a5-task-75abb1372af2ad22",
+      "repo": "scikit-learn/scikit-learn",
+      "base_revision": "6adb209acd63825affc884abcd85381f148fb1b0",
+      "role": "target",
+      "status": "invalid_env",
+      "source": {
+        "schema": "a5.full-archive-inventory.v1",
+        "repo": "scikit-learn/scikit-learn",
+        "base_revision": "6adb209acd63825affc884abcd85381f148fb1b0",
+        "archive_sha256": "0d98d7eb99103caab47a9b850bc8e088deff4cd101a5c26d25c034343a1c1f80",
+        "archive_bytes": 7408997,
+        "git_pax_commit": "6adb209acd63825affc884abcd85381f148fb1b0",
+        "source_tree_hash": "48945d28783383f215e7c11921e94221fb04926ae83ea7c9fd0afd3be774cdde",
+        "inventory_sha256": "340f997862dd0b0241e66a87a12721affdfaedbce63f204c03d506b09cd1f8e2",
+        "file_count": 1521,
+        "total_bytes": 20712406,
+        "nonregular_paths": [],
+        "excluded_upstream_paths": [],
+        "snapshot_kind": "complete_pinned_upstream_archive",
+        "within_runtime_limits": false,
+        "inventory_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\scikit-learn__scikit-learn-25638\\source-inventory.json"
+      },
+      "image_digest": null,
+      "python_version": null,
+      "pytest_version": null,
+      "dependencies": null,
+      "collection": {
+        "status": "not_run",
+        "count": null,
+        "hash": null
+      },
+      "baseline": {
+        "status": "not_run",
+        "failure_nodeids": null
+      },
+      "grader": {
+        "status": "not_run",
+        "known_good": "not_run",
+        "negative_rejection": "not_run"
+      },
+      "cleanup": "not_applicable_no_container_started",
+      "model_calls": 0,
+      "paid": false,
+      "attempt": 1,
+      "retries": 0,
+      "reason": "full_source_exceeds_runtime_limits",
+      "duration_seconds": 10.694553599998471,
+      "carried_source_failure": true,
+      "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\scikit-learn__scikit-learn-25638\\source-receipt.json"
+    },
+    {
+      "task_id": "scikit-learn__scikit-learn-25570",
+      "agent_task_id": "a5-task-73d6eb90b9a4b485",
+      "repo": "scikit-learn/scikit-learn",
+      "base_revision": "cd25abee0ad0ac95225d4a9be8948eff69f49690",
+      "role": "target",
+      "status": "invalid_env",
+      "source": {
+        "schema": "a5.full-archive-inventory.v1",
+        "repo": "scikit-learn/scikit-learn",
+        "base_revision": "cd25abee0ad0ac95225d4a9be8948eff69f49690",
+        "archive_sha256": "6815acadae48f5bd9fd089ba9a16428d54c1c066ae0bcafd02608ee0796106c2",
+        "archive_bytes": 7405853,
+        "git_pax_commit": "cd25abee0ad0ac95225d4a9be8948eff69f49690",
+        "source_tree_hash": "cb8dd2ebead142edd1d450522d82d9a8a05173ff6f3c9468c4475c717bd3ecf8",
+        "inventory_sha256": "b01249a3ccc7fef42c52627ca1e2bc886b6c67ffdf4b9342a76da8fa3a311c26",
+        "file_count": 1523,
+        "total_bytes": 20691076,
+        "nonregular_paths": [],
+        "excluded_upstream_paths": [],
+        "snapshot_kind": "complete_pinned_upstream_archive",
+        "within_runtime_limits": false,
+        "inventory_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\scikit-learn__scikit-learn-25570\\source-inventory.json"
+      },
+      "image_digest": null,
+      "python_version": null,
+      "pytest_version": null,
+      "dependencies": null,
+      "collection": {
+        "status": "not_run",
+        "count": null,
+        "hash": null
+      },
+      "baseline": {
+        "status": "not_run",
+        "failure_nodeids": null
+      },
+      "grader": {
+        "status": "not_run",
+        "known_good": "not_run",
+        "negative_rejection": "not_run"
+      },
+      "cleanup": "not_applicable_no_container_started",
+      "model_calls": 0,
+      "paid": false,
+      "attempt": 1,
+      "retries": 0,
+      "reason": "full_source_exceeds_runtime_limits",
+      "duration_seconds": 11.156756800002768,
+      "carried_source_failure": true,
+      "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\scikit-learn__scikit-learn-25570\\source-receipt.json"
+    },
+    {
+      "task_id": "pytest-dev__pytest-8365",
+      "agent_task_id": "a5-task-50d9fb2d3f6b37ab",
+      "repo": "pytest-dev/pytest",
+      "base_revision": "4964b468c83c06971eb743fbc57cc404f760c573",
+      "role": "target",
+      "status": "invalid_env",
+      "source": {
+        "schema": "a5.full-archive-inventory.v1",
+        "repo": "pytest-dev/pytest",
+        "base_revision": "4964b468c83c06971eb743fbc57cc404f760c573",
+        "archive_sha256": "972e266e9e055878d90bac983c281243bc7169e70638c2ff9caa25fb61759fb5",
+        "archive_bytes": 1190917,
+        "git_pax_commit": "4964b468c83c06971eb743fbc57cc404f760c573",
+        "source_tree_hash": "faf5d395fc9cd01a0396fcb10f683cce33f52994aa5af11607345f2a3902a8ce",
+        "inventory_sha256": "46680cf4afbae57c89097f36d8f94b3b5dfa4683e5cc64fe26be872e4ac584cf",
+        "file_count": 535,
+        "total_bytes": 4337617,
+        "nonregular_paths": [],
+        "excluded_upstream_paths": [],
+        "snapshot_kind": "complete_pinned_upstream_archive",
+        "within_runtime_limits": true,
+        "inventory_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\pytest-dev__pytest-8365\\source-inventory.json"
+      },
+      "image_digest": null,
+      "python_version": null,
+      "pytest_version": null,
+      "dependencies": null,
+      "collection": {
+        "status": "not_run",
+        "count": null,
+        "hash": null
+      },
+      "baseline": {
+        "status": "not_run",
+        "failure_nodeids": null
+      },
+      "grader": {
+        "status": "not_run",
+        "known_good": "not_run",
+        "negative_rejection": "not_run"
+      },
+      "cleanup": "not_applicable_no_container_started",
+      "model_calls": 0,
+      "paid": false,
+      "attempt": 2,
+      "retries": 0,
+      "reason": "environment_or_grader_preparation_failed",
+      "duration_seconds": 2.7697168000013335,
+      "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\pytest-dev__pytest-8365\\source-receipt.json",
+      "environment_attempt": 1,
+      "error": "RuntimeError: command failed: D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-13-host-pytest\\tasks\\pytest-dev__pytest-8365\\image-build exit=1"
+    },
+    {
+      "task_id": "pytest-dev__pytest-7432",
+      "agent_task_id": "a5-task-4c6d41a0680e18c8",
+      "repo": "pytest-dev/pytest",
+      "base_revision": "e6e300e729dd33956e5448d8be9a0b1540b4e53a",
+      "role": "target",
+      "status": "invalid_env",
+      "source": {
+        "schema": "a5.full-archive-inventory.v1",
+        "repo": "pytest-dev/pytest",
+        "base_revision": "e6e300e729dd33956e5448d8be9a0b1540b4e53a",
+        "archive_sha256": "5b7f9d7d90d2b68ed2cecb3007ebe851aec8d5cfa92b4e322eeed8a0152953cb",
+        "archive_bytes": 1068738,
+        "git_pax_commit": "e6e300e729dd33956e5448d8be9a0b1540b4e53a",
+        "source_tree_hash": "91f4cc71a81fe09955f8e73ce94cba921d435efd4e6120eead36687782735f4c",
+        "inventory_sha256": "1ad5e39153377b4550e2af1a0230a0d7af0fc7bc41d41a5467b3e123692a199a",
+        "file_count": 541,
+        "total_bytes": 3731202,
+        "nonregular_paths": [],
+        "excluded_upstream_paths": [],
+        "snapshot_kind": "complete_pinned_upstream_archive",
+        "within_runtime_limits": true,
+        "inventory_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\pytest-dev__pytest-7432\\source-inventory.json"
+      },
+      "image_digest": null,
+      "python_version": null,
+      "pytest_version": null,
+      "dependencies": null,
+      "collection": {
+        "status": "not_run",
+        "count": null,
+        "hash": null
+      },
+      "baseline": {
+        "status": "not_run",
+        "failure_nodeids": null
+      },
+      "grader": {
+        "status": "not_run",
+        "known_good": "not_run",
+        "negative_rejection": "not_run"
+      },
+      "cleanup": "not_applicable_no_container_started",
+      "model_calls": 0,
+      "paid": false,
+      "attempt": 2,
+      "retries": 0,
+      "reason": "environment_or_grader_preparation_failed",
+      "duration_seconds": 2.680076000004192,
+      "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\pytest-dev__pytest-7432\\source-receipt.json",
+      "environment_attempt": 1,
+      "error": "RuntimeError: command failed: D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-13-host-pytest\\tasks\\pytest-dev__pytest-7432\\image-build exit=1"
+    },
+    {
+      "task_id": "pytest-dev__pytest-9359",
+      "agent_task_id": "a5-task-004e8cd8a7c80ba6",
+      "repo": "pytest-dev/pytest",
+      "base_revision": "e2ee3144ed6e241dea8d96215fcdca18b3892551",
+      "role": "target",
+      "status": "invalid_env",
+      "source": {
+        "schema": "a5.full-archive-inventory.v1",
+        "repo": "pytest-dev/pytest",
+        "base_revision": "e2ee3144ed6e241dea8d96215fcdca18b3892551",
+        "archive_sha256": "72bd646a146371e9d599406e97286a0717f7d56b16d090419b4f6c5800dc095f",
+        "archive_bytes": 1252206,
+        "git_pax_commit": "e2ee3144ed6e241dea8d96215fcdca18b3892551",
+        "source_tree_hash": "8ef859cda68565f2dbe6888cc0f626840d94b18ad666ac6507e63c9a72522e31",
+        "inventory_sha256": "c11f52316ea623aad03b49a2d54c5f78dfb80a3fc47589f8725f327712286fe2",
+        "file_count": 622,
+        "total_bytes": 4570658,
+        "nonregular_paths": [],
+        "excluded_upstream_paths": [],
+        "snapshot_kind": "complete_pinned_upstream_archive",
+        "within_runtime_limits": true,
+        "inventory_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\pytest-dev__pytest-9359\\source-inventory.json"
+      },
+      "image_digest": null,
+      "python_version": null,
+      "pytest_version": null,
+      "dependencies": null,
+      "collection": {
+        "status": "not_run",
+        "count": null,
+        "hash": null
+      },
+      "baseline": {
+        "status": "not_run",
+        "failure_nodeids": null
+      },
+      "grader": {
+        "status": "not_run",
+        "known_good": "not_run",
+        "negative_rejection": "not_run"
+      },
+      "cleanup": "not_applicable_no_container_started",
+      "model_calls": 0,
+      "paid": false,
+      "attempt": 2,
+      "retries": 0,
+      "reason": "environment_or_grader_preparation_failed",
+      "duration_seconds": 2.5707313000020804,
+      "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\pytest-dev__pytest-9359\\source-receipt.json",
+      "environment_attempt": 1,
+      "error": "RuntimeError: command failed: D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-13-host-pytest\\tasks\\pytest-dev__pytest-9359\\image-build exit=1"
+    },
+    {
+      "task_id": "pytest-dev__pytest-7220",
+      "agent_task_id": "a5-task-e726f5f0ccb4ea85",
+      "repo": "pytest-dev/pytest",
+      "base_revision": "56bf819c2f4eaf8b36bd8c42c06bb59d5a3bfc0f",
+      "role": "target",
+      "status": "invalid_env",
+      "source": {
+        "schema": "a5.full-archive-inventory.v1",
+        "repo": "pytest-dev/pytest",
+        "base_revision": "56bf819c2f4eaf8b36bd8c42c06bb59d5a3bfc0f",
+        "archive_sha256": "56ab5df6573cba42f4ac8c38986dc3ae30998829dd9d7b084c5c15ad2486e6d9",
+        "archive_bytes": 1039354,
+        "git_pax_commit": "56bf819c2f4eaf8b36bd8c42c06bb59d5a3bfc0f",
+        "source_tree_hash": "d2a145586cf4423ae40205abdee97e10d5204e52559eaf8a78be50def175eed4",
+        "inventory_sha256": "56d16114d72adcf6fc6eae18002861bbda7299c7193f7e12b4023373ab64900f",
+        "file_count": 512,
+        "total_bytes": 3591593,
+        "nonregular_paths": [],
+        "excluded_upstream_paths": [],
+        "snapshot_kind": "complete_pinned_upstream_archive",
+        "within_runtime_limits": true,
+        "inventory_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\pytest-dev__pytest-7220\\source-inventory.json"
+      },
+      "image_digest": null,
+      "python_version": null,
+      "pytest_version": null,
+      "dependencies": null,
+      "collection": {
+        "status": "not_run",
+        "count": null,
+        "hash": null
+      },
+      "baseline": {
+        "status": "not_run",
+        "failure_nodeids": null
+      },
+      "grader": {
+        "status": "not_run",
+        "known_good": "not_run",
+        "negative_rejection": "not_run"
+      },
+      "cleanup": "not_applicable_no_container_started",
+      "model_calls": 0,
+      "paid": false,
+      "attempt": 2,
+      "retries": 0,
+      "reason": "environment_or_grader_preparation_failed",
+      "duration_seconds": 2.300452800001949,
+      "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\pytest-dev__pytest-7220\\source-receipt.json",
+      "environment_attempt": 1,
+      "error": "RuntimeError: command failed: D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-13-host-pytest\\tasks\\pytest-dev__pytest-7220\\image-build exit=1"
+    },
+    {
+      "task_id": "sphinx-doc__sphinx-10451",
+      "agent_task_id": "a5-task-891cbbbdab60ba21",
+      "repo": "sphinx-doc/sphinx",
+      "base_revision": "195e911f1dab04b8ddeacbe04b7d214aaf81bb0b",
+      "role": "target",
+      "status": "invalid_env",
+      "source": {
+        "schema": "a5.full-archive-inventory.v1",
+        "repo": "sphinx-doc/sphinx",
+        "base_revision": "195e911f1dab04b8ddeacbe04b7d214aaf81bb0b",
+        "archive_sha256": "375265e0e4c99aeac3db1bef092e0b34a2c464395daea07f67b727b6d74efa60",
+        "archive_bytes": 6727224,
+        "git_pax_commit": "195e911f1dab04b8ddeacbe04b7d214aaf81bb0b",
+        "source_tree_hash": "7ae35c4663fcfd7587711968fb7c18f9590e2f274f6e724de00cf1fa851f01dc",
+        "inventory_sha256": "2ec1c8a21560feb96bac85bbc3211fc4857809892d35705582c8e15cbb760f1b",
+        "file_count": 1599,
+        "total_bytes": 17835140,
+        "nonregular_paths": [],
+        "excluded_upstream_paths": [],
+        "snapshot_kind": "complete_pinned_upstream_archive",
+        "within_runtime_limits": false,
+        "inventory_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sphinx-doc__sphinx-10451\\source-inventory.json"
+      },
+      "image_digest": null,
+      "python_version": null,
+      "pytest_version": null,
+      "dependencies": null,
+      "collection": {
+        "status": "not_run",
+        "count": null,
+        "hash": null
+      },
+      "baseline": {
+        "status": "not_run",
+        "failure_nodeids": null
+      },
+      "grader": {
+        "status": "not_run",
+        "known_good": "not_run",
+        "negative_rejection": "not_run"
+      },
+      "cleanup": "not_applicable_no_container_started",
+      "model_calls": 0,
+      "paid": false,
+      "attempt": 1,
+      "retries": 0,
+      "reason": "full_source_exceeds_runtime_limits",
+      "duration_seconds": 9.672798400002648,
+      "carried_source_failure": true,
+      "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sphinx-doc__sphinx-10451\\source-receipt.json"
+    },
+    {
+      "task_id": "sphinx-doc__sphinx-8721",
+      "agent_task_id": "a5-task-e328c531ac4ed0ae",
+      "repo": "sphinx-doc/sphinx",
+      "base_revision": "82ef497a8c88f0f6e50d84520e7276bfbf65025d",
+      "role": "target",
+      "status": "invalid_env",
+      "source": {
+        "schema": "a5.full-archive-inventory.v1",
+        "repo": "sphinx-doc/sphinx",
+        "base_revision": "82ef497a8c88f0f6e50d84520e7276bfbf65025d",
+        "archive_sha256": "7ddcc24c4596b2642739430f4eede6d61b851e8664e0e6dc7d7807742ea40834",
+        "archive_bytes": 5998815,
+        "git_pax_commit": "82ef497a8c88f0f6e50d84520e7276bfbf65025d",
+        "source_tree_hash": "6baa2fafe16070e983b87f1e1356cd51c7ddafddb67f173f3d3d7ffcb7b8f0f4",
+        "inventory_sha256": "263e70d2aa3ae6aa1714f2c2b6595f53a3ad0db2ebcf943ae25390a9bd1122d8",
+        "file_count": 1473,
+        "total_bytes": 16466026,
+        "nonregular_paths": [],
+        "excluded_upstream_paths": [],
+        "snapshot_kind": "complete_pinned_upstream_archive",
+        "within_runtime_limits": false,
+        "inventory_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sphinx-doc__sphinx-8721\\source-inventory.json"
+      },
+      "image_digest": null,
+      "python_version": null,
+      "pytest_version": null,
+      "dependencies": null,
+      "collection": {
+        "status": "not_run",
+        "count": null,
+        "hash": null
+      },
+      "baseline": {
+        "status": "not_run",
+        "failure_nodeids": null
+      },
+      "grader": {
+        "status": "not_run",
+        "known_good": "not_run",
+        "negative_rejection": "not_run"
+      },
+      "cleanup": "not_applicable_no_container_started",
+      "model_calls": 0,
+      "paid": false,
+      "attempt": 1,
+      "retries": 0,
+      "reason": "full_source_exceeds_runtime_limits",
+      "duration_seconds": 10.29496260000451,
+      "carried_source_failure": true,
+      "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sphinx-doc__sphinx-8721\\source-receipt.json"
+    },
+    {
+      "task_id": "sphinx-doc__sphinx-8595",
+      "agent_task_id": "a5-task-0f00e18f18495633",
+      "repo": "sphinx-doc/sphinx",
+      "base_revision": "b19bce971e82f2497d67fdacdeca8db08ae0ba56",
+      "role": "target",
+      "status": "invalid_env",
+      "source": {
+        "schema": "a5.full-archive-inventory.v1",
+        "repo": "sphinx-doc/sphinx",
+        "base_revision": "b19bce971e82f2497d67fdacdeca8db08ae0ba56",
+        "archive_sha256": "3bc84c594f995feb7b15505dc9cd413caf228ab0ddb6f97b66801f56d22cad74",
+        "archive_bytes": 5994677,
+        "git_pax_commit": "b19bce971e82f2497d67fdacdeca8db08ae0ba56",
+        "source_tree_hash": "0ca46a2e8318574b5241c2a24780dc81e322c53c7c07ba86c2c22070b95348b7",
+        "inventory_sha256": "9f31207644c1f879c13ac065891ad20a8be18271e6f9248be08fc8cfd6f9abee",
+        "file_count": 1464,
+        "total_bytes": 16428590,
+        "nonregular_paths": [],
+        "excluded_upstream_paths": [],
+        "snapshot_kind": "complete_pinned_upstream_archive",
+        "within_runtime_limits": false,
+        "inventory_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sphinx-doc__sphinx-8595\\source-inventory.json"
+      },
+      "image_digest": null,
+      "python_version": null,
+      "pytest_version": null,
+      "dependencies": null,
+      "collection": {
+        "status": "not_run",
+        "count": null,
+        "hash": null
+      },
+      "baseline": {
+        "status": "not_run",
+        "failure_nodeids": null
+      },
+      "grader": {
+        "status": "not_run",
+        "known_good": "not_run",
+        "negative_rejection": "not_run"
+      },
+      "cleanup": "not_applicable_no_container_started",
+      "model_calls": 0,
+      "paid": false,
+      "attempt": 1,
+      "retries": 0,
+      "reason": "full_source_exceeds_runtime_limits",
+      "duration_seconds": 9.442793599999277,
+      "carried_source_failure": true,
+      "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sphinx-doc__sphinx-8595\\source-receipt.json"
+    },
+    {
+      "task_id": "sphinx-doc__sphinx-8713",
+      "agent_task_id": "a5-task-31f59359335ec929",
+      "repo": "sphinx-doc/sphinx",
+      "base_revision": "3ed7590ed411bd93b26098faab4f23619cdb2267",
+      "role": "target",
+      "status": "invalid_env",
+      "source": {
+        "schema": "a5.full-archive-inventory.v1",
+        "repo": "sphinx-doc/sphinx",
+        "base_revision": "3ed7590ed411bd93b26098faab4f23619cdb2267",
+        "archive_sha256": "a411b2bae6f2c0a331c7f47ba8b519365ecf49d8d1580d46466edc8d3cb36550",
+        "archive_bytes": 5981448,
+        "git_pax_commit": "3ed7590ed411bd93b26098faab4f23619cdb2267",
+        "source_tree_hash": "4eafd959e16e6ca0350742a9db1d7df0d1b1352b729351ea9f5a334d1ddc378c",
+        "inventory_sha256": "ac95cf2d2331b6ac0aad0e9df1d088deb608e587373f2c200a4a7886af05490f",
+        "file_count": 1467,
+        "total_bytes": 16366995,
+        "nonregular_paths": [],
+        "excluded_upstream_paths": [],
+        "snapshot_kind": "complete_pinned_upstream_archive",
+        "within_runtime_limits": false,
+        "inventory_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sphinx-doc__sphinx-8713\\source-inventory.json"
+      },
+      "image_digest": null,
+      "python_version": null,
+      "pytest_version": null,
+      "dependencies": null,
+      "collection": {
+        "status": "not_run",
+        "count": null,
+        "hash": null
+      },
+      "baseline": {
+        "status": "not_run",
+        "failure_nodeids": null
+      },
+      "grader": {
+        "status": "not_run",
+        "known_good": "not_run",
+        "negative_rejection": "not_run"
+      },
+      "cleanup": "not_applicable_no_container_started",
+      "model_calls": 0,
+      "paid": false,
+      "attempt": 1,
+      "retries": 0,
+      "reason": "full_source_exceeds_runtime_limits",
+      "duration_seconds": 10.060536100005265,
+      "carried_source_failure": true,
+      "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sphinx-doc__sphinx-8713\\source-receipt.json"
+    },
+    {
+      "task_id": "django__django-10914",
+      "agent_task_id": "a5-build-b117be26241cbe45",
+      "repo": "django/django",
+      "base_revision": "e7fd69d051eaa67cb17f172a39b57253e9cb831a",
+      "role": "preflight_history_candidate",
+      "status": "invalid_env",
+      "source": {
+        "schema": "a5.full-archive-inventory.v1",
+        "repo": "django/django",
+        "base_revision": "e7fd69d051eaa67cb17f172a39b57253e9cb831a",
+        "archive_sha256": "27704b4b7dbfa16b5c4dcd066b38b6ba50a29f76e266c126866b55faaa157808",
+        "archive_bytes": 8816163,
+        "git_pax_commit": "e7fd69d051eaa67cb17f172a39b57253e9cb831a",
+        "source_tree_hash": null,
+        "inventory_sha256": "1bc3ef6df33c85ad0ca5b5eafa5fe8d3880092ee210483e5b48b18bb64619faa",
+        "file_count": 6054,
+        "total_bytes": 36070365,
+        "nonregular_paths": [
+          "docs/_theme/djangodocs-epub/static/docicons-behindscenes.png",
+          "docs/_theme/djangodocs-epub/static/docicons-note.png",
+          "docs/_theme/djangodocs-epub/static/docicons-philosophy.png",
+          "docs/_theme/djangodocs-epub/static/docicons-warning.png"
+        ],
+        "excluded_upstream_paths": [],
+        "snapshot_kind": "complete_pinned_upstream_archive",
+        "within_runtime_limits": false,
+        "inventory_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\django__django-10914\\source-inventory.json"
+      },
+      "image_digest": null,
+      "python_version": null,
+      "pytest_version": null,
+      "dependencies": null,
+      "collection": {
+        "status": "not_run",
+        "count": null,
+        "hash": null
+      },
+      "baseline": {
+        "status": "not_run",
+        "failure_nodeids": null
+      },
+      "grader": {
+        "status": "not_run",
+        "known_good": "not_run",
+        "negative_rejection": "not_run"
+      },
+      "cleanup": "not_applicable_no_container_started",
+      "model_calls": 0,
+      "paid": false,
+      "attempt": 1,
+      "retries": 0,
+      "reason": "full_source_exceeds_runtime_limits",
+      "duration_seconds": 10.699891699987347,
+      "carried_source_failure": true,
+      "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\django__django-10914\\source-receipt.json"
+    },
+    {
+      "task_id": "sympy__sympy-11400",
+      "agent_task_id": "a5-build-5024683a49dc2bbe",
+      "repo": "sympy/sympy",
+      "base_revision": "8dcb12a6cf500e8738d6729ab954a261758f49ca",
+      "role": "preflight_history_candidate",
+      "status": "invalid_env",
+      "source": {
+        "schema": "a5.full-archive-inventory.v1",
+        "repo": "sympy/sympy",
+        "base_revision": "8dcb12a6cf500e8738d6729ab954a261758f49ca",
+        "archive_sha256": "b70af9f4edb289a7f834ae54eb958175db6590927c02a1d9d86b3fde5cd172b2",
+        "archive_bytes": 4766489,
+        "git_pax_commit": "8dcb12a6cf500e8738d6729ab954a261758f49ca",
+        "source_tree_hash": "c21dc075d746a72c08e55498f1eb82d507d48c7320759e6914de1bde75cfbcc1",
+        "inventory_sha256": "494edd72f81971a0d68446547a640e2ac2b773c01ca8465430a4415c0edabe72",
+        "file_count": 1401,
+        "total_bytes": 18059667,
+        "nonregular_paths": [],
+        "excluded_upstream_paths": [],
+        "snapshot_kind": "complete_pinned_upstream_archive",
+        "within_runtime_limits": false,
+        "inventory_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sympy__sympy-11400\\source-inventory.json"
+      },
+      "image_digest": null,
+      "python_version": null,
+      "pytest_version": null,
+      "dependencies": null,
+      "collection": {
+        "status": "not_run",
+        "count": null,
+        "hash": null
+      },
+      "baseline": {
+        "status": "not_run",
+        "failure_nodeids": null
+      },
+      "grader": {
+        "status": "not_run",
+        "known_good": "not_run",
+        "negative_rejection": "not_run"
+      },
+      "cleanup": "not_applicable_no_container_started",
+      "model_calls": 0,
+      "paid": false,
+      "attempt": 1,
+      "retries": 0,
+      "reason": "full_source_exceeds_runtime_limits",
+      "duration_seconds": 7.971936100002495,
+      "carried_source_failure": true,
+      "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sympy__sympy-11400\\source-receipt.json"
+    },
+    {
+      "task_id": "scikit-learn__scikit-learn-10297",
+      "agent_task_id": "a5-build-28c10c92d52bbe54",
+      "repo": "scikit-learn/scikit-learn",
+      "base_revision": "b90661d6a46aa3619d3eec94d5281f5888add501",
+      "role": "preflight_history_candidate",
+      "status": "invalid_env",
+      "source": {
+        "schema": "a5.full-archive-inventory.v1",
+        "repo": "scikit-learn/scikit-learn",
+        "base_revision": "b90661d6a46aa3619d3eec94d5281f5888add501",
+        "archive_sha256": "3fc061ae95f36efada14bdef121d187121d11cfdf553cb1e82efb30fd137775e",
+        "archive_bytes": 5981287,
+        "git_pax_commit": "b90661d6a46aa3619d3eec94d5281f5888add501",
+        "source_tree_hash": "efbb4cd0dfdfb5d78fb740733d9fbb082abb1cab3997f26511a99203bddac593",
+        "inventory_sha256": "6e4f114fad7ba016c7d122c69a466b7a9031da64ef24117076f012877cb44cd1",
+        "file_count": 1105,
+        "total_bytes": 15147428,
+        "nonregular_paths": [],
+        "excluded_upstream_paths": [],
+        "snapshot_kind": "complete_pinned_upstream_archive",
+        "within_runtime_limits": false,
+        "inventory_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\scikit-learn__scikit-learn-10297\\source-inventory.json"
+      },
+      "image_digest": null,
+      "python_version": null,
+      "pytest_version": null,
+      "dependencies": null,
+      "collection": {
+        "status": "not_run",
+        "count": null,
+        "hash": null
+      },
+      "baseline": {
+        "status": "not_run",
+        "failure_nodeids": null
+      },
+      "grader": {
+        "status": "not_run",
+        "known_good": "not_run",
+        "negative_rejection": "not_run"
+      },
+      "cleanup": "not_applicable_no_container_started",
+      "model_calls": 0,
+      "paid": false,
+      "attempt": 1,
+      "retries": 0,
+      "reason": "full_source_exceeds_runtime_limits",
+      "duration_seconds": 8.02716739999596,
+      "carried_source_failure": true,
+      "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\scikit-learn__scikit-learn-10297\\source-receipt.json"
+    },
+    {
+      "task_id": "pytest-dev__pytest-5103",
+      "agent_task_id": "a5-build-47b71eeda51b255d",
+      "repo": "pytest-dev/pytest",
+      "base_revision": "10ca84ffc56c2dd2d9dc4bd71b7b898e083500cd",
+      "role": "preflight_history_candidate",
+      "status": "invalid_env",
+      "source": {
+        "schema": "a5.full-archive-inventory.v1",
+        "repo": "pytest-dev/pytest",
+        "base_revision": "10ca84ffc56c2dd2d9dc4bd71b7b898e083500cd",
+        "archive_sha256": "ae7b95364f7e6dfeb5d77b3458fe2a02b6446ec23cbf11a748b610cfd60fe413",
+        "archive_bytes": 941709,
+        "git_pax_commit": "10ca84ffc56c2dd2d9dc4bd71b7b898e083500cd",
+        "source_tree_hash": "381e07e06c5cbd286d0217a903bf7b1ccbf6d67226e294bb6d36ea58b69b05fd",
+        "inventory_sha256": "eea527de4b8e513ec997dd640d38db37de7cfc8cbc13264db44a0520057179c3",
+        "file_count": 418,
+        "total_bytes": 3161090,
+        "nonregular_paths": [],
+        "excluded_upstream_paths": [],
+        "snapshot_kind": "complete_pinned_upstream_archive",
+        "within_runtime_limits": true,
+        "inventory_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\pytest-dev__pytest-5103\\source-inventory.json"
+      },
+      "image_digest": null,
+      "python_version": null,
+      "pytest_version": null,
+      "dependencies": null,
+      "collection": {
+        "status": "not_run",
+        "count": null,
+        "hash": null
+      },
+      "baseline": {
+        "status": "not_run",
+        "failure_nodeids": null
+      },
+      "grader": {
+        "status": "not_run",
+        "known_good": "not_run",
+        "negative_rejection": "not_run"
+      },
+      "cleanup": "not_applicable_no_container_started",
+      "model_calls": 0,
+      "paid": false,
+      "attempt": 2,
+      "retries": 0,
+      "reason": "environment_or_grader_preparation_failed",
+      "duration_seconds": 2.32891880000534,
+      "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\pytest-dev__pytest-5103\\source-receipt.json",
+      "environment_attempt": 1,
+      "error": "RuntimeError: command failed: D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-13-host-pytest\\tasks\\pytest-dev__pytest-5103\\image-build exit=1"
+    }
+  ]
+}

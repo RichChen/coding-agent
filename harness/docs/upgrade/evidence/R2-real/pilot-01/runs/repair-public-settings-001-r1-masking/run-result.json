@@ -1,0 +1,913 @@
+{
+  "task_id": "public-settings-001",
+  "success": false,
+  "final_answer": null,
+  "failure_reason": "context_overflow",
+  "steps": [
+    {
+      "step": 0,
+      "phase": "acting",
+      "messages_snapshot": 5,
+      "llm_text": "I'll start by exploring the workspace.",
+      "tool_calls": [
+        {
+          "name": "list_dir",
+          "args": {
+            "path": "."
+          },
+          "raw_arguments": "{\"path\": \".\"}",
+          "parse_error": null
+        },
+        {
+          "name": "run_command",
+          "args": {
+            "command": "find . -type f -name \"*.py\" | head -50"
+          },
+          "raw_arguments": "{\"command\": \"find . -type f -name \\\"*.py\\\" | head -50\"}",
+          "parse_error": null
+        }
+      ],
+      "tool_results": [
+        {
+          "name": "list_dir",
+          "success": true,
+          "status": "succeeded",
+          "error_kind": null,
+          "output": "[F] public_checks.py\n[F] settings.py\n\n[exit_code=0 status=succeeded truncated=false bytes_seen=37 bytes_kept=74 cleanup=not_required duration_ms=167]"
+        },
+        {
+          "name": "run_command",
+          "success": true,
+          "status": "succeeded",
+          "error_kind": null,
+          "output": "./settings.py\n./public_checks.py\n\n[exit_code=0 status=succeeded truncated=false bytes_seen=33 bytes_kept=66 cleanup=not_required duration_ms=125]"
+        }
+      ],
+      "elapsed_ms": 1373.9498000068124
+    },
+    {
+      "step": 1,
+      "phase": "acting",
+      "messages_snapshot": 8,
+      "llm_text": null,
+      "tool_calls": [
+        {
+          "name": "read_file",
+          "args": {
+            "path": "settings.py"
+          },
+          "raw_arguments": "{\"path\": \"settings.py\"}",
+          "parse_error": null
+        },
+        {
+          "name": "read_file",
+          "args": {
+            "path": "public_checks.py"
+          },
+          "raw_arguments": "{\"path\": \"public_checks.py\"}",
+          "parse_error": null
+        }
+      ],
+      "tool_results": [
+        {
+          "name": "read_file",
+          "success": true,
+          "status": "succeeded",
+          "error_kind": null,
+          "output": "\"\"\"Read line-based application settings.\"\"\"\n\ndef parse_settings(text):\n    return dict(line.split(\"=\") for line in text.splitlines())\n\n\n[exit_code=0 status=succeeded truncated=false bytes_seen=135 bytes_kept=270 cleanup=not_required duration_ms=159]"
+        },
+        {
+          "name": "read_file",
+          "success": true,
+          "status": "succeeded",
+          "error_kind": null,
+          "output": "\"\"\"Small public reproduction; no private grader material.\"\"\"\nfrom settings import parse_settings\n\nassert parse_settings(\"name=demo\\n\\n\") == {\"name\": \"demo\"}\n\n\n[exit_code=0 status=succeeded truncated=false bytes_seen=158 bytes_kept=316 cleanup=not_required duration_ms=138]"
+        }
+      ],
+      "elapsed_ms": 1245.9741000056965
+    },
+    {
+      "step": 2,
+      "phase": "acting",
+      "messages_snapshot": 10,
+      "llm_text": "The read of settings.py returned nothing visible. Let me check the directory listing and file contents again.",
+      "tool_calls": [
+        {
+          "name": "run_command",
+          "args": {
+            "command": "ls -la; echo \"---\"; cat settings.py; echo \"---\"; cat public_checks.py"
+          },
+          "raw_arguments": "{\"command\": \"ls -la; echo \\\"---\\\"; cat settings.py; echo \\\"---\\\"; cat public_checks.py\"}",
+          "parse_error": null
+        }
+      ],
+      "tool_results": [
+        {
+          "name": "run_command",
+          "success": true,
+          "status": "succeeded",
+          "error_kind": null,
+          "output": "total 12\ndrwxrwxrwt 2 root root   80 Sep 21 08:51 .\ndrwxr-xr-x 1 root root 4096 Sep 21 08:51 ..\n-rw-r--r-- 1 1000 1000  157 Sep 21 08:51 public_checks.py\n-rw-r--r-- 1 1000 1000  134 Sep 21 08:51 settings.py\n---\n\"\"\"Read line-based application settings.\"\"\"\n\ndef parse_settings(text):\n    return dict(line.split(\"=\") for line in text.splitlines())\n---\n\"\"\"Small public reproduction; no private grader material.\"\"\"\nfrom settings import parse_settings\n\nassert parse_settings(\"name=demo\\n\\n\") == {\"name\": \"d"
+        }
+      ],
+      "elapsed_ms": 1332.3941999988165
+    },
+    {
+      "step": 3,
+      "phase": "acting",
+      "messages_snapshot": 12,
+      "llm_text": "Now I understand the task. Let me reproduce the failure first.",
+      "tool_calls": [
+        {
+          "name": "run_command",
+          "args": {
+            "command": "python -B public_checks.py"
+          },
+          "raw_arguments": "{\"command\": \"python -B public_checks.py\"}",
+          "parse_error": null
+        }
+      ],
+      "tool_results": [
+        {
+          "name": "run_command",
+          "success": false,
+          "status": "failed",
+          "error_kind": "nonzero_exit",
+          "output": "[stderr]\nTraceback (most recent call last):\n  File \"/workspace/public_checks.py\", line 4, in <module>\n    assert parse_settings(\"name=demo\\n\\n\") == {\"name\": \"demo\"}\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/settings.py\", line 4, in parse_settings\n    return dict(line.split(\"=\") for line in text.splitlines())\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nValueError: dictionary update sequence element #1 has length 1; 2 is required\n\n[exit_code=1 status=failed t"
+        }
+      ],
+      "elapsed_ms": 1375.681400008034
+    },
+    {
+      "step": 4,
+      "phase": "acting",
+      "messages_snapshot": 14,
+      "llm_text": "Reproduced. Now let me fix `parse_settings` in settings.py.",
+      "tool_calls": [
+        {
+          "name": "write_file",
+          "args": {
+            "path": "settings.py",
+            "content": "def parse_settings(text):\n    \"\"\"Parse a settings string into a mapping.\n\n    - Empty/whitespace-only lines are ignored.\n    - Each setting is split at its first '='.\n    - Names and values are trimmed of surrounding whitespace.\n    - Empty input returns an empty mapping.\n    \"\"\"\n    settings = {}\n    for line in text.splitlines():\n        if not line.strip():\n            continue\n        name, _, value = line.partition(\"=\")\n        settings[name.strip()] = value.strip()\n    return settings\n"
+          },
+          "raw_arguments": "{\"path\": \"settings.py\", \"content\": \"def parse_settings(text):\\n    \\\"\\\"\\\"Parse a settings string into a mapping.\\n\\n    - Empty/whitespace-only lines are ignored.\\n    - Each setting is split at its first '='.\\n    - Names and values are trimmed of surrounding whitespace.\\n    - Empty input returns an empty mapping.\\n    \\\"\\\"\\\"\\n    settings = {}\\n    for line in text.splitlines():\\n        if not line.strip():\\n            continue\\n        name, _, value = line.partition(\\\"=\\\")\\n        settings[name.strip()] = value.strip()\\n    return settings\\n\"}",
+          "parse_error": null
+        }
+      ],
+      "tool_results": [
+        {
+          "name": "write_file",
+          "success": true,
+          "status": "succeeded",
+          "error_kind": null,
+          "output": "file updated\n\n[exit_code=0 status=succeeded truncated=false bytes_seen=13 bytes_kept=26 cleanup=not_required duration_ms=138]"
+        }
+      ],
+      "elapsed_ms": 1611.3392999977805
+    },
+    {
+      "step": 5,
+      "phase": "acting",
+      "messages_snapshot": 16,
+      "llm_text": null,
+      "tool_calls": [
+        {
+          "name": "run_command",
+          "args": {
+            "command": "python -B public_checks.py && echo \"PASS\""
+          },
+          "raw_arguments": "{\"command\": \"python -B public_checks.py && echo \\\"PASS\\\"\"}",
+          "parse_error": null
+        }
+      ],
+      "tool_results": [
+        {
+          "name": "run_command",
+          "success": true,
+          "status": "succeeded",
+          "error_kind": null,
+          "output": "PASS\n\n[exit_code=0 status=succeeded truncated=false bytes_seen=5 bytes_kept=10 cleanup=not_required duration_ms=115]"
+        }
+      ],
+      "elapsed_ms": 1377.2443999914685
+    }
+  ],
+  "total_elapsed_ms": 12745.01309999323,
+  "total_tokens": 10286,
+  "tool_failures": 1,
+  "policy_blocks": 0,
+  "total_tool_invocations": 8,
+  "plan": null,
+  "context_events": [
+    {
+      "strategy": "masking",
+      "requested": "masking",
+      "actually_injected": "none",
+      "summary_provider": "fixture",
+      "raw_message_hash": "c65fcb0339f3e7391669264e4a1e98eebf9a34ecaa89d4a5c1aa724a3b869734",
+      "raw_serialized_bytes": 1592,
+      "summary_records": [],
+      "overflow": false,
+      "serialized_bytes": 4396,
+      "estimated_input_tokens": 1099,
+      "admission_input_tokens": 5740,
+      "reserved_output_tokens": 2048,
+      "estimate_method": "utf8_bytes_div_4_estimated",
+      "admission_method": "utf8_bytes_plus_protocol_allowance",
+      "masking": {
+        "message_count_before": 2,
+        "message_count_after": 2,
+        "chars_before": 1475,
+        "chars_after": 1475,
+        "chars_saved": 0,
+        "tool_messages_before": 0,
+        "tool_messages_after": 0,
+        "compacted_tool_count": 0,
+        "preserved_tool_count": 0,
+        "keep_recent": 1,
+        "did_compact": false,
+        "estimated_tokens_before": 368,
+        "estimated_tokens_after": 368
+      },
+      "compacted_tool_count": 0,
+      "summary_calls": 0,
+      "summary_model_calls": 0,
+      "summary_accounting": {
+        "provider": "fixture",
+        "model_calls": 0,
+        "known_total_tokens": 0,
+        "unknown_usage_calls": 0,
+        "tokens_committed": 0,
+        "estimated_cost_usd": null,
+        "cost_committed_usd": 0,
+        "elapsed_seconds": 0,
+        "records": []
+      },
+      "manager_state": {
+        "schema_version": "0.1",
+        "summary_calls": 0,
+        "summaries": [],
+        "plugin_state": {},
+        "summary_provider": "fixture",
+        "summary_attempts": [],
+        "dispatch_calls": 0,
+        "dispatch_receipts": [],
+        "dispatch_observations": []
+      },
+      "plugin": {
+        "name": "noop",
+        "requested": [],
+        "actually_injected": [],
+        "rejected": [],
+        "action_proposals": [],
+        "method_degraded": false,
+        "policy_error": null,
+        "schema_version": "0.1",
+        "ignored_optional_fields": [],
+        "events": []
+      },
+      "max_tokens": 12000,
+      "view_hash": "c65fcb0339f3e7391669264e4a1e98eebf9a34ecaa89d4a5c1aa724a3b869734",
+      "view_serialized_bytes": 1592,
+      "step": 0
+    },
+    {
+      "strategy": "masking",
+      "requested": "masking",
+      "actually_injected": "masking",
+      "summary_provider": "fixture",
+      "raw_message_hash": "2b344f2703b79b6d2c79b889b2e157d3735e1cac0c1c735a921f521f7205ca2c",
+      "raw_serialized_bytes": 2432,
+      "summary_records": [],
+      "overflow": false,
+      "serialized_bytes": 5109,
+      "estimated_input_tokens": 1278,
+      "admission_input_tokens": 6549,
+      "reserved_output_tokens": 2048,
+      "estimate_method": "utf8_bytes_div_4_estimated",
+      "admission_method": "utf8_bytes_plus_protocol_allowance",
+      "masking": {
+        "message_count_before": 5,
+        "message_count_after": 5,
+        "chars_before": 1807,
+        "chars_after": 1683,
+        "chars_saved": 124,
+        "tool_messages_before": 2,
+        "tool_messages_after": 2,
+        "compacted_tool_count": 1,
+        "preserved_tool_count": 1,
+        "keep_recent": 1,
+        "did_compact": true,
+        "estimated_tokens_before": 468,
+        "estimated_tokens_after": 437
+      },
+      "compacted_tool_count": 1,
+      "summary_calls": 0,
+      "summary_model_calls": 0,
+      "summary_accounting": {
+        "provider": "fixture",
+        "model_calls": 0,
+        "known_total_tokens": 0,
+        "unknown_usage_calls": 0,
+        "tokens_committed": 0,
+        "estimated_cost_usd": null,
+        "cost_committed_usd": 0,
+        "elapsed_seconds": 0,
+        "records": []
+      },
+      "manager_state": {
+        "schema_version": "0.1",
+        "summary_calls": 0,
+        "summaries": [],
+        "plugin_state": {},
+        "summary_provider": "fixture",
+        "summary_attempts": [],
+        "dispatch_calls": 0,
+        "dispatch_receipts": [],
+        "dispatch_observations": []
+      },
+      "plugin": {
+        "name": "noop",
+        "requested": [],
+        "actually_injected": [],
+        "rejected": [],
+        "action_proposals": [],
+        "method_degraded": false,
+        "policy_error": null,
+        "schema_version": "0.1",
+        "ignored_optional_fields": [],
+        "events": []
+      },
+      "max_tokens": 12000,
+      "view_hash": "ccb533ecb499298caafee09741dd74e5a232e41b2fe11d2220c20e514f3eb655",
+      "view_serialized_bytes": 2305,
+      "step": 1
+    },
+    {
+      "strategy": "masking",
+      "requested": "masking",
+      "actually_injected": "masking",
+      "summary_provider": "fixture",
+      "raw_message_hash": "dd9d302f5ef1b92631217ed5eac72242f427a2929bf32f606e23938026a8244f",
+      "raw_serialized_bytes": 3469,
+      "summary_records": [],
+      "overflow": false,
+      "serialized_bytes": 5789,
+      "estimated_input_tokens": 1448,
+      "admission_input_tokens": 7325,
+      "reserved_output_tokens": 2048,
+      "estimate_method": "utf8_bytes_div_4_estimated",
+      "admission_method": "utf8_bytes_plus_protocol_allowance",
+      "masking": {
+        "message_count_before": 8,
+        "message_count_after": 8,
+        "chars_before": 2328,
+        "chars_after": 1864,
+        "chars_saved": 464,
+        "tool_messages_before": 4,
+        "tool_messages_after": 4,
+        "compacted_tool_count": 3,
+        "preserved_tool_count": 1,
+        "keep_recent": 1,
+        "did_compact": true,
+        "estimated_tokens_before": 611,
+        "estimated_tokens_after": 495
+      },
+      "compacted_tool_count": 3,
+      "summary_calls": 0,
+      "summary_model_calls": 0,
+      "summary_accounting": {
+        "provider": "fixture",
+        "model_calls": 0,
+        "known_total_tokens": 0,
+        "unknown_usage_calls": 0,
+        "tokens_committed": 0,
+        "estimated_cost_usd": null,
+        "cost_committed_usd": 0,
+        "elapsed_seconds": 0,
+        "records": []
+      },
+      "manager_state": {
+        "schema_version": "0.1",
+        "summary_calls": 0,
+        "summaries": [],
+        "plugin_state": {},
+        "summary_provider": "fixture",
+        "summary_attempts": [],
+        "dispatch_calls": 0,
+        "dispatch_receipts": [],
+        "dispatch_observations": []
+      },
+      "plugin": {
+        "name": "noop",
+        "requested": [],
+        "actually_injected": [],
+        "rejected": [],
+        "action_proposals": [],
+        "method_degraded": false,
+        "policy_error": null,
+        "schema_version": "0.1",
+        "ignored_optional_fields": [],
+        "events": []
+      },
+      "max_tokens": 12000,
+      "view_hash": "443ad804ea57e07ce0ace461050066ddc282c109acde31eacf0c56eaa0f7256a",
+      "view_serialized_bytes": 2985,
+      "step": 2
+    },
+    {
+      "strategy": "masking",
+      "requested": "masking",
+      "actually_injected": "masking",
+      "summary_provider": "fixture",
+      "raw_message_hash": "077e117c7e9c2af2b1ff2b7ad61a13c787c18800dacb905e5715a72e27841419",
+      "raw_serialized_bytes": 4574,
+      "summary_records": [],
+      "overflow": false,
+      "serialized_bytes": 6628,
+      "estimated_input_tokens": 1657,
+      "admission_input_tokens": 8228,
+      "reserved_output_tokens": 2048,
+      "estimate_method": "utf8_bytes_div_4_estimated",
+      "admission_method": "utf8_bytes_plus_protocol_allowance",
+      "masking": {
+        "message_count_before": 10,
+        "message_count_after": 10,
+        "chars_before": 3058,
+        "chars_after": 2348,
+        "chars_saved": 710,
+        "tool_messages_before": 5,
+        "tool_messages_after": 5,
+        "compacted_tool_count": 4,
+        "preserved_tool_count": 1,
+        "keep_recent": 1,
+        "did_compact": true,
+        "estimated_tokens_before": 816,
+        "estimated_tokens_after": 638
+      },
+      "compacted_tool_count": 4,
+      "summary_calls": 0,
+      "summary_model_calls": 0,
+      "summary_accounting": {
+        "provider": "fixture",
+        "model_calls": 0,
+        "known_total_tokens": 0,
+        "unknown_usage_calls": 0,
+        "tokens_committed": 0,
+        "estimated_cost_usd": null,
+        "cost_committed_usd": 0,
+        "elapsed_seconds": 0,
+        "records": []
+      },
+      "manager_state": {
+        "schema_version": "0.1",
+        "summary_calls": 0,
+        "summaries": [],
+        "plugin_state": {},
+        "summary_provider": "fixture",
+        "summary_attempts": [],
+        "dispatch_calls": 0,
+        "dispatch_receipts": [],
+        "dispatch_observations": []
+      },
+      "plugin": {
+        "name": "noop",
+        "requested": [],
+        "actually_injected": [],
+        "rejected": [],
+        "action_proposals": [],
+        "method_degraded": false,
+        "policy_error": null,
+        "schema_version": "0.1",
+        "ignored_optional_fields": [],
+        "events": []
+      },
+      "max_tokens": 12000,
+      "view_hash": "20bb01ed6f230dd8e4f89873ea5b31d8d012fdde87066ef7aa32fb6b85b36af2",
+      "view_serialized_bytes": 3824,
+      "step": 3
+    },
+    {
+      "strategy": "masking",
+      "requested": "masking",
+      "actually_injected": "masking",
+      "summary_provider": "fixture",
+      "raw_message_hash": "6c42c981595a951893b59efa3a995182e7fc1c07178a1ca7a15a69f26eb3622c",
+      "raw_serialized_bytes": 5566,
+      "summary_records": [],
+      "overflow": false,
+      "serialized_bytes": 6989,
+      "estimated_input_tokens": 1748,
+      "admission_input_tokens": 8653,
+      "reserved_output_tokens": 2048,
+      "estimate_method": "utf8_bytes_div_4_estimated",
+      "admission_method": "utf8_bytes_plus_protocol_allowance",
+      "masking": {
+        "message_count_before": 12,
+        "message_count_after": 12,
+        "chars_before": 3742,
+        "chars_after": 2439,
+        "chars_saved": 1303,
+        "tool_messages_before": 6,
+        "tool_messages_after": 6,
+        "compacted_tool_count": 5,
+        "preserved_tool_count": 1,
+        "keep_recent": 1,
+        "did_compact": true,
+        "estimated_tokens_before": 997,
+        "estimated_tokens_after": 671
+      },
+      "compacted_tool_count": 5,
+      "summary_calls": 0,
+      "summary_model_calls": 0,
+      "summary_accounting": {
+        "provider": "fixture",
+        "model_calls": 0,
+        "known_total_tokens": 0,
+        "unknown_usage_calls": 0,
+        "tokens_committed": 0,
+        "estimated_cost_usd": null,
+        "cost_committed_usd": 0,
+        "elapsed_seconds": 0,
+        "records": []
+      },
+      "manager_state": {
+        "schema_version": "0.1",
+        "summary_calls": 0,
+        "summaries": [],
+        "plugin_state": {},
+        "summary_provider": "fixture",
+        "summary_attempts": [],
+        "dispatch_calls": 0,
+        "dispatch_receipts": [],
+        "dispatch_observations": []
+      },
+      "plugin": {
+        "name": "noop",
+        "requested": [],
+        "actually_injected": [],
+        "rejected": [],
+        "action_proposals": [],
+        "method_degraded": false,
+        "policy_error": null,
+        "schema_version": "0.1",
+        "ignored_optional_fields": [],
+        "events": []
+      },
+      "max_tokens": 12000,
+      "view_hash": "bb7685d1d7b60424306568fafbe652272b28e209edab35d1761a527331374dab",
+      "view_serialized_bytes": 4185,
+      "step": 4
+    },
+    {
+      "strategy": "masking",
+      "requested": "masking",
+      "actually_injected": "masking",
+      "summary_provider": "fixture",
+      "raw_message_hash": "0b403be49598d7db8c9b16136b09b87ec08cffbc22af1f377aacbaf278d6f873",
+      "raw_serialized_bytes": 6584,
+      "summary_records": [],
+      "overflow": false,
+      "serialized_bytes": 8007,
+      "estimated_input_tokens": 2002,
+      "admission_input_tokens": 9735,
+      "reserved_output_tokens": 2048,
+      "estimate_method": "utf8_bytes_div_4_estimated",
+      "admission_method": "utf8_bytes_plus_protocol_allowance",
+      "masking": {
+        "message_count_before": 14,
+        "message_count_after": 14,
+        "chars_before": 3926,
+        "chars_after": 2623,
+        "chars_saved": 1303,
+        "tool_messages_before": 7,
+        "tool_messages_after": 7,
+        "compacted_tool_count": 5,
+        "preserved_tool_count": 2,
+        "keep_recent": 1,
+        "did_compact": true,
+        "estimated_tokens_before": 1182,
+        "estimated_tokens_after": 857
+      },
+      "compacted_tool_count": 5,
+      "summary_calls": 0,
+      "summary_model_calls": 0,
+      "summary_accounting": {
+        "provider": "fixture",
+        "model_calls": 0,
+        "known_total_tokens": 0,
+        "unknown_usage_calls": 0,
+        "tokens_committed": 0,
+        "estimated_cost_usd": null,
+        "cost_committed_usd": 0,
+        "elapsed_seconds": 0,
+        "records": []
+      },
+      "manager_state": {
+        "schema_version": "0.1",
+        "summary_calls": 0,
+        "summaries": [],
+        "plugin_state": {},
+        "summary_provider": "fixture",
+        "summary_attempts": [],
+        "dispatch_calls": 0,
+        "dispatch_receipts": [],
+        "dispatch_observations": []
+      },
+      "plugin": {
+        "name": "noop",
+        "requested": [],
+        "actually_injected": [],
+        "rejected": [],
+        "action_proposals": [],
+        "method_degraded": false,
+        "policy_error": null,
+        "schema_version": "0.1",
+        "ignored_optional_fields": [],
+        "events": []
+      },
+      "max_tokens": 12000,
+      "view_hash": "17f642fa74be37bfcde5a23fc301033b3e1f07b1c63beca9b07cfa62e838488e",
+      "view_serialized_bytes": 5203,
+      "step": 5
+    },
+    {
+      "strategy": "masking",
+      "requested": "masking",
+      "actually_injected": "masking",
+      "summary_provider": "fixture",
+      "raw_message_hash": "5a44e787c4903a9302b639f89a316168477c55d809329b4977df0b88d045d65f",
+      "raw_serialized_bytes": 7007,
+      "summary_records": [],
+      "overflow": true,
+      "serialized_bytes": 8430,
+      "estimated_input_tokens": 2108,
+      "admission_input_tokens": 10222,
+      "reserved_output_tokens": 2048,
+      "estimate_method": "utf8_bytes_div_4_estimated",
+      "admission_method": "utf8_bytes_plus_protocol_allowance",
+      "masking": {
+        "message_count_before": 16,
+        "message_count_after": 16,
+        "chars_before": 4042,
+        "chars_after": 2739,
+        "chars_saved": 1303,
+        "tool_messages_before": 8,
+        "tool_messages_after": 8,
+        "compacted_tool_count": 5,
+        "preserved_tool_count": 3,
+        "keep_recent": 1,
+        "did_compact": true,
+        "estimated_tokens_before": 1226,
+        "estimated_tokens_after": 900
+      },
+      "compacted_tool_count": 5,
+      "summary_calls": 0,
+      "summary_model_calls": 0,
+      "summary_accounting": {
+        "provider": "fixture",
+        "model_calls": 0,
+        "known_total_tokens": 0,
+        "unknown_usage_calls": 0,
+        "tokens_committed": 0,
+        "estimated_cost_usd": null,
+        "cost_committed_usd": 0,
+        "elapsed_seconds": 0,
+        "records": []
+      },
+      "manager_state": {
+        "schema_version": "0.1",
+        "summary_calls": 0,
+        "summaries": [],
+        "plugin_state": {},
+        "summary_provider": "fixture",
+        "summary_attempts": [],
+        "dispatch_calls": 0,
+        "dispatch_receipts": [],
+        "dispatch_observations": []
+      },
+      "max_tokens": 12000,
+      "step": 6,
+      "error_kind": "context_overflow"
+    }
+  ],
+  "subagent_traces": [],
+  "llm_attempts": [
+    {
+      "attempt": 0,
+      "success": true,
+      "error_kind": null,
+      "status_code": null,
+      "message": null,
+      "elapsed_ms": 917.7970999880927,
+      "usage": {
+        "prompt_tokens": 1258,
+        "completion_tokens": 85,
+        "total_tokens": 1343,
+        "provenance": "provider",
+        "prompt_cache_hit_tokens": 1024,
+        "prompt_cache_miss_tokens": 234
+      },
+      "usage_provenance": "provider"
+    },
+    {
+      "attempt": 0,
+      "success": true,
+      "error_kind": null,
+      "status_code": null,
+      "message": null,
+      "elapsed_ms": 810.3117999999085,
+      "usage": {
+        "prompt_tokens": 1410,
+        "completion_tokens": 69,
+        "total_tokens": 1479,
+        "provenance": "provider",
+        "prompt_cache_hit_tokens": 1152,
+        "prompt_cache_miss_tokens": 258
+      },
+      "usage_provenance": "provider"
+    },
+    {
+      "attempt": 0,
+      "success": true,
+      "error_kind": null,
+      "status_code": null,
+      "message": null,
+      "elapsed_ms": 862.1318000077736,
+      "usage": {
+        "prompt_tokens": 1535,
+        "completion_tokens": 76,
+        "total_tokens": 1611,
+        "provenance": "provider",
+        "prompt_cache_hit_tokens": 1280,
+        "prompt_cache_miss_tokens": 255
+      },
+      "usage_provenance": "provider"
+    },
+    {
+      "attempt": 0,
+      "success": true,
+      "error_kind": null,
+      "status_code": null,
+      "message": null,
+      "elapsed_ms": 882.4531999998726,
+      "usage": {
+        "prompt_tokens": 1759,
+        "completion_tokens": 55,
+        "total_tokens": 1814,
+        "provenance": "provider",
+        "prompt_cache_hit_tokens": 1408,
+        "prompt_cache_miss_tokens": 351
+      },
+      "usage_provenance": "provider"
+    },
+    {
+      "attempt": 0,
+      "success": true,
+      "error_kind": null,
+      "status_code": null,
+      "message": null,
+      "elapsed_ms": 1039.8170999978902,
+      "usage": {
+        "prompt_tokens": 1795,
+        "completion_tokens": 177,
+        "total_tokens": 1972,
+        "provenance": "provider",
+        "prompt_cache_hit_tokens": 1408,
+        "prompt_cache_miss_tokens": 387
+      },
+      "usage_provenance": "provider"
+    },
+    {
+      "attempt": 0,
+      "success": true,
+      "error_kind": null,
+      "status_code": null,
+      "message": null,
+      "elapsed_ms": 789.6921000065049,
+      "usage": {
+        "prompt_tokens": 2018,
+        "completion_tokens": 49,
+        "total_tokens": 2067,
+        "provenance": "provider",
+        "prompt_cache_hit_tokens": 1792,
+        "prompt_cache_miss_tokens": 226
+      },
+      "usage_provenance": "provider"
+    }
+  ],
+  "termination_kind": "context_overflow",
+  "cleanup_elapsed_s": 0.3406632999976864,
+  "model_budget": {
+    "calls_started": 6,
+    "tokens_committed": 10286,
+    "cost_committed": 0.0035456999999999993,
+    "outstanding_reservations": 0,
+    "max_model_calls": 24,
+    "max_tokens": 200000,
+    "max_cost_usd": 0.3,
+    "settlements": [
+      {
+        "total_tokens": 1343,
+        "provenance": "provider",
+        "cost_usd": 0.00047939999999999994,
+        "cost_provenance": "provider_split",
+        "note": null
+      },
+      {
+        "total_tokens": 1479,
+        "provenance": "provider",
+        "cost_usd": 0.0005057999999999999,
+        "cost_provenance": "provider_split",
+        "note": null
+      },
+      {
+        "total_tokens": 1611,
+        "provenance": "provider",
+        "cost_usd": 0.0005516999999999999,
+        "cost_provenance": "provider_split",
+        "note": null
+      },
+      {
+        "total_tokens": 1814,
+        "provenance": "provider",
+        "cost_usd": 0.0005936999999999998,
+        "cost_provenance": "provider_split",
+        "note": null
+      },
+      {
+        "total_tokens": 1972,
+        "provenance": "provider",
+        "cost_usd": 0.0007508999999999999,
+        "cost_provenance": "provider_split",
+        "note": null
+      },
+      {
+        "total_tokens": 2067,
+        "provenance": "provider",
+        "cost_usd": 0.0006641999999999999,
+        "cost_provenance": "provider_split",
+        "note": null
+      }
+    ]
+  },
+  "run_output": {
+    "limit_bytes": 16777216,
+    "bytes_kept": 1349,
+    "bytes_seen": 1349,
+    "peak_read_buffer_bytes": 506,
+    "cancelled_producer": false,
+    "producers_stopped": false
+  },
+  "execution": {
+    "capabilities": {
+      "profile": "docker_linux",
+      "platform": "linux-container",
+      "image": "coding-harness-h3-tests@sha256:18872d18b9bc347cf4441b1d9b53b9662ea719f057bd471c7d4cbfce4dc2e78e",
+      "context": "desktop-linux",
+      "cancel": true,
+      "filesystem_isolation": true,
+      "network_control": true,
+      "network_default": "none",
+      "resource_limits": true,
+      "complete_isolation": false,
+      "cpu_limit": 1.0,
+      "memory_limit_bytes": 536870912,
+      "pids_limit": 128,
+      "workspace_limit_bytes": 67108864,
+      "tmpfs_limit_bytes": 16777216,
+      "tree_reclaim_guaranteed": true,
+      "privileged": false,
+      "docker_socket_mounted": false,
+      "host_mounts": false,
+      "workspace_transfer_limit": 8388608
+    },
+    "lifecycle": [
+      {
+        "event": "created",
+        "container": "h3-8dcfba335335487dae5c273326119d8b",
+        "image_id": "sha256:18872d18b9bc347cf4441b1d9b53b9662ea719f057bd471c7d4cbfce4dc2e78e"
+      },
+      {
+        "event": "destroyed",
+        "container": "h3-8dcfba335335487dae5c273326119d8b",
+        "elapsed_s": 0.3406632999976864
+      }
+    ],
+    "snapshot_error": null,
+    "cleanup_ok": true,
+    "unavailable_error": null,
+    "candidate_hash": "681f5968e3c3c9ce8741149bebee728389dcd33be68f10627a2029a52601f7ec"
+  },
+  "summary": {
+    "provider": "fixture",
+    "model_calls": 0,
+    "known_total_tokens": 0,
+    "unknown_usage_calls": 0,
+    "tokens_committed": 0,
+    "estimated_cost_usd": null,
+    "cost_committed_usd": 0,
+    "elapsed_seconds": 0,
+    "records": []
+  }
+}

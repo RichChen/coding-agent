@@ -1,0 +1,35 @@
+{
+  "schema": "a5.receipt.v1",
+  "task_id": "a5-shared-gate-fixture",
+  "phase": "build",
+  "variant": "B3",
+  "repeat": 1,
+  "operation_id": "a5-gate-fixture-b3",
+  "source_snapshot_hash": "8c30a9a04c6d27b169f2da3dac9916c04be7de588d437757febfe0f858873ed1",
+  "model_binding_hash": "ab1cad7069b9b496b74a1bc523121eebd205b1868ce875bff5ba4b91cf739a29",
+  "source_fingerprint": "3b963ddc1af8d906b1d6811a8b2046162818474a5bd3bc953a7b305a124ca017",
+  "model_attempts": [
+    {
+      "attempt_id": "a5-gate-attempt-4",
+      "component": "fixture"
+    }
+  ],
+  "injections": [
+    {
+      "candidate_hash": "470629f27453c007986245ae48ad90b89ed611e44fab88a962f5fbe9e5e03b43",
+      "source_hash": "8c30a9a04c6d27b169f2da3dac9916c04be7de588d437757febfe0f858873ed1",
+      "evidence_ref": "fixture/B3/evidence.json"
+    }
+  ],
+  "grader": {
+    "status": "missing"
+  },
+  "ledger": {
+    "schema": "a5.cny.ledger.v1",
+    "price_binding_hash": "ab1cad7069b9b496b74a1bc523121eebd205b1868ce875bff5ba4b91cf739a29"
+  },
+  "model_calls": 0,
+  "paid": false,
+  "receipt_status": "accepted",
+  "following_claim": "not_inferred_from_injection"
+}

@@ -1,0 +1,65 @@
+{
+  "task_id": "scikit-learn__scikit-learn-25638",
+  "repo": "scikit-learn/scikit-learn",
+  "base_revision": "6adb209acd63825affc884abcd85381f148fb1b0",
+  "status": "invalid_env",
+  "attempt": "A5-harness-preflight-40-sklearn-full",
+  "retries": 0,
+  "model_calls": 0,
+  "paid": false,
+  "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\scikit-learn__scikit-learn-25638\\source-receipt.json",
+  "transport_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-23-transport-smoke\\tasks\\scikit-learn__scikit-learn-25638\\receipt.json",
+  "reason": "preflight_recheck_failed",
+  "error": "ValueError: expected exactly one collected identity for 'sklearn/metrics/tests/test_classification.py::test_confusion_matrix_pandas_nullable[Int64]': []",
+  "previous_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-27-repo-baseline\\tasks\\scikit-learn__scikit-learn-25638\\receipt.json",
+  "previous_receipt_sha256": "fc769242c4b73692ae3da228a2465f73f3d3ff104c39a1ea4bccce2e949fc0dd",
+  "private_source_binding": {
+    "path": "D:\\crq\\src\\coding-agent\\reports\\upgrade\\a5-pilot20-preparation-20260921-v4\\private\\tasks\\a5-task-75abb1372af2ad22\\source-row.json",
+    "sha256": "96bfcbb19c60b6f65c275608cc641e1bf2523dce1b382a5c5b69ae55ed4a9201",
+    "test_patch_sha256": "6ec64a6bac3e5cd82c19e51013077c0e2273b51dd3a001293abfffd8dcee777e",
+    "gold_patch_sha256": "5deca928e57a86c4377e6756f3f3690809283e316ca2a8e03617f1838c78a0d3",
+    "test_patch_paths": [
+      "sklearn/metrics/tests/test_classification.py",
+      "sklearn/preprocessing/tests/test_label.py",
+      "sklearn/utils/tests/test_multiclass.py"
+    ],
+    "gold_patch_paths": [
+      "sklearn/utils/multiclass.py"
+    ]
+  },
+  "source": {
+    "schema": "a5.full-archive-inventory.v1",
+    "repo": "scikit-learn/scikit-learn",
+    "base_revision": "6adb209acd63825affc884abcd85381f148fb1b0",
+    "archive_sha256": "0d98d7eb99103caab47a9b850bc8e088deff4cd101a5c26d25c034343a1c1f80",
+    "archive_bytes": 7408997,
+    "git_pax_commit": "6adb209acd63825affc884abcd85381f148fb1b0",
+    "source_tree_hash": "48945d28783383f215e7c11921e94221fb04926ae83ea7c9fd0afd3be774cdde",
+    "inventory_sha256": "340f997862dd0b0241e66a87a12721affdfaedbce63f204c03d506b09cd1f8e2",
+    "file_count": 1521,
+    "total_bytes": 20712406,
+    "nonregular_paths": [],
+    "excluded_upstream_paths": [],
+    "snapshot_kind": "complete_pinned_upstream_archive",
+    "within_runtime_limits": false,
+    "inventory_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\scikit-learn__scikit-learn-25638\\source-inventory.json"
+  },
+  "baseline_image_digest": "coding-harness-a5-recheck@sha256:5aeb18904211ed7b509c04b7fd6e74d941b5685e4fdd343d29c687641a2aa710",
+  "baseline_image_id": "sha256:5aeb18904211ed7b509c04b7fd6e74d941b5685e4fdd343d29c687641a2aa710",
+  "native_artifact_reuse": {
+    "changed_source_paths": [
+      "sklearn/utils/multiclass.py"
+    ],
+    "baseline_image": "coding-harness-a5-recheck@sha256:5aeb18904211ed7b509c04b7fd6e74d941b5685e4fdd343d29c687641a2aa710",
+    "non_python_tree_unchanged": true
+  },
+  "known_good_image_digest": "coding-harness-a5-recheck@sha256:ba48914b40353c9aec0bd0bb0d036625a6166b5f3d8e084a924e561d7d1b6c71",
+  "known_good_image_id": "sha256:ba48914b40353c9aec0bd0bb0d036625a6166b5f3d8e084a924e561d7d1b6c71",
+  "collection": {
+    "status": "invalid_env",
+    "count": 0,
+    "nodeids": [],
+    "hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-40-sklearn-full\\tasks\\scikit-learn__scikit-learn-25638\\collection\\evidence.json"
+  }
+}

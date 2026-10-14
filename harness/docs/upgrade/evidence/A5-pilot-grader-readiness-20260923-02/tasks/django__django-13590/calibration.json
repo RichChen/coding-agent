@@ -1,0 +1,70 @@
+{
+  "task_id": "django__django-13590",
+  "status": "ready",
+  "grader_ready": true,
+  "repo": "django/django",
+  "base_revision": "755dbf39fcdc491fe9b588358303e259c7750be4",
+  "image": "coding-harness-a5-known-good@sha256:53f64134485a7ffe49c70f548ca7e43a22d54aedb10f34ed9f7fb912adb282a7",
+  "model_calls": 0,
+  "paid": false,
+  "canonical_binding_required": true,
+  "input_baseline_status": "baseline_ready",
+  "pilot_binding": {
+    "status": "pass",
+    "reason": null,
+    "canonical_target_id": "django__django-13590",
+    "repo": "django/django",
+    "expected_repo": "django/django",
+    "base_revision": "755dbf39fcdc491fe9b588358303e259c7750be4",
+    "expected_base_commit": "755dbf39fcdc491fe9b588358303e259c7750be4",
+    "pilot_base_hash": "7ea6d93404c03717fc24d8e9b7b7fd2b6ecc1a0c10fc5f4b2469e46d9da52143"
+  },
+  "known_good_binding": {
+    "status": "pass",
+    "reason": null,
+    "receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-32-preserved-mode-recheck\\tasks\\django__django-13590\\known-good\\evidence.json",
+    "receipt_sha256": "2a5203cf1339266bfcb69434e544cae2a0389a446d093cba77d424d204898bff",
+    "image": "coding-harness-a5-known-good@sha256:53f64134485a7ffe49c70f548ca7e43a22d54aedb10f34ed9f7fb912adb282a7",
+    "receipt_image": "coding-harness-a5-known-good@sha256:53f64134485a7ffe49c70f548ca7e43a22d54aedb10f34ed9f7fb912adb282a7",
+    "expected_outcomes": {
+      "expressions.tests.IterableLookupInnerExpressionsTests.test_range_lookup_namedtuple": "passed"
+    },
+    "verified_outcomes": {
+      "expressions.tests.IterableLookupInnerExpressionsTests.test_range_lookup_namedtuple": "passed"
+    },
+    "cleanup_verified": true
+  },
+  "reason": null,
+  "full_collection_status": "ready",
+  "full_collection_count": 14288,
+  "full_collection_hash": "25ae90b34c54f7b0bee9370bfac362ee246433d7ca62d56aeef5d7ec1f8c7ca2",
+  "collection_evidence_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-02\\tasks\\django__django-13590\\full-repo\\evidence.json",
+  "collection_evidence_sha256": "ae8018ba33c1311f214de99d534a4886c9e4f8e2c064d788774fff62fcedbc54",
+  "cleanup_verified": true,
+  "calibration_mode": "full_repo_collection_plus_bound_known_good_target_plus_executed_host_grader_policy_checks",
+  "negative_checks": {
+    "scope": "executed_host_policy_fixture_not_target_specific",
+    "checks": [
+      {
+        "case": "protected_path_change",
+        "status": "rejected",
+        "observed_status": "fail",
+        "observed_reason": "protected_or_unassigned_path_changed"
+      },
+      {
+        "case": "missing_receipt",
+        "status": "rejected",
+        "observed_status": "invalid_env",
+        "observed_reason": "missing_or_incomplete_receipt"
+      },
+      {
+        "case": "input_integrity_change",
+        "status": "rejected",
+        "observed_status": "fail",
+        "observed_reason": "frozen_input_changed_during_tests"
+      }
+    ],
+    "passed": true
+  },
+  "negative_checks_passed": true
+}

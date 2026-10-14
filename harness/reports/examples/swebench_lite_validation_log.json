@@ -1,0 +1,254 @@
+{
+  "runs": [
+    {
+      "instance_id": "pallets__flask-5063",
+      "repo": "pallets/flask",
+      "accepted": true,
+      "reason": "validated and materialized",
+      "fail_to_pass": [
+        "tests/test_cli.py::TestRoutes::test_subdomain",
+        "tests/test_cli.py::TestRoutes::test_host"
+      ],
+      "pass_subset": [
+        "tests/test_cli.py::test_cli_name",
+        "tests/test_cli.py::test_find_best_app",
+        "tests/test_cli.py::test_prepare_import[test-path0-test]",
+        "tests/test_cli.py::test_prepare_import[test.py-path1-test]",
+        "tests/test_cli.py::test_prepare_import[a/test-path2-test]",
+        "tests/test_cli.py::test_prepare_import[test/__init__.py-path3-test]",
+        "tests/test_cli.py::test_prepare_import[test/__init__-path4-test]",
+        "tests/test_cli.py::test_prepare_import[value5-path5-cliapp.inner1]",
+        "tests/test_cli.py::test_prepare_import[value6-path6-cliapp.inner1.inner2]",
+        "tests/test_cli.py::test_prepare_import[test.a.b-path7-test.a.b]"
+      ],
+      "fixture_dir": "tests/fixtures/repos/swebench_pallets__flask-5063",
+      "fixture_size_bytes": 755389
+    },
+    {
+      "instance_id": "sympy__sympy-24909",
+      "repo": "sympy/sympy",
+      "accepted": true,
+      "reason": "validated and materialized",
+      "fail_to_pass": [
+        "test_prefix_operations"
+      ],
+      "pass_subset": [
+        "test_prefix_unit",
+        "test_bases"
+      ],
+      "fixture_dir": "tests/fixtures/repos/swebench_sympy__sympy-24909",
+      "fixture_size_bytes": 27897067
+    },
+    {
+      "instance_id": "pallets__flask-4992",
+      "repo": "pallets/flask",
+      "accepted": true,
+      "reason": "validated and materialized",
+      "fail_to_pass": [
+        "tests/test_config.py::test_config_from_file_toml"
+      ],
+      "pass_subset": [
+        "tests/test_config.py::test_config_from_pyfile",
+        "tests/test_config.py::test_config_from_object",
+        "tests/test_config.py::test_config_from_file_json",
+        "tests/test_config.py::test_from_prefixed_env",
+        "tests/test_config.py::test_from_prefixed_env_custom_prefix",
+        "tests/test_config.py::test_from_prefixed_env_nested",
+        "tests/test_config.py::test_config_from_mapping",
+        "tests/test_config.py::test_config_from_class",
+        "tests/test_config.py::test_config_from_envvar",
+        "tests/test_config.py::test_config_from_envvar_missing"
+      ],
+      "fixture_dir": "tests/fixtures/repos/swebench_pallets__flask-4992",
+      "fixture_size_bytes": 735254
+    },
+    {
+      "instance_id": "sympy__sympy-24213",
+      "repo": "sympy/sympy",
+      "accepted": true,
+      "reason": "validated and materialized",
+      "fail_to_pass": [
+        "test_issue_24211"
+      ],
+      "pass_subset": [
+        "test_str_repr",
+        "test_eq",
+        "test_convert_to",
+        "test_Quantity_definition",
+        "test_abbrev",
+        "test_print",
+        "test_Quantity_eq",
+        "test_add_sub",
+        "test_quantity_abs",
+        "test_check_unit_consistency"
+      ],
+      "fixture_dir": "tests/fixtures/repos/swebench_sympy__sympy-24213",
+      "fixture_size_bytes": 35789121
+    },
+    {
+      "instance_id": "sympy__sympy-24152",
+      "repo": "sympy/sympy",
+      "accepted": true,
+      "reason": "validated and materialized",
+      "fail_to_pass": [
+        "test_tensor_product_expand"
+      ],
+      "pass_subset": [
+        "test_sparse_matrices",
+        "test_tensor_product_dagger",
+        "test_tensor_product_abstract",
+        "test_tensor_product_commutator",
+        "test_tensor_product_simp",
+        "test_issue_5923"
+      ],
+      "fixture_dir": "tests/fixtures/repos/swebench_sympy__sympy-24152",
+      "fixture_size_bytes": 35750338
+    },
+    {
+      "instance_id": "sympy__sympy-24102",
+      "repo": "sympy/sympy",
+      "accepted": true,
+      "reason": "validated and materialized",
+      "fail_to_pass": [
+        "test_mathematica",
+        "test_parser_mathematica_tokenizer"
+      ],
+      "pass_subset": [],
+      "fixture_dir": "tests/fixtures/repos/swebench_sympy__sympy-24102",
+      "fixture_size_bytes": 35754204
+    },
+    {
+      "instance_id": "sympy__sympy-24066",
+      "repo": "sympy/sympy",
+      "accepted": true,
+      "reason": "validated and materialized",
+      "fail_to_pass": [
+        "test_issue_24062"
+      ],
+      "pass_subset": [
+        "test_str_repr",
+        "test_eq",
+        "test_convert_to",
+        "test_Quantity_definition",
+        "test_abbrev",
+        "test_print",
+        "test_Quantity_eq",
+        "test_add_sub",
+        "test_quantity_abs",
+        "test_check_unit_consistency"
+      ],
+      "fixture_dir": "tests/fixtures/repos/swebench_sympy__sympy-24066",
+      "fixture_size_bytes": 35677015
+    },
+    {
+      "instance_id": "sympy__sympy-23262",
+      "repo": "sympy/sympy",
+      "accepted": true,
+      "reason": "validated and materialized",
+      "fail_to_pass": [
+        "test_issue_14941"
+      ],
+      "pass_subset": [
+        "test_no_args",
+        "test_single_arg",
+        "test_list_args",
+        "test_nested_args",
+        "test_str_args",
+        "test_own_namespace_1",
+        "test_own_namespace_2",
+        "test_own_module",
+        "test_bad_args",
+        "test_atoms"
+      ],
+      "fixture_dir": "tests/fixtures/repos/swebench_sympy__sympy-23262",
+      "fixture_size_bytes": 34874537
+    },
+    {
+      "instance_id": "sympy__sympy-23191",
+      "repo": "sympy/sympy",
+      "accepted": true,
+      "reason": "validated and materialized",
+      "fail_to_pass": [
+        "test_issue_23058"
+      ],
+      "pass_subset": [
+        "test_str_printing",
+        "test_pretty_print_unicode_v",
+        "test_latex_printing"
+      ],
+      "fixture_dir": "tests/fixtures/repos/swebench_sympy__sympy-23191",
+      "fixture_size_bytes": 34916097
+    },
+    {
+      "instance_id": "sympy__sympy-23117",
+      "repo": "sympy/sympy",
+      "accepted": true,
+      "reason": "validated and materialized",
+      "fail_to_pass": [
+        "test_issue_17851"
+      ],
+      "pass_subset": [
+        "test_array_negative_indices",
+        "test_issue_18361",
+        "test_issue_20222"
+      ],
+      "fixture_dir": "tests/fixtures/repos/swebench_sympy__sympy-23117",
+      "fixture_size_bytes": 34802218
+    },
+    {
+      "instance_id": "pallets__flask-4045",
+      "repo": "pallets/flask",
+      "accepted": true,
+      "reason": "validated and materialized",
+      "fail_to_pass": [
+        "tests/test_blueprints.py::test_dotted_name_not_allowed",
+        "tests/test_blueprints.py::test_route_decorator_custom_endpoint_with_dots"
+      ],
+      "pass_subset": [
+        "tests/test_basic.py::test_method_route_no_methods",
+        "tests/test_basic.py::test_disallow_string_for_allowed_methods",
+        "tests/test_basic.py::test_error_handler_unknown_code",
+        "tests/test_basic.py::test_request_locals",
+        "tests/test_basic.py::test_exception_propagation",
+        "tests/test_basic.py::test_werkzeug_passthrough_errors[None-True-True-True]",
+        "tests/test_basic.py::test_werkzeug_passthrough_errors[None-True-True-False]",
+        "tests/test_basic.py::test_werkzeug_passthrough_errors[None-True-False-True]",
+        "tests/test_basic.py::test_werkzeug_passthrough_errors[None-True-False-False]",
+        "tests/test_basic.py::test_werkzeug_passthrough_errors[None-False-True-True]"
+      ],
+      "fixture_dir": "tests/fixtures/repos/swebench_pallets__flask-4045",
+      "fixture_size_bytes": 701932
+    },
+    {
+      "instance_id": "psf__requests-3362",
+      "repo": "psf/requests",
+      "accepted": true,
+      "reason": "validated and materialized",
+      "fail_to_pass": [
+        "tests/test_requests.py::TestRequests::test_response_decode_unicode"
+      ],
+      "pass_subset": [
+        "tests/test_requests.py::TestRequests::test_entry_points",
+        "tests/test_requests.py::TestRequests::test_invalid_url[MissingSchema-hiwpefhipowhefopw]",
+        "tests/test_requests.py::TestRequests::test_invalid_url[InvalidSchema-localhost:3128]",
+        "tests/test_requests.py::TestRequests::test_invalid_url[InvalidSchema-localhost.localdomain:3128/]",
+        "tests/test_requests.py::TestRequests::test_invalid_url[InvalidSchema-10.122.1.1:3128/]",
+        "tests/test_requests.py::TestRequests::test_invalid_url[InvalidURL-http://]",
+        "tests/test_requests.py::TestRequests::test_basic_building",
+        "tests/test_requests.py::TestRequests::test_path_is_not_double_encoded",
+        "tests/test_requests.py::TestRequests::test_params_are_added_before_fragment[http://example.com/path#fragment-http://example.com/path?a=b#fragment]",
+        "tests/test_requests.py::TestRequests::test_params_are_added_before_fragment[http://example.com/path?key=value#fragment-http://example.com/path?key=value&a=b#fragment]"
+      ],
+      "fixture_dir": "tests/fixtures/repos/swebench_psf__requests-3362",
+      "fixture_size_bytes": 2776122
+    }
+  ],
+  "summary": {
+    "target_count": 8,
+    "accepted_count": 12,
+    "accepted_repo_count": 3,
+    "total_fixture_size_bytes": 280429294,
+    "dataset_out": "datasets/swebench_lite_tasks.json",
+    "log_out": "reports/examples/swebench_lite_validation_log.json"
+  }
+}

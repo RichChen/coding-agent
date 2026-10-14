@@ -1,0 +1,27 @@
+{
+  "task_id": "pallets__flask-4992",
+  "status": "fail",
+  "collected": 484,
+  "passed": 0,
+  "failed": 0,
+  "skipped": 0,
+  "manifest": {
+    "schema": "repo.pytest.spec.v1",
+    "task_id": "pallets__flask-4992",
+    "base_hash": "b27158783507a1b582cee575372e33ec5b5dca897a927a6d6735c845deab2f01",
+    "image": "coding-harness-flask4992-grader@sha256:2a19ad90214fcaf08388547c0a37deb209996c263a2358466da8aa4fa497f4e0",
+    "private_spec_hash": "ac0d40871108a7fcd90dc8225a793faec2832ec20b9c4848809abb3866e23279",
+    "runner_hash": "32a85000b84bf14453ff2ce83f5fc287c655aa8919ed2fd22dd2f68071c1f0c8",
+    "assigned_cases": 484,
+    "required_cases": 482,
+    "test_overlay_hash": "e2bb663d76e407996a185bab2b4e05a3e6713b56ac0224b66ffc4dff197aa594",
+    "candidate_hash": "85991924bfdc70fce6bfe09450ae98813c97632214b95007a97e2356c1fe3dd4"
+  },
+  "cases": [],
+  "changed_paths": [
+    "src/flask/config.py",
+    "tests/test_config.py"
+  ],
+  "reason": "protected_or_unassigned_path_changed",
+  "duration_ms": 14.627399999881163
+}

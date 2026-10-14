@@ -1,0 +1,45 @@
+{
+  "schema": "a5.memory-pool.evidence-precedence.v1",
+  "created_at": "2026-09-22T09:39:43.441072+00:00",
+  "model_calls": 0,
+  "paid": false,
+  "rules": [
+    {
+      "id": "same_identity_reuse",
+      "rule": "Reuse only when source_id, base_revision, source_tree_hash, and runner/image family match; otherwise keep both and mark conflict."
+    },
+    {
+      "id": "failures_retained",
+      "rule": "Historical failures remain in failure_refs even when a later retry succeeds for baseline."
+    },
+    {
+      "id": "collect_only_not_ready",
+      "rule": "66/67 collect-oriented calibration with identical constant negative payloads is a clue only; never inherits as grader_ready for this contract."
+    },
+    {
+      "id": "unknown_stays_unknown",
+      "rule": "Missing trajectory/receipt stays null/unknown; never backfilled."
+    },
+    {
+      "id": "old_aggregate_not_baseline",
+      "rule": "71/72 ready=11/20 and shared-gate fixture receipts are not acceptance baselines; recount from per-attempt evidence."
+    },
+    {
+      "id": "62_retry_baseline_candidate",
+      "rule": "62-history-baseline-retry four rows are baseline/environment candidate evidence only; not auto MemoryRecord or grader-ready."
+    }
+  ],
+  "primary_evidence_order": [
+    "A5-harness-preflight-62-history-baseline-retry",
+    "A5-harness-preflight-57-remaining16-baseline",
+    "A5-harness-preflight-62-history-baseline",
+    "A5-harness-preflight-53-remaining16-sources",
+    "A5-harness-preflight-55-remaining16-transport",
+    "A5-harness-preflight-23-transport-smoke",
+    "A5-harness-preflight-66-grader-calibration",
+    "A5-harness-preflight-67-grader-calibration-retry",
+    "A5-harness-preflight-69-memory-gates-final",
+    "A5-harness-preflight-71-memory-gates-final",
+    "A5-harness-preflight-72-shared-gates"
+  ]
+}

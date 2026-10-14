@@ -1,0 +1,17 @@
+{
+  "schema": "a5.h3-dual-end-pending.v2",
+  "status": "blocked",
+  "items": [
+    "agent must produce provider-backed B1-B3 injection receipts",
+    "each B1-B3 receipt must include actual_hash, model_operation_id and model_attempt_id",
+    "re-run dual receipt/hash cross-check after agent evidence update",
+    "only then open the explicitly authorized 4-run pilot; never auto-expand to 240"
+  ],
+  "not_started": [
+    "provider",
+    "model",
+    "memory build",
+    "paid Docker",
+    "pilot"
+  ]
+}

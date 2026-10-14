@@ -1,0 +1,273 @@
+{
+  "image": "coding-harness-a5-recheck@sha256:9ce415aa565e354bd29d20460950f4c0e6a05e9792a8f67f69e0a9b9fa169631",
+  "args": [
+    "--collect-only",
+    "-q",
+    "sklearn"
+  ],
+  "status": "executed",
+  "model_calls": 0,
+  "paid": false,
+  "isolation": {
+    "Id": "1f853dda24f1063f85526659bfd614bd303d45930c19500e4d0d6cd07cf5560b",
+    "Created": "2026-09-21T18:33:20.283250966Z",
+    "Path": "/usr/local/bin/python",
+    "Args": [
+      "-I",
+      "-S",
+      "-c",
+      "import time; time.sleep(604800)"
+    ],
+    "State": {
+      "Status": "running",
+      "Running": true,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 24572,
+      "ExitCode": 0,
+      "Error": "",
+      "StartedAt": "2026-09-21T18:33:20.422441048Z",
+      "FinishedAt": "0001-01-01T00:00:00Z"
+    },
+    "Image": "sha256:9ce415aa565e354bd29d20460950f4c0e6a05e9792a8f67f69e0a9b9fa169631",
+    "ResolvConfPath": "/var/lib/docker/containers/1f853dda24f1063f85526659bfd614bd303d45930c19500e4d0d6cd07cf5560b/resolv.conf",
+    "HostnamePath": "/var/lib/docker/containers/1f853dda24f1063f85526659bfd614bd303d45930c19500e4d0d6cd07cf5560b/hostname",
+    "HostsPath": "/var/lib/docker/containers/1f853dda24f1063f85526659bfd614bd303d45930c19500e4d0d6cd07cf5560b/hosts",
+    "LogPath": "",
+    "Name": "/h3-2cc04985e6944769b329374a446116fa",
+    "RestartCount": 0,
+    "Driver": "overlayfs",
+    "Platform": "linux",
+    "MountLabel": "",
+    "ProcessLabel": "",
+    "AppArmorProfile": "",
+    "ExecIDs": null,
+    "HostConfig": {
+      "Binds": null,
+      "ContainerIDFile": "",
+      "LogConfig": {
+        "Type": "none",
+        "Config": {}
+      },
+      "NetworkMode": "none",
+      "PortBindings": {},
+      "RestartPolicy": {
+        "Name": "no",
+        "MaximumRetryCount": 0
+      },
+      "AutoRemove": false,
+      "VolumeDriver": "",
+      "VolumesFrom": null,
+      "ConsoleSize": [
+        0,
+        0
+      ],
+      "CapAdd": null,
+      "CapDrop": [
+        "ALL"
+      ],
+      "CgroupnsMode": "private",
+      "Dns": null,
+      "DnsOptions": [],
+      "DnsSearch": [],
+      "ExtraHosts": null,
+      "GroupAdd": null,
+      "IpcMode": "private",
+      "Cgroup": "",
+      "Links": null,
+      "OomScoreAdj": 0,
+      "PidMode": "",
+      "Privileged": false,
+      "PublishAllPorts": false,
+      "ReadonlyRootfs": true,
+      "SecurityOpt": [
+        "no-new-privileges:true"
+      ],
+      "Tmpfs": {
+        "/tmp": "rw,noexec,nosuid,nodev,size=536870912,mode=1777",
+        "/workspace": "rw,nosuid,nodev,size=536870912,mode=1777"
+      },
+      "UTSMode": "",
+      "UsernsMode": "",
+      "ShmSize": 67108864,
+      "Runtime": "runc",
+      "Isolation": "",
+      "CpuShares": 0,
+      "Memory": 2147483648,
+      "NanoCpus": 1000000000,
+      "CgroupParent": "",
+      "BlkioWeight": 0,
+      "BlkioWeightDevice": [],
+      "BlkioDeviceReadBps": [],
+      "BlkioDeviceWriteBps": [],
+      "BlkioDeviceReadIOps": [],
+      "BlkioDeviceWriteIOps": [],
+      "CpuPeriod": 0,
+      "CpuQuota": 0,
+      "CpuRealtimePeriod": 0,
+      "CpuRealtimeRuntime": 0,
+      "CpusetCpus": "",
+      "CpusetMems": "",
+      "Devices": [],
+      "DeviceCgroupRules": null,
+      "DeviceRequests": null,
+      "MemoryReservation": 0,
+      "MemorySwap": 2147483648,
+      "MemorySwappiness": null,
+      "OomKillDisable": null,
+      "PidsLimit": 128,
+      "Ulimits": null,
+      "CpuCount": 0,
+      "CpuPercent": 0,
+      "IOMaximumIOps": 0,
+      "IOMaximumBandwidth": 0,
+      "MaskedPaths": [
+        "/proc/acpi",
+        "/proc/asound",
+        "/proc/interrupts",
+        "/proc/kcore",
+        "/proc/keys",
+        "/proc/latency_stats",
+        "/proc/sched_debug",
+        "/proc/scsi",
+        "/proc/timer_list",
+        "/proc/timer_stats",
+        "/sys/devices/virtual/powercap",
+        "/sys/firmware"
+      ],
+      "ReadonlyPaths": [
+        "/proc/bus",
+        "/proc/fs",
+        "/proc/irq",
+        "/proc/sys",
+        "/proc/sysrq-trigger"
+      ]
+    },
+    "Storage": {
+      "RootFS": {
+        "Snapshot": {
+          "Name": "overlayfs"
+        }
+      }
+    },
+    "Mounts": [],
+    "Config": {
+      "Hostname": "1f853dda24f1",
+      "Domainname": "",
+      "User": "1000:1000",
+      "AttachStdin": false,
+      "AttachStdout": true,
+      "AttachStderr": true,
+      "Tty": false,
+      "OpenStdin": false,
+      "StdinOnce": false,
+      "Env": [
+        "PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+        "LANG=C.UTF-8",
+        "GPG_KEY=E3FF2839C048B25C084DEBE9B26995E310250568",
+        "PYTHON_VERSION=3.9.19",
+        "PYTHON_PIP_VERSION=23.0.1",
+        "PYTHON_SETUPTOOLS_VERSION=58.1.0",
+        "PYTHON_GET_PIP_URL=https://github.com/pypa/get-pip/raw/def4aec84b261b939137dd1c69eff0aabb4a7bf4/public/get-pip.py",
+        "PYTHON_GET_PIP_SHA256=bc37786ec99618416cc0a0ca32833da447f4d91ab51d2c138dd15b7af21e8e9a",
+        "PYTHONDONTWRITEBYTECODE=1",
+        "PYTEST_DISABLE_PLUGIN_AUTOLOAD=1",
+        "PYTHONPATH=/workspace:/workspace/src"
+      ],
+      "Cmd": [
+        "-I",
+        "-S",
+        "-c",
+        "import time; time.sleep(604800)"
+      ],
+      "Image": "coding-harness-a5-recheck@sha256:9ce415aa565e354bd29d20460950f4c0e6a05e9792a8f67f69e0a9b9fa169631",
+      "Volumes": null,
+      "WorkingDir": "/workspace",
+      "Entrypoint": [
+        "/usr/local/bin/python"
+      ],
+      "Labels": {
+        "coding-harness.h3": "true"
+      }
+    },
+    "NetworkSettings": {
+      "SandboxID": "dea411de5c61f91f5499d2eb06ddd22865d3487ee0493475cc5fd8108cfcf035",
+      "SandboxKey": "/var/run/docker/netns/dea411de5c61",
+      "Ports": {},
+      "Networks": {
+        "none": {
+          "IPAMConfig": null,
+          "Links": null,
+          "Aliases": null,
+          "DriverOpts": null,
+          "GwPriority": 0,
+          "NetworkID": "0578bece0afec6e9438c77cd1e9e80cf5e90a1209d171f5f2bea58f58ec4d45d",
+          "EndpointID": "a9f3ba5a202cec591d04dd40afdf32a0bc9c5f76ed8302aa71fe239a1debff38",
+          "Gateway": "",
+          "IPAddress": "",
+          "MacAddress": "",
+          "IPPrefixLen": 0,
+          "IPv6Gateway": "",
+          "GlobalIPv6Address": "",
+          "GlobalIPv6PrefixLen": 0,
+          "DNSNames": null
+        }
+      }
+    },
+    "ImageManifestDescriptor": {
+      "mediaType": "application/vnd.oci.image.manifest.v1+json",
+      "digest": "sha256:7bd7af492e93da6bfa6170152f0d69e1ef7536739ab8f641a57adb3fbc657fd9",
+      "size": 3540,
+      "platform": {
+        "architecture": "amd64",
+        "os": "linux"
+      }
+    }
+  },
+  "execution": {
+    "status": "failed",
+    "exit_code": 3,
+    "error_kind": "nonzero_exit",
+    "stdout": "",
+    "stderr": "/usr/local/lib/python3.9/site-packages/_pytest/config/__init__.py:331: PluggyTeardownRaisedWarning: A plugin raised an exception during an old-style hookwrapper teardown.\nPlugin: helpconfig, Hook: pytest_cmdline_parse\nImportError: Error importing plugin \"sklearn.tests.random_seed\": /workspace/sklearn/__check_build/_check_build.cpython-39-x86_64-linux-gnu.so: failed to map segment from shared object\n___________________________________________________________________________\nContents of /workspace/sklearn/__check_build:\n_check_build.cpython-39-x86_64-linux-gnu.so_check_build.c            _check_build.pyx\n__init__.py\n___________________________________________________________________________\nIt seems that scikit-learn has not been built correctly.\n\nIf you have installed scikit-learn from source, please do not forget\nto build the package before using it: run `python setup.py install` or\n`make` in the source directory.\n\nIf you have used an installer, please check that it is suited for your\nPython version, your operating system and your platform.\nFor more information see https://pluggy.readthedocs.io/en/stable/api_reference.html#pluggy.PluggyTeardownRaisedWarning\n  config = pluginmanager.hook.pytest_cmdline_parse(\n",
+    "truncated": false,
+    "duration_ms": 374.59200000739656
+  },
+  "receipt": {
+    "schema": "a5.repo.pytest.receipt.v2",
+    "collected": [],
+    "reports": [],
+    "collection_errors": [],
+    "complete": false,
+    "exit_code": 3,
+    "argv": [
+      "--doctest-modules",
+      "--disable-pytest-warnings",
+      "--color=yes",
+      "-p",
+      "sklearn.tests.random_seed",
+      "-rN",
+      "--collect-only",
+      "-q",
+      "sklearn"
+    ],
+    "pytest_version": "7.4.4",
+    "pytest_import": "/usr/local/lib/python3.9/site-packages/pytest/__init__.py",
+    "runner_error": "ImportError: Error importing plugin \"sklearn.tests.random_seed\": /workspace/sklearn/__check_build/_check_build.cpython-39-x86_64-linux-gnu.so: failed to map segment from shared object\n___________________________________________________________________________\nContents of /workspace/sklearn/__check_build:\n_check_build.cpython-39-x86_64-linux-gnu.so_check_build.c            _check_build.pyx\n__init__.py\n___________________________________________________________________________\nIt seems that scikit-learn has not been built correctly.\n\nIf you have installed scikit-learn from source, please do not forget\nto build the package before using it: run `python setup.py install` or\n`make` in the source directory.\n\nIf you have used an installer, please check that it is suited for your\nPython version, your operating system and your platform."
+  },
+  "cleanup_verified": true,
+  "lifecycle": [
+    {
+      "event": "created",
+      "container": "h3-2cc04985e6944769b329374a446116fa",
+      "image_id": "sha256:9ce415aa565e354bd29d20460950f4c0e6a05e9792a8f67f69e0a9b9fa169631"
+    },
+    {
+      "event": "destroyed",
+      "container": "h3-2cc04985e6944769b329374a446116fa",
+      "elapsed_s": 0.4339600999956019
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "task_id": "django__django-13964",
+  "repo": "django/django",
+  "accepted": true,
+  "reason": null,
+  "empty_f2p": [
+    0,
+    1
+  ],
+  "gold_f2p": [
+    1,
+    1
+  ],
+  "empty_p2p": [
+    36,
+    36
+  ],
+  "gold_p2p": [
+    36,
+    36
+  ],
+  "p2p_excluded_count": 0,
+  "p2p_excluded": [],
+  "nodeids": {
+    "f2p": {
+      "original": 1,
+      "used": 1
+    },
+    "p2p": {
+      "original": 36,
+      "used": 36
+    },
+    "dropped_reasons": {
+      "f2p": {},
+      "p2p": {}
+    },
+    "dropped": [],
+    "mapped": {
+      "f2p": 0,
+      "p2p": 1
+    },
+    "mapping": [
+      {
+        "side": "p2p",
+        "docstring": "Model.save() invalidates stale ForeignKey relations after a primary key",
+        "nodeid": "many_to_one.tests.ManyToOneTests.test_cached_relation_invalidated_on_save"
+      }
+    ]
+  },
+  "sklearn_import": null
+}

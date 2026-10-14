@@ -1,0 +1,70 @@
+{
+  "task_id": "sphinx-doc__sphinx-8713",
+  "status": "ready",
+  "grader_ready": true,
+  "repo": "sphinx-doc/sphinx",
+  "base_revision": "3ed7590ed411bd93b26098faab4f23619cdb2267",
+  "image": "coding-harness-a5-known-good@sha256:f369fcaa06d92480132ac61576c3aa9fc6eb62e4a28c00bed3b5c872a236c542",
+  "model_calls": 0,
+  "paid": false,
+  "canonical_binding_required": true,
+  "input_baseline_status": "baseline_ready",
+  "pilot_binding": {
+    "status": "pass",
+    "reason": null,
+    "canonical_target_id": "sphinx-doc__sphinx-8713",
+    "repo": "sphinx-doc/sphinx",
+    "expected_repo": "sphinx-doc/sphinx",
+    "base_revision": "3ed7590ed411bd93b26098faab4f23619cdb2267",
+    "expected_base_commit": "3ed7590ed411bd93b26098faab4f23619cdb2267",
+    "pilot_base_hash": "c9c63d5e89695a415edda3d4d0bfad261b353e2adda19d94eab3b6c78d5227f3"
+  },
+  "known_good_binding": {
+    "status": "pass",
+    "reason": null,
+    "receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-35-sphinx-test-files\\tasks\\sphinx-doc__sphinx-8713\\known-good\\evidence.json",
+    "receipt_sha256": "77eedd66e08c53c95dd08e712a1cbd74561e51f4e104f7962ba98836cd92751d",
+    "image": "coding-harness-a5-known-good@sha256:f369fcaa06d92480132ac61576c3aa9fc6eb62e4a28c00bed3b5c872a236c542",
+    "receipt_image": "coding-harness-a5-known-good@sha256:f369fcaa06d92480132ac61576c3aa9fc6eb62e4a28c00bed3b5c872a236c542",
+    "expected_outcomes": {
+      "tests/test_ext_napoleon_docstring.py::NumpyDocstringTest::test_parameters_with_class_reference": "passed"
+    },
+    "verified_outcomes": {
+      "tests/test_ext_napoleon_docstring.py::NumpyDocstringTest::test_parameters_with_class_reference": "passed"
+    },
+    "cleanup_verified": true
+  },
+  "reason": null,
+  "full_collection_status": "ready",
+  "full_collection_count": 1654,
+  "full_collection_hash": "68b57e844f0ded1b0d612f6a50c6995ff6cbdbdff946f771c79c0349a5f7aef4",
+  "collection_evidence_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\sphinx-doc__sphinx-8713\\full-repo\\evidence.json",
+  "collection_evidence_sha256": "7703dd94f9d0130a43fec882e6b0de4d4193fd8ff3f78ce2169501c64c340ced",
+  "cleanup_verified": true,
+  "calibration_mode": "full_repo_collection_plus_bound_known_good_target_plus_executed_host_grader_policy_checks",
+  "negative_checks": {
+    "scope": "executed_host_policy_fixture_not_target_specific",
+    "checks": [
+      {
+        "case": "protected_path_change",
+        "status": "rejected",
+        "observed_status": "fail",
+        "observed_reason": "protected_or_unassigned_path_changed"
+      },
+      {
+        "case": "missing_receipt",
+        "status": "rejected",
+        "observed_status": "invalid_env",
+        "observed_reason": "missing_or_incomplete_receipt"
+      },
+      {
+        "case": "input_integrity_change",
+        "status": "rejected",
+        "observed_status": "fail",
+        "observed_reason": "frozen_input_changed_during_tests"
+      }
+    ],
+    "passed": true
+  },
+  "negative_checks_passed": true
+}

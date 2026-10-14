@@ -1,0 +1,504 @@
+{
+  "name": "mini_tasks",
+  "description": "Minimal coding tasks for evaluating the Coding Harness agent",
+  "version": "1.0.0",
+  "tasks": [
+    {
+      "id": "file_create_hello",
+      "description": "Create a file called hello.py that contains a Python script which prints 'Hello, World!' when executed.",
+      "initial_files": {},
+      "expected": {
+        "type": "file_contains",
+        "path": "hello.py",
+        "keywords": ["Hello, World!", "print"]
+      },
+      "difficulty": "easy",
+      "tags": ["file-creation", "python"]
+    },
+    {
+      "id": "file_create_readme",
+      "description": "Create a README.md file with the text '# Project Title\\n\\nThis is a sample project.'",
+      "initial_files": {},
+      "expected": {
+        "type": "file_contains",
+        "path": "README.md",
+        "keywords": ["# Project Title", "sample project"]
+      },
+      "difficulty": "easy",
+      "tags": ["file-creation", "markdown"]
+    },
+    {
+      "id": "file_create_config",
+      "description": "Create a JSON config file called config.json with the content: {\"version\": \"1.0\", \"debug\": true}",
+      "initial_files": {},
+      "expected": {
+        "type": "json_equals",
+        "path": "config.json",
+        "value": {
+          "version": "1.0",
+          "debug": true
+        }
+      },
+      "difficulty": "easy",
+      "tags": ["file-creation", "json"]
+    },
+    {
+      "id": "file_create_env",
+      "description": "Create a .env file with three lines: DATABASE_URL=localhost, PORT=8080, DEBUG=true",
+      "initial_files": {},
+      "expected": {
+        "type": "file_contains",
+        "path": ".env",
+        "keywords": ["DATABASE_URL", "PORT=8080", "DEBUG=true"]
+      },
+      "difficulty": "easy",
+      "tags": ["file-creation", "config"]
+    },
+    {
+      "id": "file_create_html",
+      "description": "Create index.html with a basic HTML5 document that has a title 'My Page' and an H1 tag with 'Welcome'.",
+      "initial_files": {},
+      "expected": {
+        "type": "file_contains",
+        "path": "index.html",
+        "keywords": ["<!DOCTYPE html>", "<title>My Page</title>", "<h1>Welcome</h1>"]
+      },
+      "difficulty": "easy",
+      "tags": ["file-creation", "html"]
+    },
+    {
+      "id": "file_create_css",
+      "description": "Create style.css with a rule for body that sets font-family to Arial and margin to 0.",
+      "initial_files": {},
+      "expected": {
+        "type": "file_contains",
+        "path": "style.css",
+        "keywords": ["body", "font-family", "Arial", "margin", "0"]
+      },
+      "difficulty": "easy",
+      "tags": ["file-creation", "css"]
+    },
+    {
+      "id": "file_create_yaml",
+      "description": "Create a docker-compose.yml file with version '3.8' and a service called 'web' using image 'nginx:alpine' on port 80.",
+      "initial_files": {},
+      "expected": {
+        "type": "file_contains",
+        "path": "docker-compose.yml",
+        "keywords": ["version", "3.8", "web", "nginx:alpine", "80"]
+      },
+      "difficulty": "medium",
+      "tags": ["file-creation", "yaml", "docker"]
+    },
+    {
+      "id": "file_modify_update_version",
+      "description": "The file version.txt contains '1.0.0'. Update it to say '2.0.0'.",
+      "initial_files": {
+        "version.txt": "1.0.0"
+      },
+      "expected": {
+        "type": "file_contains",
+        "path": "version.txt",
+        "keywords": ["2.0.0"]
+      },
+      "difficulty": "easy",
+      "tags": ["file-modification"]
+    },
+    {
+      "id": "file_modify_fix_typo",
+      "description": "The file greeting.py contains 'pritn(\"Hello\")'. Fix the typo so it correctly uses 'print'.",
+      "initial_files": {
+        "greeting.py": "pritn(\"Hello\")"
+      },
+      "expected": {
+        "type": "file_contains",
+        "path": "greeting.py",
+        "keywords": ["print(\"Hello\")"]
+      },
+      "difficulty": "easy",
+      "tags": ["file-modification", "bug-fix"]
+    },
+    {
+      "id": "file_modify_append_line",
+      "description": "The file data.txt contains 'line1\\nline2'. Append 'line3' as a new line.",
+      "initial_files": {
+        "data.txt": "line1\nline2"
+      },
+      "expected": {
+        "type": "file_contains",
+        "path": "data.txt",
+        "keywords": ["line1", "line2", "line3"]
+      },
+      "difficulty": "easy",
+      "tags": ["file-modification"]
+    },
+    {
+      "id": "file_modify_replace_url",
+      "description": "The file api.js contains the line 'const BASE_URL = \"http://old-api.example.com\";'. Change the URL to 'https://api.example.com/v2'.",
+      "initial_files": {
+        "api.js": "const BASE_URL = \"http://old-api.example.com\";\nconst TIMEOUT = 5000;"
+      },
+      "expected": {
+        "type": "file_contains",
+        "path": "api.js",
+        "keywords": ["https://api.example.com/v2"]
+      },
+      "difficulty": "medium",
+      "tags": ["file-modification", "url-update"]
+    },
+    {
+      "id": "file_modify_add_function",
+      "description": "The file utils.py contains a function 'add(a, b)' that returns a+b. Add a new function 'multiply(a, b)' that returns a*b below it.",
+      "initial_files": {
+        "utils.py": "def add(a, b):\n    return a + b"
+      },
+      "expected": {
+        "type": "file_contains",
+        "path": "utils.py",
+        "keywords": ["def add(a, b)", "def multiply(a, b)", "return a * b"]
+      },
+      "difficulty": "medium",
+      "tags": ["file-modification", "code-generation"]
+    },
+    {
+      "id": "file_read_and_report",
+      "description": "Read the file status.txt and create a new file report.txt containing 'Status: <content of status.txt>'.",
+      "initial_files": {
+        "status.txt": "ALL_SYSTEMS_GO"
+      },
+      "expected": {
+        "type": "file_contains",
+        "path": "report.txt",
+        "keywords": ["ALL_SYSTEMS_GO"]
+      },
+      "difficulty": "medium",
+      "tags": ["multi-step", "read-then-write"]
+    },
+    {
+      "id": "file_create_todo_list",
+      "description": "Create a TODO.md file with a markdown checklist of 3 items: Buy groceries, Call dentist, Finish report.",
+      "initial_files": {},
+      "expected": {
+        "type": "file_contains",
+        "path": "TODO.md",
+        "keywords": ["Buy groceries", "Call dentist", "Finish report"]
+      },
+      "difficulty": "easy",
+      "tags": ["file-creation", "markdown"]
+    },
+    {
+      "id": "file_create_python_module",
+      "description": "Create a file calculator.py with two functions: add(a,b) returning a+b and subtract(a,b) returning a-b. Include a main guard that prints 'Calculator ready'.",
+      "initial_files": {},
+      "expected": {
+        "type": "file_contains",
+        "path": "calculator.py",
+        "keywords": ["def add", "def subtract", "Calculator ready", "if __name__"]
+      },
+      "difficulty": "medium",
+      "tags": ["file-creation", "python", "module"]
+    },
+    {
+      "id": "file_create_json_array",
+      "description": "Create a file users.json containing a JSON array with two user objects: [{\"name\": \"Alice\", \"age\": 30}, {\"name\": \"Bob\", \"age\": 25}].",
+      "initial_files": {},
+      "expected": {
+        "type": "json_equals",
+        "path": "users.json",
+        "value": [
+          {
+            "name": "Alice",
+            "age": 30
+          },
+          {
+            "name": "Bob",
+            "age": 25
+          }
+        ]
+      },
+      "difficulty": "medium",
+      "tags": ["file-creation", "json"]
+    },
+    {
+      "id": "file_create_gitignore",
+      "description": "Create a .gitignore file that ignores: node_modules/, *.pyc, .env, and dist/.",
+      "initial_files": {},
+      "expected": {
+        "type": "file_contains",
+        "path": ".gitignore",
+        "keywords": ["node_modules", "*.pyc", ".env", "dist"]
+      },
+      "difficulty": "easy",
+      "tags": ["file-creation", "git"]
+    },
+    {
+      "id": "file_create_ts_types",
+      "description": "Create a types.ts file that exports an interface 'User' with fields: id (number), name (string), email (string).",
+      "initial_files": {},
+      "expected": {
+        "type": "file_contains",
+        "path": "types.ts",
+        "keywords": ["export interface User", "id", "name", "email", "string", "number"]
+      },
+      "difficulty": "medium",
+      "tags": ["file-creation", "typescript"]
+    },
+    {
+      "id": "file_modify_fix_json",
+      "description": "The file broken.json is missing a closing brace: '{\"key\": \"value\"'. Fix it by adding the missing brace.",
+      "initial_files": {
+        "broken.json": "{\"key\": \"value\""
+      },
+      "expected": {
+        "type": "json_equals",
+        "path": "broken.json",
+        "value": {
+          "key": "value"
+        }
+      },
+      "difficulty": "easy",
+      "tags": ["file-modification", "bug-fix", "json"]
+    },
+    {
+      "id": "file_read_multiple",
+      "description": "Two files exist: a.txt containing 'Apple' and b.txt containing 'Banana'. Create c.txt containing 'Apple Banana'.",
+      "initial_files": {
+        "a.txt": "Apple",
+        "b.txt": "Banana"
+      },
+      "expected": {
+        "type": "file_contains",
+        "path": "c.txt",
+        "keywords": ["Apple", "Banana"]
+      },
+      "difficulty": "medium",
+      "tags": ["multi-step", "read-then-write"]
+    },
+    {
+      "id": "file_create_sql_schema",
+      "description": "Create schema.sql with a CREATE TABLE statement for 'users' with columns: id (INTEGER PRIMARY KEY), username (VARCHAR(50) NOT NULL), created_at (TIMESTAMP DEFAULT CURRENT_TIMESTAMP).",
+      "initial_files": {},
+      "expected": {
+        "type": "file_contains",
+        "path": "schema.sql",
+        "keywords": ["CREATE TABLE users", "INTEGER PRIMARY KEY", "VARCHAR", "TIMESTAMP", "CURRENT_TIMESTAMP"]
+      },
+      "difficulty": "medium",
+      "tags": ["file-creation", "sql"]
+    },
+    {
+      "id": "file_create_react_component",
+      "description": "Create Button.tsx with a React functional component that renders a <button> with props: label (string) and onClick (function). Use TypeScript.",
+      "initial_files": {},
+      "expected": {
+        "type": "file_contains",
+        "path": "Button.tsx",
+        "keywords": ["React", "Button", "label", "onClick", "props"]
+      },
+      "difficulty": "medium",
+      "tags": ["file-creation", "react", "typescript"]
+    },
+    {
+      "id": "file_modify_rename_var",
+      "description": "The file counter.py has a variable 'cnt'. Rename it to 'count' everywhere in the file.",
+      "initial_files": {
+        "counter.py": "cnt = 0\ndef increment():\n    global cnt\n    cnt += 1\n    return cnt"
+      },
+      "expected": {
+        "type": "file_contains",
+        "path": "counter.py",
+        "keywords": ["count = 0", "global count", "count += 1", "return count"]
+      },
+      "difficulty": "medium",
+      "tags": ["file-modification", "refactor"]
+    },
+    {
+      "id": "file_create_markdown_table",
+      "description": "Create a file data.md with a markdown table that has columns: Name, Score, Grade. Add two rows: Alice|95|A and Bob|87|B.",
+      "initial_files": {},
+      "expected": {
+        "type": "file_contains",
+        "path": "data.md",
+        "keywords": ["| Name | Score | Grade |", "Alice", "95", "Bob", "87"]
+      },
+      "difficulty": "medium",
+      "tags": ["file-creation", "markdown", "table"]
+    },
+    {
+      "id": "file_modify_increase_number",
+      "description": "The file count.txt contains '42'. Read it, add 10, and write the new number back.",
+      "initial_files": {
+        "count.txt": "42"
+      },
+      "expected": {
+        "type": "file_contains",
+        "path": "count.txt",
+        "keywords": ["52"]
+      },
+      "difficulty": "medium",
+      "tags": ["multi-step", "arithmetic"]
+    },
+    {
+      "id": "file_create_logging_config",
+      "description": "Create log_config.py that sets up Python logging: writes to app.log, level INFO, format includes timestamp and message.",
+      "initial_files": {},
+      "expected": {
+        "type": "file_contains",
+        "path": "log_config.py",
+        "keywords": ["logging", "FileHandler", "INFO", "format", "app.log"]
+      },
+      "difficulty": "medium",
+      "tags": ["file-creation", "python", "logging"]
+    },
+    {
+      "id": "file_create_test_case",
+      "description": "Create test_math.py with a simple test function using assert statements (no pytest import needed). Test that 2+2 equals 4 and that 3*3 equals 9.",
+      "initial_files": {},
+      "expected": {
+        "type": "file_contains",
+        "path": "test_math.py",
+        "keywords": ["assert", "2+2", "4", "3*3", "9"]
+      },
+      "difficulty": "medium",
+      "tags": ["file-creation", "testing", "python"]
+    },
+    {
+      "id": "file_modify_fix_indentation",
+      "description": "The file bad_indent.py has incorrect indentation causing a SyntaxError. The print should be inside the function. Fix it.",
+      "initial_files": {
+        "bad_indent.py": "def greet(name):\nprint(f\"Hello, {name}\")"
+      },
+      "expected": {
+        "type": "file_contains",
+        "path": "bad_indent.py",
+        "keywords": ["def greet(name):", "    print"]
+      },
+      "difficulty": "easy",
+      "tags": ["file-modification", "bug-fix", "python"]
+    },
+    {
+      "id": "file_create_csv_data",
+      "description": "Create a CSV file students.csv with a header row (Name,Age,Grade) and two data rows: Alice,20,A and Bob,21,B.",
+      "initial_files": {},
+      "expected": {
+        "type": "file_contains",
+        "path": "students.csv",
+        "keywords": ["Name,Age,Grade", "Alice,20,A", "Bob,21,B"]
+      },
+      "difficulty": "easy",
+      "tags": ["file-creation", "csv"]
+    },
+    {
+      "id": "file_read_transform_write",
+      "description": "The file input.txt has three lines. Read them, convert all text to uppercase, and write to output.txt.",
+      "initial_files": {
+        "input.txt": "hello world\nfoo bar\nlorem ipsum"
+      },
+      "expected": {
+        "type": "file_contains",
+        "path": "output.txt",
+        "keywords": ["HELLO WORLD", "FOO BAR", "LOREM IPSUM"]
+      },
+      "difficulty": "hard",
+      "tags": ["multi-step", "transform"]
+    },
+    {
+      "id": "file_modify_delete_line",
+      "description": "The file poem.txt has 4 lines. Delete the line containing 'debug line' and keep everything else.",
+      "initial_files": {
+        "poem.txt": "Roses are red\ndebug line\nViolets are blue\nSugar is sweet"
+      },
+      "expected": {
+        "type": "multi_assert",
+        "assertions": [
+          {
+            "type": "file_contains",
+            "path": "poem.txt",
+            "keywords": ["Roses are red", "Violets are blue", "Sugar is sweet"]
+          },
+          {
+            "type": "file_not_contains",
+            "path": "poem.txt",
+            "keywords": ["debug line"]
+          }
+        ]
+      },
+      "difficulty": "medium",
+      "tags": ["file-modification", "line-removal"]
+    },
+    {
+      "id": "file_create_makefile",
+      "description": "Create a Makefile with targets: 'install' (pip install -r requirements.txt), 'test' (python -m pytest), and 'clean' (rm -rf __pycache__).",
+      "initial_files": {},
+      "expected": {
+        "type": "file_contains",
+        "path": "Makefile",
+        "keywords": ["install", "test", "clean", "pip install", "pytest"]
+      },
+      "difficulty": "medium",
+      "tags": ["file-creation", "makefile"]
+    },
+    {
+      "id": "file_modify_escape_quotes",
+      "description": "The file script.sh has unescaped quotes causing issues. Fix the line to properly escape: echo \"She said \\\"Hello\\\"\"",
+      "initial_files": {
+        "script.sh": "echo She said Hello"
+      },
+      "expected": {
+        "type": "multi_assert",
+        "assertions": [
+          {
+            "type": "file_contains",
+            "path": "script.sh",
+            "keywords": ["echo", "She said", "Hello"]
+          },
+          {
+            "type": "regex_match",
+            "path": "script.sh",
+            "pattern": "echo\\s+\"She said \\\\\"Hello\\\\\"\""
+          }
+        ]
+      },
+      "difficulty": "hard",
+      "tags": ["file-modification", "escaping"]
+    },
+    {
+      "id": "file_create_dotenv_example",
+      "description": "Create a .env.example file with three commented-out environment variables (prefixed with #): # API_KEY=, # DB_URL=, # SECRET=.",
+      "initial_files": {},
+      "expected": {
+        "type": "file_contains",
+        "path": ".env.example",
+        "keywords": ["API_KEY", "DB_URL", "SECRET"]
+      },
+      "difficulty": "easy",
+      "tags": ["file-creation", "config"]
+    },
+    {
+      "id": "file_modify_add_comment_header",
+      "description": "The file main.py has code but no header comment. Prepend a comment block at the top: #!/usr/bin/env python3\\n# Main application entry point.",
+      "initial_files": {
+        "main.py": "import sys\n\ndef main():\n    print('Running')\n\nif __name__ == '__main__':\n    main()"
+      },
+      "expected": {
+        "type": "file_contains",
+        "path": "main.py",
+        "keywords": ["#!/usr/bin/env python3", "Main application entry point", "if __name__"]
+      },
+      "difficulty": "medium",
+      "tags": ["file-modification", "comments"]
+    },
+    {
+      "id": "file_exists_gitignore",
+      "description": "Create a .gitignore file in the workspace to exclude __pycache__ directories and .pyc files.",
+      "initial_files": {},
+      "expected": {
+        "type": "file_exists",
+        "path": ".gitignore",
+        "min_size_bytes": 10
+      },
+      "difficulty": "easy",
+      "tags": ["file-creation", "git"]
+    }
+  ]
+}

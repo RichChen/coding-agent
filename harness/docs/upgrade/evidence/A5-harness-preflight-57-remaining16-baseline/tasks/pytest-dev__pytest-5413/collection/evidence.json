@@ -1,0 +1,253 @@
+{
+  "image": "coding-harness-a5-baseline@sha256:c03e6c41ccea7f6da1bf4b327e81fa77af86b6592a50846d873239cb1794b882",
+  "args": [
+    "--collect-only",
+    "-q",
+    "testing"
+  ],
+  "status": "executed",
+  "model_calls": 0,
+  "paid": false,
+  "isolation": {
+    "Id": "b9a74da408abf19df919b6588d32a75a06bf9cca337d3867539427733402ee61",
+    "Created": "2026-09-22T05:51:08.923159706Z",
+    "Path": "/usr/local/bin/python",
+    "Args": [
+      "-I",
+      "-S",
+      "-c",
+      "import time; time.sleep(604800)"
+    ],
+    "State": {
+      "Status": "running",
+      "Running": true,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 70589,
+      "ExitCode": 0,
+      "Error": "",
+      "StartedAt": "2026-09-22T05:51:09.109304141Z",
+      "FinishedAt": "0001-01-01T00:00:00Z"
+    },
+    "Image": "sha256:c03e6c41ccea7f6da1bf4b327e81fa77af86b6592a50846d873239cb1794b882",
+    "ResolvConfPath": "/var/lib/docker/containers/b9a74da408abf19df919b6588d32a75a06bf9cca337d3867539427733402ee61/resolv.conf",
+    "HostnamePath": "/var/lib/docker/containers/b9a74da408abf19df919b6588d32a75a06bf9cca337d3867539427733402ee61/hostname",
+    "HostsPath": "/var/lib/docker/containers/b9a74da408abf19df919b6588d32a75a06bf9cca337d3867539427733402ee61/hosts",
+    "LogPath": "",
+    "Name": "/h3-afac2f050cfa43688ce72605c143a273",
+    "RestartCount": 0,
+    "Driver": "overlayfs",
+    "Platform": "linux",
+    "MountLabel": "",
+    "ProcessLabel": "",
+    "AppArmorProfile": "",
+    "ExecIDs": null,
+    "HostConfig": {
+      "Binds": null,
+      "ContainerIDFile": "",
+      "LogConfig": {
+        "Type": "none",
+        "Config": {}
+      },
+      "NetworkMode": "none",
+      "PortBindings": {},
+      "RestartPolicy": {
+        "Name": "no",
+        "MaximumRetryCount": 0
+      },
+      "AutoRemove": false,
+      "VolumeDriver": "",
+      "VolumesFrom": null,
+      "ConsoleSize": [
+        0,
+        0
+      ],
+      "CapAdd": null,
+      "CapDrop": [
+        "ALL"
+      ],
+      "CgroupnsMode": "private",
+      "Dns": null,
+      "DnsOptions": [],
+      "DnsSearch": [],
+      "ExtraHosts": null,
+      "GroupAdd": null,
+      "IpcMode": "private",
+      "Cgroup": "",
+      "Links": null,
+      "OomScoreAdj": 0,
+      "PidMode": "",
+      "Privileged": false,
+      "PublishAllPorts": false,
+      "ReadonlyRootfs": true,
+      "SecurityOpt": [
+        "no-new-privileges:true"
+      ],
+      "Tmpfs": {
+        "/tmp": "rw,noexec,nosuid,nodev,size=536870912,mode=1777",
+        "/workspace": "rw,nosuid,nodev,size=536870912,mode=1777"
+      },
+      "UTSMode": "",
+      "UsernsMode": "",
+      "ShmSize": 67108864,
+      "Runtime": "runc",
+      "Isolation": "",
+      "CpuShares": 0,
+      "Memory": 2147483648,
+      "NanoCpus": 1000000000,
+      "CgroupParent": "",
+      "BlkioWeight": 0,
+      "BlkioWeightDevice": [],
+      "BlkioDeviceReadBps": [],
+      "BlkioDeviceWriteBps": [],
+      "BlkioDeviceReadIOps": [],
+      "BlkioDeviceWriteIOps": [],
+      "CpuPeriod": 0,
+      "CpuQuota": 0,
+      "CpuRealtimePeriod": 0,
+      "CpuRealtimeRuntime": 0,
+      "CpusetCpus": "",
+      "CpusetMems": "",
+      "Devices": [],
+      "DeviceCgroupRules": null,
+      "DeviceRequests": null,
+      "MemoryReservation": 0,
+      "MemorySwap": 2147483648,
+      "MemorySwappiness": null,
+      "OomKillDisable": null,
+      "PidsLimit": 128,
+      "Ulimits": null,
+      "CpuCount": 0,
+      "CpuPercent": 0,
+      "IOMaximumIOps": 0,
+      "IOMaximumBandwidth": 0,
+      "MaskedPaths": [
+        "/proc/acpi",
+        "/proc/asound",
+        "/proc/interrupts",
+        "/proc/kcore",
+        "/proc/keys",
+        "/proc/latency_stats",
+        "/proc/sched_debug",
+        "/proc/scsi",
+        "/proc/timer_list",
+        "/proc/timer_stats",
+        "/sys/devices/virtual/powercap",
+        "/sys/firmware"
+      ],
+      "ReadonlyPaths": [
+        "/proc/bus",
+        "/proc/fs",
+        "/proc/irq",
+        "/proc/sys",
+        "/proc/sysrq-trigger"
+      ]
+    },
+    "Storage": {
+      "RootFS": {
+        "Snapshot": {
+          "Name": "overlayfs"
+        }
+      }
+    },
+    "Mounts": [],
+    "Config": {
+      "Hostname": "b9a74da408ab",
+      "Domainname": "",
+      "User": "1000:1000",
+      "AttachStdin": false,
+      "AttachStdout": true,
+      "AttachStderr": true,
+      "Tty": false,
+      "OpenStdin": false,
+      "StdinOnce": false,
+      "Env": [
+        "PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+        "LANG=C.UTF-8",
+        "GPG_KEY=E3FF2839C048B25C084DEBE9B26995E310250568",
+        "PYTHON_VERSION=3.9.19",
+        "PYTHON_PIP_VERSION=23.0.1",
+        "PYTHON_SETUPTOOLS_VERSION=58.1.0",
+        "PYTHON_GET_PIP_URL=https://github.com/pypa/get-pip/raw/def4aec84b261b939137dd1c69eff0aabb4a7bf4/public/get-pip.py",
+        "PYTHON_GET_PIP_SHA256=bc37786ec99618416cc0a0ca32833da447f4d91ab51d2c138dd15b7af21e8e9a",
+        "PYTHONDONTWRITEBYTECODE=1",
+        "PYTEST_DISABLE_PLUGIN_AUTOLOAD=1",
+        "PYTHONPATH=/workspace:/workspace/src"
+      ],
+      "Cmd": [
+        "-I",
+        "-S",
+        "-c",
+        "import time; time.sleep(604800)"
+      ],
+      "Image": "coding-harness-a5-baseline@sha256:c03e6c41ccea7f6da1bf4b327e81fa77af86b6592a50846d873239cb1794b882",
+      "Volumes": null,
+      "WorkingDir": "/workspace",
+      "Entrypoint": [
+        "/usr/local/bin/python"
+      ],
+      "Labels": {
+        "coding-harness.h3": "true"
+      }
+    },
+    "NetworkSettings": {
+      "SandboxID": "5dd840bef17c78395cc677b5b5497d173588014b593b73e231714af78cd4dc85",
+      "SandboxKey": "/var/run/docker/netns/5dd840bef17c",
+      "Ports": {},
+      "Networks": {
+        "none": {
+          "IPAMConfig": null,
+          "Links": null,
+          "Aliases": null,
+          "DriverOpts": null,
+          "GwPriority": 0,
+          "NetworkID": "0578bece0afec6e9438c77cd1e9e80cf5e90a1209d171f5f2bea58f58ec4d45d",
+          "EndpointID": "787496312e19f0dcaf7d80c3b0b94fbeb39eb8e0b708a1b8cb3ec7f73a5cd062",
+          "Gateway": "",
+          "IPAddress": "",
+          "MacAddress": "",
+          "IPPrefixLen": 0,
+          "IPv6Gateway": "",
+          "GlobalIPv6Address": "",
+          "GlobalIPv6PrefixLen": 0,
+          "DNSNames": null
+        }
+      }
+    },
+    "ImageManifestDescriptor": {
+      "mediaType": "application/vnd.oci.image.manifest.v1+json",
+      "digest": "sha256:109f3e05b58486e1bbeecfb4856582d22af3bf4ce82d702ed5204824f98292d7",
+      "size": 3337,
+      "platform": {
+        "architecture": "amd64",
+        "os": "linux"
+      }
+    }
+  },
+  "generated_native_links": [],
+  "execution": {
+    "status": "failed",
+    "exit_code": 1,
+    "error_kind": "nonzero_exit",
+    "stdout": "",
+    "stderr": "Traceback (most recent call last):\n  File \"/tmp/a5-runner.py\", line 5, in <module>\n    import pytest\n  File \"/workspace/src/pytest.py\", line 8, in <module>\n    from _pytest.config import cmdline\n  File \"/workspace/src/_pytest/config/__init__.py\", line 12, in <module>\n    import importlib_metadata\nModuleNotFoundError: No module named 'importlib_metadata'\n",
+    "truncated": false,
+    "duration_ms": 329.74680000916123
+  },
+  "receipt_error": "DockerUnavailable: Docker exec failed: ent call last):\n  File \"<string>\", line 1, in <module>\n  File \"/usr/local/lib/python3.9/pathlib.py\", line 1259, in read_bytes\n    with self.open(mode='rb') as f:\n  File \"/usr/local/lib/python3.9/pathlib.py\", line 1252, in open\n    return io.open(self, mode, buffering, encoding, errors, newline,\n  File \"/usr/local/lib/python3.9/pathlib.py\", line 1120, in _opener\n    return self._accessor.open(self, flags, mode)\nFileNotFoundError: [Errno 2] No such file or directory: '/tmp/a5-pytest-receipt.json'\n",
+  "cleanup_verified": true,
+  "lifecycle": [
+    {
+      "event": "created",
+      "container": "h3-afac2f050cfa43688ce72605c143a273",
+      "image_id": "sha256:c03e6c41ccea7f6da1bf4b327e81fa77af86b6592a50846d873239cb1794b882"
+    },
+    {
+      "event": "destroyed",
+      "container": "h3-afac2f050cfa43688ce72605c143a273",
+      "elapsed_s": 0.25145949999568984
+    }
+  ]
+}

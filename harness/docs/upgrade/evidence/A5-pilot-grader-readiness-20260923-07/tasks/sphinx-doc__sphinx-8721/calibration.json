@@ -1,0 +1,70 @@
+{
+  "task_id": "sphinx-doc__sphinx-8721",
+  "status": "ready",
+  "grader_ready": true,
+  "repo": "sphinx-doc/sphinx",
+  "base_revision": "82ef497a8c88f0f6e50d84520e7276bfbf65025d",
+  "image": "coding-harness-a5-recheck@sha256:5808165c6309a13d45ef473aa3f6350ecf43d1633f97dac89edf0b4754b06bec",
+  "model_calls": 0,
+  "paid": false,
+  "canonical_binding_required": true,
+  "input_baseline_status": "baseline_ready",
+  "pilot_binding": {
+    "status": "pass",
+    "reason": null,
+    "canonical_target_id": "sphinx-doc__sphinx-8721",
+    "repo": "sphinx-doc/sphinx",
+    "expected_repo": "sphinx-doc/sphinx",
+    "base_revision": "82ef497a8c88f0f6e50d84520e7276bfbf65025d",
+    "expected_base_commit": "82ef497a8c88f0f6e50d84520e7276bfbf65025d",
+    "pilot_base_hash": "3e9e6bd4cee95b76b21f2f914c69357a1db2b53340b21049d43a7331d33fdc0b"
+  },
+  "known_good_binding": {
+    "status": "pass",
+    "reason": null,
+    "receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-36-repo-compat\\tasks\\sphinx-doc__sphinx-8721\\known-good\\evidence.json",
+    "receipt_sha256": "b504cf0732f2ae3cce46324441b926eba67ef941a05404e9cc5d67accf71034d",
+    "image": "coding-harness-a5-recheck@sha256:5808165c6309a13d45ef473aa3f6350ecf43d1633f97dac89edf0b4754b06bec",
+    "receipt_image": "coding-harness-a5-recheck@sha256:5808165c6309a13d45ef473aa3f6350ecf43d1633f97dac89edf0b4754b06bec",
+    "expected_outcomes": {
+      "tests/test_ext_viewcode.py::test_viewcode_epub_default": "passed"
+    },
+    "verified_outcomes": {
+      "tests/test_ext_viewcode.py::test_viewcode_epub_default": "passed"
+    },
+    "cleanup_verified": true
+  },
+  "reason": null,
+  "full_collection_status": "ready",
+  "full_collection_count": 1655,
+  "full_collection_hash": "32019f5ee1bb7d823d1345e3764bc26c88d22912266b8dbdcf2dcf26b9308e95",
+  "collection_evidence_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-07\\tasks\\sphinx-doc__sphinx-8721\\full-repo\\evidence.json",
+  "collection_evidence_sha256": "7c8d8ecf99e43addfc325e52dc73c5f6458ce364ba29165b2e41e76bbee9cf61",
+  "cleanup_verified": true,
+  "calibration_mode": "full_repo_collection_plus_bound_known_good_target_plus_executed_host_grader_policy_checks",
+  "negative_checks": {
+    "scope": "executed_host_policy_fixture_not_target_specific",
+    "checks": [
+      {
+        "case": "protected_path_change",
+        "status": "rejected",
+        "observed_status": "fail",
+        "observed_reason": "protected_or_unassigned_path_changed"
+      },
+      {
+        "case": "missing_receipt",
+        "status": "rejected",
+        "observed_status": "invalid_env",
+        "observed_reason": "missing_or_incomplete_receipt"
+      },
+      {
+        "case": "input_integrity_change",
+        "status": "rejected",
+        "observed_status": "fail",
+        "observed_reason": "frozen_input_changed_during_tests"
+      }
+    ],
+    "passed": true
+  },
+  "negative_checks_passed": true
+}

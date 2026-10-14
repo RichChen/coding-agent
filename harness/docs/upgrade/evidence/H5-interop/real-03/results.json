@@ -1,0 +1,75 @@
+[
+  {
+    "variant": "off",
+    "status": "pass",
+    "passed": 4,
+    "collected": 4,
+    "model_calls": 4,
+    "termination": "max_model_calls",
+    "usage": {
+      "model": "deepseek-flash",
+      "attempts": 4,
+      "unknown_usage_attempts": 0,
+      "provider_totals": {
+        "prompt_tokens": 6316,
+        "completion_tokens": 503,
+        "total_tokens": 6819,
+        "prompt_cache_hit_tokens": 5504,
+        "prompt_cache_miss_tokens": 812
+      },
+      "known_subtotals": {
+        "prompt_tokens": 6316,
+        "completion_tokens": 503,
+        "total_tokens": 6819,
+        "prompt_cache_hit_tokens": 5504,
+        "prompt_cache_miss_tokens": 812
+      },
+      "cost_usd": null,
+      "cost_provenance": "not_reconciled_with_account_billing",
+      "estimated_cost_usd_range": [
+        0.00044011200000000004,
+        0.0008802240000000001
+      ],
+      "estimate_basis": "off-peak/peak interval, excludes account discounts, not an invoice",
+      "peak_usd_per_million": {
+        "hit": 0.006,
+        "miss": 0.3,
+        "output": 1.2
+      },
+      "pricing_source": "https://api-docs.deepseek.com/quick_start/pricing",
+      "pricing_retrieved": "2026-09-21"
+    },
+    "requested": 0,
+    "prepared_view_injections": 0,
+    "proposals_rejected": 0,
+    "degraded": false,
+    "model_start_links": [
+      {
+        "context_seq": 5,
+        "model_seq": 6,
+        "operation_id": "5c047587b9454f80b937f018765ea129",
+        "attempt_id": "e954f89f44ed424d8d5291f99a8dfdec"
+      },
+      {
+        "context_seq": 14,
+        "model_seq": 15,
+        "operation_id": "2a9c0fe25cf948658b8b66b400ca4d94",
+        "attempt_id": "d35e3a984ec04c448224765c9247b947"
+      },
+      {
+        "context_seq": 23,
+        "model_seq": 24,
+        "operation_id": "fcd20d86e6f7410e84b9f3fa63535432",
+        "attempt_id": "9749e346704a4c188b706fdd731e9411"
+      },
+      {
+        "context_seq": 30,
+        "model_seq": 31,
+        "operation_id": "cf5c61aae37845ab9ec9edb0647d136f",
+        "attempt_id": "50e86b6e6f94431bbcf010da7756e2a1"
+      }
+    ],
+    "private_canary_and_key_absent": true,
+    "replay_equal": true
+  }
+]

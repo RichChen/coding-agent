@@ -1,0 +1,541 @@
+{
+  "task_id": "django__django-15973",
+  "repo": "django/django",
+  "accepted": true,
+  "reason": null,
+  "empty_f2p": [
+    0,
+    1
+  ],
+  "gold_f2p": [
+    1,
+    1
+  ],
+  "empty_p2p": [
+    152,
+    152
+  ],
+  "gold_p2p": [
+    152,
+    152
+  ],
+  "p2p_excluded_count": 0,
+  "p2p_excluded": [],
+  "nodeids": {
+    "f2p": {
+      "original": 1,
+      "used": 1
+    },
+    "p2p": {
+      "original": 157,
+      "used": 152
+    },
+    "dropped_reasons": {
+      "f2p": {},
+      "p2p": {
+        "docstring_ambiguous": 5
+      }
+    },
+    "dropped": [
+      {
+        "side": "p2p",
+        "nodeid": "Tests autodetection of new fields.",
+        "reason": "docstring_ambiguous",
+        "candidates": [
+          "migrations.test_autodetector.AutodetectorTests.test_add_field",
+          "migrations.test_autodetector.AutodetectorTests.test_alter_field"
+        ]
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Tests unique_together detection.",
+        "reason": "docstring_ambiguous",
+        "candidates": [
+          "migrations.test_autodetector.AutodetectorTests.test_add_unique_together",
+          "migrations.test_autodetector.AutodetectorTests.test_remove_unique_together"
+        ]
+      },
+      {
+        "side": "p2p",
+        "nodeid": "#23609 - Tests autodetection of nullable to non-nullable alterations.",
+        "reason": "docstring_ambiguous",
+        "candidates": [
+          "migrations.test_autodetector.AutodetectorTests.test_alter_field_to_not_null_with_default",
+          "migrations.test_autodetector.AutodetectorTests.test_alter_field_to_not_null_without_default",
+          "migrations.test_autodetector.AutodetectorTests.test_alter_field_to_not_null_oneoff_default"
+        ]
+      },
+      {
+        "side": "p2p",
+        "nodeid": "#23322 - The dependency resolver knows to explicitly resolve",
+        "reason": "docstring_ambiguous",
+        "candidates": [
+          "migrations.test_autodetector.AutodetectorTests.test_circular_dependency_swappable",
+          "migrations.test_autodetector.AutodetectorTests.test_circular_dependency_swappable2",
+          "migrations.test_autodetector.AutodetectorTests.test_circular_dependency_swappable_self"
+        ]
+      },
+      {
+        "side": "p2p",
+        "nodeid": "Swappable models get their CreateModel first.",
+        "reason": "docstring_ambiguous",
+        "candidates": [
+          "migrations.test_autodetector.AutodetectorTests.test_swappable_first_inheritance",
+          "migrations.test_autodetector.AutodetectorTests.test_swappable_first_setting"
+        ]
+      }
+    ],
+    "mapped": {
+      "f2p": 0,
+      "p2p": 89
+    },
+    "mapping": [
+      {
+        "side": "p2p",
+        "docstring": "Added fields will be created before using them in index_together.",
+        "nodeid": "migrations.test_autodetector.AutodetectorIndexTogetherTests.test_add_field_and_index_together"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Fields are altered after deleting some index_together.",
+        "nodeid": "migrations.test_autodetector.AutodetectorIndexTogetherTests.test_alter_field_and_index_together"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Empty index_together shouldn't generate a migration.",
+        "nodeid": "migrations.test_autodetector.AutodetectorIndexTogetherTests.test_empty_index_together"
+      },
+      {
+        "side": "p2p",
+        "docstring": "index_together doesn't generate a migration if no changes have been",
+        "nodeid": "migrations.test_autodetector.AutodetectorIndexTogetherTests.test_index_together_no_changes"
+      },
+      {
+        "side": "p2p",
+        "docstring": "index_together triggers on ordering changes.",
+        "nodeid": "migrations.test_autodetector.AutodetectorIndexTogetherTests.test_index_together_ordering"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Removed fields will be removed after updating index_together.",
+        "nodeid": "migrations.test_autodetector.AutodetectorIndexTogetherTests.test_remove_field_and_index_together"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Fields are renamed before updating index_together.",
+        "nodeid": "migrations.test_autodetector.AutodetectorIndexTogetherTests.test_rename_field_and_index_together"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Setting order_with_respect_to when adding the FK too does",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_add_alter_order_with_respect_to"
+      },
+      {
+        "side": "p2p",
+        "docstring": "#23405 - Adding a NOT NULL and blank `CharField` or `TextField`",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_add_blank_textfield_and_charfield"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Test change detection of new constraints.",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_add_constraints"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Added fields will be created before using them in unique_together.",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_add_field_and_unique_together"
+      },
+      {
+        "side": "p2p",
+        "docstring": "#22030 - Adding a field with a default should work.",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_add_field_with_default"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Test change detection of new indexes.",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_add_indexes"
+      },
+      {
+        "side": "p2p",
+        "docstring": "#22435 - Adding a ManyToManyField should not prompt for a default.",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_add_many_to_many"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Setting order_with_respect_to when adding the whole model",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_add_model_order_with_respect_to"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Removing a base field takes place before adding a new inherited model",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_add_model_with_field_removed_from_base_model"
+      },
+      {
+        "side": "p2p",
+        "docstring": "#23405 - Adding a NOT NULL and non-blank `CharField` or `TextField`",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_add_non_blank_textfield_and_charfield"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Tests detection for adding db_table in model's options.",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_alter_db_table_add"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Tests detection for changing db_table in model's options'.",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_alter_db_table_change"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Alter_db_table doesn't generate a migration if no changes have been made.",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_alter_db_table_no_changes"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Tests detection for removing db_table in model's options.",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_alter_db_table_remove"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Tests when model and db_table changes, autodetector must create two",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_alter_db_table_with_model_change"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Fields are altered after deleting some unique_together.",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_alter_field_and_unique_together"
+      },
+      {
+        "side": "p2p",
+        "docstring": "ForeignKeys are altered _before_ the model they used to",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_alter_fk_before_model_deletion"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Changing the model managers adds a new operation.",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_alter_model_managers"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Changing a model's options should make a change.",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_alter_model_options"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Changing a proxy model's options should also make a change.",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_alter_model_options_proxy"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Tests auto-naming of migrations for graph matching.",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_arrange_for_graph"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Bases of other models come first.",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_bases_first"
+      },
+      {
+        "side": "p2p",
+        "docstring": "#23315 - The dependency resolver knows to put all CreateModel",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_circular_dependency_mixed_addcreate"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Having a circular ForeignKey dependency automatically",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_circular_fk_dependency"
+      },
+      {
+        "side": "p2p",
+        "docstring": "#23938 - Changing a concrete field into a ManyToManyField",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_concrete_field_changed_to_many_to_many"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Test creation of new model with constraints already defined.",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_create_model_with_check_constraint"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Test creation of new model with indexes already defined.",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_create_model_with_indexes"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Adding a m2m with a through model and the models that use it should be",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_create_with_through_model"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Two instances which deconstruct to the same value aren't considered a",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_custom_deconstructible"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Tests custom naming of migrations for graph matching.",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_custom_migration_name"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Field instances are handled correctly by nested deconstruction.",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_deconstruct_field_kwarg"
+      },
+      {
+        "side": "p2p",
+        "docstring": "#22951 -- Uninstantiated classes with deconstruct are correctly returned",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_deconstruct_type"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Nested deconstruction descends into dict values.",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_deconstructible_dict"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Nested deconstruction descends into lists.",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_deconstructible_list"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Nested deconstruction descends into tuples.",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_deconstructible_tuple"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Empty unique_together shouldn't generate a migration.",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_empty_unique_together"
+      },
+      {
+        "side": "p2p",
+        "docstring": "A dependency to an app with no migrations uses __first__.",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_first_dependency"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Having a ForeignKey automatically adds a dependency.",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_fk_dependency"
+      },
+      {
+        "side": "p2p",
+        "docstring": "#23100 - ForeignKeys correctly depend on other apps' models.",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_fk_dependency_other_app"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Removing an FK and the model it targets in the same change must remove",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_foreign_key_removed_before_target_model"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Tests when model changes but db_table stays as-is, autodetector must not",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_keep_db_table_with_model_change"
+      },
+      {
+        "side": "p2p",
+        "docstring": "A dependency to an app with existing migrations uses the",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_last_dependency"
+      },
+      {
+        "side": "p2p",
+        "docstring": "A model with a m2m field that specifies a \"through\" model cannot be",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_m2m_w_through_multistep_remove"
+      },
+      {
+        "side": "p2p",
+        "docstring": "#23938 - Changing a ManyToManyField into a concrete field",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_many_to_many_changed_to_concrete_field"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Removing a ManyToManyField and the \"through\" model in the same change",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_many_to_many_removed_before_through_model"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Removing a model that contains a ManyToManyField and the \"through\" model",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_many_to_many_removed_before_through_model_2"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Inheriting models doesn't move *_ptr fields into AddField operations.",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_multiple_bases"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Nested deconstruction is applied recursively to the args/kwargs of",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_nested_deconstructible_objects"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Tests autodetection of new models.",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_new_model"
+      },
+      {
+        "side": "p2p",
+        "docstring": "If two models with a ForeignKey from one to the other are removed at the",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_non_circular_foreignkey_dependency_removal"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Tests deletion of old models.",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_old_model"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Test change detection of reordering of fields in indexes.",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_order_fields_indexes"
+      },
+      {
+        "side": "p2p",
+        "docstring": "A relation used as the primary key is kept as part of CreateModel.",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_pk_fk_included"
+      },
+      {
+        "side": "p2p",
+        "docstring": "The autodetector correctly deals with proxy models.",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_proxy"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Bases of proxies come first.",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_proxy_bases_first"
+      },
+      {
+        "side": "p2p",
+        "docstring": "#23415 - The autodetector must correctly deal with custom FK on proxy",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_proxy_custom_pk"
+      },
+      {
+        "side": "p2p",
+        "docstring": "FK dependencies still work on proxy models.",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_proxy_fk_dependency"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Removing order_with_respect_to when removing the FK too does",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_remove_alter_order_with_respect_to"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Test change detection of removed constraints.",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_remove_constraints"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Tests autodetection of removed fields.",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_remove_field"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Removed fields will be removed after updating unique_together.",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_remove_field_and_unique_together"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Test change detection of removed indexes.",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_remove_indexes"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Tests autodetection of renamed fields.",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_rename_field"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Fields are renamed before updating unique_together.",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_rename_field_and_unique_together"
+      },
+      {
+        "side": "p2p",
+        "docstring": "RenameField is used if a field is renamed and db_column equal to the",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_rename_field_preserved_db_column"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Tests autodetection of renamed models that are used in M2M relations as",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_rename_m2m_through_model"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Tests autodetection of renamed models.",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_rename_model"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Model name is case-insensitive. Changing case doesn't lead to any",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_rename_model_case"
+      },
+      {
+        "side": "p2p",
+        "docstring": "The migration to rename a model pointed to by a foreign key in another",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_rename_model_reverse_relation_dependencies"
+      },
+      {
+        "side": "p2p",
+        "docstring": "#24537 - The order of fields in a model does not influence",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_rename_model_with_fks_in_different_position"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Tests autodetection of renamed models while simultaneously renaming one",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_rename_model_with_renamed_rel_field"
+      },
+      {
+        "side": "p2p",
+        "docstring": "#22300 - Adding an FK in the same \"spot\" as a deleted CharField should",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_replace_string_with_foreignkey"
+      },
+      {
+        "side": "p2p",
+        "docstring": "A migration with a FK between two models of the same app does",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_same_app_circular_fk_dependency"
+      },
+      {
+        "side": "p2p",
+        "docstring": "#22275 - A migration with circular FK dependency does not try",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_same_app_circular_fk_dependency_with_unique_together_and_indexes"
+      },
+      {
+        "side": "p2p",
+        "docstring": "A migration with a FK between two models of the same app",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_same_app_no_fk_dependency"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Setting order_with_respect_to adds a field.",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_set_alter_order_with_respect_to"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Trim does not remove dependencies but does remove unwanted apps.",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_trim_apps"
+      },
+      {
+        "side": "p2p",
+        "docstring": "unique_together doesn't generate a migration if no",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_unique_together_no_changes"
+      },
+      {
+        "side": "p2p",
+        "docstring": "unique_together also triggers on ordering changes.",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_unique_together_ordering"
+      },
+      {
+        "side": "p2p",
+        "docstring": "Tests unique_together and field removal detection & ordering",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_unique_together_remove_fk"
+      },
+      {
+        "side": "p2p",
+        "docstring": "The autodetector correctly deals with managed models.",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_unmanaged_create"
+      },
+      {
+        "side": "p2p",
+        "docstring": "#23415 - The autodetector must correctly deal with custom FK on",
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_unmanaged_custom_pk"
+      }
+    ]
+  },
+  "sklearn_import": null
+}

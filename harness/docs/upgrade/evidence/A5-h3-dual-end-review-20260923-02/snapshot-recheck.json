@@ -1,0 +1,169 @@
+{
+  "schema": "a5.h3-snapshot-recheck.v1",
+  "snapshot_path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-real240-77-harness-preflight\\memory-snapshot.jsonl",
+  "snapshot_sha256": "1ab4f6cd9b0ae8a90658b4cf90058f72d7fdc7750f13122b9bbb9fbee10be780",
+  "expected_snapshot_sha256": "1ab4f6cd9b0ae8a90658b4cf90058f72d7fdc7750f13122b9bbb9fbee10be780",
+  "snapshot_hash_match": true,
+  "manifest_path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-real240-77-harness-preflight\\memory-snapshot-manifest.json",
+  "manifest_sha256": "3d39442ea01ee26322cbe2b25465c7f752a96bf5bccb5b81ea96dca9053fcc52",
+  "expected_manifest_sha256": "3d39442ea01ee26322cbe2b25465c7f752a96bf5bccb5b81ea96dca9053fcc52",
+  "manifest_hash_match": true,
+  "record_count": 11,
+  "manifest_record_count": 11,
+  "unique_source_ids": 11,
+  "line_checks": [
+    {
+      "source_id": "django__django-10914",
+      "expected": "86b4fa651c22286ff8ed00a3ddeb9de40e4e1a7eccc244e43709cf0f17939617",
+      "actual": "86b4fa651c22286ff8ed00a3ddeb9de40e4e1a7eccc244e43709cf0f17939617",
+      "match": true
+    },
+    {
+      "source_id": "django__django-10924",
+      "expected": "d5311efba3a48af1595bf0919ba5e4498aca6d38097d0b27475f7c52ed0b5f0d",
+      "actual": "d5311efba3a48af1595bf0919ba5e4498aca6d38097d0b27475f7c52ed0b5f0d",
+      "match": true
+    },
+    {
+      "source_id": "sympy__sympy-11400",
+      "expected": "819b7d54555260654b4d2fdb0e1927fe6eaeb2b1209bbd9159e09ff6cd19fe24",
+      "actual": "819b7d54555260654b4d2fdb0e1927fe6eaeb2b1209bbd9159e09ff6cd19fe24",
+      "match": true
+    },
+    {
+      "source_id": "scikit-learn__scikit-learn-10297",
+      "expected": "dd469099602d8ca2b8877905527a25da46fdf1faaf7e470d5a7d7df143275fe5",
+      "actual": "dd469099602d8ca2b8877905527a25da46fdf1faaf7e470d5a7d7df143275fe5",
+      "match": true
+    },
+    {
+      "source_id": "pytest-dev__pytest-5103",
+      "expected": "ae7cf29610cbf30a592218fd199fa868fd9994cfdc72bb94a0693b9d2f782e43",
+      "actual": "ae7cf29610cbf30a592218fd199fa868fd9994cfdc72bb94a0693b9d2f782e43",
+      "match": true
+    },
+    {
+      "source_id": "django__django-11039",
+      "expected": "d991858e22cebe520f6e7f8481036692a89f49ec236fb44df92dd1d0e1140df0",
+      "actual": "d991858e22cebe520f6e7f8481036692a89f49ec236fb44df92dd1d0e1140df0",
+      "match": true
+    },
+    {
+      "source_id": "sympy__sympy-12171",
+      "expected": "33384a79a6e73d1f06456947aae1f025cbed3d1fd3d6fbdaa43fa98718fb62dc",
+      "actual": "33384a79a6e73d1f06456947aae1f025cbed3d1fd3d6fbdaa43fa98718fb62dc",
+      "match": true
+    },
+    {
+      "source_id": "scikit-learn__scikit-learn-10949",
+      "expected": "50a668566eb7905491fae243b25d65b983a51edd28ccbd7f053aef7514168647",
+      "actual": "50a668566eb7905491fae243b25d65b983a51edd28ccbd7f053aef7514168647",
+      "match": true
+    },
+    {
+      "source_id": "scikit-learn__scikit-learn-11040",
+      "expected": "c78c61ee4f2a15297e02955d4cef6f2505434f24ec605b552893f85a5b5ecd42",
+      "actual": "c78c61ee4f2a15297e02955d4cef6f2505434f24ec605b552893f85a5b5ecd42",
+      "match": true
+    },
+    {
+      "source_id": "pytest-dev__pytest-5221",
+      "expected": "2f438ff4ba1f7f68d1ecf9c936b1fcbd1f6d449e12830ee5932f2195d04d3e3f",
+      "actual": "2f438ff4ba1f7f68d1ecf9c936b1fcbd1f6d449e12830ee5932f2195d04d3e3f",
+      "match": true
+    },
+    {
+      "source_id": "scikit-learn__scikit-learn-11281",
+      "expected": "615c8419f2955ee7a15d68ddecc1487db0150aa5389a9e9071988ae0e91abc3c",
+      "actual": "615c8419f2955ee7a15d68ddecc1487db0150aa5389a9e9071988ae0e91abc3c",
+      "match": true
+    }
+  ],
+  "all_pending_validator_reconstruction": true,
+  "internal_validated_count": 0,
+  "promotion_permitted": false,
+  "pass": true,
+  "agent_projection": {
+    "schema": "a5.agent-lightweight-snapshot-binding.v1",
+    "status": "pending_validator_reconstruction",
+    "snapshot": {
+      "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-real240-77-harness-preflight\\memory-snapshot.jsonl",
+      "sha256": "1ab4f6cd9b0ae8a90658b4cf90058f72d7fdc7750f13122b9bbb9fbee10be780"
+    },
+    "manifest": {
+      "path": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-real240-77-harness-preflight\\memory-snapshot-manifest.json",
+      "sha256": "3d39442ea01ee26322cbe2b25465c7f752a96bf5bccb5b81ea96dca9053fcc52"
+    },
+    "record_count": 11,
+    "internal_validated_count": 0,
+    "promotion_permitted": false,
+    "records": [
+      {
+        "source_id": "django__django-10914",
+        "line_sha256": "86b4fa651c22286ff8ed00a3ddeb9de40e4e1a7eccc244e43709cf0f17939617",
+        "snapshot_hash": "1ab4f6cd9b0ae8a90658b4cf90058f72d7fdc7750f13122b9bbb9fbee10be780",
+        "status": "pending_validator_reconstruction"
+      },
+      {
+        "source_id": "django__django-10924",
+        "line_sha256": "d5311efba3a48af1595bf0919ba5e4498aca6d38097d0b27475f7c52ed0b5f0d",
+        "snapshot_hash": "1ab4f6cd9b0ae8a90658b4cf90058f72d7fdc7750f13122b9bbb9fbee10be780",
+        "status": "pending_validator_reconstruction"
+      },
+      {
+        "source_id": "sympy__sympy-11400",
+        "line_sha256": "819b7d54555260654b4d2fdb0e1927fe6eaeb2b1209bbd9159e09ff6cd19fe24",
+        "snapshot_hash": "1ab4f6cd9b0ae8a90658b4cf90058f72d7fdc7750f13122b9bbb9fbee10be780",
+        "status": "pending_validator_reconstruction"
+      },
+      {
+        "source_id": "scikit-learn__scikit-learn-10297",
+        "line_sha256": "dd469099602d8ca2b8877905527a25da46fdf1faaf7e470d5a7d7df143275fe5",
+        "snapshot_hash": "1ab4f6cd9b0ae8a90658b4cf90058f72d7fdc7750f13122b9bbb9fbee10be780",
+        "status": "pending_validator_reconstruction"
+      },
+      {
+        "source_id": "pytest-dev__pytest-5103",
+        "line_sha256": "ae7cf29610cbf30a592218fd199fa868fd9994cfdc72bb94a0693b9d2f782e43",
+        "snapshot_hash": "1ab4f6cd9b0ae8a90658b4cf90058f72d7fdc7750f13122b9bbb9fbee10be780",
+        "status": "pending_validator_reconstruction"
+      },
+      {
+        "source_id": "django__django-11039",
+        "line_sha256": "d991858e22cebe520f6e7f8481036692a89f49ec236fb44df92dd1d0e1140df0",
+        "snapshot_hash": "1ab4f6cd9b0ae8a90658b4cf90058f72d7fdc7750f13122b9bbb9fbee10be780",
+        "status": "pending_validator_reconstruction"
+      },
+      {
+        "source_id": "sympy__sympy-12171",
+        "line_sha256": "33384a79a6e73d1f06456947aae1f025cbed3d1fd3d6fbdaa43fa98718fb62dc",
+        "snapshot_hash": "1ab4f6cd9b0ae8a90658b4cf90058f72d7fdc7750f13122b9bbb9fbee10be780",
+        "status": "pending_validator_reconstruction"
+      },
+      {
+        "source_id": "scikit-learn__scikit-learn-10949",
+        "line_sha256": "50a668566eb7905491fae243b25d65b983a51edd28ccbd7f053aef7514168647",
+        "snapshot_hash": "1ab4f6cd9b0ae8a90658b4cf90058f72d7fdc7750f13122b9bbb9fbee10be780",
+        "status": "pending_validator_reconstruction"
+      },
+      {
+        "source_id": "scikit-learn__scikit-learn-11040",
+        "line_sha256": "c78c61ee4f2a15297e02955d4cef6f2505434f24ec605b552893f85a5b5ecd42",
+        "snapshot_hash": "1ab4f6cd9b0ae8a90658b4cf90058f72d7fdc7750f13122b9bbb9fbee10be780",
+        "status": "pending_validator_reconstruction"
+      },
+      {
+        "source_id": "pytest-dev__pytest-5221",
+        "line_sha256": "2f438ff4ba1f7f68d1ecf9c936b1fcbd1f6d449e12830ee5932f2195d04d3e3f",
+        "snapshot_hash": "1ab4f6cd9b0ae8a90658b4cf90058f72d7fdc7750f13122b9bbb9fbee10be780",
+        "status": "pending_validator_reconstruction"
+      },
+      {
+        "source_id": "scikit-learn__scikit-learn-11281",
+        "line_sha256": "615c8419f2955ee7a15d68ddecc1487db0150aa5389a9e9071988ae0e91abc3c",
+        "snapshot_hash": "1ab4f6cd9b0ae8a90658b4cf90058f72d7fdc7750f13122b9bbb9fbee10be780",
+        "status": "pending_validator_reconstruction"
+      }
+    ]
+  }
+}

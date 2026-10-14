@@ -1,0 +1,30 @@
+[project]
+name = "coding-harness"
+version = "0.1.0"
+description = "Controllable Coding Agent Runtime with integrated Eval Harness"
+requires-python = ">=3.11"
+dependencies = [
+    "httpx>=0.27.0",
+    "pyyaml>=6.0",
+    "pydantic>=2.0",
+    "jsonschema>=4.23,<5",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.24",
+    "pytest-cov>=5.0",
+]
+
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+norecursedirs = ["tests/fixtures/repos"]
+markers = [
+    "asyncio: marks async tests that require pytest-asyncio",
+]

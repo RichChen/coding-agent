@@ -1,0 +1,157 @@
+{
+  "schema": "a5.pilot-fixture.fail-closed.v1",
+  "fixture_only": true,
+  "model_calls": 0,
+  "paid": false,
+  "real_240_started": false,
+  "generated_at": "2026-09-22T00:00:00+00:00",
+  "cases": [
+    {
+      "name": "B0_happy",
+      "valid": true,
+      "errors": [],
+      "imported": true,
+      "import_error": null,
+      "expect_error": null,
+      "ok": true
+    },
+    {
+      "name": "B1_happy",
+      "valid": true,
+      "errors": [],
+      "imported": true,
+      "import_error": null,
+      "expect_error": null,
+      "ok": true
+    },
+    {
+      "name": "B2_happy",
+      "valid": true,
+      "errors": [],
+      "imported": true,
+      "import_error": null,
+      "expect_error": null,
+      "ok": true
+    },
+    {
+      "name": "B3_happy",
+      "valid": true,
+      "errors": [],
+      "imported": true,
+      "import_error": null,
+      "expect_error": null,
+      "ok": true
+    },
+    {
+      "name": "B0_has_injection",
+      "valid": false,
+      "errors": [
+        "B0_must_have_no_injection"
+      ],
+      "imported": false,
+      "import_error": "invalid A5 pilot receipt: B0_must_have_no_injection",
+      "expect_error": "B0_must_have_no_injection",
+      "ok": true
+    },
+    {
+      "name": "B1_missing_injection",
+      "valid": false,
+      "errors": [
+        "injection_missing"
+      ],
+      "imported": false,
+      "import_error": "invalid A5 pilot receipt: injection_missing",
+      "expect_error": "injection_missing",
+      "ok": true
+    },
+    {
+      "name": "B2_injection_missing_hash",
+      "valid": false,
+      "errors": [
+        "injection_binding"
+      ],
+      "imported": false,
+      "import_error": "invalid A5 pilot receipt: injection_binding",
+      "expect_error": "injection_binding",
+      "ok": true
+    },
+    {
+      "name": "assignment_mismatch",
+      "valid": false,
+      "errors": [
+        "assignment_mismatch"
+      ],
+      "imported": false,
+      "import_error": "invalid A5 pilot receipt: assignment_mismatch",
+      "expect_error": "assignment_mismatch",
+      "ok": true
+    },
+    {
+      "name": "snapshot_drift",
+      "valid": false,
+      "errors": [
+        "snapshot_drift"
+      ],
+      "imported": false,
+      "import_error": "invalid A5 pilot receipt: snapshot_drift",
+      "expect_error": "snapshot_drift",
+      "ok": true
+    },
+    {
+      "name": "duplicate_attempt",
+      "valid": false,
+      "errors": [
+        "duplicate_attempt"
+      ],
+      "imported": false,
+      "import_error": "invalid A5 pilot receipt: duplicate_attempt",
+      "expect_error": "duplicate_attempt",
+      "ok": true
+    },
+    {
+      "name": "unknown_usage",
+      "valid": false,
+      "errors": [
+        "unknown_usage_must_keep_reserve"
+      ],
+      "imported": false,
+      "import_error": "invalid A5 pilot receipt: unknown_usage_must_keep_reserve",
+      "expect_error": "unknown_usage_must_keep_reserve",
+      "ok": true
+    },
+    {
+      "name": "missing_grader_receipt",
+      "valid": false,
+      "errors": [
+        "grader_receipt_missing"
+      ],
+      "imported": false,
+      "import_error": "invalid A5 pilot receipt: grader_receipt_missing",
+      "expect_error": "grader_receipt_missing",
+      "ok": true
+    },
+    {
+      "name": "cleanup_false",
+      "valid": false,
+      "errors": [
+        "cleanup_false"
+      ],
+      "imported": false,
+      "import_error": "invalid A5 pilot receipt: cleanup_false",
+      "expect_error": "cleanup_false",
+      "ok": true
+    },
+    {
+      "name": "fixture_cannot_be_paid",
+      "valid": false,
+      "errors": [
+        "fixture_paid"
+      ],
+      "imported": false,
+      "import_error": "invalid A5 pilot receipt: fixture_paid",
+      "expect_error": "fixture_paid",
+      "ok": true
+    }
+  ],
+  "all_ok": true
+}

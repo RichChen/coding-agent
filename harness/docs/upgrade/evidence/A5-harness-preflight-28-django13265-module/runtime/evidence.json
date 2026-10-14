@@ -1,0 +1,1175 @@
+{
+  "image": "coding-harness-a5-baseline@sha256:1345f16620bd0ca13a9c07a606fadbfc4a310c3903b2a260a6ceff59a164b190",
+  "args": [
+    "migrations.test_autodetector"
+  ],
+  "status": "executed",
+  "model_calls": 0,
+  "paid": false,
+  "isolation": {
+    "Id": "ffcff5a94e819570f57d737d121b0fe582ed1b940795f54827b99a85b0c9acfc",
+    "Created": "2026-09-21T17:52:50.48653098Z",
+    "Path": "/usr/local/bin/python",
+    "Args": [
+      "-I",
+      "-S",
+      "-c",
+      "import time; time.sleep(604800)"
+    ],
+    "State": {
+      "Status": "running",
+      "Running": true,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 93061,
+      "ExitCode": 0,
+      "Error": "",
+      "StartedAt": "2026-09-21T17:52:50.630316999Z",
+      "FinishedAt": "0001-01-01T00:00:00Z"
+    },
+    "Image": "sha256:1345f16620bd0ca13a9c07a606fadbfc4a310c3903b2a260a6ceff59a164b190",
+    "ResolvConfPath": "/var/lib/docker/containers/ffcff5a94e819570f57d737d121b0fe582ed1b940795f54827b99a85b0c9acfc/resolv.conf",
+    "HostnamePath": "/var/lib/docker/containers/ffcff5a94e819570f57d737d121b0fe582ed1b940795f54827b99a85b0c9acfc/hostname",
+    "HostsPath": "/var/lib/docker/containers/ffcff5a94e819570f57d737d121b0fe582ed1b940795f54827b99a85b0c9acfc/hosts",
+    "LogPath": "",
+    "Name": "/h3-1ca0e65110964e949d2d6197fdddd7fa",
+    "RestartCount": 0,
+    "Driver": "overlayfs",
+    "Platform": "linux",
+    "MountLabel": "",
+    "ProcessLabel": "",
+    "AppArmorProfile": "",
+    "ExecIDs": null,
+    "HostConfig": {
+      "Binds": null,
+      "ContainerIDFile": "",
+      "LogConfig": {
+        "Type": "none",
+        "Config": {}
+      },
+      "NetworkMode": "none",
+      "PortBindings": {},
+      "RestartPolicy": {
+        "Name": "no",
+        "MaximumRetryCount": 0
+      },
+      "AutoRemove": false,
+      "VolumeDriver": "",
+      "VolumesFrom": null,
+      "ConsoleSize": [
+        0,
+        0
+      ],
+      "CapAdd": null,
+      "CapDrop": [
+        "ALL"
+      ],
+      "CgroupnsMode": "private",
+      "Dns": null,
+      "DnsOptions": [],
+      "DnsSearch": [],
+      "ExtraHosts": null,
+      "GroupAdd": null,
+      "IpcMode": "private",
+      "Cgroup": "",
+      "Links": null,
+      "OomScoreAdj": 0,
+      "PidMode": "",
+      "Privileged": false,
+      "PublishAllPorts": false,
+      "ReadonlyRootfs": true,
+      "SecurityOpt": [
+        "no-new-privileges:true"
+      ],
+      "Tmpfs": {
+        "/tmp": "rw,noexec,nosuid,nodev,size=536870912,mode=1777",
+        "/workspace": "rw,nosuid,nodev,size=536870912,mode=1777"
+      },
+      "UTSMode": "",
+      "UsernsMode": "",
+      "ShmSize": 67108864,
+      "Runtime": "runc",
+      "Isolation": "",
+      "CpuShares": 0,
+      "Memory": 2147483648,
+      "NanoCpus": 1000000000,
+      "CgroupParent": "",
+      "BlkioWeight": 0,
+      "BlkioWeightDevice": [],
+      "BlkioDeviceReadBps": [],
+      "BlkioDeviceWriteBps": [],
+      "BlkioDeviceReadIOps": [],
+      "BlkioDeviceWriteIOps": [],
+      "CpuPeriod": 0,
+      "CpuQuota": 0,
+      "CpuRealtimePeriod": 0,
+      "CpuRealtimeRuntime": 0,
+      "CpusetCpus": "",
+      "CpusetMems": "",
+      "Devices": [],
+      "DeviceCgroupRules": null,
+      "DeviceRequests": null,
+      "MemoryReservation": 0,
+      "MemorySwap": 2147483648,
+      "MemorySwappiness": null,
+      "OomKillDisable": null,
+      "PidsLimit": 128,
+      "Ulimits": null,
+      "CpuCount": 0,
+      "CpuPercent": 0,
+      "IOMaximumIOps": 0,
+      "IOMaximumBandwidth": 0,
+      "MaskedPaths": [
+        "/proc/acpi",
+        "/proc/asound",
+        "/proc/interrupts",
+        "/proc/kcore",
+        "/proc/keys",
+        "/proc/latency_stats",
+        "/proc/sched_debug",
+        "/proc/scsi",
+        "/proc/timer_list",
+        "/proc/timer_stats",
+        "/sys/devices/virtual/powercap",
+        "/sys/firmware"
+      ],
+      "ReadonlyPaths": [
+        "/proc/bus",
+        "/proc/fs",
+        "/proc/irq",
+        "/proc/sys",
+        "/proc/sysrq-trigger"
+      ]
+    },
+    "Storage": {
+      "RootFS": {
+        "Snapshot": {
+          "Name": "overlayfs"
+        }
+      }
+    },
+    "Mounts": [],
+    "Config": {
+      "Hostname": "ffcff5a94e81",
+      "Domainname": "",
+      "User": "1000:1000",
+      "AttachStdin": false,
+      "AttachStdout": true,
+      "AttachStderr": true,
+      "Tty": false,
+      "OpenStdin": false,
+      "StdinOnce": false,
+      "Env": [
+        "PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+        "LANG=C.UTF-8",
+        "GPG_KEY=E3FF2839C048B25C084DEBE9B26995E310250568",
+        "PYTHON_VERSION=3.9.19",
+        "PYTHON_PIP_VERSION=23.0.1",
+        "PYTHON_SETUPTOOLS_VERSION=58.1.0",
+        "PYTHON_GET_PIP_URL=https://github.com/pypa/get-pip/raw/def4aec84b261b939137dd1c69eff0aabb4a7bf4/public/get-pip.py",
+        "PYTHON_GET_PIP_SHA256=bc37786ec99618416cc0a0ca32833da447f4d91ab51d2c138dd15b7af21e8e9a",
+        "PYTHONDONTWRITEBYTECODE=1",
+        "PYTEST_DISABLE_PLUGIN_AUTOLOAD=1",
+        "PYTHONPATH=/workspace:/workspace/src"
+      ],
+      "Cmd": [
+        "-I",
+        "-S",
+        "-c",
+        "import time; time.sleep(604800)"
+      ],
+      "Image": "coding-harness-a5-baseline@sha256:1345f16620bd0ca13a9c07a606fadbfc4a310c3903b2a260a6ceff59a164b190",
+      "Volumes": null,
+      "WorkingDir": "/workspace",
+      "Entrypoint": [
+        "/usr/local/bin/python"
+      ],
+      "Labels": {
+        "coding-harness.h3": "true"
+      }
+    },
+    "NetworkSettings": {
+      "SandboxID": "edf20b330746732a03df1494eab353f91ca279549b1362835f5d1852bdf9e2c2",
+      "SandboxKey": "/var/run/docker/netns/edf20b330746",
+      "Ports": {},
+      "Networks": {
+        "none": {
+          "IPAMConfig": null,
+          "Links": null,
+          "Aliases": null,
+          "DriverOpts": null,
+          "GwPriority": 0,
+          "NetworkID": "0578bece0afec6e9438c77cd1e9e80cf5e90a1209d171f5f2bea58f58ec4d45d",
+          "EndpointID": "915f9b408aa76ddf0d6be1905d9255813c311d56f0920715e07d78e4f1b40ce0",
+          "Gateway": "",
+          "IPAddress": "",
+          "MacAddress": "",
+          "IPPrefixLen": 0,
+          "IPv6Gateway": "",
+          "GlobalIPv6Address": "",
+          "GlobalIPv6PrefixLen": 0,
+          "DNSNames": null
+        }
+      }
+    },
+    "ImageManifestDescriptor": {
+      "mediaType": "application/vnd.oci.image.manifest.v1+json",
+      "digest": "sha256:9ce18a9553a6a77ca09f22eea4f11527c96ee26c7154751faecc217dcc46ee7a",
+      "size": 3341,
+      "platform": {
+        "architecture": "amd64",
+        "os": "linux"
+      }
+    }
+  },
+  "execution": {
+    "status": "failed",
+    "exit_code": 1,
+    "error_kind": "nonzero_exit",
+    "stdout": "Testing against Django installed in '/workspace/django'\nSystem check identified no issues (0 silenced).\n",
+    "stderr": "Creating test database for alias 'default'...\n............................................................................................................................\n======================================================================\nFAIL: test_add_model_order_with_respect_to_index_constraint (migrations.test_autodetector.AutodetectorTests) (operation='AddIndex')\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/workspace/tests/migrations/test_autodetector.py\", line 2212, in test_add_model_order_with_respect_to_index_constraint\n    self.assertOperationTypes(changes, 'testapp', 0, [\n  File \"/workspace/tests/migrations/test_autodetector.py\", line 513, in assertOperationTypes\n    self.fail(\"Operation type mismatch for %s.%s (expected %s):\\n%s\" % (\nAssertionError: Operation type mismatch for testapp.auto_1 (expected ['CreateModel', 'AddIndex']):\n  otherapp:\n    auto_1\n      <CreateModel  name='Book', fields=[('id', <django.db.models.fields.AutoField>), ('title', <django.db.models.fields.CharField>)], options={}, bases=(<class 'django.db.models.base.Model'>,), managers=[]>\n    auto_2\n      <AddField  model_name='book', name='author', field=<django.db.models.fields.related.ForeignKey: author>>\n  testapp:\n    auto_1\n      <CreateModel 'Author' fields=[('id', <django.db.models.fields.AutoField>), ('name', <django.db.models.fields.CharField>), ('book', <django.db.models.fields.related.ForeignKey: book>)], options={}, bases=(<class 'django.db.models.base.Model'>,), managers=[]>\n      <AddIndex  model_name='author', index=<Index: fields='_order'>>\n      <AlterOrderWithRespectTo  name='author', order_with_respect_to='book'>\n\n\n======================================================================\nFAIL: test_add_model_order_with_respect_to_index_constraint (migrations.test_autodetector.AutodetectorTests) (operation='AddConstraint')\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/workspace/tests/migrations/test_autodetector.py\", line 2212, in test_add_model_order_with_respect_to_index_constraint\n    self.assertOperationTypes(changes, 'testapp', 0, [\n  File \"/workspace/tests/migrations/test_autodetector.py\", line 513, in assertOperationTypes\n    self.fail(\"Operation type mismatch for %s.%s (expected %s):\\n%s\" % (\nAssertionError: Operation type mismatch for testapp.auto_1 (expected ['CreateModel', 'AddConstraint']):\n  otherapp:\n    auto_1\n      <CreateModel  name='Book', fields=[('id', <django.db.models.fields.AutoField>), ('title', <django.db.models.fields.CharField>)], options={}, bases=(<class 'django.db.models.base.Model'>,), managers=[]>\n    auto_2\n      <AddField  model_name='book', name='author', field=<django.db.models.fields.related.ForeignKey: author>>\n  testapp:\n    auto_1\n      <CreateModel 'Author' fields=[('id', <django.db.models.fields.AutoField>), ('name', <django.db.models.fields.CharField>), ('book', <django.db.models.fields.related.ForeignKey: book>)], options={}, bases=(<class 'django.db.models.base.Model'>,), managers=[]>\n      <AddConstraint  model_name='author', constraint=<CheckConstraint: check='(AND: ('_order__gt', 1))' name='book_order_gt_1'>>\n      <AlterOrderWithRespectTo  name='author', order_with_respect_to='book'>\n\n\n======================================================================\nFAIL: test_set_alter_order_with_respect_to_index_constraint_foo_together (migrations.test_autodetector.AutodetectorTests) (operation='AddIndex')\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/workspace/tests/migrations/test_autodetector.py\", line 2259, in test_set_alter_order_with_respect_to_index_constraint_foo_together\n    self.assertOperationTypes(changes, 'testapp', 0, [\n  File \"/workspace/tests/migrations/test_autodetector.py\", line 513, in assertOperationTypes\n    self.fail(\"Operation type mismatch for %s.%s (expected %s):\\n%s\" % (\nAssertionError: Operation type mismatch for testapp.auto_1 (expected ['AlterOrderWithRespectTo', 'AddIndex']):\n  testapp:\n    auto_1\n      <AddIndex  model_name='author', index=<Index: fields='_order'>>\n      <AlterOrderWithRespectTo  name='author', order_with_respect_to='book'>\n\n\n======================================================================\nFAIL: test_set_alter_order_with_respect_to_index_constraint_foo_together (migrations.test_autodetector.AutodetectorTests) (operation='AddConstraint')\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/workspace/tests/migrations/test_autodetector.py\", line 2259, in test_set_alter_order_with_respect_to_index_constraint_foo_together\n    self.assertOperationTypes(changes, 'testapp', 0, [\n  File \"/workspace/tests/migrations/test_autodetector.py\", line 513, in assertOperationTypes\n    self.fail(\"Operation type mismatch for %s.%s (expected %s):\\n%s\" % (\nAssertionError: Operation type mismatch for testapp.auto_1 (expected ['AlterOrderWithRespectTo', 'AddConstraint']):\n  testapp:\n    auto_1\n      <AddConstraint  model_name='author', constraint=<CheckConstraint: check='(AND: ('_order__gt', 1))' name='book_order_gt_1'>>\n      <AlterOrderWithRespectTo  name='author', order_with_respect_to='book'>\n\n\n======================================================================\nFAIL: test_set_alter_order_with_respect_to_index_constraint_foo_together (migrations.test_autodetector.AutodetectorTests) (operation='AlterIndexTogether')\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/workspace/tests/migrations/test_autodetector.py\", line 2259, in test_set_alter_order_with_respect_to_index_constraint_foo_together\n    self.assertOperationTypes(changes, 'testapp', 0, [\n  File \"/workspace/tests/migrations/test_autodetector.py\", line 513, in assertOperationTypes\n    self.fail(\"Operation type mismatch for %s.%s (expected %s):\\n%s\" % (\nAssertionError: Operation type mismatch for testapp.auto_1 (expected ['AlterOrderWithRespectTo', 'AlterIndexTogether']):\n  testapp:\n    auto_1\n      <AlterIndexTogether  name='author', index_together={('name', '_order')}>\n      <AlterOrderWithRespectTo  name='author', order_with_respect_to='book'>\n\n\n======================================================================\nFAIL: test_set_alter_order_with_respect_to_index_constraint_foo_together (migrations.test_autodetector.AutodetectorTests) (operation='AlterUniqueTogether')\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/workspace/tests/migrations/test_autodetector.py\", line 2259, in test_set_alter_order_with_respect_to_index_constraint_foo_together\n    self.assertOperationTypes(changes, 'testapp', 0, [\n  File \"/workspace/tests/migrations/test_autodetector.py\", line 513, in assertOperationTypes\n    self.fail(\"Operation type mismatch for %s.%s (expected %s):\\n%s\" % (\nAssertionError: Operation type mismatch for testapp.auto_1 (expected ['AlterOrderWithRespectTo', 'AlterUniqueTogether']):\n  testapp:\n    auto_1\n      <AlterUniqueTogether  name='author', unique_together={('id', '_order')}>\n      <AlterOrderWithRespectTo  name='author', order_with_respect_to='book'>\n\n\n----------------------------------------------------------------------\nRan 126 tests in 0.353s\n\nFAILED (failures=6)\nDestroying test database for alias 'default'...\n",
+    "truncated": false,
+    "duration_ms": 1412.0771000016248
+  },
+  "receipt": {
+    "schema": "a5.repo.django.receipt.v1",
+    "collected": [
+      "migrations.test_autodetector.AutodetectorTests.test_add_alter_order_with_respect_to",
+      "migrations.test_autodetector.AutodetectorTests.test_add_blank_textfield_and_charfield",
+      "migrations.test_autodetector.AutodetectorTests.test_add_constraints",
+      "migrations.test_autodetector.AutodetectorTests.test_add_date_fields_with_auto_now_add_asking_for_default",
+      "migrations.test_autodetector.AutodetectorTests.test_add_date_fields_with_auto_now_add_not_asking_for_null_addition",
+      "migrations.test_autodetector.AutodetectorTests.test_add_date_fields_with_auto_now_not_asking_for_default",
+      "migrations.test_autodetector.AutodetectorTests.test_add_field",
+      "migrations.test_autodetector.AutodetectorTests.test_add_field_and_foo_together",
+      "migrations.test_autodetector.AutodetectorTests.test_add_field_with_default",
+      "migrations.test_autodetector.AutodetectorTests.test_add_foo_together",
+      "migrations.test_autodetector.AutodetectorTests.test_add_indexes",
+      "migrations.test_autodetector.AutodetectorTests.test_add_many_to_many",
+      "migrations.test_autodetector.AutodetectorTests.test_add_model_order_with_respect_to",
+      "migrations.test_autodetector.AutodetectorTests.test_add_model_order_with_respect_to_index_constraint",
+      "migrations.test_autodetector.AutodetectorTests.test_add_model_order_with_respect_to_index_foo_together",
+      "migrations.test_autodetector.AutodetectorTests.test_add_model_with_field_removed_from_base_model",
+      "migrations.test_autodetector.AutodetectorTests.test_add_non_blank_textfield_and_charfield",
+      "migrations.test_autodetector.AutodetectorTests.test_alter_db_table_add",
+      "migrations.test_autodetector.AutodetectorTests.test_alter_db_table_change",
+      "migrations.test_autodetector.AutodetectorTests.test_alter_db_table_no_changes",
+      "migrations.test_autodetector.AutodetectorTests.test_alter_db_table_remove",
+      "migrations.test_autodetector.AutodetectorTests.test_alter_db_table_with_model_change",
+      "migrations.test_autodetector.AutodetectorTests.test_alter_field",
+      "migrations.test_autodetector.AutodetectorTests.test_alter_field_to_fk_dependency_other_app",
+      "migrations.test_autodetector.AutodetectorTests.test_alter_field_to_not_null_oneoff_default",
+      "migrations.test_autodetector.AutodetectorTests.test_alter_field_to_not_null_with_default",
+      "migrations.test_autodetector.AutodetectorTests.test_alter_field_to_not_null_without_default",
+      "migrations.test_autodetector.AutodetectorTests.test_alter_fk_before_model_deletion",
+      "migrations.test_autodetector.AutodetectorTests.test_alter_many_to_many",
+      "migrations.test_autodetector.AutodetectorTests.test_alter_model_managers",
+      "migrations.test_autodetector.AutodetectorTests.test_alter_model_options",
+      "migrations.test_autodetector.AutodetectorTests.test_alter_model_options_proxy",
+      "migrations.test_autodetector.AutodetectorTests.test_arrange_for_graph",
+      "migrations.test_autodetector.AutodetectorTests.test_arrange_for_graph_with_multiple_initial",
+      "migrations.test_autodetector.AutodetectorTests.test_bases_first",
+      "migrations.test_autodetector.AutodetectorTests.test_circular_dependency_mixed_addcreate",
+      "migrations.test_autodetector.AutodetectorTests.test_circular_dependency_swappable",
+      "migrations.test_autodetector.AutodetectorTests.test_circular_dependency_swappable2",
+      "migrations.test_autodetector.AutodetectorTests.test_circular_dependency_swappable_self",
+      "migrations.test_autodetector.AutodetectorTests.test_circular_fk_dependency",
+      "migrations.test_autodetector.AutodetectorTests.test_concrete_field_changed_to_many_to_many",
+      "migrations.test_autodetector.AutodetectorTests.test_create_model_and_unique_together",
+      "migrations.test_autodetector.AutodetectorTests.test_create_model_with_check_constraint",
+      "migrations.test_autodetector.AutodetectorTests.test_create_model_with_indexes",
+      "migrations.test_autodetector.AutodetectorTests.test_create_with_through_model",
+      "migrations.test_autodetector.AutodetectorTests.test_custom_deconstructible",
+      "migrations.test_autodetector.AutodetectorTests.test_custom_migration_name",
+      "migrations.test_autodetector.AutodetectorTests.test_deconstruct_field_kwarg",
+      "migrations.test_autodetector.AutodetectorTests.test_deconstruct_type",
+      "migrations.test_autodetector.AutodetectorTests.test_deconstructible_dict",
+      "migrations.test_autodetector.AutodetectorTests.test_deconstructible_list",
+      "migrations.test_autodetector.AutodetectorTests.test_deconstructible_tuple",
+      "migrations.test_autodetector.AutodetectorTests.test_default_related_name_option",
+      "migrations.test_autodetector.AutodetectorTests.test_different_regex_does_alter",
+      "migrations.test_autodetector.AutodetectorTests.test_empty_foo_together",
+      "migrations.test_autodetector.AutodetectorTests.test_first_dependency",
+      "migrations.test_autodetector.AutodetectorTests.test_fk_dependency",
+      "migrations.test_autodetector.AutodetectorTests.test_fk_dependency_other_app",
+      "migrations.test_autodetector.AutodetectorTests.test_foo_together_no_changes",
+      "migrations.test_autodetector.AutodetectorTests.test_foo_together_ordering",
+      "migrations.test_autodetector.AutodetectorTests.test_foo_together_remove_fk",
+      "migrations.test_autodetector.AutodetectorTests.test_foreign_key_removed_before_target_model",
+      "migrations.test_autodetector.AutodetectorTests.test_identical_regex_doesnt_alter",
+      "migrations.test_autodetector.AutodetectorTests.test_keep_db_table_with_model_change",
+      "migrations.test_autodetector.AutodetectorTests.test_last_dependency",
+      "migrations.test_autodetector.AutodetectorTests.test_m2m_w_through_multistep_remove",
+      "migrations.test_autodetector.AutodetectorTests.test_managed_to_unmanaged",
+      "migrations.test_autodetector.AutodetectorTests.test_many_to_many_changed_to_concrete_field",
+      "migrations.test_autodetector.AutodetectorTests.test_many_to_many_removed_before_through_model",
+      "migrations.test_autodetector.AutodetectorTests.test_many_to_many_removed_before_through_model_2",
+      "migrations.test_autodetector.AutodetectorTests.test_mti_inheritance_model_removal",
+      "migrations.test_autodetector.AutodetectorTests.test_multiple_bases",
+      "migrations.test_autodetector.AutodetectorTests.test_nested_deconstructible_objects",
+      "migrations.test_autodetector.AutodetectorTests.test_new_model",
+      "migrations.test_autodetector.AutodetectorTests.test_non_circular_foreignkey_dependency_removal",
+      "migrations.test_autodetector.AutodetectorTests.test_old_model",
+      "migrations.test_autodetector.AutodetectorTests.test_order_fields_indexes",
+      "migrations.test_autodetector.AutodetectorTests.test_pk_fk_included",
+      "migrations.test_autodetector.AutodetectorTests.test_proxy",
+      "migrations.test_autodetector.AutodetectorTests.test_proxy_bases_first",
+      "migrations.test_autodetector.AutodetectorTests.test_proxy_custom_pk",
+      "migrations.test_autodetector.AutodetectorTests.test_proxy_fk_dependency",
+      "migrations.test_autodetector.AutodetectorTests.test_proxy_to_mti_with_fk_to_proxy",
+      "migrations.test_autodetector.AutodetectorTests.test_proxy_to_mti_with_fk_to_proxy_proxy",
+      "migrations.test_autodetector.AutodetectorTests.test_remove_alter_order_with_respect_to",
+      "migrations.test_autodetector.AutodetectorTests.test_remove_constraints",
+      "migrations.test_autodetector.AutodetectorTests.test_remove_field",
+      "migrations.test_autodetector.AutodetectorTests.test_remove_field_and_foo_together",
+      "migrations.test_autodetector.AutodetectorTests.test_remove_foo_together",
+      "migrations.test_autodetector.AutodetectorTests.test_remove_indexes",
+      "migrations.test_autodetector.AutodetectorTests.test_rename_field",
+      "migrations.test_autodetector.AutodetectorTests.test_rename_field_and_foo_together",
+      "migrations.test_autodetector.AutodetectorTests.test_rename_field_foreign_key_to_field",
+      "migrations.test_autodetector.AutodetectorTests.test_rename_field_preserved_db_column",
+      "migrations.test_autodetector.AutodetectorTests.test_rename_foreign_object_fields",
+      "migrations.test_autodetector.AutodetectorTests.test_rename_m2m_through_model",
+      "migrations.test_autodetector.AutodetectorTests.test_rename_model",
+      "migrations.test_autodetector.AutodetectorTests.test_rename_model_case",
+      "migrations.test_autodetector.AutodetectorTests.test_rename_model_reverse_relation_dependencies",
+      "migrations.test_autodetector.AutodetectorTests.test_rename_model_with_fks_in_different_position",
+      "migrations.test_autodetector.AutodetectorTests.test_rename_model_with_renamed_rel_field",
+      "migrations.test_autodetector.AutodetectorTests.test_rename_referenced_primary_key",
+      "migrations.test_autodetector.AutodetectorTests.test_rename_related_field_preserved_db_column",
+      "migrations.test_autodetector.AutodetectorTests.test_replace_string_with_foreignkey",
+      "migrations.test_autodetector.AutodetectorTests.test_same_app_circular_fk_dependency",
+      "migrations.test_autodetector.AutodetectorTests.test_same_app_circular_fk_dependency_with_unique_together_and_indexes",
+      "migrations.test_autodetector.AutodetectorTests.test_same_app_no_fk_dependency",
+      "migrations.test_autodetector.AutodetectorTests.test_set_alter_order_with_respect_to",
+      "migrations.test_autodetector.AutodetectorTests.test_set_alter_order_with_respect_to_index_constraint_foo_together",
+      "migrations.test_autodetector.AutodetectorTests.test_supports_functools_partial",
+      "migrations.test_autodetector.AutodetectorTests.test_swappable",
+      "migrations.test_autodetector.AutodetectorTests.test_swappable_changed",
+      "migrations.test_autodetector.AutodetectorTests.test_swappable_circular_multi_mti",
+      "migrations.test_autodetector.AutodetectorTests.test_swappable_first_inheritance",
+      "migrations.test_autodetector.AutodetectorTests.test_swappable_first_setting",
+      "migrations.test_autodetector.AutodetectorTests.test_trim_apps",
+      "migrations.test_autodetector.AutodetectorTests.test_unmanaged_create",
+      "migrations.test_autodetector.AutodetectorTests.test_unmanaged_custom_pk",
+      "migrations.test_autodetector.AutodetectorTests.test_unmanaged_delete",
+      "migrations.test_autodetector.AutodetectorTests.test_unmanaged_to_managed",
+      "migrations.test_autodetector.MigrationSuggestNameTests.test_auto",
+      "migrations.test_autodetector.MigrationSuggestNameTests.test_none_name",
+      "migrations.test_autodetector.MigrationSuggestNameTests.test_none_name_with_initial_true",
+      "migrations.test_autodetector.MigrationSuggestNameTests.test_single_operation",
+      "migrations.test_autodetector.MigrationSuggestNameTests.test_two_create_models",
+      "migrations.test_autodetector.MigrationSuggestNameTests.test_two_create_models_with_initial_true"
+    ],
+    "reports": [
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_add_alter_order_with_respect_to",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_add_blank_textfield_and_charfield",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_add_constraints",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_add_date_fields_with_auto_now_add_asking_for_default",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_add_date_fields_with_auto_now_add_not_asking_for_null_addition",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_add_date_fields_with_auto_now_not_asking_for_default",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_add_field",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_add_field_and_foo_together",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_add_field_with_default",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_add_foo_together",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_add_indexes",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_add_many_to_many",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_add_model_order_with_respect_to",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_add_model_order_with_respect_to_index_constraint",
+        "when": "call",
+        "outcome": "failed",
+        "detail": "Traceback (most recent call last):\n  File \"/usr/local/lib/python3.9/unittest/case.py\", line 59, in testPartExecutor\n    yield\n  File \"/usr/local/lib/python3.9/unittest/case.py\", line 499, in subTest\n    yield\n  File \"/workspace/tests/migrations/test_autodetector.py\", line 2212, in test_add_model_order_with_respect_to_index_constraint\n    self.assertOperationTypes(changes, 'testapp', 0, [\n  File \"/workspace/tests/migrations/test_autodetector.py\", line 513, in assertOperationTypes\n    self.fail(\"Operation type mismatch for %s.%s (expected %s):\\n%s\" % (\n  File \"/usr/local/lib/python3.9/unittest/case.py\", line 676, in fail\n    raise self.failureException(msg)\nAssertionError: Operation type mismatch for testapp.auto_1 (expected ['CreateModel', 'AddIndex']):\n  otherapp:\n    auto_1\n      <CreateModel  name='Book', fields=[('id', <django.db.models.fields.AutoField>), ('title', <django.db.models.fields.CharField>)], options={}, bases=(<class 'django.db.models.base.Model'>,), managers=[]>\n    auto_2\n      <AddField  model_name='book', name='author', field=<django.db.models.fields.related.ForeignKey: author>>\n  testapp:\n    auto_1\n      <CreateModel 'Author' fields=[('id', <django.db.models.fields.AutoField>), ('name', <django.db.models.fields.CharField>), ('book', <django.db.models.fields.related.ForeignKey: book>)], options={}, bases=(<class 'django.db.models.base.Model'>,), managers=[]>\n      <AddIndex  model_name='author', index=<Index: fields='_order'>>\n      <AlterOrderWithRespectTo  name='author', order_with_respect_to='book'>\n\n"
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_add_model_order_with_respect_to_index_constraint",
+        "when": "call",
+        "outcome": "failed",
+        "detail": "Traceback (most recent call last):\n  File \"/usr/local/lib/python3.9/unittest/case.py\", line 59, in testPartExecutor\n    yield\n  File \"/usr/local/lib/python3.9/unittest/case.py\", line 499, in subTest\n    yield\n  File \"/workspace/tests/migrations/test_autodetector.py\", line 2212, in test_add_model_order_with_respect_to_index_constraint\n    self.assertOperationTypes(changes, 'testapp', 0, [\n  File \"/workspace/tests/migrations/test_autodetector.py\", line 513, in assertOperationTypes\n    self.fail(\"Operation type mismatch for %s.%s (expected %s):\\n%s\" % (\n  File \"/usr/local/lib/python3.9/unittest/case.py\", line 676, in fail\n    raise self.failureException(msg)\nAssertionError: Operation type mismatch for testapp.auto_1 (expected ['CreateModel', 'AddConstraint']):\n  otherapp:\n    auto_1\n      <CreateModel  name='Book', fields=[('id', <django.db.models.fields.AutoField>), ('title', <django.db.models.fields.CharField>)], options={}, bases=(<class 'django.db.models.base.Model'>,), managers=[]>\n    auto_2\n      <AddField  model_name='book', name='author', field=<django.db.models.fields.related.ForeignKey: author>>\n  testapp:\n    auto_1\n      <CreateModel 'Author' fields=[('id', <django.db.models.fields.AutoField>), ('name', <django.db.models.fields.CharField>), ('book', <django.db.models.fields.related.ForeignKey: book>)], options={}, bases=(<class 'django.db.models.base.Model'>,), managers=[]>\n      <AddConstraint  model_name='author', constraint=<CheckConstraint: check='(AND: ('_order__gt', 1))' name='book_order_gt_1'>>\n      <AlterOrderWithRespectTo  name='author', order_with_respect_to='book'>\n\n"
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_add_model_order_with_respect_to_index_foo_together",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_add_model_with_field_removed_from_base_model",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_add_non_blank_textfield_and_charfield",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_alter_db_table_add",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_alter_db_table_change",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_alter_db_table_no_changes",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_alter_db_table_remove",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_alter_db_table_with_model_change",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_alter_field",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_alter_field_to_fk_dependency_other_app",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_alter_field_to_not_null_oneoff_default",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_alter_field_to_not_null_with_default",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_alter_field_to_not_null_without_default",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_alter_fk_before_model_deletion",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_alter_many_to_many",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_alter_model_managers",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_alter_model_options",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_alter_model_options_proxy",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_arrange_for_graph",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_arrange_for_graph_with_multiple_initial",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_bases_first",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_circular_dependency_mixed_addcreate",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_circular_dependency_swappable",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_circular_dependency_swappable2",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_circular_dependency_swappable_self",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_circular_fk_dependency",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_concrete_field_changed_to_many_to_many",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_create_model_and_unique_together",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_create_model_with_check_constraint",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_create_model_with_indexes",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_create_with_through_model",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_custom_deconstructible",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_custom_migration_name",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_deconstruct_field_kwarg",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_deconstruct_type",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_deconstructible_dict",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_deconstructible_list",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_deconstructible_tuple",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_default_related_name_option",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_different_regex_does_alter",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_empty_foo_together",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_first_dependency",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_fk_dependency",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_fk_dependency_other_app",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_foo_together_no_changes",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_foo_together_ordering",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_foo_together_remove_fk",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_foreign_key_removed_before_target_model",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_identical_regex_doesnt_alter",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_keep_db_table_with_model_change",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_last_dependency",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_m2m_w_through_multistep_remove",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_managed_to_unmanaged",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_many_to_many_changed_to_concrete_field",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_many_to_many_removed_before_through_model",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_many_to_many_removed_before_through_model_2",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_mti_inheritance_model_removal",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_multiple_bases",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_nested_deconstructible_objects",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_new_model",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_non_circular_foreignkey_dependency_removal",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_old_model",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_order_fields_indexes",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_pk_fk_included",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_proxy",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_proxy_bases_first",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_proxy_custom_pk",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_proxy_fk_dependency",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_proxy_to_mti_with_fk_to_proxy",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_proxy_to_mti_with_fk_to_proxy_proxy",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_remove_alter_order_with_respect_to",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_remove_constraints",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_remove_field",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_remove_field_and_foo_together",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_remove_foo_together",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_remove_indexes",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_rename_field",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_rename_field_and_foo_together",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_rename_field_foreign_key_to_field",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_rename_field_preserved_db_column",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_rename_foreign_object_fields",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_rename_m2m_through_model",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_rename_model",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_rename_model_case",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_rename_model_reverse_relation_dependencies",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_rename_model_with_fks_in_different_position",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_rename_model_with_renamed_rel_field",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_rename_referenced_primary_key",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_rename_related_field_preserved_db_column",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_replace_string_with_foreignkey",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_same_app_circular_fk_dependency",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_same_app_circular_fk_dependency_with_unique_together_and_indexes",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_same_app_no_fk_dependency",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_set_alter_order_with_respect_to",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_set_alter_order_with_respect_to_index_constraint_foo_together",
+        "when": "call",
+        "outcome": "failed",
+        "detail": "Traceback (most recent call last):\n  File \"/usr/local/lib/python3.9/unittest/case.py\", line 59, in testPartExecutor\n    yield\n  File \"/usr/local/lib/python3.9/unittest/case.py\", line 499, in subTest\n    yield\n  File \"/workspace/tests/migrations/test_autodetector.py\", line 2259, in test_set_alter_order_with_respect_to_index_constraint_foo_together\n    self.assertOperationTypes(changes, 'testapp', 0, [\n  File \"/workspace/tests/migrations/test_autodetector.py\", line 513, in assertOperationTypes\n    self.fail(\"Operation type mismatch for %s.%s (expected %s):\\n%s\" % (\n  File \"/usr/local/lib/python3.9/unittest/case.py\", line 676, in fail\n    raise self.failureException(msg)\nAssertionError: Operation type mismatch for testapp.auto_1 (expected ['AlterOrderWithRespectTo', 'AddIndex']):\n  testapp:\n    auto_1\n      <AddIndex  model_name='author', index=<Index: fields='_order'>>\n      <AlterOrderWithRespectTo  name='author', order_with_respect_to='book'>\n\n"
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_set_alter_order_with_respect_to_index_constraint_foo_together",
+        "when": "call",
+        "outcome": "failed",
+        "detail": "Traceback (most recent call last):\n  File \"/usr/local/lib/python3.9/unittest/case.py\", line 59, in testPartExecutor\n    yield\n  File \"/usr/local/lib/python3.9/unittest/case.py\", line 499, in subTest\n    yield\n  File \"/workspace/tests/migrations/test_autodetector.py\", line 2259, in test_set_alter_order_with_respect_to_index_constraint_foo_together\n    self.assertOperationTypes(changes, 'testapp', 0, [\n  File \"/workspace/tests/migrations/test_autodetector.py\", line 513, in assertOperationTypes\n    self.fail(\"Operation type mismatch for %s.%s (expected %s):\\n%s\" % (\n  File \"/usr/local/lib/python3.9/unittest/case.py\", line 676, in fail\n    raise self.failureException(msg)\nAssertionError: Operation type mismatch for testapp.auto_1 (expected ['AlterOrderWithRespectTo', 'AddConstraint']):\n  testapp:\n    auto_1\n      <AddConstraint  model_name='author', constraint=<CheckConstraint: check='(AND: ('_order__gt', 1))' name='book_order_gt_1'>>\n      <AlterOrderWithRespectTo  name='author', order_with_respect_to='book'>\n\n"
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_set_alter_order_with_respect_to_index_constraint_foo_together",
+        "when": "call",
+        "outcome": "failed",
+        "detail": "Traceback (most recent call last):\n  File \"/usr/local/lib/python3.9/unittest/case.py\", line 59, in testPartExecutor\n    yield\n  File \"/usr/local/lib/python3.9/unittest/case.py\", line 499, in subTest\n    yield\n  File \"/workspace/tests/migrations/test_autodetector.py\", line 2259, in test_set_alter_order_with_respect_to_index_constraint_foo_together\n    self.assertOperationTypes(changes, 'testapp', 0, [\n  File \"/workspace/tests/migrations/test_autodetector.py\", line 513, in assertOperationTypes\n    self.fail(\"Operation type mismatch for %s.%s (expected %s):\\n%s\" % (\n  File \"/usr/local/lib/python3.9/unittest/case.py\", line 676, in fail\n    raise self.failureException(msg)\nAssertionError: Operation type mismatch for testapp.auto_1 (expected ['AlterOrderWithRespectTo', 'AlterIndexTogether']):\n  testapp:\n    auto_1\n      <AlterIndexTogether  name='author', index_together={('name', '_order')}>\n      <AlterOrderWithRespectTo  name='author', order_with_respect_to='book'>\n\n"
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_set_alter_order_with_respect_to_index_constraint_foo_together",
+        "when": "call",
+        "outcome": "failed",
+        "detail": "Traceback (most recent call last):\n  File \"/usr/local/lib/python3.9/unittest/case.py\", line 59, in testPartExecutor\n    yield\n  File \"/usr/local/lib/python3.9/unittest/case.py\", line 499, in subTest\n    yield\n  File \"/workspace/tests/migrations/test_autodetector.py\", line 2259, in test_set_alter_order_with_respect_to_index_constraint_foo_together\n    self.assertOperationTypes(changes, 'testapp', 0, [\n  File \"/workspace/tests/migrations/test_autodetector.py\", line 513, in assertOperationTypes\n    self.fail(\"Operation type mismatch for %s.%s (expected %s):\\n%s\" % (\n  File \"/usr/local/lib/python3.9/unittest/case.py\", line 676, in fail\n    raise self.failureException(msg)\nAssertionError: Operation type mismatch for testapp.auto_1 (expected ['AlterOrderWithRespectTo', 'AlterUniqueTogether']):\n  testapp:\n    auto_1\n      <AlterUniqueTogether  name='author', unique_together={('id', '_order')}>\n      <AlterOrderWithRespectTo  name='author', order_with_respect_to='book'>\n\n"
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_supports_functools_partial",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_swappable",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_swappable_changed",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_swappable_circular_multi_mti",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_swappable_first_inheritance",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_swappable_first_setting",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_trim_apps",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_unmanaged_create",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_unmanaged_custom_pk",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_unmanaged_delete",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.AutodetectorTests.test_unmanaged_to_managed",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.MigrationSuggestNameTests.test_auto",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.MigrationSuggestNameTests.test_none_name",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.MigrationSuggestNameTests.test_none_name_with_initial_true",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.MigrationSuggestNameTests.test_single_operation",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.MigrationSuggestNameTests.test_two_create_models",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      },
+      {
+        "nodeid": "migrations.test_autodetector.MigrationSuggestNameTests.test_two_create_models_with_initial_true",
+        "when": "call",
+        "outcome": "passed",
+        "detail": null
+      }
+    ],
+    "collection_errors": [],
+    "complete": true,
+    "exit_code": 1,
+    "python": "3.9.19 (main, Sep  4 2024, 23:10:17) \n[GCC 10.2.1 20210110]",
+    "django_version": "3.2",
+    "django_import": "/workspace/django/__init__.py",
+    "argv": [
+      "tests/runtests.py",
+      "--settings=test_sqlite",
+      "--parallel=1",
+      "--verbosity=1",
+      "migrations.test_autodetector"
+    ]
+  },
+  "cleanup_verified": true,
+  "lifecycle": [
+    {
+      "event": "created",
+      "container": "h3-1ca0e65110964e949d2d6197fdddd7fa",
+      "image_id": "sha256:1345f16620bd0ca13a9c07a606fadbfc4a310c3903b2a260a6ceff59a164b190"
+    },
+    {
+      "event": "destroyed",
+      "container": "h3-1ca0e65110964e949d2d6197fdddd7fa",
+      "elapsed_s": 0.24640759998874273
+    }
+  ]
+}

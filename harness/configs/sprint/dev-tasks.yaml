@@ -1,0 +1,206 @@
+schema: sprint.dev-tasks.v1
+variant: B0
+notes: Fourteen tasks that passed empty-delta and gold-delta calibration.
+tasks:
+- id: django__django-10914
+  repo: django/django
+  family: django
+  receipt: docs/upgrade/evidence/A5-harness-preflight-62-history-baseline-retry/tasks/django__django-10914/receipt.json
+  original: docs/upgrade/evidence/A5-harness-preflight-62-history-baseline-retry/tasks/django__django-10914/staging/original
+  baseline: docs/upgrade/evidence/A5-harness-preflight-62-history-baseline-retry/tasks/django__django-10914/staging/baseline
+  public_task: D:\crq\src\coding-agent\reports\upgrade\a5-funded-build-preparation-20260921-v12\public\a5-build-b117be26241cbe45.json
+  grader_timeout_seconds: 600
+  calibration:
+    empty_f2p: 0
+    empty_p2p: 96
+    gold_f2p: 1
+    gold_p2p: 96
+  p2p_excluded:
+  - assertRaisesMessage shouldn't interpret RE special chars.
+  - An exception is setUp() is reraised after disable() is called.
+- id: django__django-10924
+  repo: django/django
+  family: django
+  receipt: docs/upgrade/evidence/A5-harness-preflight-57-remaining16-baseline/tasks/django__django-10924/receipt.json
+  original: docs/upgrade/evidence/A5-harness-preflight-57-remaining16-baseline/tasks/django__django-10924/staging/original
+  baseline: docs/upgrade/evidence/A5-harness-preflight-57-remaining16-baseline/tasks/django__django-10924/staging/baseline
+  public_task: D:\crq\src\coding-agent\reports\upgrade\a5-funded-build-preparation-20260921-v12\public\a5-build-ae0fcdf9882e7432.json
+  grader_timeout_seconds: 600
+  calibration:
+    empty_f2p: 0
+    empty_p2p: 1
+    gold_f2p: 1
+    gold_p2p: 1
+  p2p_excluded: []
+- id: django__django-11039
+  repo: django/django
+  family: django
+  receipt: docs/upgrade/evidence/A5-harness-preflight-57-remaining16-baseline/tasks/django__django-11039/receipt.json
+  original: docs/upgrade/evidence/A5-harness-preflight-57-remaining16-baseline/tasks/django__django-11039/staging/original
+  baseline: docs/upgrade/evidence/A5-harness-preflight-57-remaining16-baseline/tasks/django__django-11039/staging/baseline
+  public_task: D:\crq\src\coding-agent\reports\upgrade\a5-funded-build-preparation-20260921-v12\public\a5-build-fc47f0f0fa3593e5.json
+  grader_timeout_seconds: 600
+  calibration:
+    empty_f2p: 0
+    empty_p2p: 84
+    gold_f2p: 1
+    gold_p2p: 84
+  p2p_excluded:
+  - --squashed-name specifies the new migration's name.
+  - --squashed-name also works if a start migration is omitted.
+  - Migration directories without an __init__.py file are allowed.
+  - Tests migrate --plan output.
+- id: pytest-dev__pytest-5103
+  repo: pytest-dev/pytest
+  family: pytest-dev
+  receipt: docs/upgrade/evidence/A5-harness-preflight-62-history-baseline-retry/tasks/pytest-dev__pytest-5103/receipt.json
+  original: docs/upgrade/evidence/A5-harness-preflight-62-history-baseline-retry/tasks/pytest-dev__pytest-5103/staging/original
+  baseline: docs/upgrade/evidence/A5-harness-preflight-62-history-baseline-retry/tasks/pytest-dev__pytest-5103/staging/baseline
+  public_task: D:\crq\src\coding-agent\reports\upgrade\a5-funded-build-preparation-20260921-v12\public\a5-build-47b71eeda51b255d.json
+  grader_timeout_seconds: 600
+  calibration:
+    empty_f2p: 0
+    empty_p2p: 64
+    gold_f2p: 1
+    gold_p2p: 64
+  p2p_excluded: []
+- id: pytest-dev__pytest-5227
+  repo: pytest-dev/pytest
+  family: pytest-dev
+  receipt: docs/upgrade/evidence/A5-harness-preflight-57-remaining16-baseline/tasks/pytest-dev__pytest-5227/receipt.json
+  original: docs/upgrade/evidence/A5-harness-preflight-57-remaining16-baseline/tasks/pytest-dev__pytest-5227/staging/original
+  baseline: docs/upgrade/evidence/A5-harness-preflight-57-remaining16-baseline/tasks/pytest-dev__pytest-5227/staging/baseline
+  public_task: D:\crq\src\coding-agent\reports\upgrade\a5-funded-build-preparation-20260921-v12\public\a5-build-6673c7e7745db910.json
+  grader_timeout_seconds: 600
+  calibration:
+    empty_f2p: 0
+    empty_p2p: 31
+    gold_f2p: 3
+    gold_p2p: 31
+  p2p_excluded: []
+- id: sympy__sympy-11400
+  repo: sympy/sympy
+  family: sympy
+  receipt: docs/upgrade/evidence/A5-harness-preflight-62-history-baseline-retry/tasks/sympy__sympy-11400/receipt.json
+  original: docs/upgrade/evidence/A5-harness-preflight-62-history-baseline-retry/tasks/sympy__sympy-11400/staging/original
+  baseline: docs/upgrade/evidence/A5-harness-preflight-62-history-baseline-retry/tasks/sympy__sympy-11400/staging/baseline
+  public_task: D:\crq\src\coding-agent\reports\upgrade\a5-funded-build-preparation-20260921-v12\public\a5-build-5024683a49dc2bbe.json
+  grader_timeout_seconds: 600
+  calibration:
+    empty_f2p: 0
+    empty_p2p: 29
+    gold_f2p: 2
+    gold_p2p: 29
+  p2p_excluded: []
+- id: sympy__sympy-11870
+  repo: sympy/sympy
+  family: sympy
+  receipt: docs/upgrade/evidence/A5-harness-preflight-57-remaining16-baseline/tasks/sympy__sympy-11870/receipt.json
+  original: docs/upgrade/evidence/A5-harness-preflight-57-remaining16-baseline/tasks/sympy__sympy-11870/staging/original
+  baseline: docs/upgrade/evidence/A5-harness-preflight-57-remaining16-baseline/tasks/sympy__sympy-11870/staging/baseline
+  public_task: D:\crq\src\coding-agent\reports\upgrade\a5-funded-build-preparation-20260921-v12\public\a5-build-89090b11547fe93a.json
+  grader_timeout_seconds: 600
+  calibration:
+    empty_f2p: 0
+    empty_p2p: 58
+    gold_f2p: 1
+    gold_p2p: 58
+  p2p_excluded: []
+- id: sympy__sympy-11897
+  repo: sympy/sympy
+  family: sympy
+  receipt: docs/upgrade/evidence/A5-harness-preflight-57-remaining16-baseline/tasks/sympy__sympy-11897/receipt.json
+  original: docs/upgrade/evidence/A5-harness-preflight-57-remaining16-baseline/tasks/sympy__sympy-11897/staging/original
+  baseline: docs/upgrade/evidence/A5-harness-preflight-57-remaining16-baseline/tasks/sympy__sympy-11897/staging/baseline
+  public_task: D:\crq\src\coding-agent\reports\upgrade\a5-funded-build-preparation-20260921-v12\public\a5-build-9952d7b23356b0db.json
+  grader_timeout_seconds: 600
+  calibration:
+    empty_f2p: 0
+    empty_p2p: 95
+    gold_f2p: 1
+    gold_p2p: 95
+  p2p_excluded: []
+- id: sympy__sympy-12171
+  repo: sympy/sympy
+  family: sympy
+  receipt: docs/upgrade/evidence/A5-harness-preflight-57-remaining16-baseline/tasks/sympy__sympy-12171/receipt.json
+  original: docs/upgrade/evidence/A5-harness-preflight-57-remaining16-baseline/tasks/sympy__sympy-12171/staging/original
+  baseline: docs/upgrade/evidence/A5-harness-preflight-57-remaining16-baseline/tasks/sympy__sympy-12171/staging/baseline
+  public_task: D:\crq\src\coding-agent\reports\upgrade\a5-funded-build-preparation-20260921-v12\public\a5-build-2aa29e6c29720fb8.json
+  grader_timeout_seconds: 600
+  calibration:
+    empty_f2p: 0
+    empty_p2p: 8
+    gold_f2p: 1
+    gold_p2p: 8
+  p2p_excluded: []
+- id: scikit-learn__scikit-learn-10297
+  repo: scikit-learn/scikit-learn
+  family: scikit-learn
+  receipt: docs/upgrade/evidence/A5-harness-preflight-62-history-baseline-retry/tasks/scikit-learn__scikit-learn-10297/receipt.json
+  original: docs/upgrade/evidence/A5-harness-preflight-62-history-baseline-retry/tasks/scikit-learn__scikit-learn-10297/staging/original
+  baseline: docs/upgrade/evidence/A5-harness-preflight-62-history-baseline-retry/tasks/scikit-learn__scikit-learn-10297/staging/baseline
+  public_task: D:\crq\src\coding-agent\reports\upgrade\a5-funded-build-preparation-20260921-v12\public\a5-build-28c10c92d52bbe54.json
+  grader_timeout_seconds: 600
+  calibration:
+    empty_f2p: 0
+    empty_p2p: 28
+    gold_f2p: 1
+    gold_p2p: 28
+  p2p_excluded: []
+- id: scikit-learn__scikit-learn-10949
+  repo: scikit-learn/scikit-learn
+  family: scikit-learn
+  receipt: docs/upgrade/evidence/A5-harness-preflight-57-remaining16-baseline/tasks/scikit-learn__scikit-learn-10949/receipt.json
+  original: docs/upgrade/evidence/A5-harness-preflight-57-remaining16-baseline/tasks/scikit-learn__scikit-learn-10949/staging/original
+  baseline: docs/upgrade/evidence/A5-harness-preflight-57-remaining16-baseline/tasks/scikit-learn__scikit-learn-10949/staging/baseline
+  public_task: D:\crq\src\coding-agent\reports\upgrade\a5-funded-build-preparation-20260921-v12\public\a5-build-cc2be6e16ca90488.json
+  grader_timeout_seconds: 600
+  calibration:
+    empty_f2p: 0
+    empty_p2p: 42
+    gold_f2p: 1
+    gold_p2p: 42
+  p2p_excluded: []
+- id: scikit-learn__scikit-learn-11281
+  repo: scikit-learn/scikit-learn
+  family: scikit-learn
+  receipt: docs/upgrade/evidence/A5-harness-preflight-57-remaining16-baseline/tasks/scikit-learn__scikit-learn-11281/receipt.json
+  original: docs/upgrade/evidence/A5-harness-preflight-57-remaining16-baseline/tasks/scikit-learn__scikit-learn-11281/staging/original
+  baseline: docs/upgrade/evidence/A5-harness-preflight-57-remaining16-baseline/tasks/scikit-learn__scikit-learn-11281/staging/baseline
+  public_task: D:\crq\src\coding-agent\reports\upgrade\a5-funded-build-preparation-20260921-v12\public\a5-build-b431cb025216862d.json
+  grader_timeout_seconds: 600
+  calibration:
+    empty_f2p: 0
+    empty_p2p: 43
+    gold_f2p: 2
+    gold_p2p: 43
+  p2p_excluded: []
+- id: scikit-learn__scikit-learn-10508
+  repo: scikit-learn/scikit-learn
+  family: scikit-learn
+  receipt: docs/upgrade/evidence/A5-harness-preflight-57-remaining16-baseline/tasks/scikit-learn__scikit-learn-10508/receipt.json
+  original: docs/upgrade/evidence/A5-harness-preflight-57-remaining16-baseline/tasks/scikit-learn__scikit-learn-10508/staging/original
+  baseline: docs/upgrade/evidence/A5-harness-preflight-57-remaining16-baseline/tasks/scikit-learn__scikit-learn-10508/staging/baseline
+  public_task: D:\crq\src\coding-agent\reports\upgrade\a5-funded-build-preparation-20260921-v12\public\a5-build-7714baee59012ad1.json
+  grader_timeout_seconds: 600
+  calibration:
+    empty_f2p: 0
+    empty_p2p: 18
+    gold_f2p: 2
+    gold_p2p: 18
+  p2p_excluded: []
+- id: scikit-learn__scikit-learn-11040
+  repo: scikit-learn/scikit-learn
+  family: scikit-learn
+  receipt: docs/upgrade/evidence/A5-harness-preflight-57-remaining16-baseline/tasks/scikit-learn__scikit-learn-11040/receipt.json
+  original: docs/upgrade/evidence/A5-harness-preflight-57-remaining16-baseline/tasks/scikit-learn__scikit-learn-11040/staging/original
+  baseline: docs/upgrade/evidence/A5-harness-preflight-57-remaining16-baseline/tasks/scikit-learn__scikit-learn-11040/staging/baseline
+  public_task: D:\crq\src\coding-agent\reports\upgrade\a5-funded-build-preparation-20260921-v12\public\a5-build-326320c7b35bcda4.json
+  grader_timeout_seconds: 600
+  calibration:
+    empty_f2p: 0
+    empty_p2p: 44
+    gold_f2p: 1
+    gold_p2p: 44
+  p2p_excluded: []

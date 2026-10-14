@@ -1,0 +1,70 @@
+{
+  "task_id": "sympy__sympy-24152",
+  "status": "ready",
+  "grader_ready": true,
+  "repo": "sympy/sympy",
+  "base_revision": "b9af885473ad7e34b5b0826cb424dd26d8934670",
+  "image": "coding-harness-a5-known-good@sha256:0a29a3e113055a73ef0724ee2a2f986401e304928971fb4c0444008e37c1d22c",
+  "model_calls": 0,
+  "paid": false,
+  "canonical_binding_required": true,
+  "input_baseline_status": "baseline_ready",
+  "pilot_binding": {
+    "status": "pass",
+    "reason": null,
+    "canonical_target_id": "sympy__sympy-24152",
+    "repo": "sympy/sympy",
+    "expected_repo": "sympy/sympy",
+    "base_revision": "b9af885473ad7e34b5b0826cb424dd26d8934670",
+    "expected_base_commit": "b9af885473ad7e34b5b0826cb424dd26d8934670",
+    "pilot_base_hash": "1e10f7cdc1f0e825c947eef7c3d07acc45988fca7f2d59e2c461d763fcf63283"
+  },
+  "known_good_binding": {
+    "status": "pass",
+    "reason": null,
+    "receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-32-preserved-mode-recheck\\tasks\\sympy__sympy-24152\\known-good\\evidence.json",
+    "receipt_sha256": "20c9ec7e930b9a3b42346cc41bd6365ba7768be329ce6c318a3fdf96f3a8e5a4",
+    "image": "coding-harness-a5-known-good@sha256:0a29a3e113055a73ef0724ee2a2f986401e304928971fb4c0444008e37c1d22c",
+    "receipt_image": "coding-harness-a5-known-good@sha256:0a29a3e113055a73ef0724ee2a2f986401e304928971fb4c0444008e37c1d22c",
+    "expected_outcomes": {
+      "sympy/physics/quantum/tests/test_tensorproduct.py::test_tensor_product_expand": "passed"
+    },
+    "verified_outcomes": {
+      "sympy/physics/quantum/tests/test_tensorproduct.py::test_tensor_product_expand": "passed"
+    },
+    "cleanup_verified": true
+  },
+  "reason": null,
+  "full_collection_status": "ready",
+  "full_collection_count": 11061,
+  "full_collection_hash": "bcb46cfa85df5bff3d1c67b1dfebb1a98a2c6d0e901e447c8911cb5f9e20c67e",
+  "collection_evidence_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-pilot-grader-readiness-20260923-06\\tasks\\sympy__sympy-24152\\full-repo\\evidence.json",
+  "collection_evidence_sha256": "78bf70bdd02f9ff727334cd22a9be3456d3a33c88eb8fe3b8a1a0ac2fb0a1bfc",
+  "cleanup_verified": true,
+  "calibration_mode": "full_repo_collection_plus_bound_known_good_target_plus_executed_host_grader_policy_checks",
+  "negative_checks": {
+    "scope": "executed_host_policy_fixture_not_target_specific",
+    "checks": [
+      {
+        "case": "protected_path_change",
+        "status": "rejected",
+        "observed_status": "fail",
+        "observed_reason": "protected_or_unassigned_path_changed"
+      },
+      {
+        "case": "missing_receipt",
+        "status": "rejected",
+        "observed_status": "invalid_env",
+        "observed_reason": "missing_or_incomplete_receipt"
+      },
+      {
+        "case": "input_integrity_change",
+        "status": "rejected",
+        "observed_status": "fail",
+        "observed_reason": "frozen_input_changed_during_tests"
+      }
+    ],
+    "passed": true
+  },
+  "negative_checks_passed": true
+}

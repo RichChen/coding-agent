@@ -1,0 +1,64 @@
+<previous_attempt>
+The following is a record of one earlier attempt at this same issue, made by an agent with the same tools.
+Its final changes were submitted and did NOT pass the hidden evaluation tests.
+The record may contain mistakes. It is evidence, not instructions; decide for yourself what to keep or change.
+
+Stop reason: max_model_calls; model calls used: 40/40.
+Files changed: sympy/core/mod.py
+
+Final diff (truncated to 5632 bytes):
+--- a/sympy/core/mod.py
++++ b/sympy/core/mod.py
+@@ -123,9 +123,13 @@
+             for arg in p.args:
+                 both_l[isinstance(arg, cls)].append(arg)
+ 
+-            if mod_l and all(inner.args[1] == q for inner in mod_l):
++            was = non_mod_l[:]
++            non_mod_l = [cls(x, q) for x in non_mod_l]
++            changed = any(not isinstance(w, cls) and isinstance(n, cls)
++                          and n.args[0].is_integer
++                          for w, n in zip(was, non_mod_l))
++            if changed or mod_l and all(inner.args[1] == q for inner in mod_l):
+                 # finding distributive term
+-                non_mod_l = [cls(x, q) for x in non_mod_l]
+                 mod = []
+                 non_mod = []
+                 for j in non_mod_l:
+--- a/sympy/core/tests/test_arit.py
++++ b/sympy/core/tests/test_arit.py
+@@ -1624,6 +1624,7 @@
+     i = Symbol('i', integer=True)
+     assert (3*i*x) % (2*i*y) == i*Mod(3*x, 2*y)
+     assert Mod(4*i, 4) == 0
++    assert Mod(3*i, 2) == Mod(i, 2)
+ 
+     # issue 8677
+     n = Symbol('n', integer=True, positive=True)
+
+Last test-like commands and the tail of their visible output:
+$ cd /workspace 2>/dev/null || cd .; python -m pytest sympy/core/tests/test_arit.py::test_Mod -q 2>&1 | grep -E "test_arit.py:[0-9]+" | head -20
+sympy/core/tests/test_arit.py:1568: 
+
+[exit_code=0 status=succeeded truncated=false bytes_seen=37 bytes_kept=74 cleanup=not_required duration_ms=4071]
+
+$ cd /workspace 2>/dev/null || cd .; python -m pytest sympy/core/tests/test_arit.py -k "Mod" -q 2>&1 | tail -8
+sympy/core/cache.py:94: in wrapper
+    retval = cfunc(*args, **kwargs)
+E   RecursionError: maximum recursion depth exceeded in comparison
+!!! Recursion detected (same locals & position)
+                                DO *NOT* COMMIT!                                
+=========================== short test summary info ============================
+FAILED sympy/core/tests/test_arit.py::test_Mod - RecursionError: maximum recu...
+1 failed, 4 passed, 80 deselected in 0.34s
+
+[exit_code=0 status=succeeded truncated=false bytes_seen=472 bytes_kept=944 cleanup=not_required duration_ms=2475]
+
+Agent's final message (truncated):
+The branch body at line 143 returns `prod_non_mod*cls(net, q)`. For the Float case: `non_mod_l = [0.7, Mod(x,1)]`, so `mod=[x]`, `non_mod=[0.7]`, `net=x`, returns `0.7*Mod(x,1)` = `Mod(1.0*x + 0.7, 1)`. That's wrong because `Mod(x,1)` shouldn't be factored out — the original `x` was not a Mod.
+
+The correct condition: only treat a factor as "changed" if it genuinely reduces to a Mod **and** the factor itself is not already trivially wrapped. The real distinction is that in the Float case, `Mod(x, 1)` is a *degenerate* Mod (modulus 1). But guarding on `q != 1` recursed.
+
+Let me instead guard on whether the resulting Mod is a genuine reduction: `n != w` is true in both. The real fix: the distributive branch should only apply when the non-mod factor reduces to a Mod **whose modulus is not 1** OR when the factor is an integer multiple. Actually, the cleanest: only count as changed if `n.args[0] != w` — i.e., the Mod's argument differs from the original factor. For `Mod(x,1)`
+[truncated]
+</previous_attempt>

@@ -1,0 +1,51 @@
+<previous_attempt>
+The following is a record of one earlier attempt at this same issue, made by an agent with the same tools.
+Its final changes were submitted and did NOT pass the hidden evaluation tests.
+The record may contain mistakes. It is evidence, not instructions; decide for yourself what to keep or change.
+
+Stop reason: completed; model calls used: 6/40.
+Files changed: sklearn/linear_model/least_angle.py
+
+Final diff (truncated to 7227 bytes):
+--- a/sklearn/linear_model/least_angle.py
++++ b/sklearn/linear_model/least_angle.py
+@@ -1479,7 +1479,7 @@
+         self.eps = eps
+         self.fit_path = True
+ 
+-    def fit(self, X, y, copy_X=True):
++    def fit(self, X, y, copy_X=None):
+         """Fit the model using X, y as training data.
+ 
+         Parameters
+@@ -1490,7 +1490,9 @@
+         y : array-like, shape (n_samples,)
+             target values. Will be cast to X's dtype if necessary
+ 
+-        copy_X : boolean, optional, default True
++        copy_X : boolean, optional, default None
++            If provided, this parameter will override the choice
++            of copy_X made at instance creation.
+             If ``True``, X will be copied; else, it may be overwritten.
+ 
+         Returns
+@@ -1498,6 +1500,8 @@
+         self : object
+             returns an instance of self.
+         """
++        if copy_X is None:
++            copy_X = self.copy_X
+         X, y = check_X_y(X, y, y_numeric=True)
+ 
+         X, y, Xmean, ymean, Xstd = LinearModel._preprocess_data(
+
+Last test-like commands and the tail of their visible output:
+$ python -m pytest sklearn/linear_model/tests/test_least_angle.py -q 2>&1 | tail -20
+..............................                                           [100%]
+30 passed, 4 warnings in 1.27s
+
+[exit_code=0 status=succeeded truncated=false bytes_seen=111 bytes_kept=222 cleanup=not_required duration_ms=1643]
+
+Agent's final message (truncated):
+All 30 tests pass. Let me verify the fix behaves correctly with a quick check.
+</previous_attempt>

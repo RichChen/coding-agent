@@ -1,0 +1,73 @@
+{
+  "attempts": [
+    {
+      "attempt": "deepseek-flash-attempt-01",
+      "status": "invalid_env",
+      "baseline_passed": 8,
+      "candidate_passed": 0,
+      "collected": 18,
+      "model_calls": 12,
+      "provider_tokens": 45546,
+      "replay_equal": true,
+      "jsonl_equal": true,
+      "cleanup_ok": true,
+      "report_sha256": "42caa0bcdef4d98e18b53207e9e5278ae7d8bd3a699b8501edce05d1f7e9498e"
+    },
+    {
+      "attempt": "deepseek-flash-attempt-02",
+      "status": "invalid_env",
+      "phase": "source_preparation",
+      "model_calls": 0
+    },
+    {
+      "attempt": "deepseek-flash-attempt-03",
+      "status": "pass",
+      "baseline_passed": 8,
+      "candidate_passed": 18,
+      "collected": 18,
+      "model_calls": 12,
+      "provider_tokens": 45994,
+      "replay_equal": true,
+      "jsonl_equal": true,
+      "cleanup_ok": true,
+      "report_sha256": "859fb692e49255838232e9f74a453f4f4fa82667e9d28c5175f1bd6784c07414"
+    }
+  ],
+  "total_attempts": 3,
+  "passed_attempts": 1,
+  "usage_all_paid_attempts": {
+    "model": "deepseek-flash",
+    "attempts": 24,
+    "unknown_usage_attempts": 0,
+    "provider_totals": {
+      "prompt_tokens": 88098,
+      "completion_tokens": 3442,
+      "total_tokens": 91540,
+      "prompt_cache_hit_tokens": 43008,
+      "prompt_cache_miss_tokens": 45090
+    },
+    "known_subtotals": {
+      "prompt_tokens": 88098,
+      "completion_tokens": 3442,
+      "total_tokens": 91540,
+      "prompt_cache_hit_tokens": 43008,
+      "prompt_cache_miss_tokens": 45090
+    },
+    "cost_usd": null,
+    "cost_provenance": "not_reconciled_with_account_billing",
+    "estimated_cost_usd_range": [
+      0.008957724,
+      0.017915448
+    ],
+    "estimate_basis": "off-peak/peak interval, excludes account discounts, not an invoice",
+    "peak_usd_per_million": {
+      "hit": 0.006,
+      "miss": 0.3,
+      "output": 1.2
+    },
+    "pricing_source": "https://api-docs.deepseek.com/quick_start/pricing",
+    "pricing_retrieved": "2026-09-21"
+  },
+  "credential_scan": "configured_key_absent_from_all_evidence_files",
+  "scope": "single public module-slice demo, not a success-rate benchmark"
+}

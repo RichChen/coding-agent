@@ -1,0 +1,781 @@
+{
+  "task_id": "a5-build-28c10c92d52bbe54",
+  "success": false,
+  "final_answer": null,
+  "failure_reason": "context_overflow",
+  "steps": [
+    {
+      "step": 0,
+      "phase": "acting",
+      "messages_snapshot": 5,
+      "llm_text": "I'll start by exploring the repository structure and finding the relevant source files.",
+      "tool_calls": [
+        {
+          "name": "run_command",
+          "args": {
+            "command": "find /workspace -name \"_ridge.py\" -path \"*linear_model*\" 2>/dev/null"
+          },
+          "raw_arguments": "{\"command\": \"find /workspace -name \\\"_ridge.py\\\" -path \\\"*linear_model*\\\" 2>/dev/null\"}",
+          "parse_error": null
+        },
+        {
+          "name": "list_dir",
+          "args": {
+            "path": "sklearn/linear_model"
+          },
+          "raw_arguments": "{\"path\": \"sklearn/linear_model\"}",
+          "parse_error": null
+        }
+      ],
+      "tool_results": [
+        {
+          "name": "run_command",
+          "success": true,
+          "status": "succeeded",
+          "error_kind": null,
+          "output": "[exit_code=0 status=succeeded truncated=false bytes_seen=0 bytes_kept=0 cleanup=not_required duration_ms=142]"
+        },
+        {
+          "name": "list_dir",
+          "success": true,
+          "status": "succeeded",
+          "error_kind": null,
+          "output": "[F] __init__.py\n[F] base.py\n[F] bayes.py\n[F] cd_fast.pyx\n[F] coordinate_descent.py\n[F] huber.py\n[F] least_angle.py\n[F] logistic.py\n[F] omp.py\n[F] passive_aggressive.py\n[F] perceptron.py\n[F] randomized_l1.py\n[F] ransac.py\n[F] ridge.py\n[F] sag.py\n[F] sag_fast.pyx\n[F] setup.py\n[F] sgd_fast.pxd\n[F] sgd_fast.pyx\n[F] sgd_fast_helpers.h\n[F] stochastic_gradient.py\n[D] tests\n[F] theil_sen.py\n\n[exit_code=0 status=succeeded truncated=false bytes_seen=386 bytes_kept=772 cleanup=not_required duration_ms=208]"
+        }
+      ],
+      "elapsed_ms": 1333.4341000008862
+    },
+    {
+      "step": 1,
+      "phase": "acting",
+      "messages_snapshot": 7,
+      "llm_text": null,
+      "tool_calls": [
+        {
+          "name": "run_command",
+          "args": {
+            "command": "grep -n \"store_cv_values\\|class RidgeClassifierCV\\|class _BaseRidgeCV\\|class RidgeCV\\|cv_values_\" /workspace/sklearn/linear_model/ridge.py"
+          },
+          "raw_arguments": "{\"command\": \"grep -n \\\"store_cv_values\\\\|class RidgeClassifierCV\\\\|class _BaseRidgeCV\\\\|class RidgeCV\\\\|cv_values_\\\" /workspace/sklearn/linear_model/ridge.py\"}",
+          "parse_error": null
+        }
+      ],
+      "tool_results": [
+        {
+          "name": "run_command",
+          "success": true,
+          "status": "succeeded",
+          "error_kind": null,
+          "output": "885:                 gcv_mode=None, store_cv_values=False):\n892:        self.store_cv_values = store_cv_values\n1077:        if self.store_cv_values:\n1079:                cv_values_shape = n_samples, len(self.alphas)\n1081:                cv_values_shape = n_samples, n_y, len(self.alphas)\n1082:            self.cv_values_ = cv_values.reshape(cv_values_shape)\n1087:class _BaseRidgeCV(LinearModel):\n1091:                 store_cv_values=False):\n1098:        self.store_cv_values = store_cv_values\n1124: "
+        }
+      ],
+      "elapsed_ms": 1081.2915000133216
+    },
+    {
+      "step": 2,
+      "phase": "acting",
+      "messages_snapshot": 9,
+      "llm_text": null,
+      "tool_calls": [
+        {
+          "name": "read_file",
+          "args": {
+            "path": "sklearn/linear_model/ridge.py",
+            "limit": 120
+          },
+          "raw_arguments": "{\"path\": \"sklearn/linear_model/ridge.py\", \"limit\": 120}",
+          "parse_error": null
+        }
+      ],
+      "tool_results": [
+        {
+          "name": "read_file",
+          "success": true,
+          "status": "succeeded",
+          "error_kind": null,
+          "output": "\"\"\"\nRidge regression\n\"\"\"\n\n# Author: Mathieu Blondel <mathieu@mblondel.org>\n#         Reuben Fletcher-Costin <reuben.fletchercostin@gmail.com>\n#         Fabian Pedregosa <fabian@fseoane.net>\n#         Michael Eickenberg <michael.eickenberg@nsup.org>\n# License: BSD 3 clause\n\n\nfrom abc import ABCMeta, abstractmethod\nimport warnings\n\nimport numpy as np\nfrom scipy import linalg\nfrom scipy import sparse\nfrom scipy.sparse import linalg as sp_linalg\n\nfrom .base import LinearClassifierMixin, LinearModel,"
+        }
+      ],
+      "elapsed_ms": 818.4986000123899
+    },
+    {
+      "step": 3,
+      "phase": "acting",
+      "messages_snapshot": 11,
+      "llm_text": null,
+      "tool_calls": [
+        {
+          "name": "read_file",
+          "args": {
+            "path": "sklearn/linear_model/ridge.py",
+            "limit": 280
+          },
+          "raw_arguments": "{\"path\": \"sklearn/linear_model/ridge.py\", \"limit\": 280}",
+          "parse_error": null
+        }
+      ],
+      "tool_results": [
+        {
+          "name": "read_file",
+          "success": true,
+          "status": "succeeded",
+          "error_kind": null,
+          "output": "\"\"\"\nRidge regression\n\"\"\"\n\n# Author: Mathieu Blondel <mathieu@mblondel.org>\n#         Reuben Fletcher-Costin <reuben.fletchercostin@gmail.com>\n#         Fabian Pedregosa <fabian@fseoane.net>\n#         Michael Eickenberg <michael.eickenberg@nsup.org>\n# License: BSD 3 clause\n\n\nfrom abc import ABCMeta, abstractmethod\nimport warnings\n\nimport numpy as np\nfrom scipy import linalg\nfrom scipy import sparse\nfrom scipy.sparse import linalg as sp_linalg\n\nfrom .base import LinearClassifierMixin, LinearModel,"
+        }
+      ],
+      "elapsed_ms": 1164.9779000144918
+    },
+    {
+      "step": 4,
+      "phase": "acting",
+      "messages_snapshot": 13,
+      "llm_text": "Now let me look at the `_BaseRidgeCV` and `RidgeClassifierCV` classes in detail.",
+      "tool_calls": [
+        {
+          "name": "read_file",
+          "args": {
+            "path": "sklearn/linear_model/ridge.py",
+            "limit": 300
+          },
+          "raw_arguments": "{\"path\": \"sklearn/linear_model/ridge.py\", \"limit\": 300}",
+          "parse_error": null
+        }
+      ],
+      "tool_results": [
+        {
+          "name": "read_file",
+          "success": true,
+          "status": "succeeded",
+          "error_kind": null,
+          "output": "\"\"\"\nRidge regression\n\"\"\"\n\n# Author: Mathieu Blondel <mathieu@mblondel.org>\n#         Reuben Fletcher-Costin <reuben.fletchercostin@gmail.com>\n#         Fabian Pedregosa <fabian@fseoane.net>\n#         Michael Eickenberg <michael.eickenberg@nsup.org>\n# License: BSD 3 clause\n\n\nfrom abc import ABCMeta, abstractmethod\nimport warnings\n\nimport numpy as np\nfrom scipy import linalg\nfrom scipy import sparse\nfrom scipy.sparse import linalg as sp_linalg\n\nfrom .base import LinearClassifierMixin, LinearModel,"
+        }
+      ],
+      "elapsed_ms": 1202.4273999850266
+    }
+  ],
+  "total_elapsed_ms": 10442.86640000064,
+  "total_tokens": 16455,
+  "tool_failures": 0,
+  "policy_blocks": 0,
+  "total_tool_invocations": 6,
+  "plan": null,
+  "context_events": [
+    {
+      "strategy": "masking",
+      "requested": "masking",
+      "actually_injected": "none",
+      "summary_provider": "fixture",
+      "raw_message_hash": "53e8dcda88ef9464cc778c3e09ed46e9ccf4bf689a021b6d8beb306039f38628",
+      "raw_serialized_bytes": 2876,
+      "summary_records": [],
+      "overflow": false,
+      "serialized_bytes": 5680,
+      "estimated_input_tokens": 1420,
+      "admission_input_tokens": 7024,
+      "reserved_output_tokens": 4096,
+      "estimate_method": "utf8_bytes_div_4_estimated",
+      "admission_method": "utf8_bytes_plus_protocol_allowance",
+      "masking": {
+        "message_count_before": 2,
+        "message_count_after": 2,
+        "chars_before": 2720,
+        "chars_after": 2720,
+        "chars_saved": 0,
+        "tool_messages_before": 0,
+        "tool_messages_after": 0,
+        "compacted_tool_count": 0,
+        "preserved_tool_count": 0,
+        "keep_recent": 3,
+        "did_compact": false,
+        "estimated_tokens_before": 680,
+        "estimated_tokens_after": 680
+      },
+      "compacted_tool_count": 0,
+      "summary_calls": 0,
+      "summary_model_calls": 0,
+      "summary_accounting": {
+        "provider": "fixture",
+        "model_calls": 0,
+        "known_total_tokens": 0,
+        "unknown_usage_calls": 0,
+        "tokens_committed": 0,
+        "estimated_cost_usd": null,
+        "cost_committed_usd": 0,
+        "elapsed_seconds": 0,
+        "records": []
+      },
+      "manager_state": {
+        "schema_version": "0.1",
+        "summary_calls": 0,
+        "summaries": [],
+        "plugin_state": {},
+        "summary_provider": "fixture",
+        "summary_attempts": [],
+        "dispatch_calls": 0,
+        "dispatch_receipts": [],
+        "dispatch_observations": []
+      },
+      "plugin": {
+        "name": "noop",
+        "requested": [],
+        "actually_injected": [],
+        "rejected": [],
+        "action_proposals": [],
+        "method_degraded": false,
+        "policy_error": null,
+        "schema_version": "0.1",
+        "ignored_optional_fields": [],
+        "events": []
+      },
+      "max_tokens": 32000,
+      "view_hash": "53e8dcda88ef9464cc778c3e09ed46e9ccf4bf689a021b6d8beb306039f38628",
+      "view_serialized_bytes": 2876,
+      "step": 0
+    },
+    {
+      "strategy": "masking",
+      "requested": "masking",
+      "actually_injected": "none",
+      "summary_provider": "fixture",
+      "raw_message_hash": "b9cd27dfb78adcab1296f4a34d657b633b271ce800378a7447f959fb76d662ab",
+      "raw_serialized_bytes": 4153,
+      "summary_records": [],
+      "overflow": false,
+      "serialized_bytes": 6957,
+      "estimated_input_tokens": 1740,
+      "admission_input_tokens": 8397,
+      "reserved_output_tokens": 4096,
+      "estimate_method": "utf8_bytes_div_4_estimated",
+      "admission_method": "utf8_bytes_plus_protocol_allowance",
+      "masking": {
+        "message_count_before": 5,
+        "message_count_after": 5,
+        "chars_before": 3416,
+        "chars_after": 3416,
+        "chars_saved": 0,
+        "tool_messages_before": 2,
+        "tool_messages_after": 2,
+        "compacted_tool_count": 0,
+        "preserved_tool_count": 2,
+        "keep_recent": 3,
+        "did_compact": false,
+        "estimated_tokens_before": 883,
+        "estimated_tokens_after": 883
+      },
+      "compacted_tool_count": 0,
+      "summary_calls": 0,
+      "summary_model_calls": 0,
+      "summary_accounting": {
+        "provider": "fixture",
+        "model_calls": 0,
+        "known_total_tokens": 0,
+        "unknown_usage_calls": 0,
+        "tokens_committed": 0,
+        "estimated_cost_usd": null,
+        "cost_committed_usd": 0,
+        "elapsed_seconds": 0,
+        "records": []
+      },
+      "manager_state": {
+        "schema_version": "0.1",
+        "summary_calls": 0,
+        "summaries": [],
+        "plugin_state": {},
+        "summary_provider": "fixture",
+        "summary_attempts": [],
+        "dispatch_calls": 0,
+        "dispatch_receipts": [],
+        "dispatch_observations": []
+      },
+      "plugin": {
+        "name": "noop",
+        "requested": [],
+        "actually_injected": [],
+        "rejected": [],
+        "action_proposals": [],
+        "method_degraded": false,
+        "policy_error": null,
+        "schema_version": "0.1",
+        "ignored_optional_fields": [],
+        "events": []
+      },
+      "max_tokens": 32000,
+      "view_hash": "b9cd27dfb78adcab1296f4a34d657b633b271ce800378a7447f959fb76d662ab",
+      "view_serialized_bytes": 4153,
+      "step": 1
+    },
+    {
+      "strategy": "masking",
+      "requested": "masking",
+      "actually_injected": "none",
+      "summary_provider": "fixture",
+      "raw_message_hash": "0e88b5d3e3e3fa348cfd2d47af94804ee9efc437b4a317a86a542070547e8f60",
+      "raw_serialized_bytes": 6040,
+      "summary_records": [],
+      "overflow": false,
+      "serialized_bytes": 8844,
+      "estimated_input_tokens": 2211,
+      "admission_input_tokens": 10348,
+      "reserved_output_tokens": 4096,
+      "estimate_method": "utf8_bytes_div_4_estimated",
+      "admission_method": "utf8_bytes_plus_protocol_allowance",
+      "masking": {
+        "message_count_before": 7,
+        "message_count_after": 7,
+        "chars_before": 4861,
+        "chars_after": 4861,
+        "chars_saved": 0,
+        "tool_messages_before": 3,
+        "tool_messages_after": 3,
+        "compacted_tool_count": 0,
+        "preserved_tool_count": 3,
+        "keep_recent": 3,
+        "did_compact": false,
+        "estimated_tokens_before": 1284,
+        "estimated_tokens_after": 1284
+      },
+      "compacted_tool_count": 0,
+      "summary_calls": 0,
+      "summary_model_calls": 0,
+      "summary_accounting": {
+        "provider": "fixture",
+        "model_calls": 0,
+        "known_total_tokens": 0,
+        "unknown_usage_calls": 0,
+        "tokens_committed": 0,
+        "estimated_cost_usd": null,
+        "cost_committed_usd": 0,
+        "elapsed_seconds": 0,
+        "records": []
+      },
+      "manager_state": {
+        "schema_version": "0.1",
+        "summary_calls": 0,
+        "summaries": [],
+        "plugin_state": {},
+        "summary_provider": "fixture",
+        "summary_attempts": [],
+        "dispatch_calls": 0,
+        "dispatch_receipts": [],
+        "dispatch_observations": []
+      },
+      "plugin": {
+        "name": "noop",
+        "requested": [],
+        "actually_injected": [],
+        "rejected": [],
+        "action_proposals": [],
+        "method_degraded": false,
+        "policy_error": null,
+        "schema_version": "0.1",
+        "ignored_optional_fields": [],
+        "events": []
+      },
+      "max_tokens": 32000,
+      "view_hash": "0e88b5d3e3e3fa348cfd2d47af94804ee9efc437b4a317a86a542070547e8f60",
+      "view_serialized_bytes": 6040,
+      "step": 2
+    },
+    {
+      "strategy": "masking",
+      "requested": "masking",
+      "actually_injected": "masking",
+      "summary_provider": "fixture",
+      "raw_message_hash": "62332d1db7df72da22fa6c29178357b95ce861f65adc6b697483083590c4349f",
+      "raw_serialized_bytes": 10608,
+      "summary_records": [],
+      "overflow": false,
+      "serialized_bytes": 13331,
+      "estimated_input_tokens": 3333,
+      "admission_input_tokens": 14899,
+      "reserved_output_tokens": 4096,
+      "estimate_method": "utf8_bytes_div_4_estimated",
+      "admission_method": "utf8_bytes_plus_protocol_allowance",
+      "masking": {
+        "message_count_before": 9,
+        "message_count_after": 9,
+        "chars_before": 9000,
+        "chars_after": 8919,
+        "chars_saved": 81,
+        "tool_messages_before": 4,
+        "tool_messages_after": 4,
+        "compacted_tool_count": 1,
+        "preserved_tool_count": 3,
+        "keep_recent": 3,
+        "did_compact": true,
+        "estimated_tokens_before": 2333,
+        "estimated_tokens_after": 2313
+      },
+      "compacted_tool_count": 1,
+      "summary_calls": 0,
+      "summary_model_calls": 0,
+      "summary_accounting": {
+        "provider": "fixture",
+        "model_calls": 0,
+        "known_total_tokens": 0,
+        "unknown_usage_calls": 0,
+        "tokens_committed": 0,
+        "estimated_cost_usd": null,
+        "cost_committed_usd": 0,
+        "elapsed_seconds": 0,
+        "records": []
+      },
+      "manager_state": {
+        "schema_version": "0.1",
+        "summary_calls": 0,
+        "summaries": [],
+        "plugin_state": {},
+        "summary_provider": "fixture",
+        "summary_attempts": [],
+        "dispatch_calls": 0,
+        "dispatch_receipts": [],
+        "dispatch_observations": []
+      },
+      "plugin": {
+        "name": "noop",
+        "requested": [],
+        "actually_injected": [],
+        "rejected": [],
+        "action_proposals": [],
+        "method_degraded": false,
+        "policy_error": null,
+        "schema_version": "0.1",
+        "ignored_optional_fields": [],
+        "events": []
+      },
+      "max_tokens": 32000,
+      "view_hash": "ec53d96e9ab5bca3648b0d3c4ad49259bae421f34f0f48eea10fcf96a19b44a2",
+      "view_serialized_bytes": 10527,
+      "step": 3
+    },
+    {
+      "strategy": "masking",
+      "requested": "masking",
+      "actually_injected": "masking",
+      "summary_provider": "fixture",
+      "raw_message_hash": "8af02950b96c15e60fd507857bb34aa024e628958c7cc0284580bdd244437f7d",
+      "raw_serialized_bytes": 21581,
+      "summary_records": [],
+      "overflow": false,
+      "serialized_bytes": 23805,
+      "estimated_input_tokens": 5952,
+      "admission_input_tokens": 25437,
+      "reserved_output_tokens": 4096,
+      "estimate_method": "utf8_bytes_div_4_estimated",
+      "admission_method": "utf8_bytes_plus_protocol_allowance",
+      "masking": {
+        "message_count_before": 11,
+        "message_count_after": 11,
+        "chars_before": 19376,
+        "chars_after": 18820,
+        "chars_saved": 556,
+        "tool_messages_before": 5,
+        "tool_messages_after": 5,
+        "compacted_tool_count": 2,
+        "preserved_tool_count": 3,
+        "keep_recent": 3,
+        "did_compact": true,
+        "estimated_tokens_before": 4941,
+        "estimated_tokens_after": 4802
+      },
+      "compacted_tool_count": 2,
+      "summary_calls": 0,
+      "summary_model_calls": 0,
+      "summary_accounting": {
+        "provider": "fixture",
+        "model_calls": 0,
+        "known_total_tokens": 0,
+        "unknown_usage_calls": 0,
+        "tokens_committed": 0,
+        "estimated_cost_usd": null,
+        "cost_committed_usd": 0,
+        "elapsed_seconds": 0,
+        "records": []
+      },
+      "manager_state": {
+        "schema_version": "0.1",
+        "summary_calls": 0,
+        "summaries": [],
+        "plugin_state": {},
+        "summary_provider": "fixture",
+        "summary_attempts": [],
+        "dispatch_calls": 0,
+        "dispatch_receipts": [],
+        "dispatch_observations": []
+      },
+      "plugin": {
+        "name": "noop",
+        "requested": [],
+        "actually_injected": [],
+        "rejected": [],
+        "action_proposals": [],
+        "method_degraded": false,
+        "policy_error": null,
+        "schema_version": "0.1",
+        "ignored_optional_fields": [],
+        "events": []
+      },
+      "max_tokens": 32000,
+      "view_hash": "1fab53d6e09b5373ee602fc46b1ba73e78defc8c25be50b3b8fac5868e29714b",
+      "view_serialized_bytes": 21001,
+      "step": 4
+    },
+    {
+      "strategy": "masking",
+      "requested": "masking",
+      "actually_injected": "masking",
+      "summary_provider": "fixture",
+      "raw_message_hash": "adb46bc6cece3b7a95bc728a4077e1a0c8ad9f7fc7ed0fe848eef4ff35b22d05",
+      "raw_serialized_bytes": 33539,
+      "summary_records": [],
+      "overflow": true,
+      "serialized_bytes": 34318,
+      "estimated_input_tokens": 8580,
+      "admission_input_tokens": 36014,
+      "reserved_output_tokens": 4096,
+      "estimate_method": "utf8_bytes_div_4_estimated",
+      "admission_method": "utf8_bytes_plus_protocol_allowance",
+      "masking": {
+        "message_count_before": 13,
+        "message_count_after": 13,
+        "chars_before": 30719,
+        "chars_after": 28746,
+        "chars_saved": 1973,
+        "tool_messages_before": 6,
+        "tool_messages_after": 6,
+        "compacted_tool_count": 3,
+        "preserved_tool_count": 3,
+        "keep_recent": 3,
+        "did_compact": true,
+        "estimated_tokens_before": 7790,
+        "estimated_tokens_after": 7297
+      },
+      "compacted_tool_count": 3,
+      "summary_calls": 0,
+      "summary_model_calls": 0,
+      "summary_accounting": {
+        "provider": "fixture",
+        "model_calls": 0,
+        "known_total_tokens": 0,
+        "unknown_usage_calls": 0,
+        "tokens_committed": 0,
+        "estimated_cost_usd": null,
+        "cost_committed_usd": 0,
+        "elapsed_seconds": 0,
+        "records": []
+      },
+      "manager_state": {
+        "schema_version": "0.1",
+        "summary_calls": 0,
+        "summaries": [],
+        "plugin_state": {},
+        "summary_provider": "fixture",
+        "summary_attempts": [],
+        "dispatch_calls": 0,
+        "dispatch_receipts": [],
+        "dispatch_observations": []
+      },
+      "max_tokens": 32000,
+      "step": 5,
+      "error_kind": "context_overflow"
+    }
+  ],
+  "subagent_traces": [],
+  "llm_attempts": [
+    {
+      "attempt": 0,
+      "success": true,
+      "error_kind": null,
+      "status_code": null,
+      "message": null,
+      "elapsed_ms": 1150.96430000267,
+      "usage": {
+        "prompt_tokens": 1612,
+        "completion_tokens": 104,
+        "total_tokens": 1716,
+        "provenance": "provider",
+        "prompt_cache_hit_tokens": 896,
+        "prompt_cache_miss_tokens": 716
+      },
+      "usage_provenance": "provider"
+    },
+    {
+      "attempt": 0,
+      "success": true,
+      "error_kind": null,
+      "status_code": null,
+      "message": null,
+      "elapsed_ms": 890.9399999829475,
+      "usage": {
+        "prompt_tokens": 1973,
+        "completion_tokens": 77,
+        "total_tokens": 2050,
+        "provenance": "provider",
+        "prompt_cache_hit_tokens": 1664,
+        "prompt_cache_miss_tokens": 309
+      },
+      "usage_provenance": "provider"
+    },
+    {
+      "attempt": 0,
+      "success": true,
+      "error_kind": null,
+      "status_code": null,
+      "message": null,
+      "elapsed_ms": 607.9946999961976,
+      "usage": {
+        "prompt_tokens": 2450,
+        "completion_tokens": 60,
+        "total_tokens": 2510,
+        "provenance": "provider",
+        "prompt_cache_hit_tokens": 2048,
+        "prompt_cache_miss_tokens": 402
+      },
+      "usage_provenance": "provider"
+    },
+    {
+      "attempt": 0,
+      "success": true,
+      "error_kind": null,
+      "status_code": null,
+      "message": null,
+      "elapsed_ms": 876.5541999891866,
+      "usage": {
+        "prompt_tokens": 3694,
+        "completion_tokens": 60,
+        "total_tokens": 3754,
+        "provenance": "provider",
+        "prompt_cache_hit_tokens": 1664,
+        "prompt_cache_miss_tokens": 2030
+      },
+      "usage_provenance": "provider"
+    },
+    {
+      "attempt": 0,
+      "success": true,
+      "error_kind": null,
+      "status_code": null,
+      "message": null,
+      "elapsed_ms": 892.7146000205539,
+      "usage": {
+        "prompt_tokens": 6342,
+        "completion_tokens": 83,
+        "total_tokens": 6425,
+        "provenance": "provider",
+        "prompt_cache_hit_tokens": 1664,
+        "prompt_cache_miss_tokens": 4678
+      },
+      "usage_provenance": "provider"
+    }
+  ],
+  "termination_kind": "context_overflow",
+  "cleanup_elapsed_s": 0.2715211000177078,
+  "model_budget": {
+    "calls_started": 5,
+    "tokens_committed": 16455,
+    "cost_committed": 0.0,
+    "outstanding_reservations": 0,
+    "max_model_calls": 6,
+    "max_tokens": 200000,
+    "max_cost_usd": null,
+    "settlements": [
+      {
+        "total_tokens": 1716,
+        "provenance": "provider",
+        "cost_usd": null,
+        "cost_provenance": "unknown",
+        "note": null
+      },
+      {
+        "total_tokens": 2050,
+        "provenance": "provider",
+        "cost_usd": null,
+        "cost_provenance": "unknown",
+        "note": null
+      },
+      {
+        "total_tokens": 2510,
+        "provenance": "provider",
+        "cost_usd": null,
+        "cost_provenance": "unknown",
+        "note": null
+      },
+      {
+        "total_tokens": 3754,
+        "provenance": "provider",
+        "cost_usd": null,
+        "cost_provenance": "unknown",
+        "note": null
+      },
+      {
+        "total_tokens": 6425,
+        "provenance": "provider",
+        "cost_usd": null,
+        "cost_provenance": "unknown",
+        "note": null
+      }
+    ]
+  },
+  "run_output": {
+    "limit_bytes": 16777216,
+    "bytes_kept": 27141,
+    "bytes_seen": 27141,
+    "peak_read_buffer_bytes": 11145,
+    "cancelled_producer": false,
+    "producers_stopped": false
+  },
+  "execution": {
+    "capabilities": {
+      "profile": "docker_linux",
+      "platform": "linux-container",
+      "image": "coding-harness-a5-transport@sha256:f183d6e64cfb8b7c4644e1f5063856c6e56cde61022e36efa62f1d96b1474bfd",
+      "context": "desktop-linux",
+      "cancel": true,
+      "filesystem_isolation": true,
+      "network_control": true,
+      "network_default": "none",
+      "resource_limits": true,
+      "complete_isolation": false,
+      "cpu_limit": 1.0,
+      "memory_limit_bytes": 1073741824,
+      "pids_limit": 128,
+      "workspace_limit_bytes": 268435456,
+      "tmpfs_limit_bytes": 67108864,
+      "tree_reclaim_guaranteed": true,
+      "privileged": false,
+      "docker_socket_mounted": false,
+      "host_mounts": false,
+      "workspace_transfer_limit": 8388608,
+      "transport": "image_backed_base_plus_delta",
+      "source_tree_hash": "f63cd65148be32e2ae64e7df25308520764d8e072c5dd758e54e1c87d0a3d3df",
+      "delta_schema": "a5.typed-tree.delta.v1"
+    },
+    "lifecycle": [
+      {
+        "event": "created",
+        "container": "h3-2da53f74311b4b0cab64e6186c25bc42",
+        "image_id": "sha256:f183d6e64cfb8b7c4644e1f5063856c6e56cde61022e36efa62f1d96b1474bfd"
+      },
+      {
+        "event": "destroyed",
+        "container": "h3-2da53f74311b4b0cab64e6186c25bc42",
+        "elapsed_s": 0.2715211000177078
+      }
+    ],
+    "snapshot_error": null,
+    "cleanup_ok": true,
+    "unavailable_error": null,
+    "candidate_hash": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+  },
+  "summary": {
+    "provider": "fixture",
+    "model_calls": 0,
+    "known_total_tokens": 0,
+    "unknown_usage_calls": 0,
+    "tokens_committed": 0,
+    "estimated_cost_usd": null,
+    "cost_committed_usd": 0,
+    "elapsed_seconds": 0,
+    "records": []
+  }
+}

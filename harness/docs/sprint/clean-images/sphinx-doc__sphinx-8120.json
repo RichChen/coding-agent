@@ -1,0 +1,24 @@
+{
+  "task_id": "sphinx-doc__sphinx-8120",
+  "clean_image_digest": "coding-harness-a5-clean@sha256:5e6f51dd4f38e98546130ed38c13f4970ec51e34d85897a3b7c9feeaf36e4816",
+  "clean_image_id": "sha256:5e6f51dd4f38e98546130ed38c13f4970ec51e34d85897a3b7c9feeaf36e4816",
+  "original_tree_hash": "09e5d31aabefbc95e1cd6f8ed5bd8d1e276a2230ebe6b6403dab114f4a701ba5",
+  "image_source_only_hash": "09e5d31aabefbc95e1cd6f8ed5bd8d1e276a2230ebe6b6403dab114f4a701ba5",
+  "source_only_match": true,
+  "filesystem_scan": {
+    "needle_count": 11,
+    "hits": [],
+    "hit_count": 0,
+    "base_image_same": [],
+    "base_image_same_count": 0,
+    "install_record_same": [
+      "/usr/local/lib/python3.9/site-packages/babel/messages/mofile.py",
+      "/usr/local/lib/python3.9/site-packages/babel/messages/pofile.py"
+    ],
+    "install_record_same_count": 2,
+    "pass": true
+  },
+  "answer_isolation_pass": true,
+  "base_image": "python:3.9-slim-bookworm",
+  "spec_python": "3.9"
+}

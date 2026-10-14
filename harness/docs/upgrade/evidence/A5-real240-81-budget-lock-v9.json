@@ -1,0 +1,19 @@
+{
+  "schema": "a5.pilot-budget-lock.v2",
+  "protocol_version": "a5-real240-v9",
+  "currency": "CNY",
+  "pilot_hard_cap": "50.000",
+  "runs": 240,
+  "unknown_usage": "keep_reservation",
+  "memory_build_ledger": "separate_not_deducted_from_pilot",
+  "do_not_expand_runs_if_budget_remains": true,
+  "historical_imports": {
+    "v6": {"calls": 6, "cost_cny": "0.050"},
+    "v7": {"calls": 24, "cost_cny": "0.189"},
+    "v8_b0": {"calls": 9, "cost_cny": "0.175"}
+  },
+  "profile_ref": "A5-real240-81-profile-v9.json",
+  "measured_unit_price_required_for_240": true,
+  "execution_enabled": true,
+  "paid": true
+}

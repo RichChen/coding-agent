@@ -1,0 +1,46 @@
+{
+  "runs": [
+    {
+      "instance_id": "psf__requests-2674",
+      "repo": "psf/requests",
+      "accepted": false,
+      "reason": "FAIL_TO_PASS still fails after gold patch: FAILED test_requests.py::RequestsTestCase::test_prepared_from_session - json.... | FAILED test_requests.py::RequestsTestCase::test_unicode_multipart_post - asse... | FAILED test_requests.py::TestTimeout::test_none_timeout - assert 503 == 200 | FAILED test_requests.py::TestTimeout::test_encoded_methods - assert False | 12 failed, 1 passed, 149 deselected, 4 warnings in 9.83s",
+      "fail_to_pass": [
+        "test_requests.py::RequestsTestCase::test_BASICAUTH_TUPLE_HTTP_200_OK_GET",
+        "test_requests.py::RequestsTestCase::test_HTTP_200_OK_GET_ALTERNATIVE",
+        "test_requests.py::RequestsTestCase::test_HTTP_200_OK_GET_WITH_PARAMS",
+        "test_requests.py::RequestsTestCase::test_HTTP_200_OK_HEAD",
+        "test_requests.py::RequestsTestCase::test_auth_is_retained_for_redirect_on_host",
+        "test_requests.py::RequestsTestCase::test_different_encodings_dont_break_post",
+        "test_requests.py::RequestsTestCase::test_manual_redirect_with_partial_body_read",
+        "test_requests.py::RequestsTestCase::test_mixed_case_scheme_acceptable",
+        "test_requests.py::RequestsTestCase::test_prepared_from_session",
+        "test_requests.py::RequestsTestCase::test_unicode_multipart_post",
+        "test_requests.py::TestTimeout::test_none_timeout",
+        "test_requests.py::TestTimeout::test_encoded_methods"
+      ],
+      "pass_subset": [
+        "test_requests.py::RequestsTestCase::test_DIGESTAUTH_QUOTES_QOP_VALUE",
+        "test_requests.py::RequestsTestCase::test_DIGESTAUTH_WRONG_HTTP_401_GET",
+        "test_requests.py::RequestsTestCase::test_DIGEST_AUTH_RETURNS_COOKIE",
+        "test_requests.py::RequestsTestCase::test_DIGEST_AUTH_SETS_SESSION_COOKIES",
+        "test_requests.py::RequestsTestCase::test_DIGEST_STREAM",
+        "test_requests.py::RequestsTestCase::test_HTTP_200_OK_GET_WITH_MIXED_PARAMS",
+        "test_requests.py::RequestsTestCase::test_HTTP_200_OK_PUT",
+        "test_requests.py::RequestsTestCase::test_LocationParseError",
+        "test_requests.py::RequestsTestCase::test_POSTBIN_GET_POST_FILES",
+        "test_requests.py::RequestsTestCase::test_POSTBIN_GET_POST_FILES_WITH_DATA"
+      ],
+      "fixture_dir": null,
+      "fixture_size_bytes": 0
+    }
+  ],
+  "summary": {
+    "target_count": 1,
+    "accepted_count": 0,
+    "accepted_repo_count": 0,
+    "total_fixture_size_bytes": 0,
+    "dataset_out": "datasets/tmp_requests_2674_tasks.json",
+    "log_out": "reports/examples/tmp_requests_2674_log.json"
+  }
+}

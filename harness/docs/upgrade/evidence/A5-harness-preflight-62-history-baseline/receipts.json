@@ -1,0 +1,61 @@
+{
+  "schema": "a5.repo-baseline-preflight.receipts.v1",
+  "rows": [
+    {
+      "task_id": "django__django-10914",
+      "repo": "django/django",
+      "base_revision": "e7fd69d051eaa67cb17f172a39b57253e9cb831a",
+      "status": "invalid_env",
+      "attempt": 25,
+      "retries": 0,
+      "model_calls": 0,
+      "paid": false,
+      "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\django__django-10914\\source-receipt.json",
+      "transport_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-23-transport-smoke\\tasks\\django__django-10914\\receipt.json",
+      "reason": "environment_or_baseline_preflight_failed",
+      "error": "OSError: [WinError 1314] 客户端没有所需的特权。: '../../djangodocs/static/docicons-behindscenes.png' -> 'D:\\\\crq\\\\src\\\\coding-harness\\\\docs\\\\upgrade\\\\evidence\\\\A5-harness-preflight-62-history-baseline\\\\tasks\\\\django__django-10914\\\\staging\\\\original\\\\docs\\\\_theme\\\\djangodocs-epub\\\\static\\\\docicons-behindscenes.png'"
+    },
+    {
+      "task_id": "sympy__sympy-11400",
+      "repo": "sympy/sympy",
+      "base_revision": "8dcb12a6cf500e8738d6729ab954a261758f49ca",
+      "status": "invalid_env",
+      "attempt": 25,
+      "retries": 0,
+      "model_calls": 0,
+      "paid": false,
+      "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\sympy__sympy-11400\\source-receipt.json",
+      "transport_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-23-transport-smoke\\tasks\\sympy__sympy-11400\\receipt.json",
+      "reason": "environment_or_baseline_preflight_failed",
+      "error": "RuntimeError: docker image build failed: ERROR: open C:\\Users\\Administrator\\.docker\\buildx\\.lock: Access is denied.\n"
+    },
+    {
+      "task_id": "scikit-learn__scikit-learn-10297",
+      "repo": "scikit-learn/scikit-learn",
+      "base_revision": "b90661d6a46aa3619d3eec94d5281f5888add501",
+      "status": "invalid_env",
+      "attempt": 25,
+      "retries": 0,
+      "model_calls": 0,
+      "paid": false,
+      "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\scikit-learn__scikit-learn-10297\\source-receipt.json",
+      "transport_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-23-transport-smoke\\tasks\\scikit-learn__scikit-learn-10297\\receipt.json",
+      "reason": "environment_or_baseline_preflight_failed",
+      "error": "RuntimeError: docker image build failed: ERROR: open C:\\Users\\Administrator\\.docker\\buildx\\.lock: Access is denied.\n"
+    },
+    {
+      "task_id": "pytest-dev__pytest-5103",
+      "repo": "pytest-dev/pytest",
+      "base_revision": "10ca84ffc56c2dd2d9dc4bd71b7b898e083500cd",
+      "status": "invalid_env",
+      "attempt": 25,
+      "retries": 0,
+      "model_calls": 0,
+      "paid": false,
+      "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\pytest-dev__pytest-5103\\source-receipt.json",
+      "transport_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-23-transport-smoke\\tasks\\pytest-dev__pytest-5103\\receipt.json",
+      "reason": "environment_or_baseline_preflight_failed",
+      "error": "RuntimeError: docker image build failed: ERROR: open C:\\Users\\Administrator\\.docker\\buildx\\.lock: Access is denied.\n"
+    }
+  ]
+}

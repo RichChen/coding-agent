@@ -1,0 +1,276 @@
+{
+  "case": "export",
+  "passed": true,
+  "base_verified": true,
+  "isolation": {
+    "Id": "6fa6827671e5821b17a9ac8c26f03f705281d064cf8952597b70cb10fda38457",
+    "Created": "2026-09-22T05:13:08.478451745Z",
+    "Path": "/usr/local/bin/python",
+    "Args": [
+      "-I",
+      "-S",
+      "-c",
+      "import time; time.sleep(604800)"
+    ],
+    "State": {
+      "Status": "running",
+      "Running": true,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 45944,
+      "ExitCode": 0,
+      "Error": "",
+      "StartedAt": "2026-09-22T05:13:08.754000652Z",
+      "FinishedAt": "0001-01-01T00:00:00Z"
+    },
+    "Image": "sha256:5a274055d0938df68223ceca14a82f325100dc9879152556af40b573d0c15371",
+    "ResolvConfPath": "/var/lib/docker/containers/6fa6827671e5821b17a9ac8c26f03f705281d064cf8952597b70cb10fda38457/resolv.conf",
+    "HostnamePath": "/var/lib/docker/containers/6fa6827671e5821b17a9ac8c26f03f705281d064cf8952597b70cb10fda38457/hostname",
+    "HostsPath": "/var/lib/docker/containers/6fa6827671e5821b17a9ac8c26f03f705281d064cf8952597b70cb10fda38457/hosts",
+    "LogPath": "",
+    "Name": "/h3-665f5289f930408d8c715a2f75bf6bfd",
+    "RestartCount": 0,
+    "Driver": "overlayfs",
+    "Platform": "linux",
+    "MountLabel": "",
+    "ProcessLabel": "",
+    "AppArmorProfile": "",
+    "ExecIDs": null,
+    "HostConfig": {
+      "Binds": null,
+      "ContainerIDFile": "",
+      "LogConfig": {
+        "Type": "none",
+        "Config": {}
+      },
+      "NetworkMode": "none",
+      "PortBindings": {},
+      "RestartPolicy": {
+        "Name": "no",
+        "MaximumRetryCount": 0
+      },
+      "AutoRemove": false,
+      "VolumeDriver": "",
+      "VolumesFrom": null,
+      "ConsoleSize": [
+        0,
+        0
+      ],
+      "CapAdd": null,
+      "CapDrop": [
+        "ALL"
+      ],
+      "CgroupnsMode": "private",
+      "Dns": null,
+      "DnsOptions": [],
+      "DnsSearch": [],
+      "ExtraHosts": null,
+      "GroupAdd": null,
+      "IpcMode": "private",
+      "Cgroup": "",
+      "Links": null,
+      "OomScoreAdj": 0,
+      "PidMode": "",
+      "Privileged": false,
+      "PublishAllPorts": false,
+      "ReadonlyRootfs": true,
+      "SecurityOpt": [
+        "no-new-privileges:true"
+      ],
+      "Tmpfs": {
+        "/tmp": "rw,noexec,nosuid,nodev,size=67108864,mode=1777",
+        "/workspace": "rw,nosuid,nodev,size=268435456,mode=1777"
+      },
+      "UTSMode": "",
+      "UsernsMode": "",
+      "ShmSize": 67108864,
+      "Runtime": "runc",
+      "Isolation": "",
+      "CpuShares": 0,
+      "Memory": 1073741824,
+      "NanoCpus": 1000000000,
+      "CgroupParent": "",
+      "BlkioWeight": 0,
+      "BlkioWeightDevice": [],
+      "BlkioDeviceReadBps": [],
+      "BlkioDeviceWriteBps": [],
+      "BlkioDeviceReadIOps": [],
+      "BlkioDeviceWriteIOps": [],
+      "CpuPeriod": 0,
+      "CpuQuota": 0,
+      "CpuRealtimePeriod": 0,
+      "CpuRealtimeRuntime": 0,
+      "CpusetCpus": "",
+      "CpusetMems": "",
+      "Devices": [],
+      "DeviceCgroupRules": null,
+      "DeviceRequests": null,
+      "MemoryReservation": 0,
+      "MemorySwap": 1073741824,
+      "MemorySwappiness": null,
+      "OomKillDisable": null,
+      "PidsLimit": 128,
+      "Ulimits": null,
+      "CpuCount": 0,
+      "CpuPercent": 0,
+      "IOMaximumIOps": 0,
+      "IOMaximumBandwidth": 0,
+      "MaskedPaths": [
+        "/proc/acpi",
+        "/proc/asound",
+        "/proc/interrupts",
+        "/proc/kcore",
+        "/proc/keys",
+        "/proc/latency_stats",
+        "/proc/sched_debug",
+        "/proc/scsi",
+        "/proc/timer_list",
+        "/proc/timer_stats",
+        "/sys/devices/virtual/powercap",
+        "/sys/firmware"
+      ],
+      "ReadonlyPaths": [
+        "/proc/bus",
+        "/proc/fs",
+        "/proc/irq",
+        "/proc/sys",
+        "/proc/sysrq-trigger"
+      ]
+    },
+    "Storage": {
+      "RootFS": {
+        "Snapshot": {
+          "Name": "overlayfs"
+        }
+      }
+    },
+    "Mounts": [],
+    "Config": {
+      "Hostname": "6fa6827671e5",
+      "Domainname": "",
+      "User": "1000:1000",
+      "AttachStdin": false,
+      "AttachStdout": true,
+      "AttachStderr": true,
+      "Tty": false,
+      "OpenStdin": false,
+      "StdinOnce": false,
+      "Env": [
+        "PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+        "LANG=C.UTF-8",
+        "GPG_KEY=E3FF2839C048B25C084DEBE9B26995E310250568",
+        "PYTHON_VERSION=3.9.19",
+        "PYTHON_PIP_VERSION=23.0.1",
+        "PYTHON_SETUPTOOLS_VERSION=58.1.0",
+        "PYTHON_GET_PIP_URL=https://github.com/pypa/get-pip/raw/def4aec84b261b939137dd1c69eff0aabb4a7bf4/public/get-pip.py",
+        "PYTHON_GET_PIP_SHA256=bc37786ec99618416cc0a0ca32833da447f4d91ab51d2c138dd15b7af21e8e9a"
+      ],
+      "Cmd": [
+        "-I",
+        "-S",
+        "-c",
+        "import time; time.sleep(604800)"
+      ],
+      "Image": "coding-harness-a5-transport@sha256:5a274055d0938df68223ceca14a82f325100dc9879152556af40b573d0c15371",
+      "Volumes": null,
+      "WorkingDir": "/workspace",
+      "Entrypoint": [
+        "/usr/local/bin/python"
+      ],
+      "Labels": {
+        "coding-harness.h3": "true"
+      }
+    },
+    "NetworkSettings": {
+      "SandboxID": "420b89c91d5768c58b98c2880e6f6311ba202de3276267a0aba41b361c25275a",
+      "SandboxKey": "/var/run/docker/netns/420b89c91d57",
+      "Ports": {},
+      "Networks": {
+        "none": {
+          "IPAMConfig": null,
+          "Links": null,
+          "Aliases": null,
+          "DriverOpts": null,
+          "GwPriority": 0,
+          "NetworkID": "0578bece0afec6e9438c77cd1e9e80cf5e90a1209d171f5f2bea58f58ec4d45d",
+          "EndpointID": "76587f90ffed9fcf20842c1b908b4c350c62b3cd9b67c68c258c627f8571f51c",
+          "Gateway": "",
+          "IPAddress": "",
+          "MacAddress": "",
+          "IPPrefixLen": 0,
+          "IPv6Gateway": "",
+          "GlobalIPv6Address": "",
+          "GlobalIPv6PrefixLen": 0,
+          "DNSNames": null
+        }
+      }
+    },
+    "ImageManifestDescriptor": {
+      "mediaType": "application/vnd.oci.image.manifest.v1+json",
+      "digest": "sha256:4e28b93dd7d24a6d3b00f296dee5e6d8fa1452a81d57fd84964a4787219f1468",
+      "size": 2196,
+      "platform": {
+        "architecture": "amd64",
+        "os": "linux"
+      }
+    }
+  },
+  "capabilities": {
+    "profile": "docker_linux",
+    "platform": "linux-container",
+    "image": "coding-harness-a5-transport@sha256:5a274055d0938df68223ceca14a82f325100dc9879152556af40b573d0c15371",
+    "context": "desktop-linux",
+    "cancel": true,
+    "filesystem_isolation": true,
+    "network_control": true,
+    "network_default": "none",
+    "resource_limits": true,
+    "complete_isolation": false,
+    "cpu_limit": 1.0,
+    "memory_limit_bytes": 1073741824,
+    "pids_limit": 128,
+    "workspace_limit_bytes": 268435456,
+    "tmpfs_limit_bytes": 67108864,
+    "tree_reclaim_guaranteed": true,
+    "privileged": false,
+    "docker_socket_mounted": false,
+    "host_mounts": false,
+    "workspace_transfer_limit": 8388608,
+    "transport": "image_backed_base_plus_delta",
+    "source_tree_hash": "8d27c57ac8c8a87ebfe6536d4c2de1eb759c741ec205fd3f8930decbb7b3d0ca",
+    "delta_schema": "a5.typed-tree.delta.v1"
+  },
+  "delta_bytes": 882,
+  "delta": {
+    "base_tree_hash": "8d27c57ac8c8a87ebfe6536d4c2de1eb759c741ec205fd3f8930decbb7b3d0ca",
+    "candidate_tree_hash": "84a6ecb5208969042d04eff0d53c42ee9c9ef3b8c6cae75d058d60be936f8962",
+    "changed": {
+      "bench/bench.py": {
+        "content": "aW1wb3J0IHN5cwoKaWYgX19uYW1lX18gPT0gIl9fbWFpbl9fIjoKICAgIGltcG9ydCBjUHJvZmlsZQogICAgaW1wb3J0IHB5dGVzdCAgIyBOT1FBCiAgICBpbXBvcnQgcHN0YXRzCgogICAgc2NyaXB0ID0gc3lzLmFyZ3ZbMTpdIGlmIGxlbihzeXMuYXJndikgPiAxIGVsc2UgWyJlbXB0eS5weSJdCiAgICBzdGF0cyA9IGNQcm9maWxlLnJ1bigicHl0ZXN0LmNtZGxpbmUubWFpbiglcikiICUgc2NyaXB0LCAicHJvZiIpCiAgICBwID0gcHN0YXRzLlN0YXRzKCJwcm9mIikKICAgIHAuc3RyaXBfZGlycygpCiAgICBwLnNvcnRfc3RhdHMoImN1bXVsYXRpdmUiKQogICAgcHJpbnQocC5wcmludF9zdGF0cyg1MDApKQoKIyBhNSB0cmFuc3BvcnQgc21va2UK",
+        "metadata": {
+          "kind": "file",
+          "mode": 436,
+          "sha256": "dab0920d5095c9598084ec2362fc4a0769562f5f0693d2cf1c0a9a250c0abb2b",
+          "size": 369
+        }
+      }
+    },
+    "deleted": [],
+    "schema": "a5.typed-tree.delta.v1"
+  },
+  "cleanup_verified": true,
+  "lifecycle": [
+    {
+      "event": "created",
+      "container": "h3-665f5289f930408d8c715a2f75bf6bfd",
+      "image_id": "sha256:5a274055d0938df68223ceca14a82f325100dc9879152556af40b573d0c15371"
+    },
+    {
+      "event": "destroyed",
+      "container": "h3-665f5289f930408d8c715a2f75bf6bfd",
+      "elapsed_s": 0.27492079997318797
+    }
+  ]
+}

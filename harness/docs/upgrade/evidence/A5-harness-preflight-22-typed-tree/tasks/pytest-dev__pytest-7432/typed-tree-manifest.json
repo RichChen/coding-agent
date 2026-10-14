@@ -1,0 +1,3525 @@
+{
+  "schema": "a5.typed-tree.v1",
+  "repo": "pytest-dev/pytest",
+  "base_revision": "e6e300e729dd33956e5448d8be9a0b1540b4e53a",
+  "archive_sha256": "5b7f9d7d90d2b68ed2cecb3007ebe851aec8d5cfa92b4e322eeed8a0152953cb",
+  "archive_bytes": 1068738,
+  "entries": {
+    ".coveragerc": {
+      "mode": 436,
+      "kind": "file",
+      "size": 587,
+      "sha256": "7acc3ae6be07bedb40618507fded2950d28edcf240135ac92793eb54f719ccb8"
+    },
+    ".gitattributes": {
+      "mode": 436,
+      "kind": "file",
+      "size": 21,
+      "sha256": "38e29e3955ccfb91804e2af1a598cd53d359c8d2a853c16e84639e5f329af734"
+    },
+    ".gitblameignore": {
+      "mode": 436,
+      "kind": "file",
+      "size": 920,
+      "sha256": "a14f12963443b435d29a24c4357178beb24b145ff9703af37136f1973ebee1db"
+    },
+    ".github": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    ".github/FUNDING.yml": {
+      "mode": 436,
+      "kind": "file",
+      "size": 215,
+      "sha256": "014725d5a3bfc6f79317629e3b94f13947870899576bfdb23b2524baf8a44d62"
+    },
+    ".github/ISSUE_TEMPLATE.md": {
+      "mode": 436,
+      "kind": "file",
+      "size": 290,
+      "sha256": "102fb9ed8861cc52d082f2cf33914a9c30ce3e9748a21fbb3c7befdf780190c2"
+    },
+    ".github/PULL_REQUEST_TEMPLATE.md": {
+      "mode": 436,
+      "kind": "file",
+      "size": 1349,
+      "sha256": "a794b4b270b5babaddcd160fcfbffa793ecc987501f1ad1b43b7eb8365694167"
+    },
+    ".github/config.yml": {
+      "mode": 436,
+      "kind": "file",
+      "size": 23,
+      "sha256": "24567099fd861c61bff8b7403fcf906357dfa0aa320b9171bc612e4493cf4444"
+    },
+    ".github/labels.toml": {
+      "mode": 436,
+      "kind": "file",
+      "size": 3690,
+      "sha256": "a18b1fa981cf0594333d48647145ed2701af604f77b69c1f1ddab5d18d973d43"
+    },
+    ".github/workflows": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    ".github/workflows/main.yml": {
+      "mode": 436,
+      "kind": "file",
+      "size": 5875,
+      "sha256": "ed7354f0c8c9d6e0208699ee13c3d24ccc2c1e10146a726a61ff095faf5f1390"
+    },
+    ".github/workflows/release-on-comment.yml": {
+      "mode": 436,
+      "kind": "file",
+      "size": 858,
+      "sha256": "0562738eb60c217034320400d58c43632d95ba9c9641a7b889016f12b88857c6"
+    },
+    ".gitignore": {
+      "mode": 436,
+      "kind": "file",
+      "size": 655,
+      "sha256": "a74398a120ae6dccea3e94486b4dc8d6f0c52e1233790bb56049ccd0a98678aa"
+    },
+    ".pre-commit-config.yaml": {
+      "mode": 436,
+      "kind": "file",
+      "size": 2511,
+      "sha256": "1ac5db9f636144ba2af82e655e6635252051a06029a67601bda8dae62247a4da"
+    },
+    ".travis.yml": {
+      "mode": 436,
+      "kind": "file",
+      "size": 1412,
+      "sha256": "81417946d11f52eb9582535b753e77abd734b6ff123911347086dc8dc598bdc8"
+    },
+    "AUTHORS": {
+      "mode": 436,
+      "kind": "file",
+      "size": 4675,
+      "sha256": "2694239fb98c4d5481e7f5a234befd0442bc19564b7269dba95164ab9842be83"
+    },
+    "CHANGELOG.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 232,
+      "sha256": "fb440f168f10d695a77790bb9aed71c1049aa9d9f052465dac76a6b9820a3649"
+    },
+    "CITATION": {
+      "mode": 436,
+      "kind": "file",
+      "size": 475,
+      "sha256": "48976128fce8f1b1f3f3feaa6116e2d8ddf87b00357a316a1a7fb30913473d7e"
+    },
+    "CODE_OF_CONDUCT.md": {
+      "mode": 436,
+      "kind": "file",
+      "size": 3720,
+      "sha256": "8e7431646e876b0d6dfa867e8a58bf5200decce8efc628cc219baf79cfc0b511"
+    },
+    "CONTRIBUTING.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 17225,
+      "sha256": "778fd170950ce6c7958679808e08c654fa4980cfd512af36080928441be58c97"
+    },
+    "LICENSE": {
+      "mode": 436,
+      "kind": "file",
+      "size": 1096,
+      "sha256": "7898b9b164d4f93fd9a562fd0f592935518b48c4745303964110eb7f7fe64faf"
+    },
+    "OPENCOLLECTIVE.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 1953,
+      "sha256": "ad5807b0daa387976ec5fbf625342dfeb3ef4b11894160f038ec7ed294e16b8c"
+    },
+    "README.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 5184,
+      "sha256": "a2a2c30a2405315c26a8d8676768a3ed4c7e624e5af2aacc241ea1aaa12da435"
+    },
+    "RELEASING.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 2798,
+      "sha256": "95732a2bcbd060b0889c68ff8bcdb00160dae8ba0363f9d1ed321e384722f70d"
+    },
+    "TIDELIFT.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 2313,
+      "sha256": "4a1e7a4a1e8198bd7869d600b50ed4f6de95a89c9d68e506188f8e8ca42c4627"
+    },
+    "bench": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "bench/bench.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 339,
+      "sha256": "e1e48dc3d7337bfa7c32a5064725c770f3a44fe293a0a04ef6157bedd5ff1105"
+    },
+    "bench/bench_argcomplete.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 594,
+      "sha256": "72bcd6a1a71c423e3791368125c13636f7df68477154cede5931da25ef274f84"
+    },
+    "bench/empty.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 63,
+      "sha256": "529bc8b784e11ff21386578f2024bbeadd3b9ab05e2e01dc64556d7668759d17"
+    },
+    "bench/manyparam.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 169,
+      "sha256": "2fb503f899d146ff57ad94dfcfa6f46055544a8af353bb1e40b7fa89fa8293b7"
+    },
+    "bench/skip.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 129,
+      "sha256": "52c36dbda1174efc8f1499490cc0299bde137804da2e3469c497cdfe957de924"
+    },
+    "changelog": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "changelog/1120.bugfix.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 124,
+      "sha256": "a6f334bac985e32aff0f5948b8e9c41dd87e5582edc97cb5e9aac85b6c4228d2"
+    },
+    "changelog/1316.breaking.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 165,
+      "sha256": "122869b43822099f47a1896d7354ccdec0229abd86f27db659f52a6b550b7f34"
+    },
+    "changelog/1556.feature.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 539,
+      "sha256": "6be31b35793c42c6a30d27e883d5a4b5e1ec2df0f5858f07ec1890b1bbc17e6b"
+    },
+    "changelog/4049.feature.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 243,
+      "sha256": "7434674d0f4c35cf5f2008db35c4d08db8f1814bb0158b47d2b407c4a69b2504"
+    },
+    "changelog/4375.improvement.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 236,
+      "sha256": "3893a1a2291bbda931253ff46f4e2e1aef20988d1333991fbb51eb23d2299a31"
+    },
+    "changelog/4391.improvement.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 351,
+      "sha256": "a7ef54e9cbdac8d93df19e1ea48d391478711ea05b32dca35d39cb9383e561bf"
+    },
+    "changelog/4583.bugfix.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 122,
+      "sha256": "7e53da305b3ccd5d6db1c7b23e9e4ba0736bfb676ec3c4255e330b517f0b13c1"
+    },
+    "changelog/4675.improvement.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 70,
+      "sha256": "d8fb1125de67423279669816969679d460d8abea22c41c0387683fbe4104ec85"
+    },
+    "changelog/4677.bugfix.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 117,
+      "sha256": "de1778655afb880c981397175babe6bd78e69abfd4ab3e2b9e3844e523d2d91f"
+    },
+    "changelog/5456.bugfix.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 137,
+      "sha256": "8e0c5f512107d1f05958551524ef8ba8ed35e017d55f5d47dd0493f1bc94daa2"
+    },
+    "changelog/5965.breaking.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 736,
+      "sha256": "c4b778bcdfdd6968c59eb0428ba353e10b4120f8030df36d01b32e1ec890bf17"
+    },
+    "changelog/6240.bugfix.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 98,
+      "sha256": "3ae03436c0f7d02cace2c33dedbf52147097da287c5fdcc8c1fd8afe3b1c5421"
+    },
+    "changelog/6285.feature.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 200,
+      "sha256": "7bf14f218e2a22682c97dc23b7535412f60254c997d6d5e6c1794fd10133ed20"
+    },
+    "changelog/6428.bugfix.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 132,
+      "sha256": "ef11596797ae1b4c93ba0bcb1afc7c80ee2de04419832e4de22831227d00ec86"
+    },
+    "changelog/6433.feature.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 519,
+      "sha256": "10d17a158b04b68ae72abdb1da5dc43956766550a56007166592e694467d18d9"
+    },
+    "changelog/6471.feature.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 184,
+      "sha256": "0dd89280beb0d78c8ca1abe31cceae88bad3878767067052a09b705437362296"
+    },
+    "changelog/6505.breaking.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 661,
+      "sha256": "6746b4314dc37525e2a85a11b1b08c3a5be59aad319869766b93e718788e0c79"
+    },
+    "changelog/6755.bugfix.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 84,
+      "sha256": "21011398dbd36e38340d9a4b2f2cada1bba3da944eb99620bc972c747beb0e74"
+    },
+    "changelog/6817.improvement.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 136,
+      "sha256": "ccae44483694690b730b7062959e8af0bdd5da1edf997980601f9f6c8639ebea"
+    },
+    "changelog/6856.feature.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 153,
+      "sha256": "b4e3ba9c0311cf44befd95991eb82df4fe53b43d6e306806a2c73d1e3bdca094"
+    },
+    "changelog/6871.bugfix.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 94,
+      "sha256": "2568b8a8db3ca114c6b4253fc796e7b5a9e7bf3172da3e4ce30996f344762287"
+    },
+    "changelog/6903.breaking.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 135,
+      "sha256": "fcd122095347adc781fb5f3be9c434662ae7d5a4032cea3bba9761ffdb77ada3"
+    },
+    "changelog/6906.feature.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 101,
+      "sha256": "ea6852669e771f83d2bba7950fe0e6811e28503b84e8534bd9e8913dd8187a25"
+    },
+    "changelog/6909.bugfix.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 396,
+      "sha256": "b21070ad0dfa4a552a10f590e3c0e0e665fe2ecb18ef4b7be1a023b399a075c2"
+    },
+    "changelog/6910.bugfix.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 87,
+      "sha256": "b029c0a30449d5de31c8bcf5a6883efc6d4b8f624cb20b92cd076fbd118150ea"
+    },
+    "changelog/6924.bugfix.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 67,
+      "sha256": "7b5d1da9b9ea5c54335cb18459f8af0e248d08d92c87d4116c6668fd5e10610c"
+    },
+    "changelog/6925.bugfix.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 49,
+      "sha256": "8f68369e1bab7ed88e4fa06698f270310e885125c7ad989d2cedb8b2bc1517ea"
+    },
+    "changelog/6940.improvement.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 134,
+      "sha256": "6683da2f25cecdec97f273d41678e966250fae854d9a7ae0377f7f50ae1c8ea3"
+    },
+    "changelog/6947.bugfix.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 111,
+      "sha256": "6036e0d1c59f4698bac3c77d9d727c24ead2d8edce4e8e9e2b3ff016b83d38e4"
+    },
+    "changelog/6951.bugfix.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 79,
+      "sha256": "a30958ab0588a29a135288d73816672beb12d08b765f138720470c7594c3cca1"
+    },
+    "changelog/6956.bugfix.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 72,
+      "sha256": "53e93b93e00343fcf098acd2bf0101f7c9d38e89a6cb8dce00c9218ede9ca65c"
+    },
+    "changelog/6981.deprecation.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 78,
+      "sha256": "b9621104922931283c54c8b60e9596759dd5d7f039d0d66b10079748a35e9b88"
+    },
+    "changelog/6991.bugfix.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 65,
+      "sha256": "e08c3b08f7d63206be4fa1142329d32bdfae66693197f3ce94b697bcec0d5176"
+    },
+    "changelog/6991.improvement.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 91,
+      "sha256": "5740d2c0b9dd3bc18d4f017b3ac60dfbc671ea0b7bed66a6f536ef21bc922288"
+    },
+    "changelog/6992.bugfix.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 96,
+      "sha256": "684baa8bc12679e1f406b8ce7d89acaff44eac781868ec1ba5fe4de92bd9bfad"
+    },
+    "changelog/7035.trivial.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 134,
+      "sha256": "9b760d910e18fcf99d32755e10e97e1bc820a19d69371bd6002f81f1294aacc2"
+    },
+    "changelog/7040.breaking.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 390,
+      "sha256": "7903890185273a08ab8df99339ad8fe2724e44c15f0d352292bd90bb1a18004a"
+    },
+    "changelog/7061.bugfix.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 95,
+      "sha256": "4d01173532151ff9cb660f26184dab52cb4d1a92b756e93093ccdfa88a377602"
+    },
+    "changelog/7076.bugfix.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 159,
+      "sha256": "049caf406fbe749272a6526fb2617b01bc4c8590ce57324534d97b3777812a8b"
+    },
+    "changelog/7091.improvement.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 278,
+      "sha256": "dc967973f62c74c0645b6841ecb93c4e206c587bda1693db50cad776b1a31842"
+    },
+    "changelog/7097.deprecation.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 326,
+      "sha256": "464ef072b5899f95b434bdc158e6832abb395a34a212207b74987e01217e2e34"
+    },
+    "changelog/7110.bugfix.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 77,
+      "sha256": "4314e3b53895c4aa8a28475be35e23671e90c14b7866c2c188c5dd8a835968a2"
+    },
+    "changelog/7119.improvement.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 224,
+      "sha256": "620f8eab03db28263e22cfebb90d41567db939e94c664410ea98be34d5d54625"
+    },
+    "changelog/7122.breaking.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 285,
+      "sha256": "6aa47fc50f0160070a8cad3c4e97002cf3425b0e2a741a16477eda53d64031da"
+    },
+    "changelog/7126.bugfix.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 147,
+      "sha256": "def057dd80a1cb59f753a4f6871fc70f90c5bb0ade222d85d13cae3b75eae901"
+    },
+    "changelog/7128.improvement.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 145,
+      "sha256": "4872983b2985e799284e41881c2b830492640ef94c85a8cab80db184106f8040"
+    },
+    "changelog/7133.improvement.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 95,
+      "sha256": "f1f446bc9b488b2d48e374d81df077f942c28020afae3125edabf486c785d7bc"
+    },
+    "changelog/7135.breaking.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 936,
+      "sha256": "935a30e0a729a930e216a2f7b7648f2860247589b9fe7b64b064c211a9f76e6a"
+    },
+    "changelog/7143.bugfix.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 89,
+      "sha256": "2db307e8ef6186867abadef15c54601ea2ef7feb88f52aa316610a5f4895bd6e"
+    },
+    "changelog/7145.bugfix.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 90,
+      "sha256": "11f080d6b2979af898c1b6ec55aab65bf0973718be8dd6b13e7dfab2759c4195"
+    },
+    "changelog/7150.bugfix.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 82,
+      "sha256": "760f5185580e6fb1cc4e13c10cc7192aa6d5f15d293a16e0b8974eb6550b20e2"
+    },
+    "changelog/7180.bugfix.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 64,
+      "sha256": "18e89cafacb9f3dff22ea8076fb10c8646dd152e9d50c73b780bc7b8c7bdcf8e"
+    },
+    "changelog/7202.doc.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 103,
+      "sha256": "4352331a23cbca5bd696b19206da2c7d47c8d971fb52d92070177ef957915858"
+    },
+    "changelog/7210.deprecation.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 211,
+      "sha256": "7aee2a135182787778afc12769998daabe3f7dc67e5af2af5e8c32bcb2671e15"
+    },
+    "changelog/7215.bugfix.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 135,
+      "sha256": "52273508f517a361ae88a80039fb6f3f2de710482db46fc0c2276f0fab9d1c34"
+    },
+    "changelog/7224.breaking.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 240,
+      "sha256": "1bbbe4f992364b72638431dc4030f41f1563bb7d856b8103f33eb8eefa073927"
+    },
+    "changelog/7226.breaking.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 73,
+      "sha256": "955d0bbefcd4dbb6f7678cb9b08c3263647b150338e449b483f3ff652efc8d43"
+    },
+    "changelog/7233.doc.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 94,
+      "sha256": "bbe02b564e9dff51aa29b819c34c7ed4cf13e255043c0f590fd51312a89c869c"
+    },
+    "changelog/7245.feature.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 1064,
+      "sha256": "8f59e5b12cdcb45b0bc1db578da9dd0a5681b71d85499b93692776e6f9c4e512"
+    },
+    "changelog/7253.bugfix.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 209,
+      "sha256": "ce9be1da583d0215e69eeeb7c0fad0535fd17d0384ca87e9a1e18f41fcc918b3"
+    },
+    "changelog/7264.improvement.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 60,
+      "sha256": "a30578b2da48e799e21989fa0cb0480830ffc89640e3e52531a7f7e405ea41fc"
+    },
+    "changelog/7291.trivial.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 84,
+      "sha256": "550418e5f7388648502851b0bd0d9aed78626dcae830b4e5d16b060361560a15"
+    },
+    "changelog/7295.trivial.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 120,
+      "sha256": "88ace0cb3441f60d2115d8333846e16a6a326c17be87af4a064ed8a2de21bdb8"
+    },
+    "changelog/7305.feature.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 197,
+      "sha256": "633918c294b622726875bd7fad683b9086f69af592ec0dbacf71f2c17025d265"
+    },
+    "changelog/7345.doc.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 58,
+      "sha256": "135d940f299337c9144152bf42326919cd5e3ceff83a2faf4dd1d9167cd4082e"
+    },
+    "changelog/7346.feature.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 201,
+      "sha256": "18f2785e6dd571668ba616dc144dc25d552713cbbbd316df38996011baedf1f6"
+    },
+    "changelog/7356.trivial.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 76,
+      "sha256": "46d7ee5915c4907feeac8178f237c6eb63585faae9c6a2d82e14f1d8ec0f92e0"
+    },
+    "changelog/7357.trivial.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 27,
+      "sha256": "b48d4c13327aa92f9aa4f64143bc294a50f4d987ecaaf6c8ba9d53a240dc4e2c"
+    },
+    "changelog/7360.bugfix.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 213,
+      "sha256": "d3adeee816a9071b11e3a43871bee4a1b05e1df353f5fd3ae2518af3f9f20a61"
+    },
+    "changelog/7383.bugfix.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 124,
+      "sha256": "98bf042f87a6c87183f44f83a623b115b60b34a26f6b10ede19f7d57672409f6"
+    },
+    "changelog/7385.improvement.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 316,
+      "sha256": "fc3ffedd80f9e3e3c979f9922d0d9c09b6726ce428b46c342cb71120701b4396"
+    },
+    "changelog/7418.breaking.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 129,
+      "sha256": "ee3128971631350ef06653352cbf542d952e7f6ce8d90e98d9057c6525f115b9"
+    },
+    "changelog/README.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 2063,
+      "sha256": "186a83522d92081bfac6cb6cb53caf5299cb60c35551f4890d82ffe4abd943eb"
+    },
+    "changelog/_template.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 939,
+      "sha256": "7b69a5117f19323c3ceed16c526bcf755b2e6900f43e7a210f3aa4ee4bfc903f"
+    },
+    "codecov.yml": {
+      "mode": 436,
+      "kind": "file",
+      "size": 133,
+      "sha256": "05da4f104cec9f008fe24c422e257778273bb0904d80952a228c1c9914744c99"
+    },
+    "doc": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "doc/en": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "doc/en/Makefile": {
+      "mode": 436,
+      "kind": "file",
+      "size": 1471,
+      "sha256": "f24cf2ecd7be9d6d67d122dc0e1ceb92317f332b7253b92cbfa853da27718461"
+    },
+    "doc/en/_templates": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "doc/en/_templates/globaltoc.html": {
+      "mode": 436,
+      "kind": "file",
+      "size": 1125,
+      "sha256": "6a9bf50131b8fdc3d77c2acac743b8aeb1b9dd4e5c4e50753e71c3dba74f43d0"
+    },
+    "doc/en/_templates/links.html": {
+      "mode": 436,
+      "kind": "file",
+      "size": 442,
+      "sha256": "e162e422700a63b3a99d3337052ef5d88f9216c10acbbed24eaee2a7919970bc"
+    },
+    "doc/en/_templates/relations.html": {
+      "mode": 436,
+      "kind": "file",
+      "size": 590,
+      "sha256": "e64e488e5cd09c680a5968e6c72d03b1b15f81631577c122b00bbbee94a79f92"
+    },
+    "doc/en/_templates/sidebarintro.html": {
+      "mode": 436,
+      "kind": "file",
+      "size": 126,
+      "sha256": "85a69dda981129ec5672250f221507f4d38fcaec72630537c56324dda3a3c6bc"
+    },
+    "doc/en/_templates/slim_searchbox.html": {
+      "mode": 436,
+      "kind": "file",
+      "size": 527,
+      "sha256": "fe82ffbd97f413b7c7567b38a74cdb1d1001179c77dc7fd57876f025eacddf51"
+    },
+    "doc/en/adopt.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 4113,
+      "sha256": "82fd487402eaa2bb9ca0f14862b0e8452d8703c90d768649f0da9b2ea3e4e7ab"
+    },
+    "doc/en/announce": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "doc/en/announce/index.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 2308,
+      "sha256": "9325f30a335f13eb6b68ae5c85f723ab9f53e2220e8f74c8740e5cfa7cdfc34b"
+    },
+    "doc/en/announce/release-2.0.0.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 5167,
+      "sha256": "70707fb69ce414f60232cc59ec276a90978cd1bb03b2a44b93f7bc89cda03242"
+    },
+    "doc/en/announce/release-2.0.1.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 3092,
+      "sha256": "c444e7991de891f701a364a4704a347028229a183bb4aca1f8877a9b27e5fb53"
+    },
+    "doc/en/announce/release-2.0.2.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 2798,
+      "sha256": "48991fe007f47be99157b396ad6d9a6348200d497cabacac2e6d7a0429f8c6bc"
+    },
+    "doc/en/announce/release-2.0.3.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 1307,
+      "sha256": "977f7ed0cca10b16f0fb89ab854703187c38588562794c1f06b6df81e8fbbed1"
+    },
+    "doc/en/announce/release-2.1.0.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 2136,
+      "sha256": "5ddfc77520882ae95a4ad60ab5f8d66740b4329fb71f13f6a0b9037221bb9a13"
+    },
+    "doc/en/announce/release-2.1.1.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 1579,
+      "sha256": "dde7969999ff8235cbb71dbf1574cafb780ec945578099a9a939f250729b116c"
+    },
+    "doc/en/announce/release-2.1.2.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 1284,
+      "sha256": "5e4753328507a3a1b2334e451f8d47a0fbd1b58328e484403c0e64ce8113c840"
+    },
+    "doc/en/announce/release-2.1.3.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 1203,
+      "sha256": "135b2c664f1046f930bd6c91dc0b2c0136565157972707aea50cf1ffe673d8fa"
+    },
+    "doc/en/announce/release-2.2.0.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 4336,
+      "sha256": "0d66c500d97c51aa375b228980c4feca66f42d32c1d764fa07652fc46fdcf2b3"
+    },
+    "doc/en/announce/release-2.2.1.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 1555,
+      "sha256": "7d581eed8bd93dcee015d5a2fd94507563bcb01715d48774b6feb6b9261ebf3b"
+    },
+    "doc/en/announce/release-2.2.2.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 1619,
+      "sha256": "4fd580dc27f817e1347c0f9ff3d39d2750f49ad767b44668f275863d51745606"
+    },
+    "doc/en/announce/release-2.2.4.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 1454,
+      "sha256": "fee7e13de5d75aa542c147128e82eb646df6a899aa2abb9012d461fbc5bbe525"
+    },
+    "doc/en/announce/release-2.3.0.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 5544,
+      "sha256": "3961ce899f99d9cc06bdbc15988fb7b00423d8d2686c0c1e87bd595c1dac5b46"
+    },
+    "doc/en/announce/release-2.3.1.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 1115,
+      "sha256": "497465fb29b92f1c97ea5afe9e38afa2baee7ad37d6a07a12c6c9d603972bac0"
+    },
+    "doc/en/announce/release-2.3.2.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 1761,
+      "sha256": "15ac2a3bff41d5c95bc6612e119c936cfd6d1d02487284d8205527e0a3646cbb"
+    },
+    "doc/en/announce/release-2.3.3.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 2089,
+      "sha256": "2f2598154d242972bf885584a5b6bb048a09d8afef73235a830260091c1b3841"
+    },
+    "doc/en/announce/release-2.3.4.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 1689,
+      "sha256": "adc87f9d630b1fa4619ab837c380a7bbee70a6f322fd9f29a9662cfca251de10"
+    },
+    "doc/en/announce/release-2.3.5.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 3270,
+      "sha256": "2b4993d074c7d9c71481d2104a35eefa7c5ca5d78e14e9822a993c600ab19c3c"
+    },
+    "doc/en/announce/release-2.4.0.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 9217,
+      "sha256": "a802177668e9d2c4cfbd66af88e5e4941d87869d046230098844c594dbd2981c"
+    },
+    "doc/en/announce/release-2.4.1.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 881,
+      "sha256": "8aed43243aa86726eb4316a264990c5b7e615a87a3a241e318349a95f4d8b79e"
+    },
+    "doc/en/announce/release-2.4.2.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 1428,
+      "sha256": "fac7357ebc8393718ed949d2d139adb3b5030b50260fe258dca9c3aac50538a4"
+    },
+    "doc/en/announce/release-2.5.0.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 7274,
+      "sha256": "d39ff68c1bffeebc8537a20237fe6031547c4e630066c82fa394d767b9871a54"
+    },
+    "doc/en/announce/release-2.5.1.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 1715,
+      "sha256": "27dbaa91d740e553b1e6dcbf1406d99a8f9360570a62f34a8dc6651adf7fb5a8"
+    },
+    "doc/en/announce/release-2.5.2.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 1911,
+      "sha256": "15af98aef88f7b511bc72427947c46f020b56514511d670c8b906af7d8a71c9d"
+    },
+    "doc/en/announce/release-2.6.0.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 5817,
+      "sha256": "00ffaf329213d0741795a8287c5a5269cbc5d94ce05ef1a8c8fc0d588e744e29"
+    },
+    "doc/en/announce/release-2.6.1.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 1991,
+      "sha256": "d35093679c82dc85d846886f8bb9a570579f48a66f88283b23c161c0ea0da452"
+    },
+    "doc/en/announce/release-2.6.2.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 1534,
+      "sha256": "c27bd60a474fc2b197e1f73990bd2369f9efd6deac4aea8c6910bcc299b2e13b"
+    },
+    "doc/en/announce/release-2.6.3.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 1680,
+      "sha256": "2051ef0651701e3fd856bd09259917b5de4a1849761e79ac9f2162a55a44fffc"
+    },
+    "doc/en/announce/release-2.7.0.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 3840,
+      "sha256": "15ff5a32a806b19badfb952ef50039d28af0dff4aabf4f00e856eb2f1e2051a5"
+    },
+    "doc/en/announce/release-2.7.1.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 1943,
+      "sha256": "f1f97f896d51ad32741a8be718a8d0003166aaa83aacb3f2924c70532e26b721"
+    },
+    "doc/en/announce/release-2.7.2.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 1730,
+      "sha256": "79bd2520f5a114bafca14a3ec436791fad7eb91d8f03aab4d2967ea9040a0801"
+    },
+    "doc/en/announce/release-2.8.2.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 1302,
+      "sha256": "1cc8824579c556e75d680196d6635f00fe44242e34ceefda9a27091e40aa10af"
+    },
+    "doc/en/announce/release-2.8.3.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 1794,
+      "sha256": "6b0955d08a3c8121639e0f9f1112347835f486b8b01b102ece5acef9a4e04611"
+    },
+    "doc/en/announce/release-2.8.4.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 1383,
+      "sha256": "db77ef6f0946175b3f239a47d6dc72e668dad10f16750588b8dced394b93c9a8"
+    },
+    "doc/en/announce/release-2.8.5.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 1116,
+      "sha256": "95d519eb1789ebe0f098f5579f90eff7e578c8a792646c5c5df9c2ec261e9396"
+    },
+    "doc/en/announce/release-2.8.6.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 1912,
+      "sha256": "f5280cb493b96def9fef24cb9bd571cd41644e772bcb9b7531b75cc2f2b89cc0"
+    },
+    "doc/en/announce/release-2.8.7.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 721,
+      "sha256": "5bde2379fc4c34183200fef97d9b3d5be1807a6cd28db49dae1f8b2207dcb632"
+    },
+    "doc/en/announce/release-2.9.0.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 5978,
+      "sha256": "3ef16f197eb27169b8f1b5d896cc42902b72d0841593bb15b399831fbb3156af"
+    },
+    "doc/en/announce/release-2.9.1.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 1909,
+      "sha256": "8245baae977ad90100a44f92e1f9b55eabd1c79f1015a507cdc495bab93d59f5"
+    },
+    "doc/en/announce/release-2.9.2.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 2273,
+      "sha256": "5a7f299ba77e642468a719179e9198426204378b72ae1bc3b5dc1680c15314e0"
+    },
+    "doc/en/announce/release-3.0.0.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 1773,
+      "sha256": "24c46a1e5af641a2cecfa7ce71d311ad2e3e7e87c5ced9bcac196c599099fb4a"
+    },
+    "doc/en/announce/release-3.0.1.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 577,
+      "sha256": "b8cd99c814f9e48337cb191def0c6d0154c1c0578184828c67852f0a24b3e75a"
+    },
+    "doc/en/announce/release-3.0.2.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 514,
+      "sha256": "aa139ca459c041c7fe2330ad523cac1afc02f9dfec307c18e5b7a0b079dcf30b"
+    },
+    "doc/en/announce/release-3.0.3.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 563,
+      "sha256": "3e7c63c7a2699d9f97a48bd02abaad095128302be117bcd810aea8f77e83fbf1"
+    },
+    "doc/en/announce/release-3.0.4.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 610,
+      "sha256": "5b12b4468138c88f07cd38b975d2d1926e8edc1640245f1a15826b70ff5de5b7"
+    },
+    "doc/en/announce/release-3.0.5.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 529,
+      "sha256": "0ac0bd16398d02319a1e2311b47c2ec22c41f56882fd87227283334a4af08db1"
+    },
+    "doc/en/announce/release-3.0.6.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 618,
+      "sha256": "dcdefb18ef35b3524f0f56a5b611adc0c8a0ffb2997dbed9bc46be7e0f84056d"
+    },
+    "doc/en/announce/release-3.0.7.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 641,
+      "sha256": "4fdb0d5f89b405145b89302598eff91b41260a772bd721056b57a63624113b6e"
+    },
+    "doc/en/announce/release-3.1.0.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 1203,
+      "sha256": "8674a01e4eab08df6dcd4ef7c3f0a0bd9fa0a56aeec45d3e4725c60b69160813"
+    },
+    "doc/en/announce/release-3.1.1.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 494,
+      "sha256": "ed72afc778e6560871d801636141769473f5d0763011882a63fabc8ca0c51294"
+    },
+    "doc/en/announce/release-3.1.2.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 488,
+      "sha256": "d2e8a20ef1322ee5d688c0ce6ca93017d6bbae057aeaab82795c31027a751912"
+    },
+    "doc/en/announce/release-3.1.3.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 497,
+      "sha256": "91bf32fe15eb770e6794efd559b152c728cdfb261e2f493365853a4db6b0e2b5"
+    },
+    "doc/en/announce/release-3.10.0.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 973,
+      "sha256": "21e5b2d3cb5185b9091be23f936cd0191fb4fde4a53f8c7e71f5c601389cd9c4"
+    },
+    "doc/en/announce/release-3.10.1.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 513,
+      "sha256": "f7fb9bd0ddc99dbe729a4b019182fc8092f4b599ab0e0f3179feccae6b2a29c4"
+    },
+    "doc/en/announce/release-3.2.0.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 1034,
+      "sha256": "a5eff7978290bbb1a475df1d80de55cee72c6a411eabf20a1884840140fbd382"
+    },
+    "doc/en/announce/release-3.2.1.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 489,
+      "sha256": "cf0726a1c1d2e57e454ac8225a139729ac9494f8309fca4c149a96d658d592ad"
+    },
+    "doc/en/announce/release-3.2.2.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 569,
+      "sha256": "d50d4ceb9c8e564672dc6ad4f4d10f8841d36a4135d6cf32f4e387f50ca0f0e5"
+    },
+    "doc/en/announce/release-3.2.3.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 482,
+      "sha256": "4e72b04bc6d6d7304bb4527f966762b908dab6ea5b8e87d78fbb8bf9f158fd13"
+    },
+    "doc/en/announce/release-3.2.4.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 716,
+      "sha256": "cfc86c854f26dc89b6ab778310b031a3d221cfa0583f10960aeab604f3948f01"
+    },
+    "doc/en/announce/release-3.2.5.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 408,
+      "sha256": "1629be685cee41d6cc768e7114b54f611b6e20f8a2f1472f42a05c1ecbe43ca4"
+    },
+    "doc/en/announce/release-3.3.0.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 1031,
+      "sha256": "79afafeabe37d030fef8e82dc1f4563df65dbddf351d100e1c739774dc0ef6b1"
+    },
+    "doc/en/announce/release-3.3.1.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 532,
+      "sha256": "92e0c144a76b7682ba209708af395f6c1cf014b5d5a9475097731625b37c2c3e"
+    },
+    "doc/en/announce/release-3.3.2.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 592,
+      "sha256": "082056d26122b1c299ce8e925973b36030ddfb19865b82cde390c4a1b9120b1f"
+    },
+    "doc/en/announce/release-3.4.0.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 1068,
+      "sha256": "2944709d0fd79762f6aca4a46899627632465c92c49a3a7cf371ea5a8f69482c"
+    },
+    "doc/en/announce/release-3.4.1.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 551,
+      "sha256": "890f23fecc2d57bc75c8c3ad7594eb875fd1de55d9f27ddc7ef0085d3c7f14c2"
+    },
+    "doc/en/announce/release-3.4.2.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 567,
+      "sha256": "b3d33e35c962ef6b7706546200848d5b8493a05ce6b72b2eb4179f0b7780d5a4"
+    },
+    "doc/en/announce/release-3.5.0.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 1062,
+      "sha256": "310b3280b2b09c4d8acda56d486a16961c9365514c885106c790e989bd8e237f"
+    },
+    "doc/en/announce/release-3.5.1.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 625,
+      "sha256": "469e93a14078751a2f4a4e879e9f536504f1f554d92dc17c16f72141c6497adc"
+    },
+    "doc/en/announce/release-3.6.0.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 885,
+      "sha256": "ddb06ba11480a24959a378c55b45e3911501deb1dca507ece03d7721b911a124"
+    },
+    "doc/en/announce/release-3.6.1.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 521,
+      "sha256": "8a809a15eb8d0a3edc862f6638f7ef105659ff7b5208af1073a1c79075f9cdc5"
+    },
+    "doc/en/announce/release-3.6.2.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 608,
+      "sha256": "3e0bf003d112e307b5c8cf7bafc10e399abd1da35476a5d7a36776385c47fc69"
+    },
+    "doc/en/announce/release-3.6.3.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 572,
+      "sha256": "306d443b82a2481428b5386517b6107a8ac12e12f4e51a16940bff9be1759fae"
+    },
+    "doc/en/announce/release-3.6.4.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 502,
+      "sha256": "8e12d438c3613d45da35ac0a1b91f2e4111f1fe619e340081088fac2ee81544a"
+    },
+    "doc/en/announce/release-3.7.0.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 883,
+      "sha256": "f1f2a6d40dec7e9a59edba1bf080709f63e3dc8674078d1cbcb3689233b2a572"
+    },
+    "doc/en/announce/release-3.7.1.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 462,
+      "sha256": "f1b71dfb9158e502fe95fc39d5d512d8d7358ea1c91ad19e2c6fe99f0f146b5e"
+    },
+    "doc/en/announce/release-3.7.2.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 521,
+      "sha256": "01e8a4f8fbdcb2874a9e91ad1aaaf0259ea4bdddcd6b2f32fc49b2f073615ed9"
+    },
+    "doc/en/announce/release-3.7.3.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 636,
+      "sha256": "66a86682f576ed7321f90b57b1a31ef8f8f853cd350c455574b1f2c765b647c9"
+    },
+    "doc/en/announce/release-3.7.4.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 473,
+      "sha256": "7fd518033c4039a70f9e9d2ba0093656135af7e9712a2c0c802de61b9321d279"
+    },
+    "doc/en/announce/release-3.8.0.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 855,
+      "sha256": "23953e5ab9aa652213cf6a451f0eedd5cc8d04427e2eef849a6634197c8e3c94"
+    },
+    "doc/en/announce/release-3.8.1.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 532,
+      "sha256": "8e0620759583d4dcab5a75ebd407b2370db500b34d5d988439371eb8fe0b18a7"
+    },
+    "doc/en/announce/release-3.8.2.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 584,
+      "sha256": "10d0ad619fb224827982464d7659c22eef82b6248f2b92007f8ae767a7d31a83"
+    },
+    "doc/en/announce/release-3.9.0.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 950,
+      "sha256": "51c807e01b07555a637c6a8b94c52a9b47aa3e4c5050e4faca457705da230ded"
+    },
+    "doc/en/announce/release-3.9.1.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 446,
+      "sha256": "42369823dd3b97b147ca5ad5419232620e27f41d5c25fccbe071944ca7392d28"
+    },
+    "doc/en/announce/release-3.9.2.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 492,
+      "sha256": "43fbdd2f62186084af787f80dc2da3e4912382df3390322b648f3b0a5e39092f"
+    },
+    "doc/en/announce/release-3.9.3.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 511,
+      "sha256": "be363dd1fceebe4ae0c07ab029531d4e2d63353768b56ab517609aea2de6efa6"
+    },
+    "doc/en/announce/release-4.0.0.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 735,
+      "sha256": "58462e7102d6ad4580ca4151215ad3d35c5ff7eee35315c4059a51faf3e137ab"
+    },
+    "doc/en/announce/release-4.0.1.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 491,
+      "sha256": "ae186a57547118a4722bc366ff9fcf960f64c99e0eaf261e70fa8c94c5ad2dd6"
+    },
+    "doc/en/announce/release-4.0.2.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 508,
+      "sha256": "acb8ae882a89b5017e60e8802c17fc9c5aa527230fc21b1a5994413a88361711"
+    },
+    "doc/en/announce/release-4.1.0.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 950,
+      "sha256": "7a22597fa246bed0d3a93a971388a2d4a4b4d5c25111a7d1b851b97ca7103c89"
+    },
+    "doc/en/announce/release-4.1.1.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 554,
+      "sha256": "0caf027c5f737efcc8d539d07005ad0c78ec3488efaa3fc04da6a7dbe488f0f7"
+    },
+    "doc/en/announce/release-4.2.0.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 856,
+      "sha256": "de07a460713021face1535c8d29d076af0f3561cceca14cec4ab1559baa13233"
+    },
+    "doc/en/announce/release-4.2.1.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 616,
+      "sha256": "bb3c75fa7faf7e5b32436b4d7eece8f0b83374e6dc749e92e12ef995a4028bbd"
+    },
+    "doc/en/announce/release-4.3.0.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 839,
+      "sha256": "a76e7253038508ff80843ec491fee97431fd158dd510b8fefe6c87e0f4cc8c6b"
+    },
+    "doc/en/announce/release-4.3.1.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 575,
+      "sha256": "78777f4b29c07a1ad8aafa0d0ec3b4f8e54de2a78f019af2fe8c9358468a5d06"
+    },
+    "doc/en/announce/release-4.4.0.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 873,
+      "sha256": "29c9499ddbda79ce9bf4ff07a2f24cc751f46b7e77cde5524ae39cda106112f1"
+    },
+    "doc/en/announce/release-4.4.1.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 444,
+      "sha256": "54fbd907696a6cb88e3f55dfe2ea4a64c2c7ea56069473a20fa09554b4b30693"
+    },
+    "doc/en/announce/release-4.4.2.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 643,
+      "sha256": "c08f51970b918f348cc7e4eee529a509b48cf5cb989c7193dcce11bdbd9102cf"
+    },
+    "doc/en/announce/release-4.5.0.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 812,
+      "sha256": "36a0f2fecd386a047ed30350b61671a8fc1550d70ea87ddbc973ee059f9e9a05"
+    },
+    "doc/en/announce/release-4.6.0.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 941,
+      "sha256": "2577e572d6978e874949fe0af13f2b074e14cf4d1d1681c466f962f81a7babcc"
+    },
+    "doc/en/announce/release-4.6.1.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 428,
+      "sha256": "ab8eaabdc2f2daddda8de88481a5ea84f201c265f25c1d3bdee2c87375c74bc9"
+    },
+    "doc/en/announce/release-4.6.2.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 411,
+      "sha256": "e52bc405717410e76b69df9a15f661f9c13c6883ab0eb18fb77c532adab3b380"
+    },
+    "doc/en/announce/release-4.6.3.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 458,
+      "sha256": "0d62af66c59a237b1a6ea853958fa2709b465ad3a085520d59cfd87671928eaa"
+    },
+    "doc/en/announce/release-4.6.4.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 483,
+      "sha256": "803750db58894c3fa8a84b8d88d318016d4f4353827e12f52ba7f31ebebbfca0"
+    },
+    "doc/en/announce/release-4.6.5.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 462,
+      "sha256": "48a07554eaa416091dea25b48377a2812270f1bd2ec00c960f7ec4f035b75516"
+    },
+    "doc/en/announce/release-4.6.6.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 444,
+      "sha256": "0fe91bca66f446f3599393557b0e62370546e2e4f3ba7fb8c05a81a4916c8606"
+    },
+    "doc/en/announce/release-4.6.7.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 426,
+      "sha256": "1e1394522e54c1b05d238969fc3e3cb39a8fc61bfac5366104c7bcd338ae1de1"
+    },
+    "doc/en/announce/release-4.6.8.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 440,
+      "sha256": "baf27544d261fe01c5a8c2d71cdb31efe44471052f4e79c0a4742077c4a45bc5"
+    },
+    "doc/en/announce/release-4.6.9.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 447,
+      "sha256": "85db3a7995f4b0fde51564ed500e5323c6f4db1ee4fdd70ccfa30d657b68336f"
+    },
+    "doc/en/announce/release-5.0.0.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 983,
+      "sha256": "79d9fb9724b5f309c18fc675d08fdc5015621c1f8a21a897133eb1e45a0dc29f"
+    },
+    "doc/en/announce/release-5.0.1.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 534,
+      "sha256": "469895aa76277d22c311f226c1d1a04ddd8c44adf168d2209644d8e3427d95b8"
+    },
+    "doc/en/announce/release-5.1.0.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 1134,
+      "sha256": "fcb8a43bd79a5ab2e2dde70b15e6666dd589bd7e89b33ddb16ccae9ee97e8eff"
+    },
+    "doc/en/announce/release-5.1.1.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 515,
+      "sha256": "9308ba5e78d5b3173809d2b29abbbbf69ef76bf8c45eda8edd933717e753f7b9"
+    },
+    "doc/en/announce/release-5.1.2.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 499,
+      "sha256": "46ef5904fbc36be4bf188d7b35be5f14f047e2202d074c84aec80281d5bb8108"
+    },
+    "doc/en/announce/release-5.1.3.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 486,
+      "sha256": "8935054dae6bc4bfe6b3ac5edac379425e83ba9c4b63e83cf3b0c5c196e2f30d"
+    },
+    "doc/en/announce/release-5.2.0.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 813,
+      "sha256": "00f39e82a5033a677ef1d7c1669223f02159f7fd33416271aecd7f3604b02463"
+    },
+    "doc/en/announce/release-5.2.1.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 494,
+      "sha256": "44ba6b7bcc49d41c65e02ac5de7d901b8c9a7c0661b82122e820050714b1cf5b"
+    },
+    "doc/en/announce/release-5.2.2.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 602,
+      "sha256": "5bd62a2191075cfa80956761cf71b627f32dc424cb40fc6466a8d812b0f9b39b"
+    },
+    "doc/en/announce/release-5.2.3.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 572,
+      "sha256": "7925211c139d1d73df84c1c89132a1c73d2176e973e6549557f6518cce183b74"
+    },
+    "doc/en/announce/release-5.2.4.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 469,
+      "sha256": "ea749950f98a2c14ace121f733d85148230d3cb4b19bb0c2cd0f56440778c753"
+    },
+    "doc/en/announce/release-5.3.0.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 940,
+      "sha256": "8fc0b43378d876c8a2c94177f07f2ba22121fa9168de336bc232dec75c29ac28"
+    },
+    "doc/en/announce/release-5.3.1.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 552,
+      "sha256": "d2cebcb5f0023a8ccd185f51a7d9447874b095067cd694ad61ddc9498f7a4dc7"
+    },
+    "doc/en/announce/release-5.3.2.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 548,
+      "sha256": "bc2c2046fd66ab4fdde4f5d3e6391ae3229a1ddef2697cb0420805b627d543dc"
+    },
+    "doc/en/announce/release-5.3.3.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 598,
+      "sha256": "b7661396f5993a4df5ed320f06a8c3372402ded8707c0c2fce758b5b9f8b1071"
+    },
+    "doc/en/announce/release-5.3.4.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 439,
+      "sha256": "e7764e25f21e05e63f997cf9a21dba0a1381ef7ae6f78432d765baefbcc88bde"
+    },
+    "doc/en/announce/release-5.3.5.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 422,
+      "sha256": "0e99d0f381c71ce0cddb3ef55a14dea682fdca282e51ce2718fcb2885beadfad"
+    },
+    "doc/en/announce/release-5.4.0.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 1200,
+      "sha256": "2832f511b56ef7f7d42e9add8b2a1159a79474839d00ec29e2b019fe949d1c23"
+    },
+    "doc/en/announce/release-5.4.1.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 410,
+      "sha256": "62133f8d29071244fdb6ce5b8379861cc71218024cfce50d5fedb79a825c0fa5"
+    },
+    "doc/en/announce/release-5.4.2.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 478,
+      "sha256": "976026b8b49c120188e09ad4215a174594df951eef6eddcd2677ae31bd84f255"
+    },
+    "doc/en/announce/release-5.4.3.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 454,
+      "sha256": "ce78424daab60e44e3a8034c3a8cfaba5f42792ff1882abe97985dd8785932e0"
+    },
+    "doc/en/announce/sprint2016.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 2162,
+      "sha256": "7850bf06ee0536ced25238e53361660c0095a9a66899a3f20fa897dd9b0f3622"
+    },
+    "doc/en/assert.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 10854,
+      "sha256": "94449fd6621df232d0750de7bfc86154438934aa0705cc91e0466d30a082a2f4"
+    },
+    "doc/en/backwards-compatibility.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 5647,
+      "sha256": "86baecf9fe4b107aead4e749d3beecc404cb9875eaf7f17468729f6abc83c6c8"
+    },
+    "doc/en/bash-completion.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 771,
+      "sha256": "3b844ec3ace84999a7535f5cf5879f162a3bfd518df903a528408b31060f5152"
+    },
+    "doc/en/builtin.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 6465,
+      "sha256": "0f919dd38bbe453a3237867440b6f5e0ff7eb4b5f8cf19f78feb4be54a6eba11"
+    },
+    "doc/en/cache.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 12994,
+      "sha256": "303d6ed245898fc9952132d90f57ad372a0445dd9c9b0c2184934b00de6eee23"
+    },
+    "doc/en/capture.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 5989,
+      "sha256": "ec02666362b3f7a74b3b4175cb8208d071ce16d554625299d4469f97a0b6bde6"
+    },
+    "doc/en/changelog.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 330336,
+      "sha256": "ce37331641bf47f955b9fa5bf8a2d47ed356cff579e13722679c6f730668b232"
+    },
+    "doc/en/conf.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 12151,
+      "sha256": "b6b0f2ae0558ab15856e5888f1af41c256fc8dbd20263ef58d79e6f720d791ae"
+    },
+    "doc/en/conftest.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 29,
+      "sha256": "70b7e5bbe790374b7b44a239694953182c58ffa48d1c6ac543c7793affa7ae35"
+    },
+    "doc/en/contact.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 1659,
+      "sha256": "fb0d57a59632b61ceb7dee89a4c00bcfc5e68b3a7195a86c7bbe8cfb27378aaf"
+    },
+    "doc/en/contents.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 1005,
+      "sha256": "6d0b4d5df06979d8395f30b2199f5c3158d82b218087e22a379b000a3b909453"
+    },
+    "doc/en/contributing.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 55,
+      "sha256": "31ee1de724ec23b6c9a4a598a72b9e447c70f79cda9569c6c436b37a0adbe2a5"
+    },
+    "doc/en/customize.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 7853,
+      "sha256": "e27d6270600df8cbdc9f2cb6d9fce347eb1d4f270415a3c8caf26bddf96f8056"
+    },
+    "doc/en/deprecations.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 18300,
+      "sha256": "81cc48d0b4f2a9f3c6ab279feae3ace7f31d95b5be27521e2d630d8830b3e5e5"
+    },
+    "doc/en/development_guide.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 253,
+      "sha256": "3f15677b2f5130cc1f93c3cb2b33e692f730db16e147eaa5cbcde91a0856700e"
+    },
+    "doc/en/doctest.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 7844,
+      "sha256": "1caa3f7d968e7234356bb8ea36624e840a7fbac1dc8584d012d0093b97272373"
+    },
+    "doc/en/example": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "doc/en/example/assertion": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "doc/en/example/assertion/failure_demo.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 5716,
+      "sha256": "566b33440ca5356a7a2d5fb2a5674cf6330f798b9c28deb24e56b23988791e6a"
+    },
+    "doc/en/example/assertion/global_testmodule_config": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "doc/en/example/assertion/global_testmodule_config/conftest.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 340,
+      "sha256": "8c8b20d0772b4dbf00cbaf7bc20e356ddc270d47831812f78c364fe06ca97610"
+    },
+    "doc/en/example/assertion/global_testmodule_config/test_hello_world.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 44,
+      "sha256": "33f69585ce7161f19aa82d33e403817924475d956b7dc5bf2bd9b23dc9885be9"
+    },
+    "doc/en/example/assertion/test_failures.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 444,
+      "sha256": "ae1e573ef8a3cc921531dbd1b4e2bac8ac7c498a2a9ed9eaa043afba279878dc"
+    },
+    "doc/en/example/assertion/test_setup_flow_example.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 1252,
+      "sha256": "b68186e6e0d726e57e824e04935e8e58039532f1b7e3a546aad22b67e332e328"
+    },
+    "doc/en/example/attic.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 2709,
+      "sha256": "879b85f7799d2ba529e6e1d23bbe8b1112360b0fe73ebe0c3bcea816a339314d"
+    },
+    "doc/en/example/conftest.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 31,
+      "sha256": "c47c3028df833b1b653db4ea139b969c64e2eaae97c090d4a0747d5e4eb6bfda"
+    },
+    "doc/en/example/fixtures": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "doc/en/example/fixtures/test_fixtures_order.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 511,
+      "sha256": "249cf86d02fadec34af5527ab3f071f97a1670ee81df22c0d98f09e499375593"
+    },
+    "doc/en/example/index.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 975,
+      "sha256": "3b03030f1ee8b9e918534e73bf80b6466499f30b3ef613b44e4f41f18725f965"
+    },
+    "doc/en/example/markers.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 26292,
+      "sha256": "46711e68f7790d9b5e70684aef32d672dd328dea9ca506f292357ba2b4ec4467"
+    },
+    "doc/en/example/multipython.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 2007,
+      "sha256": "f73d4e49b0bd0e04064fda1ac3277346f69f36f188c824374a23ef5b9163b6c7"
+    },
+    "doc/en/example/nonpython.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 4026,
+      "sha256": "18170a39bfbf6f822c360ab309d8a229d8ea8a68385f99fbeb94ef97d821e74b"
+    },
+    "doc/en/example/nonpython": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "doc/en/example/nonpython/__init__.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "doc/en/example/nonpython/conftest.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 1447,
+      "sha256": "07cbf7b19b95b3fc1d325b43a4627f1014baba5fc46cff7a6292dd9af5d532c2"
+    },
+    "doc/en/example/nonpython/test_simple.yaml": {
+      "mode": 436,
+      "kind": "file",
+      "size": 79,
+      "sha256": "5c1bb5de08976f249029b7c4f0cbd8eb24961d4cfb320c16215019c6aa72e0f2"
+    },
+    "doc/en/example/parametrize.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 23231,
+      "sha256": "54cc0597293e1845cd1e96febd9521b25692ee7a2b75fd91c60e0e8a503a332e"
+    },
+    "doc/en/example/pythoncollection.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 201,
+      "sha256": "2905177198dc8f7790d345388a9dfb18c8f72b8156bf1e83d7971aff87bf9edd"
+    },
+    "doc/en/example/pythoncollection.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 9677,
+      "sha256": "9f0d848a26e3c3c40f85882fdb6e468f7bfa3c53a2a231cae25928e5fed3cb90"
+    },
+    "doc/en/example/reportingdemo.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 27057,
+      "sha256": "550420e22406ed64115b963e5f4046995f4512bcc93339059d3f8a217c1dabc8"
+    },
+    "doc/en/example/simple.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 32865,
+      "sha256": "c18492090edfd016bbaf453682fe59823e9c56e5270c719752f8719b2c5871a5"
+    },
+    "doc/en/example/special.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 2031,
+      "sha256": "3b06cf32a291fc1947287c68b1fa3d13b86c723986474cba4942f149ac4ac719"
+    },
+    "doc/en/example/xfail_demo.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 448,
+      "sha256": "2b54d39f3718522cf767b41b8a37f14300d5b77a19f17a2dc009265aa1a01a93"
+    },
+    "doc/en/existingtestsuite.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 1274,
+      "sha256": "37a04389d02429dc346ae302e594438217548b65900ab7d4f044647a9d887842"
+    },
+    "doc/en/faq.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 6999,
+      "sha256": "276c07f28a040c115826b702e500707f5ec6fe67249ca0c35a829eea68ce6b86"
+    },
+    "doc/en/fixture.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 51429,
+      "sha256": "67b0fddbb15e01290879107c85aac28679f54c8feb2ff46714114b29c335ba22"
+    },
+    "doc/en/flaky.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 7267,
+      "sha256": "fae2a00456e786394407a184dfd975f380aeba98fc6232f69eb69e58b061fa72"
+    },
+    "doc/en/funcarg_compare.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 8863,
+      "sha256": "7d3dc22e34ff625c149975498c028a1d7da7361f0b42a484a725db3cfc4ea8b1"
+    },
+    "doc/en/funcargs.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 441,
+      "sha256": "eb0fe75256a084c8180055c33f2b53b0c4b564c97b39cd22ffc771a4a6c5eb75"
+    },
+    "doc/en/getting-started.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 9663,
+      "sha256": "a2998b6bacaa7e1a216dced953998d03355bf6e2582ab9fb85b9ba3b8252c820"
+    },
+    "doc/en/goodpractices.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 9258,
+      "sha256": "1b84f8d65154f63cd6f40fb011757f58be55aa6abe0efae1a1b14f19e040240f"
+    },
+    "doc/en/historical-notes.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 11294,
+      "sha256": "84065d689b89d7cdb3237fdf831721d24d6db869a49f9e3cc4951ed7c73afe7d"
+    },
+    "doc/en/img": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "doc/en/img/cramer2.png": {
+      "mode": 436,
+      "kind": "file",
+      "size": 25291,
+      "sha256": "dd897b2d57807c43a6c863eb0fac4358b58fc07699e08c080d9d56cd7827089d"
+    },
+    "doc/en/img/favicon.png": {
+      "mode": 436,
+      "kind": "file",
+      "size": 1334,
+      "sha256": "eadbaa07787258ecb938d66d87e6390ab0c8c96efb11854d3f8571eaf1fde502"
+    },
+    "doc/en/img/freiburg2.jpg": {
+      "mode": 436,
+      "kind": "file",
+      "size": 104057,
+      "sha256": "4eda245648e2d421301f82b775a365395782316e848349130907c0747d44621e"
+    },
+    "doc/en/img/gaynor3.png": {
+      "mode": 436,
+      "kind": "file",
+      "size": 23032,
+      "sha256": "658feaa6794b8d94b46ea3751ab8ada8b98859189651873188fdaa3df969f7ab"
+    },
+    "doc/en/img/keleshev.png": {
+      "mode": 436,
+      "kind": "file",
+      "size": 23246,
+      "sha256": "d7e209fbfd49fa5ff736fee24596bb4ec491e405b163613847eb926b4dbe7843"
+    },
+    "doc/en/img/pullrequest.png": {
+      "mode": 436,
+      "kind": "file",
+      "size": 17035,
+      "sha256": "af99abf464736c7018d9dbc04f66b934d226e389b238837ddbad8872518ff969"
+    },
+    "doc/en/img/pylib.png": {
+      "mode": 436,
+      "kind": "file",
+      "size": 8276,
+      "sha256": "c5f17099a8ed5969ebae6fcd2b2e6b04e71bb14ef12d5e87827bed6420968434"
+    },
+    "doc/en/img/pytest1.png": {
+      "mode": 436,
+      "kind": "file",
+      "size": 6010,
+      "sha256": "752e4e9c33aecbe3971c6327e6b9f05be57e9ddb337c8c54c51e12f92f2c8afd"
+    },
+    "doc/en/img/theuni.png": {
+      "mode": 436,
+      "kind": "file",
+      "size": 31476,
+      "sha256": "17d07aed80f0259e68be75413ffc73c0c02490242bb38a034b81f00f07e0b643"
+    },
+    "doc/en/index.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 4007,
+      "sha256": "7c9f558d5217d966dd4f3c959c7e117eeeebf55ab431e88ddce74379729789d7"
+    },
+    "doc/en/license.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 1379,
+      "sha256": "d1a0ff0c217e8885134a5759953e971addadafee9cd7f428901d0c22af10a741"
+    },
+    "doc/en/logging.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 8862,
+      "sha256": "a3c027cfdd11e931a7d5450b32607fc361317bbeea0020e6d49798882d04c339"
+    },
+    "doc/en/mark.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 2971,
+      "sha256": "9495feab2f82c31a0750e7c3389f187be797bf78c1a05e03ce592f687ba57a86"
+    },
+    "doc/en/monkeypatch.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 15101,
+      "sha256": "7e623d33fc773f9ee9deda64dea2e3563ed67277392c05fecaf840ed2c6c3855"
+    },
+    "doc/en/naming20.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 718,
+      "sha256": "0a5de1afd9c606a6ba4d93d8934b8b9826817c5a89d3f9146942f55b1e6ba36c"
+    },
+    "doc/en/nose.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 2831,
+      "sha256": "361eec8f725986c6732170784bc810633ecdbb00db0dced278d9c29e9b8bcbe5"
+    },
+    "doc/en/parametrize.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 8887,
+      "sha256": "e3982f4025a60a9c7f458987f265c97279ceb50de07086ab47780e98b89f2dd9"
+    },
+    "doc/en/plugins.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 4245,
+      "sha256": "4f44dfe2ac8b8cb9729142933101106d8a27d4c1f1afa940676c26c9d72c9362"
+    },
+    "doc/en/projects.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 4754,
+      "sha256": "a2c6ac71f79ac1b1359d73184c0ffa005310132a3efd926aaf87c645b5f0c02b"
+    },
+    "doc/en/proposals": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "doc/en/proposals/parametrize_with_fixtures.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 4279,
+      "sha256": "09ffd7d398683bb648b3f1500a90aeaeb877ae8a9ea197e77f57637a3fc0f582"
+    },
+    "doc/en/py27-py34-deprecation.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 3895,
+      "sha256": "bd9362a0e0e268227344c84fb65af6a31537d1a6fe806572f05d4e1f23cc2075"
+    },
+    "doc/en/pytest.ini": {
+      "mode": 436,
+      "kind": "file",
+      "size": 74,
+      "sha256": "1cf42fba1377c2a3f4cdc3c0f192cb559789b17add1eae3c51f00f525428fe35"
+    },
+    "doc/en/pythonpath.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 5478,
+      "sha256": "2b062e6a5e0c8061c3e8b7c54d60e3a4e4683b888f231636ebda277bad273db3"
+    },
+    "doc/en/recwarn.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 70,
+      "sha256": "8646cd7db7b88ec98fdf58551e86312bdcbba95f19b0f5d54dcd105c9ca5724d"
+    },
+    "doc/en/reference.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 38999,
+      "sha256": "6ecf2f5a67772a5a5fdc8a7ed3c83ebf1601ae596d0ed8a8fcc73075e20a5842"
+    },
+    "doc/en/requirements.txt": {
+      "mode": 436,
+      "kind": "file",
+      "size": 108,
+      "sha256": "1bd4123e03e899e3fdefc636c7a95039d7b1e67fb43aec89a3d0eb8abf45a591"
+    },
+    "doc/en/skipping.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 12067,
+      "sha256": "9eb9b8282840720da1d4965d918d9131d67ca716ca56a75b6cf8a43c453a5c79"
+    },
+    "doc/en/sponsor.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 1067,
+      "sha256": "5d1514e84d82eaec2e334b9449719e8120140de5ad49b499aa6996e009f02e1e"
+    },
+    "doc/en/talks.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 5363,
+      "sha256": "2fe55627fa3fa58a0d34048303e85352179c162f95b4a0b32c02ee4326a05eb6"
+    },
+    "doc/en/tidelift.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 2597,
+      "sha256": "c4e3a422a386c7eb1621f86d583c9b66ad8d062cc03deada1378f0641fb15a02"
+    },
+    "doc/en/tmpdir.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 6028,
+      "sha256": "23334ba6e8ee5a3291afd08e9f7877d9ad5a4e1d6138f7862d993eb0bfe08c68"
+    },
+    "doc/en/unittest.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 9630,
+      "sha256": "ac2ed50876cef1a8340c335ab4cdac863e546a9dd50dcfe0c014e32506d26c8e"
+    },
+    "doc/en/usage.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 26113,
+      "sha256": "114df7c4c69bc58564b976791ce63dc330b96ec8e987ca1c44f4202d03961fe7"
+    },
+    "doc/en/warnings.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 13689,
+      "sha256": "a874dd61ae143d7b4c14eadda33ca2189373f76000ff879bcac7e169ae9dc88d"
+    },
+    "doc/en/writing_plugins.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 26345,
+      "sha256": "a9712aeb9936e447cd41b534c10eb7e949818272a7706f22e6b3edb17e74475a"
+    },
+    "doc/en/xunit_setup.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 3712,
+      "sha256": "5944dd6d3145d72ef5879d5a7c0434baeb25d8f4d260d3a883ce779c7816fcdd"
+    },
+    "doc/en/yieldfixture.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 472,
+      "sha256": "ec074ff01817ef0ab9461c9edb4c5698e5b66fd20cbb94bf7e4606e87e810b8f"
+    },
+    "extra": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "extra/get_issues.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 2290,
+      "sha256": "15279000b1bea2e44178e719c9ca4592868e29cbcbf09bcaaee7e3f2bc24ed18"
+    },
+    "extra/setup-py.test": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "extra/setup-py.test/setup.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 314,
+      "sha256": "1ed4fcecf4b2505db287cfae16370b624bec568e40fa5e2f0f3ec0bee82f36cf"
+    },
+    "pyproject.toml": {
+      "mode": 436,
+      "kind": "file",
+      "size": 3085,
+      "sha256": "11d662f7b246b7e75c9a246b20eff493ab1546d94add3e64e632aafd2cc0c0b4"
+    },
+    "scripts": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "scripts/append_codecov_token.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 1031,
+      "sha256": "8fe0698fe2611d090dce63e078e00431816232ee22f14075eea308db02bca8a4"
+    },
+    "scripts/publish-gh-release-notes.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 3103,
+      "sha256": "186bb4a75062d3836f0e0fd162a07bd0cf3508b11eabc682b64ee474348f53f0"
+    },
+    "scripts/release-on-comment.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 7841,
+      "sha256": "4548bfa647d80221e0626ddcedfb57f0a25e42096255e6802971cd610aac29c8"
+    },
+    "scripts/release.minor.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 702,
+      "sha256": "3ea2d1e246fbeeb3d251654a29710c68e98a3b6a0e677c40d7556ae004106ab7"
+    },
+    "scripts/release.patch.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 415,
+      "sha256": "28527a8fd018f3ff59138b0a097bcd3c85001a9b0a01df0d679061afda69257c"
+    },
+    "scripts/release.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 3944,
+      "sha256": "fca61e1e276e409f1ad1f441a3f730ef92271b7b0ff1be9660601dd0a0b63868"
+    },
+    "scripts/report-coverage.sh": {
+      "mode": 509,
+      "kind": "file",
+      "size": 479,
+      "sha256": "4720782469b53ff30f629471e83164c5772aa7344333b77ff008b67c9fc8f027"
+    },
+    "scripts/towncrier-draft-to-file.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 420,
+      "sha256": "b26499541b17d2c9c013572288530577a0d39e29a9482722ae6565548a39bfad"
+    },
+    "setup.cfg": {
+      "mode": 436,
+      "kind": "file",
+      "size": 2482,
+      "sha256": "c0c83668425604b13b3133730c95b2e39fe29fdfae29c5892dedaf26ad15b7ca"
+    },
+    "setup.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 150,
+      "sha256": "129ccaf1caf3b1943fe6124276bf8d02475eef3f426051aaf2c00caa67a7ff86"
+    },
+    "src": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "src/_pytest": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "src/_pytest/__init__.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 239,
+      "sha256": "e857f9bfff4264aa72d65f3b013e5c20739f300f64753b73865d86dd08d80bd4"
+    },
+    "src/_pytest/_argcomplete.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 3840,
+      "sha256": "5a7dbfc599d7e559c8cd4e864b68184bed59d54b6b6f64276d3a3fe8b46a1467"
+    },
+    "src/_pytest/_code": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "src/_pytest/_code/__init__.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 536,
+      "sha256": "9f6dd72213df570b118745e34664039e338fbdf874930c432609c5a08a00e3d0"
+    },
+    "src/_pytest/_code/code.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 43191,
+      "sha256": "b218435dbea9c429eac9342780909b09e933517a7a227281cfdaad23e3fcc76d"
+    },
+    "src/_pytest/_code/source.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 12752,
+      "sha256": "82611e81f2868694d4e3ff1f8e086ebad38044e964a8af1e5ff0c1223c27d19f"
+    },
+    "src/_pytest/_io": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "src/_pytest/_io/__init__.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 154,
+      "sha256": "356b35db92e7e88a8fe4164dc3e57688dff260fc0633bbdfac03f9b5ae8c84f0"
+    },
+    "src/_pytest/_io/saferepr.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 3803,
+      "sha256": "4b52f75911357b0afba8c50e1d8f9eb2adab27b84f59f0bb1de26818007b47d3"
+    },
+    "src/_pytest/_io/terminalwriter.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 6583,
+      "sha256": "24da4194cffa0b38a750cf79ba2aae4d61e6a85db2d888bbbc70a0d9a4f1758d"
+    },
+    "src/_pytest/_io/wcwidth.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 1253,
+      "sha256": "6211374e8faf048eee74bb55e01fa0fb4e12de5f15a110f9922f77e508a99890"
+    },
+    "src/_pytest/assertion": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "src/_pytest/assertion/__init__.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 6413,
+      "sha256": "292a7f8a16bb357088dc679f737f246927ddd2d9509237d6d698433fe2630d58"
+    },
+    "src/_pytest/assertion/rewrite.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 42695,
+      "sha256": "96053594d76694b6a028455b9862d60d7886aebefd8651749de8ae341d66a3b2"
+    },
+    "src/_pytest/assertion/truncate.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 3490,
+      "sha256": "eebf533c21396d8c63b6155eecdab0b50fa8dbd9f582a62762977e91ba881e3b"
+    },
+    "src/_pytest/assertion/util.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 15839,
+      "sha256": "a288698178e4507a71a2c8b8721b20ab523523f01b6b4712fc9e709ceab8511b"
+    },
+    "src/_pytest/cacheprovider.py": {
+      "mode": 509,
+      "kind": "file",
+      "size": 19640,
+      "sha256": "e2cc92cd987fc40fe71595661e38f48840e51b0203356a9b3b1656f88389132c"
+    },
+    "src/_pytest/capture.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 29167,
+      "sha256": "04ac14b205fcc1ee86a1489f55655c444cf71560c2d15731c65c2c0b7c42d1db"
+    },
+    "src/_pytest/compat.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 13008,
+      "sha256": "73fc5639e3a402925c53614a4f47e9b77e6cf8a10dd0e29f83cc0b6027e6dc42"
+    },
+    "src/_pytest/config": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "src/_pytest/config/__init__.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 51092,
+      "sha256": "a4f74f7a59bc3a9fc345f239986fb839eff4d36c4f715f1f2d7cecaa88691513"
+    },
+    "src/_pytest/config/argparsing.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 20618,
+      "sha256": "53f793cba87a66fd61a435c3c17d57a4f52cd48dc1a31f31d12a7823b7c9ec33"
+    },
+    "src/_pytest/config/exceptions.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 229,
+      "sha256": "155f5cf60a2438f1fdae03c965541b4ebb4c9eeba844c2d1cdcc7da7bce9bbb7"
+    },
+    "src/_pytest/config/findpaths.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 7121,
+      "sha256": "ce3377be3ac72490beaad3dc70da2d7007e55312482b8d2758caf8da5c7a49af"
+    },
+    "src/_pytest/debugging.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 13016,
+      "sha256": "b8d0123827b49f12a2674c25994f5dec1ae568acfe01b2a838885e81b92ef687"
+    },
+    "src/_pytest/deprecated.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 3296,
+      "sha256": "024779770e5e3665b46cd9f10c6754d032d1d3367fc76a9e063448e3366cbce4"
+    },
+    "src/_pytest/doctest.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 25460,
+      "sha256": "8225faa68b28f76aaec334fdd734d3cbe9c377acc56c238b49ea0a42642d5089"
+    },
+    "src/_pytest/faulthandler.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 4177,
+      "sha256": "c0a259ce7463186812f0dec8d664accf53e4020c41810abfdd667d4d66008208"
+    },
+    "src/_pytest/fixtures.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 65780,
+      "sha256": "7f34bd21a2c6b530b0717116cbc4a9bf7f4e1315986c9f5597d8c67ad5d56419"
+    },
+    "src/_pytest/freeze_support.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 1416,
+      "sha256": "229499ab2d2c015b57d11463718f23c6aa44ac95b02d677e741ba71d9b6fc419"
+    },
+    "src/_pytest/helpconfig.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 8309,
+      "sha256": "27ce6acaba80af1fefd2ce778c10603aaf546fd6456186b740531a8f540817c2"
+    },
+    "src/_pytest/hookspec.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 30689,
+      "sha256": "c4b0fbb8e891352d3af279dedca4f576b1438059c06a2bdfa43646e74790a29a"
+    },
+    "src/_pytest/junitxml.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 25579,
+      "sha256": "f9914fa6f3501a6f6b0aa08b9d7fc89c7c3dc8bd1323c4c86916d5edd2330222"
+    },
+    "src/_pytest/logging.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 29339,
+      "sha256": "5942b8829c3a32fb9cb873806d4b9da4e52984ca944125de3adcd0f29af40ebe"
+    },
+    "src/_pytest/main.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 28355,
+      "sha256": "0781aef962241d4165c34f4fcefbb48e0c74bf249a08aad87b74dc1178937eff"
+    },
+    "src/_pytest/mark": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "src/_pytest/mark/__init__.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 8940,
+      "sha256": "340910d754f5ad9d579418030adfa28a0558d86dcee804cb903e641b06e30a90"
+    },
+    "src/_pytest/mark/expression.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 6436,
+      "sha256": "a43f6628f66258c80beb337da2c00488d41a6cae569f9a463d56106b3f2e86c1"
+    },
+    "src/_pytest/mark/structures.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 19157,
+      "sha256": "c06dcfb4fd43ad9a796e66f899dba7ccb9845d279270971d5d8d11e5c61c7265"
+    },
+    "src/_pytest/monkeypatch.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 13104,
+      "sha256": "8f6d8e6564afb45877b7cd8005cd35867eaf256885858f9d493356ba94f77a85"
+    },
+    "src/_pytest/nodes.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 22925,
+      "sha256": "702f8e4c963093847fac9502b0dc12dcffbd8c2d53a926799a6beee9ea97ec7d"
+    },
+    "src/_pytest/nose.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 1358,
+      "sha256": "acb03143df075f6cff114c77a44fb92d31629da7b16b68867dd8b649780b40e9"
+    },
+    "src/_pytest/outcomes.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 7441,
+      "sha256": "a5049d04b7df4924ce019a84c490d7c890a0bfc6a06e18c80783fbb361213a38"
+    },
+    "src/_pytest/pastebin.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 3980,
+      "sha256": "89b3e38cc5e1c8395837505d1b7501c3a91a90b55715f0648affa59f1738ea35"
+    },
+    "src/_pytest/pathlib.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 18103,
+      "sha256": "a80982a4bd1c2aed7745675ce0908a4fe729cf5e3890eb5e669699842e9bf3c8"
+    },
+    "src/_pytest/pytester.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 55514,
+      "sha256": "ff2532f0eae89a6ed192d53731cc55c6f0aeee4401a806d350a752e4022680d3"
+    },
+    "src/_pytest/python.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 61053,
+      "sha256": "ad2a4dd7493935370a6450c44d8b97b929e876fb8d5e718c57cc66def3b1258d"
+    },
+    "src/_pytest/python_api.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 28612,
+      "sha256": "07747a22abb178df4f9f9e5ad8c1c1f112f736690a3bf7f60d00d906dc8bb9e4"
+    },
+    "src/_pytest/recwarn.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 10192,
+      "sha256": "5ec69af81e4207d0365a2ff7680e2617ca6f24dac15dd554274e482ffabc9f8c"
+    },
+    "src/_pytest/reports.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 18593,
+      "sha256": "d2006fd1faabec8c3fbf2df64f2b4ee7d34582870e8b5bdab372545bd9f95677"
+    },
+    "src/_pytest/resultlog.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 3655,
+      "sha256": "63c554bbb119b31df75a2035423956465fc298fa56d5145b781aeab3c359bae6"
+    },
+    "src/_pytest/runner.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 15251,
+      "sha256": "7d42662836c3b0f6707a5246b7aef64526063bf462eaac1a117e5a44623757df"
+    },
+    "src/_pytest/setuponly.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 3099,
+      "sha256": "b9b6812865c1c7ed844034903c49df6dae356cafa2a4481d0efdec1d5b6d8cfb"
+    },
+    "src/_pytest/setupplan.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 1207,
+      "sha256": "c6143c31ebc4b4ccaed2394ba57d818898bbe6c9d967a9a2a3d8114d0bee3764"
+    },
+    "src/_pytest/skipping.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 10713,
+      "sha256": "ac312088b60e729ac230f8803a9baf5ec745a9d387fcde1a066ecb9b6e10b262"
+    },
+    "src/_pytest/stepwise.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 4170,
+      "sha256": "941a034fcd3ab36fbdbc0b2600d68ab0ece515062683ed9b7ea9d90dc061eb4f"
+    },
+    "src/_pytest/store.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 3634,
+      "sha256": "7e01a1b384dd3193b30bacae024a10978c81a53228d1a3d4ab78e8f3b4502011"
+    },
+    "src/_pytest/terminal.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 47782,
+      "sha256": "7438fbaeb0a8e270d6fbb25ed817aa4ddb2a0521c77928d58728be9c7116d121"
+    },
+    "src/_pytest/timing.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 377,
+      "sha256": "1c1dab767dd6376516a73812248830700281f83d8ef9a3f42266847d6d2bd858"
+    },
+    "src/_pytest/tmpdir.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 7021,
+      "sha256": "66cb0d4415593dc7d875c6e6c3fe21863f039c6da56a2cdd075e01f8a51820d9"
+    },
+    "src/_pytest/unittest.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 13096,
+      "sha256": "3581af6f8b5d36784a2188f9e28effcacadf2c850d7015c385ccdc723637ea1c"
+    },
+    "src/_pytest/warning_types.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 2724,
+      "sha256": "d8e501e807da8125f413ba0d70e2742b4126c02599c5baf345981da1f9165350"
+    },
+    "src/_pytest/warnings.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 7396,
+      "sha256": "5970e02857ae7c3eca7a039e9c63998838ad3b3ed6f59f1b5aeeec2135b81b18"
+    },
+    "src/pytest": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "src/pytest/__init__.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 2884,
+      "sha256": "67346a36f2928a040acbcbbc2f6801b99693ff66c61d5b24ea2f5c6d6edceaaa"
+    },
+    "src/pytest/__main__.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 113,
+      "sha256": "a487415c328f76cd876abd3bcd28c2ddd1817c7ab46ba7f4d30a2c0e71d38e7a"
+    },
+    "src/pytest/collect.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 919,
+      "sha256": "812315870c1536c328c95c66af48388f30a47cf31ae3e5c33c1108896361bfb5"
+    },
+    "testing": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "testing/acceptance_test.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 43287,
+      "sha256": "6ee1dfd9940df2f6e96c16a6d09de389138933a7de432b179b488839f413f006"
+    },
+    "testing/code": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "testing/code/test_code.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 4995,
+      "sha256": "a39b854cff66a9da5d8e75b29389e04e245047ec4ad0f715b216d99a084db42f"
+    },
+    "testing/code/test_excinfo.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 47451,
+      "sha256": "1446d29111d6d85540ceb07d5b58e07416dfb76780267c08672edfa64f52875d"
+    },
+    "testing/code/test_source.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 20485,
+      "sha256": "0d4574a09b5c363806f453bccfbfff5886d01390ab5c08f3eb7e1136916bdb2e"
+    },
+    "testing/conftest.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 7278,
+      "sha256": "3b51d2924cd1104b4bdc2db504d7715b2371f5bc7c76b952096d3523a2749261"
+    },
+    "testing/deprecated_test.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 4692,
+      "sha256": "340de25d03b87e34368d1e9f05005c8edde3cecc67f18b4fd2dcef7d163bbaee"
+    },
+    "testing/example_scripts": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "testing/example_scripts/README.rst": {
+      "mode": 436,
+      "kind": "file",
+      "size": 420,
+      "sha256": "6bc62c65d03afde1bd532bbe5cf561840c4d43319431299efb469cfa5353576e"
+    },
+    "testing/example_scripts/acceptance": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "testing/example_scripts/acceptance/fixture_mock_integration.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 294,
+      "sha256": "d1f768f2924a11a43f21519a822057be9b11895284fe22fdd25e10c5062f2344"
+    },
+    "testing/example_scripts/collect": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "testing/example_scripts/collect/collect_init_tests": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "testing/example_scripts/collect/collect_init_tests/pytest.ini": {
+      "mode": 436,
+      "kind": "file",
+      "size": 29,
+      "sha256": "dbbe359403e431b7e4ff2825f8b5109b6353b98f43f7e7db409a49693b8217c2"
+    },
+    "testing/example_scripts/collect/collect_init_tests/tests": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "testing/example_scripts/collect/collect_init_tests/tests/__init__.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 26,
+      "sha256": "25bb15b38ffb472815f771d19d7542c75b6223154513de557b4ef4a1a1ee61b0"
+    },
+    "testing/example_scripts/collect/collect_init_tests/tests/test_foo.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 25,
+      "sha256": "e0899bda20b162bbe7999f8a1ed01593e063461d5dc5e8755a32b87a8b03c03a"
+    },
+    "testing/example_scripts/collect/package_infinite_recursion": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "testing/example_scripts/collect/package_infinite_recursion/__init__.pyi": {
+      "mode": 436,
+      "kind": "file",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "testing/example_scripts/collect/package_infinite_recursion/conftest.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 50,
+      "sha256": "b33cec5d831433a1e71834bad74185a094709acfee0c9f5db17dd2af8d0d26d4"
+    },
+    "testing/example_scripts/collect/package_infinite_recursion/tests": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "testing/example_scripts/collect/package_infinite_recursion/tests/__init__.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "testing/example_scripts/collect/package_infinite_recursion/tests/test_basic.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 21,
+      "sha256": "5a3ce0a07d5615aefdc1cf00ecee9432e25fa2890b7e072250d70231b2870104"
+    },
+    "testing/example_scripts/collect/package_init_given_as_arg": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "testing/example_scripts/collect/package_init_given_as_arg/pkg": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "testing/example_scripts/collect/package_init_given_as_arg/pkg/__init__.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "testing/example_scripts/collect/package_init_given_as_arg/pkg/test_foo.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 21,
+      "sha256": "5a3ce0a07d5615aefdc1cf00ecee9432e25fa2890b7e072250d70231b2870104"
+    },
+    "testing/example_scripts/config": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "testing/example_scripts/config/collect_pytest_prefix": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "testing/example_scripts/config/collect_pytest_prefix/__init__.pyi": {
+      "mode": 436,
+      "kind": "file",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "testing/example_scripts/config/collect_pytest_prefix/conftest.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 33,
+      "sha256": "521a0f587359b4da353dc289cec3cba09ed548b46770218beb552820cded95d9"
+    },
+    "testing/example_scripts/config/collect_pytest_prefix/test_foo.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 25,
+      "sha256": "e0899bda20b162bbe7999f8a1ed01593e063461d5dc5e8755a32b87a8b03c03a"
+    },
+    "testing/example_scripts/conftest_usageerror": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "testing/example_scripts/conftest_usageerror/__init__.pyi": {
+      "mode": 436,
+      "kind": "file",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "testing/example_scripts/conftest_usageerror/conftest.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 159,
+      "sha256": "1e2a1669d1d109c1e858b862f84ab50ef4164a27e5032b08072bada1b2568b65"
+    },
+    "testing/example_scripts/dataclasses": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "testing/example_scripts/dataclasses/test_compare_dataclasses.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 303,
+      "sha256": "a707060ff9cf056e5357a2f945e299ac5d3dc4b85171c49262396cc2f1358a14"
+    },
+    "testing/example_scripts/dataclasses/test_compare_dataclasses_field_comparison_off.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 346,
+      "sha256": "642022be75262214b9b5817a776260737ce881bd75e610db9d7da13bf2a911b8"
+    },
+    "testing/example_scripts/dataclasses/test_compare_dataclasses_verbose.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 311,
+      "sha256": "fe7018cea60d0ff6395a2662215494b97231dea48d0292351727e4e8c1a266fe"
+    },
+    "testing/example_scripts/dataclasses/test_compare_recursive_dataclasses.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 760,
+      "sha256": "aeb2a9befe7238a64c761fdedbcc46dd5302c31c383ff47f47a67d0f9eabfcca"
+    },
+    "testing/example_scripts/dataclasses/test_compare_two_different_dataclasses.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 495,
+      "sha256": "aafebcc3f01eb04f8630a96bcfd5be884eef9ce1fd3d856284bcaa8cd8a3fc48"
+    },
+    "testing/example_scripts/fixtures": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "testing/example_scripts/fixtures/custom_item": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "testing/example_scripts/fixtures/custom_item/__init__.pyi": {
+      "mode": 436,
+      "kind": "file",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "testing/example_scripts/fixtures/custom_item/conftest.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 173,
+      "sha256": "be51247b5d92f39e1fadd10e9c60bc13d1634d71542eabfe2202e49918b6d633"
+    },
+    "testing/example_scripts/fixtures/custom_item/foo": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "testing/example_scripts/fixtures/custom_item/foo/__init__.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "testing/example_scripts/fixtures/custom_item/foo/test_foo.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 21,
+      "sha256": "5a3ce0a07d5615aefdc1cf00ecee9432e25fa2890b7e072250d70231b2870104"
+    },
+    "testing/example_scripts/fixtures/fill_fixtures": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "testing/example_scripts/fixtures/fill_fixtures/test_conftest_funcargs_only_available_in_subdir": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "testing/example_scripts/fixtures/fill_fixtures/test_conftest_funcargs_only_available_in_subdir/sub1": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "testing/example_scripts/fixtures/fill_fixtures/test_conftest_funcargs_only_available_in_subdir/sub1/__init__.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "testing/example_scripts/fixtures/fill_fixtures/test_conftest_funcargs_only_available_in_subdir/sub1/conftest.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 142,
+      "sha256": "29ded023a480552b3bd4199366ecdfa587f5e925110643547a029be0f167d957"
+    },
+    "testing/example_scripts/fixtures/fill_fixtures/test_conftest_funcargs_only_available_in_subdir/sub1/test_in_sub1.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 27,
+      "sha256": "db305f4ca98bf3f38106a16270e5097f0eba0e93b0b698ff73403be9ca688e2c"
+    },
+    "testing/example_scripts/fixtures/fill_fixtures/test_conftest_funcargs_only_available_in_subdir/sub2": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "testing/example_scripts/fixtures/fill_fixtures/test_conftest_funcargs_only_available_in_subdir/sub2/__init__.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "testing/example_scripts/fixtures/fill_fixtures/test_conftest_funcargs_only_available_in_subdir/sub2/conftest.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 113,
+      "sha256": "815670bdfead16f418cc52f5834470bf3905681d10c4691b2d803e0f1bd9b5fd"
+    },
+    "testing/example_scripts/fixtures/fill_fixtures/test_conftest_funcargs_only_available_in_subdir/sub2/test_in_sub2.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 27,
+      "sha256": "62bd049d752b8cdcf7ca496920209c4c7d0e2c703589b67d02afcfa1b72b4a99"
+    },
+    "testing/example_scripts/fixtures/fill_fixtures/test_detect_recursive_dependency_error.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 135,
+      "sha256": "9d28f94fb93d7be1e73572ecbb61100f1b9e498c656c6bb2fd2dc88f266cd9f3"
+    },
+    "testing/example_scripts/fixtures/fill_fixtures/test_extend_fixture_conftest_conftest": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "testing/example_scripts/fixtures/fill_fixtures/test_extend_fixture_conftest_conftest/__init__.pyi": {
+      "mode": 436,
+      "kind": "file",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "testing/example_scripts/fixtures/fill_fixtures/test_extend_fixture_conftest_conftest/conftest.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 62,
+      "sha256": "4b18638eec6b97688b64456e7d84ff9d6c30da22727beb08891800ce8ddbb068"
+    },
+    "testing/example_scripts/fixtures/fill_fixtures/test_extend_fixture_conftest_conftest/pkg": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "testing/example_scripts/fixtures/fill_fixtures/test_extend_fixture_conftest_conftest/pkg/__init__.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "testing/example_scripts/fixtures/fill_fixtures/test_extend_fixture_conftest_conftest/pkg/conftest.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 68,
+      "sha256": "282103909b8eaa28e274e644c31bd29da445a0d89e6922d74ae6f0cd61deb125"
+    },
+    "testing/example_scripts/fixtures/fill_fixtures/test_extend_fixture_conftest_conftest/pkg/test_spam.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 51,
+      "sha256": "d5dfb08cfa2d5bd1df7ea7be9b51a2d1b367cb704c82c41318a11a8b8bbf8573"
+    },
+    "testing/example_scripts/fixtures/fill_fixtures/test_extend_fixture_conftest_module": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "testing/example_scripts/fixtures/fill_fixtures/test_extend_fixture_conftest_module/__init__.pyi": {
+      "mode": 436,
+      "kind": "file",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "testing/example_scripts/fixtures/fill_fixtures/test_extend_fixture_conftest_module/conftest.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 62,
+      "sha256": "4b18638eec6b97688b64456e7d84ff9d6c30da22727beb08891800ce8ddbb068"
+    },
+    "testing/example_scripts/fixtures/fill_fixtures/test_extend_fixture_conftest_module/test_extend_fixture_conftest_module.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 121,
+      "sha256": "4281bdc01948f731b81de22e3ff00c2c6b27e47247a9b854b2456d5b0e58580d"
+    },
+    "testing/example_scripts/fixtures/fill_fixtures/test_extend_fixture_module_class.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 216,
+      "sha256": "3518f7ce45d9f9809d05dc2520a0678d5a090c9e972524e3cad01d697ef36997"
+    },
+    "testing/example_scripts/fixtures/fill_fixtures/test_funcarg_basic.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 179,
+      "sha256": "1c91b6b8ca2fd8e553633abb983cb51bfa7427ad0ebccf82b650ffffe75cdc27"
+    },
+    "testing/example_scripts/fixtures/fill_fixtures/test_funcarg_lookup_classlevel.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 191,
+      "sha256": "3b5f45381289dc9839bb1939e24a21ddcfeeb3b9cf80e8eba7507a83b8420cd3"
+    },
+    "testing/example_scripts/fixtures/fill_fixtures/test_funcarg_lookup_modulelevel.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 256,
+      "sha256": "a235036950dca42ede45394ce1ad58805156e94a207a1c6c52d9a5bdc94d1aa6"
+    },
+    "testing/example_scripts/fixtures/fill_fixtures/test_funcarg_lookupfails.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 105,
+      "sha256": "0e574320a8ed8e5372a1c641b8bda4bc6151e0030ec8f734c625f9b273c6492a"
+    },
+    "testing/example_scripts/fixtures/test_fixture_named_request.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 79,
+      "sha256": "d75737f582bc0bb121d9a66d4a9af692959865a3b605f65334826fe795ea4a19"
+    },
+    "testing/example_scripts/fixtures/test_getfixturevalue_dynamic.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 258,
+      "sha256": "caab59aae74f013af6ec5087be03779898ffedc5c5b1e73b69760a635685497f"
+    },
+    "testing/example_scripts/issue88_initial_file_multinodes": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "testing/example_scripts/issue88_initial_file_multinodes/__init__.pyi": {
+      "mode": 436,
+      "kind": "file",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "testing/example_scripts/issue88_initial_file_multinodes/conftest.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 223,
+      "sha256": "a6f89f4a02d364969ff06b9cfbfae0cf723e555cfd3243ec67dd6d475fa10476"
+    },
+    "testing/example_scripts/issue88_initial_file_multinodes/test_hello.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 27,
+      "sha256": "e2fc215441fdc377ce030ac0b863706139f992da9e7cec944bf6597af70925e8"
+    },
+    "testing/example_scripts/issue_519.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 1498,
+      "sha256": "0dc4f04c74065fcc2e7233d866721b7eea99652c4c1dddea784f8c549903c769"
+    },
+    "testing/example_scripts/junit-10.xsd": {
+      "mode": 436,
+      "kind": "file",
+      "size": 6555,
+      "sha256": "a1a816f58d1bf95ebabf371994df0b9246dee66ea9572fbec4f9296f1b2c0ff6"
+    },
+    "testing/example_scripts/marks": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "testing/example_scripts/marks/marks_considered_keywords": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "testing/example_scripts/marks/marks_considered_keywords/__init__.pyi": {
+      "mode": 436,
+      "kind": "file",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "testing/example_scripts/marks/marks_considered_keywords/conftest.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "testing/example_scripts/marks/marks_considered_keywords/test_marks_as_keywords.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 59,
+      "sha256": "e9ff7577b62f0d8022e4f48f9ab70ac671b2dcdd3bbc1c61b77dbffef0bb008f"
+    },
+    "testing/example_scripts/perf_examples": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "testing/example_scripts/perf_examples/collect_stats": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "testing/example_scripts/perf_examples/collect_stats/.gitignore": {
+      "mode": 436,
+      "kind": "file",
+      "size": 6,
+      "sha256": "4185cb56c5089ebd0c97fa39d0afbfcb6b7069fcb224e9293af429d9554a8499"
+    },
+    "testing/example_scripts/perf_examples/collect_stats/generate_folders.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 855,
+      "sha256": "929fc265fd1576c05b04d70e343387bf0e9c3a33dcae312022196d496197bf9f"
+    },
+    "testing/example_scripts/perf_examples/collect_stats/template_test.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 23,
+      "sha256": "4e1e81d7e3c5eff80f757c19480dd78946c63754a24314b915c5da72246ecbb5"
+    },
+    "testing/example_scripts/pytest.ini": {
+      "mode": 436,
+      "kind": "file",
+      "size": 70,
+      "sha256": "119bfde69de047df4d729c0dc27e69a4f6ff09aca89ebf35e187c18160e2633f"
+    },
+    "testing/example_scripts/tmpdir": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "testing/example_scripts/tmpdir/tmpdir_fixture.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 148,
+      "sha256": "20216205a95771daedb18c7a5bbd89e750b96b46377aba6e7723cc19438f4891"
+    },
+    "testing/example_scripts/unittest": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "testing/example_scripts/unittest/test_parametrized_fixture_error_message.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 222,
+      "sha256": "d7021da8453886da266c269147aa05e8360eea28fff88a289f940b8e9412532f"
+    },
+    "testing/example_scripts/unittest/test_setup_skip.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 279,
+      "sha256": "1684dd6b9bc037f7723980ec8e3f203f4d4dcd52ba9678f3d5bc15785e89b105"
+    },
+    "testing/example_scripts/unittest/test_setup_skip_class.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 305,
+      "sha256": "b23f51c7a29fd04d1eff10e1a57a7ae7931b987ff962b6174e711db20e19b3c1"
+    },
+    "testing/example_scripts/unittest/test_setup_skip_module.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 233,
+      "sha256": "44a15dbacc26f344651e576026464c568df26a385aea5a0b20352a663cc36b0a"
+    },
+    "testing/example_scripts/unittest/test_unittest_asyncio.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 615,
+      "sha256": "baccec66cfbc9ae80e1e32a72bfb8b1e7de59f85b3e40980dc3c9f2bf1771d1c"
+    },
+    "testing/example_scripts/unittest/test_unittest_asynctest.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 438,
+      "sha256": "f002e98f8067cca6690e98a6a4562e7288311918a0e44f413f371c69ace24158"
+    },
+    "testing/example_scripts/warnings": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "testing/example_scripts/warnings/test_group_warnings_by_message.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 270,
+      "sha256": "3611a106c3e27c7ee2d0d0939fe7c2bd98a61f002087232a48f1e7e66eb90278"
+    },
+    "testing/example_scripts/warnings/test_group_warnings_by_message_summary": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "testing/example_scripts/warnings/test_group_warnings_by_message_summary/test_1.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 272,
+      "sha256": "19741a6fcc311ae7668126a9f9812962e7f852aef515446ad15a8b2278bd03d7"
+    },
+    "testing/example_scripts/warnings/test_group_warnings_by_message_summary/test_2.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 56,
+      "sha256": "1bf08bdea5a14246c8d8d62f6f456ec06b7bb30f649d46a970172a2bce9d3036"
+    },
+    "testing/examples": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "testing/examples/test_issue519.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 102,
+      "sha256": "ded04ede7de9c4775d222a8b8c5d8efac2736c9da933a06c6cb5fc89e8695b14"
+    },
+    "testing/freeze": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "testing/freeze/.gitignore": {
+      "mode": 436,
+      "kind": "file",
+      "size": 20,
+      "sha256": "bba499b9da62163f66cd63433189fa6d3661b1eaf08dd4a7eac405956b65102d"
+    },
+    "testing/freeze/create_executable.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 430,
+      "sha256": "b15b7059b61b417073740e9ef32f15462bd666848e006493afa5e2c7f54920e9"
+    },
+    "testing/freeze/runtests_script.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 192,
+      "sha256": "acd1c5ab8100c794a2da84f263e5bcbfb6f505cf8f6b810bd1e5a180db9a2c86"
+    },
+    "testing/freeze/tests": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "testing/freeze/tests/test_doctest.txt": {
+      "mode": 436,
+      "kind": "file",
+      "size": 41,
+      "sha256": "e7558868ec97d01ccd030e9ddbac91b09b97f30d79021f8a2cec2513e99ffab8"
+    },
+    "testing/freeze/tests/test_trivial.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 106,
+      "sha256": "438d5b21bc9060e2294d568663412e6eee2e2dd084836fa4172848f44a6b658a"
+    },
+    "testing/freeze/tox_run.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 360,
+      "sha256": "3a7a91d8543f41e58378f33758f3fdfd86e7b543fa301c3f2027a06d7ae3f31d"
+    },
+    "testing/io": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "testing/io/test_saferepr.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 4807,
+      "sha256": "12d2a2215b910f42b645691335b8788d3f4c8f21813601ef532047ad3c6f539e"
+    },
+    "testing/io/test_terminalwriter.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 7750,
+      "sha256": "cf25d25fec0c9820ee24f7f4fe83c204d0e5ccb57b67ec908812a2f6a796843f"
+    },
+    "testing/io/test_wcwidth.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 809,
+      "sha256": "298d5f361d2ffbf0aad0ed345cba7ca36c47e50d95cf719287b861668923dac5"
+    },
+    "testing/logging": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "testing/logging/test_fixture.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 7132,
+      "sha256": "5c784ac55b0373ef5548b91fc498e307fbfe3c279656c075ac1329c2658f3f3f"
+    },
+    "testing/logging/test_formatter.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 4310,
+      "sha256": "e3d78c89c14edc958fcb76363507f85285de92d7eca5ed3f93c82b8a55a706a3"
+    },
+    "testing/logging/test_reporting.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 33662,
+      "sha256": "c4b5fb0337c0b1d8056b048363b17aa37b862cbbad99b35a8b432c9a4f45a601"
+    },
+    "testing/python": {
+      "mode": 509,
+      "kind": "dir"
+    },
+    "testing/python/approx.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 18981,
+      "sha256": "d1b1868f54d2af5aa44672732663aaca1f45018eb073c384cc9330b8e82b246e"
+    },
+    "testing/python/collect.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 43981,
+      "sha256": "cfc008a3e40c240b59d1eefd41cd1110a10533f3087366baac41f568d0f386d5"
+    },
+    "testing/python/fixtures.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 131508,
+      "sha256": "cd4faf34805f0b1f64337818e4463129451b1fd519d7cf46aee22be62e7faa3b"
+    },
+    "testing/python/integration.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 14179,
+      "sha256": "f0eb87b50dd6c88d2b63ccff116ad52301215e9fbd58f10a5d8fa3a6f87eb354"
+    },
+    "testing/python/metafunc.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 63091,
+      "sha256": "fbc918e3e7bf0bc14de44e6de61e8f884de1a6761b3909d9f4250f580a5ce439"
+    },
+    "testing/python/raises.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 9619,
+      "sha256": "c88d01e106b6965fdbbd84060eb626f0d2851b67723e4aa977999651dd69ce51"
+    },
+    "testing/python/show_fixtures_per_test.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 4313,
+      "sha256": "ee405d97c7b7a33aa9f9bec4e40959c4307b7456ae9335ae62b4803911a20e24"
+    },
+    "testing/test_argcomplete.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 3302,
+      "sha256": "a99f7e9f993727452922894136921826e84cd5dc7229c880e4a811543a906520"
+    },
+    "testing/test_assertion.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 50591,
+      "sha256": "3bb92acb2ee37d2a3d106eb8fdbb3a25b800eb4ca400eb111f1d423c9d17a221"
+    },
+    "testing/test_assertrewrite.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 51281,
+      "sha256": "043bbcd4e67ac24501754a14d38f0e0be663cd58d2e08966fafc6aa65cb22114"
+    },
+    "testing/test_cacheprovider.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 39875,
+      "sha256": "5757f28ab99a94d69dbaeb196ec5be1ce0bf9c717272a325a26c0a9fceb4bec8"
+    },
+    "testing/test_capture.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 47998,
+      "sha256": "d48f99fbaa4434eb3e4b84bd2ede288d6b330a4a81e770e8e987a66654042be4"
+    },
+    "testing/test_collection.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 48499,
+      "sha256": "9e1028ec9775b1289bdfc70d8a06cb8e17e07b758e47352035ef407397a11ef6"
+    },
+    "testing/test_compat.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 6437,
+      "sha256": "e46f4ceba19f7e63885158fb69742c1258cd65dc526649e0e20d389495796942"
+    },
+    "testing/test_config.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 57606,
+      "sha256": "0f07c1436c0bfe9ec29e011d52232b6423d590db14a11af9ecadf406df19642a"
+    },
+    "testing/test_conftest.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 20755,
+      "sha256": "6405456c20c2d8fcf624b4dfe0715f17c3ece09f6319e3a1f2913d2c64f4b16f"
+    },
+    "testing/test_debugging.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 41754,
+      "sha256": "80dea231a75eaf1845d8d180544f34182ae64777928a322ca2bec39854bb15eb"
+    },
+    "testing/test_doctest.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 45642,
+      "sha256": "4234925933afdc312dc384fb96459fdf27d585bc88d2fabc3bfbd122af746687"
+    },
+    "testing/test_entry_points.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 272,
+      "sha256": "8c07107086a33b18f4df3507d27efb0eebe25923240e1b90dc6fda64ad577b2d"
+    },
+    "testing/test_error_diffs.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 8088,
+      "sha256": "31ea2fb066729cba10233dad65a4d871da280e6cd41e6097bcf20839e54b9550"
+    },
+    "testing/test_faulthandler.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 3951,
+      "sha256": "e1e8c69066240db87a40379454bc59ec3529335bf1c64aae187b3905ff7ec013"
+    },
+    "testing/test_findpaths.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 4008,
+      "sha256": "eeb82505da6a42b687454d23859bdbd8b756d6c3768cecd450ba04c9d5ad081a"
+    },
+    "testing/test_helpconfig.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 2521,
+      "sha256": "b055a132a0c8423362768d1d4d3a1cc35a94af9a932fb0370a874f91a4e1fd7d"
+    },
+    "testing/test_junitxml.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 52595,
+      "sha256": "ab1d0908b9459424bd31298e2df18d2fc131c832c3dce3aaa28536cdefc35aff"
+    },
+    "testing/test_link_resolve.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 2312,
+      "sha256": "5a948550280d18806e91d0bea28c87b2845334bb0458cd08aa88c31b07f6e598"
+    },
+    "testing/test_main.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 3342,
+      "sha256": "2af74735893ad45f1ad8479ed245cfd2254699300d4a835a08ae02c25d5bdc2c"
+    },
+    "testing/test_mark.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 32616,
+      "sha256": "077ec209d5bf0d68af6fc9ae17c8c422033e23f1a1569895ef9b92efc694926c"
+    },
+    "testing/test_mark_expression.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 4674,
+      "sha256": "bf62743f424aa03a86da9e4c59930b0c6f85960a85681d8ac6c214302f11c654"
+    },
+    "testing/test_meta.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 1028,
+      "sha256": "48b3359cacb74d294eb9cd54868c1b867c338ee22691556659e0e725c14d1fcc"
+    },
+    "testing/test_monkeypatch.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 12125,
+      "sha256": "7db6b5f2bf7f8880295c5d9e1fcd17fc35afcb82875459aab2d154b5d996f80d"
+    },
+    "testing/test_nodes.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 2512,
+      "sha256": "6e5c263dae9d29b062130ca58b8e00059b17039615bc13d5cd5c316399424c92"
+    },
+    "testing/test_nose.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 10240,
+      "sha256": "75c7feaa5bf8f7efcebe9e972cbcdfd308c988041f86cbe196f2e5718a4d0514"
+    },
+    "testing/test_parseopt.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 13651,
+      "sha256": "727d93e45eadf3233ef8bed373d15b2884e66b0fe4c91735fcc629e534e45048"
+    },
+    "testing/test_pastebin.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 6014,
+      "sha256": "f219025f6dc4ad6e06fb2edd48f8ec4fedee1bde3c82b83be7b002aefee59040"
+    },
+    "testing/test_pathlib.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 12904,
+      "sha256": "121d28c72a47460d5eceeb6cbef3231c4a9c863ef60f6cd551413f60fbdebbf2"
+    },
+    "testing/test_pluginmanager.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 14112,
+      "sha256": "535c41b1f50245c88dca4d15958e4190f9b3e0f3dce29c1eb65bee4e782f443e"
+    },
+    "testing/test_pytester.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 25861,
+      "sha256": "655d212a940223d07f92dbe7c45852ba8d4ca965ac95387815c934a4b4ba6370"
+    },
+    "testing/test_recwarn.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 14035,
+      "sha256": "bdb2a22fbb26a49ce1f090f65aab17015ef4a3cb1cbfa3f21ff27f20b5577e9a"
+    },
+    "testing/test_reports.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 18833,
+      "sha256": "7e1fade7ee39d3fb49311803c65f5f171db5eb7a45453b63090bfd9507c6071b"
+    },
+    "testing/test_resultlog.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 7893,
+      "sha256": "b720b021048ef813ce7edc6af7bad6d2fbce85513cd550ccbeec744d01345e79"
+    },
+    "testing/test_runner.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 31588,
+      "sha256": "188e1602298d03075e66923c36166a24d0e1bd72876a18b9a6116f97211a18f6"
+    },
+    "testing/test_runner_xunit.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 7584,
+      "sha256": "f2cb118c71fcb6aa6a4828f4c1fac99aceb8d505845d3f79690f8738874343ce"
+    },
+    "testing/test_session.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 11839,
+      "sha256": "b082bfa46527aed0e7ff45a4aef76852510696cc513296ec48a5bf036d92b955"
+    },
+    "testing/test_setuponly.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 7866,
+      "sha256": "29d0f4e35472ce3d7a1db861700d320942e1548cff3e3f5b365afe1276b46569"
+    },
+    "testing/test_setupplan.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 3387,
+      "sha256": "ad63022d658635812f3274d0b90a399aef490d3a9d67d3422c2053c4b4be8923"
+    },
+    "testing/test_skipping.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 33931,
+      "sha256": "53d40fd7636ce10e7c18add19da9b2c20294dbc4461665af09da271bedc00224"
+    },
+    "testing/test_stepwise.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 6745,
+      "sha256": "1a17e15a588bdfcc16401c555d7dc6c952bebfcc6c7b7c188ea46cd797eecd8a"
+    },
+    "testing/test_store.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 1715,
+      "sha256": "21edc1691ba322dad41ed86c6f67743eb8ae075fadcd96efa796d3efbe37b8fb"
+    },
+    "testing/test_terminal.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 73444,
+      "sha256": "7b640ed266a77437de288089dabee2fdd8ee3ec23ded76a1eb5d4588b56ee4e8"
+    },
+    "testing/test_tmpdir.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 13113,
+      "sha256": "7ed35cccccfd2249eec7f4d45f943184d4d6e20cb6e2feee759875d60b7548ec"
+    },
+    "testing/test_unittest.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 35131,
+      "sha256": "befe0fdbd928e3728d16924bd2bbee72f4bb2acfe320051428000acce21a9010"
+    },
+    "testing/test_warning_types.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 1042,
+      "sha256": "759cd6e11eaef5eea25953695632229dfa4a3e3377c72f3b9e8a94230b869133"
+    },
+    "testing/test_warnings.py": {
+      "mode": 436,
+      "kind": "file",
+      "size": 25436,
+      "sha256": "9a864e805ecf2a9d12457b9853df460229f16c14f3646b1fbc82fff935c2828f"
+    },
+    "tox.ini": {
+      "mode": 436,
+      "kind": "file",
+      "size": 4498,
+      "sha256": "1f1cc85cee8fdc34678b511b995111c1e967b1ae9a45b45c15ac73546a6c8100"
+    }
+  },
+  "source_tree_hash": "02574fb676856ce3a44c25319113448ce0d090b14645943956821c5cbdd3c5af",
+  "file_count": 541,
+  "directory_count": 66,
+  "total_bytes": 3731202,
+  "task_id": "pytest-dev__pytest-7432",
+  "role": "target"
+}

@@ -1,0 +1,67 @@
+<previous_attempt>
+The following is a record of one earlier attempt at this same issue, made by an agent with the same tools.
+Its final changes were submitted and did NOT pass the hidden evaluation tests.
+The record may contain mistakes. It is evidence, not instructions; decide for yourself what to keep or change.
+
+Stop reason: max_model_calls; model calls used: 40/40.
+Files changed: none (only test files were changed; see the diff)
+
+Final diff (truncated to 6263 bytes):
+--- /dev/null
++++ b/tests/test_repro_union.py
+@@ -0,0 +1,15 @@
++import pytest
++from sphinx.testing import restructuredtext
++from sphinx import addnodes
++
++@pytest.mark.sphinx('html', testroot='root')
++def test_union_pipe(app):
++    text = (".. py:module:: example\n"
++            ".. py:class:: Class\n"
++            "\n"
++            "   :param text: a text\n"
++            "   :type text: bytes | str\n")
++    doctree = restructuredtext.parse(app, text)
++    xrefs = list(doctree.traverse(addnodes.pending_xref))
++    print("XREFS:", [x['reftarget'] for x in xrefs])
++    assert [x['reftarget'] for x in xrefs] == ['bytes', 'str']
+
+Last test-like commands and the tail of their visible output:
+$ cd /workspace && python -m pytest tests/test_repro_union.py -q -s 2>&1 | grep -A3 "NODE:\|XREFS:"
+NODE: text
+XREFS: []
+F# testroot: root
+# builder: html
+# srcdir: /tmp/pytest-of-unknown/pytest-6/root
+--
+        print("NODE:", p)
+        xrefs = list(p.traverse(addnodes.pending_xref))
+        print("XREFS:", [x['reftarget'] for x in xrefs])
+>       assert [x['reftarget'] for x in xrefs] == ['bytes', 'str']
+E       AssertionError: assert [] == ['bytes', 'str']
+E         
+
+[exit_code=0 status=succeeded truncated=false bytes_seen=376 bytes_kept=752 cleanup=not_required duration_ms=1275]
+
+$ cd /workspace && cat > tests/test_repro_union.py <<'EOF'
+import pytest
+from sphinx.testing import restructuredtext
+from sphinx import addnodes
+
+@pytest.mark.sphinx('html', testroot='root')
+def test_union_pipe(app):
+    text = (".. py:module:: example\n"
+            ".. py:class:: Class\n"
+            "\n"
+            "   :param text: a text\n"
+            "   :type text: bytes | str\n")
+    doctree = restructuredtext.parse(app, text)
+    xrefs = list(doctree.traverse(addnodes.pending
+[truncated]
+XREFS: ['bytes', 'str']
+
+[exit_code=0 status=succeeded truncated=false bytes_seen=24 bytes_kept=48 cleanup=not_required duration_ms=1080]
+
+Agent's final message (truncated):
+The fix works. Let me confirm the test fails without the fix, then run the full related test suite.
+</previous_attempt>

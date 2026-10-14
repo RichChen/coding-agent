@@ -1,0 +1,10 @@
+{
+  "schema": "a5.dual-source-fingerprint.v1",
+  "status": "refrozen_for_h3_review",
+  "harness_source_fingerprint": "b596cc4cb8381cac514efe4ab69919f16296d6877cf009530552f2ede07198b3",
+  "coding_agent_source_fingerprint": "47a8546101a3e02fd7d7281b15a9314926e8d8dc924f8e29cb3016f5e0300052",
+  "frozen_at": "2026-09-24T00:00:00+08:00",
+  "evidence_ref": "docs/upgrade/evidence/A5-h3-dual-end-review-20260924-04-pilot-gate/source-fingerprint-refreeze.json",
+  "scope": "harness src/scripts/A5 manifest/model binding and coding-agent reposkill_agent/scripts/A5 consumption manifest",
+  "rule": "freeze only after both repositories finish A5 changes; any source change invalidates the binding"
+}

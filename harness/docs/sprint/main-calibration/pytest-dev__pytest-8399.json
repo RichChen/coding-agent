@@ -1,0 +1,58 @@
+{
+  "task_id": "pytest-dev__pytest-8399",
+  "repo": "pytest-dev/pytest",
+  "accepted": true,
+  "reason": null,
+  "empty_f2p": [
+    0,
+    1
+  ],
+  "gold_f2p": [
+    1,
+    1
+  ],
+  "empty_p2p": [
+    56,
+    56
+  ],
+  "gold_p2p": [
+    56,
+    56
+  ],
+  "p2p_excluded_count": 0,
+  "p2p_excluded": [],
+  "sklearn_import": null,
+  "nodeids": {
+    "f2p": {
+      "original": 1,
+      "used": 1
+    },
+    "p2p": {
+      "original": 59,
+      "used": 56
+    },
+    "dropped_reasons": {
+      "f2p": {},
+      "p2p": {
+        "unbalanced_brackets": 3
+      }
+    },
+    "dropped": [
+      {
+        "side": "p2p",
+        "nodeid": "testing/test_unittest.py::test_setup_inheritance_skipping[test_setup_skip.py-1",
+        "reason": "unbalanced_brackets"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "testing/test_unittest.py::test_setup_inheritance_skipping[test_setup_skip_class.py-1",
+        "reason": "unbalanced_brackets"
+      },
+      {
+        "side": "p2p",
+        "nodeid": "testing/test_unittest.py::test_setup_inheritance_skipping[test_setup_skip_module.py-1",
+        "reason": "unbalanced_brackets"
+      }
+    ]
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "sprint6.rewritten-expected.v1",
+  "task_id": "pytest-dev__pytest-8399",
+  "clean_image_digest": "coding-harness-a5-clean@sha256:c841979c5edb010a71fe18d9d0fdf33b40b821555cf6414c90a9467f6927a410",
+  "files": {
+    "setup.cfg": {
+      "commands": [
+        "sed -i 's/>=>=/>=/' setup.cfg"
+      ],
+      "rules": [
+        "plain_sed"
+      ],
+      "original_sha256": "0ce27f2d4498b3bb6676c423f3b7f1001150d6c961f0a6ad61b8e6413456ad4b",
+      "expected_sha256": "0ce27f2d4498b3bb6676c423f3b7f1001150d6c961f0a6ad61b8e6413456ad4b"
+    }
+  }
+}

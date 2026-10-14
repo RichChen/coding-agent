@@ -1,0 +1,218 @@
+{
+  "item_id": "trace-assistant-pressure-r1-mask-then-summary",
+  "category": "primary",
+  "task_id": "assistant-pressure",
+  "source_run": "trace-assistant-pressure-r1-mask-then-summary",
+  "record": {
+    "summary_id": "bc1328660051484aa1464aa0c5a29039",
+    "provider": "llm",
+    "model": "deepseek-flash",
+    "provider_binding": {
+      "provider": "llm",
+      "adapter": "host-llm-summary-1",
+      "model": "deepseek-flash",
+      "endpoint": "https://api.deepseek.com/v1",
+      "thinking": "disabled"
+    },
+    "prompt_version": "true-summary-1",
+    "config_version": "r2-lite-1",
+    "prompt_hash": "e7c163d0911fd1df34da112001747c50a1f398757be9a05e5ec7f1db7f43fa7b",
+    "config_hash": "9277887598fa9d07ae6b9fd549687c626587157ef71917fbc9f60182c908ee9d",
+    "raw_message_hash": "f74e16935faf855312ef0e6500185ff5253d74359bfcc1182314892734b9ff32",
+    "source_hash": "8f93565da6057f64d65edfba7ae10d87768b55de3781b9c155af02fae71ce43a",
+    "source_start": 2,
+    "source_end": 10,
+    "source_event_seq": 3,
+    "source_event_range": [
+      3,
+      3
+    ],
+    "source_step_range": [
+      0,
+      3
+    ],
+    "source_step_range_kind": "zero_based_raw_assistant_turns",
+    "snapshot_step": 0,
+    "source_range_kind": "raw_history_snapshot",
+    "generated_step": 0,
+    "status": "llm_success",
+    "text": "The user asked to recover the CURRENT accepted deployment settings from earlier public observations and return only a JSON object with keys endpoint, timeout_ms, retry_limit, idempotency_header, using documented values and null where unsupported, without inferring configuration from record counts, timestamps, or route enumeration, and without claiming the integration issue is fixed. Four read_file calls were made (public-0.txt through public-3.txt). The public-0.txt tool output contained an authoritative public release record stating: endpoint \"/v3/batch-events\", idempotency_header \"X-Batch-Key\", retry_limit 2, timeout_ms 2350. The remaining outputs (public-1.txt, public-2.txt, public-3.txt) contained only inventory/navigation records (module component_N_MMM; public interface listed; review pending) explicitly labeled as navigation records only, not configuration defaults. No configuration changes were made and no fix was verified. The requested final JSON object was not produced in the visible events.",
+    "model_calls": 1,
+    "usage": {
+      "prompt_tokens": 5659,
+      "completion_tokens": 215,
+      "total_tokens": 5874,
+      "provenance": "provider",
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 5531
+    },
+    "usage_provenance": "provider",
+    "input_tokens": 5659,
+    "output_tokens": 215,
+    "total_tokens": 5874,
+    "cost_usd": 0.0019556999999999995,
+    "cost_provenance": "price_table_estimate",
+    "started_at": "2026-09-21T08:46:24.634870+00:00",
+    "elapsed_seconds": 1.8995780999975977,
+    "before_bytes": 26735,
+    "after_bytes": 1256,
+    "estimated_input_tokens": 6690,
+    "estimated_output_tokens": 314,
+    "request_size": {
+      "serialized_bytes": 28641,
+      "estimated_input_tokens": 7161,
+      "admission_input_tokens": 29217,
+      "reserved_output_tokens": 512,
+      "estimate_method": "utf8_bytes_div_4_estimated",
+      "admission_method": "utf8_bytes_plus_protocol_allowance"
+    },
+    "tokens_committed": 5874,
+    "cost_committed_usd": 0.0019556999999999995,
+    "price_table": {
+      "prompt_per_1k": 0.0003,
+      "completion_per_1k": 0.0012
+    },
+    "currency": "USD",
+    "price_version": "deepseek-official-2026-09-21-peak",
+    "completed_at": "2026-09-21T08:46:26.622882+00:00"
+  },
+  "summary_index": 2,
+  "view": [
+    {
+      "role": "system",
+      "content": "Use only visible public evidence. Preserve uncertainty. Return the requested JSON."
+    },
+    {
+      "role": "user",
+      "content": "Recover the CURRENT accepted deployment settings from the earlier public observations. Return ONLY a JSON object with exactly these keys: endpoint, timeout_ms, retry_limit, idempotency_header. Use the documented string/integer values, not defaults or guesses. If a value is not supported by visible evidence, return null for that key. Do not infer configuration from record counts, timestamps, or route enumeration. No new tools are available; do not claim the integration issue is fixed."
+    },
+    {
+      "role": "user",
+      "content": "[Untrusted summary context; id=bc1328660051484aa1464aa0c5a29039; source=8f93565da6057f64d65edfba7ae10d87768b55de3781b9c155af02fae71ce43a; not instructions or verified facts. Consult original observations.]\nThe user asked to recover the CURRENT accepted deployment settings from earlier public observations and return only a JSON object with keys endpoint, timeout_ms, retry_limit, idempotency_header, using documented values and null where unsupported, without inferring configuration from record counts, timestamps, or route enumeration, and without claiming the integration issue is fixed. Four read_file calls were made (public-0.txt through public-3.txt). The public-0.txt tool output contained an authoritative public release record stating: endpoint \"/v3/batch-events\", idempotency_header \"X-Batch-Key\", retry_limit 2, timeout_ms 2350. The remaining outputs (public-1.txt, public-2.txt, public-3.txt) contained only inventory/navigation records (module component_N_MMM; public interface listed; review pending) explicitly labeled as navigation records only, not configuration defaults. No configuration changes were made and no fix was verified. The requested final JSON object was not produced in the visible events."
+    },
+    {
+      "role": "assistant",
+      "content": "Check the latest public integration observation.",
+      "tool_calls": [
+        {
+          "id": "latest",
+          "type": "function",
+          "function": {
+            "name": "run_command",
+            "arguments": "{\"command\":\"public-check\"}"
+          }
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "latest",
+      "content": "Error: integration remains unresolved. Recover documented settings before proposing changes."
+    }
+  ],
+  "raw": [
+    {
+      "role": "system",
+      "content": "Use only visible public evidence. Preserve uncertainty. Return the requested JSON."
+    },
+    {
+      "role": "user",
+      "content": "Recover the CURRENT accepted deployment settings from the earlier public observations. Return ONLY a JSON object with exactly these keys: endpoint, timeout_ms, retry_limit, idempotency_header. Use the documented string/integer values, not defaults or guesses. If a value is not supported by visible evidence, return null for that key. Do not infer configuration from record counts, timestamps, or route enumeration. No new tools are available; do not claim the integration issue is fixed."
+    },
+    {
+      "role": "assistant",
+      "content": "Read public deployment evidence batch 0.\nNavigation item 000: inspect module dependency references without changing deployment configuration.\nNavigation item 001: inspect module dependency references without changing deployment configuration.\nNavigation item 002: inspect module dependency references without changing deployment configuration.\nNavigation item 003: inspect module dependency references without changing deployment configuration.\nNavigation item 004: inspect module dependency references without changing deployment configuration.\nNavigation item 005: inspect module dependency references without changing deployment configuration.\nNavigation item 006: inspect module dependency references without changing deployment configuration.\nNavigation item 007: inspect module dependency references without changing deployment configuration.\nNavigation item 008: inspect module dependency references without changing deployment configuration.\nNavigation item 009: inspect module dependency references without changing deployment configuration.\nNavigation item 010: inspect module dependency references without changing deployment configuration.\nNavigation item 011: inspect module dependency references without changing deployment configuration.\nNavigation item 012: inspect module dependency references without changing deployment configuration.\nNavigation item 013: inspect module dependency references without changing deployment configuration.\nNavigation item 014: inspect module dependency references without changing deployment configuration.\nNavigation item 015: inspect module dependency references without changing deployment configuration.\nNavigation item 016: inspect module dependency references without changing deployment configuration.\nNavigation item 017: inspect module dependency references without changing deployment configuration.\nNavigation item 018: inspect module dependency references without changing deployment configuration.\nNavigation item 019: inspect module dependency references without changing deployment configuration.\nNavigation item 020: inspect module dependency references without changing deployment configuration.\nNavigation item 021: inspect module dependency references without changing deployment configuration.\nNavigation item 022: inspect module dependency references without changing deployment configuration.\nNavigation item 023: inspect module dependency references without changing deployment configuration.",
+      "tool_calls": [
+        {
+          "id": "public-0",
+          "type": "function",
+          "function": {
+            "name": "read_file",
+            "arguments": "{\"path\": \"public-0.txt\"}"
+          }
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "public-0",
+      "content": "Accepted CURRENT deployment configuration; authoritative public release record:\n{\"endpoint\": \"/v3/batch-events\", \"idempotency_header\": \"X-Batch-Key\", \"retry_limit\": 2, \"timeout_ms\": 2350}\nInventory record 000: module component_0_000; public interface listed; review pending.\nInventory record 001: module component_0_001; public interface listed; review pending.\nInventory record 002: module component_0_002; public interface listed; review pending.\nInventory record 003: module component_0_003; public interface listed; review pending.\nInventory record 004: module component_0_004; public interface listed; review pending.\nInventory record 005: module component_0_005; public interface listed; review pending.\nInventory record 006: module component_0_006; public interface listed; review pending.\nInventory record 007: module component_0_007; public interface listed; review pending.\nInventory record 008: module component_0_008; public interface listed; review pending.\nInventory record 009: module component_0_009; public interface listed; review pending.\nInventory record 010: module component_0_010; public interface listed; review pending.\nInventory record 011: module component_0_011; public interface listed; review pending.\nInventory record 012: module component_0_012; public interface listed; review pending.\nInventory record 013: module component_0_013; public interface listed; review pending.\nInventory record 014: module component_0_014; public interface listed; review pending.\nInventory record 015: module component_0_015; public interface listed; review pending.\nInventory record 016: module component_0_016; public interface listed; review pending.\nInventory record 017: module component_0_017; public interface listed; review pending.\nInventory record 018: module component_0_018; public interface listed; review pending.\nInventory record 019: module component_0_019; public interface listed; review pending.\nInventory record 020: module component_0_020; public interface listed; review pending.\nInventory record 021: module component_0_021; public interface listed; review pending.\nInventory record 022: module component_0_022; public interface listed; review pending.\nInventory record 023: module component_0_023; public interface listed; review pending.\nInventory record 024: module component_0_024; public interface listed; review pending.\nInventory record 025: module component_0_025; public interface listed; review pending.\nInventory record 026: module component_0_026; public interface listed; review pending.\nInventory record 027: module component_0_027; public interface listed; review pending.\nInventory record 028: module component_0_028; public interface listed; review pending.\nInventory record 029: module component_0_029; public interface listed; review pending.\nInventory record 030: module component_0_030; public interface listed; review pending.\nInventory record 031: module component_0_031; public interface listed; review pending.\nInventory record 032: module component_0_032; public interface listed; review pending.\nInventory record 033: module component_0_033; public interface listed; review pending.\nInventory record 034: module component_0_034; public interface listed; review pending.\nInventory record 035: module component_0_035; public interface listed; review pending.\nInventory record 036: module component_0_036; public interface listed; review pending.\nInventory record 037: module component_0_037; public interface listed; review pending.\nInventory record 038: module component_0_038; public interface listed; review pending.\nInventory record 039: module component_0_039; public interface listed; review pending.\nInventory record 040: module component_0_040; public interface listed; review pending.\nInventory record 041: module component_0_041; public interface listed; review pending.\nInventory record 042: module component_0_042; public interface listed; review pending.\nInventory record 043: module component_0_043; public interface listed; review pending."
+    },
+    {
+      "role": "assistant",
+      "content": "Read public deployment evidence batch 1.\nNavigation item 000: inspect module dependency references without changing deployment configuration.\nNavigation item 001: inspect module dependency references without changing deployment configuration.\nNavigation item 002: inspect module dependency references without changing deployment configuration.\nNavigation item 003: inspect module dependency references without changing deployment configuration.\nNavigation item 004: inspect module dependency references without changing deployment configuration.\nNavigation item 005: inspect module dependency references without changing deployment configuration.\nNavigation item 006: inspect module dependency references without changing deployment configuration.\nNavigation item 007: inspect module dependency references without changing deployment configuration.\nNavigation item 008: inspect module dependency references without changing deployment configuration.\nNavigation item 009: inspect module dependency references without changing deployment configuration.\nNavigation item 010: inspect module dependency references without changing deployment configuration.\nNavigation item 011: inspect module dependency references without changing deployment configuration.\nNavigation item 012: inspect module dependency references without changing deployment configuration.\nNavigation item 013: inspect module dependency references without changing deployment configuration.\nNavigation item 014: inspect module dependency references without changing deployment configuration.\nNavigation item 015: inspect module dependency references without changing deployment configuration.\nNavigation item 016: inspect module dependency references without changing deployment configuration.\nNavigation item 017: inspect module dependency references without changing deployment configuration.\nNavigation item 018: inspect module dependency references without changing deployment configuration.\nNavigation item 019: inspect module dependency references without changing deployment configuration.\nNavigation item 020: inspect module dependency references without changing deployment configuration.\nNavigation item 021: inspect module dependency references without changing deployment configuration.\nNavigation item 022: inspect module dependency references without changing deployment configuration.\nNavigation item 023: inspect module dependency references without changing deployment configuration.",
+      "tool_calls": [
+        {
+          "id": "public-1",
+          "type": "function",
+          "function": {
+            "name": "read_file",
+            "arguments": "{\"path\": \"public-1.txt\"}"
+          }
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "public-1",
+      "content": "Public inventory batch 1; navigation records only, not configuration defaults.\nInventory record 000: module component_1_000; public interface listed; review pending.\nInventory record 001: module component_1_001; public interface listed; review pending.\nInventory record 002: module component_1_002; public interface listed; review pending.\nInventory record 003: module component_1_003; public interface listed; review pending.\nInventory record 004: module component_1_004; public interface listed; review pending.\nInventory record 005: module component_1_005; public interface listed; review pending.\nInventory record 006: module component_1_006; public interface listed; review pending.\nInventory record 007: module component_1_007; public interface listed; review pending.\nInventory record 008: module component_1_008; public interface listed; review pending.\nInventory record 009: module component_1_009; public interface listed; review pending.\nInventory record 010: module component_1_010; public interface listed; review pending.\nInventory record 011: module component_1_011; public interface listed; review pending.\nInventory record 012: module component_1_012; public interface listed; review pending.\nInventory record 013: module component_1_013; public interface listed; review pending.\nInventory record 014: module component_1_014; public interface listed; review pending.\nInventory record 015: module component_1_015; public interface listed; review pending.\nInventory record 016: module component_1_016; public interface listed; review pending.\nInventory record 017: module component_1_017; public interface listed; review pending.\nInventory record 018: module component_1_018; public interface listed; review pending.\nInventory record 019: module component_1_019; public interface listed; review pending.\nInventory record 020: module component_1_020; public interface listed; review pending.\nInventory record 021: module component_1_021; public interface listed; review pending.\nInventory record 022: module component_1_022; public interface listed; review pending.\nInventory record 023: module component_1_023; public interface listed; review pending.\nInventory record 024: module component_1_024; public interface listed; review pending.\nInventory record 025: module component_1_025; public interface listed; review pending.\nInventory record 026: module component_1_026; public interface listed; review pending.\nInventory record 027: module component_1_027; public interface listed; review pending.\nInventory record 028: module component_1_028; public interface listed; review pending.\nInventory record 029: module component_1_029; public interface listed; review pending.\nInventory record 030: module component_1_030; public interface listed; review pending.\nInventory record 031: module component_1_031; public interface listed; review pending.\nInventory record 032: module component_1_032; public interface listed; review pending.\nInventory record 033: module component_1_033; public interface listed; review pending.\nInventory record 034: module component_1_034; public interface listed; review pending.\nInventory record 035: module component_1_035; public interface listed; review pending.\nInventory record 036: module component_1_036; public interface listed; review pending.\nInventory record 037: module component_1_037; public interface listed; review pending.\nInventory record 038: module component_1_038; public interface listed; review pending.\nInventory record 039: module component_1_039; public interface listed; review pending.\nInventory record 040: module component_1_040; public interface listed; review pending.\nInventory record 041: module component_1_041; public interface listed; review pending.\nInventory record 042: module component_1_042; public interface listed; review pending.\nInventory record 043: module component_1_043; public interface listed; review pending."
+    },
+    {
+      "role": "assistant",
+      "content": "Read public deployment evidence batch 2.\nNavigation item 000: inspect module dependency references without changing deployment configuration.\nNavigation item 001: inspect module dependency references without changing deployment configuration.\nNavigation item 002: inspect module dependency references without changing deployment configuration.\nNavigation item 003: inspect module dependency references without changing deployment configuration.\nNavigation item 004: inspect module dependency references without changing deployment configuration.\nNavigation item 005: inspect module dependency references without changing deployment configuration.\nNavigation item 006: inspect module dependency references without changing deployment configuration.\nNavigation item 007: inspect module dependency references without changing deployment configuration.\nNavigation item 008: inspect module dependency references without changing deployment configuration.\nNavigation item 009: inspect module dependency references without changing deployment configuration.\nNavigation item 010: inspect module dependency references without changing deployment configuration.\nNavigation item 011: inspect module dependency references without changing deployment configuration.\nNavigation item 012: inspect module dependency references without changing deployment configuration.\nNavigation item 013: inspect module dependency references without changing deployment configuration.\nNavigation item 014: inspect module dependency references without changing deployment configuration.\nNavigation item 015: inspect module dependency references without changing deployment configuration.\nNavigation item 016: inspect module dependency references without changing deployment configuration.\nNavigation item 017: inspect module dependency references without changing deployment configuration.\nNavigation item 018: inspect module dependency references without changing deployment configuration.\nNavigation item 019: inspect module dependency references without changing deployment configuration.\nNavigation item 020: inspect module dependency references without changing deployment configuration.\nNavigation item 021: inspect module dependency references without changing deployment configuration.\nNavigation item 022: inspect module dependency references without changing deployment configuration.\nNavigation item 023: inspect module dependency references without changing deployment configuration.",
+      "tool_calls": [
+        {
+          "id": "public-2",
+          "type": "function",
+          "function": {
+            "name": "read_file",
+            "arguments": "{\"path\": \"public-2.txt\"}"
+          }
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "public-2",
+      "content": "Public inventory batch 2; navigation records only, not configuration defaults.\nInventory record 000: module component_2_000; public interface listed; review pending.\nInventory record 001: module component_2_001; public interface listed; review pending.\nInventory record 002: module component_2_002; public interface listed; review pending.\nInventory record 003: module component_2_003; public interface listed; review pending.\nInventory record 004: module component_2_004; public interface listed; review pending.\nInventory record 005: module component_2_005; public interface listed; review pending.\nInventory record 006: module component_2_006; public interface listed; review pending.\nInventory record 007: module component_2_007; public interface listed; review pending.\nInventory record 008: module component_2_008; public interface listed; review pending.\nInventory record 009: module component_2_009; public interface listed; review pending.\nInventory record 010: module component_2_010; public interface listed; review pending.\nInventory record 011: module component_2_011; public interface listed; review pending.\nInventory record 012: module component_2_012; public interface listed; review pending.\nInventory record 013: module component_2_013; public interface listed; review pending.\nInventory record 014: module component_2_014; public interface listed; review pending.\nInventory record 015: module component_2_015; public interface listed; review pending.\nInventory record 016: module component_2_016; public interface listed; review pending.\nInventory record 017: module component_2_017; public interface listed; review pending.\nInventory record 018: module component_2_018; public interface listed; review pending.\nInventory record 019: module component_2_019; public interface listed; review pending.\nInventory record 020: module component_2_020; public interface listed; review pending.\nInventory record 021: module component_2_021; public interface listed; review pending.\nInventory record 022: module component_2_022; public interface listed; review pending.\nInventory record 023: module component_2_023; public interface listed; review pending.\nInventory record 024: module component_2_024; public interface listed; review pending.\nInventory record 025: module component_2_025; public interface listed; review pending.\nInventory record 026: module component_2_026; public interface listed; review pending.\nInventory record 027: module component_2_027; public interface listed; review pending.\nInventory record 028: module component_2_028; public interface listed; review pending.\nInventory record 029: module component_2_029; public interface listed; review pending.\nInventory record 030: module component_2_030; public interface listed; review pending.\nInventory record 031: module component_2_031; public interface listed; review pending.\nInventory record 032: module component_2_032; public interface listed; review pending.\nInventory record 033: module component_2_033; public interface listed; review pending.\nInventory record 034: module component_2_034; public interface listed; review pending.\nInventory record 035: module component_2_035; public interface listed; review pending.\nInventory record 036: module component_2_036; public interface listed; review pending.\nInventory record 037: module component_2_037; public interface listed; review pending.\nInventory record 038: module component_2_038; public interface listed; review pending.\nInventory record 039: module component_2_039; public interface listed; review pending.\nInventory record 040: module component_2_040; public interface listed; review pending.\nInventory record 041: module component_2_041; public interface listed; review pending.\nInventory record 042: module component_2_042; public interface listed; review pending.\nInventory record 043: module component_2_043; public interface listed; review pending."
+    },
+    {
+      "role": "assistant",
+      "content": "Read public deployment evidence batch 3.\nNavigation item 000: inspect module dependency references without changing deployment configuration.\nNavigation item 001: inspect module dependency references without changing deployment configuration.\nNavigation item 002: inspect module dependency references without changing deployment configuration.\nNavigation item 003: inspect module dependency references without changing deployment configuration.\nNavigation item 004: inspect module dependency references without changing deployment configuration.\nNavigation item 005: inspect module dependency references without changing deployment configuration.\nNavigation item 006: inspect module dependency references without changing deployment configuration.\nNavigation item 007: inspect module dependency references without changing deployment configuration.\nNavigation item 008: inspect module dependency references without changing deployment configuration.\nNavigation item 009: inspect module dependency references without changing deployment configuration.\nNavigation item 010: inspect module dependency references without changing deployment configuration.\nNavigation item 011: inspect module dependency references without changing deployment configuration.\nNavigation item 012: inspect module dependency references without changing deployment configuration.\nNavigation item 013: inspect module dependency references without changing deployment configuration.\nNavigation item 014: inspect module dependency references without changing deployment configuration.\nNavigation item 015: inspect module dependency references without changing deployment configuration.\nNavigation item 016: inspect module dependency references without changing deployment configuration.\nNavigation item 017: inspect module dependency references without changing deployment configuration.\nNavigation item 018: inspect module dependency references without changing deployment configuration.\nNavigation item 019: inspect module dependency references without changing deployment configuration.\nNavigation item 020: inspect module dependency references without changing deployment configuration.\nNavigation item 021: inspect module dependency references without changing deployment configuration.\nNavigation item 022: inspect module dependency references without changing deployment configuration.\nNavigation item 023: inspect module dependency references without changing deployment configuration.",
+      "tool_calls": [
+        {
+          "id": "public-3",
+          "type": "function",
+          "function": {
+            "name": "read_file",
+            "arguments": "{\"path\": \"public-3.txt\"}"
+          }
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "public-3",
+      "content": "Public inventory batch 3; navigation records only, not configuration defaults.\nInventory record 000: module component_3_000; public interface listed; review pending.\nInventory record 001: module component_3_001; public interface listed; review pending.\nInventory record 002: module component_3_002; public interface listed; review pending.\nInventory record 003: module component_3_003; public interface listed; review pending.\nInventory record 004: module component_3_004; public interface listed; review pending.\nInventory record 005: module component_3_005; public interface listed; review pending.\nInventory record 006: module component_3_006; public interface listed; review pending.\nInventory record 007: module component_3_007; public interface listed; review pending.\nInventory record 008: module component_3_008; public interface listed; review pending.\nInventory record 009: module component_3_009; public interface listed; review pending.\nInventory record 010: module component_3_010; public interface listed; review pending.\nInventory record 011: module component_3_011; public interface listed; review pending.\nInventory record 012: module component_3_012; public interface listed; review pending.\nInventory record 013: module component_3_013; public interface listed; review pending.\nInventory record 014: module component_3_014; public interface listed; review pending.\nInventory record 015: module component_3_015; public interface listed; review pending.\nInventory record 016: module component_3_016; public interface listed; review pending.\nInventory record 017: module component_3_017; public interface listed; review pending.\nInventory record 018: module component_3_018; public interface listed; review pending.\nInventory record 019: module component_3_019; public interface listed; review pending.\nInventory record 020: module component_3_020; public interface listed; review pending.\nInventory record 021: module component_3_021; public interface listed; review pending.\nInventory record 022: module component_3_022; public interface listed; review pending.\nInventory record 023: module component_3_023; public interface listed; review pending.\nInventory record 024: module component_3_024; public interface listed; review pending.\nInventory record 025: module component_3_025; public interface listed; review pending.\nInventory record 026: module component_3_026; public interface listed; review pending.\nInventory record 027: module component_3_027; public interface listed; review pending.\nInventory record 028: module component_3_028; public interface listed; review pending.\nInventory record 029: module component_3_029; public interface listed; review pending.\nInventory record 030: module component_3_030; public interface listed; review pending.\nInventory record 031: module component_3_031; public interface listed; review pending.\nInventory record 032: module component_3_032; public interface listed; review pending.\nInventory record 033: module component_3_033; public interface listed; review pending.\nInventory record 034: module component_3_034; public interface listed; review pending.\nInventory record 035: module component_3_035; public interface listed; review pending.\nInventory record 036: module component_3_036; public interface listed; review pending.\nInventory record 037: module component_3_037; public interface listed; review pending.\nInventory record 038: module component_3_038; public interface listed; review pending.\nInventory record 039: module component_3_039; public interface listed; review pending.\nInventory record 040: module component_3_040; public interface listed; review pending.\nInventory record 041: module component_3_041; public interface listed; review pending.\nInventory record 042: module component_3_042; public interface listed; review pending.\nInventory record 043: module component_3_043; public interface listed; review pending."
+    },
+    {
+      "role": "assistant",
+      "content": "Check the latest public integration observation.",
+      "tool_calls": [
+        {
+          "id": "latest",
+          "type": "function",
+          "function": {
+            "name": "run_command",
+            "arguments": "{\"command\":\"public-check\"}"
+          }
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "latest",
+      "content": "Error: integration remains unresolved. Recover documented settings before proposing changes."
+    }
+  ]
+}

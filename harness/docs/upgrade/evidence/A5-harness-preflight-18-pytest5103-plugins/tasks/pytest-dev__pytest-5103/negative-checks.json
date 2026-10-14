@@ -1,0 +1,19 @@
+[
+  {
+    "case": "tampered_test",
+    "status": "rejected_before_execution",
+    "path": "testing/conftest.py",
+    "rejected": true
+  },
+  {
+    "case": "tampered_config",
+    "status": "rejected_before_execution",
+    "path": "tox.ini",
+    "rejected": true
+  },
+  {
+    "case": "fake_stdout",
+    "rejected": true,
+    "classifier_error": "missing_or_incomplete_receipt"
+  }
+]

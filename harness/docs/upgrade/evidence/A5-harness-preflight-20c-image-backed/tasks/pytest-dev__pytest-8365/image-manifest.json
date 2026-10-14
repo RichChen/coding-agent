@@ -1,0 +1,24 @@
+{
+  "schema": "a5.image-backed-source.v1",
+  "task_id": "pytest-dev__pytest-8365",
+  "repo": "pytest-dev/pytest",
+  "base_revision": "4964b468c83c06971eb743fbc57cc404f760c573",
+  "transport_mode": "runtime_full",
+  "archive_sha256": "972e266e9e055878d90bac983c281243bc7169e70638c2ff9caa25fb61759fb5",
+  "archive_bytes": 1190917,
+  "source_tree_hash": "faf5d395fc9cd01a0396fcb10f683cce33f52994aa5af11607345f2a3902a8ce",
+  "file_count": 535,
+  "total_bytes": 4337617,
+  "inventory_sha256": "46680cf4afbae57c89097f36d8f94b3b5dfa4683e5cc64fe26be872e4ac584cf",
+  "nonregular_paths": [],
+  "base_image": "python@sha256:603879aeff06df23f0d392a19f7ce02aa85e14e6b4d25fd9647b116e0cb93467",
+  "dockerfile_sha256": "4d1343c4a2f9ed8897d15a24243ade5dbe9da956b578877bec2bb0215a85bf3c",
+  "agent_return_contract": {
+    "schema": "a5.snapshot.delta.v1",
+    "max_bytes": 8388608,
+    "max_files": 2048,
+    "requires_base_tree_hash": true,
+    "requires_candidate_tree_hash": true,
+    "allowlist_required": true
+  }
+}

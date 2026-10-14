@@ -1,0 +1,796 @@
+{
+  "task_id": "a5-build-89090b11547fe93a",
+  "success": false,
+  "final_answer": null,
+  "failure_reason": "context_overflow",
+  "steps": [
+    {
+      "step": 0,
+      "phase": "acting",
+      "messages_snapshot": 5,
+      "llm_text": "I'll start by exploring the repository structure to understand the codebase.",
+      "tool_calls": [
+        {
+          "name": "list_dir",
+          "args": {
+            "path": "."
+          },
+          "raw_arguments": "{\"path\": \".\"}",
+          "parse_error": null
+        },
+        {
+          "name": "run_command",
+          "args": {
+            "command": "cd /workspace && git log --oneline -3 2>/dev/null | head"
+          },
+          "raw_arguments": "{\"command\": \"cd /workspace && git log --oneline -3 2>/dev/null | head\"}",
+          "parse_error": null
+        }
+      ],
+      "tool_results": [
+        {
+          "name": "list_dir",
+          "success": true,
+          "status": "succeeded",
+          "error_kind": null,
+          "output": "[D] .ci\n[F] .editorconfig\n[F] .gitattributes\n[F] .gitignore\n[F] .mailmap\n[F] .travis.yml\n[F] AUTHORS\n[F] CODE_OF_CONDUCT.md\n[F] LICENSE\n[F] MANIFEST.in\n[F] PULL_REQUEST_TEMPLATE.md\n[F] README.rst\n[D] bin\n[F] conftest.py\n[D] data\n[D] doc\n[D] examples\n[F] github_deploy_key.enc\n[D] release\n[F] setup.py\n[F] setupegg.py\n[D] sympy\n[F] tox.ini.sample\n\n[exit_code=0 status=succeeded truncated=false bytes_seen=346 bytes_kept=692 cleanup=not_required duration_ms=155]"
+        },
+        {
+          "name": "run_command",
+          "success": true,
+          "status": "succeeded",
+          "error_kind": null,
+          "output": "[exit_code=0 status=succeeded truncated=false bytes_seen=0 bytes_kept=0 cleanup=not_required duration_ms=117]"
+        }
+      ],
+      "elapsed_ms": 1404.8683999862988
+    },
+    {
+      "step": 1,
+      "phase": "acting",
+      "messages_snapshot": 8,
+      "llm_text": "Let me explore the trigsimp-related files.",
+      "tool_calls": [
+        {
+          "name": "list_dir",
+          "args": {
+            "path": "sympy/simplify"
+          },
+          "raw_arguments": "{\"path\": \"sympy/simplify\"}",
+          "parse_error": null
+        },
+        {
+          "name": "run_command",
+          "args": {
+            "command": "cd /workspace && grep -rn \"def trigsimp\" sympy/simplify/trigsimp.py | head"
+          },
+          "raw_arguments": "{\"command\": \"cd /workspace && grep -rn \\\"def trigsimp\\\" sympy/simplify/trigsimp.py | head\"}",
+          "parse_error": null
+        }
+      ],
+      "tool_results": [
+        {
+          "name": "list_dir",
+          "success": true,
+          "status": "succeeded",
+          "error_kind": null,
+          "output": "[F] __init__.py\n[F] combsimp.py\n[F] cse_main.py\n[F] cse_opts.py\n[F] epathtools.py\n[F] fu.py\n[F] gammasimp.py\n[F] hyperexpand.py\n[F] hyperexpand_doc.py\n[F] powsimp.py\n[F] radsimp.py\n[F] ratsimp.py\n[F] simplify.py\n[F] sqrtdenest.py\n[D] tests\n[F] traversaltools.py\n[F] trigsimp.py\n\n[exit_code=0 status=succeeded truncated=false bytes_seen=278 bytes_kept=556 cleanup=not_required duration_ms=137]"
+        },
+        {
+          "name": "run_command",
+          "success": true,
+          "status": "succeeded",
+          "error_kind": null,
+          "output": "28:def trigsimp_groebner(expr, hints=[], quick=False, order=\"grlex\",\n428:def trigsimp(expr, **opts):\n606:def trigsimp_old(expr, **opts):\n\n[exit_code=0 status=succeeded truncated=false bytes_seen=137 bytes_kept=274 cleanup=not_required duration_ms=106]"
+        }
+      ],
+      "elapsed_ms": 1148.0266000144184
+    },
+    {
+      "step": 2,
+      "phase": "acting",
+      "messages_snapshot": 10,
+      "llm_text": null,
+      "tool_calls": [
+        {
+          "name": "read_file",
+          "args": {
+            "path": "sympy/simplify/trigsimp.py",
+            "limit": 120
+          },
+          "raw_arguments": "{\"path\": \"sympy/simplify/trigsimp.py\", \"limit\": 120}",
+          "parse_error": null
+        }
+      ],
+      "tool_results": [
+        {
+          "name": "read_file",
+          "success": true,
+          "status": "succeeded",
+          "error_kind": null,
+          "output": "from __future__ import print_function, division\n\nfrom collections import defaultdict\n\nfrom sympy.core.cache import cacheit\nfrom sympy.core import (sympify, Basic, S, Expr, expand_mul, factor_terms,\n    Mul, Dummy, igcd, FunctionClass, Add, symbols, Wild, expand)\nfrom sympy.core.compatibility import reduce, iterable\nfrom sympy.core.numbers import I, Integer\nfrom sympy.core.function import count_ops, _mexpand\nfrom sympy.functions.elementary.trigonometric import TrigonometricFunction\nfrom sympy.fun"
+        }
+      ],
+      "elapsed_ms": 987.2660000110045
+    },
+    {
+      "step": 3,
+      "phase": "acting",
+      "messages_snapshot": 12,
+      "llm_text": null,
+      "tool_calls": [
+        {
+          "name": "read_file",
+          "args": {
+            "path": "sympy/simplify/trigsimp.py",
+            "limit": 200
+          },
+          "raw_arguments": "{\"path\": \"sympy/simplify/trigsimp.py\", \"limit\": 200}",
+          "parse_error": null
+        }
+      ],
+      "tool_results": [
+        {
+          "name": "read_file",
+          "success": true,
+          "status": "succeeded",
+          "error_kind": null,
+          "output": "from __future__ import print_function, division\n\nfrom collections import defaultdict\n\nfrom sympy.core.cache import cacheit\nfrom sympy.core import (sympify, Basic, S, Expr, expand_mul, factor_terms,\n    Mul, Dummy, igcd, FunctionClass, Add, symbols, Wild, expand)\nfrom sympy.core.compatibility import reduce, iterable\nfrom sympy.core.numbers import I, Integer\nfrom sympy.core.function import count_ops, _mexpand\nfrom sympy.functions.elementary.trigonometric import TrigonometricFunction\nfrom sympy.fun"
+        }
+      ],
+      "elapsed_ms": 1249.6693000139203
+    },
+    {
+      "step": 4,
+      "phase": "acting",
+      "messages_snapshot": 14,
+      "llm_text": "Let me look at the main `trigsimp` function and the `_trigsimp` helper.",
+      "tool_calls": [
+        {
+          "name": "read_file",
+          "args": {
+            "path": "sympy/simplify/trigsimp.py",
+            "limit": 200
+          },
+          "raw_arguments": "{\"path\": \"sympy/simplify/trigsimp.py\", \"limit\": 200}",
+          "parse_error": null
+        }
+      ],
+      "tool_results": [
+        {
+          "name": "read_file",
+          "success": true,
+          "status": "succeeded",
+          "error_kind": null,
+          "output": "from __future__ import print_function, division\n\nfrom collections import defaultdict\n\nfrom sympy.core.cache import cacheit\nfrom sympy.core import (sympify, Basic, S, Expr, expand_mul, factor_terms,\n    Mul, Dummy, igcd, FunctionClass, Add, symbols, Wild, expand)\nfrom sympy.core.compatibility import reduce, iterable\nfrom sympy.core.numbers import I, Integer\nfrom sympy.core.function import count_ops, _mexpand\nfrom sympy.functions.elementary.trigonometric import TrigonometricFunction\nfrom sympy.fun"
+        }
+      ],
+      "elapsed_ms": 1230.0601000024471
+    }
+  ],
+  "total_elapsed_ms": 11380.78810001025,
+  "total_tokens": 13524,
+  "tool_failures": 0,
+  "policy_blocks": 0,
+  "total_tool_invocations": 7,
+  "plan": null,
+  "context_events": [
+    {
+      "strategy": "masking",
+      "requested": "masking",
+      "actually_injected": "none",
+      "summary_provider": "fixture",
+      "raw_message_hash": "ea31e0b488a1321fe0e57947bb4ce13e51d00d443bf68f846b79f29a2f8cfccb",
+      "raw_serialized_bytes": 1645,
+      "summary_records": [],
+      "overflow": false,
+      "serialized_bytes": 4449,
+      "estimated_input_tokens": 1113,
+      "admission_input_tokens": 5793,
+      "reserved_output_tokens": 4096,
+      "estimate_method": "utf8_bytes_div_4_estimated",
+      "admission_method": "utf8_bytes_plus_protocol_allowance",
+      "masking": {
+        "message_count_before": 2,
+        "message_count_after": 2,
+        "chars_before": 1531,
+        "chars_after": 1531,
+        "chars_saved": 0,
+        "tool_messages_before": 0,
+        "tool_messages_after": 0,
+        "compacted_tool_count": 0,
+        "preserved_tool_count": 0,
+        "keep_recent": 3,
+        "did_compact": false,
+        "estimated_tokens_before": 382,
+        "estimated_tokens_after": 382
+      },
+      "compacted_tool_count": 0,
+      "summary_calls": 0,
+      "summary_model_calls": 0,
+      "summary_accounting": {
+        "provider": "fixture",
+        "model_calls": 0,
+        "known_total_tokens": 0,
+        "unknown_usage_calls": 0,
+        "tokens_committed": 0,
+        "estimated_cost_usd": null,
+        "cost_committed_usd": 0,
+        "elapsed_seconds": 0,
+        "records": []
+      },
+      "manager_state": {
+        "schema_version": "0.1",
+        "summary_calls": 0,
+        "summaries": [],
+        "plugin_state": {},
+        "summary_provider": "fixture",
+        "summary_attempts": [],
+        "dispatch_calls": 0,
+        "dispatch_receipts": [],
+        "dispatch_observations": []
+      },
+      "plugin": {
+        "name": "noop",
+        "requested": [],
+        "actually_injected": [],
+        "rejected": [],
+        "action_proposals": [],
+        "method_degraded": false,
+        "policy_error": null,
+        "schema_version": "0.1",
+        "ignored_optional_fields": [],
+        "events": []
+      },
+      "max_tokens": 32000,
+      "view_hash": "ea31e0b488a1321fe0e57947bb4ce13e51d00d443bf68f846b79f29a2f8cfccb",
+      "view_serialized_bytes": 1645,
+      "step": 0
+    },
+    {
+      "strategy": "masking",
+      "requested": "masking",
+      "actually_injected": "none",
+      "summary_provider": "fixture",
+      "raw_message_hash": "d7a2eda7394fd6d92136f77b355d0c370aa5b85c52efd981c254a94999886fe1",
+      "raw_serialized_bytes": 2828,
+      "summary_records": [],
+      "overflow": false,
+      "serialized_bytes": 5632,
+      "estimated_input_tokens": 1408,
+      "admission_input_tokens": 7072,
+      "reserved_output_tokens": 4096,
+      "estimate_method": "utf8_bytes_div_4_estimated",
+      "admission_method": "utf8_bytes_plus_protocol_allowance",
+      "masking": {
+        "message_count_before": 5,
+        "message_count_after": 5,
+        "chars_before": 2176,
+        "chars_after": 2176,
+        "chars_saved": 0,
+        "tool_messages_before": 2,
+        "tool_messages_after": 2,
+        "compacted_tool_count": 0,
+        "preserved_tool_count": 2,
+        "keep_recent": 3,
+        "did_compact": false,
+        "estimated_tokens_before": 565,
+        "estimated_tokens_after": 565
+      },
+      "compacted_tool_count": 0,
+      "summary_calls": 0,
+      "summary_model_calls": 0,
+      "summary_accounting": {
+        "provider": "fixture",
+        "model_calls": 0,
+        "known_total_tokens": 0,
+        "unknown_usage_calls": 0,
+        "tokens_committed": 0,
+        "estimated_cost_usd": null,
+        "cost_committed_usd": 0,
+        "elapsed_seconds": 0,
+        "records": []
+      },
+      "manager_state": {
+        "schema_version": "0.1",
+        "summary_calls": 0,
+        "summaries": [],
+        "plugin_state": {},
+        "summary_provider": "fixture",
+        "summary_attempts": [],
+        "dispatch_calls": 0,
+        "dispatch_receipts": [],
+        "dispatch_observations": []
+      },
+      "plugin": {
+        "name": "noop",
+        "requested": [],
+        "actually_injected": [],
+        "rejected": [],
+        "action_proposals": [],
+        "method_degraded": false,
+        "policy_error": null,
+        "schema_version": "0.1",
+        "ignored_optional_fields": [],
+        "events": []
+      },
+      "max_tokens": 32000,
+      "view_hash": "d7a2eda7394fd6d92136f77b355d0c370aa5b85c52efd981c254a94999886fe1",
+      "view_serialized_bytes": 2828,
+      "step": 1
+    },
+    {
+      "strategy": "masking",
+      "requested": "masking",
+      "actually_injected": "masking",
+      "summary_provider": "fixture",
+      "raw_message_hash": "d13c88c3b46eba326a12d1993406ec230ea977fe1f020ae9097fae97e886776e",
+      "raw_serialized_bytes": 4088,
+      "summary_records": [],
+      "overflow": false,
+      "serialized_bytes": 6433,
+      "estimated_input_tokens": 1609,
+      "admission_input_tokens": 7969,
+      "reserved_output_tokens": 4096,
+      "estimate_method": "utf8_bytes_div_4_estimated",
+      "admission_method": "utf8_bytes_plus_protocol_allowance",
+      "masking": {
+        "message_count_before": 8,
+        "message_count_after": 8,
+        "chars_before": 2861,
+        "chars_after": 2426,
+        "chars_saved": 435,
+        "tool_messages_before": 4,
+        "tool_messages_after": 4,
+        "compacted_tool_count": 1,
+        "preserved_tool_count": 3,
+        "keep_recent": 3,
+        "did_compact": true,
+        "estimated_tokens_before": 765,
+        "estimated_tokens_after": 656
+      },
+      "compacted_tool_count": 1,
+      "summary_calls": 0,
+      "summary_model_calls": 0,
+      "summary_accounting": {
+        "provider": "fixture",
+        "model_calls": 0,
+        "known_total_tokens": 0,
+        "unknown_usage_calls": 0,
+        "tokens_committed": 0,
+        "estimated_cost_usd": null,
+        "cost_committed_usd": 0,
+        "elapsed_seconds": 0,
+        "records": []
+      },
+      "manager_state": {
+        "schema_version": "0.1",
+        "summary_calls": 0,
+        "summaries": [],
+        "plugin_state": {},
+        "summary_provider": "fixture",
+        "summary_attempts": [],
+        "dispatch_calls": 0,
+        "dispatch_receipts": [],
+        "dispatch_observations": []
+      },
+      "plugin": {
+        "name": "noop",
+        "requested": [],
+        "actually_injected": [],
+        "rejected": [],
+        "action_proposals": [],
+        "method_degraded": false,
+        "policy_error": null,
+        "schema_version": "0.1",
+        "ignored_optional_fields": [],
+        "events": []
+      },
+      "max_tokens": 32000,
+      "view_hash": "4a3c350d06e7e3dafaeb7abe70c640baba2f1b1327555aed60880ea77691c8fc",
+      "view_serialized_bytes": 3629,
+      "step": 2
+    },
+    {
+      "strategy": "masking",
+      "requested": "masking",
+      "actually_injected": "masking",
+      "summary_provider": "fixture",
+      "raw_message_hash": "61c8f5140db2de2f0a256404dc8ac5750bee917578e72f72b2f28a5bb00384e3",
+      "raw_serialized_bytes": 9147,
+      "summary_records": [],
+      "overflow": false,
+      "serialized_bytes": 11411,
+      "estimated_input_tokens": 2853,
+      "admission_input_tokens": 13011,
+      "reserved_output_tokens": 4096,
+      "estimate_method": "utf8_bytes_div_4_estimated",
+      "admission_method": "utf8_bytes_plus_protocol_allowance",
+      "masking": {
+        "message_count_before": 10,
+        "message_count_after": 10,
+        "chars_before": 7496,
+        "chars_after": 6980,
+        "chars_saved": 516,
+        "tool_messages_before": 5,
+        "tool_messages_after": 5,
+        "compacted_tool_count": 2,
+        "preserved_tool_count": 3,
+        "keep_recent": 3,
+        "did_compact": true,
+        "estimated_tokens_before": 1937,
+        "estimated_tokens_after": 1808
+      },
+      "compacted_tool_count": 2,
+      "summary_calls": 0,
+      "summary_model_calls": 0,
+      "summary_accounting": {
+        "provider": "fixture",
+        "model_calls": 0,
+        "known_total_tokens": 0,
+        "unknown_usage_calls": 0,
+        "tokens_committed": 0,
+        "estimated_cost_usd": null,
+        "cost_committed_usd": 0,
+        "elapsed_seconds": 0,
+        "records": []
+      },
+      "manager_state": {
+        "schema_version": "0.1",
+        "summary_calls": 0,
+        "summaries": [],
+        "plugin_state": {},
+        "summary_provider": "fixture",
+        "summary_attempts": [],
+        "dispatch_calls": 0,
+        "dispatch_receipts": [],
+        "dispatch_observations": []
+      },
+      "plugin": {
+        "name": "noop",
+        "requested": [],
+        "actually_injected": [],
+        "rejected": [],
+        "action_proposals": [],
+        "method_degraded": false,
+        "policy_error": null,
+        "schema_version": "0.1",
+        "ignored_optional_fields": [],
+        "events": []
+      },
+      "max_tokens": 32000,
+      "view_hash": "846431b991e6ce37e7c7f89b3fd8757cb30f7efd18b247dafe0a66d388743aba",
+      "view_serialized_bytes": 8607,
+      "step": 3
+    },
+    {
+      "strategy": "masking",
+      "requested": "masking",
+      "actually_injected": "masking",
+      "summary_provider": "fixture",
+      "raw_message_hash": "35f3a2b821d30804ca90326e081e29bde4c47997aad3cfb0ead0e8c10c22c6d6",
+      "raw_serialized_bytes": 18612,
+      "summary_records": [],
+      "overflow": false,
+      "serialized_bytes": 20491,
+      "estimated_input_tokens": 5123,
+      "admission_input_tokens": 22155,
+      "reserved_output_tokens": 4096,
+      "estimate_method": "utf8_bytes_div_4_estimated",
+      "admission_method": "utf8_bytes_plus_protocol_allowance",
+      "masking": {
+        "message_count_before": 12,
+        "message_count_after": 12,
+        "chars_before": 16445,
+        "chars_after": 15562,
+        "chars_saved": 883,
+        "tool_messages_before": 6,
+        "tool_messages_after": 6,
+        "compacted_tool_count": 3,
+        "preserved_tool_count": 3,
+        "keep_recent": 3,
+        "did_compact": true,
+        "estimated_tokens_before": 4187,
+        "estimated_tokens_after": 3966
+      },
+      "compacted_tool_count": 3,
+      "summary_calls": 0,
+      "summary_model_calls": 0,
+      "summary_accounting": {
+        "provider": "fixture",
+        "model_calls": 0,
+        "known_total_tokens": 0,
+        "unknown_usage_calls": 0,
+        "tokens_committed": 0,
+        "estimated_cost_usd": null,
+        "cost_committed_usd": 0,
+        "elapsed_seconds": 0,
+        "records": []
+      },
+      "manager_state": {
+        "schema_version": "0.1",
+        "summary_calls": 0,
+        "summaries": [],
+        "plugin_state": {},
+        "summary_provider": "fixture",
+        "summary_attempts": [],
+        "dispatch_calls": 0,
+        "dispatch_receipts": [],
+        "dispatch_observations": []
+      },
+      "plugin": {
+        "name": "noop",
+        "requested": [],
+        "actually_injected": [],
+        "rejected": [],
+        "action_proposals": [],
+        "method_degraded": false,
+        "policy_error": null,
+        "schema_version": "0.1",
+        "ignored_optional_fields": [],
+        "events": []
+      },
+      "max_tokens": 32000,
+      "view_hash": "9f40f71765ac810c1ed430fec43aed8c86cfc73fc4363446efe6f35fdf28f986",
+      "view_serialized_bytes": 17687,
+      "step": 4
+    },
+    {
+      "strategy": "masking",
+      "requested": "masking",
+      "actually_injected": "masking",
+      "summary_provider": "fixture",
+      "raw_message_hash": "00ace30f9c9dff3bdc6363a45373878460801f684510a8bb781ca5e26e6b5ef4",
+      "raw_serialized_bytes": 28146,
+      "summary_records": [],
+      "overflow": true,
+      "serialized_bytes": 29796,
+      "estimated_input_tokens": 7449,
+      "admission_input_tokens": 31524,
+      "reserved_output_tokens": 4096,
+      "estimate_method": "utf8_bytes_div_4_estimated",
+      "admission_method": "utf8_bytes_plus_protocol_allowance",
+      "masking": {
+        "message_count_before": 14,
+        "message_count_after": 14,
+        "chars_before": 25465,
+        "chars_after": 24359,
+        "chars_saved": 1106,
+        "tool_messages_before": 7,
+        "tool_messages_after": 7,
+        "compacted_tool_count": 4,
+        "preserved_tool_count": 3,
+        "keep_recent": 3,
+        "did_compact": true,
+        "estimated_tokens_before": 6455,
+        "estimated_tokens_after": 6179
+      },
+      "compacted_tool_count": 4,
+      "summary_calls": 0,
+      "summary_model_calls": 0,
+      "summary_accounting": {
+        "provider": "fixture",
+        "model_calls": 0,
+        "known_total_tokens": 0,
+        "unknown_usage_calls": 0,
+        "tokens_committed": 0,
+        "estimated_cost_usd": null,
+        "cost_committed_usd": 0,
+        "elapsed_seconds": 0,
+        "records": []
+      },
+      "manager_state": {
+        "schema_version": "0.1",
+        "summary_calls": 0,
+        "summaries": [],
+        "plugin_state": {},
+        "summary_provider": "fixture",
+        "summary_attempts": [],
+        "dispatch_calls": 0,
+        "dispatch_receipts": [],
+        "dispatch_observations": []
+      },
+      "max_tokens": 32000,
+      "step": 5,
+      "error_kind": "context_overflow"
+    }
+  ],
+  "subagent_traces": [],
+  "llm_attempts": [
+    {
+      "attempt": 0,
+      "success": true,
+      "error_kind": null,
+      "status_code": null,
+      "message": null,
+      "elapsed_ms": 1131.6945999860764,
+      "usage": {
+        "prompt_tokens": 1308,
+        "completion_tokens": 95,
+        "total_tokens": 1403,
+        "provenance": "provider",
+        "prompt_cache_hit_tokens": 896,
+        "prompt_cache_miss_tokens": 412
+      },
+      "usage_provenance": "provider"
+    },
+    {
+      "attempt": 0,
+      "success": true,
+      "error_kind": null,
+      "status_code": null,
+      "message": null,
+      "elapsed_ms": 922.7283999789506,
+      "usage": {
+        "prompt_tokens": 1640,
+        "completion_tokens": 101,
+        "total_tokens": 1741,
+        "provenance": "provider",
+        "prompt_cache_hit_tokens": 1280,
+        "prompt_cache_miss_tokens": 360
+      },
+      "usage_provenance": "provider"
+    },
+    {
+      "attempt": 0,
+      "success": true,
+      "error_kind": null,
+      "status_code": null,
+      "message": null,
+      "elapsed_ms": 781.0593999747653,
+      "usage": {
+        "prompt_tokens": 1818,
+        "completion_tokens": 62,
+        "total_tokens": 1880,
+        "provenance": "provider",
+        "prompt_cache_hit_tokens": 1280,
+        "prompt_cache_miss_tokens": 538
+      },
+      "usage_provenance": "provider"
+    },
+    {
+      "attempt": 0,
+      "success": true,
+      "error_kind": null,
+      "status_code": null,
+      "message": null,
+      "elapsed_ms": 862.7215000160504,
+      "usage": {
+        "prompt_tokens": 3055,
+        "completion_tokens": 62,
+        "total_tokens": 3117,
+        "provenance": "provider",
+        "prompt_cache_hit_tokens": 1280,
+        "prompt_cache_miss_tokens": 1775
+      },
+      "usage_provenance": "provider"
+    },
+    {
+      "attempt": 0,
+      "success": true,
+      "error_kind": null,
+      "status_code": null,
+      "message": null,
+      "elapsed_ms": 865.5708000005689,
+      "usage": {
+        "prompt_tokens": 5300,
+        "completion_tokens": 83,
+        "total_tokens": 5383,
+        "provenance": "provider",
+        "prompt_cache_hit_tokens": 1408,
+        "prompt_cache_miss_tokens": 3892
+      },
+      "usage_provenance": "provider"
+    }
+  ],
+  "termination_kind": "context_overflow",
+  "cleanup_elapsed_s": 0.44049330000416376,
+  "model_budget": {
+    "calls_started": 5,
+    "tokens_committed": 13524,
+    "cost_committed": 0.0,
+    "outstanding_reservations": 0,
+    "max_model_calls": 6,
+    "max_tokens": 200000,
+    "max_cost_usd": null,
+    "settlements": [
+      {
+        "total_tokens": 1403,
+        "provenance": "provider",
+        "cost_usd": null,
+        "cost_provenance": "unknown",
+        "note": null
+      },
+      {
+        "total_tokens": 1741,
+        "provenance": "provider",
+        "cost_usd": null,
+        "cost_provenance": "unknown",
+        "note": null
+      },
+      {
+        "total_tokens": 1880,
+        "provenance": "provider",
+        "cost_usd": null,
+        "cost_provenance": "unknown",
+        "note": null
+      },
+      {
+        "total_tokens": 3117,
+        "provenance": "provider",
+        "cost_usd": null,
+        "cost_provenance": "unknown",
+        "note": null
+      },
+      {
+        "total_tokens": 5383,
+        "provenance": "provider",
+        "cost_usd": null,
+        "cost_provenance": "unknown",
+        "note": null
+      }
+    ]
+  },
+  "run_output": {
+    "limit_bytes": 16777216,
+    "bytes_kept": 22944,
+    "bytes_seen": 22944,
+    "peak_read_buffer_bytes": 8832,
+    "cancelled_producer": false,
+    "producers_stopped": false
+  },
+  "execution": {
+    "capabilities": {
+      "profile": "docker_linux",
+      "platform": "linux-container",
+      "image": "coding-harness-a5-transport@sha256:b0b9bc393ff910439838ec15f1d1027b493336b5ed93a1a38aa215b39a79d7f6",
+      "context": "desktop-linux",
+      "cancel": true,
+      "filesystem_isolation": true,
+      "network_control": true,
+      "network_default": "none",
+      "resource_limits": true,
+      "complete_isolation": false,
+      "cpu_limit": 1.0,
+      "memory_limit_bytes": 1073741824,
+      "pids_limit": 128,
+      "workspace_limit_bytes": 268435456,
+      "tmpfs_limit_bytes": 67108864,
+      "tree_reclaim_guaranteed": true,
+      "privileged": false,
+      "docker_socket_mounted": false,
+      "host_mounts": false,
+      "workspace_transfer_limit": 8388608,
+      "transport": "image_backed_base_plus_delta",
+      "source_tree_hash": "9c905437af600a922ac74a6f6dd07a879befd09954e78fc7bfb81dac9d3fa0f2",
+      "delta_schema": "a5.typed-tree.delta.v1"
+    },
+    "lifecycle": [
+      {
+        "event": "created",
+        "container": "h3-ddd7da43836f43a5abab5bca5a540990",
+        "image_id": "sha256:b0b9bc393ff910439838ec15f1d1027b493336b5ed93a1a38aa215b39a79d7f6"
+      },
+      {
+        "event": "destroyed",
+        "container": "h3-ddd7da43836f43a5abab5bca5a540990",
+        "elapsed_s": 0.44049330000416376
+      }
+    ],
+    "snapshot_error": null,
+    "cleanup_ok": true,
+    "unavailable_error": null,
+    "candidate_hash": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+  },
+  "summary": {
+    "provider": "fixture",
+    "model_calls": 0,
+    "known_total_tokens": 0,
+    "unknown_usage_calls": 0,
+    "tokens_committed": 0,
+    "estimated_cost_usd": null,
+    "cost_committed_usd": 0,
+    "elapsed_seconds": 0,
+    "records": []
+  }
+}

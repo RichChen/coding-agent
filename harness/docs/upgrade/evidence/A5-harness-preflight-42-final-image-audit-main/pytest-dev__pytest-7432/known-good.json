@@ -1,0 +1,51 @@
+{
+  "task_id": "pytest-dev__pytest-7432",
+  "kind": "known-good",
+  "image": "coding-harness-a5-recheck@sha256:5c97017803c8c6454734cf88e5e2d110c73d6e9f38243f027a6b310b79246770",
+  "status": "verified",
+  "model_calls": 0,
+  "paid": false,
+  "expected_members": 607,
+  "mismatches": [],
+  "generated": {
+    "src/pytest.egg-info": {
+      "kind": "dir",
+      "size": 180
+    },
+    "src/pytest.egg-info/top_level.txt": {
+      "kind": "file",
+      "size": 15
+    },
+    "src/pytest.egg-info/requires.txt": {
+      "kind": "file",
+      "size": 336
+    },
+    "src/pytest.egg-info/not-zip-safe": {
+      "kind": "file",
+      "size": 1
+    },
+    "src/pytest.egg-info/entry_points.txt": {
+      "kind": "file",
+      "size": 78
+    },
+    "src/pytest.egg-info/dependency_links.txt": {
+      "kind": "file",
+      "size": 1
+    },
+    "src/pytest.egg-info/SOURCES.txt": {
+      "kind": "file",
+      "size": 1902
+    },
+    "src/pytest.egg-info/PKG-INFO": {
+      "kind": "file",
+      "size": 6604
+    },
+    "src/_pytest/_version.py": {
+      "kind": "file",
+      "size": 142
+    }
+  },
+  "environment": "atomicwrites==1.4.0\nattrs==19.3.0\nelementpath==2.2.3\nhypothesis==5.49.0\niniconfig==1.1.1\nmore-itertools==8.7.0\npackaging==20.9\npip==23.0.1\npluggy==0.13.1\npy==1.10.0\npyparsing==2.4.7\n# Editable install with no version control (pytest==5.4.0)\n-e /workspace/src\nsetuptools==58.1.0\nsetuptools-scm==6.4.2\nsix==1.16.0\nsortedcontainers==2.3.0\ntoml==0.10.2\ntomli==1.2.3\nwcwidth==0.2.13\nwheel==0.44.0\nxmlschema==1.5.3\n",
+  "python": "3.9.19",
+  "cleanup_verified": true
+}

@@ -1,0 +1,56 @@
+{
+  "schema": "a5.preflight.input-gate.v1",
+  "created_at": "2026-09-21T13:41:22.440330+00:00",
+  "status": "blocked",
+  "errors": [
+    "manifest_inconsistency"
+  ],
+  "targets": 20,
+  "requested_history_candidates": 4,
+  "memory_build_sources_preserved": [
+    "django__django-10914",
+    "django__django-10924",
+    "django__django-11001",
+    "django__django-11019",
+    "django__django-11039",
+    "sympy__sympy-11400",
+    "sympy__sympy-11870",
+    "sympy__sympy-11897",
+    "sympy__sympy-12171",
+    "sympy__sympy-12236",
+    "scikit-learn__scikit-learn-10297",
+    "scikit-learn__scikit-learn-10508",
+    "scikit-learn__scikit-learn-10949",
+    "scikit-learn__scikit-learn-11040",
+    "scikit-learn__scikit-learn-11281",
+    "pytest-dev__pytest-5103",
+    "pytest-dev__pytest-5221",
+    "pytest-dev__pytest-5227",
+    "pytest-dev__pytest-5413",
+    "pytest-dev__pytest-5495"
+  ],
+  "memory_build_source_count": 20,
+  "remaining_memory_sources_require_same_preflight": 16,
+  "rows": 24,
+  "row_status_counts": {
+    "blocked": 24
+  },
+  "environment_receipt_rows": 0,
+  "existing_environment_template_rows": 0,
+  "completed_environment_preflights": 0,
+  "baseline_runs": 0,
+  "model_calls": 0,
+  "model_reservations": 0,
+  "paid_build_started": false,
+  "paid_pilot_started": false,
+  "gates": {
+    "input_consistency": "blocked",
+    "24_environment_baselines": "not_started",
+    "model_snapshot_current_cny_price": "pending_unverified",
+    "dual_source_fingerprint": "pending_not_frozen",
+    "receipt_importer_operation_ledger": "integration_not_verified",
+    "memory_build_scope": "20_sources_not_4",
+    "budget_contract": "conflict_agent_separate_build_vs_harness_50_split"
+  },
+  "stop_reason": "User requires explicit canonical 20-source pool / 4-candidate subset before execution"
+}

@@ -1,0 +1,98 @@
+{
+  "rows": [
+    {
+      "task_id": "scikit-learn__scikit-learn-25747",
+      "repo": "scikit-learn/scikit-learn",
+      "base_revision": "2c867b8f822eb7a684f0d5c4359e4426e1c9cfe0",
+      "status": "invalid_env",
+      "attempt": "A5-harness-preflight-33-sklearn-compiler",
+      "retries": 0,
+      "model_calls": 0,
+      "paid": false,
+      "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\scikit-learn__scikit-learn-25747\\source-receipt.json",
+      "transport_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-23-transport-smoke\\tasks\\scikit-learn__scikit-learn-25747\\receipt.json",
+      "reason": "preflight_recheck_failed",
+      "error": "RuntimeError: docker image build failed: : 146.75.46.132 80]\n41.81 E: Failed to fetch http://deb.debian.org/debian-security/pool/updates/main/d/dpkg/dpkg-dev_1.20.14_all.deb  404  Not Found [IP: 146.75.46.132 80]\n41.81 E: Unable to fetch some archives, maybe run apt-get update or try with --fix-missing?\n------\nDockerfile:2\n--------------------\n   1 |     FROM coding-harness-a5-transport:scikit-learn-scikit-learn-25747\n   2 | >>> RUN apt-get update && apt-get install -y --no-install-recommends build-essential && dpkg-query -W > /opt/grader-system-packages.txt\n   3 |     COPY baseline.tar.gz /opt/baseline.tar.gz\n   4 |     RUN rm -rf /workspace /opt/repo && mkdir /workspace /opt/repo && tar -xzf /opt/baseline.tar.gz -C /workspace && tar -xzf /opt/baseline.tar.gz -C /opt/repo\n--------------------\nERROR: failed to build: failed to solve: process \"/bin/sh -c apt-get update && apt-get install -y --no-install-recommends build-essential && dpkg-query -W > /opt/grader-system-packages.txt\" did not complete successfully: exit code: 100\n",
+      "previous_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-27-repo-baseline\\tasks\\scikit-learn__scikit-learn-25747\\receipt.json",
+      "previous_receipt_sha256": "5d72b03259b7bebfbf9c0a28f94d0268fe4cf58a28f2d562d26a4c5e726e83d0",
+      "private_source_binding": {
+        "path": "D:\\crq\\src\\coding-agent\\reports\\upgrade\\a5-pilot20-preparation-20260921-v4\\private\\tasks\\a5-task-07b0ed7ca1d52f88\\source-row.json",
+        "sha256": "a275dbe406755e2abd2668f06210e490f35da82b94c17eb33ff2bb7c401c083c",
+        "test_patch_sha256": "a3294d6c41c9d144ff8d52010455e6b624ec2b32a1e385f9e672cac30ce018b3",
+        "gold_patch_sha256": "cd985cfd10afb83adb9d714fb81873b001a56de5938d93b5a9c7dbb641d3c9b3",
+        "test_patch_paths": [
+          "sklearn/utils/tests/test_set_output.py"
+        ],
+        "gold_patch_paths": [
+          "sklearn/utils/_set_output.py"
+        ]
+      },
+      "source": {
+        "schema": "a5.full-archive-inventory.v1",
+        "repo": "scikit-learn/scikit-learn",
+        "base_revision": "2c867b8f822eb7a684f0d5c4359e4426e1c9cfe0",
+        "archive_sha256": "2e30657bf995547dea101d594eaf7c4f885953bf780c0c8380e2e3fd045c741a",
+        "archive_bytes": 7412695,
+        "git_pax_commit": "2c867b8f822eb7a684f0d5c4359e4426e1c9cfe0",
+        "source_tree_hash": "e6e6290d1c0a547b0aa656fbc121564fc75798373ae36b8ea04247700ce95cfa",
+        "inventory_sha256": "2705cb0d5cc3cc59983c93042030cdd71ab6a683c8f4a81992e838521cdefece",
+        "file_count": 1522,
+        "total_bytes": 20731203,
+        "nonregular_paths": [],
+        "excluded_upstream_paths": [],
+        "snapshot_kind": "complete_pinned_upstream_archive",
+        "within_runtime_limits": false,
+        "inventory_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\scikit-learn__scikit-learn-25747\\source-inventory.json"
+      }
+    },
+    {
+      "task_id": "scikit-learn__scikit-learn-25500",
+      "repo": "scikit-learn/scikit-learn",
+      "base_revision": "4db04923a754b6a2defa1b172f55d492b85d165e",
+      "status": "invalid_env",
+      "attempt": "A5-harness-preflight-33-sklearn-compiler",
+      "retries": 0,
+      "model_calls": 0,
+      "paid": false,
+      "source_attempt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\scikit-learn__scikit-learn-25500\\source-receipt.json",
+      "transport_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-23-transport-smoke\\tasks\\scikit-learn__scikit-learn-25500\\receipt.json",
+      "reason": "preflight_recheck_failed",
+      "error": "RuntimeError: docker image build failed: : 146.75.46.132 80]\n40.33 E: Failed to fetch http://deb.debian.org/debian-security/pool/updates/main/d/dpkg/dpkg-dev_1.20.14_all.deb  404  Not Found [IP: 146.75.46.132 80]\n40.33 E: Unable to fetch some archives, maybe run apt-get update or try with --fix-missing?\n------\nDockerfile:2\n--------------------\n   1 |     FROM coding-harness-a5-transport:scikit-learn-scikit-learn-25500\n   2 | >>> RUN apt-get update && apt-get install -y --no-install-recommends build-essential && dpkg-query -W > /opt/grader-system-packages.txt\n   3 |     COPY baseline.tar.gz /opt/baseline.tar.gz\n   4 |     RUN rm -rf /workspace /opt/repo && mkdir /workspace /opt/repo && tar -xzf /opt/baseline.tar.gz -C /workspace && tar -xzf /opt/baseline.tar.gz -C /opt/repo\n--------------------\nERROR: failed to build: failed to solve: process \"/bin/sh -c apt-get update && apt-get install -y --no-install-recommends build-essential && dpkg-query -W > /opt/grader-system-packages.txt\" did not complete successfully: exit code: 100\n",
+      "previous_receipt_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-27-repo-baseline\\tasks\\scikit-learn__scikit-learn-25500\\receipt.json",
+      "previous_receipt_sha256": "8713dc0ab23a7689cacadfd96350b6d3635a02e3a06030c9067ab4e69dc462f6",
+      "private_source_binding": {
+        "path": "D:\\crq\\src\\coding-agent\\reports\\upgrade\\a5-pilot20-preparation-20260921-v4\\private\\tasks\\a5-task-43b70843ce92c9d8\\source-row.json",
+        "sha256": "3b47d69b354e03b4bd98db405d11fb51832eaa0f2bdd51a9de4c73c69167862e",
+        "test_patch_sha256": "0da9b016b1476758699ae255031b90ad281651a08269f51dbd81072b87baeba4",
+        "gold_patch_sha256": "a0b36861d1c8deb99f886c4702362d27d4718f18e6ddedc1d52dbf3f9e8d7f27",
+        "test_patch_paths": [
+          "sklearn/tests/test_isotonic.py"
+        ],
+        "gold_patch_paths": [
+          "sklearn/isotonic.py"
+        ]
+      },
+      "source": {
+        "schema": "a5.full-archive-inventory.v1",
+        "repo": "scikit-learn/scikit-learn",
+        "base_revision": "4db04923a754b6a2defa1b172f55d492b85d165e",
+        "archive_sha256": "f5aa6b197a3681b1339c89c2c9b51bba121dbe91657ad317bc707ad9305675f6",
+        "archive_bytes": 7402291,
+        "git_pax_commit": "4db04923a754b6a2defa1b172f55d492b85d165e",
+        "source_tree_hash": "5d2802d064d8167b0d9c07f59ab348278917f72d2da7f3994a8c56338acb92a4",
+        "inventory_sha256": "f1ff83e448c693b7b4a0b81416eb407ecba77383868eaf683c10eb840468cacc",
+        "file_count": 1532,
+        "total_bytes": 20682366,
+        "nonregular_paths": [],
+        "excluded_upstream_paths": [],
+        "snapshot_kind": "complete_pinned_upstream_archive",
+        "within_runtime_limits": false,
+        "inventory_ref": "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-12-host-sources\\tasks\\scikit-learn__scikit-learn-25500\\source-inventory.json"
+      }
+    }
+  ],
+  "full_denominator": 24,
+  "model_calls": 0,
+  "paid": false,
+  "memory_build_eligible": false
+}

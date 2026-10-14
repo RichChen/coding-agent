@@ -1,0 +1,16 @@
+{
+  "argv": [
+    "docker",
+    "--context",
+    "desktop-linux",
+    "build",
+    "--pull=false",
+    "--network=default",
+    "--progress=plain",
+    "-t",
+    "coding-harness-a5-known-good:pytest-dev-pytest-5227-a25",
+    "D:\\crq\\src\\coding-harness\\docs\\upgrade\\evidence\\A5-harness-preflight-57-remaining16-baseline\\tasks\\pytest-dev__pytest-5227\\known-good-image"
+  ],
+  "exit_code": 0,
+  "combined_log_sha256": "c6655fdff8efb73d7e0861559214d6d02dfbbe1dcf7895b43265a56eed4c48fc"
+}

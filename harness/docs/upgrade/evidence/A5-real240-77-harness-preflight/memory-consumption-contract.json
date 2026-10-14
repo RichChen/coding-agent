@@ -1,0 +1,52 @@
+{
+  "schema": "a5.memory-consumption-contract.v1",
+  "cold_snapshot_version": "a5.validated-lightweight.v1",
+  "record_state": "validated_lightweight",
+  "validation_scope": "public_independent_smoke_receipt",
+  "private_grader_run": false,
+  "full_grader_validated": false,
+  "source_ready_20_of_20": false,
+  "snapshot_hash": "1ab4f6cd9b0ae8a90658b4cf90058f72d7fdc7750f13122b9bbb9fbee10be780",
+  "agent_consumable_fields": [
+    "source_id",
+    "repo",
+    "base_revision",
+    "source_tree_hash",
+    "transport_image_digest",
+    "public_input_sha256",
+    "trajectory_sha256",
+    "validation_receipt_sha256",
+    "candidate_delta_sha256",
+    "validation_scope",
+    "record_state",
+    "snapshot_hash",
+    "line_sha256"
+  ],
+  "forbidden_fields": [
+    "gold_patch",
+    "test_patch",
+    "FAIL_TO_PASS",
+    "PASS_TO_PASS",
+    "hidden tests",
+    "private grader output",
+    "raw private source row",
+    "target gold patch",
+    "target test patch",
+    "EvaluationSpec",
+    "hints_text"
+  ],
+  "agent_may_see": [
+    "public issue",
+    "public source",
+    "allowed memory view hashes and public trajectory refs"
+  ],
+  "host_only": [
+    "gold patch",
+    "test patch",
+    "hidden tests",
+    "private grader",
+    "target answers",
+    "raw private source row"
+  ],
+  "claim_boundary": "lightweight public smoke validation plus rule provenance review; not target causal proof"
+}

@@ -1,0 +1,44 @@
+{
+  "schema": "a5.pytest-nodeid-diagnosis.v1",
+  "task_id": "pytest-dev__pytest-7432",
+  "expected_count": 78,
+  "collection_count": 2957,
+  "missing_exact_ids": [
+    "testing/test_skipping.py::TestXFail::test_xfail_raises[TypeError-TypeError-*1",
+    "testing/test_skipping.py::TestXFail::test_xfail_raises[(AttributeError,",
+    "testing/test_skipping.py::TestXFail::test_xfail_raises[TypeError-IndexError-*1",
+    "testing/test_skipping.py::TestSkipif::test_skipif_reporting[\"hasattr(sys,",
+    "testing/test_skipping.py::TestSkipif::test_skipif_reporting[True,"
+  ],
+  "actual_candidates_by_test_name": {
+    "testing/test_skipping.py::TestXFail::test_xfail_raises[TypeError-TypeError-*1": [
+      "testing/test_skipping.py::TestXFail::test_xfail_raises[TypeError-TypeError-*1 xfailed*]",
+      "testing/test_skipping.py::TestXFail::test_xfail_raises[(AttributeError, TypeError)-TypeError-*1 xfailed*]",
+      "testing/test_skipping.py::TestXFail::test_xfail_raises[TypeError-IndexError-*1 failed*]",
+      "testing/test_skipping.py::TestXFail::test_xfail_raises[(AttributeError, TypeError)-IndexError-*1 failed*]"
+    ],
+    "testing/test_skipping.py::TestXFail::test_xfail_raises[(AttributeError,": [
+      "testing/test_skipping.py::TestXFail::test_xfail_raises[TypeError-TypeError-*1 xfailed*]",
+      "testing/test_skipping.py::TestXFail::test_xfail_raises[(AttributeError, TypeError)-TypeError-*1 xfailed*]",
+      "testing/test_skipping.py::TestXFail::test_xfail_raises[TypeError-IndexError-*1 failed*]",
+      "testing/test_skipping.py::TestXFail::test_xfail_raises[(AttributeError, TypeError)-IndexError-*1 failed*]"
+    ],
+    "testing/test_skipping.py::TestXFail::test_xfail_raises[TypeError-IndexError-*1": [
+      "testing/test_skipping.py::TestXFail::test_xfail_raises[TypeError-TypeError-*1 xfailed*]",
+      "testing/test_skipping.py::TestXFail::test_xfail_raises[(AttributeError, TypeError)-TypeError-*1 xfailed*]",
+      "testing/test_skipping.py::TestXFail::test_xfail_raises[TypeError-IndexError-*1 failed*]",
+      "testing/test_skipping.py::TestXFail::test_xfail_raises[(AttributeError, TypeError)-IndexError-*1 failed*]"
+    ],
+    "testing/test_skipping.py::TestSkipif::test_skipif_reporting[\"hasattr(sys,": [
+      "testing/test_skipping.py::TestSkipif::test_skipif_reporting[\"hasattr(sys, 'platform')\"]",
+      "testing/test_skipping.py::TestSkipif::test_skipif_reporting[True, reason=\"invalid platform\"]"
+    ],
+    "testing/test_skipping.py::TestSkipif::test_skipif_reporting[True,": [
+      "testing/test_skipping.py::TestSkipif::test_skipif_reporting[\"hasattr(sys, 'platform')\"]",
+      "testing/test_skipping.py::TestSkipif::test_skipif_reporting[True, reason=\"invalid platform\"]"
+    ]
+  },
+  "resolution": "blocked_exact_contract_mismatch_no_fuzzy_mapping_or_spec_mutation",
+  "model_calls": 0,
+  "paid": false
+}
