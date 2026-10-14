@@ -1,0 +1,24 @@
+# Default configuration for RepoSkillAgent
+
+adapter: fake
+trace_dir: traces
+tasks_file: benchmarks/tasks/tiny_python_tasks.yaml
+
+baseline:
+  use_agent: false
+  max_steps: 50
+
+planner:
+  enabled: false
+  max_replan: 2
+
+multi_agent:
+  enabled: false
+
+skill:
+  enabled: false
+  library_dir: reposkill_agent/skills/library
+
+memory:
+  enabled: false
+  backend: jsonl

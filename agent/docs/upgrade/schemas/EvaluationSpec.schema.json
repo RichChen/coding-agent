@@ -1,0 +1,63 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "default": "1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "task_id": {
+      "title": "Task Id",
+      "type": "string"
+    },
+    "expected_files": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Expected Files",
+      "type": "array"
+    },
+    "tags": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Tags",
+      "type": "array"
+    },
+    "gold_patch": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Gold Patch"
+    },
+    "hidden_test_refs": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Hidden Test Refs",
+      "type": "array"
+    },
+    "future_trajectory_refs": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Future Trajectory Refs",
+      "type": "array"
+    }
+  },
+  "required": [
+    "task_id"
+  ],
+  "title": "EvaluationSpec",
+  "type": "object"
+}

@@ -1,0 +1,52 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "reposkill-agent"
+version = "0.1.0"
+description = "Public-evidence coding strategies and traceable memory with legacy repair experiments"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "RepoSkillAgent" }]
+dependencies = [
+    "pydantic>=2.7",
+    "pyyaml>=6.0",
+    "typer>=0.12",
+    "rich>=13.0",
+    "packaging>=23.0",
+]
+
+[project.optional-dependencies]
+openhands = [
+    "openhands-sdk>=1.15.0",
+    "openhands-tools>=1.15.0",
+]
+dev = [
+    "pytest>=8.0",
+    "pytest-cov>=5.0",
+    "ruff>=0.6",
+]
+
+[project.scripts]
+reposkill-agent = "reposkill_agent.cli:app"
+
+[tool.hatch.build.targets.wheel]
+packages = ["reposkill_agent"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = [
+    "--basetemp=traces/.pytest_tmp",
+    "-o",
+    "cache_dir=traces/.pytest_cache",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]

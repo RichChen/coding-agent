@@ -1,0 +1,36 @@
+tasks:
+  - id: fix_import_error
+    issue: >
+      Tests fail with ModuleNotFoundError because calculator.py uses a wrong import.
+      Fix the import so that add() and subtract() work correctly.
+    repo_path: repos/fix_import_error
+    test_command: python -m pytest tests/ -q
+    expected_files:
+      - app/calculator.py
+    tags:
+      - import
+      - bugfix
+
+  - id: fix_off_by_one
+    issue: >
+      range_sum() returns wrong results for inclusive ranges.
+      The loop appears to miss the last element. Fix the off-by-one error.
+    repo_path: repos/fix_off_by_one
+    test_command: python -m pytest tests/ -q
+    expected_files:
+      - app/range_sum.py
+    tags:
+      - logic
+      - bugfix
+
+  - id: add_greeting_function
+    issue: >
+      Implement greet(name) in app/greet.py so that it returns "Hello, {name}!".
+      Tests are already written but the function is missing.
+    repo_path: repos/add_greeting_function
+    test_command: python -m pytest tests/ -q
+    expected_files:
+      - app/greet.py
+    tags:
+      - feature
+      - greenfield

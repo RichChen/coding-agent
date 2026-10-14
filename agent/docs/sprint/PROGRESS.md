@@ -1,0 +1,265 @@
+# 记忆重建进度
+
+## 第 0 步：版本控制（2026-09-24）
+
+- `.git` 是 2026-07-02 留下的空目录，`git status` 报 not a git repository，没有可恢复历史。已改名为 `.git.broken-20260924`，并重新 `git init`。
+- `.gitignore`：去掉全局 `*.jsonl`，改为忽略 `traces/`、`reports/`、`.tmp/`、`.pytest-run-final/` 下的 jsonl；`benchmarks/`、`configs/`、`docs/` 里小于 1MB 的数据文件可以跟踪。根目录 `/*.pdf` 直接忽略。补上 `.tmp/`、`.pytest-run-final/`。另外忽略 `reports/**/workspaces/` 和 `reports/**/graph_workspaces/`，与已有的 `traces/workspaces/` 一致，避免把实验沙箱副本提交进去。文件仍留在磁盘上。
+- 测试：`python -m pytest -q`，269 passed，1 skipped，0 failed（169s）。
+- 下一步：第 1 步，写 `docs/sprint/MEMORY-INVENTORY.md`。
+
+## 第 1 步：如实盘点（2026-09-24）
+
+- 新增 `docs/sprint/MEMORY-INVENTORY.md`。运行时入口是 `public_runtime_view.py`（11 条快照，不走 `MemoryRecord`）和 `harness_h4.py`（走 `gate`/`validity`，但不读这 11 条）。`records.py`、`builder.py`、`gate.py`、`validity.py`、`record_store.py`、`dependency_index.py` 停在离线 demo 和单测。
+- 11 条源记忆的仓库、短版本、源目录和轨迹字段已列入盘点。轨迹没有 `run_command` 参数，`failure_notes` 全空。
+- 这一步只加文档，没有相关测试可跑。
+- 下一步：第 2 步，读 harness 的 `memory-source-verification.json`；没有就先标 `unverified`。
+
+## 第 2 步：接入源题验证结果（2026-09-24）
+
+- `D:\crq\src\coding-harness\docs\sprint\memory-source-verification.json` 还不存在。11 条先全部按 `unverified` 处理，文件出现后同一函数会补上映射。
+- 新增 `reposkill_agent/memory/source_verification.py`：`pass`→`validated_fix`，`partial`→`partial_attempt`，`fail`→`failed_attempt`，其余（含 `grader_unavailable`、缺文件、未知 source）→`unverified`。
+- 测试：`python -m pytest -q tests/test_source_verification.py`，3 passed。
+- 下一步：第 3 步，用规则从 11 条轨迹和 `candidate-delta.json` 提炼记忆卡，不调模型。
+
+## 第 3 步：记忆提炼（2026-09-24）
+
+- 在 `records.py` 增加 `MemoryCard` / `CardDependency`，沿用 `StrictModel` 和 `contains_secret`。没有另建一套记录类型，也没有把它伪装成已验证的 `MemoryRecord`。
+- `memory/cards.py` 用规则提取：改过的路径排在读过的前面，测试命令和坑从 observation 里抓，修复思路只写改了哪些文件。不贴 diff，不调模型（费用 0）。
+- 新快照 `benchmarks/a5/memory-cards-v2.jsonl`，11 张卡，125519 字节。验证文件仍缺失，11 张都是 `unverified`。渲染上限 1500 字节。
+- 测试：`python -m pytest -q tests/test_memory_cards.py tests/test_source_verification.py`，6 passed。目标题 ID 与 11 个源题不相交；目标题 gold/test patch 里长度 ≥ 80 的新增行没有出现在卡片渲染文本里。
+- 下一步：第 4 步，BM25 检索和 `MemoryCardPlugin`（B0–B3），旧入口保持不动。
+
+## 第 4 步：检索和变体（2026-09-24）
+
+- 新入口：`load_memory_cards(path) -> tuple[MemoryCard, ...]`（在 `memory/cards.py`）。`MemoryCardPlugin(variant, cards, repo, issue, target_root, max_bytes=4096, min_score=1.0)`，方法 `async decide(policy_input) -> dict`，返回 `schema_version`、`candidates`、`state`、`events`、`action_proposals`。旧的 `load_public_episodes` 和 `A5PublicMemoryPlugin` 没改。
+- 检索是自写 BM25，带停用词，再加上题目里的路径和符号与 `relevant_files` 的重合加分。低于 `min_score` 时一条都不选，事件状态为 `no_relevant_memory`。没有 `len(episodes) != 11` 这类断言。
+- B0 不注入。B1/B2/B3 用同一批卡、同一个 `rank_cards`、同一个 `max_bytes`。B1 注入截断轨迹，B2/B3 注入记忆卡渲染。B3 用 `validity.check_card_dependencies` 和 `gate.validity_reasons`；`invalid` 不注入。
+- 测试：`python -m pytest -q tests/test_memory_card_plugin.py tests/test_memory_validity.py tests/test_memory_gate.py`，插件 5 passed，原有 validity/gate 仍通过。
+- 下一步：写第 5 步扩充方案和 `CHECKPOINT-1.md`，然后停下等审计。
+
+## 第 5 步方案与审计节点（2026-09-24）
+
+- 只写了方案，没有造新轨迹，没有调模型。费用记录：0。
+- `docs/sprint/CHECKPOINT-1.md` 含提交列表、两张渲染样例、20 道目标题的 B1/B2/B3 离线检索、新入口签名、扩充方案。
+- 离线检索：sphinx 四题和 `sympy-20154` 一条都选不到。B3 在没有目标仓库检出时，排上的卡都因路径不存在被拒绝。
+- 扩充若要做，13 条新源题、约 3.2–6.5 CNY，超过 3 元观察线，留给审计之后。
+- 下一步：停。等用户把 CHECKPOINT-1 交给审计者。
+
+## 补第 2 步：验证文件已到（2026-09-25）
+
+- `coding-harness/docs/sprint/memory-source-verification.json` 已存在。重新生成 `memory-cards-v2.jsonl`，只改了状态字段。
+- `pytest-dev__pytest-5103` 为 `partial`，卡片改为 `partial_attempt`（F2P 0/1，P2P 20/64，数字不写入卡片）。
+- 其余 10 条是 `grader_unavailable`，仍为 `unverified`：django 3 条是文件数上限，sympy/sklearn 6 条是传输配额，`pytest-5221` 的 grader 没有给出 pass/partial/fail。
+- 测试：`python -m pytest -q tests/test_memory_cards.py tests/test_source_verification.py`，6 passed。
+
+## 第二轮 第 1 步：从原始事件流提取（2026-09-25）
+
+- 开工 tag：`mem2-start`（`c4ecbf0`）。
+- 11 条源的 `source_dir/run/events.jsonl` 都在。后面的 `state.saved` 整段 payload 是 `artifact_ref`，正文在 `run/session/artifacts`。读不到的字段会跳过并记下原因；这 11 条没有跳过。
+- 新模块 `memory/event_extract.py`：读文件的行号范围、`search_code` 的 pattern、测试相关命令（`pytest` / `runtests.py` / `python -c` / `python -m`）、模型诊断和最终回答各 1–3 句、用 `ast` 把 `search_replace` 对上改动后的 `def`/`class`。
+- 11 条里 `django-10924` 和 `sklearn-11040` 没有符合条件的测试命令。`django-10914`、`sklearn-10297`、`pytest-5221` 没对上改动符号。
+- 测试：`python -m pytest -q tests/test_event_extract.py`。目标题 ID 和 gold/test patch 里长度 ≥ 80 的新增行没有出现在提取结果里。
+- 下一步：第 2 步，滤掉旧镜像里的缺依赖、git 不存在、全盘搜索和 stub。
+
+## 第二轮 第 2 步：过滤旧环境噪声（2026-09-25）
+
+- `memory/legacy_env.py` 的 `is_legacy_env_artifact` / `split_legacy`。命中的条目标成旧环境噪声，不渲染给模型。
+- 滤掉：`pip install` / `pip download`；`No module named` 后面是 six、pluggy、attr、py、more_itertools、numpy、mpmath、packaging、pytz、sqlparse；`git: not found`；`find /`；`/tmp/stubs`；域名解析失败、拉不到包、连接被拒绝。
+- 保留：`testing/` 下的测试、`tests/runtests.py`、必须一起改的模块。
+- 测试：`python -m pytest -q tests/test_legacy_env.py`，2 passed。
+- 下一步：第 3 步，用规则重填记忆卡，写成 `memory-cards-v3.jsonl`，先看结果再决定是否用 LLM。
+
+## 第二轮 第 3 步：重新生成记忆卡（2026-09-25）
+
+- `memory/cards_v3.py` 用事件提取结果重填 `MemoryCard`。改过的路径在前，并带上读过的行号。测试命令来自 `run_command`；源轨迹里没跑过就写 `none run in source attempt`。`approach` 是诊断原话加改动的函数或类名。`pitfalls` 只留仓库相关的句子，旧环境噪声不渲染。
+- 命令过滤收紧：路径里的 `_pytest` 不再被当成 pytest 命令。一条命令里夹了 `pip` 或 `find /` 的片段会丢掉，旁边的 `python -c` 仍保留。
+- 新快照 `benchmarks/a5/memory-cards-v3.jsonl`，123959 字节，不覆盖 v2。11 张里 8 张有测试命令，3 张是 `none run`（`django-10924`、`pytest-5103`、`sklearn-11040`）。
+- 看过规则版之后不做 LLM 提炼。诊断句已经点到 `FILE_UPLOAD_PERMISSIONS`、`visit_Call`、`n_neighbors`、`fit_predict` 这类具体位置，费用 0。
+- 测试：`python -m pytest -q tests/test_memory_cards_v3.py tests/test_memory_cards.py tests/test_legacy_env.py`，8 passed。渲染不超过 1500 字节，目标题 ID 和 gold 片段没有进卡片。
+- 下一步：第 4 步，把 20 道目标题的 `source.tar.gz` 解压到仓库外，重跑 B1/B2/B3。
+
+## 第二轮 第 4 步：对着真实目标源码做 B3（2026-09-25）
+
+- 20 道目标题只解压了 `source.tar.gz` 到 `D:\crq\tmp\a5-targets\<id>\`，没有读 gold 或 test patch，没有进 git。
+- 改规则前：sklearn 四题的 B3 一张卡都注不进去。`sklearn-11281` 和 `sklearn-11040` 是因为旧路径不在（`mixture/base.py`、`neighbors/base.py`）。其余拒绝多是符号不在原文件里。
+- 加了规则：路径不存在，但关键函数或类名能在目标树里搜到，记为 `unknown` / `relocated`，不记 `invalid`。`unknown` 仍按现在的插件规则注入。
+- 改规则后：四道 sklearn 题都注入了 `sklearn-11281`（`fit_predict` 被挪走但仍能搜到）。`sklearn-11040` 的符号在目标树里搜不到，仍然 `invalid`。
+- sphinx 四题和 `sympy-20154` 改规则前后都是一条都选不到。
+- 另外收紧了测试命令切分：引号里的分号不再被切开，`pip show` 视为旧环境噪声。v3 快照已按这个重写。
+- 测试：`python -m pytest -q tests/test_relocated_dependency.py tests/test_memory_card_plugin.py tests/test_memory_cards_v3.py`，通过。
+- 下一步：第 5 步，看验证文件有没有更新。
+
+## 第二轮 第 5 步：源题验证（2026-09-25）
+
+- 再读了 `coding-harness/docs/sprint/memory-source-verification.json`。仍是 10 条 `grader_unavailable`、1 条 `partial`（`pytest-5103`），没有 `calibrated` 字段，也没有新的 pass/fail。
+- v3 卡片状态不用重写：`pytest-5103` 已是 `partial_attempt`，其余 `unverified`。等 harness 第二轮第 4 步把新 grader 结果写回同一个文件。
+- 已写 `docs/sprint/CHECKPOINT-2.md`。停下等审计。
+
+## 第二轮 第 5 步补做：新 grader 结果已到（2026-09-25）
+
+- harness 已重写 `memory-source-verification.json`，11 条都带 `calibrated`。只改了 v3 卡片的 `verification_status`，正文没动，F2P/P2P 计数没有写进卡片。
+- `pass`→`validated_fix`：django 10914、10924、11039，sklearn 10297、11281。
+- `fail`→`failed_attempt`：sympy 11400、12171，pytest 5103（原先的 partial 被新 grader 改成 fail），sklearn 10949、11040。
+- `pytest-5221` 仍是 `grader_unavailable`（gold 校准没通过），卡片保持 `unverified`。
+- 测试：`python -m pytest -q tests/test_memory_cards_v3.py tests/test_source_verification.py`，6 passed。
+
+## 第三轮 第 1 步：提取器兼容 sprint 目录（2026-09-25）
+
+- 开工 tag：`mem3-start`（`3eac8d3`），同时提交了第二轮和第三轮计划书。
+- `extract_source` 增加 `layout`：`memory_pool` 读 `run/events.jsonl`，`sprint` 读运行目录根上的 `events.jsonl`。不传时只接受其中一种；两种都在就报 `ambiguous_event_layout`，都不在仍记 `events_jsonl_missing`。
+- `_changed_symbols` 同时接受 `{"content": ...}` 和 base64 字符串。解码失败记入 `skipped`，原因是 `delta_base64_decode_failed:<path>`。
+- 只读回归：`runs/sprint2-b0/django__django-11039` 提取出读取范围、测试命令和非空改动符号；`sympy__sympy-11400` 对上了 `_print_sinc`。仓库里只放了最小夹具，没有复制真实运行目录。
+- 测试：`python -m pytest -q tests/test_event_extract.py`，9 passed。
+- 下一步：第 2 步，丢掉只做 import 探测和 `py_compile` 的命令。
+
+## 第三轮 第 2 步：只保留真正的测试命令（2026-09-25）
+
+- `command_skip_reason`：`pytest`、`python -m pytest`、`runtests.py` 保留。只 import 或只打印 `__file__` / `__version__` / `sys.path` 的 `python -c` 记为 `command_probe`。`py_compile`、`python -m pip`、`pip list`、`which`、`ls`，以及只做 `ast.parse(open(...))` 的语法检查，记为 `command_not_a_test`。调用了仓库代码的 `python -c`（例如打印 `FILE_UPLOAD_PERMISSIONS`）保留。
+- 丢掉的片段写进 `skipped`，带原因类别。`cd` 这类无关片段不记。
+- 按这个规则重算旧 11 条，真正跑过测试的只剩 django-10914 和 django-11039。`tests/test_memory_cards_v3.py` 的下限改成 2。v3 快照文件本步不重写。
+- 测试：`python -m pytest -q tests/test_event_extract.py tests/test_memory_cards_v3.py tests/test_legacy_env.py tests/test_memory_cards.py`，18 passed。
+- 下一步：第 3 步，失败尝试不再渲染 approach。
+
+## 第三轮 第 3 步：按验证状态渲染（2026-09-25）
+
+- `validated_fix` 仍完整渲染 approach、files、tests、pitfalls。
+- `failed_attempt` 不渲染 approach。头部写明这是一次没有通过测试的尝试，只供定位参考。有 `failure_notes` 时写一句失败原因。
+- `unverified` 仍渲染 approach，头部标明未验证。
+- B1 的原文前面加上同一条状态头部。
+- 测试：`python -m pytest -q tests/test_memory_cards.py tests/test_memory_card_plugin.py tests/test_memory_cards_v3.py`，12 passed。
+- 下一步：第 4 步，用 sprint2-b0 先做 interim v4。
+
+## 第三轮 第 4 步：interim v4（2026-09-25）
+
+- `docs/sprint/memory-source-runs.json` 还不存在。用 `runs/sprint2-b0` 的 12 次运行建了 interim。每道题只有一次运行，记为 `r1`。
+- 选轨迹不看卡片内容：解出的标 `validated_fix`，没解出的标 `failed_attempt`，来源都是 `source_task_swebench_tests`。新环境没有运行的，用旧记忆池：`sklearn-11040` 为 `failed_attempt`，`pytest-5221` 为 `unverified`（grader 不可用），来源是 `legacy_verification`。
+- `sympy-11400` 从 v3 的 `failed_attempt` 变成 `validated_fix`。`sklearn-10508` 在 sprint2-b0 和旧 11 条里都没有轨迹，没有编造卡片，manifest 里缺这一条。交接文件出现后再重建 final。
+- 构建脚本断言 15 个源题 id 与 `canonical-handoff.json` 的 `target_tasks` 不相交。运行里如果出现 pilot 目标题 id 会直接退出。这次没有。
+- 产出：`benchmarks/a5/memory-cards-v4.jsonl`、`memory-cards-v4.manifest.json`（status=interim，`memory_source_runs_sha256` 为 null）、`docs/sprint/MEMORY-PROTOCOL-V4.md`、`docs/sprint/V4-CARDS.md`。14 张卡。没有调模型。
+- 测试：`python -m pytest -q tests/test_memory_cards_v4.py tests/test_memory_cards.py tests/test_source_verification.py`，12 passed。
+- 下一步：第 5 步，对已有源题做 dev 留一法。
+
+## 第三轮 第 5 步：dev 留一法（2026-09-25）
+
+- 对已有的 14 张卡各做一次留一法。issue 用卡片里的公开问题，目标树只用 receipt 旁的 `staging/original`。
+- 14 道都选到了同仓库的其他卡，分数都高于 1.0。没有选错仓库，也没有空选。B3 拒绝来自符号不在该题原始树里。
+- 不调整检索规则，也不改 `min_score`。表在 `docs/sprint/DEV-LOO-SELECTION.md`。
+- 这一步是离线选择，没有相关单测要改。没有调模型。
+- 下一步：第 6 步，只报告 20 道 pilot 的离线选择，看完不改规则。
+
+## 第三轮 第 6 步：pilot 离线选择（只报告）（2026-09-25）
+
+- 用第 5 步定下来的规则，对 20 道 pilot 重跑 B1/B2/B3。目标树只用 `D:\crq\tmp\a5-targets` 里已解压的源码。
+- B3 至少注入 1 张卡的有 16 道。sphinx 四题仍然没有记忆。sympy-20154 这次能注入 11897 和 11870。
+- 看完表没有改规则。表在 `docs/sprint/PILOT-SELECTION-V4.md`。
+- 没有调模型。
+- 下一步：第 7 步，写 CHECKPOINT-3，然后停下。
+
+## 第三轮 第 7 步：CHECKPOINT-3（2026-09-25）
+
+- 已写 `docs/sprint/CHECKPOINT-3.md`。v4 是 interim，14 张卡。`memory-source-runs.json` 仍不存在，sha256 为 null，没有建成 final。
+- 花费 0。停下等审计。交接文件出现后再重建 final。
+
+## 第四轮：B2 只注入 validated_fix（2026-09-25）
+
+- 开工 tag：`mem4-start`（`3d9cccc`）。已读 harness `AUDIT-3-CORRECTION.zh-CN.md`。现有 v4 保持 `interim`，没有改成 `final`。
+- `MemoryCardPlugin` 在 B2 下只把 `verification_status == validated_fix` 的卡送进检索。`failed_attempt` 和 `unverified` 不注入。B0、B1、B3 的路径没改。
+- 测试：`python -m pytest -q tests/test_memory_card_plugin.py tests/test_memory_cards.py tests/test_memory_cards_v3.py tests/test_memory_cards_v4.py tests/test_source_verification.py tests/test_event_extract.py`，31 passed。
+- 现有 `memory-source-runs.json` 是 `profile_tag=b0-v1`，42 条，没有 `answer_isolation_pass=true`。按计划不重建 final，不跑 memory smoke，不调模型。
+- 已写 `docs/sprint/CHECKPOINT-4.md`。停下，等 `b0-v2` 且 42 条全部隔离通过的交接文件。
+
+## 第四轮续：b0-v2 交接已到，重建 final（2026-09-26）
+
+- `memory-source-runs.json` 现在是 `sprint4.memory-source-runs.v1`、`profile_tag=b0-v2`、42 条，`answer_isolation_pass` 全是 true。LF 校验和 `89c33557b611fdb0578c050b54952a7c8a5b062e115db097f619b456ae84d073`，与 harness CHECKPOINT-4 和 PROGRESS 一致。工作副本是 CRLF，字节哈希不同，manifest 用的是 harness 记录的 LF 哈希。
+- 14 道题的 clean image digest 与 `docs/sprint/clean-images/` 一致，`source_only_match` 都是 true，`image_source_only_hash` 等于 `original_tree_hash`，`native_artifacts` 是清单。源题和 20 道 pilot 不相交。
+- 重建了 final：14 张卡，7 张 `validated_fix`（django 10914 r1、10924 r2、11039 r1，sklearn 10297 r1、11040 r1、11281 r3，pytest 5227 r1）。其余 7 张是最小 repeat 的失败运行。`pytest-5221` 不在这批运行里，没有用旧轨迹补。
+- 选中的运行里，django-11039 r1 和 pytest-5227 r1 的 `test_files_touched` 非空。按固定规则仍用它们，没有手改卡片。
+- 卡片渲染不含 20 道目标题 id，也不含 gold/test patch 里长度 ≥ 80 的新增行。
+- 按 B2 只注入 `validated_fix` 重出了 `DEV-LOO-SELECTION.md`。没有改检索规则，没有跑 memory smoke，没有调模型。
+- 测试：`python -m pytest -q tests/test_memory_cards_v4.py tests/test_memory_card_plugin.py`，12 passed。
+
+## 第五轮 第 1 步：卡片加上 repo 和 created_at（2026-09-26）
+
+- 开工 tag：`mem5-start`（`b96c4d8`）。`HANDOFF-CONVENTIONS.md` 还不存在，sha256 按 UTF-8 + LF 计算。`sprint5.memory-source-runs.v2` 也不存在。
+- `MemoryCard.created_at` 必须是带时区的 ISO 8601。v2 交接文件里缺 `repo` 或 `created_at` 时构建直接失败，不填默认值。
+- interim v5 用现有 `b0-v2` 运行，时间取自 canonical handoff 里的公开 `historical_pr_created_at`。缺这个字段也会失败。14 张卡，状态和 v4 选中的 repeat 相同。`created_at` 不写进渲染正文。
+- 产出 `benchmarks/a5/memory-cards-v5.jsonl` 和 manifest，`status=interim`，`memory_source_runs_sha256` 为 null。
+- 测试：`python -m pytest -q tests/test_memory_cards_v5.py tests/test_memory_cards.py tests/test_memory_card_plugin.py tests/test_memory_cards_v4.py`，20 passed。
+- 下一步：第 2 步，通用构建脚本，输出要和这份 v5 逐字节一致。
+
+## 第五轮 第 2 步：通用卡片构建（2026-09-26）
+
+- `scripts/build_memory_cards.py --handoff --out` 从交接文件里的 source id 建卡，不再写死 15 道题。规则仍是最小 solved repeat，否则最小失败 repeat。每条运行必须 `answer_isolation_pass`。缺 `repo` 或 `created_at` 就失败。
+- 用现有 dev 交接文件跑出来的 jsonl，和 interim v5 逐字节一致（LF 归一化后）。构建时也检查了目标题 id、gold/test patch 长行和隐藏 nodeid 没有进卡片。
+- 测试：`python -m pytest -q tests/test_memory_cards_v5.py`，5 passed。
+- 下一步：第 3 步，按设计文档第 6 节写分析脚本，只用合成数据。
+
+## 第五轮 第 3 步：预先写好的分析脚本（2026-09-26）
+
+- `scripts/analyze_a5_main.py` 按设计文档第 6 节：d_t 是两组 k/3 之差；主要分析是平均 d_t、10000 次双侧符号翻转（种子 20260926）和按题 bootstrap 95% 区间。次要分析只保留 B2 至少注入 1 张卡的题，并按仓库列出。infra_error 不计入；某一组有效运行少于 2 次的题从主要分析剔除。
+- 置信区间含 0 时结论是“没有检出大于 X 个百分点的效应”，X 用设计文档里的 2.8 × 0.35 / √N。没有接触任何 R6 运行。
+- 合成样例在 `docs/sprint/A5-MAIN-SYNTHETIC-REPORT.md`。
+- 测试：`python -m pytest -q tests/test_analyze_a5_main.py`，3 passed。覆盖零效应、明显正效应和 infra_error。
+- 下一步：第 4 步，dev 按时间留一法，不改检索。
+
+## 第五轮 第 4 步：dev 按时间留一法（2026-09-26）
+
+- 用 interim v5。可注入条件是同仓库、created_at 更早、不是本题、validated_fix。BM25 和 min_score 没改。
+- 14 道里 6 道能注入至少一张：django-10924、11039，sklearn-10508、10949、11040、11281。各仓库里最早的题，以及 sympy 四题、pytest 两题，没有更早的 validated_fix。
+- 表在 `docs/sprint/DEV-TIME-SELECTION.md`。没有调模型。
+- 下一步：第 5 步，写 CHECKPOINT-5 后停下。
+
+## 第五轮 第 5 步：CHECKPOINT-5（2026-09-26）
+
+- 已写 `docs/sprint/CHECKPOINT-5.md`。v5 仍是 interim，因为 `sprint5.memory-source-runs.v2` 还没有。
+- 花费 0。停下等审计。
+
+## 第五轮补：v2 交接文件重建 final（2026-09-28）
+
+- `memory-source-runs.json` 已是 `sprint5.memory-source-runs.v2`，42 条都有 `repo`、`created_at` 和 `answer_isolation_pass`。
+- 用它重建了 v5 final。manifest `status=final`，`memory_source_runs_sha256=984826707e8f69ad9b900134bd244c6056f2d8860f3036a3606bfc60b4bcb450`，`cards_sha256=40d22ef838af7172ba8e72b09954107ea055d65501e11219c71ae2e0a88c015c`。哈希按 `HANDOFF-CONVENTIONS.md` 的 LF 规则。
+- `cards.py`、`cards_v3.py`、`cards_v4.py` 里的 `1970-01-01` 默认值改成缺 `created_at` 就报 `created_at_missing`。
+- 测试：`python -m pytest -q tests/test_memory_cards.py tests/test_memory_cards_v3.py tests/test_memory_cards_v4.py tests/test_memory_cards_v5.py tests/test_memory_card_plugin.py`，27 passed。没有调模型。
+
+## 第五轮补：A1–A4（2026-09-28）
+
+- A1：`9ed5f67` 缺 `created_at` 报错；`d9bdf84` 提交 v5 final。harness 侧可以改用这份 final。
+- A2：manifest 的交接 sha 与卡片 sha 已对上。7 张 `validated_fix`，sklearn-11281 来自 r2。每张卡都有 `repo` 和 UTC `Z` 时间。
+- A3：构建脚本接受多份 `--handoff`，拒绝 mock scope 和跨文件重复的 `source_id`，manifest 记录每份 sha。
+- A4：分析脚本能读 a5-main 目录和 `main-b0-runs.json`，拒绝 mock，不足 3 次的组只列出、不补齐。
+- 全量测试 319 passed，1 skipped。花费 0。补记写在 CHECKPOINT-5，停下等审计。
+
+## 第六轮 第 0 步：冻结前修正（2026-09-28）
+
+- 解出率改为解出次数除以有效运行数。没有解出的题取编号最小的非 `infra_error` 运行；全部是 `infra_error` 则不出卡，并记入 manifest。
+- mock 测试改为写临时目录，并清掉上次留在仓库里的 `reports/` 和 `traces/graph_summary.json`。
+- tag `a5-main-freeze` 指向 `a22e4ca0a3994012c167a3e02e06498731c24a18`。全量测试 321 passed，1 skipped。花费 0。
+- 下一步：等 harness 的 CHECKPOINT-6a，再做第 1 步。
+
+## 第六轮 第 1 步：v6 final（2026-09-29）
+
+- 用 dev 交接和 `main-b0-runs.json` v2 建成 70 张 v6 final。`cards_sha256=3416eb9d8f6119081330fb3b0a2d612b8fde4678d6ec1c73a7fc681cedfcfc70`。pool sha 是 `fe0f47b8df67730a0335d7109631dc09bc4d6b5d19a601acfec0963f5dcb1f8c`。
+- F2P/P2P id 命中 0。来源题测试命令里的 4 处 id 已换成 `[hidden-test]`。
+- 分析预注册追加项写进 `A5-MAIN-PREREG-ADDENDUM.zh-CN.md`。花费 0。停下等审计。
+
+## 第六轮 第 2 步：预注册分析（2026-09-29）
+
+- 用 `analyze_a5_main.py` 读了 harness 的 `runs/a5-main/` 和预测注入表，写成 `docs/sprint/A5-MAIN-RESULTS.zh-CN.md`。
+- 主结论：没有检出大于 13.1 个百分点的效应。56 题全部进入主要分析，51 题预测注入与实际注入一致。
+- 分析规则没有改。花费 0。停下等审计。
+
+## 第七轮 第 0 步：入口和指针（2026-09-29）
+
+- 新增 `docs/PROJECT-HISTORY.zh-CN.md`，只放指针，不复制历程全文。
+- `README.md` 在旧 A5 段落上方加了「A5-main（2026-09）」：56 题，B0 解出率 68.5%，没有检出大于 13.1 个百分点的效应。240 矩阵、pilot 和 L5/L2 +9.4pp 都保留，并标明是未执行的计划或早期自建题集。
+- 花费 0。没有调用模型，没有改分析脚本和卡片。
+
+## 第七轮 第 1 步：最终报告（2026-09-29）
+
+- 按 `A5-FINAL-REPORT-OUTLINE.zh-CN.md` 写成 `docs/A5-FINAL-REPORT.zh-CN.md`。数字来自 RESULTS、harness CHECKPOINT-6、清单、案例数据和冻结记录。
+- 主结论仍是：没有检出大于 13.1 个百分点的效应。没有改分析脚本和卡片。花费 0。没有调用模型。
+
+## 第七轮 第 2 步：CHECKPOINT（2026-09-29）
+
+- 最终报告在 `docs/A5-FINAL-REPORT.zh-CN.md`，提交 `007e006`。清单 sha、案例核对行和「RESULTS 未改」写在 `docs/sprint/CHECKPOINT-7.md`。
+- 测试：`python -m pytest -q`，326 passed，1 skipped。花费 0。停下等审计。

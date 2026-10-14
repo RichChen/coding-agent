@@ -1,0 +1,343 @@
+tasks:
+  # --- medium_inventory (8 tasks) ---
+  - id: inv_api_tax_01
+    issue: Checkout totals ignore regional tax profiles; align pricing with repo Result convention.
+    repo_path: repos/medium_inventory
+    test_command: python -m pytest tests/test_api_tax.py -q
+    expected_files: [inventory/pricing.py, inventory/models.py]
+    tags: [multi_file_api, skill_heavy, inventory]
+
+  - id: inv_api_tax_holdout_01
+    issue: EU checkout path still computes pre-tax totals only; extend pricing for holdout cases.
+    repo_path: repos/medium_inventory
+    test_command: python -m pytest tests/test_api_tax_holdout.py -q
+    expected_files: [inventory/pricing.py, inventory/api.py]
+    tags: [multi_file_api, memory_heavy, inventory, repeated]
+
+  - id: inv_rename_01
+    issue: Item identifier field naming is inconsistent across inventory modules.
+    repo_path: repos/medium_inventory
+    test_command: python -m pytest tests/test_rename.py -q
+    expected_files: [inventory/models.py, inventory/validators.py]
+    tags: [skill_heavy, inventory]
+
+  - id: inv_rename_holdout_01
+    issue: Catalog listing still exposes legacy identifier accessors.
+    repo_path: repos/medium_inventory
+    test_command: python -m pytest tests/test_rename_holdout.py -q
+    expected_files: [inventory/api.py, inventory/models.py]
+    tags: [memory_heavy, inventory, repeated]
+
+  - id: inv_convention_01
+    issue: Inventory API raises on missing items instead of following Result-based error handling.
+    repo_path: repos/medium_inventory
+    test_command: python -m pytest tests/test_convention.py -q
+    expected_files: [inventory/api.py, inventory/models.py]
+    tags: [repo_convention, context_heavy, inventory]
+
+  - id: inv_convention_holdout_01
+    issue: Quantity validation should report failures via Result, not boolean shortcuts.
+    repo_path: repos/medium_inventory
+    test_command: python -m pytest tests/test_convention_holdout.py -q
+    expected_files: [inventory/validators.py, inventory/models.py]
+    tags: [repo_convention, context_heavy, inventory, repeated]
+
+  - id: inv_regression_cart_01
+    issue: Empty cart and zero-discount scenarios produce incorrect totals.
+    repo_path: repos/medium_inventory
+    test_command: python -m pytest tests/test_regression_cart.py -q
+    expected_files: [inventory/discounts.py]
+    tags: [traceback_repair, inventory, support]
+
+  - id: inv_regression_region_01
+    issue: Unknown sales regions should surface structured errors, not string placeholders.
+    repo_path: repos/medium_inventory
+    test_command: python -m pytest tests/test_regression_region.py -q
+    expected_files: [inventory/pricing.py, inventory/models.py]
+    tags: [memory_heavy, inventory, repeated]
+
+  # --- medium_config_loader (8 tasks) ---
+  - id: cfg_merge_order_01
+    issue: Merged configuration applies layers in the wrong precedence order.
+    repo_path: repos/medium_config_loader
+    test_command: python -m pytest tests/test_merge_order.py -q
+    expected_files: [config_loader/merge.py, config_loader/sources.py]
+    tags: [context_heavy, config]
+
+  - id: cfg_merge_order_holdout_01
+    issue: Holdout merge scenario still lets stale defaults win over explicit overrides.
+    repo_path: repos/medium_config_loader
+    test_command: python -m pytest tests/test_merge_order_holdout.py -q
+    expected_files: [config_loader/merge.py]
+    tags: [memory_heavy, config, repeated]
+
+  - id: cfg_env_override_01
+    issue: Environment variables for timeout are not overriding file-based settings.
+    repo_path: repos/medium_config_loader
+    test_command: python -m pytest tests/test_env_override.py -q
+    expected_files: [config_loader/env.py, config_loader/api.py]
+    tags: [skill_heavy, config]
+
+  - id: cfg_env_override_holdout_01
+    issue: Retry count from environment is ignored during config load.
+    repo_path: repos/medium_config_loader
+    test_command: python -m pytest tests/test_env_override_holdout.py -q
+    expected_files: [config_loader/env.py, config_loader/api.py]
+    tags: [memory_heavy, config, repeated]
+
+  - id: cfg_schema_validation_01
+    issue: Invalid config types pass validation and reach runtime.
+    repo_path: repos/medium_config_loader
+    test_command: python -m pytest tests/test_schema_validation.py -q
+    expected_files: [config_loader/schema.py]
+    tags: [skill_heavy, config]
+
+  - id: cfg_key_alias_01
+    issue: Legacy configuration keys are not mapped to the new canonical names.
+    repo_path: repos/medium_config_loader
+    test_command: python -m pytest tests/test_key_alias.py -q
+    expected_files: [config_loader/api.py, config_loader/schema.py]
+    tags: [multi_file_api, config]
+
+  - id: cfg_key_alias_holdout_01
+    issue: Holdout alias migration for timeout-related keys is incomplete.
+    repo_path: repos/medium_config_loader
+    test_command: python -m pytest tests/test_key_alias_holdout.py -q
+    expected_files: [config_loader/api.py]
+    tags: [traceback_repair, config, repeated]
+
+  - id: cfg_convention_01
+    issue: Config loader should return Result objects instead of bare dictionaries.
+    repo_path: repos/medium_config_loader
+    test_command: python -m pytest tests/test_convention.py -q
+    expected_files: [config_loader/api.py, config_loader/schema.py]
+    tags: [repo_convention, config, support]
+
+  # --- medium_event_pipeline (8 tasks) ---
+  - id: evt_handler_registry_01
+    issue: Handler registration module API is not wired to the global registry.
+    repo_path: repos/medium_event_pipeline
+    test_command: python -m pytest tests/test_handler_registry.py -q
+    expected_files: [events/registry.py, events/handlers.py]
+    tags: [skill_heavy, events]
+
+  - id: evt_handler_registry_holdout_01
+    issue: Holdout handler registration path still cannot resolve uppercase handlers.
+    repo_path: repos/medium_event_pipeline
+    test_command: python -m pytest tests/test_handler_registry_holdout.py -q
+    expected_files: [events/registry.py]
+    tags: [memory_heavy, events, repeated]
+
+  - id: evt_serialization_01
+    issue: Version-2 event payloads are not deserialized with backward compatibility.
+    repo_path: repos/medium_event_pipeline
+    test_command: python -m pytest tests/test_serialization.py -q
+    expected_files: [events/serializer.py, events/message.py]
+    tags: [multi_file_api, events]
+
+  - id: evt_serialization_holdout_01
+    issue: Version-1 serialized events break after recent serializer changes.
+    repo_path: repos/medium_event_pipeline
+    test_command: python -m pytest tests/test_serialization_holdout.py -q
+    expected_files: [events/serializer.py, events/pipeline.py]
+    tags: [context_heavy, events, repeated]
+
+  - id: evt_retry_policy_01
+    issue: Retry policy convention does not match the documented max-attempts semantics.
+    repo_path: repos/medium_event_pipeline
+    test_command: python -m pytest tests/test_retry_policy.py -q
+    expected_files: [events/pipeline.py]
+    tags: [repo_convention, events]
+
+  - id: evt_retry_policy_holdout_01
+    issue: Zero-attempt edge case for retry policy returns incorrect bounds.
+    repo_path: repos/medium_event_pipeline
+    test_command: python -m pytest tests/test_retry_policy_holdout.py -q
+    expected_files: [events/pipeline.py]
+    tags: [memory_heavy, events, repeated]
+
+  - id: evt_traceback_01
+    issue: Pytest traceback indicates v1 payload keys are lost during deserialization.
+    repo_path: repos/medium_event_pipeline
+    test_command: python -m pytest tests/test_traceback_fix.py -q
+    expected_files: [events/serializer.py]
+    tags: [traceback_repair, events]
+
+  - id: evt_context_pipeline_01
+    issue: End-to-end pipeline cannot process registered handlers from serialized input.
+    repo_path: repos/medium_event_pipeline
+    test_command: python -m pytest tests/test_context_pipeline.py -q
+    expected_files: [events/pipeline.py, events/registry.py, events/serializer.py]
+    tags: [context_heavy, events, support]
+
+  # --- Batch 5.9 expansion: medium_inventory (+6) ---
+  - id: inv_discount_stack_01
+    issue: Discount codes stack incorrectly on cart totals; fix stacking in discounts module.
+    repo_path: repos/medium_inventory
+    test_command: python -m pytest tests/test_discount_stack.py -q
+    expected_files: [inventory/discounts.py]
+    tags: [multi_file_api, skill_heavy, inventory]
+
+  - id: inv_discount_stack_holdout_01
+    issue: Holdout cart applies multiple discount codes with wrong cumulative total.
+    repo_path: repos/medium_inventory
+    test_command: python -m pytest tests/test_discount_stack_holdout.py -q
+    expected_files: [inventory/discounts.py]
+    tags: [memory_heavy, inventory, repeated]
+
+  - id: inv_bulk_pricing_01
+    issue: Bulk quantity threshold should apply line-item discount in pricing helpers.
+    repo_path: repos/medium_inventory
+    test_command: python -m pytest tests/test_bulk_pricing.py -q
+    expected_files: [inventory/pricing.py]
+    tags: [multi_file_api, skill_heavy, inventory]
+
+  - id: inv_bulk_pricing_holdout_01
+    issue: Holdout bulk order tier pricing ignores quantity threshold edge case.
+    repo_path: repos/medium_inventory
+    test_command: python -m pytest tests/test_bulk_pricing_holdout.py -q
+    expected_files: [inventory/pricing.py]
+    tags: [memory_heavy, inventory, repeated]
+
+  - id: inv_stock_guard_01
+    issue: Stock level validation should use Result-based API instead of raising errors.
+    repo_path: repos/medium_inventory
+    test_command: python -m pytest tests/test_stock_guard.py -q
+    expected_files: [inventory/validators.py, inventory/api.py]
+    tags: [repo_convention, context_heavy, inventory]
+
+  - id: inv_stock_guard_holdout_01
+    issue: Holdout minimum stock boundary uses wrong comparison operator.
+    repo_path: repos/medium_inventory
+    test_command: python -m pytest tests/test_stock_guard_holdout.py -q
+    expected_files: [inventory/validators.py, inventory/api.py]
+    tags: [context_heavy, memory_heavy, inventory, repeated]
+
+  # --- medium_config_loader (+6) ---
+  - id: cfg_default_merge_01
+    issue: Default configuration layer loses to user overrides during merge.
+    repo_path: repos/medium_config_loader
+    test_command: python -m pytest tests/test_default_merge.py -q
+    expected_files: [config_loader/merge.py, config_loader/defaults.py]
+    tags: [context_heavy, config]
+
+  - id: cfg_default_merge_holdout_01
+    issue: Holdout merge keeps stale defaults over explicit override values.
+    repo_path: repos/medium_config_loader
+    test_command: python -m pytest tests/test_default_merge_holdout.py -q
+    expected_files: [config_loader/merge.py]
+    tags: [memory_heavy, config, repeated]
+
+  - id: cfg_type_coerce_01
+    issue: Timeout values from strings are not coerced before schema validation.
+    repo_path: repos/medium_config_loader
+    test_command: python -m pytest tests/test_type_coerce.py -q
+    expected_files: [config_loader/schema.py]
+    tags: [skill_heavy, config]
+
+  - id: cfg_type_coerce_holdout_01
+    issue: Holdout env string timeout still fails integer comparison at runtime.
+    repo_path: repos/medium_config_loader
+    test_command: python -m pytest tests/test_type_coerce_holdout.py -q
+    expected_files: [config_loader/schema.py, config_loader/api.py]
+    tags: [memory_heavy, config, repeated]
+
+  - id: cfg_nested_key_01
+    issue: Nested configuration keys with dot paths are not resolved by the loader API.
+    repo_path: repos/medium_config_loader
+    test_command: python -m pytest tests/test_nested_key.py -q
+    expected_files: [config_loader/api.py, config_loader/schema.py]
+    tags: [multi_file_api, config]
+
+  - id: cfg_nested_key_holdout_01
+    issue: Holdout nested key lookup raises instead of returning structured access.
+    repo_path: repos/medium_config_loader
+    test_command: python -m pytest tests/test_nested_key_holdout.py -q
+    expected_files: [config_loader/api.py]
+    tags: [traceback_repair, config, repeated]
+
+  # --- medium_event_pipeline (+6) ---
+  - id: evt_fanout_01
+    issue: Batch handler registration API does not wire multiple handlers to the registry.
+    repo_path: repos/medium_event_pipeline
+    test_command: python -m pytest tests/test_fanout.py -q
+    expected_files: [events/registry.py, events/handlers.py]
+    tags: [skill_heavy, events]
+
+  - id: evt_fanout_holdout_01
+    issue: Holdout fanout registration misses uppercase handler alias resolution.
+    repo_path: repos/medium_event_pipeline
+    test_command: python -m pytest tests/test_fanout_holdout.py -q
+    expected_files: [events/registry.py]
+    tags: [memory_heavy, events, repeated]
+
+  - id: evt_payload_filter_01
+    issue: Pipeline payload filter drops required fields before handler dispatch.
+    repo_path: repos/medium_event_pipeline
+    test_command: python -m pytest tests/test_payload_filter.py -q
+    expected_files: [events/pipeline.py, events/serializer.py]
+    tags: [context_heavy, events]
+
+  - id: evt_payload_filter_holdout_01
+    issue: Holdout filter keeps unrelated payload keys that break handler contract.
+    repo_path: repos/medium_event_pipeline
+    test_command: python -m pytest tests/test_payload_filter_holdout.py -q
+    expected_files: [events/pipeline.py]
+    tags: [context_heavy, events, repeated]
+
+  - id: evt_deadletter_01
+    issue: Dead-letter handling should return Result objects per repo convention.
+    repo_path: repos/medium_event_pipeline
+    test_command: python -m pytest tests/test_deadletter.py -q
+    expected_files: [events/pipeline.py]
+    tags: [repo_convention, events]
+
+  - id: evt_deadletter_holdout_01
+    issue: Holdout dead-letter path returns bare dict instead of Result envelope.
+    repo_path: repos/medium_event_pipeline
+    test_command: python -m pytest tests/test_deadletter_holdout.py -q
+    expected_files: [events/pipeline.py]
+    tags: [memory_heavy, events, repeated]
+
+  # --- medium_auth_rules (+6) ---
+  - id: auth_role_check_01
+    issue: Role authorization API returns booleans instead of Result-based outcomes.
+    repo_path: repos/medium_auth_rules
+    test_command: python -m pytest tests/test_role_check.py -q
+    expected_files: [auth_rules/api.py, auth_rules/models.py]
+    tags: [repo_convention, skill_heavy, auth]
+
+  - id: auth_role_check_holdout_01
+    issue: Holdout admin role should satisfy editor-level access checks.
+    repo_path: repos/medium_auth_rules
+    test_command: python -m pytest tests/test_role_check_holdout.py -q
+    expected_files: [auth_rules/api.py]
+    tags: [memory_heavy, auth, repeated]
+
+  - id: auth_policy_merge_01
+    issue: Policy merge applies layers in wrong precedence order.
+    repo_path: repos/medium_auth_rules
+    test_command: python -m pytest tests/test_policy_merge.py -q
+    expected_files: [auth_rules/policy.py]
+    tags: [context_heavy, auth]
+
+  - id: auth_policy_merge_holdout_01
+    issue: Holdout explicit policy override still loses to default layer.
+    repo_path: repos/medium_auth_rules
+    test_command: python -m pytest tests/test_policy_merge_holdout.py -q
+    expected_files: [auth_rules/policy.py]
+    tags: [memory_heavy, auth, repeated]
+
+  - id: auth_token_format_01
+    issue: Token parser does not accept version-2 payload field layout.
+    repo_path: repos/medium_auth_rules
+    test_command: python -m pytest tests/test_token_format.py -q
+    expected_files: [auth_rules/tokens.py, auth_rules/models.py]
+    tags: [multi_file_api, repo_convention, auth]
+
+  - id: auth_token_format_holdout_01
+    issue: Holdout v2 service token parsing fails with missing key in payload.
+    repo_path: repos/medium_auth_rules
+    test_command: python -m pytest tests/test_token_format_holdout.py -q
+    expected_files: [auth_rules/tokens.py]
+    tags: [traceback_repair, auth, repeated]

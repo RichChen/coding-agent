@@ -1,0 +1,584 @@
+{
+  "schema": "memory-cards.v5.manifest",
+  "cards_sha256": "3416eb9d8f6119081330fb3b0a2d612b8fde4678d6ec1c73a7fc681cedfcfc70",
+  "status": "final",
+  "coding_agent_commit": "8f2755b2fce4946653630fa8f26f7d85f1a4874f",
+  "sources": [
+    {
+      "source_id": "django__django-10914",
+      "repo": "django/django",
+      "created_at": "2019-01-30T13:13:20Z",
+      "status": "validated_fix",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "django__django-10924",
+      "repo": "django/django",
+      "created_at": "2019-02-03T11:30:12Z",
+      "status": "validated_fix",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r2"
+    },
+    {
+      "source_id": "django__django-11039",
+      "repo": "django/django",
+      "created_at": "2019-03-01T10:24:38Z",
+      "status": "validated_fix",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "pytest-dev__pytest-5103",
+      "repo": "pytest-dev/pytest",
+      "created_at": "2019-04-13T16:17:45Z",
+      "status": "failed_attempt",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "pytest-dev__pytest-5227",
+      "repo": "pytest-dev/pytest",
+      "created_at": "2019-05-07T20:27:24Z",
+      "status": "validated_fix",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "scikit-learn__scikit-learn-10297",
+      "repo": "scikit-learn/scikit-learn",
+      "created_at": "2017-12-12T22:07:47Z",
+      "status": "validated_fix",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "scikit-learn__scikit-learn-10508",
+      "repo": "scikit-learn/scikit-learn",
+      "created_at": "2018-01-19T18:00:29Z",
+      "status": "failed_attempt",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "scikit-learn__scikit-learn-10949",
+      "repo": "scikit-learn/scikit-learn",
+      "created_at": "2018-04-10T15:30:56Z",
+      "status": "failed_attempt",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "scikit-learn__scikit-learn-11040",
+      "repo": "scikit-learn/scikit-learn",
+      "created_at": "2018-04-28T07:18:33Z",
+      "status": "validated_fix",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "scikit-learn__scikit-learn-11281",
+      "repo": "scikit-learn/scikit-learn",
+      "created_at": "2018-06-15T17:15:25Z",
+      "status": "validated_fix",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r2"
+    },
+    {
+      "source_id": "sympy__sympy-11400",
+      "repo": "sympy/sympy",
+      "created_at": "2016-07-15T21:40:49Z",
+      "status": "failed_attempt",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "sympy__sympy-11870",
+      "repo": "sympy/sympy",
+      "created_at": "2016-11-17T21:36:03Z",
+      "status": "failed_attempt",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "sympy__sympy-11897",
+      "repo": "sympy/sympy",
+      "created_at": "2016-12-03T14:40:51Z",
+      "status": "failed_attempt",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "sympy__sympy-12171",
+      "repo": "sympy/sympy",
+      "created_at": "2017-02-13T18:20:56Z",
+      "status": "failed_attempt",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "django__django-11211",
+      "repo": "django/django",
+      "created_at": "2019-04-13T12:01:14Z",
+      "status": "validated_fix",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "django__django-11749",
+      "repo": "django/django",
+      "created_at": "2019-09-05T21:47:44Z",
+      "status": "validated_fix",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "django__django-12276",
+      "repo": "django/django",
+      "created_at": "2020-01-05T08:04:40Z",
+      "status": "validated_fix",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "django__django-13109",
+      "repo": "django/django",
+      "created_at": "2020-06-25T08:36:45Z",
+      "status": "validated_fix",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "django__django-13512",
+      "repo": "django/django",
+      "created_at": "2020-10-08T13:52:57Z",
+      "status": "failed_attempt",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "django__django-13964",
+      "repo": "django/django",
+      "created_at": "2021-02-02T17:07:43Z",
+      "status": "validated_fix",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "django__django-14434",
+      "repo": "django/django",
+      "created_at": "2021-05-23T12:27:14Z",
+      "status": "validated_fix",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "django__django-15022",
+      "repo": "django/django",
+      "created_at": "2021-10-24T17:48:28Z",
+      "status": "validated_fix",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "django__django-15499",
+      "repo": "django/django",
+      "created_at": "2022-03-10T22:32:35Z",
+      "status": "validated_fix",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "django__django-15973",
+      "repo": "django/django",
+      "created_at": "2022-08-19T18:10:02Z",
+      "status": "failed_attempt",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "django__django-16527",
+      "repo": "django/django",
+      "created_at": "2023-02-05T22:05:00Z",
+      "status": "validated_fix",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "sympy__sympy-11618",
+      "repo": "sympy/sympy",
+      "created_at": "2016-09-15T20:01:58Z",
+      "status": "validated_fix",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r2"
+    },
+    {
+      "source_id": "sympy__sympy-13091",
+      "repo": "sympy/sympy",
+      "created_at": "2017-08-05T08:04:32Z",
+      "status": "failed_attempt",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "sympy__sympy-13757",
+      "repo": "sympy/sympy",
+      "created_at": "2017-12-17T11:08:44Z",
+      "status": "validated_fix",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "sympy__sympy-14248",
+      "repo": "sympy/sympy",
+      "created_at": "2018-02-17T10:38:44Z",
+      "status": "failed_attempt",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "sympy__sympy-15599",
+      "repo": "sympy/sympy",
+      "created_at": "2018-12-06T17:45:49Z",
+      "status": "failed_attempt",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "sympy__sympy-16766",
+      "repo": "sympy/sympy",
+      "created_at": "2019-05-01T22:02:17Z",
+      "status": "validated_fix",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "sympy__sympy-17655",
+      "repo": "sympy/sympy",
+      "created_at": "2019-09-25T17:04:26Z",
+      "status": "validated_fix",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "sympy__sympy-19040",
+      "repo": "sympy/sympy",
+      "created_at": "2020-03-31T19:53:54Z",
+      "status": "validated_fix",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "sympy__sympy-20428",
+      "repo": "sympy/sympy",
+      "created_at": "2020-11-14T05:56:31Z",
+      "status": "failed_attempt",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "sympy__sympy-21596",
+      "repo": "sympy/sympy",
+      "created_at": "2021-06-10T15:35:08Z",
+      "status": "failed_attempt",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "sympy__sympy-22714",
+      "repo": "sympy/sympy",
+      "created_at": "2021-12-19T18:54:36Z",
+      "status": "validated_fix",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "sympy__sympy-23950",
+      "repo": "sympy/sympy",
+      "created_at": "2022-08-20T18:21:10Z",
+      "status": "validated_fix",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "scikit-learn__scikit-learn-9288",
+      "repo": "scikit-learn/scikit-learn",
+      "created_at": "2017-07-06T11:03:14Z",
+      "status": "validated_fix",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "scikit-learn__scikit-learn-10908",
+      "repo": "scikit-learn/scikit-learn",
+      "created_at": "2018-04-03T03:50:46Z",
+      "status": "validated_fix",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "scikit-learn__scikit-learn-12585",
+      "repo": "scikit-learn/scikit-learn",
+      "created_at": "2018-11-14T13:20:30Z",
+      "status": "validated_fix",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "scikit-learn__scikit-learn-12973",
+      "repo": "scikit-learn/scikit-learn",
+      "created_at": "2019-01-13T16:19:52Z",
+      "status": "failed_attempt",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "scikit-learn__scikit-learn-13142",
+      "repo": "scikit-learn/scikit-learn",
+      "created_at": "2019-02-12T14:32:37Z",
+      "status": "validated_fix",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "scikit-learn__scikit-learn-13439",
+      "repo": "scikit-learn/scikit-learn",
+      "created_at": "2019-03-12T20:32:50Z",
+      "status": "validated_fix",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "scikit-learn__scikit-learn-14053",
+      "repo": "scikit-learn/scikit-learn",
+      "created_at": "2019-06-09T15:36:55Z",
+      "status": "validated_fix",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "scikit-learn__scikit-learn-14496",
+      "repo": "scikit-learn/scikit-learn",
+      "created_at": "2019-07-28T13:47:05Z",
+      "status": "validated_fix",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "scikit-learn__scikit-learn-14710",
+      "repo": "scikit-learn/scikit-learn",
+      "created_at": "2019-08-21T16:29:47Z",
+      "status": "validated_fix",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "scikit-learn__scikit-learn-15100",
+      "repo": "scikit-learn/scikit-learn",
+      "created_at": "2019-09-26T19:21:38Z",
+      "status": "validated_fix",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "sphinx-doc__sphinx-7440",
+      "repo": "sphinx-doc/sphinx",
+      "created_at": "2020-04-08T13:46:43Z",
+      "status": "validated_fix",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "sphinx-doc__sphinx-7590",
+      "repo": "sphinx-doc/sphinx",
+      "created_at": "2020-05-01T18:29:11Z",
+      "status": "failed_attempt",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "sphinx-doc__sphinx-7910",
+      "repo": "sphinx-doc/sphinx",
+      "created_at": "2020-07-04T01:08:20Z",
+      "status": "validated_fix",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "sphinx-doc__sphinx-8120",
+      "repo": "sphinx-doc/sphinx",
+      "created_at": "2020-08-14T07:23:34Z",
+      "status": "validated_fix",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "sphinx-doc__sphinx-8459",
+      "repo": "sphinx-doc/sphinx",
+      "created_at": "2020-11-20T16:44:10Z",
+      "status": "validated_fix",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "sphinx-doc__sphinx-8593",
+      "repo": "sphinx-doc/sphinx",
+      "created_at": "2020-12-27T02:41:20Z",
+      "status": "validated_fix",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "sphinx-doc__sphinx-9258",
+      "repo": "sphinx-doc/sphinx",
+      "created_at": "2021-05-21T16:56:41Z",
+      "status": "validated_fix",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "sphinx-doc__sphinx-9461",
+      "repo": "sphinx-doc/sphinx",
+      "created_at": "2021-07-17T06:31:58Z",
+      "status": "failed_attempt",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "sphinx-doc__sphinx-9673",
+      "repo": "sphinx-doc/sphinx",
+      "created_at": "2021-09-25T15:53:46Z",
+      "status": "validated_fix",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "sphinx-doc__sphinx-10323",
+      "repo": "sphinx-doc/sphinx",
+      "created_at": "2022-04-02T14:42:24Z",
+      "status": "validated_fix",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "sphinx-doc__sphinx-10614",
+      "repo": "sphinx-doc/sphinx",
+      "created_at": "2022-06-29T14:29:04Z",
+      "status": "failed_attempt",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "pytest-dev__pytest-5262",
+      "repo": "pytest-dev/pytest",
+      "created_at": "2019-05-14T21:54:55Z",
+      "status": "validated_fix",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "pytest-dev__pytest-5631",
+      "repo": "pytest-dev/pytest",
+      "created_at": "2019-07-19T20:13:12Z",
+      "status": "validated_fix",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "pytest-dev__pytest-5809",
+      "repo": "pytest-dev/pytest",
+      "created_at": "2019-09-01T04:40:09Z",
+      "status": "validated_fix",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "pytest-dev__pytest-5840",
+      "repo": "pytest-dev/pytest",
+      "created_at": "2019-09-12T01:09:28Z",
+      "status": "failed_attempt",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "pytest-dev__pytest-6202",
+      "repo": "pytest-dev/pytest",
+      "created_at": "2019-11-16T07:45:21Z",
+      "status": "validated_fix",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "pytest-dev__pytest-7205",
+      "repo": "pytest-dev/pytest",
+      "created_at": "2020-05-09T11:25:58Z",
+      "status": "validated_fix",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "pytest-dev__pytest-7324",
+      "repo": "pytest-dev/pytest",
+      "created_at": "2020-06-05T13:00:07Z",
+      "status": "failed_attempt",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "pytest-dev__pytest-7490",
+      "repo": "pytest-dev/pytest",
+      "created_at": "2020-07-13T22:20:10Z",
+      "status": "validated_fix",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "pytest-dev__pytest-7521",
+      "repo": "pytest-dev/pytest",
+      "created_at": "2020-07-20T15:55:11Z",
+      "status": "validated_fix",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "pytest-dev__pytest-7982",
+      "repo": "pytest-dev/pytest",
+      "created_at": "2020-10-31T12:27:03Z",
+      "status": "validated_fix",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "pytest-dev__pytest-8399",
+      "repo": "pytest-dev/pytest",
+      "created_at": "2021-03-04T17:52:17Z",
+      "status": "validated_fix",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    },
+    {
+      "source_id": "pytest-dev__pytest-10081",
+      "repo": "pytest-dev/pytest",
+      "created_at": "2022-06-26T13:53:24Z",
+      "status": "validated_fix",
+      "label_origin": "source_task_swebench_tests",
+      "source_run": "r1"
+    }
+  ],
+  "build_inputs": {
+    "memory_source_runs_sha256": "984826707e8f69ad9b900134bd244c6056f2d8860f3036a3606bfc60b4bcb450",
+    "handoff_schema": "sprint5.memory-source-runs.v2",
+    "interim_handoff_sha256": null,
+    "handoffs": [
+      {
+        "schema": "sprint5.memory-source-runs.v2",
+        "sha256": "984826707e8f69ad9b900134bd244c6056f2d8860f3036a3606bfc60b4bcb450"
+      },
+      {
+        "schema": "sprint6.main-b0-runs.v2",
+        "sha256": "fe0f47b8df67730a0335d7109631dc09bc4d6b5d19a601acfec0963f5dcb1f8c"
+      }
+    ]
+  },
+  "omitted_infra_only": []
+}

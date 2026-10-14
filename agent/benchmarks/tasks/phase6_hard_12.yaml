@@ -1,0 +1,84 @@
+tasks:
+  - id: rename_symbol_hard_01
+    issue: Rename normalize_text to clean_text and update symbol usage.
+    repo_path: repos/rename_symbol
+    test_command: python -m pytest tests/ -q
+    expected_files: [app/processor.py]
+    tags: [rename, repeated]
+
+  - id: rename_symbol_hard_02
+    issue: Refactor processor API from normalize_text to clean_text.
+    repo_path: repos/rename_symbol
+    test_command: python -m pytest tests/ -q
+    expected_files: [app/processor.py]
+    tags: [rename, repeated]
+
+  - id: rename_symbol_hard_03
+    issue: Tests expect clean_text symbol, apply cross-file rename.
+    repo_path: repos/rename_symbol
+    test_command: python -m pytest tests/ -q
+    expected_files: [app/processor.py]
+    tags: [rename, repeated]
+
+  - id: update_api_signature_hard_01
+    issue: Update scale API signature to support default factor argument.
+    repo_path: repos/update_api_signature
+    test_command: python -m pytest tests/ -q
+    expected_files: [app/math_api.py]
+    tags: [api, repeated]
+
+  - id: update_api_signature_hard_02
+    issue: Function scale should be callable with one argument.
+    repo_path: repos/update_api_signature
+    test_command: python -m pytest tests/ -q
+    expected_files: [app/math_api.py]
+    tags: [api, repeated]
+
+  - id: update_api_signature_hard_03
+    issue: Adjust API signature and callers for scale in math_api.
+    repo_path: repos/update_api_signature
+    test_command: python -m pytest tests/ -q
+    expected_files: [app/math_api.py]
+    tags: [api, repeated]
+
+  - id: add_regression_test_hard_01
+    issue: Add regression behavior for zero division and fix implementation.
+    repo_path: repos/add_regression_test
+    test_command: python -m pytest tests/ -q
+    expected_files: [app/division.py]
+    tags: [regression, repeated]
+
+  - id: add_regression_test_hard_02
+    issue: "Regression scenario: safe_divide should not raise on denominator zero."
+    repo_path: repos/add_regression_test
+    test_command: python -m pytest tests/ -q
+    expected_files: [app/division.py]
+    tags: [regression, repeated]
+
+  - id: add_regression_test_hard_03
+    issue: Ensure regression case for safe_divide is covered and passing.
+    repo_path: repos/add_regression_test
+    test_command: python -m pytest tests/ -q
+    expected_files: [app/division.py]
+    tags: [regression, repeated]
+
+  - id: parse_pytest_traceback_hard_01
+    issue: Parse pytest traceback and patch normalize_whitespace logic.
+    repo_path: repos/parse_pytest_traceback
+    test_command: python -m pytest tests/ -q
+    expected_files: [app/text_utils.py]
+    tags: [traceback, repeated]
+
+  - id: parse_pytest_traceback_hard_02
+    issue: Fix failing whitespace normalization based on pytest traceback.
+    repo_path: repos/parse_pytest_traceback
+    test_command: python -m pytest tests/ -q
+    expected_files: [app/text_utils.py]
+    tags: [traceback, repeated]
+
+  - id: parse_pytest_traceback_hard_03
+    issue: Use traceback clues to repair text_utils normalize_whitespace.
+    repo_path: repos/parse_pytest_traceback
+    test_command: python -m pytest tests/ -q
+    expected_files: [app/text_utils.py]
+    tags: [traceback, repeated]

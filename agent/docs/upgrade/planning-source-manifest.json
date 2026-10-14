@@ -1,0 +1,530 @@
+{
+  "schema_version": "1.0",
+  "captured_at": "2026-09-18T09:02:28.9212835Z",
+  "purpose": "read-only planning inventory, not a restorable baseline snapshot",
+  "root": "D:\\crq\\src\\coding-agent",
+  "git_available": false,
+  "excluded": [
+    ".env",
+    ".git",
+    ".agents",
+    "benchmarks",
+    "reports",
+    "traces",
+    ".tmp",
+    "PDFs",
+    "caches"
+  ],
+  "files": [
+    {
+      "path": ".gitignore",
+      "bytes": 222,
+      "sha256": "f5d6105d808a026405ed7a7700a82893bb6f130f1ee8e6c4b420180593c97001"
+    },
+    {
+      "path": "configs/default.yaml",
+      "bytes": 362,
+      "sha256": "4721d9ef405079bec9531cb80d81b0a2ad69318d55963f178263300dd1060202"
+    },
+    {
+      "path": "pyproject.toml",
+      "bytes": 1010,
+      "sha256": "4c92867e56945123d359f525564e1b78988021d89fcd1521bffabdd37aff6081"
+    },
+    {
+      "path": "README.md",
+      "bytes": 4770,
+      "sha256": "615e6c618c75c1367766b67f704d3f1202311782ceb688636cfae31fc4977f2a"
+    },
+    {
+      "path": "reposkill_agent/__init__.py",
+      "bytes": 106,
+      "sha256": "8aeefe200f635dd775f70aa795dd0d3ae99f53912bf614680e51a4a230ddc455"
+    },
+    {
+      "path": "reposkill_agent/__main__.py",
+      "bytes": 129,
+      "sha256": "3f9eaf3a9af20754e1565f9f753e214a35186045f462f46abef76da3792e43c9"
+    },
+    {
+      "path": "reposkill_agent/adapters/__init__.py",
+      "bytes": 219,
+      "sha256": "356b5aed647ff4743a1886b9c2ee099913e75f55917aae8e1afe7cde3af1f5b5"
+    },
+    {
+      "path": "reposkill_agent/adapters/base.py",
+      "bytes": 1493,
+      "sha256": "45d258bd4c3344a9e624c1f19ce6c24c0cc988eabae6694ff0d1a3ae87844f4b"
+    },
+    {
+      "path": "reposkill_agent/adapters/fake_adapter.py",
+      "bytes": 7792,
+      "sha256": "f18a836759066afd9967bfd09cb6082aab2205c35bdae8918e4c57c2807e440c"
+    },
+    {
+      "path": "reposkill_agent/adapters/openhands_adapter.py",
+      "bytes": 8488,
+      "sha256": "a11e79a313b3dc5932a3e5fd44bfce415b52f9fbe2b001c24ed35163be01cc5c"
+    },
+    {
+      "path": "reposkill_agent/agents/__init__.py",
+      "bytes": 942,
+      "sha256": "662ed2ffc5d46c9552f7b23c42c6791fb449f45140e2a034d7fe200eed34a494"
+    },
+    {
+      "path": "reposkill_agent/agents/contracts.py",
+      "bytes": 1128,
+      "sha256": "64b91af0ecba92f2e0889b30ae5197d734b0d18ade704dc6168e5a7bd6ce6bae"
+    },
+    {
+      "path": "reposkill_agent/agents/developer.py",
+      "bytes": 5605,
+      "sha256": "bfcc645e0414613f19746f8ca7e8d0da07e423db327d96df6192da8adaf1d863"
+    },
+    {
+      "path": "reposkill_agent/agents/llm_developer.py",
+      "bytes": 13241,
+      "sha256": "c322e8564cc9f85367ce8534ef0090fd9fcd2ae51366de2d1a9333d11a682ea4"
+    },
+    {
+      "path": "reposkill_agent/agents/locator.py",
+      "bytes": 1923,
+      "sha256": "36ec622ed0ce0b3a1a7d4b514fa5e27c8e081dc7e3344f94820c44cda90f58be"
+    },
+    {
+      "path": "reposkill_agent/agents/manager.py",
+      "bytes": 990,
+      "sha256": "8132dba92aa55ce880a786454b3d1123350de23a518f7626d7d79248a4d1b9c0"
+    },
+    {
+      "path": "reposkill_agent/agents/memory_curator.py",
+      "bytes": 682,
+      "sha256": "b819d41a5b12b4519fe2994cc9a21de12cd97827b02f6f2842fd8e29263fa088"
+    },
+    {
+      "path": "reposkill_agent/agents/qa.py",
+      "bytes": 633,
+      "sha256": "940185a587a75b92448f21f2e93ff5620f4e6fedb55ca4974a79e7f4eb95854b"
+    },
+    {
+      "path": "reposkill_agent/baselines/__init__.py",
+      "bytes": 1434,
+      "sha256": "f88d1d164d548671faccd0fc84968b20d2bb548d4b227a9db7ac458fc3eadf6d"
+    },
+    {
+      "path": "reposkill_agent/baselines/aider.py",
+      "bytes": 1256,
+      "sha256": "44c72742fcec20415083c4a96b92d17f1d2ffc71311e057834820702c2d77b2c"
+    },
+    {
+      "path": "reposkill_agent/baselines/contracts.py",
+      "bytes": 1245,
+      "sha256": "cfe86466340f5210e13d5f81931c2643f783ecdb0a107be86f3970fbaf190b60"
+    },
+    {
+      "path": "reposkill_agent/baselines/external_command.py",
+      "bytes": 5687,
+      "sha256": "133cd0c0267bffc79b0b0875b771051d46e5b78950b8c5addb4267565c16d0da"
+    },
+    {
+      "path": "reposkill_agent/baselines/openhands_sdk.py",
+      "bytes": 3318,
+      "sha256": "003d5874d00613631f32194502a6f880ff60796dc1d18034ca6877316324bbd8"
+    },
+    {
+      "path": "reposkill_agent/baselines/swe_agent.py",
+      "bytes": 1248,
+      "sha256": "d3262ce9fd852fb49ec85abfe02bf7acfdd1014e2c8c5a0ff88cd7aac160409b"
+    },
+    {
+      "path": "reposkill_agent/baselines/vanilla_deepseek.py",
+      "bytes": 4929,
+      "sha256": "00a03c8b54599669a391de4f3e3cad8a9f0add709b2bb75dcc486438df354405"
+    },
+    {
+      "path": "reposkill_agent/cli.py",
+      "bytes": 7548,
+      "sha256": "b061126bcd3cd63edaee9704227548d8b701b2433941093d786b0292ed8d9896"
+    },
+    {
+      "path": "reposkill_agent/core/__init__.py",
+      "bytes": 751,
+      "sha256": "033ca98c6fb708ad2a48c0a6b7acdc5565499dfa9d0d2ca3450f0478d4aec538"
+    },
+    {
+      "path": "reposkill_agent/core/context_expansion.py",
+      "bytes": 4238,
+      "sha256": "b35d2377c92398a05c3679bf3f4e06be02a86b4a30436b8912c0919af16844a4"
+    },
+    {
+      "path": "reposkill_agent/core/contracts.py",
+      "bytes": 2904,
+      "sha256": "13dc57643872c8196aa2db4dc9596be2a70705be2ca2896db65526fa5a0b44bf"
+    },
+    {
+      "path": "reposkill_agent/core/planner.py",
+      "bytes": 3344,
+      "sha256": "efb60786069205af63cfde93eecb01aeed2e05456b04a5742d62224666e8a007"
+    },
+    {
+      "path": "reposkill_agent/core/task_graph.py",
+      "bytes": 1332,
+      "sha256": "0770922357f15eec85e6ad7c3e2e8495d98188e69d052d9c75209ca9e4292d4c"
+    },
+    {
+      "path": "reposkill_agent/core/trace.py",
+      "bytes": 1653,
+      "sha256": "c594a72827d02b0943d935419b444c1653c75731b7ebcc28c4870d928735b11c"
+    },
+    {
+      "path": "reposkill_agent/eval/__init__.py",
+      "bytes": 167,
+      "sha256": "5630a6da2a67eef419a9428692febb92cb14db84e2d57122629f18b1950b99fe"
+    },
+    {
+      "path": "reposkill_agent/eval/ablation.py",
+      "bytes": 11748,
+      "sha256": "708893c29ebc62d4fee302900e5fd9e44e747b2f2f1dff867e9090ac29a91f68"
+    },
+    {
+      "path": "reposkill_agent/eval/graph_runner.py",
+      "bytes": 27753,
+      "sha256": "d04d7b31fbbf807c7281f3e768d2a0a6940345b1389a83787abc89642b7e765d"
+    },
+    {
+      "path": "reposkill_agent/eval/injection_policy.py",
+      "bytes": 8956,
+      "sha256": "763ccab360b2a08be7f11c9f719c65670125096cec86700bd7e6d2b083add940"
+    },
+    {
+      "path": "reposkill_agent/eval/llm_ablation.py",
+      "bytes": 19443,
+      "sha256": "72f56a3903956bc6fce963c617d064599caf60d2ecef14f51121fc25219c34f1"
+    },
+    {
+      "path": "reposkill_agent/eval/report.py",
+      "bytes": 7014,
+      "sha256": "e7b66bdd0f957bad6baca35d835f97f660412772ee02db8d79a5ca4bd8a556e9"
+    },
+    {
+      "path": "reposkill_agent/eval/runner.py",
+      "bytes": 4592,
+      "sha256": "f0934da56cb66da6ee5dd6105f7480413f9049f1ae368528759e8429285eeb1d"
+    },
+    {
+      "path": "reposkill_agent/eval/scripted_fixes.py",
+      "bytes": 1359,
+      "sha256": "f46eb7b21a9fb685064030318c9a9d54d151ebff72a2b3a2364740565d5263e1"
+    },
+    {
+      "path": "reposkill_agent/eval/task_category.py",
+      "bytes": 690,
+      "sha256": "1acfe0dac06da5a82d4bdb898cfbbe21e742af52bf02e322ea4e73a049c7eabf"
+    },
+    {
+      "path": "reposkill_agent/eval/task_spec.py",
+      "bytes": 1448,
+      "sha256": "50506f4a3f81975b46c8bf54b1c3d4c4728b04e1a498a3804c26239c2e0793b8"
+    },
+    {
+      "path": "reposkill_agent/llm/__init__.py",
+      "bytes": 848,
+      "sha256": "882ca241c6f60762680250eab9ef0da85b6b675950a3cc90650000731cb30edd"
+    },
+    {
+      "path": "reposkill_agent/llm/client.py",
+      "bytes": 7516,
+      "sha256": "380af803d3c76ee178e2309c729a901996961e62b0512ab6e12ae1c2c5f2d54a"
+    },
+    {
+      "path": "reposkill_agent/llm/prompts.py",
+      "bytes": 5438,
+      "sha256": "2c0e40191f7eccbb3b43d6569b45ae0e430730f005fc7eac6ea04a0a571bafe7"
+    },
+    {
+      "path": "reposkill_agent/llm/schemas.py",
+      "bytes": 548,
+      "sha256": "2fd2921e02cddc0c71796e38cb1ba46bbfd2500820da0c1368fc292fd1f25b6f"
+    },
+    {
+      "path": "reposkill_agent/memory/__init__.py",
+      "bytes": 724,
+      "sha256": "9c53a2a6688bd6d72753bf363d21d51a7de085b16fa66d7c6efb815806b8fe34"
+    },
+    {
+      "path": "reposkill_agent/memory/consolidator.py",
+      "bytes": 4655,
+      "sha256": "c92e2d615c61eff1a17fed6e0c116397168c30b465054417c159b89e3a967e74"
+    },
+    {
+      "path": "reposkill_agent/memory/episodic.py",
+      "bytes": 2811,
+      "sha256": "d616627655ce116d249084fff07f0c25d747a5495770872b53cbbbe6ab693e36"
+    },
+    {
+      "path": "reposkill_agent/memory/matching.py",
+      "bytes": 4733,
+      "sha256": "8a3e7c814f138775a07612184378f18298fa9a6c54e105a165238438e10cbcdd"
+    },
+    {
+      "path": "reposkill_agent/memory/models.py",
+      "bytes": 1434,
+      "sha256": "1a03d3516fec1cb32abc0b0595275ed7fc279ba852d9ba7cd2bce25285763194"
+    },
+    {
+      "path": "reposkill_agent/memory/procedural.py",
+      "bytes": 1354,
+      "sha256": "722958769553e8b9a5cae6295da3a64c808ddd99bbe99694a4b2bc5eec8a4f27"
+    },
+    {
+      "path": "reposkill_agent/memory/repo_profile.py",
+      "bytes": 1761,
+      "sha256": "cb0655ba9d0bb9b6fdaa51e3d8715d656b1fb0f7ac5a4a555da8ee68c8ee392f"
+    },
+    {
+      "path": "reposkill_agent/memory/retriever.py",
+      "bytes": 7580,
+      "sha256": "65f285815d44c5cc8928b0f0ee587809d768cbc474b6b4ea64497d454faf3f11"
+    },
+    {
+      "path": "reposkill_agent/skills/__init__.py",
+      "bytes": 445,
+      "sha256": "73c4273444e5d0f1cdac742a98fde7d830c9ceb6cefd2feb27429e5f24531866"
+    },
+    {
+      "path": "reposkill_agent/skills/domain.py",
+      "bytes": 1771,
+      "sha256": "ce449f585871cf42407796d88ed6d7b0173636010750f46385154c6d7248d1b6"
+    },
+    {
+      "path": "reposkill_agent/skills/library/add_regression_test.md",
+      "bytes": 713,
+      "sha256": "de4067fd3862b60a3f6dd3eb2f33fccd9d74741b92e5ba577d61494a57944040"
+    },
+    {
+      "path": "reposkill_agent/skills/library/config_precedence_merge.md",
+      "bytes": 813,
+      "sha256": "ef1af313b69befd49b19002c61053e0831788efd8e4832d5d5df077178df8233"
+    },
+    {
+      "path": "reposkill_agent/skills/library/event_serializer_compat.md",
+      "bytes": 837,
+      "sha256": "8a4bde6f78fa4494c1341b3515397a2c9c7b946da9d31e1a2b55eb1dab35feee"
+    },
+    {
+      "path": "reposkill_agent/skills/library/fix_import_error.md",
+      "bytes": 725,
+      "sha256": "5a98f6d8a3ef347f792ee2e75d7a2cbb8fcb5697f861d499f85734106465f96a"
+    },
+    {
+      "path": "reposkill_agent/skills/library/handler_registry_api.md",
+      "bytes": 777,
+      "sha256": "f63cc8d25647196dc04eb73108f0ae3ff8d2ff2e421f4c7274f3c657fae16cff"
+    },
+    {
+      "path": "reposkill_agent/skills/library/inspect_pytest_traceback.md",
+      "bytes": 700,
+      "sha256": "6c620618989e1acb161eed7302783e59be886d41ebd1287c5758bf6383834657"
+    },
+    {
+      "path": "reposkill_agent/skills/library/inventory_tax_api.md",
+      "bytes": 979,
+      "sha256": "5646665367ab8192442d7b40ab819ff4c695922a157b56db5d00298346b69048"
+    },
+    {
+      "path": "reposkill_agent/skills/library/multi_file_api_migration.md",
+      "bytes": 881,
+      "sha256": "dd01678b59fc8cf684821ba204b1aca0e6f6352e38b20eced327974176e88f37"
+    },
+    {
+      "path": "reposkill_agent/skills/library/rename_symbol_across_files.md",
+      "bytes": 744,
+      "sha256": "bae5f71ec9acf05eee4f55fd9d3dccfa9ac2483b48a2e2f07d641798dfe8e030"
+    },
+    {
+      "path": "reposkill_agent/skills/library/repo_result_convention.md",
+      "bytes": 784,
+      "sha256": "a3330f84492095660405567f5596fed6587b99393a323d04dfb47a65af36d43d"
+    },
+    {
+      "path": "reposkill_agent/skills/library/retry_policy_semantics.md",
+      "bytes": 817,
+      "sha256": "c7801ded1a349a6fc5eba9155146e3bf53ba1ae208b85fa0b7139eeafbf7fa73"
+    },
+    {
+      "path": "reposkill_agent/skills/library/update_api_signature.md",
+      "bytes": 683,
+      "sha256": "195c394c0e85bb9a986f591a4c78923c5882bd2a9b26905199cf2edf208ebdda"
+    },
+    {
+      "path": "reposkill_agent/skills/models.py",
+      "bytes": 2047,
+      "sha256": "83835b4aff16ade78525988fb1b1a5045b52e85ce1fe51aefb18e52c1bb3dc73"
+    },
+    {
+      "path": "reposkill_agent/skills/registry.py",
+      "bytes": 2604,
+      "sha256": "b6f83acd989fbe71d1936a0f424f0868b29f3cf9296a5a50c2a14efa4822bed3"
+    },
+    {
+      "path": "reposkill_agent/skills/retriever.py",
+      "bytes": 1932,
+      "sha256": "7d1bb218caf3c27d340c0c75454155d6d6ba5466373f0413e80cf6368d0420b4"
+    },
+    {
+      "path": "reposkill_agent/skills/validator.py",
+      "bytes": 5908,
+      "sha256": "2c273568b110da6005116bfd3b58070ab148648bb1d8edbec8e3ea56a73b8017"
+    },
+    {
+      "path": "scripts/run_baseline.py",
+      "bytes": 979,
+      "sha256": "824c0aecc8e8b2a478542ea3c6f3221fbd8535fb68ac024a2041234421cb4aef"
+    },
+    {
+      "path": "scripts/run_external_baselines.py",
+      "bytes": 5454,
+      "sha256": "95cc4e0fd0337d4536c531a0a269f9d80bb1277ed1bb20a49c2bfef67476779b"
+    },
+    {
+      "path": "scripts/run_graph.py",
+      "bytes": 1075,
+      "sha256": "f95066d1a24b045b5bf40b6b8b449368017749d43bf32f3dca703367e2adfd2c"
+    },
+    {
+      "path": "scripts/run_llm_ablation.py",
+      "bytes": 5169,
+      "sha256": "fca89197f687b3c4105bbf793919d24e8267c3693955cff498cc732499805520"
+    },
+    {
+      "path": "scripts/run_mechanism_smoke.py",
+      "bytes": 742,
+      "sha256": "34742161c8205b1075e16784d3eaed9ab5bea1ea50f75316c30a7025f15682ed"
+    },
+    {
+      "path": "scripts/run_memory_ablation.py",
+      "bytes": 5848,
+      "sha256": "adf27abf19cf96e6f842a3121da2053a030dbebcfe8cdca7b0d09c3fdac80209"
+    },
+    {
+      "path": "scripts/run_phase6_ablation.py",
+      "bytes": 1949,
+      "sha256": "406ee92e7bda7b60f25f0600ef99597d4bfd031214ab39e43b1d626270384b17"
+    },
+    {
+      "path": "tests/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "tests/test_ablation.py",
+      "bytes": 2181,
+      "sha256": "a290a3366469e7671abd785b0a3d6a3e57ca24155ba3d69e41a860af688e4064"
+    },
+    {
+      "path": "tests/test_agents.py",
+      "bytes": 2445,
+      "sha256": "0112cf1a39a8a0e29f44620351c2e2b1457cbd280f033e30738fad299ac3d0cb"
+    },
+    {
+      "path": "tests/test_baseline_runner.py",
+      "bytes": 1181,
+      "sha256": "72f7e7a233c4a6a0a76dd959cdaba90edb7d11b8f6f93ea8a3720b77123a36d4"
+    },
+    {
+      "path": "tests/test_cli.py",
+      "bytes": 1115,
+      "sha256": "cb3d60cc56c65103606211dfbd407dc65e073169b95e96a7fd99df5062efbbbd"
+    },
+    {
+      "path": "tests/test_context_expansion.py",
+      "bytes": 6752,
+      "sha256": "d20e528a9cba9b4b3a0eeae4fe16050ec3f9bedafe9a107024234027da1d6d7d"
+    },
+    {
+      "path": "tests/test_contracts.py",
+      "bytes": 854,
+      "sha256": "7da4b67cb9ee52cdaaf3c56208e8060d898eae5f46eaccd56a027a2b314d0758"
+    },
+    {
+      "path": "tests/test_external_baselines.py",
+      "bytes": 3269,
+      "sha256": "6f7b651b4914145a71b196d0d86b6e5c74fa878a533db69cb88f992c0ff30693"
+    },
+    {
+      "path": "tests/test_fake_adapter.py",
+      "bytes": 1771,
+      "sha256": "40a06e104d97eca4895fa847df265d2bda89091c5f256c023dbcfa3d8173292a"
+    },
+    {
+      "path": "tests/test_graph_runner.py",
+      "bytes": 2092,
+      "sha256": "27190230b5386e632fa1726a36ccc0c44ff8550bc2c14cbd7d23b790e0cdd243"
+    },
+    {
+      "path": "tests/test_injection_policy.py",
+      "bytes": 7143,
+      "sha256": "fcb068bbb8112dd0cf6f4c69aa487b7450e0e742b4baf5144b21f1f0cb2d9e3d"
+    },
+    {
+      "path": "tests/test_llm_ablation.py",
+      "bytes": 2424,
+      "sha256": "f494a4d5469107c8ff8113109e2ecc8f5814e91d3f474c748a1a5103bf66a6c7"
+    },
+    {
+      "path": "tests/test_llm_call_state.py",
+      "bytes": 1311,
+      "sha256": "7aaf561d6b3be019914959fa3a29366f23772bb8143a4c0ff8e12e6a61c12504"
+    },
+    {
+      "path": "tests/test_llm_client.py",
+      "bytes": 2286,
+      "sha256": "91b4f8f2fa97be16d187144a98d890df33eaaf6ec032c4991016b006ff6adac3"
+    },
+    {
+      "path": "tests/test_llm_developer.py",
+      "bytes": 5932,
+      "sha256": "24c3313deb8ec2b3cf3a34596c1bfb910d3370d603bd939b7edca6522ca02101"
+    },
+    {
+      "path": "tests/test_mechanism_smoke.py",
+      "bytes": 8386,
+      "sha256": "5ab3c3ba4f7e6c78bdfafbaaac282e4ef3c38f0cc17b5452f250c2640df8616f"
+    },
+    {
+      "path": "tests/test_memory_matching.py",
+      "bytes": 2508,
+      "sha256": "62298f0163d880973acae095c905a80fc9f5c2babb98635a7a000673d16ae5e0"
+    },
+    {
+      "path": "tests/test_memory.py",
+      "bytes": 2206,
+      "sha256": "6408ead98376912acb2b3f28527506f76023d140294f27ccb1f3a355452062d3"
+    },
+    {
+      "path": "tests/test_phase7_benchmark.py",
+      "bytes": 5431,
+      "sha256": "e66b748e0cda7cd58399eacc2cbc73167d1d867a60f04505c870cf74a5d51b5d"
+    },
+    {
+      "path": "tests/test_planner.py",
+      "bytes": 1011,
+      "sha256": "6aa62a11f0dd7fc832fbd6a737c6a529e1708db0de9f65b09eeffd5c5ad3dadc"
+    },
+    {
+      "path": "tests/test_skill_domain.py",
+      "bytes": 2627,
+      "sha256": "374d131576c3c6e5bad8a17ed8847f2d2ec7230de29fd7b5e621302ca91c2729"
+    },
+    {
+      "path": "tests/test_skill_memory_v2.py",
+      "bytes": 10228,
+      "sha256": "ce4a144da749b4a7afec98ab1f119837a6c010d48ca3567a5b97ecd01d09238d"
+    },
+    {
+      "path": "tests/test_skills.py",
+      "bytes": 4639,
+      "sha256": "898da922c594810678198fbdd453f7d9a524a6005258ab5031a59ea704e8e72b"
+    }
+  ]
+}

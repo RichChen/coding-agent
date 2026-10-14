@@ -1,0 +1,794 @@
+{
+  "run_id": "20260703_060414",
+  "generated_at": "2026-07-03T06:07:53.746923+00:00",
+  "task_count": 3,
+  "repeats": 1,
+  "seed": 42,
+  "seed_memory": false,
+  "eval_layer": "llm_mechanism",
+  "mock_llm": false,
+  "results": {
+    "L0_llm_single": {
+      "config": {
+        "planner": false,
+        "multi_agent": false,
+        "skill": false,
+        "memory": false,
+        "developer": "llm"
+      },
+      "rows": [
+        {
+          "task_id": "rename_symbol_hard_02",
+          "category": "rename",
+          "success": true,
+          "steps": 2,
+          "wall_time_ms": 17086.290499995812,
+          "replan_count": 0,
+          "llm_call_count": 1,
+          "llm_parse_error_count": 0,
+          "llm_patch_rejected_count": 0,
+          "llm_patch_applied_count": 1,
+          "llm_prompt_tokens_estimate": 303,
+          "llm_completion_tokens_estimate": 899,
+          "llm_wall_time_ms": 16304.032799991546,
+          "llm_error_type": "",
+          "skill_negative_transfer_count": 0,
+          "memory_useful_count": 0,
+          "failure_type": "success"
+        },
+        {
+          "task_id": "rename_symbol_hard_01",
+          "category": "rename",
+          "success": false,
+          "steps": 2,
+          "wall_time_ms": 17186.76759999653,
+          "replan_count": 0,
+          "llm_call_count": 1,
+          "llm_parse_error_count": 0,
+          "llm_patch_rejected_count": 0,
+          "llm_patch_applied_count": 0,
+          "llm_prompt_tokens_estimate": 304,
+          "llm_completion_tokens_estimate": 878,
+          "llm_wall_time_ms": 16234.46760000661,
+          "llm_error_type": "needs_more_context",
+          "skill_negative_transfer_count": 0,
+          "memory_useful_count": 0,
+          "failure_type": "test_failure"
+        },
+        {
+          "task_id": "rename_symbol_hard_03",
+          "category": "rename",
+          "success": true,
+          "steps": 2,
+          "wall_time_ms": 9334.361900007934,
+          "replan_count": 0,
+          "llm_call_count": 1,
+          "llm_parse_error_count": 0,
+          "llm_patch_rejected_count": 0,
+          "llm_patch_applied_count": 1,
+          "llm_prompt_tokens_estimate": 303,
+          "llm_completion_tokens_estimate": 503,
+          "llm_wall_time_ms": 8556.028799997875,
+          "llm_error_type": "",
+          "skill_negative_transfer_count": 0,
+          "memory_useful_count": 0,
+          "failure_type": "success"
+        }
+      ],
+      "aggregate": {
+        "success_rate": 0.6666666666666666,
+        "avg_steps": 2,
+        "avg_wall_time_ms": 14535.806666666758,
+        "avg_replan_count": 0,
+        "llm_call_total": 3,
+        "llm_parse_error_total": 0,
+        "llm_patch_rejected_total": 0,
+        "llm_patch_applied_total": 2,
+        "llm_prompt_tokens_total": 910,
+        "llm_completion_tokens_total": 2280,
+        "llm_wall_time_ms_total": 41094.52919999603,
+        "skill_negative_transfer_total": 0,
+        "memory_useful_total": 0,
+        "failure_taxonomy_distribution": {
+          "success": 2,
+          "test_failure": 1
+        },
+        "by_category": {
+          "rename": {
+            "tasks": 3,
+            "success_rate": 0.6666666666666666,
+            "avg_steps": 2,
+            "main_failure": "success"
+          }
+        }
+      },
+      "repeat_aggregates": [
+        {
+          "success_rate": 0.6666666666666666,
+          "avg_steps": 2,
+          "avg_wall_time_ms": 14535.806666666758,
+          "avg_replan_count": 0,
+          "llm_call_total": 3,
+          "llm_parse_error_total": 0,
+          "llm_patch_rejected_total": 0,
+          "llm_patch_applied_total": 2,
+          "llm_prompt_tokens_total": 910,
+          "llm_completion_tokens_total": 2280,
+          "llm_wall_time_ms_total": 41094.52919999603,
+          "skill_negative_transfer_total": 0,
+          "memory_useful_total": 0,
+          "failure_taxonomy_distribution": {
+            "success": 2,
+            "test_failure": 1
+          },
+          "by_category": {
+            "rename": {
+              "tasks": 3,
+              "success_rate": 0.6666666666666666,
+              "avg_steps": 2,
+              "main_failure": "success"
+            }
+          }
+        }
+      ],
+      "variance": {
+        "success_rate_std": 0.0,
+        "avg_steps_std": 0.0,
+        "avg_replan_count_std": 0.0
+      }
+    },
+    "L1_llm_planner": {
+      "config": {
+        "planner": true,
+        "multi_agent": false,
+        "skill": false,
+        "memory": false,
+        "developer": "llm"
+      },
+      "rows": [
+        {
+          "task_id": "rename_symbol_hard_02",
+          "category": "rename",
+          "success": true,
+          "steps": 5,
+          "wall_time_ms": 10228.874699998414,
+          "replan_count": 0,
+          "llm_call_count": 1,
+          "llm_parse_error_count": 0,
+          "llm_patch_rejected_count": 0,
+          "llm_patch_applied_count": 1,
+          "llm_prompt_tokens_estimate": 311,
+          "llm_completion_tokens_estimate": 593,
+          "llm_wall_time_ms": 9428.0,
+          "llm_error_type": "",
+          "skill_negative_transfer_count": 0,
+          "memory_useful_count": 0,
+          "failure_type": "success"
+        },
+        {
+          "task_id": "rename_symbol_hard_01",
+          "category": "rename",
+          "success": false,
+          "steps": 6,
+          "wall_time_ms": 18452.86259999557,
+          "replan_count": 1,
+          "llm_call_count": 1,
+          "llm_parse_error_count": 0,
+          "llm_patch_rejected_count": 0,
+          "llm_patch_applied_count": 0,
+          "llm_prompt_tokens_estimate": 312,
+          "llm_completion_tokens_estimate": 940,
+          "llm_wall_time_ms": 18434.0,
+          "llm_error_type": "llm_call_budget_exceeded",
+          "skill_negative_transfer_count": 0,
+          "memory_useful_count": 0,
+          "failure_type": "test_failure"
+        },
+        {
+          "task_id": "rename_symbol_hard_03",
+          "category": "rename",
+          "success": false,
+          "steps": 6,
+          "wall_time_ms": 13.235400008852594,
+          "replan_count": 1,
+          "llm_call_count": 0,
+          "llm_parse_error_count": 0,
+          "llm_patch_rejected_count": 0,
+          "llm_patch_applied_count": 0,
+          "llm_prompt_tokens_estimate": 0,
+          "llm_completion_tokens_estimate": 0,
+          "llm_wall_time_ms": 0.0,
+          "llm_error_type": "llm_call_budget_exceeded",
+          "skill_negative_transfer_count": 0,
+          "memory_useful_count": 0,
+          "failure_type": "test_failure"
+        }
+      ],
+      "aggregate": {
+        "success_rate": 0.3333333333333333,
+        "avg_steps": 5.666666666666667,
+        "avg_wall_time_ms": 9564.990900000945,
+        "avg_replan_count": 0.6666666666666666,
+        "llm_call_total": 2,
+        "llm_parse_error_total": 0,
+        "llm_patch_rejected_total": 0,
+        "llm_patch_applied_total": 1,
+        "llm_prompt_tokens_total": 623,
+        "llm_completion_tokens_total": 1533,
+        "llm_wall_time_ms_total": 27862.0,
+        "skill_negative_transfer_total": 0,
+        "memory_useful_total": 0,
+        "failure_taxonomy_distribution": {
+          "success": 1,
+          "test_failure": 2
+        },
+        "by_category": {
+          "rename": {
+            "tasks": 3,
+            "success_rate": 0.3333333333333333,
+            "avg_steps": 5.666666666666667,
+            "main_failure": "test_failure"
+          }
+        }
+      },
+      "repeat_aggregates": [
+        {
+          "success_rate": 0.3333333333333333,
+          "avg_steps": 5.666666666666667,
+          "avg_wall_time_ms": 9564.990900000945,
+          "avg_replan_count": 0.6666666666666666,
+          "llm_call_total": 2,
+          "llm_parse_error_total": 0,
+          "llm_patch_rejected_total": 0,
+          "llm_patch_applied_total": 1,
+          "llm_prompt_tokens_total": 623,
+          "llm_completion_tokens_total": 1533,
+          "llm_wall_time_ms_total": 27862.0,
+          "skill_negative_transfer_total": 0,
+          "memory_useful_total": 0,
+          "failure_taxonomy_distribution": {
+            "success": 1,
+            "test_failure": 2
+          },
+          "by_category": {
+            "rename": {
+              "tasks": 3,
+              "success_rate": 0.3333333333333333,
+              "avg_steps": 5.666666666666667,
+              "main_failure": "test_failure"
+            }
+          }
+        }
+      ],
+      "variance": {
+        "success_rate_std": 0.0,
+        "avg_steps_std": 0.0,
+        "avg_replan_count_std": 0.0
+      }
+    },
+    "L2_llm_multi": {
+      "config": {
+        "planner": true,
+        "multi_agent": true,
+        "skill": false,
+        "memory": false,
+        "developer": "llm"
+      },
+      "rows": [
+        {
+          "task_id": "rename_symbol_hard_02",
+          "category": "rename",
+          "success": true,
+          "steps": 5,
+          "wall_time_ms": 6017.8888000082225,
+          "replan_count": 0,
+          "llm_call_count": 1,
+          "llm_parse_error_count": 0,
+          "llm_patch_rejected_count": 0,
+          "llm_patch_applied_count": 1,
+          "llm_prompt_tokens_estimate": 311,
+          "llm_completion_tokens_estimate": 308,
+          "llm_wall_time_ms": 5229.0,
+          "llm_error_type": "",
+          "skill_negative_transfer_count": 0,
+          "memory_useful_count": 0,
+          "failure_type": "success"
+        },
+        {
+          "task_id": "rename_symbol_hard_01",
+          "category": "rename",
+          "success": false,
+          "steps": 6,
+          "wall_time_ms": 25049.38170000969,
+          "replan_count": 1,
+          "llm_call_count": 1,
+          "llm_parse_error_count": 0,
+          "llm_patch_rejected_count": 0,
+          "llm_patch_applied_count": 0,
+          "llm_prompt_tokens_estimate": 312,
+          "llm_completion_tokens_estimate": 1272,
+          "llm_wall_time_ms": 25032.0,
+          "llm_error_type": "llm_call_budget_exceeded",
+          "skill_negative_transfer_count": 0,
+          "memory_useful_count": 0,
+          "failure_type": "test_failure"
+        },
+        {
+          "task_id": "rename_symbol_hard_03",
+          "category": "rename",
+          "success": false,
+          "steps": 6,
+          "wall_time_ms": 14.357399995788,
+          "replan_count": 1,
+          "llm_call_count": 0,
+          "llm_parse_error_count": 0,
+          "llm_patch_rejected_count": 0,
+          "llm_patch_applied_count": 0,
+          "llm_prompt_tokens_estimate": 0,
+          "llm_completion_tokens_estimate": 0,
+          "llm_wall_time_ms": 0.0,
+          "llm_error_type": "llm_call_budget_exceeded",
+          "skill_negative_transfer_count": 0,
+          "memory_useful_count": 0,
+          "failure_type": "test_failure"
+        }
+      ],
+      "aggregate": {
+        "success_rate": 0.3333333333333333,
+        "avg_steps": 5.666666666666667,
+        "avg_wall_time_ms": 10360.5426333379,
+        "avg_replan_count": 0.6666666666666666,
+        "llm_call_total": 2,
+        "llm_parse_error_total": 0,
+        "llm_patch_rejected_total": 0,
+        "llm_patch_applied_total": 1,
+        "llm_prompt_tokens_total": 623,
+        "llm_completion_tokens_total": 1580,
+        "llm_wall_time_ms_total": 30261.0,
+        "skill_negative_transfer_total": 0,
+        "memory_useful_total": 0,
+        "failure_taxonomy_distribution": {
+          "success": 1,
+          "test_failure": 2
+        },
+        "by_category": {
+          "rename": {
+            "tasks": 3,
+            "success_rate": 0.3333333333333333,
+            "avg_steps": 5.666666666666667,
+            "main_failure": "test_failure"
+          }
+        }
+      },
+      "repeat_aggregates": [
+        {
+          "success_rate": 0.3333333333333333,
+          "avg_steps": 5.666666666666667,
+          "avg_wall_time_ms": 10360.5426333379,
+          "avg_replan_count": 0.6666666666666666,
+          "llm_call_total": 2,
+          "llm_parse_error_total": 0,
+          "llm_patch_rejected_total": 0,
+          "llm_patch_applied_total": 1,
+          "llm_prompt_tokens_total": 623,
+          "llm_completion_tokens_total": 1580,
+          "llm_wall_time_ms_total": 30261.0,
+          "skill_negative_transfer_total": 0,
+          "memory_useful_total": 0,
+          "failure_taxonomy_distribution": {
+            "success": 1,
+            "test_failure": 2
+          },
+          "by_category": {
+            "rename": {
+              "tasks": 3,
+              "success_rate": 0.3333333333333333,
+              "avg_steps": 5.666666666666667,
+              "main_failure": "test_failure"
+            }
+          }
+        }
+      ],
+      "variance": {
+        "success_rate_std": 0.0,
+        "avg_steps_std": 0.0,
+        "avg_replan_count_std": 0.0
+      }
+    },
+    "L3_llm_skill": {
+      "config": {
+        "planner": true,
+        "multi_agent": true,
+        "skill": true,
+        "memory": false,
+        "developer": "llm"
+      },
+      "rows": [
+        {
+          "task_id": "rename_symbol_hard_02",
+          "category": "rename",
+          "success": true,
+          "steps": 5,
+          "wall_time_ms": 12947.046199988108,
+          "replan_count": 0,
+          "llm_call_count": 1,
+          "llm_parse_error_count": 0,
+          "llm_patch_rejected_count": 0,
+          "llm_patch_applied_count": 1,
+          "llm_prompt_tokens_estimate": 311,
+          "llm_completion_tokens_estimate": 663,
+          "llm_wall_time_ms": 12177.0,
+          "llm_error_type": "",
+          "skill_negative_transfer_count": 0,
+          "memory_useful_count": 0,
+          "failure_type": "success"
+        },
+        {
+          "task_id": "rename_symbol_hard_01",
+          "category": "rename",
+          "success": true,
+          "steps": 5,
+          "wall_time_ms": 23224.264599994058,
+          "replan_count": 0,
+          "llm_call_count": 1,
+          "llm_parse_error_count": 0,
+          "llm_patch_rejected_count": 0,
+          "llm_patch_applied_count": 1,
+          "llm_prompt_tokens_estimate": 392,
+          "llm_completion_tokens_estimate": 1137,
+          "llm_wall_time_ms": 22446.0,
+          "llm_error_type": "",
+          "skill_negative_transfer_count": 0,
+          "memory_useful_count": 0,
+          "failure_type": "success"
+        },
+        {
+          "task_id": "rename_symbol_hard_03",
+          "category": "rename",
+          "success": false,
+          "steps": 6,
+          "wall_time_ms": 14.549900006386451,
+          "replan_count": 1,
+          "llm_call_count": 0,
+          "llm_parse_error_count": 0,
+          "llm_patch_rejected_count": 0,
+          "llm_patch_applied_count": 0,
+          "llm_prompt_tokens_estimate": 0,
+          "llm_completion_tokens_estimate": 0,
+          "llm_wall_time_ms": 0.0,
+          "llm_error_type": "llm_call_budget_exceeded",
+          "skill_negative_transfer_count": 1,
+          "memory_useful_count": 0,
+          "failure_type": "test_failure"
+        }
+      ],
+      "aggregate": {
+        "success_rate": 0.6666666666666666,
+        "avg_steps": 5.333333333333333,
+        "avg_wall_time_ms": 12061.95356666285,
+        "avg_replan_count": 0.3333333333333333,
+        "llm_call_total": 2,
+        "llm_parse_error_total": 0,
+        "llm_patch_rejected_total": 0,
+        "llm_patch_applied_total": 2,
+        "llm_prompt_tokens_total": 703,
+        "llm_completion_tokens_total": 1800,
+        "llm_wall_time_ms_total": 34623.0,
+        "skill_negative_transfer_total": 1,
+        "memory_useful_total": 0,
+        "failure_taxonomy_distribution": {
+          "success": 2,
+          "test_failure": 1
+        },
+        "by_category": {
+          "rename": {
+            "tasks": 3,
+            "success_rate": 0.6666666666666666,
+            "avg_steps": 5.333333333333333,
+            "main_failure": "success"
+          }
+        }
+      },
+      "repeat_aggregates": [
+        {
+          "success_rate": 0.6666666666666666,
+          "avg_steps": 5.333333333333333,
+          "avg_wall_time_ms": 12061.95356666285,
+          "avg_replan_count": 0.3333333333333333,
+          "llm_call_total": 2,
+          "llm_parse_error_total": 0,
+          "llm_patch_rejected_total": 0,
+          "llm_patch_applied_total": 2,
+          "llm_prompt_tokens_total": 703,
+          "llm_completion_tokens_total": 1800,
+          "llm_wall_time_ms_total": 34623.0,
+          "skill_negative_transfer_total": 1,
+          "memory_useful_total": 0,
+          "failure_taxonomy_distribution": {
+            "success": 2,
+            "test_failure": 1
+          },
+          "by_category": {
+            "rename": {
+              "tasks": 3,
+              "success_rate": 0.6666666666666666,
+              "avg_steps": 5.333333333333333,
+              "main_failure": "success"
+            }
+          }
+        }
+      ],
+      "variance": {
+        "success_rate_std": 0.0,
+        "avg_steps_std": 0.0,
+        "avg_replan_count_std": 0.0
+      }
+    },
+    "L4_llm_memory": {
+      "config": {
+        "planner": true,
+        "multi_agent": true,
+        "skill": false,
+        "memory": true,
+        "developer": "llm"
+      },
+      "rows": [
+        {
+          "task_id": "rename_symbol_hard_02",
+          "category": "rename",
+          "success": true,
+          "steps": 5,
+          "wall_time_ms": 8679.147799994098,
+          "replan_count": 0,
+          "llm_call_count": 1,
+          "llm_parse_error_count": 0,
+          "llm_patch_rejected_count": 0,
+          "llm_patch_applied_count": 1,
+          "llm_prompt_tokens_estimate": 311,
+          "llm_completion_tokens_estimate": 509,
+          "llm_wall_time_ms": 7917.0,
+          "llm_error_type": "",
+          "skill_negative_transfer_count": 0,
+          "memory_useful_count": 0,
+          "failure_type": "success"
+        },
+        {
+          "task_id": "rename_symbol_hard_01",
+          "category": "rename",
+          "success": true,
+          "steps": 5,
+          "wall_time_ms": 27056.53390000225,
+          "replan_count": 0,
+          "llm_call_count": 1,
+          "llm_parse_error_count": 0,
+          "llm_patch_rejected_count": 0,
+          "llm_patch_applied_count": 1,
+          "llm_prompt_tokens_estimate": 422,
+          "llm_completion_tokens_estimate": 1267,
+          "llm_wall_time_ms": 26264.0,
+          "llm_error_type": "",
+          "skill_negative_transfer_count": 0,
+          "memory_useful_count": 1,
+          "failure_type": "success"
+        },
+        {
+          "task_id": "rename_symbol_hard_03",
+          "category": "rename",
+          "success": false,
+          "steps": 6,
+          "wall_time_ms": 14.9161000008462,
+          "replan_count": 1,
+          "llm_call_count": 0,
+          "llm_parse_error_count": 0,
+          "llm_patch_rejected_count": 0,
+          "llm_patch_applied_count": 0,
+          "llm_prompt_tokens_estimate": 0,
+          "llm_completion_tokens_estimate": 0,
+          "llm_wall_time_ms": 0.0,
+          "llm_error_type": "llm_call_budget_exceeded",
+          "skill_negative_transfer_count": 0,
+          "memory_useful_count": 0,
+          "failure_type": "test_failure"
+        }
+      ],
+      "aggregate": {
+        "success_rate": 0.6666666666666666,
+        "avg_steps": 5.333333333333333,
+        "avg_wall_time_ms": 11916.865933332398,
+        "avg_replan_count": 0.3333333333333333,
+        "llm_call_total": 2,
+        "llm_parse_error_total": 0,
+        "llm_patch_rejected_total": 0,
+        "llm_patch_applied_total": 2,
+        "llm_prompt_tokens_total": 733,
+        "llm_completion_tokens_total": 1776,
+        "llm_wall_time_ms_total": 34181.0,
+        "skill_negative_transfer_total": 0,
+        "memory_useful_total": 1,
+        "failure_taxonomy_distribution": {
+          "success": 2,
+          "test_failure": 1
+        },
+        "by_category": {
+          "rename": {
+            "tasks": 3,
+            "success_rate": 0.6666666666666666,
+            "avg_steps": 5.333333333333333,
+            "main_failure": "success"
+          }
+        }
+      },
+      "repeat_aggregates": [
+        {
+          "success_rate": 0.6666666666666666,
+          "avg_steps": 5.333333333333333,
+          "avg_wall_time_ms": 11916.865933332398,
+          "avg_replan_count": 0.3333333333333333,
+          "llm_call_total": 2,
+          "llm_parse_error_total": 0,
+          "llm_patch_rejected_total": 0,
+          "llm_patch_applied_total": 2,
+          "llm_prompt_tokens_total": 733,
+          "llm_completion_tokens_total": 1776,
+          "llm_wall_time_ms_total": 34181.0,
+          "skill_negative_transfer_total": 0,
+          "memory_useful_total": 1,
+          "failure_taxonomy_distribution": {
+            "success": 2,
+            "test_failure": 1
+          },
+          "by_category": {
+            "rename": {
+              "tasks": 3,
+              "success_rate": 0.6666666666666666,
+              "avg_steps": 5.333333333333333,
+              "main_failure": "success"
+            }
+          }
+        }
+      ],
+      "variance": {
+        "success_rate_std": 0.0,
+        "avg_steps_std": 0.0,
+        "avg_replan_count_std": 0.0
+      }
+    },
+    "L5_llm_full": {
+      "config": {
+        "planner": true,
+        "multi_agent": true,
+        "skill": true,
+        "memory": true,
+        "developer": "llm"
+      },
+      "rows": [
+        {
+          "task_id": "rename_symbol_hard_02",
+          "category": "rename",
+          "success": true,
+          "steps": 5,
+          "wall_time_ms": 15871.141499999794,
+          "replan_count": 0,
+          "llm_call_count": 1,
+          "llm_parse_error_count": 0,
+          "llm_patch_rejected_count": 0,
+          "llm_patch_applied_count": 1,
+          "llm_prompt_tokens_estimate": 311,
+          "llm_completion_tokens_estimate": 800,
+          "llm_wall_time_ms": 15044.0,
+          "llm_error_type": "",
+          "skill_negative_transfer_count": 0,
+          "memory_useful_count": 0,
+          "failure_type": "success"
+        },
+        {
+          "task_id": "rename_symbol_hard_01",
+          "category": "rename",
+          "success": false,
+          "steps": 6,
+          "wall_time_ms": 19790.31969999778,
+          "replan_count": 1,
+          "llm_call_count": 1,
+          "llm_parse_error_count": 0,
+          "llm_patch_rejected_count": 0,
+          "llm_patch_applied_count": 0,
+          "llm_prompt_tokens_estimate": 502,
+          "llm_completion_tokens_estimate": 958,
+          "llm_wall_time_ms": 19770.0,
+          "llm_error_type": "llm_call_budget_exceeded",
+          "skill_negative_transfer_count": 1,
+          "memory_useful_count": 0,
+          "failure_type": "test_failure"
+        },
+        {
+          "task_id": "rename_symbol_hard_03",
+          "category": "rename",
+          "success": false,
+          "steps": 6,
+          "wall_time_ms": 16.331199993146583,
+          "replan_count": 1,
+          "llm_call_count": 0,
+          "llm_parse_error_count": 0,
+          "llm_patch_rejected_count": 0,
+          "llm_patch_applied_count": 0,
+          "llm_prompt_tokens_estimate": 0,
+          "llm_completion_tokens_estimate": 0,
+          "llm_wall_time_ms": 0.0,
+          "llm_error_type": "llm_call_budget_exceeded",
+          "skill_negative_transfer_count": 1,
+          "memory_useful_count": 0,
+          "failure_type": "test_failure"
+        }
+      ],
+      "aggregate": {
+        "success_rate": 0.3333333333333333,
+        "avg_steps": 5.666666666666667,
+        "avg_wall_time_ms": 11892.597466663574,
+        "avg_replan_count": 0.6666666666666666,
+        "llm_call_total": 2,
+        "llm_parse_error_total": 0,
+        "llm_patch_rejected_total": 0,
+        "llm_patch_applied_total": 1,
+        "llm_prompt_tokens_total": 813,
+        "llm_completion_tokens_total": 1758,
+        "llm_wall_time_ms_total": 34814.0,
+        "skill_negative_transfer_total": 2,
+        "memory_useful_total": 0,
+        "failure_taxonomy_distribution": {
+          "success": 1,
+          "test_failure": 2
+        },
+        "by_category": {
+          "rename": {
+            "tasks": 3,
+            "success_rate": 0.3333333333333333,
+            "avg_steps": 5.666666666666667,
+            "main_failure": "test_failure"
+          }
+        }
+      },
+      "repeat_aggregates": [
+        {
+          "success_rate": 0.3333333333333333,
+          "avg_steps": 5.666666666666667,
+          "avg_wall_time_ms": 11892.597466663574,
+          "avg_replan_count": 0.6666666666666666,
+          "llm_call_total": 2,
+          "llm_parse_error_total": 0,
+          "llm_patch_rejected_total": 0,
+          "llm_patch_applied_total": 1,
+          "llm_prompt_tokens_total": 813,
+          "llm_completion_tokens_total": 1758,
+          "llm_wall_time_ms_total": 34814.0,
+          "skill_negative_transfer_total": 2,
+          "memory_useful_total": 0,
+          "failure_taxonomy_distribution": {
+            "success": 1,
+            "test_failure": 2
+          },
+          "by_category": {
+            "rename": {
+              "tasks": 3,
+              "success_rate": 0.3333333333333333,
+              "avg_steps": 5.666666666666667,
+              "main_failure": "test_failure"
+            }
+          }
+        }
+      ],
+      "variance": {
+        "success_rate_std": 0.0,
+        "avg_steps_std": 0.0,
+        "avg_replan_count_std": 0.0
+      }
+    }
+  },
+  "cli_args": {
+    "tasks": "benchmarks/tasks/phase6_hard_12.yaml",
+    "repeats": 1,
+    "seed": 42,
+    "limit": 3,
+    "seed_memory": false,
+    "mock_llm": false
+  }
+}

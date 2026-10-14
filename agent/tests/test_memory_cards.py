@@ -1,0 +1,206 @@
+import json
+from pathlib import Path
+
+import pytest
+
+from reposkill_agent.memory.cards import (
+    RENDER_LIMIT,
+    build_memory_cards,
+    load_memory_cards,
+    raw_trajectory_text,
+    render_card,
+    write_memory_cards,
+)
+from reposkill_agent.memory.records import MemoryCard
+
+SNAPSHOT = Path(
+    "D:/crq/src/coding-harness/docs/upgrade/evidence/"
+    "A5-real240-77-harness-preflight/memory-snapshot.jsonl"
+)
+VERIFICATION = Path("D:/crq/src/coding-harness/docs/sprint/memory-source-verification.json")
+TARGETS = Path("configs/a5/pilot20-harness-consumption-manifest.json")
+PRIVATE = Path("benchmarks/a5/pilot20-source-v1/private/test.parquet")
+CARDS = Path("benchmarks/a5/memory-cards-v2.jsonl")
+
+REQUIRED = (
+    "repo",
+    "version",
+    "source_id",
+    "issue_summary",
+    "relevant_files",
+    "test_commands",
+    "env_pitfalls",
+    "fix_approach",
+    "verification_status",
+    "dependencies",
+)
+
+
+def _fixture_snapshot(tmp_path: Path) -> Path:
+    source = tmp_path / "src"
+    source.mkdir()
+    (source / "public-trajectory.json").write_text(
+        json.dumps(
+            {
+                "issue_summary": "Fix parse so empty input does not crash. Tests should still pass.",
+                "public_evidence": [
+                    "python -m pytest tests/test_parser.py -q",
+                    "[stderr]\n/bin/sh: 1: git: not found\n[exit_code=127 status=failed]",
+                ],
+                "actions": [
+                    "read_file:pkg/parser.py",
+                    "search_replace:pkg/parser.py",
+                    "run_command",
+                ],
+                "public_verification": "smoke:pass",
+                "failure_notes": ["ModuleNotFoundError: No module named helper"],
+            }
+        ),
+        encoding="utf-8",
+    )
+    (source / "candidate-delta.json").write_text(
+        json.dumps(
+            {
+                "changed": {
+                    "pkg/parser.py": {
+                        "content": "def parse(text):\n    return text\n",
+                        "metadata": {"kind": "file"},
+                    }
+                }
+            }
+        ),
+        encoding="utf-8",
+    )
+    snapshot = tmp_path / "snap.jsonl"
+    snapshot.write_text(
+        json.dumps(
+            {
+                "source_id": "example__example-1",
+                "source_dir": str(source),
+                "created_at": "2020-01-01T00:00:00+00:00",
+                "bindings": {
+                    "repo": "example/example",
+                    "base_revision": "abc123def456",
+                },
+            }
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    return snapshot
+
+
+def test_rule_card_has_required_fields_and_short_render(tmp_path):
+    cards = build_memory_cards(_fixture_snapshot(tmp_path), tmp_path / "missing.json")
+    card = cards[0]
+    dumped = card.model_dump()
+    for name in REQUIRED:
+        assert name in dumped
+    assert card.verification_status == "unverified"
+    assert card.distillation == "rule"
+    assert card.relevant_files[0] == "pkg/parser.py"
+    assert card.dependencies[0].symbols == ("parse",)
+    assert any("pytest" in command for command in card.test_commands)
+    assert card.env_pitfalls
+    text = render_card(card)
+    assert text.startswith("[historical attempt")
+    assert "status=unverified" in text
+    assert len(text.encode("utf-8")) <= RENDER_LIMIT
+    assert "def parse" not in text
+
+
+def test_round_trip(tmp_path):
+    cards = build_memory_cards(_fixture_snapshot(tmp_path), tmp_path / "nope.json")
+    path = tmp_path / "memory-cards-v2.jsonl"
+    write_memory_cards(cards, path)
+    loaded = load_memory_cards(path)
+    assert loaded == cards
+    assert isinstance(loaded[0], MemoryCard)
+
+
+@pytest.mark.skipif(not SNAPSHOT.is_file(), reason="harness snapshot not on this machine")
+def _snapshot_with_created_at(tmp_path: Path) -> Path:
+    pool = {
+        item["canonical_id"]: item
+        for item in json.loads(Path("configs/a5/canonical-handoff.json").read_text(encoding="utf-8"))[
+            "memory_build_source_pool"
+        ]
+    }
+    lines = []
+    for line in SNAPSHOT.read_text(encoding="utf-8").splitlines():
+        if not line.strip():
+            continue
+        row = json.loads(line)
+        created_at = (pool[row["source_id"]].get("provenance") or {}).get("historical_pr_created_at")
+        if not created_at:
+            raise AssertionError(row["source_id"])
+        row["created_at"] = created_at
+        lines.append(json.dumps(row))
+    path = tmp_path / "snap.jsonl"
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    return path
+
+
+def test_missing_created_at_is_an_error(tmp_path):
+    snapshot = _fixture_snapshot(tmp_path)
+    row = json.loads(snapshot.read_text(encoding="utf-8"))
+    row.pop("created_at")
+    snapshot.write_text(json.dumps(row) + "\n", encoding="utf-8")
+    with pytest.raises(ValueError, match="created_at_missing"):
+        build_memory_cards(snapshot, tmp_path / "missing.json")
+
+
+def test_real_cards_exclude_pilot_targets_and_gold(tmp_path):
+    cards = build_memory_cards(_snapshot_with_created_at(tmp_path), VERIFICATION)
+    assert len(cards) == 11
+    blob = "\n".join(render_card(card) + "\n" + card.issue_summary for card in cards)
+    targets = json.loads(TARGETS.read_text(encoding="utf-8"))["targets"]
+    assert len(targets) == 20
+    sources = {card.source_id for card in cards}
+    assert sources.isdisjoint(targets)
+    for target in targets:
+        assert target not in blob
+    if not PRIVATE.is_file():
+        return
+    import pyarrow.parquet as pq
+
+    table = pq.read_table(PRIVATE, columns=["instance_id", "patch", "test_patch", "FAIL_TO_PASS", "PASS_TO_PASS"])
+    rows = {row["instance_id"]: row for row in table.to_pylist()}
+    for target in targets:
+        row = rows[target]
+        for column in ("patch", "test_patch", "FAIL_TO_PASS", "PASS_TO_PASS"):
+            for line in str(row[column]).splitlines():
+                if not line.startswith("+") or line.startswith("+++"):
+                    continue
+                snippet = line[1:].strip()
+                if len(snippet) < 80:
+                    continue
+                assert snippet not in blob, target
+
+
+def test_failed_attempt_render_omits_approach():
+    approach = "UNIQUE_APPROACH_SENTENCE changed the wrong helper."
+    failed = MemoryCard(
+        repo="demo/demo",
+        created_at="2020-01-01T00:00:00+00:00",
+        version="abc123def456",
+        source_id="demo-9",
+        issue_summary="The widget breaks.",
+        relevant_files=("pkg/a.py",),
+        test_commands=("python -m pytest tests/test_a.py",),
+        fix_approach=approach,
+        verification_status="failed_attempt",
+        failure_notes=("The edit landed in the wrong function.",),
+    )
+    text = render_card(failed)
+    assert "没有通过测试的尝试" in text
+    assert approach not in text
+    assert "wrong function" in text
+    assert "files: pkg/a.py" in text
+    raw = raw_trajectory_text(failed)
+    assert raw.startswith("[historical attempt")
+    assert "没有通过测试的尝试" in raw
+    unverified = failed.model_copy(update={"verification_status": "unverified"})
+    unverified_text = render_card(unverified)
+    assert "未验证" in unverified_text
+    assert approach in unverified_text

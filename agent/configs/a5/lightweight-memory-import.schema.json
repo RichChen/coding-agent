@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://coding-agent.local/schemas/a5.memory-import.v1.json",
+  "title": "A5 lightweight memory import snapshot",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "status", "snapshot_id", "snapshot_sha256", "freeze_mode", "producer", "expected_record_count", "actual_record_count", "records"],
+  "properties": {
+    "schema": {"const": "a5.memory-import.v1"},
+    "status": {"enum": ["awaiting_harness_snapshot", "ready_for_agent_validation", "rejected"]},
+    "snapshot_id": {"type": "string", "minLength": 1},
+    "snapshot_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "freeze_mode": {"const": "cold_frozen"},
+    "producer": {
+      "type": "object", "additionalProperties": false,
+      "required": ["system", "contract_ref", "source_manifest_sha256", "model_calls"],
+      "properties": {
+        "system": {"const": "coding-harness"},
+        "contract_ref": {"type": "string", "minLength": 1},
+        "source_manifest_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "model_calls": {"const": 0}
+      }
+    },
+    "expected_record_count": {"type": "integer", "minimum": 0},
+    "actual_record_count": {"type": "integer", "minimum": 0},
+    "records": {"type": "array", "items": {"$ref": "#/$defs/record"}}
+  },
+  "$defs": {
+    "record": {
+      "type": "object", "additionalProperties": false,
+      "required": ["memory_id", "revision", "status", "kind", "content_hash", "procedure", "applicability", "verification_recipe", "source_instance_id", "source_repo_id", "source_revision", "source_run_id", "public_source_artifact_ref", "public_trajectory_artifact_ref", "independent_validation_artifact_ref", "dependencies", "dependency_mapping_complete", "build_receipt", "validation_receipt", "private_excluded"],
+      "properties": {
+        "memory_id": {"type": "string"}, "revision": {"const": 1}, "status": {"const": "validated_lightweight"}, "kind": {"type": "string"}, "content_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"}, "procedure": {"type": "string", "minLength": 1}, "applicability": {"type": "string", "minLength": 1}, "verification_recipe": {"type": "string", "minLength": 1},
+        "source_instance_id": {"type": "string"}, "source_repo_id": {"type": "string"}, "source_revision": {"type": "string"}, "source_run_id": {"type": "string"},
+        "public_source_artifact_ref": {"type": "string"}, "public_trajectory_artifact_ref": {"type": "string"}, "independent_validation_artifact_ref": {"type": "string"}, "dependencies": {"type": "array"}, "dependency_mapping_complete": {"const": true}, "build_receipt": {"type": "object"}, "validation_receipt": {"type": "object"},
+        "private_excluded": {
+          "type": "array", "minItems": 5, "uniqueItems": true,
+          "items": {"enum": ["gold_patch", "test_patch", "hidden_tests", "private_evaluation_spec", "private_grader_text"]},
+          "allOf": [
+            {"contains": {"const": "gold_patch"}},
+            {"contains": {"const": "test_patch"}},
+            {"contains": {"const": "hidden_tests"}},
+            {"contains": {"const": "private_evaluation_spec"}},
+            {"contains": {"const": "private_grader_text"}}
+          ]
+        }
+      }
+    }
+  }
+}

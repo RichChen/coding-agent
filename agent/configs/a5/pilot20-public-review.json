@@ -1,0 +1,28 @@
+{
+  "source_sha256": "7a21f37b8bc179c7db5beeb14e88ac538ba283455c776e6b2535bbfb6e3551b4",
+  "reviewed_on": "2026-09-21",
+  "scope": "All 20 selected public problem statements read for provenance, public solution hints and related issues. No target gold/test patch used to select or tune the method. Not runtime or independent grading qualification.",
+  "decision": "retain_preregistered_candidates_verbatim; do_not_claim_hint_free",
+  "items": {
+    "django__django-13265": {"group": "django-migration-order", "note": "Public issue suggests ordering AlterOrderWithRespectTo before AddIndex."},
+    "django__django-15781": {"group": "django-command-formatter", "note": "Public requested formatter behavior; blockchain strings are example arguments, not credentials."},
+    "django__django-13590": {"group": "django-namedtuple-lookup", "note": "Public issue explicitly describes expanding iterator arguments in the constructor."},
+    "django__django-13448": {"group": "django-test-db-serialization", "note": "Public PostgreSQL traceback; backend reproduction equivalence needs host qualification."},
+    "sympy__sympy-20154": {"group": "sympy-partitions-aliasing", "note": "Public issue proposes copying yielded dictionaries."},
+    "sympy__sympy-24152": {"group": "sympy-tensorproduct-expansion", "note": "Public issue contains an explicit four-line proposed fix and workaround; retain and disclose."},
+    "sympy__sympy-20442": {"group": "sympy-unit-dimensions", "note": "Public expected outcomes and examples; reported version differs from later PR metadata."},
+    "sympy__sympy-18532": {"group": "sympy-atoms-definition", "note": "Public request specifies no-args definition rather than Atom subclass membership."},
+    "scikit-learn__scikit-learn-25747": {"group": "sklearn-pandas-interop", "note": "FeatureUnion index aggregation; related to other pandas-output cases, not an independent repo."},
+    "scikit-learn__scikit-learn-25500": {"group": "sklearn-pandas-interop", "note": "Calibration dataframe/array shape; shared family with other pandas-output cases."},
+    "scikit-learn__scikit-learn-25638": {"group": "sklearn-pandas-interop", "note": "Nullable labels and a public numpy-conversion workaround; conservatively same pandas family."},
+    "scikit-learn__scikit-learn-25570": {"group": "sklearn-pandas-interop", "note": "Zero-column ColumnTransformer; public reproducer imports lightgbm, environment pending."},
+    "pytest-dev__pytest-8365": {"group": "pytest-temp-username", "note": "Windows/domain-username reproducer; host must establish comparable test coverage."},
+    "pytest-dev__pytest-7432": {"group": "pytest-skip-report", "note": "Public issue names the hook and file as a debugging hint."},
+    "pytest-dev__pytest-9359": {"group": "pytest-assert-line", "note": "Public Python 3.9 versus 3.7 traceback discrepancy; interpreter version matters."},
+    "pytest-dev__pytest-7220": {"group": "pytest-cwd-report", "note": "Public fixture changes cwd; reproduction includes filesystem code, not executed during intake."},
+    "sphinx-doc__sphinx-10451": {"group": "sphinx-autodoc-args", "note": "Public expected rendered documentation for star args and kwargs."},
+    "sphinx-doc__sphinx-8721": {"group": "sphinx-viewcode-epub", "note": "Public multi-builder html/epub sequence; repository environment required."},
+    "sphinx-doc__sphinx-8595": {"group": "sphinx-autodoc-all", "note": "Public empty __all__ behavior; different root from star-args rendering."},
+    "sphinx-doc__sphinx-8713": {"group": "sphinx-napoleon-params", "note": "Public existing source and desired format provide a clear implementation direction."}
+  }
+}

@@ -1,0 +1,166 @@
+{
+  "$defs": {
+    "ArtifactRef": {
+      "additionalProperties": false,
+      "properties": {
+        "logical_id": {
+          "minLength": 1,
+          "title": "Logical Id",
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Sha256",
+          "type": "string"
+        },
+        "size_bytes": {
+          "minimum": 0,
+          "title": "Size Bytes",
+          "type": "integer"
+        },
+        "media_type": {
+          "default": "text/plain",
+          "title": "Media Type",
+          "type": "string"
+        },
+        "run_id": {
+          "minLength": 1,
+          "title": "Run Id",
+          "type": "string"
+        },
+        "relative_path": {
+          "title": "Relative Path",
+          "type": "string"
+        },
+        "sensitivity": {
+          "const": "public_observation",
+          "default": "public_observation",
+          "title": "Sensitivity",
+          "type": "string"
+        }
+      },
+      "required": [
+        "logical_id",
+        "sha256",
+        "size_bytes",
+        "run_id",
+        "relative_path"
+      ],
+      "title": "ArtifactRef",
+      "type": "object"
+    },
+    "Observation": {
+      "additionalProperties": false,
+      "properties": {
+        "observation_id": {
+          "title": "Observation Id",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "file",
+            "search",
+            "public_test"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "path": {
+          "title": "Path",
+          "type": "string"
+        },
+        "start_line": {
+          "default": 1,
+          "minimum": 1,
+          "title": "Start Line",
+          "type": "integer"
+        },
+        "content": {
+          "maxLength": 24000,
+          "title": "Content",
+          "type": "string"
+        },
+        "repo_revision": {
+          "title": "Repo Revision",
+          "type": "string"
+        },
+        "artifact": {
+          "$ref": "#/$defs/ArtifactRef"
+        }
+      },
+      "required": [
+        "observation_id",
+        "kind",
+        "path",
+        "content",
+        "repo_revision",
+        "artifact"
+      ],
+      "title": "Observation",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "default": "1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "repo_revision": {
+      "title": "Repo Revision",
+      "type": "string"
+    },
+    "observations": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/Observation"
+      },
+      "title": "Observations",
+      "type": "array"
+    },
+    "proposed_paths": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Proposed Paths",
+      "type": "array"
+    },
+    "searched_queries": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Searched Queries",
+      "type": "array"
+    },
+    "hypotheses": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Hypotheses",
+      "type": "array"
+    },
+    "missing_evidence": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Missing Evidence",
+      "type": "array"
+    },
+    "tool_proposals_spent": {
+      "default": 0,
+      "minimum": 0,
+      "title": "Tool Proposals Spent",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "repo_revision"
+  ],
+  "title": "EvidenceState",
+  "type": "object"
+}
