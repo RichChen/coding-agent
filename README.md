@@ -160,7 +160,7 @@ docs/                # 证据摘要、case studies、limitations
 
 ## 参考
 
-- `PROJECT-PLAN-OpenHands-RepoSkillAgent.zh-CN.md` — 总计划
-- `PHASE7_1-POSITIVE-GAIN-HARDENING-PLAN.zh-CN.md` — Phase 7.1 执行文档
+- `docs/archive/PROJECT-PLAN-OpenHands-RepoSkillAgent.zh-CN.md` — 总计划
+- `docs/archive/PHASE7_1-POSITIVE-GAIN-HARDENING-PLAN.zh-CN.md` — Phase 7.1 执行文档
 - `docs/code-reading-guide.zh-CN.md` — 代码阅读顺序与问题清单模板
 - `docs/SESSION-HANDOFF.zh-CN.md` — 会话交接
