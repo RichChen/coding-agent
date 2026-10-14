@@ -17,7 +17,7 @@ python scripts/demo_memory_validity.py --output reports/upgrade/my-second-demo
 
 演示生成公开 workspace、来源/状态可查的 memory.db、manifest、result.json 和 report.md。API/依赖改变时拒绝旧经验，无关文件改变仍保留有效条目，缺证据返回 unknown。所有“注入”收据来自 fixture host；没有真实模型调用、修复成功率或 OS 隔离声明。
 
-本机已核实的解释器为 `C:\Users\Administrator\.conda\envs\coding-harness\python.exe`，只借用其现有环境。详见 [首批实现与运行说明](docs/upgrade/IMPLEMENTED-TP01-04.md)、[公开接口](docs/upgrade/PUBLIC-API.md) 与 [实施计划](docs/upgrade/IMPLEMENTATION-PLAN.md)。
+解释器用任意 Python 3.11+ 环境（上面命令里的 `python`）。详见 [首批实现与运行说明](docs/upgrade/IMPLEMENTED-TP01-04.md)、[公开接口](docs/upgrade/PUBLIC-API.md) 与 [实施计划](docs/upgrade/IMPLEMENTATION-PLAN.md)。
 
 H4/H5：`RepoSkillH4Plugin` 提交 async JSON proposals 和可序列化状态，不直连模型。公私分离的单任务交接包已由 harness `real-04` 完成 off/on 联调，各 4 次模型调用、独立 grader 各 4/4；这是另一仓保存的既有证据，本轮没有重跑。字段映射与历史边界见 [H4 适配说明](docs/upgrade/H4-ADAPTER.md)，最新证据区分见 [A5 验收记录](docs/upgrade/A5-VERIFICATION.md)。
 
