@@ -1,3 +1,6 @@
+> 这个目录是 monorepo 的一部分，原来是独立的 `coding-agent` 仓库，历史保留。
+> 总览、结果和阅读入口见[根目录 README](../README.zh-CN.md)。
+
 # RepoSkillAgent
 
 公开证据驱动的 Coding Agent 策略与可追溯记忆项目。新路径提供公开任务隔离、证据定位、版本化记忆与依赖有效性检查，已接入 coding-harness 并有一个合成任务的真实开／关联调证据。A5 四变体实验基础设施已通过离线验证，真实多任务效果仍未验证。
