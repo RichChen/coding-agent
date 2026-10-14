@@ -29,6 +29,13 @@ cursor-a602-latest.txt
 /CLAUDE.md
 /AGENTS.md
 /CLAUDE-CODE-*.md
+.tmp*/
+.pytest*/
+.ruff_cache/
+*.broken-*/
+.claude/
+.agents/
+.cursor/
 
 # evidence: keep markdown and small json only; leave repo copies on disk
 docs/upgrade/evidence/**
