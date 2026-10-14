@@ -54,4 +54,21 @@ P-1 的审计意见在 `D:\crq\src\coding-harness\docs\publish\AUDIT-P1.zh-CN.md
 
 ## P-3（P-2 审计后发）
 
-`P-2 审计通过。请在 D:\crq\src\coding-agent-mono\ 里添加远端 https://github.com/RichChen/coding-agent.git，执行 git push origin main --tags。不 force push。推完回复：GitHub 上 main 的最新提交号、推上去的 tag 数，以及仓库页面能否正常显示根 README。`
+P-2 审计通过，审计意见见 `D:\crq\src\coding-harness\docs\publish\AUDIT-P2.zh-CN.md`。开工前完整读一遍，按里面的顺序做：
+
+1. 先做审计第 3 节：
+   - agent 的 `.gitignore` 加上 `docs/memory-v2/papers/`；
+   - harness 提交 `docs/publish/` 下所有未提交的文件，包括 `CHECKPOINT-P2.md`、`CHECKPOINT-P2-LISTS.md`、`AUDIT-P2.zh-CN.md`，以及本 prompt 文件的改动；
+   - 用 `git subtree pull` 把这两个提交同步进 monorepo，不用 `--squash`；
+   - 核对两个子树和原仓库一致。
+2. 再按审计第 4 节 push 到 `https://github.com/RichChen/coding-agent.git`：
+   - 先推 `main`，再推 tag；
+   - 远端已有提交，或者认证失败时，停下来报告；
+   - 不要 force push，不要 pull 合并，不要把 token 写进命令或配置。
+3. 推完核对：
+   - 远端 `main` 的提交号等于本地 HEAD；
+   - tag 数是 23；
+   - 根 README 能正常显示；
+   - 抽查 2 个相对链接能打开。
+
+仓库保持私有。最后写 `docs/publish/CHECKPOINT-P3.md`，在 harness 里提交它，然后停下。
