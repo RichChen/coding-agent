@@ -89,6 +89,27 @@ A6-2 的审计结果在 `D:\crq\src\coding-harness\docs\sprint\AUDIT-A6-2.zh-CN.
 
 预计花费约 170 元，上限 210 元。小步提交，不 push，做完停下。
 
+## A6-4（A6-3 审计后发，只发给 coding-agent）
+
+### 发给 coding-agent agent
+
+harness 的正式运行已经完成，审计通过。审计文件是 `D:\crq\src\coding-harness\docs\sprint\AUDIT-A6-3.zh-CN.md`，开工前把它完整读一遍，再读 harness 的 `docs/sprint/CHECKPOINT-A6-3.md`。
+
+请按审计第 3 节执行 `A6-R-PLAN.zh-CN.md` 第 6 节的 A6-4：
+
+- 用 tag `a6-retry-freeze-r2` 上的 `scripts/analyze_a6_retry.py`。输入是 harness 的 `docs/sprint/a6-retry-runs.json` 和 `docs/sprint/a6-attempts.json`，运行时传以下参数：
+  - `--expect-runs-sha a0870f766a3b02f6ce34d6e5291ae59f8ab5160f46ae6e7671f3fd39f08a4256`
+  - `--expect-attempts-sha bd93252922c990ec61071caecb5a6bf5e604202cbbcf30d296f2b875794dd3ce`
+  - `--harness-root D:\crq\src\coding-harness`
+
+  脚本报 STOP 就停下，写 CHECKPOINT。
+- 生成 `docs/sprint/A6-R-RESULTS.zh-CN.md`，数字全部从脚本输出复制。另起两节，标题注明"非脚本生成"：
+  - "偏差"一节写 402 重跑；
+  - "非预注册的描述"一节写 parse_error 和 context_overflow 按组的分布，只描述，不写因果，不做检验。这一节的计算脚本要提交。
+- 不要因为看到结果就改分析脚本、预注册或结论口径。必须修的 bug 单独提交，并写明原因，旧输出保留。
+
+不调用模型，不改 coding-harness。写 `docs/sprint/CHECKPOINT-A6-4.md`，内容按审计第 3 节第 5 条。小步提交，不 push，然后停下。
+
 ## 后续轮次（审计通过后发）
 - harness A6-3：`A6-2 审计通过。请执行 A6-R-PLAN 第 5 节 A6-3，停止条件按第 1 节，写 a6-retry-runs.json 和 CHECKPOINT-A6-3 后停下。不要计算 R1−R0。`
 - agent A6-4：`harness 的 a6-retry-runs.json 已提交，handoff_sha256 = <sha>。请执行 A6-R-PLAN 第 6 节 A6-4。用 tag a6-retry-freeze-r2 上的脚本，运行时传 --expect-runs-sha <sha> --expect-attempts-sha bd93252922c990ec61071caecb5a6bf5e604202cbbcf30d296f2b875794dd3ce。写 A6-R-RESULTS 和 CHECKPOINT-A6-4 后停下。`
