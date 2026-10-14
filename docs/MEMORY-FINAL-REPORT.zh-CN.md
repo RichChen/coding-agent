@@ -17,7 +17,7 @@ A6-R 的记忆和目标题的相关性按构造是 100%，所以 A5 的零结果
 
 更早的 RepoSkillAgent 在自建题集 medium_48 上测到记忆带来 +9.4 个百分点（`A5-FINAL-REPORT.zh-CN.md` 第 8.3 节）。那个题集按 support/holdout 成对构造，记忆和目标题的相关性是人为保证的。A5 想知道：换成真实的 SWE-bench 题、真实的时间顺序，这个提升还在不在。
 
-文献里，SWE-bench 上跨任务记忆的 pass@1 提升大多在 +3 到 +5 个百分点（ReasoningBank、SWE-Exp、Agent KB，数字和未核实项见 `memory-v2/OPTIONS.zh-CN.md` 第 2 节）。提升大的设定，要么任务高度同质（Dynamic Cheatsheet、AWM），要么是失败后重试（Agent KB 的第二轮）。
+文献里，SWE-bench 上跨任务记忆的 pass@1 提升大多在 +3 到 +5 个百分点（ReasoningBank、SWE-Exp、Agent KB，数字和未核实项见 `memory-v2/DIAGNOSIS-AND-LITERATURE.zh-CN.md` 第 2 节）。提升大的设定，要么任务高度同质（Dynamic Cheatsheet、AWM），要么是失败后重试（Agent KB 的第二轮）。
 
 ## 3. 两个实验共用的方法
 
@@ -40,7 +40,7 @@ A6-R 的记忆和目标题的相关性按构造是 100%，所以 A5 的零结果
 | B2 运行中打开过卡片独有文件的 | 5/153，最终在那里改代码的 0 次 | `A5-CASE-DATA.md` 第 2 节 |
 | B0 的题目分布 | 34 道 3/3，13 道 0/3，9 道中间档 | `A5-FINAL-REPORT.zh-CN.md` |
 
-当时的解读：卡片很少指向正确的修改位置，agent 也几乎不按卡片行动。进一步的诊断（`OPTIONS.zh-CN.md` 第 1 节，描述性）显示，失败运行里 39/53 次已经改在了 gold 文件上，35/53 次用满了调用预算。瓶颈不在"找对文件"，而在修复的细节；跨题卡片提供不了这种信息。
+当时的解读：卡片很少指向正确的修改位置，agent 也几乎不按卡片行动。进一步的诊断（`memory-v2/DIAGNOSIS-AND-LITERATURE.zh-CN.md` 第 1 节，描述性）显示，失败运行里 39/53 次已经改在了 gold 文件上，35/53 次用满了调用预算。瓶颈不在"找对文件"，而在修复的细节；跨题卡片提供不了这种信息。
 
 由此推出下一个实验：把相关性固定为 100%，只检验"同一道题上次失败的信息"有没有用。这个方向在 A5 最终报告第 10 节（`007e006`，2026-09-29）就已经列为首选的后续方向，不是看到零结果以后才临时找的。
 
