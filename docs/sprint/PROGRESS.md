@@ -497,3 +497,11 @@ canary 4 个槽位（R0 2、R1 2）写入 `runs/a6-retry/`：没有触发停止�
 开跑前关闭系统睡眠（跑完后恢复），确认 Docker 在线。runner 跳过 4 个 canary 槽位，跑完其余 314 个：318/318 都有 summary，没有中断目录，没有触发停止条件。7 次 infra_error（都是快照前容器消失），各重跑一次完成。注入核对 318/318，runner 和独立复核结果一致。模型全程是 `deepseek-flash` @ `api.deepseek.com`。单次最高 0.940 元。`context_overflow`：R0 1 次，R1 2 次。
 
 问题：最后约 4 分钟 DeepSeek 账户余额耗尽，22 次运行（R0 8 次、R1 14 次）收到 HTTP 402，被记成了 `model_parse_error` 失败，不是 infra_error，停止条件没有覆盖这种情况。runner 自动写出的 `a6-retry-runs.json`（`handoff_sha256` `05bea3fb…`，`a15696f`）包含这 22 行，暂不交接。没有改代码，没有移动目录，没有计算 R1−R0。记录在 `docs/sprint/CHECKPOINT-A6-3.md`，停下等审计决定这 22 次怎么处理。
+
+### A6-3 补跑：402 影响的 22 次
+
+日期：2026-10-14 11:04–11:47。新增花费 14.132 CNY，累计 178.709 CNY（`TOTAL_CAP` 210）。
+
+用户充值后要求重跑受影响的部分。用 `run_a5_main.retire_infra` 把 22 个最终运行带 HTTP 失败结算的槽位改名为 `.infra1`（目录保留，没有删除），再用 `--slot` 重跑：先试跑 1 个，再一次跑完其余 21 个。两次 `halt_reason` 都是 null，日志里没有 402。重跑中又有 2 次快照前容器消失，改名为 `.infra2` 后各重跑一次完成。没有改代码，没有看 solved。
+
+结果：318/318 个槽位的最终运行都没有 HTTP 失败结算；注入核对 318/318，runner 和独立复核一致；模型不变；单次最高仍是 0.940 元。`context_overflow`：R0 1 次，R1 3 次。用 `--runs-file` 重写 `a6-retry-runs.json`（`087babd`），新 `handoff_sha256` `a0870f76…`，旧 sha `05bea3fb…` 作废。没有计算 R1−R0。记录在 `docs/sprint/CHECKPOINT-A6-3.md`，停下等审计。
