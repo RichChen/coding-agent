@@ -1,6 +1,6 @@
 # Coding Harness
 
-**中文文档**：[README.zh-CN.md](README.zh-CN.md) · [学习指南（阅读顺序与自测题）](LEARNING.zh-CN.md)
+**中文文档**：[README.zh-CN.md](README.zh-CN.md) · [学习指南（阅读顺序与自测题）](docs/LEARNING.zh-CN.md)
 
 A controllable Coding Agent Runtime with integrated Eval Harness — built for reproducible, measurable, regressable agent evaluation.
 

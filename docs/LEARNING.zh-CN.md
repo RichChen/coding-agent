@@ -1,6 +1,6 @@
 # 学习指南：如何读透 coding-harness
 
-面向希望**精通**本仓库的开发者（含实习项目深度准备）。英文主 README 见 [README.md](README.md)，中文概览见 [README.zh-CN.md](README.zh-CN.md)。
+面向希望**精通**本仓库的开发者（含实习项目深度准备）。英文主 README 见 [README.md](../README.md)，中文概览见 [README.zh-CN.md](../README.zh-CN.md)。
 
 ---
 

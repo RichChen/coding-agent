@@ -1,6 +1,6 @@
 # Coding Harness（中文说明）
 
-[English README](README.md) · [项目说明与亮点](PROJECT-OVERVIEW.zh-CN.md) · [学习指南：如何读透本项目](LEARNING.zh-CN.md)
+[English README](README.md) · [项目说明与亮点](docs/PROJECT-OVERVIEW.zh-CN.md) · [学习指南：如何读透本项目](docs/LEARNING.zh-CN.md)
 
 可控的 **Coding Agent 运行时（Harness）**，并内置 **评测 Harness（Eval）**，用于可复现、可度量、可回归的智能体实验。
 
@@ -166,4 +166,4 @@ Agent 的 system prompt 不再硬编码在 `loop.py`，而是存放在 `prompts/
 - `docs/examples/`：合成 demo 轨迹  
 - `tests/`：71 个单元与集成测试（含 Mock LLM，无需 API Key）  
 
-更细的**阅读顺序与练习**见 [LEARNING.zh-CN.md](LEARNING.zh-CN.md)。
+更细的**阅读顺序与练习**见 [LEARNING.zh-CN.md](docs/LEARNING.zh-CN.md)。

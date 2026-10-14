@@ -768,7 +768,7 @@ A：不能；还需 online 成本、安全、长尾分布；离线集要持续�
 
 **延伸阅读**：
 
-- 本仓库 [LEARNING.zh-CN.md](../LEARNING.zh-CN.md)、[PROJECT-OVERVIEW.zh-CN.md](../PROJECT-OVERVIEW.zh-CN.md)  
+- 本仓库 [LEARNING.zh-CN.md](LEARNING.zh-CN.md)、[PROJECT-OVERVIEW.zh-CN.md](PROJECT-OVERVIEW.zh-CN.md)  
 - `learn-claude-code-main/docs/zh/s01`–`s12`
 
 ---

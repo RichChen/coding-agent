@@ -98,6 +98,6 @@ C:\Users\Administrator\.conda\envs\coding-harness\python.exe scripts\run_eval.py
 
 如果新 agent 接手，优先看：
 
-1. [docs/IMPROVEMENT-PLAN.zh-CN.md](../IMPROVEMENT-PLAN.zh-CN.md)
+1. [docs/archive/IMPROVEMENT-PLAN.zh-CN.md](../archive/IMPROVEMENT-PLAN.zh-CN.md)
 2. 本目录下的 `P0-*` / `P1-*` 记录
 3. `INTERVIEW-FINAL-CLOSEOUT.zh-CN.md`

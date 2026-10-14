@@ -1,7 +1,7 @@
 # Coding Harness 项目说明
 
 > 面向简历、面试与自查：这份文档说明**项目具体做了什么**、**有哪些特点与亮点**。  
-> 安装与命令见 [README.zh-CN.md](README.zh-CN.md)；读代码路线见 [LEARNING.zh-CN.md](LEARNING.zh-CN.md)。
+> 安装与命令见 [README.zh-CN.md](../README.zh-CN.md)；读代码路线见 [LEARNING.zh-CN.md](LEARNING.zh-CN.md)。
 
 ---
 
@@ -214,7 +214,7 @@ flowchart LR
 | 1 条**真实**脱敏 API trace | 面试展示 |
 | `git` + CI | 交付规范 |
 
-详见 [CLAUDE-CODE-RESUME-POLISH.md](CLAUDE-CODE-RESUME-POLISH.md)（若仍存在未完成项，以仓库实际代码为准）。
+详见 [CLAUDE-CODE-RESUME-POLISH.md](../CLAUDE-CODE-RESUME-POLISH.md)（若仍存在未完成项，以仓库实际代码为准）。
 
 ---
 
@@ -222,10 +222,10 @@ flowchart LR
 
 | 文档 | 用途 |
 |------|------|
-| [README.zh-CN.md](README.zh-CN.md) | 安装、命令、配置表 |
+| [README.zh-CN.md](../README.zh-CN.md) | 安装、命令、配置表 |
 | [LEARNING.zh-CN.md](LEARNING.zh-CN.md) | 读代码三遍法、自测题 |
-| [CLAUDE-CODE-IMPROVEMENTS.md](CLAUDE-CODE-IMPROVEMENTS.md) | 对照 learn 项目的架构改进任务书 |
-| [CLAUDE-CODE-RESUME-POLISH.md](CLAUDE-CODE-RESUME-POLISH.md) | 收尾与简历向增强 |
+| [CLAUDE-CODE-IMPROVEMENTS.md](../CLAUDE-CODE-IMPROVEMENTS.md) | 对照 learn 项目的架构改进任务书 |
+| [CLAUDE-CODE-RESUME-POLISH.md](../CLAUDE-CODE-RESUME-POLISH.md) | 收尾与简历向增强 |
 
 ---
 
