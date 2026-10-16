@@ -1,6 +1,6 @@
 # RepoSkillAgent
 
-公开证据驱动的 Coding Agent 策略与可追溯记忆项目。新路径提供公开任务隔离、证据定位、版本化记忆与依赖有效性检查，已接入 coding-harness 并有一个合成任务的真实开／关联调证据。A5 四变体实验基础设施已通过离线验证，真实多任务效果仍未验证。
+公开证据驱动的 Coding Agent 策略与可追溯记忆项目。新路径提供公开任务隔离、证据定位、版本化记忆与依赖有效性检查，已接入 coding-harness 并有一个合成任务的真实开／关联调证据。真实多任务实验（A5-main、A6-R）由 harness 执行，记忆卡、预注册和分析脚本在本仓库；两次都没有检出记忆或上次尝试记录带来的收益，见下文。
 
 - 新路径：PublicTask → EvidenceState → MemoryRecord/validity → context proposals。harness 负责唯一执行 runtime 和模型预算；单任务联调不能证明记忆收益或未知 issue 泛化。
 - 旧路径：保留 PlanAct、角色分工、Skill/Memory 与 L0/L2/L5。旧实验使用 fake 本地执行 adapter + 真实 DeepSeek，不是纯 mock，也不是 OpenHands SDK 实际运行证据。
@@ -29,6 +29,14 @@ H4/H5：`RepoSkillH4Plugin` 提交 async JSON proposals 和可序列化状态，
 - 最终报告：[A5-FINAL-REPORT.zh-CN.md](docs/A5-FINAL-REPORT.zh-CN.md)
 - 历程指针：[PROJECT-HISTORY.zh-CN.md](docs/PROJECT-HISTORY.zh-CN.md)
 
+## A6-R（2026-10）
+
+对 A5 B0 里失败的 53 次运行（22 道题）各做第二次尝试：R0 原样重跑 A5 B0 的 prompt，R1 在 prompt 后附上冻结的上次尝试记录，共 318 个槽位。没有检出大于 15.9 个百分点的效应；R1 − R0 点估计 −6.6 个百分点，95% 区间 −17.7 到 3.8。
+
+- 预注册：[A6-R-PREREG.zh-CN.md](docs/sprint/A6-R-PREREG.zh-CN.md)
+- 结果：[A6-R-RESULTS.zh-CN.md](docs/sprint/A6-R-RESULTS.zh-CN.md)
+- 停止原因描述（非预注册）：[A6-R-STOP-DESCRIPTION.zh-CN.md](docs/sprint/A6-R-STOP-DESCRIPTION.zh-CN.md)
+
 下面的 240 条矩阵和 pilot 是未执行的计划。更早的 L5 比 L2 高 9.4 个百分点来自自建题集 medium_48，不是这次实验。
 
 ## A5 四变体离线合同（无需 API key）
@@ -39,7 +47,7 @@ python scripts/run_a5_offline.py --output reports/upgrade/my-a5-smoke
 
 B0 无增强；B1 从同一历史池做 lexical set overlap 检索（不是 BM25）；B2 使用结构化 procedure；B3 在 B2 上加当前依赖有效性检查。候选窗口、注入数量/字节和宿主运行 profile 固定。此脚本没有真实 API 开关。
 
-已保存 [4 个 dev smoke 报告](reports/upgrade/a5-offline-20260921-v1/report.md)：16 条决策、0 模型调用、主分母为 0，修复成功率为 null。`configs/a5/pilot-12.json` 和 `pilot-20.json` 是 3 repeats 的未启用模板；真实 heldout 清单、模型/价格和货币上限尚未绑定。合同、来源冻结、host 注入收据、失败/缺行/重跑及全模型成本审计详见 [A5 计划与交付](docs/upgrade/A5-PLAN.md)。旧 L0/L2/L5、D0–D3 保留为独立证据，不混入 E-A1。
+本地保存过 4 个 dev smoke 报告（`reports/upgrade/` 不进仓库，可用上面的命令重新生成）：16 条决策、0 模型调用、主分母为 0，修复成功率为 null。`configs/a5/pilot-12.json` 和 `pilot-20.json` 是 3 repeats 的未启用模板；真实 heldout 清单、模型/价格和货币上限尚未绑定。合同、来源冻结、host 注入收据、失败/缺行/重跑及全模型成本审计详见 [A5 计划与交付](docs/upgrade/A5-PLAN.md)。旧 L0/L2/L5、D0–D3 保留为独立证据，不混入 E-A1。
 
 2026-09-21 后续：已按 20 题目标准备 [SWE-bench Lite 候选包与预算草案](docs/upgrade/A5-PILOT20-STATUS.md)，5 个 repo 各 4 题、240 条 planned assignments。公开输入与私有评测分离，尚未执行 pilot；真实历史池、整仓 grader/环境预检及 A5 预算批准仍待完成。这是候选准备，不能当作已跑通 20 题。
 
@@ -129,19 +137,45 @@ $env:LLM_API_KEY = "<your key>"
 ## 目录结构
 
 ```
-reposkill_agent/     # 主包
-  adapters/          # WorkspaceAdapter（fake / openhands）
-  agents/            # role agents + LLMDeveloperAgent
-  eval/              # ablation runner, injection policy
-  llm/               # ModelClient、prompts、PatchPlan schema
-  skills/            # SkillCard、domain gating、validator
-  memory/            # episodic/procedural/repo profile memory
+reposkill_agent/       # 主包，入口 python -m reposkill_agent（cli.py）
+  protocol/            # 新路径：公开任务 / 私有评测的合同
+  evidence/            # 新路径：公开证据定位，不依赖模型和 shell
+  memory/              # MemoryRecord、来源与依赖有效性检查、记忆卡 cards*.py、
+                       # card_plugin.py（harness B2 加载的插件）；旧 episodic/procedural/repo profile
+  integrations/        # harness_h4.py：H4 公开接口适配
+  experiments/         # A5 离线合同、变体、审计、资金账本，不含模型客户端
+  core/                # 旧路径：TaskGraph、PlanAct planner、上下文扩展、trace
+  agents/              # 旧路径：Manager / Locator / Developer / QA + LLMDeveloperAgent
+  skills/              # SkillCard、domain gating、validator、公开路由
+  llm/                 # ModelClient、prompts、PatchPlan schema
+  adapters/            # WorkspaceAdapter（fake / openhands）
+  baselines/           # 可选外部基线（vanilla DeepSeek、OpenHands、SWE-agent、Aider）
+  eval/                # 旧 ablation runner、注入策略、报告；upgrade_demo、h4_fixture
 benchmarks/
-  tasks/             # phase6/phase7 任务 YAML
-  repos/             # tiny + medium Python repos
-reports/             # ablation 报告
-docs/                # 证据摘要、case studies、limitations
+  tasks/               # phase6 / phase7 任务 YAML
+  repos/               # 4 个 medium + 7 个 tiny 合成 Python 仓库
+  a5/                  # A5 各版本记忆卡（v2-v6）及 manifest；pilot20 来源与许可证
+configs/               # default.yaml；a5/ 下为交接、资金、pilot 模板和来源锁
+scripts/               # 见下表
+docs/
+  A5-FINAL-REPORT.zh-CN.md, MEMORY-FINAL-REPORT.zh-CN.md, PROJECT-HISTORY.zh-CN.md
+  sprint/              # A5-main / A6-R 预注册、结果、checkpoint 和记忆协议（冻结）
+  upgrade/             # 新路径 TP01-04、H4 适配、A5 计划与验收
+  memory-v2/           # 记忆诊断与文献
+  archive/             # 早期总计划、Phase 7.1 计划、会话交接
+  current-evidence.md, limitations.md, case-study-*.md, code-reading-guide.zh-CN.md
+reports/               # phase6 / phase7 汇总；llm/ 下是历次 L0-L5 汇总，archive/ 为 Batch 5.7
+tests/                 # 51 个测试模块，无需 API key
 ```
+
+| 用途 | 脚本 |
+| --- | --- |
+| 旧路径实验 | `run_baseline.py`、`run_graph.py`、`run_memory_ablation.py`、`run_phase6_ablation.py`、`run_llm_ablation.py`、`run_mechanism_smoke.py`、`run_external_baselines.py` |
+| 新路径演示与 H4 | `demo_memory_validity.py`、`prepare_h4_fixture.py`、`upgrade_snapshot.py` |
+| A5 准备 | `run_a5_offline.py`、`prepare_a5_pilot20.py`、`prepare_a5_funded_build.py`、`build_memory_cards.py`、`dev_time_selection.py`、`handoff_sha.py` |
+| A5-main / A6-R 分析 | `analyze_a5_main.py`、`analyze_a6_retry.py`、`make_a6_synthetic.py`、`a6_diff.py`、`describe_a6_stops.py`、`posthoc_a6_anchor.py`（后两个非预注册） |
+
+原始运行输出（`reports/llm/*/` 下的逐题结果、`reports/phase6/`、`traces/` 下的轨迹）只保存在本地，仓库里只保留汇总。
 
 ## Case Studies
 
