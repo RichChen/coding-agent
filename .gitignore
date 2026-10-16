@@ -16,6 +16,25 @@ reports/examples/*
 /datasets/tmp_requests_*_tasks.json
 /datasets/compact_stress_tasks.json
 /docs/examples/*_redacted.jsonl
+
+# Process docs kept on disk, not published. Files already tracked under docs/changes/ stay tracked.
+/docs/archive/
+/docs/publish/
+/docs/changes/
+/docs/FAILURE-CASES.zh-CN.md
+/docs/upgrade/00_*.md
+/docs/upgrade/01_*.md
+/docs/upgrade/02_*.md
+/docs/upgrade/A5-HOST-PREFLIGHT-24-CONTRACT.md
+/docs/upgrade/A5-PRE-MEMORY-CURSOR-PROMPT.zh-CN.md
+/docs/upgrade/A5-REAL240-HARNESS-PROMPT.zh-CN.md
+/docs/upgrade/A5-SHARED-GATE-APPROVAL-BOUNDARY.zh-CN.md
+/docs/upgrade/BASELINE-EVIDENCE.md
+/docs/upgrade/CONTRACT-CHANGE-v0.2-PROPOSAL.md
+/docs/upgrade/FULL-REPO-GRADER-CONTRACT.zh-CN.md
+/docs/upgrade/FULL-REPO-GRADER-ENV-AMENDMENT.zh-CN.md
+/docs/upgrade/IMPLEMENTATION-PLAN.md
+/docs/upgrade/TASK-PACKAGES.md
 .tmp/
 .pytest_tmp/
 .pytest-tmp/
