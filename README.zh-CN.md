@@ -14,39 +14,38 @@ R1 后续：[R2-lite 真摘要](docs/upgrade/R2-LITE-TRUE-SUMMARY.zh-CN.md) 提�
 
 ## 架构
 
-与英文版相同的 mermaid 图（便于与代码对照）：
+与英文版同一张图，标签译成中文：
 
 ```mermaid
 flowchart TD
-    CLI[CLI: run_single.py / run_eval.py] --> CONFIG[Config YAML]
-    CONFIG --> AGENT[AgentLoop]
-    CONFIG --> EVAL[EvalRunner]
+    CLI["scripts/: run_single · run_eval · run_swe_task · run_a5_main · run_a6_retry"] --> CONFIG[配置 YAML + prompts/]
+    CONFIG --> FACTORY[harness.factory.build_agent]
+    FACTORY --> AGENT[AgentLoop]
 
-    subgraph AgentLoop["Agent 循环 plan-act-observe"]
-        LLM[LLMClient] -->|chat| API[OpenAI-compatible API]
-        API -->|response| PARSE[Parse tool_calls / text]
-        PARSE -->|tool_calls| POLICY[Policy Engine]
-        POLICY -->|allow/block| TOOLS[Tool Registry]
-        TOOLS -->|execute| SAND[Sandbox: path isolation]
-        SAND -->|result| OBSERVE[Append observation]
-        OBSERVE --> LLM
+    subgraph LOOP["Agent 循环 plan-act-observe"]
+        CTX["上下文策略：L0 截断、L1 遮蔽、可选 LLM 摘要"] --> LLM[LLMClient]
+        LLM -->|chat / SSE| API[OpenAI 兼容 API]
+        API --> VALIDATE[工具调用校验]
+        VALIDATE --> POLICY["策略：命令规则、路径守卫、步数/时间/模型预算"]
+        POLICY -->|放行| TOOLS[工具注册表]
+        TOOLS --> EXEC["执行后端：受信本地，或每次运行一个 Docker 容器"]
+        EXEC --> OBSERVE[追加观察结果]
+        OBSERVE --> CTX
     end
 
-    subgraph Eval["评测 Harness"]
-        DS[Dataset JSON] --> RUNNER[EvalRunner]
-        RUNNER -->|per task| AGENT
-        AGENT -->|AgentRunResult| METRICS[Aggregate Metrics]
-        METRICS --> REPORT[Markdown + CSV Report]
+    AGENT --> LOOP
+
+    subgraph EVAL["评测"]
+        DS[mini / repo 任务 JSON] --> RUNNER[EvalRunner + 判定器] --> REPORT[Markdown + CSV 报告]
+        IMG[SWE-bench 干净镜像]
+        GRADER["ImageGrader：候选 delta + test patch，FAIL_TO_PASS / PASS_TO_PASS"]
     end
 
-    subgraph Safety["策略层 Policy"]
-        SAND -->|resolve| PATH[Path within workspace?]
-        POLICY -->|check| CMD[Command whitelist/blacklist]
-        POLICY -->|tick| BUDGET[Step limit + timeout]
-    end
-
-    TRACE[TraceLogger: JSONL] --> DISK[trace files]
-    AGENT --> TRACE
+    RUNNER -->|逐题| AGENT
+    IMG -->|初始化工作区| AGENT
+    AGENT -->|候选 delta| GRADER
+    AGENT --> TRACE["追踪：JSONL 步骤、EventBus、SQLite 会话日志"]
+    POLICY --> LEDGER[模型调用 / token / 人民币账本]
 ```
 
 ## 快速开始
@@ -99,10 +98,31 @@ python scripts/run_eval.py --dataset datasets/mini_tasks.json --compare
 ### 5. 测试
 
 ```bash
-pytest tests/ -v
+pytest tests/ -q
 ```
 
+测试用 Mock LLM，不需要 API Key。在 Windows 上的干净克隆里，654 个通过，25 个跳过（只能在 Linux 或 Docker 下跑）。另有 4 个失败，原因是它们读取从未提交的本地证据文件：A5 记忆记录、Flask 完整源码包和两个 R2 种子文件。
+
+### 6. SWE-bench 实验（A5 / A6-R）
+
+需要 Docker、SWE-bench 解释器环境（`scripts/setup_swebench_envs.py`）、干净基线镜像和付费 DeepSeek Key。还要求 agent 仓库以 `../coding-agent` 的路径放在本仓库旁边：B2 从那里加载记忆卡插件，运行回执也会记录它的 git 状态。
+
+```bash
+# 跑 configs/sprint/dev-tasks.yaml 里的一道题，不调用模型，仍在 Docker 里评分
+python scripts/run_swe_task.py --task <instance_id> --mock
+
+# A5-main：对整个题池做全部运行前检查，不调用模型
+python scripts/run_a5_main.py --preflight
+
+# A6-R：对 22 道题和 53 条上次尝试记录做同样的检查
+python scripts/run_a6_retry.py --preflight
+```
+
+去掉 `--mock` / `--preflight` 就是付费运行。冻结的输入和停止规则在 `docs/sprint/`。
+
 ## 配置说明
+
+下表三套是 mini 任务评测的参考配置。`configs/` 下其余文件各打开一项功能（Docker 后端、仅 argv 命令、plan-act、上下文压缩、只读子 agent、DeepSeek 演示）；`configs/sprint/b0-v2.yaml` 是 A5 和 A6-R 用的配置。
 
 | 配置文件 | 命令策略 | 沙箱 | 典型用途 |
 |----------|----------|------|----------|
@@ -154,16 +174,20 @@ Agent 的 system prompt 不再硬编码在 `loop.py`，而是存放在 `prompts/
 
 - `src/config`：Pydantic 配置校验（`HarnessConfig`）  
 - `src/harness`：统一工厂（`load_config` + `build_agent`）  
-- `src/llm`：OpenAI 兼容 HTTP 客户端  
-- `src/tools`：read / write / list、`run_command`、`search_replace`、`edit_file`（单次替换）、`read_events`（debug）  
-- `src/policy`：沙箱路径、`CommandPolicy`、文件大小限制、`Budget`  
-- `src/runtime`：`AgentLoop`、Hook 管线（`before_llm` / `after_tools`）、Layer-1 micro-compact、重试、状态枚举  
-- `src/tracing`：JSONL 轨迹、生命周期 EventBus  
-- `src/eval`：批量跑数、指标、报告（含 `trace_file` 列）  
-- `configs/`：`baseline` / `hardened` / `debug` 三套配置  
-- `prompts/`：System prompt 外置（`system_default.md`），改 prompt 无需改 Python  
-- `scripts/`：CLI 入口  
-- `docs/examples/`：合成 demo 轨迹  
-- `tests/`：71 个单元与集成测试（含 Mock LLM，无需 API Key）  
+- `src/llm`：OpenAI 兼容 HTTP 客户端（`client.py`）和 SSE 流式聚合（`stream.py`）  
+- `src/runtime`：`AgentLoop` 主循环；上下文策略（L0/L1、micro-compact、模型视图 `window.py`、可选 LLM 摘要 `summary.py`）；plan-act 计划、状态机、Hook、重试；单调 deadline 与取消；可选会话与断点恢复检查  
+- `src/tools`：read / write / list、`edit_file`、`search_replace`、`search_code`、`run_command`、`read_events`（debug）、只读 `subagent`；`container_files` 让文件工具走 Docker RPC；`validation` 严格校验工具参数  
+- `src/policy`：沙箱路径、命令规则、文件大小限制、步数/时间预算；共享的模型调用账本与人民币账本；H4/H5 插件边界（`plugin` / `registry` / `dispatcher` / `reposkill`）  
+- `src/execution`：受信本地后端、每次运行一个容器的 Docker 后端、SWE-bench 镜像后端（`baseline_image_backend` / `a5_image_backend`）  
+- `src/tracing`：JSONL 轨迹、生命周期 EventBus、SQLite 会话日志、产物存储  
+- `src/eval`：批量跑数、指标、报告、bootstrap 置信区间；`image_grader`（SWE-bench 候选 delta + test patch 评分）、H3 的 `grader` / `h3_runner`、整仓 pytest 的 `repo_grader`；`a5_*` 为 A5 回执、快照和 pilot 锁定  
+- `configs/`：`baseline` / `hardened` / `debug` 三套参考配置，若干单功能配置，`sprint/`（SWE-bench 配置与题单），`a5/`（A5 镜像交接、价格绑定、预检锁定）  
+- `prompts/`：`system_default.md` 和 SWE-bench 任务用的 `swe_b0.md`，改 prompt 无需改 Python  
+- `datasets/`：`mini_tasks.json`（36 题）、`repo_tasks.json`、`swebench_lite_tasks.json`  
+- `docker/`：Docker 后端测试镜像  
+- `scripts/`：CLI 入口，分组见英文 README 的 Scripts 表（mini 评测、SWE-bench 准备与运行、A5-main、A6-R、A5 预检与 pilot、H3-H5 与 R2、审计）。每个脚本开头的 docstring 写明是否调用模型。早期 sprint 里没有被 `docs/sprint/` 引用的一次性脚本不放进仓库  
+- `docs/`：`PROJECT-HISTORY`（项目历程）、`PROJECT-OVERVIEW`、`LEARNING`、`CONTAMINATION-NOTES`；`sprint/` 为 A5 / A6-R 证据链（冻结）；`upgrade/` 为 H3-H5、R1-R2 实现说明，`evidence/` 下是运行记录；`changes/` 为 HP-01..04 证据报告引用的两份重构收口记录；`examples/` 为合成 demo 轨迹  
+- `reports/`：污染探针、失败分类和 SWE-bench Lite 验证日志  
+- `tests/`：69 个测试模块（含 Mock LLM，无需 API Key）；`fixtures/repos/` 有 16 个小型仓库任务和 12 个 SWE-bench Lite 源码快照  
 
 更细的**阅读顺序与练习**见 [LEARNING.zh-CN.md](docs/LEARNING.zh-CN.md)。
