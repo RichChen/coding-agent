@@ -19,35 +19,34 @@ A [wrapper-only follow-up and offline window preflight](docs/upgrade/evidence/R2
 
 ```mermaid
 flowchart TD
-    CLI[CLI: run_single.py / run_eval.py] --> CONFIG[Config YAML]
-    CONFIG --> AGENT[AgentLoop]
-    CONFIG --> EVAL[EvalRunner]
+    CLI["scripts/: run_single · run_eval · run_swe_task · run_a5_main · run_a6_retry"] --> CONFIG[Config YAML + prompts/]
+    CONFIG --> FACTORY[harness.factory.build_agent]
+    FACTORY --> AGENT[AgentLoop]
 
-    subgraph AgentLoop["Agent Loop (plan-act-observe)"]
-        LLM[LLMClient] -->|chat| API[OpenAI-compatible API]
-        API -->|response| PARSE[Parse tool_calls / text]
-        PARSE -->|tool_calls| POLICY[Policy Engine]
-        POLICY -->|allow/block| TOOLS[Tool Registry]
-        TOOLS -->|execute| SAND[Sandbox: path isolation]
-        SAND -->|result| OBSERVE[Append observation]
-        OBSERVE --> LLM
+    subgraph LOOP["Agent loop (plan-act-observe)"]
+        CTX["Context policy: L0 truncation, L1 masking, optional LLM summary"] --> LLM[LLMClient]
+        LLM -->|chat / SSE| API[OpenAI-compatible API]
+        API --> VALIDATE[Tool-call validation]
+        VALIDATE --> POLICY["Policy: command rules, path guard, step/time/model budgets"]
+        POLICY -->|allow| TOOLS[Tool registry]
+        TOOLS --> EXEC["Execution backend: trusted local, or one Docker container per run"]
+        EXEC --> OBSERVE[Append observation]
+        OBSERVE --> CTX
     end
 
-    subgraph Eval["Eval Harness"]
-        DS[Dataset JSON] --> RUNNER[EvalRunner]
-        RUNNER -->|per task| AGENT
-        AGENT -->|AgentRunResult| METRICS[Aggregate Metrics]
-        METRICS --> REPORT[Markdown + CSV Report]
+    AGENT --> LOOP
+
+    subgraph EVAL["Evaluation"]
+        DS[mini / repo task JSON] --> RUNNER[EvalRunner + judges] --> REPORT[Markdown + CSV report]
+        IMG[SWE-bench clean image]
+        GRADER["ImageGrader: candidate delta + test patch, FAIL_TO_PASS / PASS_TO_PASS"]
     end
 
-    subgraph Safety["Policy Layer"]
-        SAND -->|resolve| PATH[Path within workspace?]
-        POLICY -->|check| CMD[Command whitelist/blacklist]
-        POLICY -->|tick| BUDGET[Step limit + timeout]
-    end
-
-    TRACE[TraceLogger: JSONL] --> DISK[trace files]
-    AGENT --> TRACE
+    RUNNER -->|per task| AGENT
+    IMG -->|seeds workspace| AGENT
+    AGENT -->|candidate delta| GRADER
+    AGENT --> TRACE["Tracing: JSONL steps, EventBus, SQLite session journal"]
+    POLICY --> LEDGER[Model-call / token / CNY ledger]
 ```
 
 ## Quick Start
@@ -109,12 +108,31 @@ python scripts/run_eval.py --dataset datasets/mini_tasks.json --compare
 ### 5. Run Tests
 
 ```bash
-pytest tests/ -v
+pytest tests/ -q
 ```
+
+No API key is needed; tests use a mock LLM. In a clean clone on Windows, 654 pass and 25 are skipped (Linux-only or Docker-only). Four more fail because they read local evidence files that were never committed: the A5 memory records, the full Flask source archive, and two R2 seed files.
+
+### 6. SWE-bench Runs (A5 / A6-R)
+
+These need Docker, the SWE-bench interpreter envs (`scripts/setup_swebench_envs.py`), the clean baseline images, and a paid DeepSeek key. They also expect the agent repository checked out next to this one as `../coding-agent`: B2 loads the memory-card plugin from it, and run receipts record its git state.
+
+```bash
+# One task from configs/sprint/dev-tasks.yaml, zero model calls; still grades in Docker
+python scripts/run_swe_task.py --task <instance_id> --mock
+
+# A5-main: every pre-run check on the pool, no model calls
+python scripts/run_a5_main.py --preflight
+
+# A6-R: same, for the 22 tasks and 53 previous-attempt records
+python scripts/run_a6_retry.py --preflight
+```
+
+Paid runs use the same scripts without `--mock` / `--preflight`. The frozen inputs and stop rules are in `docs/sprint/`.
 
 ## Configuration
 
-Three reference configs are provided:
+Three reference configs are provided for the mini-task eval. The other files in `configs/` turn on single features (Docker backend, argv-only commands, plan-act, context compaction, read-only subagent, DeepSeek demo); `configs/sprint/b0-v2.yaml` is the profile used for A5 and A6-R.
 
 | Config | Command Policy | Sandbox | Use Case |
 |--------|---------------|---------|----------|
@@ -187,64 +205,67 @@ The eval generates two files in `reports/`:
 
 ```
 coding-harness/
-├── pyproject.toml              # Dependencies & build
-├── .env.example                # Environment template
-├── configs/
-│   ├── baseline.yaml           # Permissive config
-│   ├── hardened.yaml           # Strict config
-│   └── debug.yaml              # Debug config (lifecycle events + read_events)
-├── prompts/
-│   └── system_default.md       # System prompt (editable without touching Python)
-├── docs/
-│   └── examples/
-│       └── demo_baseline_synthetic.jsonl  # Synthetic agent trace
-├── datasets/
-│   └── mini_tasks.json         # 36 evaluation tasks
-├── scripts/
-│   ├── run_single.py           # Single task CLI
-│   └── run_eval.py             # Batch eval CLI
+├── pyproject.toml                  # Dependencies & build (Python >= 3.11)
+├── .env.example                    # Environment template
 ├── src/
-│   ├── config/
-│   │   └── schema.py           # Pydantic config validation
-│   ├── harness/
-│   │   └── factory.py          # Unified load_config + build_agent
-│   ├── llm/client.py           # LLMClient (OpenAI-compatible)
-│   ├── tools/                  # Tool implementations
-│   │   ├── files.py            # read_file, write_file, list_dir
-│   │   ├── command.py          # run_command (with output truncation)
-│   │   ├── edit.py             # edit_file (single-occurrence replace)
-│   │   ├── patch.py            # search_replace (unique-match replace)
-│   │   └── events.py           # read_events (debug, not in hardened)
-│   ├── policy/                 # Safety & budget
-│   │   ├── sandbox.py          # Path isolation
-│   │   ├── rules.py            # Command whitelist/blacklist
-│   │   ├── limits.py           # File size enforcement
-│   │   └── budget.py           # Step + time limits
-│   ├── runtime/                # Agent loop + hooks
-│   │   ├── loop.py             # plan-act-observe cycle
-│   │   ├── state.py            # State machine
-│   │   ├── hooks.py            # Pluggable before_llm / after_tools hooks
-│   │   ├── compact.py          # Layer-1 micro-compact
-│   │   └── retry.py            # Retry with backoff
-│   ├── tracing/                # Observability
-│   │   ├── models.py           # Trace data types
-│   │   ├── logger.py           # JSONL step logger
-│   │   └── events.py           # Lifecycle EventBus
-│   └── eval/                   # Evaluation harness
-│       ├── runner.py           # Batch runner (with per-task traces)
-│       ├── metrics.py          # Metric aggregation
-│       └── report.py           # Markdown + CSV generator
-└── tests/                      # 71 unit + integration tests
-    ├── fixtures/
-    │   └── mock_llm.py         # Mock LLM client for CI
-    ├── test_sandbox.py         # Path isolation
-    ├── test_policy.py          # Command rules + budget
-    ├── test_tools.py           # File, search_replace, edit_file, truncation
-    ├── test_compact.py         # Micro-compact + EventBus
-    ├── test_timeout.py         # Retry & timeout
-    ├── test_runner.py          # Metrics & reports
-    └── test_agent_loop.py      # AgentLoop integration (no API key needed)
+│   ├── config/schema.py            # Pydantic validation of YAML configs
+│   ├── harness/factory.py          # load_config + build_agent
+│   ├── llm/                        # client.py (OpenAI-compatible), stream.py (SSE aggregation)
+│   ├── runtime/                    # The agent loop
+│   │   ├── loop.py                 # plan-act-observe cycle
+│   │   ├── context.py, compact.py  # L0/L1 context policy, micro-compact of old tool output
+│   │   ├── window.py, summary.py   # Model views over immutable history; optional LLM summary
+│   │   ├── planner.py, state.py, hooks.py, retry.py
+│   │   ├── deadline.py, awaitctl.py  # Monotonic deadline + cancellation
+│   │   └── session.py, recovery.py   # Opt-in sessions; journal replay checks on resume
+│   ├── tools/                      # read_file / write_file / list_dir, edit_file, search_replace,
+│   │                               # search_code, run_command, read_events, subagent (read-only child),
+│   │                               # container_files (file tools over Docker RPC), validation, registry
+│   ├── policy/                     # sandbox (path guard), rules (command allow/block), limits, budget,
+│   │                               # model_budget + cny_budget (shared ledgers),
+│   │                               # plugin / registry / dispatcher / reposkill (H4-H5 plugin boundary)
+│   ├── execution/                  # local (trusted), docker (one container per run),
+│   │                               # baseline_image_backend + a5_image_backend (SWE-bench images), collector
+│   ├── tracing/                    # JSONL step logger, EventBus, SQLite session journal, artifacts
+│   └── eval/                       # EvalRunner, metrics, report, bootstrap CIs;
+│                                   # image_grader (SWE-bench delta + test patch), grader + h3_runner (H3),
+│                                   # repo_grader (whole-repo pytest), a5_* (A5 receipts, snapshots, pilot lock)
+├── configs/
+│   ├── baseline.yaml, hardened.yaml, debug.yaml   # Reference profiles for the mini-task eval
+│   ├── docker.yaml, hardened_argv.yaml, plan_act*.yaml, context_compact*.yaml,
+│   │   subagent_readonly.yaml, deepseek.yaml, ...  # Single-feature profiles
+│   ├── sprint/                     # SWE-bench profiles (b0-v2.yaml = A5/A6-R) and task lists
+│   └── a5/                         # A5 image handoff, price binding, preflight locks
+├── prompts/                        # system_default.md, swe_b0.md (SWE-bench task prompt)
+├── datasets/                       # mini_tasks.json (36), repo_tasks.json, swebench_lite_tasks.json
+├── docker/                         # Test image for the Docker backend
+├── scripts/                        # CLI entry points, see the table below
+├── docs/
+│   ├── PROJECT-HISTORY.zh-CN.md    # What was built, what failed, how it was fixed
+│   ├── PROJECT-OVERVIEW.zh-CN.md, LEARNING.zh-CN.md, CONTAMINATION-NOTES.zh-CN.md
+│   ├── sprint/                     # A5 / A6-R evidence chain: designs, preregistration, checkpoints (frozen)
+│   ├── upgrade/                    # H3-H5 and R1-R2 implementation notes; evidence/ holds run records
+│   ├── changes/                    # Two refactor closeout notes cited by the HP-01..04 evidence reports
+│   └── examples/                   # Synthetic demo trace
+├── reports/                        # Contamination probe, failure taxonomy, SWE-bench Lite validation log
+└── tests/                          # 69 test modules, mock LLM, no API key needed
+    └── fixtures/repos/             # 16 small repo tasks + 12 SWE-bench Lite source snapshots
 ```
+
+### Scripts
+
+| Group | Scripts |
+|-------|---------|
+| Mini-task eval | `run_single.py`, `run_eval.py`, `gen_failure_taxonomy.py`, `check_dataset_oracle.py` |
+| SWE-bench setup | `setup_swebench_envs.py`, `swebench_specs.py`, `build_swebench_lite_subset.py`, `contamination_probe.py`, `build_clean_baseline.py`, `calibrate_clean_image.py`, `sprint2_calibrate.py`, `rewritten_sources.py` |
+| SWE-bench runs | `run_swe_task.py` (single tasks, B0-B3), `regrade_saved_delta.py` |
+| A5-main | `select_main_targets.py`, `sprint5_prepare_main.py`, `sprint5_rejudge_scan.py`, `run_a5_main.py`, `sprint6_*.py` (canary, statistics, regrade and diagnostic checks), `sprint7_inventory.py` |
+| A6-R | `build_a6_attempts.py`, `run_a6_retry.py` |
+| A5 preflight and pilot | `a5_preflight.py`, `preflight_a5_*.py`, `prepare_a5_typed_tree.py`, `recheck_a5_repo_baseline.py`, `audit_a5_*.py`, `calibrate_a5_image_grader.py`, `calibrate_pilot_image_grader.py`, `lock_a5_pilot_preflight.py`, `run_a5_pilot_fixture.py`, `run_a5_real.py`, `a5_django_observer.py`, `a5_pytest_observer.py`, `a5_memory_source_smoke.py`, `export_a5_memory_snapshot.py`, `sprint2_verify_memory.py`, `handoff_sha.py` |
+| H3-H5 and R2 | `run_h3.py`, `run_grader.py`, `prepare_repo_grader.py`, `preflight_repo_grader.py`, `run_repo_grader.py`, `audit_repo_grader.py`, `run_deepseek.py`, `audit_deepseek.py`, `demo_h4.py`, `run_reposkill_interop.py`, `demo_true_summary.py`, `run_summary_pilot.py`, `run_summary_wrapper.py`, `audit_summary_pilot.py`, `check_summary_windows.py` |
+| Audit | `audit/case_mem.py` (see `audit/README.md`) |
+
+Every script has a docstring at the top that states whether it calls a model. One-off scripts from earlier sprints that nothing in `docs/sprint/` cites are kept out of this repository.
 
 ## Design Decisions
 
@@ -262,6 +283,7 @@ coding-harness/
 - `httpx` — async HTTP for LLM API calls
 - `pyyaml` — config file parsing
 - `pydantic` — config schema validation (catches YAML typos at startup)
-- `pytest` + `pytest-asyncio` — testing
+- `jsonschema` — validates tool-call arguments against each tool's schema
+- `pytest` + `pytest-asyncio` + `pytest-cov` — testing
 
 Docker is optional for legacy trusted-local examples and required for the controlled `docker_linux` profile. No vendor SDKs — `LLMClient` wraps the OpenAI-compatible `/chat/completions` endpoint.
