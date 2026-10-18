@@ -31,11 +31,11 @@
 
 ## 证据
 
-- [dispatcher full-host 有效联调目录](evidence/H5-interop/real-04/)
+- dispatcher full-host 有效联调目录（本地运行产物，未入库：`real-04`）
 - [有效结果摘要](evidence/H5-interop/real-04/summary.json)
-- [完整历史联调目录](evidence/H5-interop/real-01/)
+- 完整历史联调目录（本地运行产物，未入库：`real-01`）
 - [离线 preflight（off/on、指纹、交接样例一致性）](evidence/H5-interop/real-01/preflight.json)
-- [插件开启的模型候选 patch](evidence/H5-interop/real-04/on/candidate.patch)
+- 插件开启的模型候选 patch（本地运行产物，未入库：`candidate.patch`）
 - [插件关闭的独立评测](evidence/H5-interop/real-04/off/evaluation-result.json)
 - [插件开启的独立评测](evidence/H5-interop/real-04/on/evaluation-result.json)
 

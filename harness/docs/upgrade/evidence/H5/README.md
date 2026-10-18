@@ -4,12 +4,12 @@
 
 ## 结果入口
 
-- [成功候选 patch](deepseek-flash-attempt-03/candidate.patch)：模型只改动 `boltons/strutils.py` 一行。
+- 成功候选 patch（本地运行产物，未入库：`candidate.patch`）：模型只改动 `boltons/strutils.py` 一行。
 - [原版独立测试](deepseek-flash-attempt-03/baseline-evaluation.json)：8 passed / 10 failed / 18 collected。
 - [候选独立测试](deepseek-flash-attempt-03/run/evaluation-result.json)：18 passed / 0 failed / 18 collected。
 - [从冻结快照再次独立复验](independent-regrade/results.json)：新的 18 个容器，18/18 通过，无模型调用。
 - [离线审计总账](audit/audit.json)：所有三次尝试计入，包括一次运行环境失败、一次源码准备失败；两次付费运行共 24 calls / 91,540 provider tokens。
-- [最终全量回归](windows-regression-final.xml)：**316 passed、6 skipped、0 failed**，67.86 秒；其中真实 Docker **15 项全部执行通过**，新增 DeepSeek/源码校验 **8 项通过**。6 项 skip 为 Linux 原生进程组测试，在 Windows 宿主不支持，不能算通过。
+- 最终全量回归（本地运行产物，未入库：`windows-regression-final.xml`）：**316 passed、6 skipped、0 failed**，67.86 秒；其中真实 Docker **15 项全部执行通过**，新增 DeepSeek/源码校验 **8 项通过**。6 项 skip 为 Linux 原生进程组测试，在 Windows 宿主不支持，不能算通过。
 
 `windows-regression.xml` 是新增源码校验测试前的 315 passed / 6 skipped；`docker-fix-regression.xml` 是 126/127 恢复、OOM/输出限额与当时 7 项 DeepSeek 测试的 10 passed 针对性回归。它们保留为过程证据，不代替最终文件。
 

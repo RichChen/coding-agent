@@ -3,11 +3,11 @@
 
 # Coding Harness（中文说明）
 
-[English README](README.md) · [项目说明与亮点](docs/PROJECT-OVERVIEW.zh-CN.md) · [学习指南：如何读透本项目](docs/LEARNING.zh-CN.md)
+[English README](README.md) · [项目说明与亮点](docs/PROJECT-OVERVIEW.zh-CN.md) · [学习指南：如何读透本项目](docs/LEARNING.zh-CN.md) · [文档索引](docs/INDEX.md)
 
 可控的 **Coding Agent 运行时（Harness）**，并内置 **评测 Harness（Eval）**，用于可复现、可度量、可回归的智能体实验。
 
-**A5-main：** 在 56 道 SWE-bench Verified 题上比较 B0（无记忆，解出率 68.5%）和 B2（注入同仓库、更早、按规则提取的 validated_fix 卡片）各 3 次，没有检出大于 13.1 个百分点的效应。见 [项目历程](docs/PROJECT-HISTORY.zh-CN.md)、[A5-main 设计](docs/sprint/A5-MAIN-DESIGN.zh-CN.md)、[运行清单](docs/sprint/A5-MAIN-INVENTORY.md)，以及 agent 仓库的 [结果报告](../agent/docs/sprint/A5-MAIN-RESULTS.zh-CN.md) 和 [最终报告](../agent/docs/A5-FINAL-REPORT.zh-CN.md)。
+**A5-main：** 在 56 道 SWE-bench Verified 题上比较 B0（无记忆）和 B2（注入同仓库、更早、按规则提取的 validated_fix 卡片）各 3 次。B0 解出率 68.5%，B2 相对 B0 的平均配对差是 −1.8 个百分点（95% 区间 [−8.3, +4.8]，p = 0.72），没有检出正效应。见 [项目历程](docs/PROJECT-HISTORY.zh-CN.md)、[A5-main 设计](docs/sprint/A5-MAIN-DESIGN.zh-CN.md)、[运行清单](docs/sprint/A5-MAIN-INVENTORY.md)，以及 agent 仓库的 [结果报告](../agent/docs/sprint/A5-MAIN-RESULTS.zh-CN.md) 和 [最终报告](../agent/docs/A5-FINAL-REPORT.zh-CN.md)。
 
 当前受控路径见 [H3 Docker](docs/upgrade/H3-IMPLEMENTATION.zh-CN.md)、[H4 窗口/插件接口](docs/upgrade/H4-IMPLEMENTATION.zh-CN.md) 和 [真实 DeepSeek Flash 接入](docs/upgrade/H5-DEEPSEEK.zh-CN.md)。R1 收口与证据索引见 [R1 收口记录](docs/upgrade/R1-CLOSEOUT.zh-CN.md)。真实模型演示使用固定公开模块切片与独立 grader，需要 Docker/Linux 和显式付费调用许可；下文旧宿主示例仅用于 trusted-local 开发，不具备文件系统隔离。
 
@@ -189,7 +189,7 @@ Agent 的 system prompt 不再硬编码在 `loop.py`，而是存放在 `prompts/
 - `datasets/`：`mini_tasks.json`（36 题）、`repo_tasks.json`、`swebench_lite_tasks.json`  
 - `docker/`：Docker 后端测试镜像  
 - `scripts/`：CLI 入口，分组见英文 README 的 Scripts 表（mini 评测、SWE-bench 准备与运行、A5-main、A6-R、A5 预检与 pilot、H3-H5 与 R2、审计）。每个脚本开头的 docstring 写明是否调用模型。早期 sprint 里没有被 `docs/sprint/` 引用的一次性脚本不放进仓库  
-- `docs/`：`PROJECT-HISTORY`（项目历程）、`PROJECT-OVERVIEW`、`LEARNING`、`CONTAMINATION-NOTES`；`sprint/` 为 A5 / A6-R 证据链（冻结）；`upgrade/` 为 H3-H5、R1-R2 实现说明，`evidence/` 下是运行记录；`changes/` 为 HP-01..04 证据报告引用的两份重构收口记录；`examples/` 为合成 demo 轨迹  
+- `docs/`：`PROJECT-HISTORY`（项目历程）、`PROJECT-OVERVIEW`、`LEARNING`、`CONTAMINATION-NOTES`；`INDEX.md` 是文档分类和阅读顺序，`sprint/` 为 A5 / A6-R 证据链（只追加）；`upgrade/` 为 H3-H5、R1-R2 实现说明，`evidence/` 下是运行记录；`changes/` 为 HP-01..04 证据报告引用的两份重构收口记录；`examples/` 为合成 demo 轨迹  
 - `reports/`：污染探针、失败分类和 SWE-bench Lite 验证日志  
 - `tests/`：69 个测试模块（含 Mock LLM，无需 API Key）；`fixtures/repos/` 有 16 个小型仓库任务和 12 个 SWE-bench Lite 源码快照  
 

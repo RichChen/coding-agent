@@ -25,8 +25,8 @@
 | 首轮旧窗口/loop/client/budget 回归 | 34 passed |
 | 新增离线测试第一轮 | 25 passed |
 | 加入真实进程崩溃、完整 loop 取消后 | 29 passed |
-| 全项目离线回归 | **347 passed、22 skipped**，72.10s；[offline-regression.xml](offline-regression.xml) |
-| 最后补充恢复终止保护、完整 MockTransport demo 后的相关模块复验 | **89 passed、0 skipped**，42.48s；[summary-final.xml](summary-final.xml)，其中真摘要测试 34 项 |
+| 全项目离线回归 | **347 passed、22 skipped**，72.10s；offline-regression.xml（本地运行产物，未入库：`offline-regression.xml`） |
+| 最后补充恢复终止保护、完整 MockTransport demo 后的相关模块复验 | **89 passed、0 skipped**，42.48s；summary-final.xml（本地运行产物，未入库：`summary-final.xml`），其中真摘要测试 34 项 |
 | CLI help | `scripts/demo_true_summary.py --help` 成功 |
 | 默认 fixture demo | [fixture-02/report.md](fixture-02/report.md)：视图 ready、模型调用 0；session/JSONL/replay/raw/view/manifest 完整 |
 
