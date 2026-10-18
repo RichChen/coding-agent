@@ -72,15 +72,20 @@ python -m pytest -q --deselect tests/test_a5_real240_h0_snapshot.py::test_h0_exp
 
 ## 5. 运行证据（`upgrade/evidence/`）
 
-每个子目录是一次执行留下的收据，但**不都是真实模型运行**。按类型分：
+每个子目录是一次执行留下的收据，但**不都是真实模型运行**，也不都是容器运行。**真实 Docker 和真实模型是两个独立维度**，下面按这两条维度分：
 
 | 类型 | 目录 | 说明 |
 | --- | --- | --- |
-| 真实模型 + Docker | [H3](upgrade/evidence/H3/README.md)、[H4](upgrade/evidence/H4/README.md)、[H5](upgrade/evidence/H5/README.md)、[H5-interop](upgrade/evidence/H5-interop/README.md)、[R2-real](upgrade/evidence/R2-real/README.md) 及其 [wrapper-01](upgrade/evidence/R2-real/wrapper-01/README.md) | 调用了 DeepSeek Flash，有 run 目录、收据和独立 grader 结果 |
-| 离线 / fixture（0 模型调用） | [R2-lite](upgrade/evidence/R2-lite/README.md)、[HP-01](upgrade/evidence/HP-01/REPORT.md) 到 [HP-04](upgrade/evidence/HP-04/REPORT.md)、`A5-real240-79-fixture-wiring` | 只验证实现链路，报告里写明模型调用数为 0 |
-| 预检与 gate（只读检查） | `A5-harness-preflight-01` 到 `-72`、`A5-pilot-grader-readiness-*`、`A5-real240-77/78`、`A5-h3-dual-end-review-*` | 检查镜像、环境、来源、基线是否满足条件；多数不调用模型 |
-| grader 校准 | [full-repo-grader](upgrade/evidence/full-repo-grader/README.md) | 整仓 grader 的构建与校准，0 模型调用 |
-| 记忆建池 | `A5-memory-pool-73` 到 `-76` | 候选索引、smoke 和 S2 建池记录 |
+| 工程验证：mock 模型 + 真实 Docker | [H3](upgrade/evidence/H3/README.md)、[H4](upgrade/evidence/H4/README.md) | 验证容器生命周期、文件/命令工具、宿主 grader、窗口策略和恢复。H3 用模拟模型跑完 4 轮并在容器里改文件；H4 的摘要来自本地 fixture。两处 README 都写明**没有真实或付费模型调用**。 |
+| 工程验证：离线 preflight，无容器 | [H5-interop](upgrade/evidence/H5-interop/README.md) 的 `offline-01`、`offline-02` | 外部 adapter 与 dispatcher 的离线 preflight，0 次付费调用。 |
+| 失败预检 | `H5-interop/real-02` | 想启用 dispatcher，但沙箱读不到 Docker named pipe，baseline 记为 `invalid_env`，**不能作为联调通过证据**。 |
+| 真实模型修复：DeepSeek Flash + Docker | [H5](upgrade/evidence/H5/README.md) 的 `deepseek-flash-attempt-01/03`；`H5-interop/real-01`、`real-03`、`real-04` | 真实 SSE、工具调用和容器内修复，判分在宿主侧。`H5/independent-regrade` 是对冻结快照的 18 个容器复验，**0 模型调用**，与上面的付费运行区分开。`real-01` 是 dispatcher 启用前的历史证据，当前以 `real-04` 为准。 |
+| 真实模型摘要与比对 | [R2-real](upgrade/evidence/R2-real/README.md)（`smoke-01`、`pilot-01`） | 1 次真实摘要 smoke、36 个固定历史对照，另有 8 次 Docker 修复对照；失败分母全部保留。 |
+| 真实模型包装实验 | [R2-real/wrapper-01](upgrade/evidence/R2-real/wrapper-01/README.md) | 9 份固定摘要 × 3 种包装 × 3 次重复，共 102 个真实主请求、0 次新摘要。它验证的是**包装措辞**，不是 Docker 修复成功率，报告里也明确不宣称修复提升。 |
+| 离线 / fixture（0 模型调用） | [R2-lite](upgrade/evidence/R2-lite/README.md)、[HP-01](upgrade/evidence/HP-01/REPORT.md) 到 [HP-04](upgrade/evidence/HP-04/REPORT.md)、`A5-real240-79-fixture-wiring` | 只验证实现链路，报告里写明模型调用数为 0。 |
+| 预检与 gate（只读检查） | `A5-harness-preflight-01` 到 `-72`、`A5-pilot-grader-readiness-*`、`A5-real240-77/78`、`A5-h3-dual-end-review-*` | 检查镜像、环境、来源、基线是否满足条件；多数不调用模型。 |
+| grader 校准 | [full-repo-grader](upgrade/evidence/full-repo-grader/README.md) | 整仓 grader 的构建与校准，0 模型调用。 |
+| 记忆建池 | `A5-memory-pool-73` 到 `-76` | 候选索引、smoke 和 S2 建池记录。 |
 
 其中 `A5-real240-*` 属于已被替代的 240 方案，见上文"历史方案"。
 
