@@ -240,7 +240,8 @@ coding-harness/
 ├── docs/
 │   ├── PROJECT-HISTORY.zh-CN.md    # What was built, what failed, how it was fixed
 │   ├── PROJECT-OVERVIEW.zh-CN.md, LEARNING.zh-CN.md, CONTAMINATION-NOTES.zh-CN.md
-│   ├── sprint/                     # A5 / A6-R evidence chain: designs, preregistration, checkpoints (frozen)
+│   ├── INDEX.md                    # What each doc is, and the order to read them in
+│   ├── sprint/                     # A5 / A6-R evidence chain: designs, preregistration, checkpoints (append-only)
 │   ├── upgrade/                    # H3-H5 and R1-R2 implementation notes; evidence/ holds run records
 │   ├── changes/                    # Two refactor closeout notes cited by the HP-01..04 evidence reports
 │   └── examples/                   # Synthetic demo trace
@@ -248,6 +249,8 @@ coding-harness/
 └── tests/                          # 69 test modules, mock LLM, no API key needed
     └── fixtures/repos/             # 16 small repo tasks + 12 SWE-bench Lite source snapshots
 ```
+
+Docs are grouped in [`docs/INDEX.md`](docs/INDEX.md): entry points, current implementation notes, the A5/A6-R evidence chain, and raw run records. `docs/sprint/PROGRESS.md` is an append-only work log, not a reading entry point.
 
 ### Scripts
 
@@ -274,6 +277,7 @@ Every script has a docstring at the top that states whether it calls a model. On
 | JSONL tracing | Append-only, human-readable with `jq`, easy to query |
 | `expected.type` in dataset | Four judge strategies (file_contains, command_output, keywords_in_answer, file_exists) cover most coding tasks without custom test harnesses |
 | System prompt in file | Prompt text lives in `prompts/` directory, editable without touching Python — enables prompt experimentation |
+| Intent-first journal, resume refuses unknown outcomes | A tool's intent is committed before it runs. On resume, committed results are reused; a non-idempotent operation whose outcome was never recorded blocks the run instead of being retried. See [SESSION-USAGE](docs/upgrade/SESSION-USAGE.zh-CN.md) and the four-window crash test in [R1-CLOSEOUT](docs/upgrade/R1-CLOSEOUT.zh-CN.md). |
 
 ## Dependencies
 
