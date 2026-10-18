@@ -98,10 +98,12 @@ TaskGraphPlanner (PlanAct: inspect → locate → patch → test → summarize)
 pip install -e ".[dev]"
 
 # 单元测试（无需 API key）
-python -m pytest
-# 干净的克隆里是 357 通过、7 跳过、3 失败。3 个失败都是因为读取没有提交的
-# 私有证据（A5 资金准备产物 2 个、django-10914 的 handoff 字段），不是代码回归；
-# 有完整本地证据时通过。详见 docs/INDEX.md。
+python -m pytest -q --deselect tests/test_a5_funding.py::test_funded_build_bundle_is_prepared_only_and_private_material_stays_outside_public \
+  --deselect tests/test_a5_funding.py::test_funded_build_artifacts_are_hashed \
+  --deselect tests/test_memory_cards_v5.py::test_generic_builder_matches_v5_bytes
+# 357 passed, 7 skipped, 3 deselected
+# 排除的 3 项读取未提交的私有证据（A5 资金准备产物 2 个、django-10914 的
+# handoff 字段），不是代码回归；有完整本地证据时去掉 --deselect 即可。见 docs/INDEX.md
 
 # Phase 6 deterministic ablation（无 LLM，验证机制链路）
 python scripts/run_phase6_ablation.py --tasks benchmarks/tasks/phase6_hard_12.yaml
