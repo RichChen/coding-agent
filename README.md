@@ -4,6 +4,63 @@
 
 A coding agent evaluation harness with strict answer isolation, plus two preregistered memory experiments run on it.
 
+## Three engineering pieces
+
+Beyond the results, three parts of this repository can be read as code:
+
+| Capability | How it works | Code |
+| --- | --- | --- |
+| Session recovery | A tool's intent is committed before it runs; on resume, committed results are reused, and a non-idempotent operation whose outcome was never recorded stops the run instead of being retried. Verified with real subprocesses crashing in four windows (`os._exit(71)`). | [`runtime/session.py`](harness/src/runtime/session.py), [`runtime/recovery.py`](harness/src/runtime/recovery.py), [`tracing/store.py`](harness/src/tracing/store.py), [`tests/test_recovery.py`](harness/tests/test_recovery.py) |
+| Answer isolation | An early image shipped the test patch inside `/opt/repo`, readable by the model. The image is now built from clean source, candidate deltas are applied in a separate image, and test/gold patches stay on the host grader side. | [`execution/baseline_image_backend.py`](harness/src/execution/baseline_image_backend.py), [`eval/image_grader.py`](harness/src/eval/image_grader.py) |
+| Recomputable evaluation | Metrics can be rebuilt from a saved run record: paired differences aggregated per task, bootstrap intervals, missing rows and reruns kept separate, failed attempts never dropped from the denominator. | [`eval/metrics.py`](harness/src/eval/metrics.py), [`eval/runner.py`](harness/src/eval/runner.py) |
+
+## Running it
+
+No Docker, no SWE-bench image, no key. Both blocks below were run on a clean checkout of HEAD.
+
+**1. Offline demo** (seconds, no model calls)
+
+```bash
+cd agent && pip install -e ".[dev]"
+python -m reposkill_agent upgrade-demo --output /tmp/my-demo
+```
+
+`--output` must not already exist. The demo writes a public workspace, a `memory.db` with per-record status and provenance, a manifest, `result.json` and `report.md`; the last line is `Offline comparisons: 20; model calls=0`. When a dependency or API signature changes the old record is rejected, unrelated file changes keep it valid, and missing evidence yields unknown. Every injection receipt comes from a fixture host, so it claims no real-model gain.
+
+**2. Public tests** (about 3 minutes)
+
+```bash
+# in agent/
+python -m pytest -q --deselect tests/test_a5_funding.py::test_funded_build_bundle_is_prepared_only_and_private_material_stays_outside_public \
+  --deselect tests/test_a5_funding.py::test_funded_build_artifacts_are_hashed \
+  --deselect tests/test_memory_cards_v5.py::test_generic_builder_matches_v5_bytes
+# 357 passed, 7 skipped, 3 deselected
+
+# in harness/
+pip install -e ".[dev]"
+python -m pytest -q --deselect tests/test_a5_real240_h0_snapshot.py::test_h0_export_and_audit_via_cli \
+  --deselect tests/test_repo_grader.py::test_full_archive_and_private_test_resources_are_complete \
+  --deselect tests/test_summary_pilot.py::test_prepare_frozen_data_and_window_expectations \
+  --deselect tests/test_summary_pilot.py::test_trace_accounting_replay_and_private_grading
+# 654 passed, 25 skipped, 4 deselected
+```
+
+The 32 skips are tests that need Linux or Docker and skip automatically on Windows.
+
+**3. Tests that need unpublished material (7)**
+
+These read evidence files that only existed on the original machine and were never committed. They are not code regressions, and they are not skipped:
+
+| Test | Missing file | Why it is not in the repo |
+| --- | --- | --- |
+| harness `test_a5_real240_h0_snapshot.py::test_h0_export_and_audit_via_cli` | `validated-memory-records.jsonl` from the A5 memory pool | private build output; `.jsonl` is not tracked |
+| harness `test_repo_grader.py::test_full_archive_and_private_test_resources_are_complete` | `full-repo-grader/attempt-02/flask-base.tar.gz` | full upstream archive, too large |
+| harness `test_summary_pilot.py`, two tests | `H5/deepseek-flash-attempt-01/seed/boltons/strutils.py` | R2 seed file, kept local only |
+| agent `test_a5_funding.py`, two tests | `reports/upgrade/a5-funded-build-preparation-20260921-v12/*` | `reports/` holds run output and is not tracked |
+| agent `test_memory_cards_v5.py::test_generic_builder_matches_v5_bytes` | the django-10914 handoff field | depends on harness-side output; needs both repos |
+
+Put the files at those paths and drop `--deselect` to run everything. `docs/INDEX.md` and both sub-READMEs describe the same split.
+
 ## Results
 
 Same harness, same model (deepseek-flash, at most 40 model calls per run), SWE-bench Verified tasks. Numbers are from sections 1 and 6.1 of the [final report](agent/docs/MEMORY-FINAL-REPORT.zh-CN.md); effects are in percentage points, with 95% intervals.
@@ -34,21 +91,6 @@ Where to start (most documents are in Chinese):
 - [Harness README](harness/README.md) · [harness doc index](harness/docs/INDEX.md)
 - [agent doc index](agent/docs/INDEX.md)
 - [Project history](harness/docs/PROJECT-HISTORY.zh-CN.md)
-
-## What runs without an API key
-
-The unit tests and the offline demo need no Docker, no SWE-bench image and no key:
-
-```bash
-cd agent && pip install -e ".[dev]"
-python -m pytest -q
-python -m reposkill_agent upgrade-demo --output reports/upgrade/my-demo
-
-cd ../harness && pip install -e ".[dev]"
-python -m pytest -q          # the LLM is always mocked
-```
-
-The demo writes a public workspace, a memory.db with per-record status and provenance, a manifest and report.md. When a dependency or API signature changes, the old record is rejected; unrelated file changes keep it valid; missing evidence yields unknown. Every injection receipt comes from a fixture host, so it claims no real-model gain.
 
 ## Reproduction
 

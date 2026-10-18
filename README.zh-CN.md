@@ -4,6 +4,63 @@
 
 一个带严格答案隔离的 coding agent 评测 harness，加上在它上面做的两个预注册的记忆实验。
 
+## 三处工程实现
+
+结果之外，这个仓库有三块可以直接读代码的部分：
+
+| 能力 | 做法 | 代码 |
+| --- | --- | --- |
+| 会话恢复 | 工具的意图先落盘再执行；恢复时复用已提交的结果，非幂等操作的结果没记录就停下，不重试。真实子进程在四个崩溃窗口各崩一次验证（`os._exit(71)`） | [`runtime/session.py`](harness/src/runtime/session.py)、[`runtime/recovery.py`](harness/src/runtime/recovery.py)、[`tracing/store.py`](harness/src/tracing/store.py)、[`tests/test_recovery.py`](harness/tests/test_recovery.py) |
+| 答案隔离 | 早期镜像的 `/opt/repo` 里带着 test patch，模型能读；改成干净源码镜像后，候选 delta 在独立镜像里应用，test patch 和 gold patch 只留在宿主侧判分 | [`execution/baseline_image_backend.py`](harness/src/execution/baseline_image_backend.py)、[`eval/image_grader.py`](harness/src/eval/image_grader.py) |
+| 可复算的评测 | 同一份运行记录能重建指标：配对差按题汇总、bootstrap 区间、缺行和重跑单独保留，不把失败的 attempt 剔出分母 | [`eval/metrics.py`](harness/src/eval/metrics.py)、[`eval/runner.py`](harness/src/eval/runner.py) |
+
+## 先跑起来
+
+不需要 Docker、SWE-bench 镜像或密钥。下面两段都在干净的 HEAD 检出处实测过。
+
+**1. 离线演示**（几秒，不调用模型）
+
+```bash
+cd agent && pip install -e ".[dev]"
+python -m reposkill_agent upgrade-demo --output /tmp/my-demo
+```
+
+`--output` 必须是不存在的目录。跑完得到公开 workspace、带状态和来源的 `memory.db`、manifest、`result.json` 和 `report.md`；输出末行是 `Offline comparisons: 20; model calls=0`。演示里依赖或 API 签名变了旧经验被拒绝，无关文件变了仍然保留，证据不足返回 unknown。所有注入收据来自 fixture host，不声称真实模型收益。
+
+**2. 公开测试**（约 3 分钟）
+
+```bash
+# 在 agent/ 下
+python -m pytest -q --deselect tests/test_a5_funding.py::test_funded_build_bundle_is_prepared_only_and_private_material_stays_outside_public \
+  --deselect tests/test_a5_funding.py::test_funded_build_artifacts_are_hashed \
+  --deselect tests/test_memory_cards_v5.py::test_generic_builder_matches_v5_bytes
+# 357 passed, 7 skipped, 3 deselected
+
+# 在 harness/ 下
+pip install -e ".[dev]"
+python -m pytest -q --deselect tests/test_a5_real240_h0_snapshot.py::test_h0_export_and_audit_via_cli \
+  --deselect tests/test_repo_grader.py::test_full_archive_and_private_test_resources_are_complete \
+  --deselect tests/test_summary_pilot.py::test_prepare_frozen_data_and_window_expectations \
+  --deselect tests/test_summary_pilot.py::test_trace_accounting_replay_and_private_grading
+# 654 passed, 25 skipped, 4 deselected
+```
+
+跳过的 32 项是需要 Linux 或 Docker 的测试，在 Windows 上自动 skip。
+
+**3. 依赖未公开材料的测试（7 项）**
+
+这 7 项读取只在原开发机器上存在、没有入库的证据文件。它们不是代码回归，也没有被跳过：
+
+| 测试 | 需要的文件 | 来源 |
+| --- | --- | --- |
+| harness `test_a5_real240_h0_snapshot.py::test_h0_export_and_audit_via_cli` | A5 memory pool 的 `validated-memory-records.jsonl` | 私有记忆构建产物，`.jsonl` 不入库 |
+| harness `test_repo_grader.py::test_full_archive_and_private_test_resources_are_complete` | `full-repo-grader/attempt-02/flask-base.tar.gz` | 完整上游归档，体积过大未入库 |
+| harness `test_summary_pilot.py` 两项 | `H5/deepseek-flash-attempt-01/seed/boltons/strutils.py` | R2 种子文件，仅本地保存 |
+| agent `test_a5_funding.py` 两项 | `reports/upgrade/a5-funded-build-preparation-20260921-v12/*` | `reports/` 是运行产物，不入库 |
+| agent `test_memory_cards_v5.py::test_generic_builder_matches_v5_bytes` | django-10914 的 handoff 字段 | 依赖 harness 侧输出，需两仓联调数据 |
+
+把材料放到对应路径后，去掉 `--deselect` 即可全跑。`docs/INDEX.md` 和两份子 README 里对这几项的描述与此一致。
+
 ## 结果
 
 同一个 harness、同一个模型（deepseek-flash，每次运行最多 40 次模型调用），SWE-bench Verified 的题。数字引自[最终报告](agent/docs/MEMORY-FINAL-REPORT.zh-CN.md)第 1、6.1 节；效应单位是百分点，括号里是 95% 区间。
@@ -34,21 +91,6 @@
 - [harness README](harness/README.zh-CN.md) · [harness 文档索引](harness/docs/INDEX.md)
 - [agent 文档索引](agent/docs/INDEX.md)
 - [项目历程](harness/docs/PROJECT-HISTORY.zh-CN.md)
-
-## 不用 API key 也能跑的部分
-
-单元测试和离线演示不需要 Docker、SWE-bench 镜像或密钥：
-
-```bash
-cd agent && pip install -e ".[dev]"
-python -m pytest -q
-python -m reposkill_agent upgrade-demo --output reports/upgrade/my-demo
-
-cd ../harness && pip install -e ".[dev]"
-python -m pytest -q          # LLM 全部是 mock
-```
-
-离线演示会生成公开 workspace、带状态和来源的 memory.db、manifest 和 report.md。依赖或 API 签名变了，旧经验被拒绝；无关文件变了，仍然保留；证据不足时返回 unknown。所有注入收据都来自 fixture host，不声称真实模型收益。
 
 ## 复现
 
