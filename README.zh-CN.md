@@ -98,10 +98,16 @@ python scripts/run_eval.py --dataset datasets/mini_tasks.json --compare
 ### 5. 测试
 
 ```bash
-pytest tests/ -q
+pytest tests/ -q --deselect tests/test_a5_real240_h0_snapshot.py::test_h0_export_and_audit_via_cli \
+  --deselect tests/test_repo_grader.py::test_full_archive_and_private_test_resources_are_complete \
+  --deselect tests/test_summary_pilot.py::test_prepare_frozen_data_and_window_expectations \
+  --deselect tests/test_summary_pilot.py::test_trace_accounting_replay_and_private_grading
+# 654 passed, 25 skipped, 4 deselected
 ```
 
-测试用 Mock LLM，不需要 API Key。在 Windows 上的干净克隆里，654 个通过，25 个跳过（只能在 Linux 或 Docker 下跑）。另有 4 个失败，原因是它们读取从未提交的本地证据文件：A5 记忆记录、Flask 完整源码包和两个 R2 种子文件。
+测试用 Mock LLM，不需要 API Key。在 Windows 上的干净克隆里，654 个通过，25 个跳过（只能在 Linux 或 Docker 下跑）。
+
+上面排除的 4 项读取从未提交的本地证据文件：A5 记忆记录、Flask 完整源码包和两个 R2 种子文件。它们不是代码回归，也没有被跳过；把文件放回 `docs/upgrade/evidence/` 下对应路径后，去掉 `--deselect` 即可全跑。明细见 [docs/INDEX.md](docs/INDEX.md) 第 4 节。
 
 ### 6. SWE-bench 实验（A5 / A6-R）
 

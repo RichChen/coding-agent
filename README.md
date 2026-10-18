@@ -105,10 +105,16 @@ python scripts/run_eval.py --dataset datasets/mini_tasks.json --compare
 ### 5. Run Tests
 
 ```bash
-pytest tests/ -q
+pytest tests/ -q --deselect tests/test_a5_real240_h0_snapshot.py::test_h0_export_and_audit_via_cli \
+  --deselect tests/test_repo_grader.py::test_full_archive_and_private_test_resources_are_complete \
+  --deselect tests/test_summary_pilot.py::test_prepare_frozen_data_and_window_expectations \
+  --deselect tests/test_summary_pilot.py::test_trace_accounting_replay_and_private_grading
+# 654 passed, 25 skipped, 4 deselected
 ```
 
-No API key is needed; tests use a mock LLM. In a clean clone on Windows, 654 pass and 25 are skipped (Linux-only or Docker-only). Four more fail because they read local evidence files that were never committed: the A5 memory records, the full Flask source archive, and two R2 seed files.
+No API key is needed; tests use a mock LLM. In a clean clone on Windows, 654 pass and 25 are skipped (Linux-only or Docker-only).
+
+The four deselected tests read local evidence files that were never committed: the A5 memory records, the full Flask source archive, and two R2 seed files. They are not code regressions and they are not skipped. Put those files back under `docs/upgrade/evidence/` and drop the `--deselect` flags to run everything. Details in [docs/INDEX.md](docs/INDEX.md), section 4.
 
 ### 6. SWE-bench Runs (A5 / A6-R)
 
