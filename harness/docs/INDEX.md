@@ -1,6 +1,6 @@
 # 文档索引
 
-这个仓库的文档分四类。想读代码之前，先看这里，不用按目录顺序翻。
+这个仓库的文档分五类。想读代码之前，先看这里，不用按目录顺序翻。
 
 ## 1. 入口
 
@@ -12,7 +12,9 @@
 | [LEARNING.zh-CN.md](LEARNING.zh-CN.md) | 按调用顺序读代码的路线和自测题 |
 | [CONTAMINATION-NOTES.zh-CN.md](CONTAMINATION-NOTES.zh-CN.md) | 评测污染和答案隔离的处理 |
 
-## 2. 实现说明（当前有效）| 文档 | 内容 |
+## 2. 实现说明（当前有效）
+
+| 文档 | 内容 |
 | --- | --- |
 | [upgrade/H3-IMPLEMENTATION.zh-CN.md](upgrade/H3-IMPLEMENTATION.zh-CN.md) | Docker 执行、干净镜像、宿主机判分 |
 | [upgrade/H4-IMPLEMENTATION.zh-CN.md](upgrade/H4-IMPLEMENTATION.zh-CN.md) | 上下文窗口、模型视图、插件接口 |
@@ -87,7 +89,7 @@ python -m pytest -q --deselect tests/test_a5_real240_h0_snapshot.py::test_h0_exp
 `.gitignore` 对 `evidence/` 的规则是：**只跟踪 `.md` 和 `.json`**。所以仓库里有报告、manifest、收据和小的结果 JSON；以下内容不入库，只留在跑过实验的机器上：
 
 - `session/` 下的会话日志（SQLite）和逐条轨迹；
-- `workspace/`、`staging/`、`original/`、`known-good/`、`baseline/` 等仓库副本；
-- `private*` 目录、`.tar.gz` 整包归档、大于 200 KB 的中转 JSON。
+- `workspace/`、`staging/`、`original/`、`known-good/`、`baseline/`、`build/`、`full-repo/` 等仓库副本；
+- `private*` 目录、`.tar.gz` 整包归档，以及少数被逐个排除的超大 `source-inventory.json`。
 
-因此文档里有些链接指向"本地生成，未入库"的路径，是正常的；对应的脚本可以重新生成。
+因此文档里有些链接指向"本地生成，未入库"的路径，是正常的；对应的脚本可以重新生成。GitHub 上能读到的是这些运行留下的报告和收据，不是可重放的完整工作区。
