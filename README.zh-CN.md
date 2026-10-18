@@ -31,8 +31,24 @@
 从哪里开始读：
 
 - [两个记忆实验的最终报告](agent/docs/MEMORY-FINAL-REPORT.zh-CN.md)
-- [harness README](harness/README.zh-CN.md)
+- [harness README](harness/README.zh-CN.md) · [harness 文档索引](harness/docs/INDEX.md)
+- [agent 文档索引](agent/docs/INDEX.md)
 - [项目历程](harness/docs/PROJECT-HISTORY.zh-CN.md)
+
+## 不用 API key 也能跑的部分
+
+单元测试和离线演示不需要 Docker、SWE-bench 镜像或密钥：
+
+```bash
+cd agent && pip install -e ".[dev]"
+python -m pytest -q
+python -m reposkill_agent upgrade-demo --output reports/upgrade/my-demo
+
+cd ../harness && pip install -e ".[dev]"
+python -m pytest -q          # LLM 全部是 mock
+```
+
+离线演示会生成公开 workspace、带状态和来源的 memory.db、manifest 和 report.md。依赖或 API 签名变了，旧经验被拒绝；无关文件变了，仍然保留；证据不足时返回 unknown。所有注入收据都来自 fixture host，不声称真实模型收益。
 
 ## 复现
 
@@ -52,4 +68,4 @@ git worktree add ../coding-agent agent/a6-retry-freeze-r2
 
 ## 关联项目
 
-agentic-rl 是另一个项目，还没有公开，研究的是靠训练（SFT、GRPO）而不是靠上下文来改变 agent 的行为。
+[code-GRPO](https://github.com/RichChen/code-GRPO) 是另一个独立仓库：不靠上下文注入，而是用 SFT 和自己实现的多轮 GRPO 训练 Qwen3-1.7B 修 bug。预注册的 1500 道留出集上，严格解出率是 13.9%（基座）→ 47.1%（SFT）→ 60.3%（GRPO），GRPO 相对 SFT 是 +13.2 个百分点（95% 区间 [11.7, 14.7]）。

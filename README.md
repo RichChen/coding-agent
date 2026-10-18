@@ -31,8 +31,24 @@ Both are null results: neither experiment detected a positive effect.
 Where to start (most documents are in Chinese):
 
 - [Final report on both memory experiments](agent/docs/MEMORY-FINAL-REPORT.zh-CN.md)
-- [Harness README](harness/README.md)
+- [Harness README](harness/README.md) · [harness doc index](harness/docs/INDEX.md)
+- [agent doc index](agent/docs/INDEX.md)
 - [Project history](harness/docs/PROJECT-HISTORY.zh-CN.md)
+
+## What runs without an API key
+
+The unit tests and the offline demo need no Docker, no SWE-bench image and no key:
+
+```bash
+cd agent && pip install -e ".[dev]"
+python -m pytest -q
+python -m reposkill_agent upgrade-demo --output reports/upgrade/my-demo
+
+cd ../harness && pip install -e ".[dev]"
+python -m pytest -q          # the LLM is always mocked
+```
+
+The demo writes a public workspace, a memory.db with per-record status and provenance, a manifest and report.md. When a dependency or API signature changes, the old record is rejected; unrelated file changes keep it valid; missing evidence yields unknown. Every injection receipt comes from a fixture host, so it claims no real-model gain.
 
 ## Reproduction
 
@@ -52,4 +68,4 @@ Running the agent needs Docker, the SWE-bench images and a DeepSeek API key. The
 
 ## Related project
 
-agentic-rl, a separate project that is not public yet, looks at changing agent behaviour through training (SFT, GRPO) instead of through the context.
+[code-GRPO](https://github.com/RichChen/code-GRPO) is a separate repository that changes agent behaviour through training rather than through the context: SFT plus a from-scratch multi-turn GRPO loop on Qwen3-1.7B. On a preregistered 1500-task heldout set the strict solve rate went 13.9% (base) → 47.1% (SFT) → 60.3% (GRPO), i.e. GRPO is +13.2 points over SFT (95% interval [11.7, 14.7]).
