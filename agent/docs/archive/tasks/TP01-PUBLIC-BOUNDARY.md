@@ -1,6 +1,8 @@
 # TP01 — PublicTask / EvaluationSpec 与数据隔离
 
-执行更新：2026-09-19 已由本任务实施并离线验证，具体证据/限制见 [实施记录](../IMPLEMENTED-TP01-04.md)。下文保留原任务包说明。
+> 历史任务包（2026-09-18）。这是当时发给执行 agent 的任务说明，已被实现取代；当前接口以 [PUBLIC-API](../../upgrade/PUBLIC-API.md) 和 [实现记录](../../upgrade/IMPLEMENTED-TP01-04.md) 为准。
+
+执行更新：2026-09-19 已由本任务实施并离线验证，具体证据/限制见 [实施记录](../../upgrade/IMPLEMENTED-TP01-04.md)。下文保留原任务包说明。
 
 状态：待用户启动；实施者可为本 Codex 任务或 Cursor Agent，验收一致。版本 v0.1，2026-09-18。
 

@@ -20,13 +20,13 @@ python scripts/demo_memory_validity.py --output reports/upgrade/my-second-demo
 
 演示生成公开 workspace、来源/状态可查的 memory.db、manifest、result.json 和 report.md。API/依赖改变时拒绝旧经验，无关文件改变仍保留有效条目，缺证据返回 unknown。所有“注入”收据来自 fixture host；没有真实模型调用、修复成功率或 OS 隔离声明。
 
-解释器用任意 Python 3.11+ 环境（上面命令里的 `python`）。详见 [首批实现与运行说明](docs/upgrade/IMPLEMENTED-TP01-04.md)、[公开接口](docs/upgrade/PUBLIC-API.md) 与 [实施计划](docs/upgrade/IMPLEMENTATION-PLAN.md)。
+解释器用任意 Python 3.11+ 环境（上面命令里的 `python`）。详见 [首批实现与运行说明](docs/upgrade/IMPLEMENTED-TP01-04.md) 与 [公开接口](docs/upgrade/PUBLIC-API.md)。当时的实施计划和任务包在 [docs/archive/](docs/INDEX.md)。
 
 H4/H5：`RepoSkillH4Plugin` 提交 async JSON proposals 和可序列化状态，不直连模型。公私分离的单任务交接包已由 harness `real-04` 完成 off/on 联调，各 4 次模型调用、独立 grader 各 4/4；这是另一仓保存的既有证据，本轮没有重跑。字段映射与历史边界见 [H4 适配说明](docs/upgrade/H4-ADAPTER.md)，最新证据区分见 [A5 验收记录](docs/upgrade/A5-VERIFICATION.md)。
 
 ## A5-main（2026-09）
 
-在 56 道 SWE-bench Verified 题上比较 B0（不注入记忆）和 B2（注入同仓库、更早、已验证修复的卡片）。B0 解出率 68.5%。没有检出大于 13.1 个百分点的效应。
+在 56 道 SWE-bench Verified 题上比较 B0（不注入记忆）和 B2（注入同仓库、更早、已验证修复的卡片）。B0 解出率 68.5%，B2 相对 B0 的平均配对差是 −1.8 个百分点（95% 区间 −8.3 到 4.8，p = 0.72），没有检出正效应。
 
 - 预注册结果：[A5-MAIN-RESULTS.zh-CN.md](docs/sprint/A5-MAIN-RESULTS.zh-CN.md)
 - 最终报告：[A5-FINAL-REPORT.zh-CN.md](docs/A5-FINAL-REPORT.zh-CN.md)
@@ -34,7 +34,7 @@ H4/H5：`RepoSkillH4Plugin` 提交 async JSON proposals 和可序列化状态，
 
 ## A6-R（2026-10）
 
-对 A5 B0 里失败的 53 次运行（22 道题）各做第二次尝试：R0 原样重跑 A5 B0 的 prompt，R1 在 prompt 后附上冻结的上次尝试记录，共 318 个槽位。没有检出大于 15.9 个百分点的效应；R1 − R0 点估计 −6.6 个百分点，95% 区间 −17.7 到 3.8。
+对 A5 B0 里失败的 53 次运行（22 道题）各做第二次尝试：R0 原样重跑 A5 B0 的 prompt，R1 在 prompt 后附上冻结的上次尝试记录，共 318 个槽位。R1 − R0 的点估计是 −6.6 个百分点（95% 区间 −17.7 到 3.8，p = 0.29），没有检出正效应。
 
 - 预注册：[A6-R-PREREG.zh-CN.md](docs/sprint/A6-R-PREREG.zh-CN.md)
 - 结果：[A6-R-RESULTS.zh-CN.md](docs/sprint/A6-R-RESULTS.zh-CN.md)
@@ -162,10 +162,11 @@ configs/               # default.yaml；a5/ 下为交接、资金、pilot 模板
 scripts/               # 见下表
 docs/
   A5-FINAL-REPORT.zh-CN.md, MEMORY-FINAL-REPORT.zh-CN.md, PROJECT-HISTORY.zh-CN.md
-  sprint/              # A5-main / A6-R 预注册、结果、checkpoint 和记忆协议（冻结）
+  INDEX.md             # 文档分类和阅读顺序
+  sprint/              # A5-main / A6-R 预注册、结果、checkpoint 和记忆协议（只追加）
   upgrade/             # 新路径 TP01-04、H4 适配、A5 计划与验收
   memory-v2/           # 记忆诊断与文献
-  archive/             # 早期总计划、Phase 7.1 计划、会话交接
+  archive/             # 早期总计划、Phase 7.1 计划、TP01-04 实施计划与任务包
   current-evidence.md, limitations.md, case-study-*.md, code-reading-guide.zh-CN.md
 reports/               # phase6 / phase7 汇总；llm/ 下是历次 L0-L5 汇总，archive/ 为 Batch 5.7
 tests/                 # 51 个测试模块，无需 API key
@@ -199,5 +200,5 @@ tests/                 # 51 个测试模块，无需 API key
 
 - `docs/archive/PROJECT-PLAN-OpenHands-RepoSkillAgent.zh-CN.md` — 总计划
 - `docs/archive/PHASE7_1-POSITIVE-GAIN-HARDENING-PLAN.zh-CN.md` — Phase 7.1 执行文档
+- `docs/INDEX.md` — 文档分类和阅读顺序
 - `docs/code-reading-guide.zh-CN.md` — 代码阅读顺序与问题清单模板
-- `docs/archive/SESSION-HANDOFF.zh-CN.md` — 会话交接

@@ -47,7 +47,7 @@ decision = await plugin.decide(h4_policy_input)
 
 任务 `public-settings-001`：修复 `parse_settings` 对空行、空白和值中等号的处理。公开目录只有原始错误源码 `settings.py` 和 `public_checks.py`，可以复现空行异常；没有 gold patch、私有探针或目标未来轨迹。
 
-已生成的 [任务包 manifest](../../reports/upgrade/h4-handoff-20260921-v2/manifest.json) 固定公开源码与所有 artifact hash：
+已生成的 任务包 manifest（本地生成，未入库：`reports/upgrade/h4-handoff-20260921-v2/manifest.json`） 固定公开源码与所有 artifact hash：
 
 - `agent-public-task.json`：本仓 PublicTask 1.0。
 - `public-task.json`：未来 H3 `PublicTask.from_mapping` 可接收的字段形态。
@@ -76,7 +76,7 @@ python scripts/prepare_h4_fixture.py --output reports/upgrade/h4-new-bundle --im
 
 `tests/test_harness_h4_adapter.py` 覆盖 wire shape、NoOp、H3 wrapper、公开/私有 sentinel、unknown major/minor、64 KiB/NaN、任务/revision/snapshot 绑定、恢复后不重复 proposal、独立新 run、取消、初始 memory 拒绝/选中与工具后停用、公开源码复现、artifact hash、私有答案不干扰决策。测试不依赖 coding-harness 安装。
 
-2026-09-21 扩大回归：183 passed，58.46 秒；最终对齐 fixture 的消息 hash 后，定向复验：35 passed，0.63 秒；Ruff 全仓通过。JUnit：[adapter-final.xml](../../reports/upgrade/h4-verification-20260921/adapter-final.xml)、[regression.xml](../../reports/upgrade/h4-verification-20260921/regression.xml)。两组有重叠，不相加计数。此轮 Windows 符号链接测试也通过；仍不代表 OS 沙箱隔离验收。旧交接目录保留，后续使用 v2 目录，其中 raw-messages 与 role/hash 按 H4 的消息对象 hash 算法绑定。
+2026-09-21 扩大回归：183 passed，58.46 秒；最终对齐 fixture 的消息 hash 后，定向复验：35 passed，0.63 秒；Ruff 全仓通过。JUnit：adapter-final.xml（本地生成，未入库：`reports/upgrade/h4-verification-20260921/adapter-final.xml`）、regression.xml（本地生成，未入库：`reports/upgrade/h4-verification-20260921/regression.xml`）。两组有重叠，不相加计数。此轮 Windows 符号链接测试也通过；仍不代表 OS 沙箱隔离验收。旧交接目录保留，后续使用 v2 目录，其中 raw-messages 与 role/hash 按 H4 的消息对象 hash 算法绑定。
 
 回归使用现有 Conda 解释器/PATH，无依赖安装；沙箱内 pytest basetemp 触发 WinError 5 后，经执行审批重跑离线测试。旧 CLI 写默认报告、外部 baseline 和 benchmark 全集不在本次扩大回归内；旧报告和失败证据未覆盖。实际命令：
 

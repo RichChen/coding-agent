@@ -4,7 +4,7 @@
 
 ## 产物与能力边界
 
-- [离线报告](../../reports/upgrade/a5-offline-20260921-v1/report.md)、[完整结果](../../reports/upgrade/a5-offline-20260921-v1/results.json)、[artifact hash](../../reports/upgrade/a5-offline-20260921-v1/artifact-manifest.json)。4 synthetic dev smoke、16 决策，全部排除主分母；repair success=null、0 external model calls、0 actually_injected。
+- 离线报告（本地生成，未入库：`reports/upgrade/a5-offline-20260921-v1/report.md`）、完整结果（本地生成，未入库：`reports/upgrade/a5-offline-20260921-v1/results.json`）、artifact hash（本地生成，未入库：`reports/upgrade/a5-offline-20260921-v1/artifact-manifest.json`）。4 synthetic dev smoke、16 决策，全部排除主分母；repair success=null、0 external model calls、0 actually_injected。
 - 合同、dataset/memory-build/empty manifests、每个 task 的冻结 snapshot、公开任务/事实/历史索引、逐项 decision、独立 private smoke checks、源码/config hash 均在上述新目录。empty 场景用单独空 snapshot；同任务四变体用同一 snapshot。其余三场景共用一条 human-authored 历史和人工 validation fixture，不能作为真实历史复现证据。
 - B0 无增强；B1 lexical set overlap；B2 结构化 procedure；B3 只增加 current validity。empty/valid/known_stale/unknown 的 B3 selected 分别 0/1/0/0。候选窗口 top-3，最多注入 2 条/4096 UTF-8 bytes；整条超额拒绝、不截断。B1–B3 共用来源、生命周期、冲突和重复门槛。
 - common profile 固定 harness-react/none/docker_linux、工具、retry 和统一 calls/tokens/wall；本轮仅冻结、比对合同和 task budget，不执行或声称验证宿主限额。`ResultRow.profile_hash` 是可信 host importer 应提供的绑定，单靠哈希不能证明运行时实际配置。
@@ -13,7 +13,7 @@
 
 ## 实际执行与测试
 
-使用已有 Python 3.11.15 环境，未安装依赖。定向：**39 passed in 1.01s**，见 [targeted.xml](../../reports/upgrade/a5-verification-20260921/targeted.xml)。扩大回归：**222 passed in 64.50s**，见 [regression.xml](../../reports/upgrade/a5-verification-20260921/regression.xml)。两者重叠，不相加。
+使用已有 Python 3.11.15 环境，未安装依赖。定向：**39 passed in 1.01s**，见 targeted.xml（本地生成，未入库：`reports/upgrade/a5-verification-20260921/targeted.xml`）。扩大回归：**222 passed in 64.50s**，见 regression.xml（本地生成，未入库：`reports/upgrade/a5-verification-20260921/regression.xml`）。两者重叠，不相加。
 
 ```powershell
 $env:PYTHONDONTWRITEBYTECODE='1'
@@ -46,6 +46,6 @@ Ruff 输出 `All checks passed!`。离线脚本 exit=0，输出 4/16/0/0。复�
 
 工作目录没有可用 Git 元数据，未创建提交。A5 新增源码为 `reposkill_agent/experiments/{__init__,contracts,variants,audit,offline}.py`、离线脚本、3 个测试和 2 个 pilot 配置；新增计划/3 任务包/本验收文档，更新 README 和四份状态/接口说明。
 
-完整升级累计 diff 由 `scripts/upgrade_snapshot.py compare` 对 `baseline/upgrade-20260919-tp01-04/source.zip` 生成，保存在 [累计变更](../../reports/upgrade/a5-review-20260921/changes.diff)和[hash 清单](../../reports/upgrade/a5-review-20260921/manifest.json)。它包含 TP01–04/H4，**不是只含 A5 的 diff**；文档不在旧快照 allowlist 的部分由当前版本和链接直接审阅。离线包的 code-manifest 独立固定本批实现/config hash，旧历史报告未覆盖。
+完整升级累计 diff 由 `scripts/upgrade_snapshot.py compare` 对 `baseline/upgrade-20260919-tp01-04/source.zip` 生成，保存在 累计变更（本地生成，未入库：`reports/upgrade/a5-review-20260921/changes.diff`）和hash 清单（本地生成，未入库：`reports/upgrade/a5-review-20260921/manifest.json`）。它包含 TP01–04/H4，**不是只含 A5 的 diff**；文档不在旧快照 allowlist 的部分由当前版本和链接直接审阅。离线包的 code-manifest 独立固定本批实现/config hash，旧历史报告未覆盖。
 
 2026-09-21 后续授权更新：用户已批准正式 pilot 约 50 CNY，并授权必要的付费记忆建池。pilot 按参考价的理论 token 上限为 46.080 CNY，pilot ceiling 为 50.000 CNY；memory build 使用独立 ledger。准备包已扩为 20 个 build jobs、40 个 build/retry attempts，实际模型调用仍为 0。新增资金/建池回归后扩大离线回归为 **234 passed in 63.81s**，见既有 funding regression。预算已授权不等于宿主运行已就绪；仍需 harness 整仓 grader、model/price binding、分账 ledger、公开基线和 receipt importer。没有这些条件，不启动 build 或 pilot。

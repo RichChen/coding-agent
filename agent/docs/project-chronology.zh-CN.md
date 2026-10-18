@@ -460,7 +460,7 @@ Phase 6 初期发现：**tiny_24 上 A0–A5 全部 100% 饱和**，无法声称
 | 证据分层 | `docs/current-evidence.md` |
 | 局限 | `docs/limitations.md` |
 | Case studies | `docs/case-study-*.md` |
-| 会话交接 | `docs/SESSION-HANDOFF.zh-CN.md` |
+| 文档索引 | `docs/INDEX.md` |
 
 ---
 

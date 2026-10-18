@@ -1,14 +1,16 @@
 # coding-agent 实施计划 v0.1
 
-2026-09-21 A5 更新：H4/H5 的单任务真实联调已有 harness `real-04` 证据，本轮未重跑。A5 的 E-A1 B0–B3 合同、同池选择器、注入/用量/分母审计和 4 个离线 dev smoke 已完成，见 [A5 计划](A5-PLAN.md)与[验收记录](A5-VERIFICATION.md)。真实 12/20×3 pilot 仍仅为未启用模板，缺真实 heldout 审查、模型价格与货币上限；不把离线完成称作 R3 研究证据完成。下文为各阶段历史快照。
+> 历史实施计划（2026-09-18 至 09-19）。TP01–TP04 已按此计划实现并离线验证；当前接口见 [PUBLIC-API](../upgrade/PUBLIC-API.md)，实现与限制见 [实现记录](../upgrade/IMPLEMENTED-TP01-04.md)。原文保留，用于追溯当时的范围和验收标准。
 
-2026-09-21 H4 更新：A4 的 async JSON adapter 与一个 PublicTask/私有 EvaluationSpec 交接包已实现，见 [H4 适配说明](H4-ADAPTER.md)。本轮不启动真实 API；在 harness 自身真实运行完成、受控外部插件持久注册可用后，才执行插件开/关各一次的跨仓烟测。
+2026-09-21 A5 更新：H4/H5 的单任务真实联调已有 harness `real-04` 证据，本轮未重跑。A5 的 E-A1 B0–B3 合同、同池选择器、注入/用量/分母审计和 4 个离线 dev smoke 已完成，见 [A5 计划](../upgrade/A5-PLAN.md)与[验收记录](../upgrade/A5-VERIFICATION.md)。真实 12/20×3 pilot 仍仅为未启用模板，缺真实 heldout 审查、模型价格与货币上限；不把离线完成称作 R3 研究证据完成。下文为各阶段历史快照。
 
-执行更新（2026-09-19）：用户已选择本任务直接实施。TP01–TP04 的离线实现与 pre-harness strategy contract 已完成，见 [实施记录](IMPLEMENTED-TP01-04.md)；下文保留 2026-09-18 的设计基线和当时状态，不能据其中“待授权”判断当前授权已失效。
+2026-09-21 H4 更新：A4 的 async JSON adapter 与一个 PublicTask/私有 EvaluationSpec 交接包已实现，见 [H4 适配说明](../upgrade/H4-ADAPTER.md)。本轮不启动真实 API；在 harness 自身真实运行完成、受控外部插件持久注册可用后，才执行插件开/关各一次的跨仓烟测。
+
+执行更新（2026-09-19）：用户已选择本任务直接实施。TP01–TP04 的离线实现与 pre-harness strategy contract 已完成，见 [实施记录](../upgrade/IMPLEMENTED-TP01-04.md)；下文保留 2026-09-18 的设计基线和当时状态，不能据其中“待授权”判断当前授权已失效。
 
 日期：2026-09-18。状态：A0 准备交付，未授权开始产品实现。工作目录：`D:\crq\src\coding-agent`。本计划是核对当前源码后的设计，不表示后述 API、命令或实验已经实现。
 
-依据：[agent 目标 v1.0](02_coding-agent_总修改目标_v1.0.md)、[共享契约 v0.1](00_双项目协作与接口约定_v0.1.md)、[harness 目标 v1.0](01_coding-harness_总修改目标_v1.0.md)。三份文件原名、版本和内容完整保留，原件与副本 SHA256 相同，见 [核查记录](VERIFICATION.md)。research-workflow 的研究合同约束落实在第 7 节：先冻结数据、指标、成本、失败信号，再实验，不追求预设正分数。
+依据：[agent 目标 v1.0](../upgrade/02_coding-agent_总修改目标_v1.0.md)、[共享契约 v0.1](../upgrade/00_双项目协作与接口约定_v0.1.md)、[harness 目标 v1.0](../upgrade/01_coding-harness_总修改目标_v1.0.md)。三份文件原名、版本和内容完整保留，原件与副本 SHA256 相同，见 [核查记录](../upgrade/VERIFICATION.md)。research-workflow 的研究合同约束落实在第 7 节：先冻结数据、指标、成本、失败信号，再实验，不追求预设正分数。
 
 ## 1. 最终形态和职责
 
@@ -25,12 +27,12 @@ coding-harness 负责执行循环、模型网关、全部在线预算、工具�
 - `.git` 与 `.agents` 是存在但为空的普通目录；`git status --short` 返回 not a git repository。没有可引用的 HEAD，也不能报告“工作树干净”。本目录、源码/测试/脚本/docs/configs/benchmarks 范围及已检查祖先路径未发现 AGENTS.md；全目录搜索遇到旧 `.tmp/pytest_basetemp` 访问限制后改用上述限定范围，未读取或修改受限缓存。
 - 当前默认 `python` 是不可启动的 WindowsApps 别名；旧文档的 `conda activate coding-agent` 环境在已检查的用户 Conda 目录中不存在。
 - 可借用既有解释器 `C:\Users\Administrator\.conda\envs\coding-harness\python.exe`，Python 3.11.15，Pydantic 2.13.4 / PyYAML 6.0 / Typer 0.25.1 / Rich 15.0.0 / pytest 8.4.2 / Ruff 0.15.20。只是调用现有环境，没有修改环境或对方仓库，也不代表已安装/集成 harness。
-- 44 项定向离线测试通过（21.05s）；`ruff check reposkill_agent tests scripts --no-cache` 通过；CLI help 通过。未运行全套 suite、真实 OpenHands、容器或付费实验。准确命令和覆盖范围见 [VERIFICATION.md](VERIFICATION.md)。
+- 44 项定向离线测试通过（21.05s）；`ruff check reposkill_agent tests scripts --no-cache` 通过；CLI help 通过。未运行全套 suite、真实 OpenHands、容器或付费实验。准确命令和覆盖范围见 [VERIFICATION.md](../upgrade/VERIFICATION.md)。
 - Windows 本机支持上述离线 Python 检查；Linux/container/network isolation/cancel 等能力本轮未验证，未来以宿主 capability profile 为准。无 GPU 需求，不需要安装向量库或新依赖才能开始首批工作。
 
 ### 2.2 实施时的基线/快照方案
 
-已生成 [planning-source-manifest.json](planning-source-manifest.json)，记录 102 个源码、测试、脚本、配置及入口文件的大小与 SHA256；它只是本轮核查清单，不是可恢复源码快照，也不声称可重现历史实验运行时的代码。
+已生成 [planning-source-manifest.json](../upgrade/planning-source-manifest.json)，记录 102 个源码、测试、脚本、配置及入口文件的大小与 SHA256；它只是本轮核查清单，不是可恢复源码快照，也不声称可重现历史实验运行时的代码。
 
 用户选定首包并授权实现后，先重新核对这些 hash 和用户新增指令，保留所有差异；建立 `baseline_id`、UTC 时间、源文件清单和可恢复快照。只纳入明确 allowlist：`reposkill_agent/`、`tests/`、`scripts/`、`configs/`、`pyproject.toml`、`.gitignore`、README 与必要文档；benchmark 仅逐个纳入已审阅的小 fixture，历史结果仅记录指定文件 hash/引用。排除 `.env`、私钥/凭据、`.git`、缓存、traces/workspaces、全量 reports、PDF、大数据及外链/reparse points。先审查清单和敏感内容，再在专用 `baseline/<id>/` 保存；不得对父目录建仓或全目录 `git add .`。
 
@@ -66,7 +68,7 @@ coding-harness 负责执行循环、模型网关、全部在线预算、工具�
 | 公平评测：需新增 | `llm_ablation.py _run_llm_single` 一次 patch 后测；L2/5 graph 可 context recovery/replan；warmup 不进 rows | 新 B0–B3 同底座预算，旧 L0/2/5 不改名伪装新实验 |
 | 独立结果/事件：缺失 | `FakeAdapter.run_tests` exit_code==0 即 passed；GraphMetrics.success 用它；`core/trace.py TraceEvent` 无 schema/seq/operation/attempt | 新 RunResult 与 EvaluationResult 分离；事件由 harness 写，agent 不实现恢复内核 |
 
-上表源码路径均相对 `reposkill_agent/`（以 reports/tests 等开头的除外）。更细接口冲突见 [CONTRACT-CHANGE.md](CONTRACT-CHANGE.md)。只读代码发现未全部做故障复现，不能把表内推断当新实验结果。
+上表源码路径均相对 `reposkill_agent/`（以 reports/tests 等开头的除外）。更细接口冲突见 [CONTRACT-CHANGE.md](../upgrade/CONTRACT-CHANGE.md)。只读代码发现未全部做故障复现，不能把表内推断当新实验结果。
 
 ## 3. 架构与阶段依赖
 
@@ -216,7 +218,7 @@ R1（首个可投递）：A1–A3、公开 issue 的可演示定位/修复（明
 
 R2（集成证据版）：A4 至少一次真实 harness 任务与插件开关对照，日志关联选择→实际注入→模型→工具→patch→独立验证；README 支持矩阵包含实现/stub/未验证。R3（研究证据版）：A5 小规模配对 pilot 与全成本和负结果，不设 80% 或一定胜过 baseline 的门槛。
 
-共享契约方向一致，但 diagnostic oracle 的承载方式、task_family/ID 标签旁路、public/graded artifact 访问分级、selected/actually_injected 反馈和 async action 语义需要澄清；详见 [CONTRACT-CHANGE.md](CONTRACT-CHANGE.md)。当前仅本仓提案，不代表两仓已经达成新版本。它们不阻塞 TP01–04 的独立离线部分；真实联调前由用户/协调任务同步。
+共享契约方向一致，但 diagnostic oracle 的承载方式、task_family/ID 标签旁路、public/graded artifact 访问分级、selected/actually_injected 反馈和 async action 语义需要澄清；详见 [CONTRACT-CHANGE.md](../upgrade/CONTRACT-CHANGE.md)。当前仅本仓提案，不代表两仓已经达成新版本。它们不阻塞 TP01–04 的独立离线部分；真实联调前由用户/协调任务同步。
 
 ## 9. 本轮交付与下一步边界
 
