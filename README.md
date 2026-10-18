@@ -16,7 +16,7 @@ Beyond the results, three parts of this repository can be read as code:
 
 ## Running it
 
-No Docker, no SWE-bench image, no key. Blocks 1 and 2 were run on a clean checkout of HEAD.
+No Docker, no SWE-bench image, no key. Steps 1 and 2 were run on a clean checkout of HEAD.
 
 **1. Offline demo** (seconds, no model calls)
 
@@ -45,7 +45,7 @@ python -m pytest -q --deselect tests/test_a5_real240_h0_snapshot.py::test_h0_exp
 # 654 passed, 25 skipped, 4 deselected
 ```
 
-The 32 skips are tests that need Linux or Docker and skip automatically on Windows.
+The 32 skips fall into two groups: 22 opt-in tests that need real Linux or Docker, and 10 that depend on this machine's layout or data (a sibling `../coding-harness` checkout, `runs/a5-main`, the source pool, symlink permission).
 
 **3. Tests that need unpublished material (7)**
 
@@ -59,7 +59,7 @@ These read evidence files that only existed on the original machine and were nev
 | agent `test_a5_funding.py`, two tests | `reports/upgrade/a5-funded-build-preparation-20260921-v12/*` | `reports/` holds run output and is not tracked |
 | agent `test_memory_cards_v5.py::test_generic_builder_matches_v5_bytes` | the django-10914 handoff field | depends on harness-side output; needs both repos |
 
-Put the files at those paths and drop `--deselect` to run everything. `docs/INDEX.md` and both sub-READMEs describe the same split.
+Put the files at those paths and drop `--deselect` to run everything. Section 4 of `harness/docs/INDEX.md` and `agent/docs/INDEX.md` describe the same split.
 
 ## Results
 

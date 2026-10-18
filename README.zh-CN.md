@@ -16,7 +16,7 @@
 
 ## 先跑起来
 
-不需要 Docker、SWE-bench 镜像或密钥。第 1、2 段都在干净的 HEAD 检出处实测过。
+不需要 Docker、SWE-bench 镜像或密钥。第 1、2 步都在干净的 HEAD 检出处实测过。
 
 **1. 离线演示**（几秒，不调用模型）
 
@@ -45,7 +45,7 @@ python -m pytest -q --deselect tests/test_a5_real240_h0_snapshot.py::test_h0_exp
 # 654 passed, 25 skipped, 4 deselected
 ```
 
-跳过的 32 项是需要 Linux 或 Docker 的测试，在 Windows 上自动 skip。
+跳过的 32 项分两类：22 项是真实 Linux / Docker 的 opt-in 测试；10 项依赖本机布局或数据（`../coding-harness` 同级检出、`runs/a5-main`、source pool、符号链接权限），在干净克隆里自动 skip。
 
 **3. 依赖未公开材料的测试（7 项）**
 
@@ -59,7 +59,7 @@ python -m pytest -q --deselect tests/test_a5_real240_h0_snapshot.py::test_h0_exp
 | agent `test_a5_funding.py` 两项 | `reports/upgrade/a5-funded-build-preparation-20260921-v12/*` | `reports/` 是运行产物，不入库 |
 | agent `test_memory_cards_v5.py::test_generic_builder_matches_v5_bytes` | django-10914 的 handoff 字段 | 依赖 harness 侧输出，需两仓联调数据 |
 
-把材料放到对应路径后，去掉 `--deselect` 即可全跑。`docs/INDEX.md` 和两份子 README 里对这几项的描述与此一致。
+把材料放到对应路径后，去掉 `--deselect` 即可全跑。`harness/docs/INDEX.md` 第 4 节和 `agent/docs/INDEX.md` 里对这几项的描述与此一致。
 
 ## 结果
 
