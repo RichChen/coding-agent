@@ -214,7 +214,7 @@ flowchart LR
 | 1 条**真实**脱敏 API trace | 面试展示 |
 | `git` + CI | 交付规范 |
 
-详见 [CLAUDE-CODE-RESUME-POLISH.md](../CLAUDE-CODE-RESUME-POLISH.md)（若仍存在未完成项，以仓库实际代码为准）。
+这些是当时列出的候选，没有全部实施；以仓库实际代码和 [docs/INDEX.md](INDEX.md) 为准。
 
 ---
 
@@ -224,8 +224,8 @@ flowchart LR
 |------|------|
 | [README.zh-CN.md](../README.zh-CN.md) | 安装、命令、配置表 |
 | [LEARNING.zh-CN.md](LEARNING.zh-CN.md) | 读代码三遍法、自测题 |
-| [CLAUDE-CODE-IMPROVEMENTS.md](../CLAUDE-CODE-IMPROVEMENTS.md) | 对照 learn 项目的架构改进任务书 |
-| [CLAUDE-CODE-RESUME-POLISH.md](../CLAUDE-CODE-RESUME-POLISH.md) | 收尾与简历向增强 |
+| [INDEX.md](INDEX.md) | 全部文档的分类和阅读顺序 |
+| [PROJECT-HISTORY.zh-CN.md](PROJECT-HISTORY.zh-CN.md) | 逐轮记录：做了什么、哪里错了、怎么修的 |
 
 ---
 

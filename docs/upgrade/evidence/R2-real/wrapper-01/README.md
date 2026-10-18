@@ -28,7 +28,7 @@ C 在两个原题均提高精确匹配，符合合同的主成功信号；B 在 
 
 ## 窗口可行性预检
 
-权威结果为 [window-report.md](window-report.md) 和 [window-preflight-corrected.json](window-preflight-corrected.json)。从原8条修复轨迹抽取26个不同的完整post-tool raw快照，按12000/16000/24000窗口与none/masking/summary三策略执行234项离线检查。使用fixture而非LLM摘要，不调用Docker或模型。
+权威结果为 [window-report.md](window-report.md) 和 window-preflight-corrected.json（本地运行产物，未入库：`window-preflight-corrected.json`）。从原8条修复轨迹抽取26个不同的完整post-tool raw快照，按12000/16000/24000窗口与none/masking/summary三策略执行234项离线检查。使用fixture而非LLM摘要，不调用Docker或模型。
 
 | 任务 | 12000窗口 | 16000／24000窗口 | 当前决策 |
 |---|---|---|---|
@@ -47,7 +47,7 @@ C 在两个原题均提高精确匹配，符合合同的主成功信号；B 在 
 
 主对照每组27次的provider tokens：A 14,695、B 14,910、C 16,234；平均run耗时分别1.873、1.831、1.857秒。耗时差很小，受网络/cache等影响，本轮不声称速度改善。
 
-- [完整分组及逐摘要表](report.md)、[逐run分数、用量与审计](results.json)、[冻结清单](experiment.json)、[包装逐字文本](wrappers.json)。
+- [完整分组及逐摘要表](report.md)、逐run分数、用量与审计（本地运行产物，未入库：`results.json`）、[冻结清单](experiment.json)、[包装逐字文本](wrappers.json)。
 - 每run保存实际发送view、manifest、主回答、SQLite/JSONL、账本和replay；102份均通过离线一致性检查。每run只调用1次主模型，无摘要事件；所有视图均与冻结单因素输入完全一致，API key未出现在证据。
 - `pilot-01-hashes.json` 保存旧目录全部文件内容hash，准备前后、执行结束审计和校正版预检后均相同；没有覆盖 `pilot-01`。
 - 离线测试最终 **11 passed in 4.03s**（`test_summary_wrapper.py` + `test_summary_pilot.py`）。包括原文不可变、部分可mask但整批受保护、包装单因素、缺失／指令评分、单调用账本与replay。此前5项包装测试通过后才开始付费。
