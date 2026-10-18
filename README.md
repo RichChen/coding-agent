@@ -11,23 +11,23 @@ Beyond the results, three parts of this repository can be read as code:
 | Capability | How it works | Code |
 | --- | --- | --- |
 | Session recovery | A tool's intent is committed before it runs; on resume, committed results are reused, and a non-idempotent operation whose outcome was never recorded stops the run instead of being retried. Verified with real subprocesses crashing in four windows (`os._exit(71)`). | [`runtime/session.py`](harness/src/runtime/session.py), [`runtime/recovery.py`](harness/src/runtime/recovery.py), [`tracing/store.py`](harness/src/tracing/store.py), [`tests/test_recovery.py`](harness/tests/test_recovery.py) |
-| Answer isolation | An early image shipped the test patch inside `/opt/repo`, readable by the model. The image is now built from clean source, candidate deltas are applied in a separate image, and test/gold patches stay on the host grader side. | [`execution/baseline_image_backend.py`](harness/src/execution/baseline_image_backend.py), [`eval/image_grader.py`](harness/src/eval/image_grader.py) |
-| Recomputable evaluation | Metrics can be rebuilt from a saved run record: paired differences aggregated per task, bootstrap intervals, missing rows and reruns kept separate, failed attempts never dropped from the denominator. | [`eval/metrics.py`](harness/src/eval/metrics.py), [`eval/runner.py`](harness/src/eval/runner.py) |
+| Answer isolation | An early image shipped the test patch inside `/opt/repo`, readable by the model. The image is now built from clean source, so the agent can only change the work tree; grading starts a separate container that applies the candidate delta and a test overlay, then runs FAIL_TO_PASS / PASS_TO_PASS. | [`execution/baseline_image_backend.py`](harness/src/execution/baseline_image_backend.py), [`eval/image_grader.py`](harness/src/eval/image_grader.py) |
+| Recomputable evaluation | Metrics can be rebuilt from a saved run record: per-task aggregation and bootstrap intervals; candidate failures stay in the denominator as `solved=false`, and only preregistered infra slots are excluded. | [`eval/metrics.py`](harness/src/eval/metrics.py), [`eval/runner.py`](harness/src/eval/runner.py) |
 
 ## Running it
 
-No Docker, no SWE-bench image, no key. Both blocks below were run on a clean checkout of HEAD.
+No Docker, no SWE-bench image, no key. Blocks 1 and 2 were run on a clean checkout of HEAD.
 
 **1. Offline demo** (seconds, no model calls)
 
 ```bash
 cd agent && pip install -e ".[dev]"
-python -m reposkill_agent upgrade-demo --output /tmp/my-demo
+python -m reposkill_agent upgrade-demo --output reports/upgrade/my-demo
 ```
 
-`--output` must not already exist. The demo writes a public workspace, a `memory.db` with per-record status and provenance, a manifest, `result.json` and `report.md`; the last line is `Offline comparisons: 20; model calls=0`. When a dependency or API signature changes the old record is rejected, unrelated file changes keep it valid, and missing evidence yields unknown. Every injection receipt comes from a fixture host, so it claims no real-model gain.
+`--output` must not already exist. The demo writes a public workspace, a `memory.db` with per-record status and provenance, a manifest, `result.json` and `report.md`; the output includes `Offline comparisons: 20; model calls=0`. When a dependency or API signature changes the old record is rejected, unrelated file changes keep it valid, and missing evidence yields unknown. Every injection receipt comes from a fixture host, so it claims no real-model gain.
 
-**2. Public tests** (about 3 minutes)
+**2. Public tests** (about 5 minutes for both repos)
 
 ```bash
 # in agent/

@@ -11,23 +11,23 @@
 | 能力 | 做法 | 代码 |
 | --- | --- | --- |
 | 会话恢复 | 工具的意图先落盘再执行；恢复时复用已提交的结果，非幂等操作的结果没记录就停下，不重试。真实子进程在四个崩溃窗口各崩一次验证（`os._exit(71)`） | [`runtime/session.py`](harness/src/runtime/session.py)、[`runtime/recovery.py`](harness/src/runtime/recovery.py)、[`tracing/store.py`](harness/src/tracing/store.py)、[`tests/test_recovery.py`](harness/tests/test_recovery.py) |
-| 答案隔离 | 早期镜像的 `/opt/repo` 里带着 test patch，模型能读；改成干净源码镜像后，候选 delta 在独立镜像里应用，test patch 和 gold patch 只留在宿主侧判分 | [`execution/baseline_image_backend.py`](harness/src/execution/baseline_image_backend.py)、[`eval/image_grader.py`](harness/src/eval/image_grader.py) |
-| 可复算的评测 | 同一份运行记录能重建指标：配对差按题汇总、bootstrap 区间、缺行和重跑单独保留，不把失败的 attempt 剔出分母 | [`eval/metrics.py`](harness/src/eval/metrics.py)、[`eval/runner.py`](harness/src/eval/runner.py) |
+| 答案隔离 | 早期镜像的 `/opt/repo` 里带着 test patch，模型能读；改成干净源码镜像后，agent 只能改工作区，判分时另起一个容器，把候选 delta 和 test overlay 一起应用，再跑 FAIL_TO_PASS / PASS_TO_PASS | [`execution/baseline_image_backend.py`](harness/src/execution/baseline_image_backend.py)、[`eval/image_grader.py`](harness/src/eval/image_grader.py) |
+| 可复算的评测 | 同一份运行记录能重建指标：按题汇总、bootstrap 区间；候选自身失败记为 `solved=false` 留在分母，只有预注册的 infra 槽位排除 | [`eval/metrics.py`](harness/src/eval/metrics.py)、[`eval/runner.py`](harness/src/eval/runner.py) |
 
 ## 先跑起来
 
-不需要 Docker、SWE-bench 镜像或密钥。下面两段都在干净的 HEAD 检出处实测过。
+不需要 Docker、SWE-bench 镜像或密钥。第 1、2 段都在干净的 HEAD 检出处实测过。
 
 **1. 离线演示**（几秒，不调用模型）
 
 ```bash
 cd agent && pip install -e ".[dev]"
-python -m reposkill_agent upgrade-demo --output /tmp/my-demo
+python -m reposkill_agent upgrade-demo --output reports/upgrade/my-demo
 ```
 
-`--output` 必须是不存在的目录。跑完得到公开 workspace、带状态和来源的 `memory.db`、manifest、`result.json` 和 `report.md`；输出末行是 `Offline comparisons: 20; model calls=0`。演示里依赖或 API 签名变了旧经验被拒绝，无关文件变了仍然保留，证据不足返回 unknown。所有注入收据来自 fixture host，不声称真实模型收益。
+`--output` 必须是不存在的目录。跑完得到公开 workspace、带状态和来源的 `memory.db`、manifest、`result.json` 和 `report.md`；输出里有 `Offline comparisons: 20; model calls=0`。演示里依赖或 API 签名变了旧经验被拒绝，无关文件变了仍然保留，证据不足返回 unknown。所有注入收据来自 fixture host，不声称真实模型收益。
 
-**2. 公开测试**（约 3 分钟）
+**2. 公开测试**（两仓合计约 5 分钟）
 
 ```bash
 # 在 agent/ 下
