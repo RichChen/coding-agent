@@ -8,4 +8,4 @@
 
 风险：合成 split 不能证明自然时间顺序或模型训练无污染。退出：smoke 清单可完整审计，真实任务缺失如实 pending。命令：`python -m pytest tests/test_a5_contracts.py`（实现后执行核实；最终精确命令见 A5-VERIFICATION）。
 
-完成：`contracts.py`、`configs/a5/pilot-{12,20}.json` 和 `test_a5_contracts.py` 已实现；交付包保存冻结 hash 与原始来源字节。目标/未来/diagnostic 来源、split 重复和缺审查均拒绝，contract 的 model_copy 漂移也重新校验。真实 pilot 数据不伪造。验收见 [A5-VERIFICATION](../A5-VERIFICATION.md)。
+完成：`contracts.py`、`configs/a5/pilot-{12,20}.json` 和 `test_a5_contracts.py` 已实现；交付包保存冻结 hash 与原始来源字节。目标/未来/diagnostic 来源、split 重复和缺审查均拒绝，contract 的 model_copy 漂移也重新校验。真实 pilot 数据不伪造。验收见 [A5-VERIFICATION](../../upgrade/A5-VERIFICATION.md)。

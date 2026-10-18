@@ -8,12 +8,12 @@
 
 ## 已交付
 
-- [最终候选包 v4 报告](../../reports/upgrade/a5-pilot20-preparation-20260921-v4/report.md)、[完整清单](../../reports/upgrade/a5-pilot20-preparation-20260921-v4/candidate-inventory.json)、[准备状态](../../reports/upgrade/a5-pilot20-preparation-20260921-v4/readiness.json)。v1–v3 为本轮准备过程的中间版本，保留；后续以 v4 为准，均没有执行 run。
-- [240 条 assignments](../../reports/upgrade/a5-pilot20-preparation-20260921-v4/assignments.json)：20 tasks × B0–B3 × 3 repeats，种子 42/43/44 只组织顺序；每个 task/repeat 四变体连续配对，每个 variant 在每个位置各出现 15 次。所有 state 为 planned_not_started，没有拿计划行冒充结果行。
+- 最终候选包 v4 报告（本地生成，未入库：`reports/upgrade/a5-pilot20-preparation-20260921-v4/report.md`）、完整清单（本地生成，未入库：`reports/upgrade/a5-pilot20-preparation-20260921-v4/candidate-inventory.json`）、准备状态（本地生成，未入库：`reports/upgrade/a5-pilot20-preparation-20260921-v4/readiness.json`）。v1–v3 为本轮准备过程的中间版本，保留；后续以 v4 为准，均没有执行 run。
+- 240 条 assignments（本地生成，未入库：`reports/upgrade/a5-pilot20-preparation-20260921-v4/assignments.json`）：20 tasks × B0–B3 × 3 repeats，种子 42/43/44 只组织顺序；每个 task/repeat 四变体连续配对，每个 variant 在每个位置各出现 15 次。所有 state 为 planned_not_started，没有拿计划行冒充结果行。
 - 20 个本仓 PublicTask JSON，只有公开 issue/base commit 等 allowlist 字段；gold patch、test patch、hints、F2P/P2P 和 environment spec 在 private 区。每题另有独立 EvaluationSpec 引用，明确是仓库测试素材，**不是 H3 JSON 函数探针可直接接收的规格**。只可把公开 DTO 和未来审核过的公开 seed 交给 agent，不可挂载 preparation 根目录。
 - [人工公开输入审查](../../configs/a5/pilot20-public-review.json)：20 条 problem_statement 已完整阅读，没有用目标 gold/test patch 选题或调方法。公开 issue 自带的建议原样保留，例如 `sympy-24152` 的四行代码建议、`django-13590` 的修复思路；不声称任务“完全无解题提示”。这与注入隐藏答案不同。启发式只标 3 条，完整判断以逐题说明为准。
 - 20 份对应 base commit 的 LICENSE/COPYING 已抓取并记录原始 URL/hash，约 80.6 KB；这只是源码许可证证据，不补造上游数据卡没有声明的数据集许可。原始 parquet 为 1,119,540 bytes，含私有列，仅留在 preparation-private 目录并加入 gitignore。
-- [宿主交接要求](../../reports/upgrade/a5-pilot20-preparation-20260921-v4/host-handoff.json)、[预算草案 JSON](../../reports/upgrade/a5-pilot20-preparation-20260921-v4/budget-request.DRAFT.json)、[artifact hash](../../reports/upgrade/a5-pilot20-preparation-20260921-v4/artifact-manifest.json)、[实现与规则 hash](../../reports/upgrade/a5-pilot20-preparation-20260921-v4/code-manifest.json)。没有生成真实执行脚本或自动解锁开关。
+- 宿主交接要求（本地生成，未入库：`reports/upgrade/a5-pilot20-preparation-20260921-v4/host-handoff.json`）、预算草案 JSON（本地生成，未入库：`reports/upgrade/a5-pilot20-preparation-20260921-v4/budget-request.DRAFT.json`）、artifact hash（本地生成，未入库：`reports/upgrade/a5-pilot20-preparation-20260921-v4/artifact-manifest.json`）、实现与规则 hash（本地生成，未入库：`reports/upgrade/a5-pilot20-preparation-20260921-v4/code-manifest.json`）。没有生成真实执行脚本或自动解锁开关。
 
 ## 20 题是什么
 
@@ -55,7 +55,7 @@ scikit-learn 四题保守归入同一语义组，整体暂记 17 个组、5 个 
 
 已有环境：Python 3.11.15、PyArrow 24.0.0、Pydantic 2.13.4、pytest 8.4.2、Ruff 0.15.20；未安装新包。PyArrow 仅用于私有离线 intake，不成为 H4 插件依赖。新测试无 PyArrow 时会跳过 parquet round-trip；本机实际有 PyArrow，未跳过这些测试。
 
-定向 **82 passed in 3.47s**，覆盖本批 8 个测试及 A5/H4 回归，见 [targeted.xml](../../reports/upgrade/a5-pilot20-verification-20260921/targeted.xml)。最终扩大离线回归 **230 passed in 63.84s**，见 [regression.xml](../../reports/upgrade/a5-pilot20-verification-20260921/regression.xml)；两组重叠，不相加。全仓 Ruff 通过。一次执行审批超时且未启动，按允许的一次重试成功；后续只测试本仓 fixtures。
+定向 **82 passed in 3.47s**，覆盖本批 8 个测试及 A5/H4 回归，见 targeted.xml（本地生成，未入库：`reports/upgrade/a5-pilot20-verification-20260921/targeted.xml`）。最终扩大离线回归 **230 passed in 63.84s**，见 regression.xml（本地生成，未入库：`reports/upgrade/a5-pilot20-verification-20260921/regression.xml`）；两组重叠，不相加。全仓 Ruff 通过。一次执行审批超时且未启动，按允许的一次重试成功；后续只测试本仓 fixtures。
 
 测试证明：私有 patch/hints/F2P/P2P 改变不影响选题、PublicTask 或 assignments；重复 ID/base/issue 和来源 bytes 篡改拒绝；候选不足不凑数；240 分配唯一且平衡；不同工具/profile 拒绝；公开目录不含 fixture 私有 sentinel；无预算继承、无覆盖输出。真实包只读复核：**162 个 artifacts、5 个实现/规则 hash 全部一致，20 个 PublicTask 通过严格 decoder**。
 
@@ -77,7 +77,7 @@ $env:PATH='C:\Users\Administrator\.conda\envs\coding-harness;C:\Users\Administra
 
 范围排除了会写默认报告的旧 CLI、外部 baseline 和全量 benchmark，故不称全套测试通过。H4 adapter、fixture 生成器和测试的 hash 与原 H4 review 一致；没有因准备真实数据改写旧插件。
 
-本轮新增 `experiments/preparation.py`、`scripts/prepare_a5_pilot20.py`、8 项测试及两个来源/审查 config；新增准备合同、本文和来源说明，更新 README、A5-PLAN、PUBLIC-API 与私有原始数据的 gitignore。无可用 Git 元数据，未 commit/push。[累计源码 diff](../../reports/upgrade/a5-pilot20-review-20260921-v2/changes.diff)与[hash 清单](../../reports/upgrade/a5-pilot20-review-20260921-v2/manifest.json)对照最初的 allowlist snapshot 生成，含 TP/H4/A5 前期改动，不能冒充本轮专属 diff。文档和私有原始数据不全在该旧 snapshot allowlist，分别由当前文件及准备包 manifest 审阅。
+本轮新增 `experiments/preparation.py`、`scripts/prepare_a5_pilot20.py`、8 项测试及两个来源/审查 config；新增准备合同、本文和来源说明，更新 README、A5-PLAN、PUBLIC-API 与私有原始数据的 gitignore。无可用 Git 元数据，未 commit/push。累计源码 diff（本地生成，未入库：`reports/upgrade/a5-pilot20-review-20260921-v2/changes.diff`）与hash 清单（本地生成，未入库：`reports/upgrade/a5-pilot20-review-20260921-v2/manifest.json`）对照最初的 allowlist snapshot 生成，含 TP/H4/A5 前期改动，不能冒充本轮专属 diff。文档和私有原始数据不全在该旧 snapshot allowlist，分别由当前文件及准备包 manifest 审阅。
 
 本轮停止点：**等待用户单独批准 A5 预算，同时等待明确列出的数据/宿主预检条件；不自动执行正式 pilot。**
 

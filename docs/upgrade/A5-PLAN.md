@@ -30,7 +30,7 @@
 
 ## 交付状态（2026-09-21）
 
-三个包的离线范围均已交付，合同与成功/失败标准未按结果改写。实际代码在 `reposkill_agent/experiments/`，固定模板在 `configs/a5/`，命令为 `python scripts/run_a5_offline.py --output <不存在的新目录>`。本次 [报告](../../reports/upgrade/a5-offline-20260921-v1/report.md)包含 4 场景×4 变体、0 API、0 主分母；没有真实修复或 heldout 声明。
+三个包的离线范围均已交付，合同与成功/失败标准未按结果改写。实际代码在 `reposkill_agent/experiments/`，固定模板在 `configs/a5/`，命令为 `python scripts/run_a5_offline.py --output <不存在的新目录>`。本次 报告（本地生成，未入库：`reports/upgrade/a5-offline-20260921-v1/report.md`）包含 4 场景×4 变体、0 API、0 主分母；没有真实修复或 heldout 声明。
 
 审计落实包括：未知 usage/cost 保持 null；缺主结果行则完整费用未知；失败/重试/router/summary/builder/verifier/grader 均可逐 attempt 入账；dev 单列；构建声明需绑定 memory_id 的调用记录；重复 run/attempt 拒绝。每行显式提供 started count，宿主负责完整 run inventory 和费用强制执行。这里只校验合同/关联，未给四变体接线真实 runtime；不是第二套预算器。
 

@@ -1,5 +1,8 @@
 # 记忆重建进度
 
+> 这是一份按时间追加的执行流水，用来追查某一步的细节，不是入口文档。
+> 结论看 [A5 最终报告](../A5-FINAL-REPORT.zh-CN.md) 和 [A6-R 结果](A6-R-RESULTS.zh-CN.md)；文档分类看 [docs/INDEX.md](../INDEX.md)。
+
 ## 第 0 步：版本控制（2026-09-24）
 
 - `.git` 是 2026-07-02 留下的空目录，`git status` 报 not a git repository，没有可恢复历史。已改名为 `.git.broken-20260924`，并重新 `git init`。

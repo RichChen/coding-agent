@@ -8,4 +8,4 @@
 
 风险：规则检索不能证明真实收益；B2 绕过 current validity 是对照定义，不绕过来源或已隔离状态。退出：4 smoke 全符合合同，无虚构 repair success。命令：`python -m pytest tests/test_a5_variants.py`（实现后核实）。
 
-完成：`variants.py`、4 场景 fixture 和定向测试已实现。测试含同池排名、top-3/最多 2 条、多字节 4096-byte 整条拒绝、冲突/重复、B2/B3 文本一致和 opaque task ID/seed 非干扰。smoke 的 B3 selected 为 0/1/0/0，所有实际模型注入为 0。验收见 [A5-VERIFICATION](../A5-VERIFICATION.md)。
+完成：`variants.py`、4 场景 fixture 和定向测试已实现。测试含同池排名、top-3/最多 2 条、多字节 4096-byte 整条拒绝、冲突/重复、B2/B3 文本一致和 opaque task ID/seed 非干扰。smoke 的 B3 selected 为 0/1/0/0，所有实际模型注入为 0。验收见 [A5-VERIFICATION](../../upgrade/A5-VERIFICATION.md)。

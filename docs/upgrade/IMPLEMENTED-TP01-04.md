@@ -17,7 +17,7 @@
 
 ## 运行入口
 
-在仓库根目录，使用已有环境，无需 API key。output 必须是新的不存在目录（拒绝覆盖）：
+在仓库根目录，使用已有环境，无需 API key。output 必须是新的不存在目录（拒绝覆盖）。下面命令里的解释器路径是当时的本机环境，换成任意 Python 3.11+ 环境即可；`reports/` 下的产物不入库，可以重新生成。
 
 ```powershell
 & 'C:\Users\Administrator\.conda\envs\coding-harness\python.exe' -m reposkill_agent upgrade-demo --output reports/upgrade/my-new-demo
@@ -29,9 +29,9 @@
 
 已生成可打开产物：
 
-- [离线报告](../../reports/upgrade/offline-20260919-v2/report.md)
-- [完整结果](../../reports/upgrade/offline-20260919-v2/result.json)：locator/context、记录 snapshot、实际 artifact refs、fixture receipt 与用途记录
-- [运行 manifest](../../reports/upgrade/offline-20260919-v2/manifest.json) 与 [来源 policy](../../reports/upgrade/offline-20260919-v2/source-policy.json)
+- 离线报告（本地生成，未入库：`reports/upgrade/offline-20260919-v2/report.md`）
+- 完整结果（本地生成，未入库：`reports/upgrade/offline-20260919-v2/result.json`）：locator/context、记录 snapshot、实际 artifact refs、fixture receipt 与用途记录
+- 运行 manifest（本地生成，未入库：`reports/upgrade/offline-20260919-v2/manifest.json`） 与 来源 policy（本地生成，未入库：`reports/upgrade/offline-20260919-v2/source-policy.json`）
 - `artifacts/trajectory.txt`、`artifacts/verification.txt`、`artifacts/read-parser.txt`：源码测试已检查引用 hash 对应实际字节
 - `memory.db`：candidate→validated 的版本记录、transition、fixture use 记录
 
@@ -83,15 +83,15 @@ Ruff 最终通过。上述是实际命令记录，重复运行时请换新的 ba
 
 本轮新增 pre-harness 合同测试：`tests/test_public_pre_harness.py`，11 项通过；覆盖无标签路由的 sentinel 非干扰、零技能、checkpoint 绑定/恢复、fixture 多轮 runner、轨迹失败信息保留、source split/time/duplicate/diagnostic 拒绝、oracle 字段拒绝和 realistic 模块 legacy import audit。此前未设置环境 PATH 的一次全量尝试中，旧 diagnostic 测试有 9 项因外部 `python` Windows 启动别名失败；按项目记录补齐 PATH 后的回归已通过，未改旧 runner 迎合环境问题。
 
-本轮 pre-harness 收尾回归（按项目记录设置 Conda 环境 PATH）为 **147 passed, 1 skipped，85.05 秒**，JUnit：[pre-harness regression](../../reports/upgrade/verification-20260919/pre_harness_regression.xml)；新增合同测试单独为 **11 passed，0.40 秒**，JUnit：[pre-harness contract](../../reports/upgrade/verification-20260919/pre_harness_contract.xml)。
+本轮 pre-harness 收尾回归（按项目记录设置 Conda 环境 PATH）为 **147 passed, 1 skipped，85.05 秒**，JUnit：pre-harness regression（本地生成，未入库：`reports/upgrade/verification-20260919/pre_harness_regression.xml`）；新增合同测试单独为 **11 passed，0.40 秒**，JUnit：pre-harness contract（本地生成，未入库：`reports/upgrade/verification-20260919/pre_harness_contract.xml`）。
 
-JUnit 原始证据：[回归](../../reports/upgrade/verification-20260919/regression.xml)、[定向](../../reports/upgrade/verification-20260919/final.xml)、[artifacts](../../reports/upgrade/verification-20260919/artifacts.xml)。
+JUnit 原始证据：回归（本地生成，未入库：`reports/upgrade/verification-20260919/regression.xml`）、定向（本地生成，未入库：`reports/upgrade/verification-20260919/final.xml`）、artifacts（本地生成，未入库：`reports/upgrade/verification-20260919/artifacts.xml`）。
 
 ## 版本、快照与 review
 
-Git 仍不可用，没有 init/commit/push。实施前重新检查旧 manifest 102 文件，全部未变；建立限定范围可恢复 [source.zip](../../baseline/upgrade-20260919-tp01-04/source.zip)，SHA256：`31e7c6fcbd7ed5ac102478e2a49ca56db7157d2652d264cb2d178b3a809be9a7`。排除了 `.env`、`.git`、全部报告/数据/PDF/工作区；只存原 allowlist 文件。`scripts/upgrade_snapshot.py` 提供 capture/compare，capture 检查前置 hash，不会静默捕获改过的基线。
+Git 仍不可用，没有 init/commit/push。实施前重新检查旧 manifest 102 文件，全部未变；建立限定范围可恢复 source.zip（本地生成，未入库：`baseline/upgrade-20260919-tp01-04/source.zip`），SHA256：`31e7c6fcbd7ed5ac102478e2a49ca56db7157d2652d264cb2d178b3a809be9a7`。排除了 `.env`、`.git`、全部报告/数据/PDF/工作区；只存原 allowlist 文件。`scripts/upgrade_snapshot.py` 提供 capture/compare，capture 检查前置 hash，不会静默捕获改过的基线。
 
-[统一 diff](../../reports/upgrade/review-20260919/changes.diff) 与 [变更 hash manifest](../../reports/upgrade/review-20260919/manifest.json) 覆盖 38 个源码/测试/脚本/配置/README 等变更文件（新增文件也计入），文档新增另见本目录。新报告与 baseline 在 gitignore 中忽略，未来提交应选取脱敏的小型证据，不全量收录运行目录。
+统一 diff（本地生成，未入库：`reports/upgrade/review-20260919/changes.diff`） 与 变更 hash manifest（本地生成，未入库：`reports/upgrade/review-20260919/manifest.json`） 覆盖 38 个源码/测试/脚本/配置/README 等变更文件（新增文件也计入），文档新增另见本目录。新报告与 baseline 在 gitignore 中忽略，未来提交应选取脱敏的小型证据，不全量收录运行目录。
 
 [API 说明](PUBLIC-API.md) 与 [JSON schemas](schemas/PublicTask.schema.json) 已落盘；共导出 PublicTask/EvaluationSpec/MemoryRecord/SourcePolicy/EvidenceState/GateDecision/InjectionReceipt 七种 schema。它们来自实际 Pydantic 类，尚未作为两仓协商后的公共版本发布。
 
