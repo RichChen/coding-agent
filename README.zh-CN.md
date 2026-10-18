@@ -12,7 +12,7 @@
 | --- | --- | --- |
 | 会话恢复 | 工具的意图先落盘再执行；恢复时复用已提交的结果，非幂等操作的结果没记录就停下，不重试。真实子进程在四个崩溃窗口各崩一次验证（`os._exit(71)`） | [`runtime/session.py`](harness/src/runtime/session.py)、[`runtime/recovery.py`](harness/src/runtime/recovery.py)、[`tracing/store.py`](harness/src/tracing/store.py)、[`tests/test_recovery.py`](harness/tests/test_recovery.py) |
 | 答案隔离 | 早期镜像的 `/opt/repo` 里带着 test patch，模型能读；改成干净源码镜像后，agent 只能改工作区，判分时另起一个容器，把候选 delta 和 test overlay 一起应用，再跑 FAIL_TO_PASS / PASS_TO_PASS | [`execution/baseline_image_backend.py`](harness/src/execution/baseline_image_backend.py)、[`eval/image_grader.py`](harness/src/eval/image_grader.py) |
-| 可复算的评测 | 同一份运行记录能重建指标：按题汇总、bootstrap 区间；候选自身失败记为 `solved=false` 留在分母，只有预注册的 infra 槽位排除 | [`eval/metrics.py`](harness/src/eval/metrics.py)、[`eval/runner.py`](harness/src/eval/runner.py) |
+| 可复算的评测 | A5/A6 分析脚本从运行清单按题汇总并计算 bootstrap 区间；候选自身失败保留在分母，基础设施异常的处理规则及事后偏差单独披露 | [`analyze_a5_main.py`](agent/scripts/analyze_a5_main.py)、[`analyze_a6_retry.py`](agent/scripts/analyze_a6_retry.py) |
 
 ## 先跑起来
 
@@ -37,6 +37,7 @@ python -m pytest -q --deselect tests/test_a5_funding.py::test_funded_build_bundl
 # 357 passed, 7 skipped, 3 deselected
 
 # 在 harness/ 下
+cd ../harness
 pip install -e ".[dev]"
 python -m pytest -q --deselect tests/test_a5_real240_h0_snapshot.py::test_h0_export_and_audit_via_cli \
   --deselect tests/test_repo_grader.py::test_full_archive_and_private_test_resources_are_complete \

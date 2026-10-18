@@ -12,7 +12,7 @@ Beyond the results, three parts of this repository can be read as code:
 | --- | --- | --- |
 | Session recovery | A tool's intent is committed before it runs; on resume, committed results are reused, and a non-idempotent operation whose outcome was never recorded stops the run instead of being retried. Verified with real subprocesses crashing in four windows (`os._exit(71)`). | [`runtime/session.py`](harness/src/runtime/session.py), [`runtime/recovery.py`](harness/src/runtime/recovery.py), [`tracing/store.py`](harness/src/tracing/store.py), [`tests/test_recovery.py`](harness/tests/test_recovery.py) |
 | Answer isolation | An early image shipped the test patch inside `/opt/repo`, readable by the model. The image is now built from clean source, so the agent can only change the work tree; grading starts a separate container that applies the candidate delta and a test overlay, then runs FAIL_TO_PASS / PASS_TO_PASS. | [`execution/baseline_image_backend.py`](harness/src/execution/baseline_image_backend.py), [`eval/image_grader.py`](harness/src/eval/image_grader.py) |
-| Recomputable evaluation | Metrics can be rebuilt from a saved run record: per-task aggregation and bootstrap intervals; candidate failures stay in the denominator as `solved=false`, and only preregistered infra slots are excluded. | [`eval/metrics.py`](harness/src/eval/metrics.py), [`eval/runner.py`](harness/src/eval/runner.py) |
+| Recomputable evaluation | The A5/A6 analysis scripts aggregate per task from the run inventory and compute bootstrap intervals; candidate failures stay in the denominator, and the rules for infrastructure failures plus any post-hoc deviation are disclosed separately. | [`analyze_a5_main.py`](agent/scripts/analyze_a5_main.py), [`analyze_a6_retry.py`](agent/scripts/analyze_a6_retry.py) |
 
 ## Running it
 
@@ -37,6 +37,7 @@ python -m pytest -q --deselect tests/test_a5_funding.py::test_funded_build_bundl
 # 357 passed, 7 skipped, 3 deselected
 
 # in harness/
+cd ../harness
 pip install -e ".[dev]"
 python -m pytest -q --deselect tests/test_a5_real240_h0_snapshot.py::test_h0_export_and_audit_via_cli \
   --deselect tests/test_repo_grader.py::test_full_archive_and_private_test_resources_are_complete \
