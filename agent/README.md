@@ -102,6 +102,9 @@ pip install -e ".[dev]"
 
 # 单元测试（无需 API key）
 python -m pytest
+# 干净的克隆里是 357 通过、7 跳过、3 失败。3 个失败都是因为读取没有提交的
+# 私有证据（A5 资金准备产物 2 个、django-10914 的 handoff 字段），不是代码回归；
+# 有完整本地证据时通过。详见 docs/INDEX.md。
 
 # Phase 6 deterministic ablation（无 LLM，验证机制链路）
 python scripts/run_phase6_ablation.py --tasks benchmarks/tasks/phase6_hard_12.yaml
