@@ -26,6 +26,27 @@
 
 > `reports/` 和 `baseline/` 下的运行产物不入库。文档里提到这些路径时标为"本地生成，未入库"，用对应脚本可以重新生成。
 
+## 测试：哪些能直接跑，哪些需要未公开材料
+
+不需要 API key。干净克隆里实测：**357 通过、7 跳过、3 失败**。
+
+跳过的是需要 Linux 或真实 provider 的测试。3 个失败读取只在原开发机器上存在的文件，不是代码回归，也没有被跳过：
+
+| 测试 | 缺的文件 | 原因 |
+| --- | --- | --- |
+| `test_a5_funding.py::test_funded_build_bundle_is_prepared_only_and_private_material_stays_outside_public` | `reports/upgrade/a5-funded-build-preparation-20260921-v12/*` | `reports/` 是运行产物，不入库 |
+| `test_a5_funding.py::test_funded_build_artifacts_are_hashed` | 同上 | 同上 |
+| `test_memory_cards_v5.py::test_generic_builder_matches_v5_bytes` | django-10914 的 handoff 字段 | 依赖 harness 侧输出，需要两仓联调的数据 |
+
+只想跑公开部分：
+
+```bash
+python -m pytest -q --deselect tests/test_a5_funding.py::test_funded_build_bundle_is_prepared_only_and_private_material_stays_outside_public \
+  --deselect tests/test_a5_funding.py::test_funded_build_artifacts_are_hashed \
+  --deselect tests/test_memory_cards_v5.py::test_generic_builder_matches_v5_bytes
+# 357 passed, 7 skipped, 3 deselected
+```
+
 ## 实验证据（`docs/sprint/`）
 
 - A5-main：设计在 harness 仓的 `docs/sprint/A5-MAIN-DESIGN.zh-CN.md`（本仓不重复）→ [A5-MAIN-PREREG-ADDENDUM](sprint/A5-MAIN-PREREG-ADDENDUM.zh-CN.md) → [A5-MAIN-RESULTS](sprint/A5-MAIN-RESULTS.zh-CN.md) → [A5-MAIN-SYNTHETIC-REPORT](sprint/A5-MAIN-SYNTHETIC-REPORT.md)
