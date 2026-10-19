@@ -1,8 +1,8 @@
-# coding-agent
+# Coding Agent Harness
 
 **English** · [中文](README.zh-CN.md)
 
-A coding agent evaluation harness with strict answer isolation, plus two preregistered memory experiments run on it.
+A controllable agent runtime and evaluation harness for code tasks, with a pluggable memory mechanism and controlled experiments.
 
 ## Three engineering pieces
 
@@ -83,8 +83,8 @@ Both are null results: neither experiment detected a positive effect.
 
 ## Repository map
 
-- `harness/` — the evaluation harness: agent loop, tools, clean Docker images, a host-side grader that keeps test and gold patches away from the agent, the run scripts, the A6-R retry records and the run inventories.
-- `agent/` — RepoSkillAgent: the memory cards and the plugin that injects them, the analysis scripts, the A6-R preregistration and the final reports.
+- `harness/` — **the main execution path**: the agent loop, tools, isolated execution (Docker plus host-side grading), session recovery, the evaluation suite and the run scripts. Every A5/A6 run is started, executed and graded here.
+- `agent/` — **the memory side**: RepoSkill memory cards and the injection plugin, validity checking, the experiment analysis scripts, and a historical multi-role prototype (`reposkill_agent/agents/`, used by the earlier planner experiments and not part of the A5/A6 main path).
 
 Where to start (most documents are in Chinese):
 
@@ -95,7 +95,7 @@ Where to start (most documents are in Chinese):
 
 ## Reproduction
 
-The two directories were developed and frozen as two sibling repositories, `coding-harness` and `coding-agent`, and the code refers to the other repository through that layout; some configs and evidence files also record absolute paths from the original machine. These paths were not rewritten here, so that the frozen tags still point at the code that actually ran. The tags keep the original commits, so a frozen state can be checked out in the original layout:
+The two directories were developed and frozen as two sibling repositories, `coding-harness` and `coding-agent`, and the code refers to the other repository through that layout; some configs and evidence files also record absolute paths from the original machine. These paths were not rewritten here, so that the frozen tags still point at the code that actually ran. This repository is now named `coding-agent-harness`; the repository names and paths below are the historical ones. The tags keep the original commits, so a frozen state can be checked out in the original layout:
 
 ```
 git worktree add ../coding-harness harness/a6-retry-freeze

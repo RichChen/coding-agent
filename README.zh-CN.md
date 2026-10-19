@@ -1,8 +1,8 @@
-# coding-agent
+# Coding Agent Harness
 
 [English](README.md) · **中文**
 
-一个带严格答案隔离的 coding agent 评测 harness，加上在它上面做的两个预注册的记忆实验。
+面向代码任务的可控 Agent 运行与评测框架，包含可插拔记忆机制及对照实验。
 
 ## 三处工程实现
 
@@ -83,8 +83,8 @@ python -m pytest -q --deselect tests/test_a5_real240_h0_snapshot.py::test_h0_exp
 
 ## 仓库地图
 
-- `harness/`：评测 harness。包括 agent 循环、工具、干净的 Docker 镜像、把 test patch 和 gold patch 留在 host 侧的 grader、运行脚本、A6-R 的尝试记录和运行清单。
-- `agent/`：RepoSkillAgent。包括记忆卡片和注入卡片的插件、分析脚本、A6-R 预注册和最终报告。
+- `harness/`：**主执行链路**。Agent 主循环、工具、隔离执行（Docker 与宿主机判分）、会话恢复，以及独立评测和运行脚本。A5/A6 的每次运行都由这里发起、执行和评分。
+- `agent/`：**记忆侧**。RepoSkill 记忆卡片与注入插件、有效性验证、实验分析脚本，以及历史多角色原型（`reposkill_agent/agents/`，用于更早的规划器实验，不参与 A5/A6 主链路）。
 
 从哪里开始读：
 
@@ -95,7 +95,7 @@ python -m pytest -q --deselect tests/test_a5_real240_h0_snapshot.py::test_h0_exp
 
 ## 复现
 
-这两个目录原来是并列的两个仓库 `coding-harness` 和 `coding-agent`，开发和冻结都在这个布局下进行，代码按这个布局引用对方；部分配置和证据文件里还记着原机器上的绝对路径。这里没有改写这些路径，这样冻结 tag 指向的仍然是实际运行的代码。tag 保留的是原来的提交，所以可以按原布局检出冻结状态：
+这两个目录原来是并列的两个仓库 `coding-harness` 和 `coding-agent`，开发和冻结都在这个布局下进行，代码按这个布局引用对方；部分配置和证据文件里还记着原机器上的绝对路径。这里没有改写这些路径，这样冻结 tag 指向的仍然是实际运行的代码。本仓库现名 `coding-agent-harness`，下面保留当时的仓库名和路径。tag 保留的是原来的提交，所以可以按原布局检出冻结状态：
 
 ```
 git worktree add ../coding-harness harness/a6-retry-freeze
